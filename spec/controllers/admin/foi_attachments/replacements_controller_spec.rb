@@ -15,9 +15,9 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
+          reason: 'GDPR case',
           foi_attachment: {
-            replacement_body: 'This is the new replacement body',
-            replaced_reason: 'GDPR case'
+            replacement_body: 'This is the new replacement body'
           }
         }
       end
@@ -87,10 +87,10 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
+          reason: 'Redacted version',
           foi_attachment: {
             replacement_file: uploaded_file,
-            replaced_filename: 'redacted_document.png',
-            replaced_reason: 'Redacted version'
+            replaced_filename: 'redacted_document.png'
           }
         }
       end
@@ -128,9 +128,9 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
+          reason: 'Update',
           foi_attachment: {
-            replacement_body: 'New body content',
-            replaced_reason: 'Update'
+            replacement_body: 'New body content'
           }
         }
       end
@@ -153,9 +153,9 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
+          reason: 'Update',
           foi_attachment: {
-            replacement_body: 'New body content',
-            replaced_reason: 'Update'
+            replacement_body: 'New body content'
           }
         }
       end
@@ -171,43 +171,27 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       end
     end
 
-    context 'on an unsuccessful update' do
+    context 'on an unsuccessful replacement' do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
+          reason: '',
           foi_attachment: {
-            replacement_body: '',
-            replaced_reason: ''
+            replacement_body: ''
           }
         }
       end
 
       before do
         allow(FoiAttachment).to receive(:find).and_return(attachment)
-        allow(attachment).to receive(:update_and_log_event).and_return(false)
-        attachment.errors.add(:base, 'Cannot replace.')
+        allow(attachment).to receive(:replace).
+          and_raise(ActiveRecord::RecordInvalid)
       end
 
-      it 'assigns the attachment' do
-        post :create, params: params
-        expect(assigns[:foi_attachment]).to eq(attachment)
-      end
-
-      it 'does not expire the attachment' do
-        expect(attachment).not_to receive(:expire)
-        post :create, params: params
-      end
-
-      it 'sets an error flash' do
-        post :create, params: params
-        expect(flash[:error]).to eq('Cannot replace.')
-      end
-
-      it 'redirects to the attachment edit page' do
-        post :create, params: params
-        expect(response).to redirect_to(
-          edit_admin_foi_attachment_path(attachment)
-        )
+      it 'raises ActiveRecord::RecordInvalid' do
+        expect {
+          post :create, params: params
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 
@@ -215,9 +199,9 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
       let(:params) do
         {
           foi_attachment_id: attachment.id,
+          reason: 'GDPR',
           foi_attachment: {
-            replacement_body: 'Replacement content',
-            replaced_reason: 'GDPR'
+            replacement_body: 'Replacement content'
           }
         }
       end
@@ -242,6 +226,133 @@ RSpec.describe Admin::FoiAttachments::ReplacementsController do
 
         it 'redirects to the attachment edit page' do
           post :create, params: params
+          expect(response).to redirect_to(
+            edit_admin_foi_attachment_path(attachment)
+          )
+        end
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    before do
+      attachment.replace!(
+        editor: admin_user,
+        reason: 'GDPR case',
+        replacement_body: 'Replacement content'
+      )
+    end
+
+    let(:params) do
+      {
+        foi_attachment_id: attachment.id,
+        reason: 'No longer needed'
+      }
+    end
+
+    it 'assigns the attachment' do
+      delete :destroy, params: params
+      expect(assigns[:foi_attachment]).to eq(attachment)
+    end
+
+    it 'clears the replacement' do
+      delete :destroy, params: params
+      expect(attachment.reload).not_to be_replaced
+    end
+
+    it 'keeps the attachment locked' do
+      delete :destroy, params: params
+      expect(attachment.reload).to be_locked
+    end
+
+    it 'expires the attachment' do
+      expect_any_instance_of(FoiAttachment).to receive(:expire)
+      delete :destroy, params: params
+    end
+
+    it 'sets a success notice' do
+      delete :destroy, params: params
+      expect(flash[:notice]).to eq('Replacement cleared.')
+    end
+
+    it 'redirects to the attachment edit page' do
+      delete :destroy, params: params
+      expect(response).to redirect_to(
+        edit_admin_foi_attachment_path(attachment)
+      )
+    end
+
+    it 'logs an edit_attachment event on the info_request' do
+      allow(@controller).to receive(:admin_current_user).
+        and_return('Admin user')
+
+      delete :destroy, params: params
+
+      info_request.reload
+      last_event = info_request.info_request_events.last
+      expect(last_event.event_type).to eq('edit_attachment')
+      expect(last_event.params).to include(
+        editor: 'Admin user',
+        reason: 'No longer needed',
+        attachment_id: attachment.id,
+        replaced: false,
+        replaced_at: nil
+      )
+    end
+
+    it 'clears replaced_reason' do
+      delete :destroy, params: params
+      expect(attachment.reload.replaced_reason).to be_blank
+    end
+
+    context 'on an unsuccessful clear' do
+      before do
+        allow(FoiAttachment).to receive(:find).and_return(attachment)
+        allow(attachment).to receive(:clear_replacement).
+          and_raise(ActiveRecord::RecordInvalid)
+      end
+
+      it 'raises ActiveRecord::RecordInvalid' do
+        expect {
+          delete :destroy, params: params
+        }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+
+    context 'if the attachment is not clearable' do
+      before do
+        allow_any_instance_of(FoiAttachment).
+          to receive(:replacement_clearable?).and_return(false)
+      end
+
+      it 'raises StandardError' do
+        expect {
+          delete :destroy, params: params
+        }.to raise_error(StandardError)
+      end
+    end
+
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before { info_request.create_embargo }
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            delete :destroy, params: params
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'clears the replacement' do
+          delete :destroy, params: params
+          expect(attachment.reload).not_to be_replaced
+        end
+
+        it 'redirects to the attachment edit page' do
+          delete :destroy, params: params
           expect(response).to redirect_to(
             edit_admin_foi_attachment_path(attachment)
           )

@@ -17,6 +17,14 @@
             </strong> for this attachment.
           </p>
         </div>
+
+        <% if @foi_attachment.replaced? %>
+          <div class="help-block">
+            <span class="text-warning">
+              Attachment has been <strong>replaced</strong>.
+            </span>
+          </div>
+        <% end %>
       </div>
 
       <div class="control-group">
@@ -44,20 +52,17 @@
           </div>
         </div>
       <% end %>
-
-      <div class="control-group">
-        <%= f.label :replaced_reason, class: 'control-label' %>
-
-        <div class="controls">
-          <%= f.text_field :replaced_reason %>
-          <span class="help-inline">
-            Private reason why attachment as been replaced, such as GDPR case reference
-          </span>
-        </div>
-      </div>
   </fieldset>
 
   <div class="form-actions">
-    <%= f.submit 'Upload Replacement', class: 'btn btn-warning' %>
+    <div class="input-prepend">
+      <%= f.submit 'Upload replacement', class: 'btn btn-warning' %>
+      <%= clear_replacement_button(@foi_attachment) %>
+      <%= text_field_tag :reason, nil, placeholder: 'Reason', required: true, class: 'input-xlarge' %>
+    </div>
+
+    <p class="help-inline">
+      Private (e.g. GDPR case reference)
+    </p>
   </div>
 <% end %>

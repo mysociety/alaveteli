@@ -2,42 +2,47 @@
 class Admin::FoiAttachments::ReplacementsController < AdminController
   before_action :set_foi_attachment, :set_incoming_message, :set_info_request
   before_action :check_info_request
+  before_action :check_clearable, only: :destroy
 
   def create
-    if @foi_attachment.update_and_log_event(
-        **foi_attachment_params,
-        event: { editor: admin_current_user }
-      )
-      @foi_attachment.expire
+    @foi_attachment.replace(
+      **foi_attachment_params.to_h.symbolize_keys,
+      editor: admin_current_user,
+      reason: reason
+    )
 
-      flash[:notice] = if @foi_attachment.locked? && !@foi_attachment.masked?
-        <<~TXT.squish
-          Attachment successfully updated and locked. Please wait for masking to
-          complete before adding additional censor rules.
-        TXT
-      else
-        'Attachment successfully updated.'
-      end
+    flash[:notice] = if @foi_attachment.locked? && !@foi_attachment.masked?
+      <<~TXT.squish
+        Attachment successfully updated and locked. Please wait for masking to
+        complete before adding additional censor rules.
+      TXT
     else
-      flash[:error] = @foi_attachment.errors.full_messages.to_sentence
+      'Attachment successfully updated.'
     end
 
     redirect_to edit_admin_foi_attachment_path(@foi_attachment)
   end
 
+  def destroy
+    @foi_attachment.clear_replacement(
+      editor: admin_current_user,
+      reason: reason
+    )
+
+    redirect_to edit_admin_foi_attachment_path(@foi_attachment),
+                notice: 'Replacement cleared.'
+  end
+
   private
 
-  def replacement_params
-    { replacement_body: foi_attachment_params[:replacement_body],
-      replacement_file: foi_attachment_params[:replacement_file],
-      replaced_filename: foi_attachment_params[:replaced_filename],
-      replaced_reason: foi_attachment_params[:replaced_reason] }
+  def reason
+    params[:reason]
   end
 
   def foi_attachment_params
     params.require(:foi_attachment).permit(
       :replacement_body, :replacement_file,
-      :replaced_filename, :replaced_reason
+      :replaced_filename
     )
   end
 
@@ -58,5 +63,10 @@ class Admin::FoiAttachments::ReplacementsController < AdminController
 
     raise ActiveRecord::RecordNotFound
   end
-end
 
+  def check_clearable
+    return if @foi_attachment.replacement_clearable?
+
+    raise StandardError, 'Attachment not clearable'
+  end
+end

@@ -14,6 +14,58 @@ module FoiAttachment::Replaceable
     before_save :handle_replacements
   end
 
+  # Note that #replace still raises on failure. This version also runs
+  # pre-and-post-replacement steps, whereas #replace! omits these for more
+  # flexibility when composing with other actions.
+  def replace(...)
+    replace!(...)
+    expire
+  end
+
+  # Note that #clear_replacement still raises on failure. This version also
+  # runs pre-and-post-clearing steps, whereas #clear_replacement! omits these
+  # for more flexibility when composing with other actions.
+  def clear_replacement(...)
+    clear_replacement!(...)
+    expire
+  end
+
+  def replace!(editor:, reason:, replacement_body: nil, replacement_file: nil, replaced_filename: nil, **event)
+    attrs = { replacement_body: replacement_body,
+              replacement_file: replacement_file,
+              replaced_filename: replaced_filename,
+              replaced_reason: reason }.compact
+
+    update_and_log_event!(
+      event: { **event, editor: editor, reason: reason },
+      **attrs
+    )
+
+    true
+  end
+
+  def clear_replacement!(editor:, reason:, **event)
+    return true unless replaced?
+
+    # Restore original body from raw email
+    file_blob.upload(StringIO.new(unmasked_body), identify: false)
+    file_blob.save
+
+    update_and_log_event!(
+      event: { **event, editor: editor, reason: reason },
+      replaced_at: nil,
+      replaced_reason: nil,
+      masked_at: nil,
+      filename: mail_attributes[:filename]
+    )
+
+    true
+  end
+
+  def replacement_clearable?
+    replaced? && !erased?
+  end
+
   def replacing?
     !erased? && !unlocking? &&
       (replacement_file_changed? || replacement_body_changed?)
