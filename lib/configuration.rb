@@ -86,6 +86,7 @@ module AlaveteliConfiguration
       NEW_REQUEST_RECAPTCHA: false,
       NEW_RESPONSE_REMINDER_AFTER_DAYS: [3, 10, 24],
       OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: '',
+      PDF_REDACTION_STRATEGY: 'coordinate',
       POP_MAILER_ADDRESS: 'localhost',
       POP_MAILER_ENABLE_SSL: true,
       POP_MAILER_PASSWORD: '',

@@ -1,5 +1,6 @@
 require 'tempfile'
 require 'config_helper'
+require 'pdf_redactor'
 
 module AlaveteliTextMasker
   include ConfigHelper
@@ -85,6 +86,38 @@ module AlaveteliTextMasker
   end
 
   def apply_pdf_masks(text, options = {})
+    if AlaveteliConfiguration.pdf_redaction_strategy == 'coordinate'
+      apply_pdf_masks_coordinate(text, options)
+    else
+      apply_pdf_masks_legacy(text, options)
+    end
+  end
+
+  def apply_pdf_masks_coordinate(text, options = {})
+    censor_rules = options[:censor_rules] || []
+    masks = options[:masks] || []
+    masks += default_text_masks
+
+    result = PdfRedactor.redact(
+      text,
+      censor_rules: censor_rules,
+      masks: masks
+    )
+
+    # Store result for the mask job to pick up
+    Thread.current[:pdf_redaction_result] = result
+
+    if result.nil?
+      # Total failure — do not silently return uncensored content
+      nil
+    elsif result.pdf_data.nil?
+      nil
+    else
+      result.pdf_data
+    end
+  end
+
+  def apply_pdf_masks_legacy(text, options = {})
     uncompressed_text = uncompress_pdf(text)
     # if we managed to uncompress the PDF...
     if uncompressed_text.blank?

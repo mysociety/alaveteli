@@ -9,6 +9,7 @@
           <th>Content Type</th>
           <th>Hexdigest</th>
           <th>Display Size</th>
+          <th>Redaction</th>
         </tr>
       </thead>
       <tbody>
@@ -28,6 +29,25 @@
             <td><tt><%= attachment.content_type %></tt></td>
             <td><tt><%= attachment.hexdigest %></tt></td>
             <td><tt><%= attachment.display_size %></tt></td>
+            <td>
+              <% if attachment.content_type == 'application/pdf' && attachment.metadata&.dig('redaction').present? %>
+                <% redaction = attachment.metadata['redaction'] %>
+                <% if redaction['success'] %>
+                  <% if redaction['strategy'] == 'mixed' %>
+                    <span class="label label-warning">Partial</span>
+                  <% else %>
+                    <span class="label label-success">OK</span>
+                  <% end %>
+                <% else %>
+                  <span class="label label-important">Failed</span>
+                <% end %>
+                <details>
+                  <summary>Details</summary>
+                  <%= render 'admin_incoming_message/redaction_report',
+                             redaction: redaction %>
+                </details>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>
