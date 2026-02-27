@@ -1,7 +1,8 @@
 require 'tempfile'
 require 'rexml/document'
 
-module PdfRedactor
+# Coordinate-based PDF redaction using pdftotext bounding boxes and HexaPDF.
+module PDFRedactor
   RedactionResult = Struct.new(
     :pdf_data,
     :matched_rules,
@@ -38,7 +39,9 @@ module PdfRedactor
       return RedactionResult.new(
         pdf_data: nil,
         matched_rules: [],
-        unmatched_rules: censor_rules.map { |r| r.respond_to?(:id) ? r.id : r.to_s },
+        unmatched_rules: censor_rules.map { |r|
+          r.respond_to?(:id) ? r.id : r.to_s
+        },
         warnings: warnings,
         strategy: :failed
       )
@@ -82,7 +85,7 @@ module PdfRedactor
       strategy: strategy
     )
   rescue StandardError => e
-    Rails.logger.error("PdfRedactor.redact failed: #{e.class}: #{e.message}")
+    Rails.logger.error("PDFRedactor.redact failed: #{e.class}: #{e.message}")
     Rails.logger.error(e.backtrace.first(10).join("\n"))
     nil
   end
@@ -104,7 +107,7 @@ module PdfRedactor
     parse_bbox_xhtml(output)
   rescue StandardError => e
     Rails.logger.error(
-      "PdfRedactor.extract_bbox_words failed: #{e.class}: #{e.message}"
+      "PDFRedactor.extract_bbox_words failed: #{e.class}: #{e.message}"
     )
     nil
   ensure
@@ -153,17 +156,22 @@ module PdfRedactor
     matchers = censor_rules.map do |rule|
       rule_id = rule.respond_to?(:id) ? rule.id : rule.to_s
       all_rule_ids << rule_id
-      pattern = rule.respond_to?(:regexp?) && rule.regexp? ?
-        Regexp.new(rule.text, Regexp::MULTILINE) :
-        Regexp.new(Regexp.escape(rule.respond_to?(:text) ? rule.text : rule.to_s))
+      pattern = if rule.respond_to?(:regexp?) && rule.regexp?
+                  Regexp.new(rule.text, Regexp::MULTILINE)
+                else
+                  text = rule.respond_to?(:text) ? rule.text : rule.to_s
+                  Regexp.new(Regexp.escape(text))
+                end
       { id: rule_id, pattern: pattern }
     end
 
     # Build matchers from masks (to_replace can be String or Regexp)
     masks.each do |mask|
-      pattern = mask[:to_replace].is_a?(Regexp) ?
-        mask[:to_replace] :
-        Regexp.new(Regexp.escape(mask[:to_replace].to_s))
+      pattern = if mask[:to_replace].is_a?(Regexp)
+                  mask[:to_replace]
+                else
+                  Regexp.new(Regexp.escape(mask[:to_replace].to_s))
+                end
       matchers << { id: "mask:#{mask[:to_replace]}", pattern: pattern }
       all_rule_ids << "mask:#{mask[:to_replace]}"
     end
@@ -194,8 +202,8 @@ module PdfRedactor
           match_end = match.end(0) - 1
 
           # Find which words are covered by this match
-          word_indices = char_to_word_indices[match_start..match_end]
-            .compact.uniq
+          word_indices =
+            char_to_word_indices[match_start..match_end].compact.uniq
 
           next if word_indices.empty?
 
@@ -273,23 +281,21 @@ module PdfRedactor
     intermediate_temp.close
 
     matches_by_page.each_key do |page_num|
-      begin
-        dims = page_dimensions[page_num]
-        image_pdf = render_page_to_pdf(
-          intermediate_temp.path, page_num,
-          page_width: dims&.first, page_height: dims&.last
-        )
-        if image_pdf
-          replace_page_with_image(final_doc, page_num, image_pdf)
-        else
-          warnings << "Failed to flatten page #{page_num} as image"
-          strategy = :mixed
-        end
-      rescue StandardError => e
-        warnings << "Failed to flatten page #{page_num}: " \
-                     "#{e.class}: #{e.message}"
+      dims = page_dimensions[page_num]
+      image_pdf = render_page_to_pdf(
+        intermediate_temp.path, page_num,
+        page_width: dims&.first, page_height: dims&.last
+      )
+      if image_pdf
+        replace_page_with_image(final_doc, page_num, image_pdf)
+      else
+        warnings << "Failed to flatten page #{page_num} as image"
         strategy = :mixed
       end
+    rescue StandardError => e
+      warnings << "Failed to flatten page #{page_num}: " \
+                   "#{e.class}: #{e.message}"
+      strategy = :mixed
     end
 
     intermediate_temp.unlink
@@ -299,7 +305,7 @@ module PdfRedactor
     [output.string, warnings, strategy]
   rescue StandardError => e
     Rails.logger.error(
-      "PdfRedactor.redact_with_hexapdf failed: #{e.class}: #{e.message}"
+      "PDFRedactor.redact_with_hexapdf failed: #{e.class}: #{e.message}"
     )
     [nil, ["HexaPDF processing failed: #{e.message}"], :failed]
   end

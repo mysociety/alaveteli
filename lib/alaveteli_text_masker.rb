@@ -98,7 +98,7 @@ module AlaveteliTextMasker
     masks = options[:masks] || []
     masks += default_text_masks
 
-    result = PdfRedactor.redact(
+    result = PDFRedactor.redact(
       text,
       censor_rules: censor_rules,
       masks: masks

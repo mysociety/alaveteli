@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'pdf_redactor'
 
-RSpec.describe PdfRedactor do
+RSpec.describe PDFRedactor do
   describe '.extract_bbox_words' do
     it 'extracts words with bounding boxes from a PDF' do
       pdf_data = load_file_fixture('tfl.pdf')
@@ -9,7 +9,7 @@ RSpec.describe PdfRedactor do
 
       expect(result).to be_a(Hash)
       expect(result.keys).not_to be_empty
-      expect(result.values.first).to all(be_a(PdfRedactor::BBoxWord))
+      expect(result.values.first).to all(be_a(PDFRedactor::BBoxWord))
     end
 
     it 'returns nil when given invalid data' do
@@ -57,16 +57,16 @@ RSpec.describe PdfRedactor do
     let(:bbox_data) do
       {
         1 => [
-          PdfRedactor::BBoxWord.new(
+          PDFRedactor::BBoxWord.new(
             text: 'John', x1: 100, y1: 200, x2: 140, y2: 215, page: 1
           ),
-          PdfRedactor::BBoxWord.new(
+          PDFRedactor::BBoxWord.new(
             text: 'Smith', x1: 145, y1: 200, x2: 190, y2: 215, page: 1
           ),
-          PdfRedactor::BBoxWord.new(
+          PDFRedactor::BBoxWord.new(
             text: 'lives', x1: 195, y1: 200, x2: 230, y2: 215, page: 1
           ),
-          PdfRedactor::BBoxWord.new(
+          PDFRedactor::BBoxWord.new(
             text: 'here', x1: 235, y1: 200, x2: 265, y2: 215, page: 1
           )
         ]
@@ -134,10 +134,10 @@ RSpec.describe PdfRedactor do
     it 'handles email mask patterns' do
       email_data = {
         1 => [
-          PdfRedactor::BBoxWord.new(
+          PDFRedactor::BBoxWord.new(
             text: 'contact', x1: 100, y1: 200, x2: 150, y2: 215, page: 1
           ),
-          PdfRedactor::BBoxWord.new(
+          PDFRedactor::BBoxWord.new(
             text: 'user@example.com', x1: 155, y1: 200, x2: 280, y2: 215,
             page: 1
           )
@@ -177,7 +177,7 @@ RSpec.describe PdfRedactor do
           pdf_data, censor_rules: [rule], masks: []
         )
 
-        expect(result).to be_a(PdfRedactor::RedactionResult)
+        expect(result).to be_a(PDFRedactor::RedactionResult)
         expect(result.pdf_data).to be_present
         expect(result.strategy).to be_in([:flattened, :mixed])
       end
@@ -185,7 +185,7 @@ RSpec.describe PdfRedactor do
       it 'returns original PDF when no rules match' do
         rule = FactoryBot.build(
           :censor_rule, text: 'zzz_nonexistent_zzz',
-          replacement: '[REDACTED]'
+                        replacement: '[REDACTED]'
         )
         result = described_class.redact(
           pdf_data, censor_rules: [rule], masks: []
@@ -204,7 +204,9 @@ RSpec.describe PdfRedactor do
         )
 
         # Extract text from the redacted PDF using pdftotext
-        temp = Tempfile.new(['redacted', '.pdf'], './tmp', encoding: 'ascii-8bit')
+        temp = Tempfile.new(
+          ['redacted', '.pdf'], './tmp', encoding: 'ascii-8bit'
+        )
         temp.write(result.pdf_data)
         temp.close
 
@@ -223,11 +225,11 @@ RSpec.describe PdfRedactor do
       it 'reports matched and unmatched rules' do
         matching_rule = FactoryBot.build(
           :censor_rule, id: 10, text: 'foi@tfl.gov.uk',
-          replacement: '[REDACTED]'
+                        replacement: '[REDACTED]'
         )
         non_matching_rule = FactoryBot.build(
           :censor_rule, id: 11, text: 'zzz_nonexistent_zzz',
-          replacement: '[REDACTED]'
+                        replacement: '[REDACTED]'
         )
 
         result = described_class.redact(
@@ -250,7 +252,7 @@ RSpec.describe PdfRedactor do
           'not a pdf', censor_rules: [rule], masks: []
         )
 
-        expect(result).to be_a(PdfRedactor::RedactionResult)
+        expect(result).to be_a(PDFRedactor::RedactionResult)
         expect(result.strategy).to eq(:failed)
         expect(result.pdf_data).to be_nil
       end
@@ -262,7 +264,7 @@ RSpec.describe PdfRedactor do
       it 'matches regex patterns' do
         rule = FactoryBot.build(
           :censor_rule, text: 'foi@[a-z]+\.gov\.uk',
-          replacement: '[REDACTED]', regexp: true
+                        replacement: '[REDACTED]', regexp: true
         )
         result = described_class.redact(
           pdf_data, censor_rules: [rule], masks: []
@@ -293,7 +295,7 @@ RSpec.describe PdfRedactor do
     end
   end
 
-  describe PdfRedactor::RedactionResult do
+  describe PDFRedactor::RedactionResult do
     it 'reports success for flattened strategy' do
       result = described_class.new(
         pdf_data: 'data', matched_rules: [1], unmatched_rules: [],
