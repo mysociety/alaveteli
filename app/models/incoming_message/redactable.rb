@@ -22,6 +22,7 @@ module IncomingMessage::Redactable
     update!(from_name: safe_from_name)
 
     # Commit attachment redactions
+    clear_in_database_caches! # These get regenerated from the locked attachment
     lock_all_attachments(**event_params)
     foi_attachments.each(&:mask)
     raw_email.erase(**event_params) unless raw_email.erased?

@@ -485,6 +485,82 @@ RSpec.describe IncomingMessage do
           to include('a [REDACTED] question')
       end
     end
+
+    # Why might the raw email already be erased? Here's one example:
+    # * Erase a single attachment because data breach (which erases raw email)
+    # * A year later user requests RTE; we close, anonymise & erase the account
+    # * The new user censor rules won't get applied, because the attachments are
+    #   locked, but we don't want the process to fail while we iterate through
+    #   all their requests.
+    #
+    # Another example might be the reverse:
+    # * A user requests RTE; we close, anonymise & erase the account, which
+    #   persists redactions to the salutation from the FOI officer's response.
+    # * The FOI officer later requests RTE. We'd have to manually replace any
+    #   attachment content, but the cached header content could get redacted
+    #   by censor rules. Again, we wouldn't want this to fail if the raw email
+    #   is already erased
+    context 'when the raw email is already erased' do
+      let(:admin_user) { FactoryBot.create(:admin_user) }
+
+      before do
+        # Mask and erase the raw email while it is still present
+        event_params = { editor: admin_user, reason: 'test' }
+
+        # FIXME: This should be happening automatically
+        incoming_message.send(:_cache_main_body_text)
+
+        # A previous redaction on the main body text
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: incoming_message.info_request,
+          text: 'Francis'
+        )
+
+        incoming_message.lock_all_attachments(**event_params)
+        incoming_message.foi_attachments.each(&:mask)
+        incoming_message.raw_email.erase(**event_params)
+
+        # Make a new redaction for the FOI officer on the from_name
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: incoming_message.info_request,
+          text: 'Bob Responder'
+        )
+
+        # Make a new redaction for the FOI officer on the main body text
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: incoming_message.info_request,
+          text: 'Quango'
+        )
+
+        incoming_message.info_request.reload
+      end
+
+
+      before do
+        subject
+        incoming_message.reload.send(:_cache_main_body_text)
+      end
+
+      it 'still persists the previous redaction in the cached main body text' do
+        expect(incoming_message.reload.cached_main_body_text_unfolded).
+          not_to include('Francis')
+      end
+
+      it 'persists the new redaction to the cached main body text' do
+        expect(incoming_message.reload.cached_main_body_text_unfolded).
+          not_to include('Quango')
+
+        expect(incoming_message.reload.get_main_body_text_part.body_as_text).
+          not_to include('Quango')
+      end
+
+      it 'persists the new redaction to from_name' do
+        expect(incoming_message.reload.from_name).to eq('[REDACTED]')
+      end
+    end
   end
 
   describe '#from_email' do
