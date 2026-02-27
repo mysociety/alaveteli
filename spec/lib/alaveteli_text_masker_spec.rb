@@ -85,6 +85,11 @@ RSpec.describe AlaveteliTextMasker do
     end
 
     context 'applying masks to PDF' do
+      before do
+        allow(AlaveteliConfiguration).to receive(:pdf_redaction_strategy).
+          and_return('binary')
+      end
+
       def pdf_replacement_test(use_ghostscript_compression)
         allow(AlaveteliConfiguration).to receive(:use_ghostscript_compression).
           and_return(use_ghostscript_compression)
