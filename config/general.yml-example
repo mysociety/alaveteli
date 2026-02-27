@@ -562,6 +562,26 @@ DEBUG_RECORD_MEMORY: false
 # ---
 USE_GHOSTSCRIPT_COMPRESSION: false
 
+# Strategy used for redacting sensitive content from PDF attachments.
+#
+# 'coordinate' (default) uses pdftotext for text extraction with bounding box
+# coordinates and HexaPDF to draw black rectangles over matched text. Redacted
+# pages are then flattened to images so the underlying text cannot be copied.
+# Non-redacted pages are left untouched with selectable text.
+#
+# 'binary' uses the legacy pdftk-based binary masking pipeline which
+# uncompresses the PDF and performs byte-level string replacement.
+#
+# PDF_REDACTION_STRATEGY - String (default: 'coordinate')
+#
+# Examples:
+#
+#   PDF_REDACTION_STRATEGY: 'coordinate'
+#   PDF_REDACTION_STRATEGY: 'binary'
+#
+# ---
+PDF_REDACTION_STRATEGY: 'coordinate'
+
 # Alaveteli uses a GeoIP database to determine the country from the IP address
 # of an HTTP request to the site (this lets us suggest an Alaveteli in the user's
 # country if one exists). You shouldn't need to change this if you have the

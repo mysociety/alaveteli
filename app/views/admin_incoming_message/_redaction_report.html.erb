@@ -1,0 +1,53 @@
+<% if redaction.present? %>
+  <div class="redaction-report">
+    <dl class="dl-horizontal">
+      <dt>Strategy</dt>
+      <dd><%= redaction['strategy'] %></dd>
+
+      <dt>Status</dt>
+      <dd>
+        <% if redaction['success'] %>
+          <span class="label label-success">Success</span>
+        <% else %>
+          <span class="label label-important">Failed</span>
+        <% end %>
+      </dd>
+
+      <dt>Redacted at</dt>
+      <dd><%= redaction['redacted_at'] %></dd>
+
+      <% if redaction['matched_rules'].present? %>
+        <dt>Matched rules</dt>
+        <dd>
+          <ul>
+            <% redaction['matched_rules'].each do |rule_id| %>
+              <li><%= rule_id %></li>
+            <% end %>
+          </ul>
+        </dd>
+      <% end %>
+
+      <% if redaction['unmatched_rules'].present? %>
+        <dt>Unmatched rules</dt>
+        <dd>
+          <ul class="text-warning">
+            <% redaction['unmatched_rules'].each do |rule_id| %>
+              <li><%= rule_id %></li>
+            <% end %>
+          </ul>
+        </dd>
+      <% end %>
+
+      <% if redaction['warnings'].present? %>
+        <dt>Warnings</dt>
+        <dd>
+          <ul class="text-warning">
+            <% redaction['warnings'].each do |warning| %>
+              <li><%= warning %></li>
+            <% end %>
+          </ul>
+        </dd>
+      <% end %>
+    </dl>
+  </div>
+<% end %>
