@@ -426,6 +426,67 @@ RSpec.describe IncomingMessage do
     end
   end
 
+  describe '#make_redactions_permanent' do
+    subject { incoming_message.make_redactions_permanent }
+
+    let(:incoming_message) { FactoryBot.create(:plain_incoming_message) }
+
+    context 'when not redacted' do
+      it 'does not change from_name' do
+        expect { subject }.not_to change { incoming_message.reload.from_name }
+      end
+
+      it 'does not change cached_main_body_text_folded' do
+        expect { subject }.
+          not_to change { incoming_message.reload.cached_main_body_text_folded }
+      end
+
+      it 'does not change cached_main_body_text_unfolded' do
+        expect { subject }.
+          not_to \
+          change { incoming_message.reload.cached_main_body_text_unfolded }
+      end
+    end
+
+    context 'when both from_name and body are redacted' do
+      before do
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: incoming_message.info_request,
+          text: 'Bob Responder'
+        )
+
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: incoming_message.info_request,
+          text: 'rubbish'
+        )
+
+        incoming_message.info_request.reload
+      end
+
+      before do
+        subject
+        # FIXME: This should be happening automatically
+        incoming_message.reload.send(:_cache_main_body_text)
+      end
+
+      it 'persists the redacted from_name' do
+        expect(incoming_message.reload.from_name).to eq('[REDACTED]')
+      end
+
+      it 'persists the redacted cached_main_body_text_folded' do
+        expect(incoming_message.reload.cached_main_body_text_folded).
+          to include('a [REDACTED] question')
+      end
+
+      it 'persists the redacted cached_main_body_text_unfolded' do
+        expect(incoming_message.reload.cached_main_body_text_unfolded).
+          to include('a [REDACTED] question')
+      end
+    end
+  end
+
   describe '#from_email' do
     it 'returns the email address in the From header' do
       inbound_email = <<-EOF.strip_heredoc

@@ -7,6 +7,26 @@ module IncomingMessage::Redactable
       attachments_redacted?
   end
 
+  def make_redactions_permanent
+    return unless redacted?
+
+    # FIXME: Need to pass through the params; going to explore Current for this.
+    event_params = {
+      editor: User.with_role(:admin).last,
+      reason: 'IncomingMessage#make_redactions_permanent'
+    }
+
+    # Commit cached attribute redactions
+    # TODO: In future we should ensure all cached attributes can be redacted.
+    # Currently some aren't (e.g. from_email)
+    update!(from_name: safe_from_name)
+
+    # Commit attachment redactions
+    lock_all_attachments(**event_params)
+    foi_attachments.each(&:mask)
+    raw_email.erase(**event_params) unless raw_email.erased?
+  end
+
   private
 
   def from_name_redacted?
