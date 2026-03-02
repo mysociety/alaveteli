@@ -630,7 +630,7 @@ GEM
     websocket-extensions (0.1.5)
     will_paginate (4.0.1)
     wilson_score (0.1.0)
-    xapian-full-alaveteli (1.4.22.2)
+    xapian-full-alaveteli (1.4.31.1)
       mini_portile2 (~> 2.8)
       rake (~> 13.0)
     xml-simple (1.1.9)
@@ -744,7 +744,7 @@ DEPENDENCIES
   webmock (~> 3.26.1)
   will_paginate (~> 4.0.1)
   wilson_score (~> 0.1.0)
-  xapian-full-alaveteli (~> 1.4.22.2)
+  xapian-full-alaveteli (~> 1.4.31.1)
   xml-simple (~> 1.1.9)
   zip_tricks (~> 5.6.0)
 
