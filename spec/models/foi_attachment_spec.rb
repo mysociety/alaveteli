@@ -215,8 +215,10 @@ RSpec.describe FoiAttachment do
       let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
 
       it 'raises MissingError error' do
-        expect { foi_attachment.body }.
-          to raise_error(FoiAttachment::MissingError, /erased/)
+        expect { foi_attachment.body }.to raise_error(
+          FoiAttachment::MissingError,
+          "attachment has been erased (ID=#{foi_attachment.id})"
+        )
       end
     end
 
@@ -335,7 +337,9 @@ RSpec.describe FoiAttachment do
           receive(:load_attachment_from_incoming_message).and_return(nil)
         )
         expect { foi_attachment.body }.to raise_error(
-          FoiAttachment::MissingError
+          FoiAttachment::MissingError,
+          "attachment couldn't be reloaded using url_part_number and " \
+          "display_filename attributes"
         )
       end
     end
@@ -361,8 +365,10 @@ RSpec.describe FoiAttachment do
       let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
 
       it 'raises MissingError error' do
-        expect { foi_attachment.body_as_text }.
-          to raise_error(FoiAttachment::MissingError, /erased/)
+        expect { foi_attachment.body_as_text }.to raise_error(
+          FoiAttachment::MissingError,
+          "attachment has been erased (ID=#{foi_attachment.id})"
+        )
       end
     end
 
@@ -397,8 +403,10 @@ RSpec.describe FoiAttachment do
       let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
 
       it 'raises MissingError error' do
-        expect { foi_attachment.default_body }.
-          to raise_error(FoiAttachment::MissingError, /erased/)
+        expect { foi_attachment.default_body }.to raise_error(
+          FoiAttachment::MissingError,
+          "attachment has been erased (ID=#{foi_attachment.id})"
+        )
       end
     end
 
@@ -420,16 +428,14 @@ RSpec.describe FoiAttachment do
 
     before do
       allow(foi_attachment).to receive(:raw_email).
-        and_return(double(mail: Mail.new))
+        and_return(double(id: 123, mail: Mail.new, ensure_not_erased!: true))
     end
 
-    context 'when erased' do
-      let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
-
-      it 'raises MissingError error' do
-        expect { foi_attachment.unmasked_body }.
-          to raise_error(FoiAttachment::MissingError, /erased/)
-      end
+    it 'raises MissingError error' do
+      expect { foi_attachment.unmasked_body }.to raise_error(
+       FoiAttachment::MissingError,
+       "attachment missing in raw email (ID=#{foi_attachment.id})"
+      )
     end
 
     context 'when mail handler finds original attachment by hexdigest' do
@@ -580,10 +586,13 @@ RSpec.describe FoiAttachment do
       let(:foi_attachment) { FactoryBot.create(:pdf_attachment, :erased) }
 
       it 'raises MissingError error' do
-        expect { foi_attachment.body_as_html }.
-          to raise_error(FoiAttachment::MissingError, /erased/)
+        expect { foi_attachment.body_as_html }.to raise_error(
+          FoiAttachment::MissingError,
+          "attachment has been erased (ID=#{foi_attachment.id})"
+        )
       end
     end
+
   end
 
   describe '#name_of_content_type' do
@@ -1799,6 +1808,33 @@ RSpec.describe FoiAttachment do
       end
 
       it { is_expected.to be true }
+    end
+  end
+
+  describe '#ensure_not_erased!' do
+    let(:foi_attachment) { FactoryBot.build(:body_text) }
+
+    context 'when not erased' do
+      before do
+        allow(foi_attachment).to receive(:erased?).and_return(false)
+      end
+
+      it 'returns nil' do
+        expect(foi_attachment.ensure_not_erased!).to be_nil
+      end
+    end
+
+    context 'when erased' do
+      before do
+        allow(foi_attachment).to receive(:erased?).and_return(true)
+        allow(foi_attachment).to receive(:id).and_return(123)
+      end
+
+      it 'raises MissingError error' do
+        expect { foi_attachment.erased! }.to raise_error(
+          FoiAttachment::MissingError, 'attachment has been erased (ID=123)'
+        )
+      end
     end
   end
 
