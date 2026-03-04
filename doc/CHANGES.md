@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add exception notifications to background job failures (Graeme Porteous)
 * Add ability to erase attachments (Graeme Porteous)
 * Added Web Share API option on request pages (Lucas Cumsille Montesinos)
 * Add prioritisation indication of admin summary todos (Gareth Rees)
