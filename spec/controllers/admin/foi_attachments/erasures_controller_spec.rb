@@ -21,17 +21,21 @@ RSpec.describe Admin::FoiAttachments::ErasuresController do
       }
     end
 
-    it 'erases the attachment with editor and reason' do
+    def erase_attachment_event
+      info_request.info_request_events.find_by(event_type: 'erase_attachment')
+    end
+
+    it 'erases the attachment' do
       post :create, params: erase_params
+      expect { foi_attachment.reload }.to change(foi_attachment, :erased?).
+        from(false).to(true)
+    end
 
-      foi_attachment.reload
-      expect(foi_attachment.erased?).to be true
-
-      info_request.reload
-      event = info_request.info_request_events.last
-      expect(event.event_type).to eq('erase_attachment')
-      expect(event.params[:editor]).to eq(admin_user)
-      expect(event.params[:reason]).to eq('GDPR request')
+    it 'logs event with editor and reason' do
+      expect { post :create, params: erase_params }.
+        to change { erase_attachment_event }.from(nil)
+      expect(erase_attachment_event.params[:editor]).to eq(admin_user)
+      expect(erase_attachment_event.params[:reason]).to eq('GDPR request')
     end
 
     it 'redirects to edit page with success message' do

@@ -1869,7 +1869,7 @@ RSpec.describe FoiAttachment do
     let(:reason) { 'Removing PII' }
 
     it 'purges later' do
-      expect { subject }.to have_enqueued_job(ActiveStorage::PurgeJob)
+      expect { subject }.to have_enqueued_job(ActiveStorage::PurgeJob).at_least(:once)
     end
 
     it 'removes filename' do
@@ -1887,13 +1887,12 @@ RSpec.describe FoiAttachment do
       expect(foi_attachment.erased_at).to be_a(Time)
     end
 
-    def last_event
-      info_request.info_request_events.last
+    def erase_attachment_event
+      info_request.info_request_events.find_by(event_type: 'erase_attachment')
     end
 
     it 'logs an event on the associated info_request' do
-      expect { subject }.to change { last_event }
-      expect(last_event.event_type).to eq('erase_attachment')
+      expect { subject }.to change { erase_attachment_event }.from(nil)
     end
 
     it 'expires the associated info_request' do
@@ -1960,6 +1959,25 @@ RSpec.describe FoiAttachment do
       end
 
       it 'does not erase the file' do
+        subject
+        expect(foi_attachment.reload).not_to be_erased
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    it 'erases the raw email' do
+      subject
+      expect(foi_attachment.raw_email.reload).to be_erased
+    end
+
+    context 'when the raw email cannot be erased' do
+      before do
+        allow(foi_attachment.raw_email).to receive(:erase).
+          and_raise(RawEmail::UnmaskedAttachmentsError)
+      end
+
+      it 'does not erase the attachment' do
         subject
         expect(foi_attachment.reload).not_to be_erased
       end

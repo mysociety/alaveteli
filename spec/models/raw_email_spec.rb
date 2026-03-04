@@ -201,7 +201,8 @@ RSpec.describe RawEmail do
 
     context 'when all attachments are masked' do
       before do
-        allow(raw_email).to receive(:all_attachments_masked?).and_return(true)
+        allow(raw_email).to receive(:all_attachments_masked_or_erased?).
+          and_return(true)
       end
 
       it { is_expected.to eq(true) }
@@ -209,7 +210,8 @@ RSpec.describe RawEmail do
 
     context 'when not all attachments are masked' do
       before do
-        allow(raw_email).to receive(:all_attachments_masked?).and_return(false)
+        allow(raw_email).to receive(:all_attachments_masked_or_erased?).
+          and_return(false)
       end
 
       it { is_expected.to eq(false) }
@@ -310,13 +312,14 @@ RSpec.describe RawEmail do
       expect(raw_email.erased_at).to be_a(Time)
     end
 
-    def last_event
-      raw_email.info_request.info_request_events.last
+    def erase_raw_email_event
+      raw_email.info_request.info_request_events.find_by(
+        event_type: 'erase_raw_email'
+      )
     end
 
     it 'logs an event on the associated info_request' do
-      expect { subject }.to change { last_event }
-      expect(last_event.event_type).to eq('erase_raw_email')
+      expect { subject }.to change { erase_raw_email_event }.from(nil)
     end
 
     it 'expires the associated info_request' do
@@ -336,7 +339,8 @@ RSpec.describe RawEmail do
 
     context 'when there are unmasked attachments' do
       before do
-        allow(raw_email).to receive(:all_attachments_masked?).and_return(false)
+        allow(raw_email).to receive(:all_attachments_masked_or_erased?).
+          and_return(false)
       end
 
       it 'raises an error' do

@@ -37,7 +37,7 @@ class RawEmail < ApplicationRecord
   delegate :expire, :log_event, to: :info_request
 
   delegate :lock_all_attachments, to: :incoming_message
-  delegate :all_attachments_masked?, to: :incoming_message
+  delegate :all_attachments_masked_or_erased?, to: :incoming_message
 
   def addresses(include_invalid: false)
     MailHandler.get_all_addresses(mail, include_invalid: include_invalid)
@@ -89,13 +89,13 @@ class RawEmail < ApplicationRecord
   end
 
   def erasable?
-    all_attachments_masked?
+    all_attachments_masked_or_erased?
   end
 
   def erase(editor:, reason:)
     ensure_not_erased!
 
-    raise UnmaskedAttachmentsError unless all_attachments_masked?
+    raise UnmaskedAttachmentsError unless erasable?
 
     transaction do |t|
       t.after_rollback { return false }
