@@ -59,15 +59,15 @@ module FoiAttachment::Lockable
   end
 
   def unlockable?
-    !erased?
+    retained?
   end
 
   def locking?
-    !erased? && locked? && locked_changed?
+    retained? && locked? && locked_changed?
   end
 
   def unlocking?
-    !erased? && !locked? && locked_changed?
+    retained? && !locked? && locked_changed?
   end
 
   private

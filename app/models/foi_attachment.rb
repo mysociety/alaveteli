@@ -123,10 +123,15 @@ class FoiAttachment < ApplicationRecord
     update_display_size!
   end
 
+  def retained!
+    return true if retained?
+
+    raise MissingAttachment, "attachment has been erased (ID=#{id})"
+  end
+
   def body
     return @cached_body if @cached_body
-
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
+    return unless retained!
 
     begin
       return file.download if locked? || masked?
@@ -147,25 +152,19 @@ class FoiAttachment < ApplicationRecord
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed
   def body_as_text
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
-
-    convert_string_to_utf8(body, 'UTF-8')
+    convert_string_to_utf8(body, 'UTF-8') if retained!
   end
 
   # for text types, the scrubbed UTF-8 text. For all other types, the
   # raw binary
   def default_body
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
-
-    text_type? ? body_as_text.string : body
+    text_type? ? body_as_text.string : body if retained!
   end
 
   # return the body as it is in the raw email, unmasked without censor rules
   # applied
   def unmasked_body
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
-
-    mail_attributes[:body]
+    mail_attributes[:body] if retained!
   end
 
   def main_body_part?
@@ -256,7 +255,7 @@ class FoiAttachment < ApplicationRecord
 
   # Whether this type has a "View as HTML"
   def has_body_as_html?
-    return false if erased?
+    return false unless retained?
 
     AttachmentToHTML.extractable?(self)
   end
@@ -269,9 +268,7 @@ class FoiAttachment < ApplicationRecord
 
   # For "View as HTML" of attachment
   def body_as_html(**kwargs)
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
-
-    AttachmentToHTML.to_html(self, **kwargs)
+    AttachmentToHTML.to_html(self, **kwargs) if retained!
   end
 
   def cached_urls
@@ -289,11 +286,15 @@ class FoiAttachment < ApplicationRecord
   end
 
   def erased?
-    erased_at.present? || raw_email_erased?
+    erased_at.present?
+  end
+
+  def retained?
+    !erased? && !raw_email_erased?
   end
 
   def erase(editor:, reason:)
-    raise AlreadyErasedError if erased?
+    raise AlreadyErasedError unless retained?
 
     transaction do |t|
       t.after_rollback { return false }
