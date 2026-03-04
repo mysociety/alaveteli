@@ -54,6 +54,7 @@ class InfoRequest < ApplicationRecord
 
   include InfoRequest::BatchPagination
   include InfoRequest::PublicToken
+  include InfoRequest::Redactable
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
 
