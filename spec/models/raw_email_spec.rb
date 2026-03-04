@@ -243,6 +243,38 @@ RSpec.describe RawEmail do
     end
   end
 
+  describe '#erased!' do
+    let(:raw_email) do
+      request = FactoryBot.create(:info_request)
+      message = FactoryBot.create(:incoming_message, info_request: request)
+      message.raw_email = FactoryBot.create(:raw_email, :with_file)
+      message.save!
+      message.raw_email
+    end
+
+    context 'when not erased' do
+      it 'returns nil' do
+        expect(raw_email.erased!).to be_nil
+      end
+    end
+
+    context 'when erased' do
+      before do
+        raw_email.erase(
+          editor: FactoryBot.create(:admin_user),
+          reason: 'PII'
+        )
+      end
+
+      it 'raises ErasedError' do
+        expect { raw_email.erased! }.to raise_error(
+          described_class::ErasedError,
+          "email has been erased (ID=#{raw_email.id})"
+        )
+      end
+    end
+  end
+
   describe '#erase' do
     subject { raw_email.erase(editor: editor, reason: reason) }
 
@@ -296,7 +328,7 @@ RSpec.describe RawEmail do
 
     it { is_expected.to eq(true) }
 
-    context 'when already erased' do
+    context 'when erased' do
       before { allow(raw_email).to receive(:erased?).and_return(true) }
 
       it 'raises an error' do
