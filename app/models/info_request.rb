@@ -49,7 +49,6 @@ class InfoRequest < ApplicationRecord
   include Taggable
   include Notable
   include RateLimited
-  include Redactable
 
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
@@ -59,6 +58,7 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::HoldingPen
   include InfoRequest::MagicEmail
   include InfoRequest::PublicToken
+  include InfoRequest::Redactable
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
 
