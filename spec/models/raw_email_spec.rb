@@ -305,13 +305,14 @@ RSpec.describe RawEmail do
       expect(raw_email.erased_at).to be_a(Time)
     end
 
-    def last_event
-      raw_email.info_request.info_request_events.last
+    def erase_raw_email_event
+      raw_email.info_request.info_request_events.find_by(
+        event_type: 'erase_raw_email'
+      )
     end
 
     it 'logs an event on the associated info_request' do
-      expect { subject }.to change { last_event }
-      expect(last_event.event_type).to eq('erase_raw_email')
+      expect { subject }.to change { erase_raw_email_event }.from(nil)
     end
 
     it 'expires the associated info_request' do

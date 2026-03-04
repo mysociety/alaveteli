@@ -314,6 +314,8 @@ class FoiAttachment < ApplicationRecord
       delete_cached_file!
       touch(:erased_at)
 
+      raw_email.erase(editor: editor, reason: 'FoiAttachment#erase')
+
       expire
 
       true
