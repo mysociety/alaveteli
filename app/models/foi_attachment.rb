@@ -126,7 +126,7 @@ class FoiAttachment < ApplicationRecord
   def body
     return @cached_body if @cached_body
 
-    raise MissingError, "attachment has been erased (ID=#{id})" if erased?
+    erased!
 
     begin
       return file.download if locked? || masked?
@@ -147,24 +147,21 @@ class FoiAttachment < ApplicationRecord
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed
   def body_as_text
-    raise MissingError, "attachment has been erased (ID=#{id})" if erased?
-
+    erased!
     convert_string_to_utf8(body, 'UTF-8')
   end
 
   # for text types, the scrubbed UTF-8 text. For all other types, the
   # raw binary
   def default_body
-    raise MissingError, "attachment has been erased (ID=#{id})" if erased?
-
+    erased!
     text_type? ? body_as_text.string : body
   end
 
   # return the body as it is in the raw email, unmasked without censor rules
   # applied
   def unmasked_body
-    raise MissingError, "attachment has been erased (ID=#{id})" if erased?
-
+    erased!
     mail_attributes[:body]
   end
 
@@ -269,8 +266,7 @@ class FoiAttachment < ApplicationRecord
 
   # For "View as HTML" of attachment
   def body_as_html(**kwargs)
-    raise MissingError, "attachment has been erased (ID=#{id})" if erased?
-
+    erased!
     AttachmentToHTML.to_html(self, **kwargs)
   end
 
@@ -290,6 +286,10 @@ class FoiAttachment < ApplicationRecord
 
   def erased?
     erased_at.present? || raw_email_erased?
+  end
+
+  def erased!
+    raise MissingError, "attachment has been erased (ID=#{id})" if erased?
   end
 
   def erase(editor:, reason:)
