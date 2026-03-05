@@ -10,9 +10,7 @@ class ApplicationJob < ActiveJob::Base # :nodoc:
     next unless job.send_exception_notifications?
 
     ExceptionNotifier.notify_exception(
-      err, data: {
-        job: job.class.to_s, job_id: job.job_id, job_arguments: job.arguments
-      }
+      err, data: { job: job.class.to_s, job_id: job.job_id }
     )
   end
 

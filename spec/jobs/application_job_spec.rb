@@ -30,9 +30,7 @@ RSpec.describe ApplicationJob, type: :job do
           end
         allow_any_instance_of(FailingJob).to receive(:job_id).and_return(123456)
 
-        expected_data = {
-          job: 'FailingJob', job_id: 123456, job_arguments: ['arg1', 'arg2']
-        }
+        expected_data = { job: 'FailingJob', job_id: 123456 }
 
         expect(ExceptionNotifier).to receive(:notify_exception).
           with(instance_of(StandardError), data: expected_data).once
