@@ -473,6 +473,9 @@ Lint/ConstantResolution:
 Lint/CopDirectiveSyntax:
   Enabled: false
 
+Lint/DataDefineOverride:
+  Enabled: false
+
 Lint/Debugger:
   Enabled: true
 
@@ -822,6 +825,9 @@ Lint/UnreachableCode:
   Enabled: true
 
 Lint/UnreachableLoop:
+  Enabled: false
+
+Lint/UnreachablePatternBranch:
   Enabled: false
 
 Lint/UnusedBlockArgument:
@@ -1828,6 +1834,9 @@ Style/FileEmpty:
 Style/FileNull:
   Enabled: false
 
+Style/FileOpen:
+  Enabled: false
+
 Style/FileRead:
   Enabled: false
 
@@ -1968,6 +1977,9 @@ Style/MapCompactWithConditionalBlock:
 Style/MapIntoArray:
   Enabled: false
 
+Style/MapJoin:
+  Enabled: false
+
 Style/MapToHash:
   Enabled: false
 
@@ -2100,6 +2112,9 @@ Style/NumericPredicate:
 Style/ObjectThen:
   Enabled: false
 
+Style/OneClassPerFile:
+  Enabled: false
+
 Style/OneLineConditional:
   Enabled: false
 
@@ -2127,6 +2142,9 @@ Style/ParallelAssignment:
 Style/ParenthesesAroundCondition:
   Enabled: true
 
+Style/PartitionInsteadOfDoubleSelect:
+  Enabled: false
+
 Style/PercentLiteralDelimiters:
   Enabled: false
 
@@ -2134,6 +2152,9 @@ Style/PercentQLiterals:
   Enabled: false
 
 Style/PerlBackrefs:
+  Enabled: false
+
+Style/PredicateWithKind:
   Enabled: false
 
 Style/PreferredHashMethods:
@@ -2149,6 +2170,9 @@ Style/RaiseArgs:
   Enabled: true
 
 Style/RandomWithOffset:
+  Enabled: false
+
+Style/ReduceToHash:
   Enabled: false
 
 Style/RedundantArgument:
@@ -2220,6 +2244,9 @@ Style/RedundantInterpolationUnfreeze:
 Style/RedundantLineContinuation:
   Enabled: false
 
+Style/RedundantMinMaxBy:
+  Enabled: false
+
 Style/RedundantParentheses:
   Enabled: true
 
@@ -2259,6 +2286,9 @@ Style/RedundantSortBy:
 Style/RedundantStringEscape:
   Enabled: false
 
+Style/RedundantStructKeywordInit:
+  Enabled: false
+
 Style/RegexpLiteral:
   Enabled: false
 
@@ -2287,6 +2317,12 @@ Style/SafeNavigationChainLength:
   Enabled: false
 
 Style/Sample:
+  Enabled: false
+
+Style/SelectByKind:
+  Enabled: false
+
+Style/SelectByRange:
   Enabled: false
 
 Style/SelectByRegexp:
@@ -2391,6 +2427,9 @@ Style/SymbolLiteral:
 
 Style/SymbolProc:
   Enabled: true
+
+Style/TallyMethod:
+  Enabled: false
 
 Style/TernaryParentheses:
   Enabled: false
