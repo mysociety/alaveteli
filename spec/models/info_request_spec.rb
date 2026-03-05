@@ -605,14 +605,14 @@ RSpec.describe InfoRequest do
   describe '#receive' do
     it 'creates a new incoming message' do
       info_request = FactoryBot.create(:info_request)
-      receive_mail(info_request)
+      receive_incoming_mail(info_request: info_request)
       expect(info_request.incoming_messages.count).to eq(1)
       expect(info_request.incoming_messages.last).to be_persisted
     end
 
     it 'creates a new raw_email with the incoming email data' do
       info_request = FactoryBot.create(:info_request)
-      mail = receive_mail(info_request)
+      mail = receive_incoming_mail(info_request: info_request)
       expect(info_request.incoming_messages.first.raw_email.data).
         to eq(mail.raw_source)
       expect(info_request.incoming_messages.first.raw_email).to be_persisted
@@ -620,7 +620,7 @@ RSpec.describe InfoRequest do
 
     it 'marks the request as awaiting description' do
       info_request = FactoryBot.create(:info_request)
-      receive_mail(info_request)
+      receive_incoming_mail(info_request: info_request)
       expect(info_request.awaiting_description).to be true
     end
 
@@ -629,14 +629,14 @@ RSpec.describe InfoRequest do
                                        awaiting_description: false)
       info_request.described_state = "user_withdrawn"
       info_request.save!
-      receive_mail(info_request)
+      receive_incoming_mail(info_request: info_request)
       expect(info_request.awaiting_description).to be false
       expect(info_request.described_state).to eq("user_withdrawn")
     end
 
     it 'logs an event' do
       info_request = FactoryBot.create(:info_request)
-      receive_mail(info_request)
+      receive_incoming_mail(info_request: info_request)
       expect(info_request.info_request_events.last.incoming_message.id).
         to eq(info_request.incoming_messages.last.id)
       expect(info_request.info_request_events.last).to be_response
@@ -644,9 +644,29 @@ RSpec.describe InfoRequest do
 
     it 'logs a rejected reason' do
       info_request = FactoryBot.create(:info_request)
-      receive_mail(info_request, rejected_reason: 'rejected for testing')
+      receive_incoming_mail(
+        info_request: info_request, rejected_reason: 'rejected for testing'
+      )
       expect(info_request.info_request_events.last.params[:rejected_reason]).
         to eq('rejected for testing')
+    end
+
+    it 'stores message_id on the raw_email' do
+      info_request = FactoryBot.create(:info_request)
+      incoming_message = info_request.receive(
+        get_fixture_mail('incoming-request-plain.eml'),
+        message_id: '12345678'
+      )
+      expect(incoming_message.raw_email.message_id).to eq('12345678')
+    end
+
+    it 'stores message_checksum on the raw_email' do
+      info_request = FactoryBot.create(:info_request)
+      incoming_message = info_request.receive(
+        get_fixture_mail('incoming-request-plain.eml'),
+        message_checksum: 'abcdefgh'
+      )
+      expect(incoming_message.raw_email.message_checksum).to eq('abcdefgh')
     end
 
     describe 'notifying the request owner' do
@@ -661,7 +681,7 @@ RSpec.describe InfoRequest do
           allow(info_request).to receive(:user).and_return(info_request.user)
           expect(info_request.user).
             to receive(:notify).with(a_new_response_event_for(info_request))
-          receive_mail(info_request)
+          receive_incoming_mail(info_request: info_request)
         end
       end
 
@@ -671,7 +691,7 @@ RSpec.describe InfoRequest do
         end
 
         it 'emails the user that a response has been received' do
-          receive_mail(info_request)
+          receive_incoming_mail(info_request: info_request)
           notification = ActionMailer::Base.deliveries.last
           expect(notification.to).to include(info_request.user.email)
           expect(ActionMailer::Base.deliveries.size).to eq(1)
@@ -682,9 +702,9 @@ RSpec.describe InfoRequest do
       context 'when the request is external' do
         it 'does not email or notify anyone' do
           info_request = FactoryBot.create(:external_request)
-          expect { receive_mail(info_request) }.
+          expect { receive_incoming_mail(info_request: info_request) }.
             not_to change { ActionMailer::Base.deliveries.size }
-          expect { receive_mail(info_request) }.
+          expect { receive_incoming_mail(info_request: info_request) }.
             not_to change { Notification.count }
         end
       end
@@ -701,7 +721,7 @@ RSpec.describe InfoRequest do
         travel_back
 
         updated_at = info_request.updated_at
-        receive_mail(info_request)
+        receive_incoming_mail(info_request: info_request)
         holding_pen = InfoRequest.holding_pen_request
         msg = 'This request has been set by an administrator to "allow new ' \
               'responses from nobody"'
@@ -719,7 +739,7 @@ RSpec.describe InfoRequest do
         attrs = { allow_new_responses_from: 'anybody',
                   handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
-        receive_mail(info_request)
+        receive_incoming_mail(info_request: info_request)
         expect(info_request.incoming_messages.count).to eq(1)
       end
 
@@ -727,7 +747,9 @@ RSpec.describe InfoRequest do
         attrs = { allow_new_responses_from: 'authority_only',
                   handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request_with_incoming, attrs)
-        receive_mail(info_request, from: 'bob@example.com')
+        receive_incoming_mail(
+          info_request: info_request, from: 'bob@example.com'
+        )
         expect(info_request.reload.incoming_messages.count).to eq(2)
       end
 
@@ -741,7 +763,7 @@ RSpec.describe InfoRequest do
         travel_back
 
         updated_at = info_request.updated_at
-        receive_mail(info_request, from: '')
+        receive_incoming_mail(info_request: info_request, from: '')
         expect(info_request.reload.incoming_messages.count).to eq(0)
         holding_pen = InfoRequest.holding_pen_request
         expect(holding_pen.incoming_messages.count).to eq(1)
@@ -764,7 +786,9 @@ RSpec.describe InfoRequest do
         travel_back
 
         updated_at = info_request.updated_at
-        receive_mail(info_request, from: 'spam@example.net')
+        receive_incoming_mail(
+          info_request: info_request, from: 'spam@example.net'
+        )
         expect(info_request.reload.incoming_messages.count).to eq(0)
         holding_pen = InfoRequest.holding_pen_request
         expect(holding_pen.incoming_messages.count).to eq(1)
@@ -781,7 +805,7 @@ RSpec.describe InfoRequest do
         info_request = FactoryBot.create(:info_request)
         info_request.allow_new_responses_from = 'unknown_value'
         err = InfoRequest::ResponseGatekeeper::UnknownResponseGatekeeperError
-        expect { receive_mail(info_request) }.
+        expect { receive_incoming_mail(info_request: info_request) }.
           to raise_error(err)
       end
 
@@ -789,7 +813,9 @@ RSpec.describe InfoRequest do
         attrs = { allow_new_responses_from: 'nobody',
                   handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
-        receive_mail(info_request, override_stop_new_responses: true)
+        receive_incoming_mail(
+          info_request: info_request, override_stop_new_responses: true
+        )
         expect(info_request.incoming_messages.count).to eq(1)
       end
 
@@ -818,9 +844,9 @@ RSpec.describe InfoRequest do
         attrs = { allow_new_responses_from: 'nobody',
                   handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
-        receive_mail(
-          info_request,
-          inbound_email: spam_inbound_email,
+        receive_incoming_mail(
+          spam_inbound_email,
+          info_request: info_request,
           override_stop_new_responses: true
         )
         expect(info_request.incoming_messages.count).to eq(1)
@@ -832,7 +858,9 @@ RSpec.describe InfoRequest do
         attrs = { allow_new_responses_from: 'nobody',
                   handle_rejected_responses: 'bounce' }
         info_request = FactoryBot.create(:info_request, attrs)
-        receive_mail(info_request, from: 'bounce@example.com')
+        receive_incoming_mail(
+          info_request: info_request, from: 'bounce@example.com'
+        )
         bounce = ActionMailer::Base.deliveries.first
         expect(bounce.to).to include('bounce@example.com')
         ActionMailer::Base.deliveries.clear
@@ -840,7 +868,9 @@ RSpec.describe InfoRequest do
 
       it 'does not bounce responses to external requests' do
         info_request = FactoryBot.create(:external_request)
-        receive_mail(info_request, from: 'bounce@example.com')
+        receive_incoming_mail(
+          info_request: info_request, from: 'bounce@example.com'
+        )
         expect(ActionMailer::Base.deliveries).to be_empty
         ActionMailer::Base.deliveries.clear
       end
@@ -849,7 +879,7 @@ RSpec.describe InfoRequest do
         attrs = { allow_new_responses_from: 'nobody',
                   handle_rejected_responses: 'bounce' }
         info_request = FactoryBot.create(:info_request, attrs)
-        receive_mail(info_request, from: '')
+        receive_incoming_mail(info_request: info_request, from: '')
         expect(ActionMailer::Base.deliveries).to be_empty
         ActionMailer::Base.deliveries.clear
       end
@@ -858,7 +888,7 @@ RSpec.describe InfoRequest do
         attrs = { allow_new_responses_from: 'nobody',
                   handle_rejected_responses: 'holding_pen' }
         info_request = FactoryBot.create(:info_request, attrs)
-        receive_mail(info_request)
+        receive_incoming_mail(info_request: info_request)
         expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
         # Check that the notification that there's something new in the holding
         # has been sent
@@ -870,7 +900,7 @@ RSpec.describe InfoRequest do
         attrs = { allow_new_responses_from: 'nobody',
                   handle_rejected_responses: 'blackhole' }
         info_request = FactoryBot.create(:info_request, attrs)
-        receive_mail(info_request)
+        receive_incoming_mail(info_request: info_request)
         expect(ActionMailer::Base.deliveries).to be_empty
         expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
         ActionMailer::Base.deliveries.clear
@@ -881,7 +911,7 @@ RSpec.describe InfoRequest do
         info_request = FactoryBot.create(:info_request, attrs)
         info_request.update_attribute(:handle_rejected_responses, 'unknown_value')
         err = InfoRequest::ResponseRejection::UnknownResponseRejectionError
-        expect { receive_mail(info_request) }.
+        expect { receive_incoming_mail(info_request: info_request) }.
           to raise_error(err)
       end
     end
@@ -907,8 +937,8 @@ RSpec.describe InfoRequest do
       EML
 
       receive_incoming_mail(spam_inbound_email,
-                            email_to: info_request.incoming_email,
-                            email_from: 'spammer@example.com')
+                            to: info_request.incoming_email,
+                            from: 'spammer@example.com')
       expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
     end
@@ -938,8 +968,8 @@ RSpec.describe InfoRequest do
       EML
 
       receive_incoming_mail(spam_inbound_email,
-                            email_to: info_request.incoming_email,
-                            email_from: 'spammer@example.com')
+                            to: info_request.incoming_email,
+                            from: 'spammer@example.com')
 
       expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
@@ -970,8 +1000,8 @@ RSpec.describe InfoRequest do
       EML
 
       receive_incoming_mail(spam_inbound_email,
-                            email_to: info_request.incoming_email,
-                            email_from: 'spammer@example.com')
+                            to: info_request.incoming_email,
+                            from: 'spammer@example.com')
       expect(info_request.reload.rejected_incoming_count).to eq(1)
       expect(ActionMailer::Base.deliveries).to be_empty
       ActionMailer::Base.deliveries.clear
@@ -996,8 +1026,8 @@ RSpec.describe InfoRequest do
       EML
 
       receive_incoming_mail(spam_inbound_email,
-                            email_to: info_request.incoming_email,
-                            email_from: 'spammer@example.com')
+                            to: info_request.incoming_email,
+                            from: 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
       expect(ActionMailer::Base.deliveries.size).to eq(1)
       ActionMailer::Base.deliveries.clear
@@ -1021,8 +1051,8 @@ RSpec.describe InfoRequest do
       EML
 
       receive_incoming_mail(spam_inbound_email,
-                            email_to: info_request.incoming_email,
-                            email_from: 'spammer@example.com')
+                            to: info_request.incoming_email,
+                            from: 'spammer@example.com')
       expect(info_request.rejected_incoming_count).to eq(0)
       expect(info_request.incoming_messages.count).to eq(1)
       ActionMailer::Base.deliveries.clear
@@ -1036,9 +1066,9 @@ RSpec.describe InfoRequest do
       end
 
       it 'does not create a new incoming message' do
-        expect { receive_mail(info_request) }.to_not change {
-          info_request.incoming_messages.count
-        }
+        expect { receive_incoming_mail(info_request: info_request) }.to_not(
+          change { info_request.incoming_messages.count }
+        )
       end
     end
   end
@@ -1677,7 +1707,7 @@ RSpec.describe InfoRequest do
 
         Hello, World
       EML
-      mail = receive_mail(info_request, inbound_email: inbound_email)
+      mail = receive_incoming_mail(inbound_email, info_request: info_request)
 
       expect(info_request.incoming_messages.count).to eq(1)
       expect(info_request.already_received?(mail)).to eq(true)
@@ -4086,30 +4116,6 @@ RSpec.describe InfoRequest do
         expect(request_with_no_embargo.embargo).to be nil
       end
     end
-  end
-
-  def receive_mail(info_request, opts = {})
-    inbound_email = opts[:inbound_email] || <<~EML
-      From: EMAIL_FROM
-      To: EMAIL_TO
-      Subject: Basic Email
-
-      Hello, World
-    EML
-
-    email_to = opts[:to] || 'to@example.org'
-    email_from = opts[:from] || 'from@example.com'
-
-    inbound_email.gsub!('EMAIL_TO', email_to)
-    inbound_email.gsub!('EMAIL_FROM', email_from)
-
-    mail = MailHandler.mail_from_string(inbound_email)
-    info_request.receive(
-      mail,
-      rejected_reason: opts[:rejected_reason],
-      override_stop_new_responses: opts[:override_stop_new_responses] || false
-    )
-    mail
   end
 
   describe '#state' do

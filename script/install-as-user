@@ -192,6 +192,10 @@ cp config/storage.yml-example config/storage.yml
 echo Running rails-post-deploy
 script/rails-post-deploy
 
+echo Setting credentials
+INGRESS_PASSWORD=$(random_alphanumerics 24)
+bundle exec rake config_files:set_initial_credentials SECRET_KEY_BASE=$RANDOM_COOKIE_SECRET INGRESS_PASSWORD=$INGRESS_PASSWORD
+
 # We created the test database above and migrated the development / production
 # database through `script/rails-post-deploy`, but in a development install
 # we're left without a ready-to-go test database. We don't want to run

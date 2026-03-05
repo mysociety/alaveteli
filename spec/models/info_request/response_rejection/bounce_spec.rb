@@ -13,7 +13,7 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
       Subject: No From header
       Hello, World
       EOF
-      mail = MailHandler.mail_from_string(inbound_email)
+      mail = Mail.from_source(inbound_email)
       args = [double('info_request'), mail]
 
       expect(described_class.new(*args).reject).to eq(true)
@@ -29,7 +29,7 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
       Subject: Spoofed from address
       Hello, World
       EOF
-      mail = MailHandler.mail_from_string(inbound_email)
+      mail = Mail.from_source(inbound_email)
       args = [info_request, mail]
 
       expect(described_class.new(*args).reject).to eq(true)
@@ -45,7 +45,7 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
       Subject: Spoofed from address
       Hello, World
       EOF
-      mail = MailHandler.mail_from_string(inbound_email)
+      mail = Mail.from_source(inbound_email)
       args = [info_request, mail]
 
       expect(described_class.new(*args).reject).to eq(true)
@@ -61,7 +61,7 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
       Subject: External
       Hello, World
       EOF
-      mail = MailHandler.mail_from_string(inbound_email)
+      mail = Mail.from_source(inbound_email)
       args = [info_request, mail]
 
       expect(described_class.new(*args).reject).to eq(true)
@@ -75,7 +75,7 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
       Subject: External
       Hello, World
       EOF
-      mail = MailHandler.mail_from_string(inbound_email)
+      mail = Mail.from_source(inbound_email)
       args = [info_request, mail]
 
       described_class.new(*args).reject

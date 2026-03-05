@@ -14,6 +14,8 @@
 # config file ourselves.
 require 'active_support/all'
 
+$stdin.binmode
+
 $alaveteli_dir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 
 $LOAD_PATH.push(File.join($alaveteli_dir, 'commonlib', 'rblib'))
@@ -70,7 +72,7 @@ def main(in_test_mode)
     raw_message = $stdin.read
 
     begin
-      message = MailHandler.mail_from_string(raw_message)
+      message = Mail.from_source(raw_message)
     rescue
       # Error parsing message. Just pass it on, to be on the safe side.
       MailHandler::ReplyHandler.forward_on(raw_message) unless in_test_mode

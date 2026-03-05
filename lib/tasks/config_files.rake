@@ -248,4 +248,34 @@ namespace :config_files do
       end
     end
   end
+
+  desc 'Set the initial Rails credentials'
+  task set_initial_credentials: :environment do
+    next if Rails.root.join("config/credentials.yml.enc").exist?
+
+    check_for_env_vars(%w[SECRET_KEY_BASE INGRESS_PASSWORD], <<~TXT.squish)
+      rake config_files:set_initial_credentials
+        SECRET_KEY_BASE=...
+        INGRESS_PASSWORD=...
+    TXT
+    secret_key_base = ENV.fetch("SECRET_KEY_BASE")
+    ingress_password = ENV.fetch("INGRESS_PASSWORD")
+
+    require "active_support/encrypted_configuration"
+
+    encrypted_file = ActiveSupport::EncryptedConfiguration.new(
+      config_path: "config/credentials.yml.enc",
+      key_path: "config/master.key",
+      env_key: "RAILS_MASTER_KEY",
+      raise_if_missing_key: true
+    )
+
+    encrypted_file.change do |tmp_path|
+      File.write(tmp_path, <<~YAML)
+        secret_key_base: #{secret_key_base}
+        action_mailbox:
+          ingress_password: #{ingress_password}
+      YAML
+    end
+  end
 end

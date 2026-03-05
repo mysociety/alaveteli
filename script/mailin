@@ -12,7 +12,7 @@ cat >"$INPUT"
 
 cd "$(dirname "${BASH_SOURCE[0]}")"/..
 
-bundle exec rails runner 'RequestMailer.receive(STDIN.read)' <"$INPUT" >"$OUTPUT" 2>&1
+bundle exec rails runner 'STDIN.binmode; RequestMailer.receive(STDIN.read)' <"$INPUT" >"$OUTPUT" 2>&1
 ERROR_CODE=$?
 if [ ! "$ERROR_CODE" = "0" ]
 then

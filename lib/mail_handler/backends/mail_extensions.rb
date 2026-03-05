@@ -1,6 +1,9 @@
 require 'mail/message'
 require 'mail/part'
 require 'mail/fields/parameter_hash'
+
+require 'action_mailbox/mail_ext'
+
 module Mail
   class Message
     attr_accessor :url_part_number
