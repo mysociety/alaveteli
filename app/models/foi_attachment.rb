@@ -310,8 +310,10 @@ class FoiAttachment < ApplicationRecord
       self.filename = nil
       ensure_filename!
 
+      self.erased_at = Time.zone.now
+      save!
+
       delete_cached_file!
-      touch(:erased_at)
 
       raw_email.erase(editor: editor, reason: 'FoiAttachment#erase')
 

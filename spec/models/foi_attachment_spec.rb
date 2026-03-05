@@ -1900,6 +1900,13 @@ RSpec.describe FoiAttachment do
       subject
     end
 
+    it 'persists changes' do
+      subject
+      foi_attachment.reload
+      expect(foi_attachment.filename).to eq 'attachment.txt'
+      expect(foi_attachment.erased_at).to_not be_nil
+    end
+
     it { is_expected.to eq(true) }
 
     context 'when erased' do
