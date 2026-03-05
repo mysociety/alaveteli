@@ -86,7 +86,7 @@ gem 'rails', '~> 8.0.4'
 gem 'pg', '~> 1.6.3'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
-gem 'addressable', '~> 2.8.7'
+gem 'addressable', '~> 2.8.9'
 gem 'acts_as_versioned', mysociety: 'acts_as_versioned', ref: '13e928b'
 gem 'active_model_otp'
 gem 'activejob-uniqueness', '~> 0.4.0'

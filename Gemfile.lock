@@ -122,8 +122,8 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
-    addressable (2.8.7)
-      public_suffix (>= 2.0.2, < 7.0)
+    addressable (2.8.9)
+      public_suffix (>= 2.0.2, < 8.0)
     annotaterb (4.22.0)
       activerecord (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -413,7 +413,7 @@ GEM
     psych (5.3.1)
       date
       stringio
-    public_suffix (6.0.2)
+    public_suffix (7.0.2)
     puma (7.2.0)
       nio4r (~> 2.0)
     racc (1.8.1)
@@ -651,7 +651,7 @@ DEPENDENCIES
   active_model_otp
   activejob-uniqueness (~> 0.4.0)
   acts_as_versioned!
-  addressable (~> 2.8.7)
+  addressable (~> 2.8.9)
   alaveteli_features!
   annotaterb (~> 4.22.0)
   aws-sdk-s3
