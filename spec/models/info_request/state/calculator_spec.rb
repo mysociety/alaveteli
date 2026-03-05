@@ -248,7 +248,7 @@ RSpec.describe InfoRequest::State::Calculator do
         mail = Mail.new
         mail.to info_request.incoming_email
         mail.body 'Internal review reply'
-        info_request.receive(mail, mail.to_s)
+        info_request.receive(mail)
       end
 
       context "and the user is the owner" do

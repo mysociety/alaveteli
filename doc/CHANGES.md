@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow responses to be received from any source (Graeme Porteous)
 * Add ability to erase attachments (Graeme Porteous)
 * Added Web Share API option on request pages (Lucas Cumsille Montesinos)
 * Add prioritisation indication of admin summary todos (Gareth Rees)
@@ -22,6 +23,9 @@
 
 ## Upgrade Notes
 
+* _Note:_ This release now allows responses to be received from any source,
+  1. Postfix/Exim `./script/mailin` pipe or 2. POP poller.
+  While you can have multiple sources configured we recommend using one only.
 
 * _Optional:_ The new ATI Network Impacts Showcase page can be disabled by
   adding a configuration setting in the theme controller patches:

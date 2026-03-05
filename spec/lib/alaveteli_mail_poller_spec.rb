@@ -44,7 +44,7 @@ RSpec.describe AlaveteliMailPoller do
 
       it 'sends the mail to RequestMailer.receive' do
         expect(RequestMailer).to receive(:receive).
-          with(mockpop3.mails.first.pop, :poller)
+          with(mockpop3.mails.first.pop)
         poller.poll_for_incoming
       end
 
@@ -62,7 +62,7 @@ RSpec.describe AlaveteliMailPoller do
 
         it 'sends an exception notification' do
           poller.poll_for_incoming
-          notification = ActionMailer::Base.deliveries.first
+          notification = ActionMailer::Base.deliveries.last
           expect(notification.subject).
             to eq('[ERROR]  (Net::POPError) "Error code"')
         end
@@ -77,7 +77,7 @@ RSpec.describe AlaveteliMailPoller do
 
         it 'sends an exception notification' do
           poller.poll_for_incoming
-          notification = ActionMailer::Base.deliveries.first
+          notification = ActionMailer::Base.deliveries.last
           expect(notification.subject).
             to eq('[ERROR]  (Net::POPError) "Error code"')
         end
@@ -119,7 +119,7 @@ RSpec.describe AlaveteliMailPoller do
       context 'if there is an error receiving the mail' do
         before do
           allow(RequestMailer).to receive(:receive).
-            with(mockpop3.mails.first.pop, :poller).
+            with(mockpop3.mails.first.pop).
               and_raise(ActiveRecord::StatementInvalid.new("Deadlock"))
         end
 
@@ -135,7 +135,7 @@ RSpec.describe AlaveteliMailPoller do
 
         it 'sends an exception notification' do
           poller.poll_for_incoming
-          notification = ActionMailer::Base.deliveries.first
+          notification = ActionMailer::Base.deliveries.last
           expect(notification.subject).
             to eq('[ERROR]  (ActiveRecord::StatementInvalid) "Deadlock"')
         end
@@ -164,13 +164,13 @@ RSpec.describe AlaveteliMailPoller do
 
         it 'passes the mail to the RequestMailer' do
           expect(RequestMailer).to receive(:receive).
-            with(mockpop3.mails.first.pop, :poller)
+            with(mockpop3.mails.first.pop)
           poller.poll_for_incoming
         end
 
         it 'sends an exception notification' do
           poller.poll_for_incoming
-          exception_notification = ActionMailer::Base.deliveries.first
+          exception_notification = ActionMailer::Base.deliveries.last
           expect(exception_notification.subject).
             to eq('[ERROR]  (Net::POPError) "Error code"')
         end
@@ -226,7 +226,7 @@ RSpec.describe AlaveteliMailPoller do
 
           it 'sends it to RequestMailer.receive' do
             expect(RequestMailer).to receive(:receive).
-              with mockpop3.mails.first.pop, :poller
+              with(mockpop3.mails.first.pop)
             poller.poll_for_incoming
           end
 
@@ -245,7 +245,7 @@ RSpec.describe AlaveteliMailPoller do
 
       it 'sends an exception notification' do
         expect { poller.poll_for_incoming }.to_not raise_error
-        notification = ActionMailer::Base.deliveries.first
+        notification = ActionMailer::Base.deliveries.last
         expect(notification.subject).
           to eq('[ERROR]  (Timeout::Error) "execution expired"')
       end
