@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add exception notifications to background job failures (Graeme Porteous)
 * Integrate ActionMailbox for better inbound email processing (Graeme Porteous)
 * Allow responses to be received from any source (Graeme Porteous)
 * Add ability to erase attachments (Graeme Porteous)
