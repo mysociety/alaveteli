@@ -7,6 +7,37 @@
         <p>
           <strong>Erase this Attachment</strong>
         </p>
+
+        <details>
+          <summary>
+            Permanently destroy this attachment and the underlying raw email.
+          </summary>
+
+          <br />
+
+          <p>
+            This can be used to <strong>permanently destroy data</strong>
+            received in a response by a public body.
+          </p>
+
+          <p>
+            <ul>
+              <li>Destroys this attachment</li>
+              <li>Destroys the underlying raw email data</li>
+              <li>Locks all other attachments from this response</li>
+            </ul>
+          </p>
+
+          <p>
+            Note that <strong>this will not erase from any backups</strong>
+            or file storage retention policies created outside of Alaveteli.
+            In most cases allowing the backed up file to be rotated out is
+            fine, but in the most extreme cases you may wish to manually purge
+            the file from backups.
+          </p>
+        </details>
+
+        <br/>
       </div>
 
       <%= form_for @foi_attachment, url: admin_foi_attachment_erasures_path(@foi_attachment), method: :post, class: 'span4' do |f| %>

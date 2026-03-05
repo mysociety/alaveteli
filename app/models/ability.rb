@@ -93,7 +93,7 @@ class Ability
     can :read, FoiAttachment do |attachment|
       can?(:_read, attachment) &&
         can?(:read, attachment.incoming_message) &&
-        !attachment.erased?
+        attachment.retained?
     end
 
     # Reading messages with prominence

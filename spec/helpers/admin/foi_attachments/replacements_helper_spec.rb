@@ -7,14 +7,14 @@ RSpec.describe Admin::FoiAttachments::ReplacementsHelper do
     let(:foi_attachment) do
       double(
         replaced?: replaced,
-        erased?: erased,
+        retained?: retained,
         replacement_clearable?: replacement_clearable
       )
     end
 
     context 'when the replacement is clearable' do
       let(:replaced) { true }
-      let(:erased) { false }
+      let(:retained) { true }
       let(:replacement_clearable) { true }
 
       it { is_expected.to include('Clear replacement') }
@@ -27,16 +27,16 @@ RSpec.describe Admin::FoiAttachments::ReplacementsHelper do
 
     context 'when the attachment has no replacement' do
       let(:replaced) { false }
-      let(:erased) { false }
+      let(:retained) { true }
       let(:replacement_clearable) { false }
 
       it { is_expected.to include('disabled') }
       it { is_expected.to include('No replacement to clear.') }
     end
 
-    context 'when the attachment is replaced and the raw email is erased' do
+    context 'when the attachment is replaced and retained' do
       let(:replaced) { true }
-      let(:erased) { true }
+      let(:retained) { false }
       let(:replacement_clearable) { false }
 
       it { is_expected.to include('disabled') }

@@ -333,6 +333,31 @@ RSpec.describe RawEmail do
     end
   end
 
+  describe '#retained?' do
+    subject { raw_email.retained? }
+
+    let(:raw_email) do
+      request = FactoryBot.create(:info_request)
+      message = FactoryBot.create(:incoming_message, info_request: request)
+      message.raw_email = FactoryBot.create(:raw_email, :with_file)
+      message.save!
+      message.raw_email
+    end
+
+    it { is_expected.to eq(true) }
+
+    context 'when erased' do
+      before do
+        raw_email.erase(
+          editor: FactoryBot.create(:admin_user),
+          reason: 'PII'
+        )
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#erase' do
     subject { raw_email.erase(editor: editor, reason: reason) }
 
@@ -370,13 +395,14 @@ RSpec.describe RawEmail do
       expect(raw_email.erased_at).to be_a(Time)
     end
 
-    def last_event
-      raw_email.info_request.info_request_events.last
+    def erase_raw_email_event
+      raw_email.info_request.info_request_events.find_by(
+        event_type: 'erase_raw_email'
+      )
     end
 
     it 'logs an event on the associated info_request' do
-      expect { subject }.to change { last_event }
-      expect(last_event.event_type).to eq('erase_raw_email')
+      expect { subject }.to change { erase_raw_email_event }.from(nil)
     end
 
     it 'expires the associated info_request' do
@@ -397,8 +423,8 @@ RSpec.describe RawEmail do
 
     it { is_expected.to eq(true) }
 
-    context 'when already erased' do
-      before { allow(raw_email).to receive(:erased?).and_return(true) }
+    context 'when not retained' do
+      before { allow(raw_email).to receive(:retained?).and_return(false) }
 
       it 'raises an error' do
         expect { subject }.to raise_error(described_class::AlreadyErasedError)

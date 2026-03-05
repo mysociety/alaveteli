@@ -45,11 +45,11 @@
   </div>
 <% end %>
 
-<% if @foi_attachment.erased? %>
+<% unless @foi_attachment.retained? %>
   <div class="row">
     <div class="span12">
       <div class="alert alert-warning">
-        <p>Cannot show the mask, lock or replacement options as this attachment has been erased.</p>
+        <p>Cannot show the mask, lock or replacement options as this attachment or the raw email has been erased.</p>
       </div>
     </div>
   </div>
