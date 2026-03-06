@@ -85,6 +85,8 @@ class IncomingMessage < ApplicationRecord
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
 
+  delegate :expire, :log_event, to: :info_request
+
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.
   def response_event
