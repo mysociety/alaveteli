@@ -99,7 +99,7 @@ RSpec.describe IncomingMessage do
       end
 
       it 'raises an error' do
-        expect { subject }.to raise_error(described_class::RawEmailErasedError)
+        expect { subject }.to raise_error(RawEmail::ErasedError)
       end
     end
   end
@@ -115,7 +115,7 @@ RSpec.describe IncomingMessage do
       end
 
       it 'raises an error' do
-        expect { subject }.to raise_error(described_class::RawEmailErasedError)
+        expect { subject }.to raise_error(RawEmail::ErasedError)
       end
     end
   end
