@@ -125,7 +125,7 @@
   url: https://dostup.org.ua
   image: ukraine.jpg
   featured: false
-  pro: true
+  pro: false
   country:
     en: Ukraine
     es: Ucrania
