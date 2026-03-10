@@ -665,16 +665,33 @@ RSpec.describe IncomingMessage do
     let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
     let(:incoming_message) { info_request.incoming_messages.first }
 
-    before do
-      incoming_message.get_main_body_text_folded
-      incoming_message.reload
+    context 'when main body text is not erased' do
+      before do
+        incoming_message.get_main_body_text_folded
+        incoming_message.reload
+      end
+
+      it 'clears cached values' do
+        expect(incoming_message.cached_main_body_text_folded).to be_present
+        incoming_message.clear_in_database_caches!
+        incoming_message.reload
+        expect(incoming_message.cached_main_body_text_folded).to be_nil
+      end
     end
 
-    it 'clears cached values' do
-      expect(incoming_message.cached_main_body_text_folded).to be_present
-      incoming_message.clear_in_database_caches!
-      incoming_message.reload
-      expect(incoming_message.cached_main_body_text_folded).to be_nil
+    context 'when main body text is erased' do
+      before do
+        incoming_message.get_main_body_text_folded
+        allow(incoming_message.get_main_body_text_part).
+          to receive(:erased?).and_return(true)
+      end
+
+      it 'does not clear cached values' do
+        expect(incoming_message.cached_main_body_text_folded).to be_present
+        incoming_message.clear_in_database_caches!
+        incoming_message.reload
+        expect(incoming_message.cached_main_body_text_folded).to be_present
+      end
     end
   end
 
