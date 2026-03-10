@@ -130,15 +130,6 @@
     en: Ukraine
     es: Ucrania
 
-- title: Mimes Brønn
-  url: https://www.mimesbronn.no
-  image: mimes-bronn.jpg
-  featured: false
-  pro: false
-  country:
-    en: Norway
-    es: Noruega
-
 - title: arthro5A.gr
   url: https://www.arthro5a.gr
   image: arthro5a.jpg
@@ -156,15 +147,6 @@
   country:
     en: Moldova
     es: Moldavia
-
-- title: Informini
-  url: https://www.informini.org
-  image: informini.jpg
-  featured: false
-  pro: false
-  country:
-    en: Tunisia
-    es: Túnez
 
 - title: accessinfo.hk
   url: https://accessinfo.hk
@@ -237,15 +219,6 @@
   country:
     en: Argentina
     es: Argentina
-
-- title: Ask Nepal
-  url: https://asknepal.info
-  image: asknepal.png
-  featured: false
-  pro: false
-  country:
-    en: Nepal
-    es: Nepal
 
 - title: Ask Gov
   url: https://askgov.ge
