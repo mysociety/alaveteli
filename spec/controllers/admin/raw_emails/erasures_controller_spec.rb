@@ -90,7 +90,7 @@ RSpec.describe Admin::RawEmails::ErasuresController do
 
       it 'returns an error' do
         allow_any_instance_of(RawEmail).
-          to receive(:erase).and_raise(RawEmail::AlreadyErasedError)
+          to receive(:erase).and_raise(RawEmail::ErasedError)
 
         post :create, params: params
 

@@ -43,7 +43,7 @@ class FoiAttachment < ApplicationRecord
   include Replaceable
 
   MissingAttachment = Class.new(StandardError)
-  AlreadyErasedError = Class.new(StandardError)
+  ErasedError = Class.new(StandardError)
 
   belongs_to :incoming_message, inverse_of: :foi_attachments, optional: true
   has_one :raw_email, through: :incoming_message, source: :raw_email
@@ -293,7 +293,7 @@ class FoiAttachment < ApplicationRecord
   end
 
   def erase(editor:, reason:)
-    raise AlreadyErasedError if erased?
+    raise ErasedError if erased?
 
     transaction do |t|
       t.after_rollback { return false }

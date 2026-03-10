@@ -298,7 +298,7 @@ RSpec.describe RawEmail do
       before { allow(raw_email).to receive(:erased?).and_return(true) }
 
       it 'raises an error' do
-        expect { subject }.to raise_error(described_class::AlreadyErasedError)
+        expect { subject }.to raise_error(described_class::ErasedError)
       end
     end
 
