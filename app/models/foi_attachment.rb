@@ -64,7 +64,7 @@ class FoiAttachment < ApplicationRecord
 
   delegate :expire, to: :info_request
   delegate :metadata, to: :file_blob, allow_nil: true
-  delegate :erased?, to: :raw_email, prefix: :raw_email
+  delegate :erased?, :erased!, to: :raw_email, prefix: :raw_email
 
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
                 include: %i[redacted_filename display_filename metadata]
@@ -289,11 +289,11 @@ class FoiAttachment < ApplicationRecord
   end
 
   def erased!
-    raise MissingError, "attachment has been erased (ID=#{id})" if erased?
+    raise ErasedError, "attachment has been erased (ID=#{id})" if erased?
   end
 
   def erase(editor:, reason:)
-    raise ErasedError if erased?
+    erased!
 
     transaction do |t|
       t.after_rollback { return false }
@@ -326,6 +326,8 @@ class FoiAttachment < ApplicationRecord
   private
 
   def mail_attributes
+    raw_email_erased!
+
     MailHandler.attachment_attributes_for_hexdigest(
       raw_email.mail,
       hexdigest: hexdigest

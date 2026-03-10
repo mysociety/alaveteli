@@ -216,9 +216,9 @@ RSpec.describe FoiAttachment do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
 
-      it 'raises MissingError error' do
+      it 'raises ErasedError error' do
         expect { foi_attachment.body }.to raise_error(
-          FoiAttachment::MissingError,
+          FoiAttachment::ErasedError,
           "attachment has been erased (ID=#{foi_attachment.id})"
         )
       end
@@ -366,9 +366,9 @@ RSpec.describe FoiAttachment do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
 
-      it 'raises MissingError error' do
+      it 'raises ErasedError error' do
         expect { foi_attachment.body_as_text }.to raise_error(
-          FoiAttachment::MissingError,
+          FoiAttachment::ErasedError,
           "attachment has been erased (ID=#{foi_attachment.id})"
         )
       end
@@ -404,9 +404,9 @@ RSpec.describe FoiAttachment do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
 
-      it 'raises MissingError error' do
+      it 'raises ErasedError error' do
         expect { foi_attachment.default_body }.to raise_error(
-          FoiAttachment::MissingError,
+          FoiAttachment::ErasedError,
           "attachment has been erased (ID=#{foi_attachment.id})"
         )
       end
@@ -433,11 +433,23 @@ RSpec.describe FoiAttachment do
         and_return(double(id: 123, mail: Mail.new, erased!: true))
     end
 
-    it 'raises MissingError error' do
-      expect { foi_attachment.unmasked_body }.to raise_error(
-       FoiAttachment::MissingError,
-       "attachment missing in raw email (ID=#{foi_attachment.id})"
-      )
+    context 'when raw email erased' do
+      before do
+        allow(foi_attachment).to receive(:raw_email).
+          and_return(
+            double(id: 123).tap do |d|
+              allow(d).to receive(:erased!).and_raise(
+                RawEmail::ErasedError, 'email has been erased (ID=123)'
+              )
+            end
+          )
+      end
+
+      it 'raises RawEmail::ErasedError error' do
+        expect { foi_attachment.unmasked_body }.to raise_error(
+          RawEmail::ErasedError, 'email has been erased (ID=123)'
+        )
+      end
     end
 
     context 'when mail handler finds original attachment by hexdigest' do
@@ -587,9 +599,9 @@ RSpec.describe FoiAttachment do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:pdf_attachment, :erased) }
 
-      it 'raises MissingError error' do
+      it 'raises ErasedError error' do
         expect { foi_attachment.body_as_html }.to raise_error(
-          FoiAttachment::MissingError,
+          FoiAttachment::ErasedError,
           "attachment has been erased (ID=#{foi_attachment.id})"
         )
       end
@@ -1833,9 +1845,9 @@ RSpec.describe FoiAttachment do
         allow(foi_attachment).to receive(:id).and_return(123)
       end
 
-      it 'raises MissingError error' do
+      it 'raises ErasedError error' do
         expect { foi_attachment.erased! }.to raise_error(
-          FoiAttachment::MissingError, 'attachment has been erased (ID=123)'
+          FoiAttachment::ErasedError, 'attachment has been erased (ID=123)'
         )
       end
     end
