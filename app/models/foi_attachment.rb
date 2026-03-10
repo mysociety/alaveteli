@@ -289,7 +289,7 @@ class FoiAttachment < ApplicationRecord
   end
 
   def erased?
-    erased_at.present? || raw_email_erased?
+    erased_at.present? #|| raw_email_erased?
   end
 
   def erase(editor:, reason:)
