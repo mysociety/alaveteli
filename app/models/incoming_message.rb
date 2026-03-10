@@ -36,8 +36,6 @@ require 'rexml/document'
 require 'zip'
 
 class IncomingMessage < ApplicationRecord
-  class RawEmailErasedError < StandardError; end
-
   include MessageProminence
   include Taggable
 
@@ -95,7 +93,7 @@ class IncomingMessage < ApplicationRecord
     # values in case we want to regenerate them (due to mail
     # parsing bugs, etc).
     raise "Incoming message id=#{id} has no raw_email" if raw_email.nil?
-    raise RawEmailErasedError if raw_email_erased?
+    raise RawEmail::ErasedError if raw_email_erased?
 
     ActiveRecord::Base.transaction do
       extract_attachments
