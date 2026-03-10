@@ -661,6 +661,23 @@ RSpec.describe IncomingMessage do
     end
   end
 
+  describe '#clear_in_database_caches!' do
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+    let(:incoming_message) { info_request.incoming_messages.first }
+
+    before do
+      incoming_message.get_main_body_text_folded
+      incoming_message.reload
+    end
+
+    it 'clears cached values' do
+      expect(incoming_message.cached_main_body_text_folded).to be_present
+      incoming_message.clear_in_database_caches!
+      incoming_message.reload
+      expect(incoming_message.cached_main_body_text_folded).to be_nil
+    end
+  end
+
   describe '#get_attachment_text_full' do
     it 'does not generate incompatible character encodings' do
       message = FactoryBot.create(:incoming_message)
