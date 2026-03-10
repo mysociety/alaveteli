@@ -216,9 +216,9 @@ RSpec.describe FoiAttachment do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
 
-      it 'raises MissingAttachment error' do
+      it 'raises MissingError error' do
         expect { foi_attachment.body }.
-          to raise_error(FoiAttachment::MissingAttachment, /erased/)
+          to raise_error(FoiAttachment::MissingError, /erased/)
       end
     end
 
@@ -332,12 +332,12 @@ RSpec.describe FoiAttachment do
         expect(foi_attachment.body).to eq('thisisthenewtext')
       end
 
-      it 'raises MissingAttachment exception if attachment still can not be found' do
+      it 'raises MissingError exception if attachment still can not be found' do
         allow(foi_attachment).to(
           receive(:load_attachment_from_incoming_message).and_return(nil)
         )
         expect { foi_attachment.body }.to raise_error(
-          FoiAttachment::MissingAttachment
+          FoiAttachment::MissingError
         )
       end
     end
@@ -362,9 +362,9 @@ RSpec.describe FoiAttachment do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
 
-      it 'raises MissingAttachment error' do
+      it 'raises MissingError error' do
         expect { foi_attachment.body_as_text }.
-          to raise_error(FoiAttachment::MissingAttachment, /erased/)
+          to raise_error(FoiAttachment::MissingError, /erased/)
       end
     end
 
@@ -398,9 +398,9 @@ RSpec.describe FoiAttachment do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
 
-      it 'raises MissingAttachment error' do
+      it 'raises MissingError error' do
         expect { foi_attachment.default_body }.
-          to raise_error(FoiAttachment::MissingAttachment, /erased/)
+          to raise_error(FoiAttachment::MissingError, /erased/)
       end
     end
 
@@ -428,9 +428,9 @@ RSpec.describe FoiAttachment do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
 
-      it 'raises MissingAttachment error' do
+      it 'raises MissingError error' do
         expect { foi_attachment.unmasked_body }.
-          to raise_error(FoiAttachment::MissingAttachment, /erased/)
+          to raise_error(FoiAttachment::MissingError, /erased/)
       end
     end
 
@@ -473,7 +473,7 @@ RSpec.describe FoiAttachment do
 
       it 'raises missing attachment exception' do
         expect { unmasked_body }.to raise_error(
-          FoiAttachment::MissingAttachment,
+          FoiAttachment::MissingError,
           "attachment missing from storage (ID=#{foi_attachment.id})"
         )
       end
@@ -491,7 +491,7 @@ RSpec.describe FoiAttachment do
 
       it 'raises missing attachment exception' do
         expect { unmasked_body }.to raise_error(
-          FoiAttachment::MissingAttachment,
+          FoiAttachment::MissingError,
           "attachment missing in raw email (ID=#{foi_attachment.id})"
         )
       end
@@ -581,9 +581,9 @@ RSpec.describe FoiAttachment do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:pdf_attachment, :erased) }
 
-      it 'raises MissingAttachment error' do
+      it 'raises MissingError error' do
         expect { foi_attachment.body_as_html }.
-          to raise_error(FoiAttachment::MissingAttachment, /erased/)
+          to raise_error(FoiAttachment::MissingError, /erased/)
       end
     end
   end

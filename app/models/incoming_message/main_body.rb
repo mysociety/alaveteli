@@ -25,7 +25,7 @@ module IncomingMessage::MainBody
     main_part = get_main_body_text_part
     _convert_part_body_to_text(main_part)
 
-  rescue FoiAttachment::MissingAttachment
+  rescue FoiAttachment::MissingError
     # occasionally the main body part gets rebuilt while being masked, we should
     # be able to just retry to get the new main body part instance from the db.
     retry

@@ -42,7 +42,7 @@ class FoiAttachment < ApplicationRecord
   include Maskable
   include Replaceable
 
-  MissingAttachment = Class.new(StandardError)
+  MissingError = Class.new(StandardError)
   ErasedError = Class.new(StandardError)
 
   belongs_to :incoming_message, inverse_of: :foi_attachments, optional: true
@@ -126,7 +126,7 @@ class FoiAttachment < ApplicationRecord
   def body
     return @cached_body if @cached_body
 
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
+    raise MissingError, "attachment has been erased (ID=#{id})" if erased?
 
     begin
       return file.download if locked? || masked?
@@ -147,7 +147,7 @@ class FoiAttachment < ApplicationRecord
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed
   def body_as_text
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
+    raise MissingError, "attachment has been erased (ID=#{id})" if erased?
 
     convert_string_to_utf8(body, 'UTF-8')
   end
@@ -155,7 +155,7 @@ class FoiAttachment < ApplicationRecord
   # for text types, the scrubbed UTF-8 text. For all other types, the
   # raw binary
   def default_body
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
+    raise MissingError, "attachment has been erased (ID=#{id})" if erased?
 
     text_type? ? body_as_text.string : body
   end
@@ -163,7 +163,7 @@ class FoiAttachment < ApplicationRecord
   # return the body as it is in the raw email, unmasked without censor rules
   # applied
   def unmasked_body
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
+    raise MissingError, "attachment has been erased (ID=#{id})" if erased?
 
     mail_attributes[:body]
   end
@@ -269,7 +269,7 @@ class FoiAttachment < ApplicationRecord
 
   # For "View as HTML" of attachment
   def body_as_html(**kwargs)
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
+    raise MissingError, "attachment has been erased (ID=#{id})" if erased?
 
     AttachmentToHTML.to_html(self, **kwargs)
   end
@@ -339,11 +339,11 @@ class FoiAttachment < ApplicationRecord
       ) if file.attached?
 
     rescue ActiveStorage::FileNotFoundError
-      raise MissingAttachment, "attachment missing from storage (ID=#{id})"
+      raise MissingError, "attachment missing from storage (ID=#{id})"
     end
 
     unless attributes
-      raise MissingAttachment, "attachment missing in raw email (ID=#{id})"
+      raise MissingError, "attachment missing in raw email (ID=#{id})"
     end
 
     update(hexdigest: attributes[:hexdigest])
@@ -354,7 +354,7 @@ class FoiAttachment < ApplicationRecord
     attachment = load_attachment_from_incoming_message
     return attachment if attachment
 
-    raise MissingAttachment, "attachment couldn't be reloaded using " \
+    raise MissingError, "attachment couldn't be reloaded using " \
       "url_part_number and display_filename attributes"
   end
 
