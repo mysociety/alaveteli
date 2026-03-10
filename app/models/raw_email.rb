@@ -15,7 +15,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class RawEmail < ApplicationRecord
-  class AlreadyErasedError < StandardError; end
+  class ErasedError < StandardError; end
   class UnmaskedAttachmentsError < StandardError; end
 
   # deliberately don't strip_attributes, so keeps raw email properly
@@ -89,7 +89,7 @@ class RawEmail < ApplicationRecord
   end
 
   def erase(editor:, reason:)
-    raise AlreadyErasedError if erased?
+    raise ErasedError if erased?
     raise UnmaskedAttachmentsError unless all_attachments_masked?
 
     transaction do |t|

@@ -1856,11 +1856,11 @@ RSpec.describe FoiAttachment do
 
     it { is_expected.to eq(true) }
 
-    context 'when already erased' do
+    context 'when erased' do
       before { allow(foi_attachment).to receive(:erased?).and_return(true) }
 
       it 'raises an error' do
-        expect { subject }.to raise_error(described_class::AlreadyErasedError)
+        expect { subject }.to raise_error(described_class::ErasedError)
       end
     end
 
