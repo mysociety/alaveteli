@@ -107,7 +107,7 @@
   url: https://imamopravoznati.org
   image: imamo-pravo-znati.jpg
   featured: false
-  pro: false
+  pro: true
   country:
     en: Croatia
     es: Croacia
@@ -116,7 +116,7 @@
   url: https://kimittud.hu/
   image: ki-mit-tud.jpg
   featured: false
-  pro: false
+  pro: true
   country:
     en: Hungary
     es: Hungría
@@ -152,7 +152,7 @@
   url: https://www.vreauinfo.md
   image: vreauinfo.jpg
   featured: false
-  pro: false
+  pro: true
   country:
     en: Moldova
     es: Moldavia
@@ -269,7 +269,7 @@
   url: https://dumedite.org
   image: dumedite.jpg
   featured: false
-  pro: false
+  pro: true
   country:
     en: Kosovo
     es: Kosovo
