@@ -1604,4 +1604,17 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
       )
     end
   end
+
+  context 'when main body attachment is erased' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+
+    before do
+      allow(incoming_message.get_main_body_text_part).to receive(:erased?).
+        and_return(true)
+    end
+
+    it 'returns an empty string' do
+      expect(incoming_message.get_main_body_text_internal).to eq ''
+    end
+  end
 end
