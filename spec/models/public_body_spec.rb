@@ -1100,8 +1100,6 @@ RSpec.describe PublicBody, "when finding_by_tags" do
 end
 
 RSpec.describe PublicBody, " when saving" do
-  include ActiveJob::TestHelper
-
   before do
     @public_body = PublicBody.new
   end
