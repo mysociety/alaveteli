@@ -26,8 +26,6 @@ require 'spec_helper'
 require 'models/concerns/message_prominence'
 
 RSpec.describe FoiAttachment do
-  include ActiveJob::TestHelper
-
   it_behaves_like 'concerns/message_prominence', :body_text
 
   describe '.binary' do

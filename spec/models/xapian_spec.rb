@@ -62,8 +62,6 @@ RSpec.describe PublicBody, " when indexing public bodies with Xapian" do
 end
 
 RSpec.describe PublicBody, " when indexing requests by body they are to" do
-  include ActiveJob::TestHelper
-
   before(:each) do
     update_xapian_index
   end
@@ -120,8 +118,6 @@ RSpec.describe PublicBody, " when indexing requests by body they are to" do
 end
 
 RSpec.describe User, " when indexing requests by user they are from" do
-  include ActiveJob::TestHelper
-
   before(:each) do
     update_xapian_index
   end

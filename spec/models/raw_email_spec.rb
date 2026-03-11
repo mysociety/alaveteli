@@ -11,8 +11,6 @@
 require 'spec_helper'
 
 RSpec.describe RawEmail do
-  include ActiveJob::TestHelper
-
   def roundtrip_data(raw_email, data)
     raw_email.data = data
     raw_email.save!
