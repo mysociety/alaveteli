@@ -1434,6 +1434,18 @@ RSpec.describe User do
       end
     end
 
+    context 'when the user has requests', feature: :user_erase do
+      let(:user) { FactoryBot.build(:user, :closed) }
+      let!(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+      it 'makes redactions permanent on each info request' do
+        expect_any_instance_of(InfoRequest).
+          to receive(:make_redactions_permanent).
+          with(editor: editor, reason: reason)
+        subject
+      end
+    end
+
     context 'the update is unsuccessful' do
       let(:user) { FactoryBot.build(:user, :closed, about_me: 'Hi') }
 
