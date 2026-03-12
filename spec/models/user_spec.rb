@@ -1343,6 +1343,21 @@ RSpec.describe User do
       end
     end
 
+    context 'the user has unmasked attachments' do
+      let(:user) { FactoryBot.create(:user, :closed) }
+
+      before do
+        info_request = FactoryBot.create(:info_request, user: user)
+        message = FactoryBot.create(:plain_incoming_message,
+                                    info_request: info_request)
+        FactoryBot.create(:body_text, :unmasked, incoming_message: message)
+      end
+
+      it 'raises a RawEmail::UnmaskedAttachmentsError' do
+        expect { subject }.to raise_error(RawEmail::UnmaskedAttachmentsError)
+      end
+    end
+
     context 'the update is successful' do
       let(:user) { FactoryBot.build(:user, :closed, about_me: 'Hi') }
 
@@ -1408,6 +1423,18 @@ RSpec.describe User do
 
       it 'destroys any profile photo' do
         expect(user.profile_photo).to be_nil
+      end
+    end
+
+    context 'when the user has requests' do
+      let(:user) { FactoryBot.build(:user, :closed) }
+      let!(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+      it 'makes redactions permanent on each info request' do
+        expect_any_instance_of(InfoRequest).
+          to receive(:make_redactions_permanent).
+          with(editor: editor, reason: reason)
+        subject
       end
     end
 

@@ -13,14 +13,11 @@ module User::Erasable
 
   def erase!(editor:, reason:)
     raise ActiveRecord::RecordInvalid unless closed?
+    raise RawEmail::UnmaskedAttachmentsError unless all_attachments_masked?
 
     transaction do
       destroy_identifying_associations
-
-      outgoing_messages.update!(
-        from_name: _('[Name Removed]')
-      )
-
+      make_request_redactions_permanent(editor: editor, reason: reason)
       erase_account
     end
   end
@@ -32,6 +29,11 @@ module User::Erasable
     sign_ins.destroy_all
     email_histories.destroy_all
     profile_photo&.destroy!
+  end
+
+  def make_request_redactions_permanent(...)
+    outgoing_messages.update!(from_name: _('[Name Removed]'))
+    info_requests.find_each { |request| request.make_redactions_permanent(...) }
   end
 
   def erase_account
