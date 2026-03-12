@@ -3,6 +3,7 @@ require 'spec_helper'
 RSpec.describe UserController do
   describe 'GET show' do
     let(:user) { FactoryBot.create(:user) }
+    let(:admin) { FactoryBot.create(:admin_user) }
 
     it 'renders the show template' do
       get :show, params: { url_name: user.url_name }
@@ -112,7 +113,7 @@ RSpec.describe UserController do
       end
 
       it 'does not show requests and batch requests for a closed user' do
-        user.close_and_anonymise
+        user.close_and_anonymise(editor: admin, reason: 'test')
         make_request
 
         expect(assigns[:show_profile]).to be false
@@ -1404,6 +1405,8 @@ RSpec.describe UserController, "when showing JSON version for API" do
 end
 
 RSpec.describe UserController, "when viewing the wall" do
+  let(:admin) { FactoryBot.create(:admin_user) }
+
   it 'orders feed results by created_at descending' do
     user = FactoryBot.create(:user)
 

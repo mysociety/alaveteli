@@ -1383,10 +1383,12 @@ RSpec.describe User do
     let(:user) { FactoryBot.create(:user) }
 
     it 'delegates to close!, anonymise! and erase! methods' do
+      editor = double
+      reason = double
       expect(user).to receive(:close!)
       expect(user).to receive(:anonymise!)
-      expect(user).to receive(:erase!)
-      user.close_and_anonymise
+      expect(user).to receive(:erase!).with(editor: editor, reason: reason)
+      user.close_and_anonymise(editor: editor, reason: reason)
     end
   end
 
@@ -1469,14 +1471,17 @@ RSpec.describe User do
   end
 
   describe '#erase' do
-    subject { user.erase }
+    subject { user.erase(editor: editor, reason: reason) }
 
+    let(:editor) { instance_double(User) }
+    let(:reason) { 'GDPR' }
     let(:user) { FactoryBot.build(:user) }
 
     context 'the update is successful' do
       before do
         user.close!
-        expect(user).to receive(:erase!).and_call_original
+        expect(user).to receive(:erase!).
+          with(editor: editor, reason: reason).and_call_original
         subject
       end
 
@@ -1489,7 +1494,9 @@ RSpec.describe User do
 
     context 'the update is unsuccessful' do
       before do
-        expect(user).to receive(:erase!).and_raise(ActiveRecord::RecordInvalid)
+        expect(user).to receive(:erase!).
+          with(editor: editor, reason: reason).
+          and_raise(ActiveRecord::RecordInvalid)
         subject
       end
 
@@ -1502,7 +1509,10 @@ RSpec.describe User do
   end
 
   describe '#erase!' do
-    subject { user.erase! }
+    subject { user.erase!(editor: editor, reason: reason) }
+
+    let(:editor) { instance_double(User) }
+    let(:reason) { 'GDPR' }
 
     context 'the user account is not closed' do
       let(:user) { FactoryBot.build(:user, about_me: 'Hi') }

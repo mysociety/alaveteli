@@ -169,14 +169,20 @@
         <br />
       </div>
 
-      <%= form_tag admin_user_erasure_path(@admin_user), class: 'span3 form form-inline' do %>
+      <%= form_tag admin_user_erasure_path(@admin_user), class: 'span4 form form-inline' do %>
         <% disabled = !@admin_user.closed? || @admin_user.banned? || @admin_user.is_pro? %>
         <% submit_class = %w(btn btn-danger) %>
         <% submit_class << 'disabled' if disabled %>
-        <%= submit_tag 'Erase',
-          class: submit_class,
-          disabled: disabled,
-          data: { confirm: 'Are you sure? This is irreversible.' } %>
+        <div class="input-append">
+          <%= text_field_tag :reason, nil,
+                placeholder: 'Reason for erasure',
+                required: true,
+                disabled: disabled %>
+          <%= submit_tag 'Erase',
+                class: submit_class,
+                disabled: disabled,
+                data: { confirm: 'Are you sure? This is irreversible.' } %>
+        </div>
       <% end %>
     </div>
   </div>
