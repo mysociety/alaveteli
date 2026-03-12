@@ -1715,7 +1715,7 @@ RSpec.describe FoiAttachment do
 
     let(:foi_attachment) { FactoryBot.create(:body_text) }
 
-    context 'when replaced and raw email is not erased' do
+    context 'when replaced and not erased' do
       before do
         allow(foi_attachment).to receive(:replaced?).and_return(true)
         allow(foi_attachment).to receive(:erased?).and_return(false)
@@ -1724,7 +1724,7 @@ RSpec.describe FoiAttachment do
       it { is_expected.to eq(true) }
     end
 
-    context 'when replaced and raw email is erased' do
+    context 'when replaced and erased' do
       before do
         allow(foi_attachment).to receive(:replaced?).and_return(true)
         allow(foi_attachment).to receive(:erased?).and_return(true)
@@ -1799,16 +1799,6 @@ RSpec.describe FoiAttachment do
 
     context 'when erased_at is present' do
       let(:foi_attachment) { FactoryBot.build(:body_text, :erased) }
-      it { is_expected.to be true }
-    end
-
-    context 'when erased_at is nil but raw email has been erased' do
-      let(:foi_attachment) { FactoryBot.build(:body_text) }
-
-      before do
-        allow(foi_attachment).to receive(:raw_email_erased?).and_return(true)
-      end
-
       it { is_expected.to be true }
     end
   end
