@@ -63,8 +63,8 @@ class FoiAttachment < ApplicationRecord
   scope :erased, -> { where.not(erased_at: nil) }
 
   delegate :expire, to: :info_request
-  delegate :raw_email_erased?, to: :incoming_message
   delegate :metadata, to: :file_blob, allow_nil: true
+  delegate :erased?, to: :raw_email, prefix: :raw_email
 
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
                 include: %i[redacted_filename display_filename metadata]
