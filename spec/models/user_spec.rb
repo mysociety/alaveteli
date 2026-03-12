@@ -1424,6 +1424,20 @@ RSpec.describe User do
     end
   end
 
+  describe '#erase_later' do
+    subject { user.erase_later(editor: editor, reason: reason) }
+
+    let(:user) { FactoryBot.create(:user) }
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'GDPR' }
+
+    it 'enqueues a User::ErasureJob' do
+      expect { subject }.
+        to have_enqueued_job(User::ErasureJob).
+        with(user, editor: editor, reason: reason)
+    end
+  end
+
   describe '#anonymise!' do
     subject { user.anonymise! }
 

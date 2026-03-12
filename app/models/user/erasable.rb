@@ -1,6 +1,10 @@
 module User::Erasable
   extend ActiveSupport::Concern
 
+  def erase_later(editor:, reason:)
+    User::ErasureJob.perform_later(self, editor: editor, reason: reason)
+  end
+
   def erase(...)
     erase!(...)
   rescue ActiveRecord::RecordInvalid
