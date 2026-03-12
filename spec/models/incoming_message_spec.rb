@@ -269,6 +269,26 @@ RSpec.describe IncomingMessage do
     end
   end
 
+  describe '#raw_email_erased?' do
+    subject { message.raw_email_erased? }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    before do
+      allow(message).to receive(:raw_email).and_return(raw_email)
+    end
+
+    context 'when the raw_email is erased' do
+      let(:raw_email) { double(erased?: true) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the raw_email is erased' do
+      let(:raw_email) { double(erased?: false) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#redeliverable?' do
     subject { message.redeliverable? }
 

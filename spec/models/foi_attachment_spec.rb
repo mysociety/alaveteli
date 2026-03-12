@@ -1781,11 +1781,22 @@ RSpec.describe FoiAttachment do
   end
 
   describe '#raw_email_erased?' do
+    subject { foi_attachment.raw_email_erased? }
+
     let(:foi_attachment) { FactoryBot.build(:body_text) }
 
-    it 'delegates to info_request' do
-      expect(foi_attachment.incoming_message).to receive(:raw_email_erased?)
-      foi_attachment.raw_email_erased?
+    before do
+      allow(foi_attachment).to receive(:raw_email).and_return(raw_email)
+    end
+
+    context 'when the raw_email is erased' do
+      let(:raw_email) { double(erased?: true) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the raw_email is not erased' do
+      let(:raw_email) { double(erased?: false) }
+      it { is_expected.to eq(false) }
     end
   end
 

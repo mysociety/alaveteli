@@ -81,6 +81,7 @@ class IncomingMessage < ApplicationRecord
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
+  delegate :erased?, to: :raw_email, prefix: :raw_email
 
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.
@@ -115,10 +116,6 @@ class IncomingMessage < ApplicationRecord
   end
 
   alias valid_to_reply_to? valid_to_reply_to
-
-  def raw_email_erased?
-    raw_email.erased?
-  end
 
   # We can't redeliver when the RawEmail has been erased because redelivery
   # currently extracts the underlying data and creates a new response as if it
