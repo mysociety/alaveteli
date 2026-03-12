@@ -2,11 +2,18 @@ require 'spec_helper'
 
 RSpec.describe Admin::Users::ErasuresController do
   describe 'POST #create' do
+    let(:admin_user) { FactoryBot.create(:admin_user) }
     let(:user) { FactoryBot.create(:user) }
+
+    before do
+      sign_in(admin_user)
+      allow(@controller).
+        to receive(:admin_current_user).and_return(admin_user.name)
+    end
 
     context 'with valid params for erasing' do
       let(:valid_params) do
-        { user_id: user.id }
+        { user_id: user.id, reason: 'GDPR' }
       end
 
       before { post :create, params: valid_params }
@@ -28,7 +35,7 @@ RSpec.describe Admin::Users::ErasuresController do
 
     context 'with valid params for erasing' do
       let(:valid_params) do
-        { user_id: user.id }
+        { user_id: user.id, reason: 'GDPR' }
       end
 
       def create
@@ -37,7 +44,10 @@ RSpec.describe Admin::Users::ErasuresController do
 
       it 'erases the user' do
         allow(User).to receive(:find).with(user.id.to_s).and_return(user)
-        expect(user).to receive(:erase!)
+
+        expect(user).
+          to receive(:erase!).with(editor: admin_user.name, reason: 'GDPR')
+
         create
       end
     end
@@ -52,7 +62,7 @@ RSpec.describe Admin::Users::ErasuresController do
 
     context 'on a closed account' do
       let(:valid_params) do
-        { user_id: user.id }
+        { user_id: user.id, reason: 'GDPR' }
       end
 
       before do

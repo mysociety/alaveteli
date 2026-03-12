@@ -449,11 +449,11 @@ class User < ApplicationRecord
     end
   end
 
-  def close_and_anonymise
+  def close_and_anonymise(editor:, reason:)
     transaction do
       close!
       anonymise!
-      erase!
+      erase!(editor: editor, reason: reason)
     end
   end
 
