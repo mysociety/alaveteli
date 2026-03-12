@@ -1,13 +1,13 @@
 module User::Erasable
   extend ActiveSupport::Concern
 
-  def erase
-    erase!
+  def erase(...)
+    erase!(...)
   rescue ActiveRecord::RecordInvalid
     false
   end
 
-  def erase!
+  def erase!(editor:, reason:)
     raise ActiveRecord::RecordInvalid unless closed?
 
     transaction do
