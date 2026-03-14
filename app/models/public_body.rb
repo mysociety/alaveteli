@@ -151,6 +151,10 @@ class PublicBody < ApplicationRecord
     strip_attributes allow_empty: true, only: %i[request_email]
   end
 
+
+  include PgSearch::Model
+  multisearchable against: [:name, :short_name]
+
   non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
   non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
   non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'
