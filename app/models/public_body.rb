@@ -158,6 +158,47 @@ class PublicBody < ApplicationRecord
   # This does not work, because name and short_name are not actual columns
   # on the public_bodies table.
   # pg_search_scope :search_by_name, against: [:name, :short_name]
+ 
+  # use a pg_search_scope built on a tsvector column that is updated by
+  # a pg trigger, as shown in docs
+  pg_search_scope :pg_search_with_scope,
+                # pg_search requires a colum from public_bodies here, or it fails
+                # to build a valid SQL query, so I used something that shouldn't interfere too much
+                # with the search terms, but this is not a viable option here
+                against: :last_edit_comment,
+                using: {
+                  tsearch: {
+                    dictionary: 'french',
+                    tsvector_column: 'name_tsv'
+                  },
+                  trigram: {} # trigram does not use tsvectors
+                }
+
+  def self.search_with_pg(query, locale= AlaveteliLocalization.locale)
+    # sub-ms search, uses the GIN(tsvector) index created in migration.
+    # pg_search does not seem to be able to produce this by itself.
+    # susceptible to injection, not for production use!
+    search_terms = query.split(' ').map{|q| "to_tsquery('#{locale}', unaccent(COALESCE('#{q}', '')))"}.join(' && ')
+
+    sql = <<-SQL
+      SELECT
+        "public_bodies".* FROM "public_bodies" INNER JOIN (
+        SELECT
+          "public_bodies"."id" AS pg_search_id,
+          (ts_rank(("public_bodies"."name_tsv"), (#{search_terms})), 0) AS rank
+        FROM "public_bodies"
+        WHERE
+          (("public_bodies"."name_tsv") @@ (#{search_terms}))) AS pg_search_subreq
+      ON
+        "public_bodies"."id" = pg_search_subreq.pg_search_id
+      ORDER BY
+        pg_search_subreq.rank DESC,
+        "public_bodies"."id" ASC
+    SQL
+
+    PublicBody.find_by_sql(sql)
+  end
+
 
   non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
   non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
