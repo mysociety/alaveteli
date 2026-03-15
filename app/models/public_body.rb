@@ -155,6 +155,10 @@ class PublicBody < ApplicationRecord
   include PgSearch::Model
   multisearchable against: [:name, :short_name]
 
+  # This does not work, because name and short_name are not actual columns
+  # on the public_bodies table.
+  # pg_search_scope :search_by_name, against: [:name, :short_name]
+
   non_versioned_columns << 'created_at' << 'updated_at' << 'first_letter' << 'api_key'
   non_versioned_columns << 'info_requests_count' << 'info_requests_successful_count'
   non_versioned_columns << 'info_requests_count' << 'info_requests_visible_classified_count'

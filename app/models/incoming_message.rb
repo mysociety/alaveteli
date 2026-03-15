@@ -84,6 +84,16 @@ class IncomingMessage < ApplicationRecord
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
 
+  include PgSearch::Model
+  pg_search_scope :search_by_body,
+    against: :cached_main_body_text_unfolded,
+    using: {
+      trigram: {},
+      # dmetaphone: {},  # pg docs suggest this may be half useful for non-english
+      # https://www.postgresql.org/docs/current/fuzzystrmatch.html#FUZZYSTRMATCH-DOUBLE-METAPHONE
+      tsearch: { dictionary: "french", prefix: true }
+    }
+
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.
   def response_event
