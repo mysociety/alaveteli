@@ -1,3 +1,10 @@
+# 0.45.4.0
+
+## Highlighted Features
+
+* Fix censor rules not being applied to attachment filenames in downloads
+  (Gareth Rees)
+
 # 0.45.3.2
 
 ## Highlighted Features
