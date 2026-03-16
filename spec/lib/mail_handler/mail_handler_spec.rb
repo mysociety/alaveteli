@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 def create_message_from(from_field)
-  mail_data = load_file_fixture('incoming-request-plain.eml')
-  mail_data.gsub!('EMAIL_FROM', from_field)
-  mail = MailHandler.mail_from_string(mail_data)
+  get_fixture_mail('incoming-request-plain.eml', from: from_field)
 end
 
 RSpec.describe 'when creating a mail object from raw data' do
@@ -133,15 +131,17 @@ end
 
 RSpec.describe 'when asked for all the addresses a mail has been sent to' do
   it 'should return an array containing the envelope-to address and the to address, and the cc address if there is one' do
-    mail_data = load_file_fixture('humberside-police-odd-mime-type.eml')
-    mail_data.gsub!('Envelope-to: request-5335-xxxxxxxx@whatdotheyknow.com',
-                    'Envelope-to: request-5555-xxxxxxxx@whatdotheyknow.com')
-    mail_data.gsub!('Cc: request-5335-xxxxxxxx@whatdotheyknow.com',
-                    'Cc: request-3333-xxxxxxxx@whatdotheyknow.com')
-    mail = MailHandler.mail_from_string(mail_data)
-    expect(MailHandler.get_all_addresses(mail)).to eq(['request-5335-xxxxxxxx@whatdotheyknow.com',
-                                                   'request-3333-xxxxxxxx@whatdotheyknow.com',
-                                                   'request-5555-xxxxxxxx@whatdotheyknow.com'])
+    mail = get_fixture_mail(
+      'incoming-request-plain.eml',
+      cc: 'request-3333-xxxxxxxx@whatdotheyknow.com',
+      bcc: 'request-4444-xxxxxxxx@whatdotheyknow.com',
+      envelope_to: 'request-5555-xxxxxxxx@whatdotheyknow.com'
+    )
+    expect(MailHandler.get_all_addresses(mail)).to eq([
+      'request-3333-xxxxxxxx@whatdotheyknow.com',
+      'request-4444-xxxxxxxx@whatdotheyknow.com',
+      'request-5555-xxxxxxxx@whatdotheyknow.com'
+    ])
   end
 
   it 'should only return unique values' do
@@ -151,18 +151,17 @@ RSpec.describe 'when asked for all the addresses a mail has been sent to' do
   end
 
   it 'should handle the absence of an envelope-to or cc field' do
-    mail_data = load_file_fixture('autoresponse-header.eml')
-    mail_data.gsub!('To: FOI Person <EMAIL_TO>',
-                    'To: FOI Person <request-5555-xxxxxxxx@whatdotheyknow.com>')
-    mail = MailHandler.mail_from_string(mail_data)
+    mail = get_fixture_mail(
+      'autoresponse-header.eml',
+      to: 'request-5555-xxxxxxxx@whatdotheyknow.com'
+    )
+
     expect(MailHandler.get_all_addresses(mail)).to eq(["request-5555-xxxxxxxx@whatdotheyknow.com"])
   end
 
   it 'should not return invalid addresses' do
-    mail_data = load_file_fixture('autoresponse-header.eml')
-    mail_data.gsub!('To: FOI Person <EMAIL_TO>',
-                    'To: <request-5555-xxxxxxxx>')
-    mail = MailHandler.mail_from_string(mail_data)
+    mail = get_fixture_mail('autoresponse-header.eml', to: 'request-5555-xxxxxxxx')
+
     expect(MailHandler.get_all_addresses(mail)).to eq([])
   end
 end

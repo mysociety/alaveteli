@@ -2,10 +2,12 @@
 #
 # Table name: raw_emails
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime
-#  updated_at :datetime
-#  erased_at  :datetime
+#  id               :integer          not null, primary key
+#  created_at       :datetime
+#  updated_at       :datetime
+#  erased_at        :datetime
+#  message_id       :string
+#  message_checksum :string
 #
 
 # models/raw_email.rb:
@@ -28,7 +30,6 @@ class RawEmail < ApplicationRecord
   has_one_attached :file, service: :raw_emails
 
   delegate :date, to: :mail
-  delegate :message_id, to: :mail
   delegate :multipart?, to: :mail
   delegate :parts, to: :mail
 
@@ -36,6 +37,13 @@ class RawEmail < ApplicationRecord
 
   delegate :lock_all_attachments, to: :incoming_message
   delegate :all_attachments_masked?, to: :incoming_message
+
+  def inbound_email
+    ActionMailbox::InboundEmail.find_by(
+      message_id: message_id,
+      message_checksum: message_checksum
+    ) if self[:message_id] && self[:message_checksum]
+  end
 
   def addresses(include_invalid: false)
     MailHandler.get_all_addresses(mail, include_invalid: include_invalid)
@@ -51,21 +59,33 @@ class RawEmail < ApplicationRecord
     mail.from_addrs.nil? || mail.from_addrs.empty?
   end
 
-  def mail
-    @mail ||= mail!
-  end
+  def mail=(new_mail)
+    @data = new_mail.raw_source # If mail library is passed a string
+    @data = new_mail.encoded if @data.empty? # or if built using the DSL
 
-  def mail!
-    @mail = MailHandler.mail_from_string(data)
-  end
-
-  def data=(d)
-    @data = d.to_s
     file.attach(
       io: StringIO.new(@data),
       filename: "#{incoming_message_id}.eml",
       content_type: 'message/rfc822'
     )
+  end
+
+  def mail
+    @mail ||= mail!
+  end
+
+  def mail!
+    @mail = Mail.from_source(data)
+  end
+
+  def data=(new_data)
+    new_mail = new_data if new_data.is_a?(Mail::Message)
+    new_mail ||= (
+      new_data.force_encoding(Encoding::BINARY)
+      Mail.new(new_data)
+    )
+
+    self.mail = new_mail
   end
 
   def data
@@ -110,6 +130,7 @@ class RawEmail < ApplicationRecord
         )
 
       file.purge_later
+      inbound_email&.destroy
       touch(:erased_at)
 
       expire(preserve_database_cache: true)
@@ -136,6 +157,29 @@ class RawEmail < ApplicationRecord
 
   def storage_key
     file.blob.key if file&.attached?
+  end
+
+  def message_id
+    return self[:message_id] if self[:message_id].present?
+
+    # taken from https://github.com/rails/rails/blob/624fe3c/actionmailbox/app/models/action_mailbox/inbound_email/message_id.rb#L27-L35
+    message_id = mail.message_id rescue nil
+    message_id ||= Mail::MessageIdField.new(
+      "<#{message_checksum}@#{::Socket.gethostname}.mail>"
+    ).message_id
+
+    update_column(:message_id, message_id)
+    message_id
+  end
+
+  def message_checksum
+    return self[:message_checksum] if self[:message_checksum].present?
+
+    # taken from https://github.com/rails/rails/blob/624fe3c/actionmailbox/app/models/action_mailbox/inbound_email/message_id.rb#L17
+    message_checksum = OpenSSL::Digest::SHA1.hexdigest(data)
+
+    update_column(:message_checksum, message_checksum)
+    message_checksum
   end
 
   private

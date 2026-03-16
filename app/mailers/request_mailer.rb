@@ -209,74 +209,8 @@ class RequestMailer < ApplicationMailer
     )
   end
 
-  # Class function, called by script/mailin with all incoming responses.
-  # [ This is a copy (Monkeypatch!) of function from action_mailer/base.rb,
-  # but which additionally passes the inbound email to the member function, as
-  # we want to record it.
-  #
-  # That is because we want to be sure we properly record the actual message
-  # received in its raw form - so any information won't be lost in a round
-  # trip via the mail handler, or by bugs in it, and so we can use something
-  # other than TMail at a later date. And so we can offer an option to download the
-  # actual original mail sent by the authority in the admin interface (so
-  # can check that attachment decoding failures are problems in the message,
-  # not in our code). ]
   def self.receive(inbound_email)
-    unless logger.nil?
-      logger.debug "Received mail:\n #{inbound_email}"
-    end
-    mail = MailHandler.mail_from_string(inbound_email)
-    new.receive(mail)
-  end
-
-  # Find which info requests the email is for
-  def requests_matching_email(mail)
-    addresses = MailHandler.get_all_addresses(mail)
-    InfoRequest.matching_incoming_email(addresses)
-  end
-
-  def send_to_holding_pen(mail)
-    InfoRequest.holding_pen_request.receive(
-      mail,
-      rejected_reason: _("Could not identify the request from the email address")
-    )
-  end
-
-  # Member function, called on the new class made in self.receive above
-  def receive(mail)
-    # Only check mail that doesn't have spam in the header
-    return if SpamAddress.spam?(MailHandler.get_all_addresses(mail))
-
-    # Find exact matches for info requests
-    exact_info_requests = requests_matching_email(mail)
-
-    if exact_info_requests.count > 0
-      # Go through each exact info request and deliver the email
-      exact_info_requests.each do |info_request|
-        info_request.receive(mail)
-      end
-
-      return
-    end
-
-    # If there are no exact matches, find any guessed requests
-    guessed_info_requests = Guess.guessed_info_requests(mail)
-
-    if guessed_info_requests.count == 1
-      # If there one guess automatically redeliver the email to that and log it
-      # as an event
-      info_request = guessed_info_requests.first
-      info_request.log_event(
-        'redeliver_incoming',
-        editor: 'automatic',
-        destination_request: info_request
-      )
-      info_request.receive(mail)
-
-    else
-      # Otherwise we send the mail to the holding pen
-      send_to_holding_pen(mail)
-    end
+    ActionMailbox::InboundEmail.create_and_extract_message_id!(inbound_email)
   end
 
   # Send email alerts for overdue requests

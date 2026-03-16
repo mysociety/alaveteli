@@ -1,10 +1,10 @@
-def file_fixture_name(file_name)
-  Rails.root.join("spec", "fixtures", "files", file_name).to_s
+def file_fixture_name(filename)
+  Rails.root.join("spec", "fixtures", "files", filename).to_s
 end
 
-def load_file_fixture(file_name, mode = 'rb')
-  file_name = file_fixture_name(file_name)
-  File.open(file_name, mode, &:read) if File.exist?(file_name)
+def load_file_fixture(filename, mode = 'rb')
+  filename = file_fixture_name(filename)
+  File.open(filename, mode, &:read) if File.exist?(filename)
 end
 
 def read_described_class_fixture(fixture)

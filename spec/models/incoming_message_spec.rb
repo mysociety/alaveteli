@@ -26,7 +26,7 @@ require 'models/concerns/message_prominence'
 require 'models/concerns/taggable'
 
 def populate_raw_email(fixture)
-  mail = get_fixture_mail(fixture, to, from)
+  mail = get_fixture_mail(fixture, to: to, from: from)
   raw_email.update!(data: mail)
 end
 
@@ -925,7 +925,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should correctly parse multipart mails with a linebreak in the boundary marker' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('space-boundary.eml', email_to: ir.incoming_email)
+    receive_incoming_mail('space-boundary.eml', to: ir.incoming_email)
     message = ir.incoming_messages[1]
     expect(message.parts.size).to eq(2)
     expect(message.multipart?).to eq(true)
@@ -946,7 +946,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
   it "should ensure cached body text has been parsed correctly" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('quoted-subject-iso8859-1.eml',
-                          email_to: ir.incoming_email)
+                          to: ir.incoming_email)
     message = ir.incoming_messages[1]
     expect(message.get_main_body_text_unfolded).not_to include("Email has no body")
   end
@@ -954,7 +954,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
   it "should correctly convert HTML even when there's a meta tag asserting that it is iso-8859-1 which would normally confuse elinks" do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('quoted-subject-iso8859-1.eml',
-                          email_to: ir.incoming_email)
+                          to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email
     expect(message.get_main_body_text_part.charset).to eq("iso-8859-1")
@@ -964,7 +964,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
   it 'should deal with GB18030 text even if the charset is missing' do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('no-part-charset-bad-utf8.eml',
-                          email_to: ir.incoming_email)
+                          to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email
     expect(message.get_main_body_text_internal).to include("贵公司负责人")
@@ -973,7 +973,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
   it 'should not error on display of a message which has no charset set on the body part and is not good UTF-8' do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('no-part-charset-random-data.eml',
-                          email_to: ir.incoming_email)
+                          to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email
     expect(message.get_main_body_text_internal).to include("The above text was badly encoded")
@@ -981,7 +981,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should convert DOS-style linebreaks to Unix style' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('dos-linebreaks.eml', email_to: ir.incoming_email)
+    receive_incoming_mail('dos-linebreaks.eml', to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email
     expect(message.get_main_body_text_internal).not_to match(/\r\n/)
@@ -1001,7 +1001,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should insert some text for messages without a body' do
     ir = info_requests(:fancy_dog_request)
-    receive_incoming_mail('no-body.eml', email_to: ir.incoming_email)
+    receive_incoming_mail('no-body.eml', to: ir.incoming_email)
     message = ir.incoming_messages[1]
     message.parse_raw_email
     expect(message.get_main_body_text_internal).
@@ -1013,7 +1013,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
     # just send it to the holding pen
     expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(0)
     receive_incoming_mail("humberside-police-odd-mime-type.eml",
-                          email_to: 'dummy')
+                          to: 'dummy')
     expect(InfoRequest.holding_pen_request.incoming_messages.count).to eq(1)
 
     # clear the notification of new message in holding pen
@@ -1061,7 +1061,7 @@ RSpec.describe IncomingMessage, " folding quoted parts of emails" do
   it 'should fold an example lotus notes quoted part converted from HTML correctly' do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('lotus-notes-quoting.eml',
-                          email_to: ir.incoming_email)
+                          to: ir.incoming_email)
     message = ir.incoming_messages[1]
     expect(message.get_main_body_text_folded).to match(/FOLDED_QUOTED_SECTION/)
   end
@@ -1091,7 +1091,7 @@ RSpec.describe IncomingMessage, " folding quoted parts of emails" do
   it 'should fold an example of another kind of forward quoting' do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('forward-quoting-example.eml',
-                          email_to: ir.incoming_email)
+                          to: ir.incoming_email)
     message = ir.incoming_messages[1]
     expect(message.get_main_body_text_folded).to match(/FOLDED_QUOTED_SECTION/)
   end
@@ -1099,7 +1099,7 @@ RSpec.describe IncomingMessage, " folding quoted parts of emails" do
   it 'should fold a further example of forward quoting' do
     ir = info_requests(:fancy_dog_request)
     receive_incoming_mail('forward-quoting-example-2.eml',
-                          email_to: ir.incoming_email)
+                          to: ir.incoming_email)
     message = ir.incoming_messages[1]
     body_text = message.get_main_body_text_folded
     expect(body_text).to match(/FOLDED_QUOTED_SECTION/)
@@ -1156,13 +1156,9 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
   end
 
   it "should still work when parsed from the raw email" do
-    data = load_file_fixture('inline-uuencode.eml')
-    mail = MailHandler.mail_from_string(data)
+    mail = get_fixture_mail('inline-uuencode.eml')
     im = incoming_messages(:useless_incoming_message)
-    raw_email = RawEmail.new
-    allow(raw_email).to receive(:data).and_return(data)
-    allow(im).to receive(:raw_email).and_return(raw_email)
-    allow(im).to receive(:mail).and_return(mail)
+    allow(im.raw_email).to receive(:mail!).and_return(mail)
     im.parse_raw_email!
     attachments = im.foi_attachments
     expect(attachments.size).to eq(2)
