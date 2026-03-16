@@ -289,7 +289,7 @@ RSpec.describe IncomingMessage do
     end
   end
 
-  describe '#raw_email_erased!' do
+  describe '#raw_email_ensure_not_erased!' do
     let(:message) { FactoryBot.build(:incoming_message) }
 
     before do
@@ -297,24 +297,24 @@ RSpec.describe IncomingMessage do
     end
 
     context 'when the raw_email is erased' do
-      let(:raw_email) { double(erased!: true) }
+      let(:raw_email) { double(ensure_not_erased!: true) }
 
       it 'returns true' do
-        expect(message.raw_email_erased!).to eq(true)
+        expect(message.raw_email_ensure_not_erased!).to eq(true)
       end
     end
 
     context 'when the raw_email is erased' do
       let(:raw_email) do
         double.tap do |d|
-          allow(d).to receive(:erased!).and_raise(
+          allow(d).to receive(:ensure_not_erased!).and_raise(
             RawEmail::ErasedError, 'email has been erased (ID=123)'
           )
         end
       end
 
       it 'raises RawEmail::ErasedError' do
-        expect { message.raw_email_erased! }.to raise_error(
+        expect { message.raw_email_ensure_not_erased! }.to raise_error(
           RawEmail::ErasedError, 'email has been erased (ID=123)'
         )
       end
