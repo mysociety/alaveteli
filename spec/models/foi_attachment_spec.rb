@@ -438,7 +438,7 @@ RSpec.describe FoiAttachment do
         allow(foi_attachment).to receive(:raw_email).
           and_return(
             double(id: 123).tap do |d|
-              allow(d).to receive(:erased!).and_raise(
+              allow(d).to receive(:ensure_not_erased!).and_raise(
                 RawEmail::ErasedError, 'email has been erased (ID=123)'
               )
             end
@@ -1846,7 +1846,7 @@ RSpec.describe FoiAttachment do
       end
 
       it 'raises ErasedError error' do
-        expect { foi_attachment.erased! }.to raise_error(
+        expect { foi_attachment.ensure_not_erased! }.to raise_error(
           FoiAttachment::ErasedError, 'attachment has been erased (ID=123)'
         )
       end
