@@ -243,7 +243,7 @@ RSpec.describe RawEmail do
     end
   end
 
-  describe '#erased!' do
+  describe '#ensure_not_erased!' do
     let(:raw_email) do
       request = FactoryBot.create(:info_request)
       message = FactoryBot.create(:incoming_message, info_request: request)
@@ -254,7 +254,7 @@ RSpec.describe RawEmail do
 
     context 'when not erased' do
       it 'returns nil' do
-        expect(raw_email.erased!).to be_nil
+        expect(raw_email.ensure_not_erased!).to be_nil
       end
     end
 
@@ -267,7 +267,7 @@ RSpec.describe RawEmail do
       end
 
       it 'raises ErasedError' do
-        expect { raw_email.erased! }.to raise_error(
+        expect { raw_email.ensure_not_erased! }.to raise_error(
           described_class::ErasedError,
           "email has been erased (ID=#{raw_email.id})"
         )

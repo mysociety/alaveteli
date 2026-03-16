@@ -84,7 +84,7 @@ class RawEmail < ApplicationRecord
     !file.attached? && erased_at.present?
   end
 
-  def erased!
+  def ensure_not_erased!
     raise ErasedError, "email has been erased (ID=#{id})" if erased?
   end
 
@@ -93,7 +93,7 @@ class RawEmail < ApplicationRecord
   end
 
   def erase(editor:, reason:)
-    erased!
+    ensure_not_erased!
 
     raise UnmaskedAttachmentsError unless all_attachments_masked?
 
