@@ -430,7 +430,7 @@ RSpec.describe FoiAttachment do
 
     before do
       allow(foi_attachment).to receive(:raw_email).
-        and_return(double(id: 123, mail: Mail.new, erased!: true))
+        and_return(double(id: 123, mail: Mail.new, ensure_not_erased!: true))
     end
 
     context 'when raw email erased' do
@@ -1826,7 +1826,7 @@ RSpec.describe FoiAttachment do
     end
   end
 
-  describe '#erased!' do
+  describe '#ensure_not_erased!' do
     let(:foi_attachment) { FactoryBot.build(:body_text) }
 
     context 'when not erased' do
@@ -1835,7 +1835,7 @@ RSpec.describe FoiAttachment do
       end
 
       it 'returns nil' do
-        expect(foi_attachment.erased!).to be_nil
+        expect(foi_attachment.ensure_not_erased!).to be_nil
       end
     end
 
