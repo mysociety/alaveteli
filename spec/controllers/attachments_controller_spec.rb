@@ -433,6 +433,25 @@ RSpec.describe AttachmentsController, type: :controller do
       end
     end
 
+    context 'when a censor rule redacts an attachment filename' do
+      let(:attachment) do
+        FactoryBot.create(:pdf_attachment, incoming_message: message)
+      end
+
+      it 'uses the redacted filename in the Content-Disposition header' do
+        info_request.censor_rules.create!(
+          text: 'interesting.pdf', replacement: 'REDACTED.pdf',
+          last_edit_editor: 'unknown', last_edit_comment: 'none'
+        )
+
+        show
+
+        header = response.headers['Content-Disposition']
+        expect(header).to include('REDACTED.pdf')
+        expect(header).not_to include('interesting.pdf')
+      end
+    end
+
     context 'when attachment has been erased' do
       let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
       let(:message) { info_request.incoming_messages.first }

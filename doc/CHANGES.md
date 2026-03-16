@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix censor rules not being applied to attachment filenames in downloads
+  (Gareth Rees)
 * Add ability to erase attachments (Graeme Porteous)
 * Added Web Share API option on request pages (Lucas Cumsille Montesinos)
 * Add prioritisation indication of admin summary todos (Gareth Rees)

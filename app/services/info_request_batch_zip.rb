@@ -110,7 +110,7 @@ class InfoRequestBatchZip
       base_path(message.info_request),
       sent_at,
       "attachments-#{message.id}",
-      attachment.filename
+      attachment.display_filename
     ].join('/')
 
     ZippableFile.new(path, attachment.body)
