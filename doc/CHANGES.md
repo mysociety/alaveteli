@@ -40,6 +40,13 @@ to update overrides in your theme to match the new templates.
 
     None yet
 
+
+# 0.46.2.0
+
+## Highlighted Features
+
+* Fix censor rules not being applied to attachment filenames in downloads
+
 # 0.46.1.1
 
 ## Highlighted Features
