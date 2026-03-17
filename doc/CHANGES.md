@@ -288,6 +288,13 @@ to match the new templates.
     app/views/user/wrong_user.html.erb
     app/views/user_mailer/already_registered.text.erb
 
+# 0.45.4.0
+
+## Highlighted Features
+
+* Fix censor rules not being applied to attachment filenames in downloads
+  (Gareth Rees)
+
 # 0.45.3.2
 
 ## Highlighted Features
