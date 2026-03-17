@@ -26,7 +26,7 @@ class AttachmentsController < ApplicationController
     else
       send_data(
         @attachment.body,
-        filename: @attachment.filename,
+        filename: @attachment.display_filename,
         type: content_type
       )
     end

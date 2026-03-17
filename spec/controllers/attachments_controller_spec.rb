@@ -434,6 +434,57 @@ RSpec.describe AttachmentsController, type: :controller do
         expect(response).to be_successful
       end
     end
+
+    context 'when a censor rule redacts an attachment filename' do
+      let(:attachment) do
+        FactoryBot.create(:pdf_attachment, incoming_message: message)
+      end
+
+      it 'uses the redacted filename in the Content-Disposition header' do
+        info_request.censor_rules.create!(
+          text: 'interesting.pdf', replacement: 'REDACTED.pdf',
+          last_edit_editor: 'unknown', last_edit_comment: 'none'
+        )
+
+        show
+
+        header = response.headers['Content-Disposition']
+        expect(header).to include('REDACTED.pdf')
+        expect(header).not_to include('interesting.pdf')
+      end
+    end
+
+    context 'when attachment has been erased' do
+      let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+      let(:message) { info_request.incoming_messages.first }
+      let(:attachment) do
+        FactoryBot.create(:body_text,
+                          incoming_message: message,
+                          erased_at: Time.zone.now)
+      end
+
+      it 'renders erased_attachment view' do
+        show
+        expect(response).to render_template('request/erased_attachment')
+      end
+
+      it 'prevents download' do
+        show
+        expect(response).not_to be_successful
+        expect(response).to render_template('request/erased_attachment')
+      end
+
+      it 'prevents viewing as HTML' do
+        get :show_as_html, params: {
+          request_url_title: info_request.url_title,
+          incoming_message_id: message.id,
+          part: attachment.url_part_number,
+          file_name: "#{attachment.display_filename}.html"
+        }
+        expect(response).not_to be_successful
+        expect(response).to render_template('request/erased_attachment')
+      end
+    end
   end
 
   describe 'GET show_as_html' do
