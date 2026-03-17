@@ -185,6 +185,7 @@ gem 'excel_analyzer', path: 'gems/excel_analyzer', require: false
 
 # AI insights
 gem "ollama-ai", "~> 1.3.0"
+gem 'pg_search'
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
