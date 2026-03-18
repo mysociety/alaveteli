@@ -5,8 +5,6 @@ RSpec.describe 'general/blog' do
 
   before do
     assign :blog, double(posts: [double(blog_post_attributes)])
-    assign :twitter_user, double.as_null_object
-    assign :facebook_user, double.as_null_object
     render
   end
 

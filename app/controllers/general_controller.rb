@@ -32,8 +32,6 @@ class GeneralController < ApplicationController
 
     medium_cache
     @blog = Blog.new
-    @twitter_user = AlaveteliConfiguration.twitter_username
-    @facebook_user = AlaveteliConfiguration.facebook_username
     @feed_autodetect = @blog.feeds
   end
 
