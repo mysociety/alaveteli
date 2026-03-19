@@ -1260,6 +1260,58 @@ RSpec.describe User do
     end
   end
 
+  describe '#all_attachments_masked_or_erased?' do
+    subject { user.all_attachments_masked_or_erased? }
+
+    let(:user) { FactoryBot.create(:user) }
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+    let(:message) do
+      FactoryBot.create(
+        :incoming_message, :with_pdf_attachment, info_request: info_request
+      )
+    end
+
+    let(:foi_attachments) { message.foi_attachments }
+
+    context 'when there are no attachments' do
+      before { foi_attachments.destroy_all }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when all attachments are masked' do
+      before do
+        foi_attachments.update_all(masked_at: Time.zone.now, erased_at: nil)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when all attachments are erased' do
+      before do
+        foi_attachments.update_all(masked_at: nil, erased_at: Time.zone.now)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when attachments are a mix of masked and erased' do
+      before do
+        foi_attachments[0].update!(masked_at: Time.zone.now, erased_at: nil)
+        foi_attachments[1].update!(masked_at: nil, erased_at: Time.zone.now)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when some attachments are neither masked nor erased' do
+      before do
+        foi_attachments[0].update!(masked_at: nil, erased_at: nil)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#erase' do
     subject { user.erase }
 

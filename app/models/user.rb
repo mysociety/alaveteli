@@ -705,6 +705,10 @@ class User < ApplicationRecord
     touch(:last_sign_in_at)
   end
 
+  def all_attachments_masked_or_erased?
+    foi_attachments.unmasked.not_erased.none?
+  end
+
   private
 
   def email_and_name_are_valid
