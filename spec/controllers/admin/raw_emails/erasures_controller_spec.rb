@@ -45,20 +45,17 @@ RSpec.describe Admin::RawEmails::ErasuresController do
           to change { raw_email.reload.erased? }.from(false).to(true)
       end
 
-      def last_event
-        raw_email.
-          info_request.
-          info_request_events.
-          where(event_type: 'erase_raw_email').
-          last
+      def erase_raw_email_event
+        raw_email.info_request.info_request_events.find_by(
+          event_type: 'erase_raw_email'
+        )
       end
 
       it 'logs an erase_raw_email event' do
-        post :create, params: params
-
-        expect(last_event).to be_present
-        expect(last_event.params[:editor]).to eq(admin_user)
-        expect(last_event.params[:reason]).to eq('GDPR request')
+        expect { post :create, params: params }.
+          to change { erase_raw_email_event }.from(nil)
+        expect(erase_raw_email_event.params[:editor]).to eq(admin_user)
+        expect(erase_raw_email_event.params[:reason]).to eq('GDPR request')
       end
     end
 
@@ -90,7 +87,7 @@ RSpec.describe Admin::RawEmails::ErasuresController do
 
       it 'returns an error' do
         allow_any_instance_of(RawEmail).
-          to receive(:erase).and_raise(RawEmail::AlreadyErasedError)
+          to receive(:erase).and_raise(RawEmail::ErasedError)
 
         post :create, params: params
 

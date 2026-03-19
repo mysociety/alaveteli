@@ -34,7 +34,7 @@ RSpec.describe Admin::FoiAttachments::ReplacementsHelper do
       it { is_expected.to include('No replacement to clear.') }
     end
 
-    context 'when the attachment is replaced and the raw email is erased' do
+    context 'when the attachment is replaced and erased' do
       let(:replaced) { true }
       let(:erased) { true }
       let(:replacement_clearable) { false }
