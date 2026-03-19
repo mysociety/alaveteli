@@ -5,6 +5,9 @@ module FoiAttachment::Maskable
 
   included do
     delegate :apply_masks, to: :info_request
+
+    scope :masked, -> { where.not(masked_at: nil) }
+    scope :unmasked, -> { where(masked_at: nil) }
   end
 
   def masked?
