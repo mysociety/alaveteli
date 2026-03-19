@@ -7,6 +7,7 @@ class User::ErasureJob < ApplicationJob
   queue_as :default
 
   def perform(user, editor:, reason:)
+    user.foi_attachments.unmasked.each(&:mask)
     user.erase!(editor: editor, reason: reason)
   end
 end
