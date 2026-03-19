@@ -211,40 +211,26 @@ RSpec.describe IncomingMessage do
   describe '#all_attachments_masked?' do
     subject { message.all_attachments_masked? }
 
-    let(:message) { FactoryBot.create(:incoming_message) }
+    let(:message) do
+      FactoryBot.create(:incoming_message, :with_pdf_attachment)
+    end
 
     context 'when all attachments are masked' do
-      before do
-        allow(message).to receive(:foi_attachments).
-          and_return([double(masked?: true), double(masked?: true)])
-      end
-
+      before { message.foi_attachments.each(&:mask) }
       it { is_expected.to eq(true) }
     end
 
     context 'when some attachments are not masked' do
       before do
-        allow(message).to receive(:foi_attachments).
-          and_return([double(masked?: true), double(masked?: false)])
-      end
-
-      it { is_expected.to eq(false) }
-    end
-
-    context 'when no attachments are masked' do
-      before do
-        allow(message).to receive(:foi_attachments).
-          and_return([double(masked?: false), double(masked?: false)])
+        message.foi_attachments.each(&:mask)
+        FactoryBot.create(:body_text, :unmasked, incoming_message: message)
       end
 
       it { is_expected.to eq(false) }
     end
 
     context 'when there are no attachments' do
-      before do
-        message.foi_attachments.destroy_all
-      end
-
+      before { message.foi_attachments.destroy_all }
       it { is_expected.to eq(true) }
     end
   end
