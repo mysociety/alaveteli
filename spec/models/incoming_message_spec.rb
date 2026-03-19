@@ -211,66 +211,48 @@ RSpec.describe IncomingMessage do
   describe '#all_attachments_masked_or_erased?' do
     subject { message.all_attachments_masked_or_erased? }
 
-    let(:message) { FactoryBot.create(:incoming_message) }
+    let(:message) do
+      FactoryBot.create(:incoming_message, :with_pdf_attachment)
+    end
+
+    let(:foi_attachments) { message.foi_attachments }
+
+    context 'when there are no attachments' do
+      before { foi_attachments.destroy_all }
+      it { is_expected.to eq(true) }
+    end
 
     context 'when all attachments are masked' do
       before do
-        allow(message).to receive(:foi_attachments).and_return(
-          [
-            double(masked?: true, erased?: false),
-            double(masked?: true, erased?: false)
-          ]
-        )
+        foi_attachments.update_all(masked_at: Time.zone.now, erased_at: nil)
       end
 
       it { is_expected.to eq(true) }
     end
 
-    context 'when some attachments are not masked' do
+    context 'when all attachments are erased' do
       before do
-        allow(message).to receive(:foi_attachments).and_return(
-          [
-            double(masked?: true, erased?: false),
-            double(masked?: false, erased?: false)
-          ]
-        )
+        foi_attachments.update_all(masked_at: nil, erased_at: Time.zone.now)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when attachments are a mix of masked and erased' do
+      before do
+        foi_attachments[0].update!(masked_at: Time.zone.now, erased_at: nil)
+        foi_attachments[1].update!(masked_at: nil, erased_at: Time.zone.now)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when some attachments are neither masked nor erased' do
+      before do
+        foi_attachments[0].update!(masked_at: nil, erased_at: nil)
       end
 
       it { is_expected.to eq(false) }
-    end
-
-    context 'when no attachments are masked' do
-      before do
-        allow(message).to receive(:foi_attachments).and_return(
-          [
-            double(masked?: false, erased?: false),
-            double(masked?: false, erased?: false)
-          ]
-        )
-      end
-
-      it { is_expected.to eq(false) }
-    end
-
-    context 'when there are no attachments' do
-      before do
-        message.foi_attachments.destroy_all
-      end
-
-      it { is_expected.to eq(true) }
-    end
-
-    context 'when some attachments are erased' do
-      before do
-        allow(message).to receive(:foi_attachments).and_return(
-          [
-            double(masked?: true, erased?: false),
-            double(masked?: false, erased?: true)
-          ]
-        )
-      end
-
-      it { is_expected.to eq(true) }
     end
   end
 

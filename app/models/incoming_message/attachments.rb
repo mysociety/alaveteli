@@ -157,7 +157,7 @@ module IncomingMessage::Attachments
   end
 
   def all_attachments_masked_or_erased?
-    foi_attachments.all? { |a| a.masked? || a.erased? }
+    foi_attachments.unmasked.not_erased.none?
   end
 
   private
