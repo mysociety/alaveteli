@@ -3,6 +3,11 @@
 module FoiAttachment::Maskable
   extend ActiveSupport::Concern
 
+  included do
+    scope :masked, -> { where.not(masked_at: nil) }
+    scope :unmasked, -> { where(masked_at: nil) }
+  end
+
   def masked?
     file.attached? && masked_at.present? && masked_at < Time.zone.now
   end

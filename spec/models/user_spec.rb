@@ -1175,10 +1175,12 @@ RSpec.describe User do
     let(:user) { FactoryBot.create(:user) }
 
     it 'delegates to close!, anonymise! and erase! methods' do
+      editor = double
+      reason = double
       expect(user).to receive(:close!)
       expect(user).to receive(:anonymise!)
-      expect(user).to receive(:erase!)
-      user.close_and_anonymise
+      expect(user).to receive(:erase!).with(editor: editor, reason: reason)
+      user.close_and_anonymise(editor: editor, reason: reason)
     end
   end
 
@@ -1260,15 +1262,47 @@ RSpec.describe User do
     end
   end
 
-  describe '#erase' do
-    subject { user.erase }
+  describe '#all_attachments_masked?' do
+    subject { user.all_attachments_masked? }
 
+    let(:user) { FactoryBot.create(:user) }
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+    let(:message) do
+      FactoryBot.create(:plain_incoming_message, info_request: info_request)
+    end
+
+    context 'when all attachments are masked' do
+      before { user.foi_attachments.each(&:mask) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when some attachments are not masked' do
+      before do
+        user.foi_attachments.each(&:mask)
+        FactoryBot.create(:body_text, :unmasked, incoming_message: message)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when there are no attachments' do
+      before { user.foi_attachments.destroy_all }
+      it { is_expected.to eq(true) }
+    end
+  end
+
+  describe '#erase' do
+    subject { user.erase(editor: editor, reason: reason) }
+
+    let(:editor) { instance_double(User) }
+    let(:reason) { 'GDPR' }
     let(:user) { FactoryBot.build(:user) }
 
     context 'the update is successful' do
       before do
         user.close!
-        expect(user).to receive(:erase!).and_call_original
+        expect(user).to receive(:erase!).
+          with(editor: editor, reason: reason).and_call_original
         subject
       end
 
@@ -1281,7 +1315,9 @@ RSpec.describe User do
 
     context 'the update is unsuccessful' do
       before do
-        expect(user).to receive(:erase!).and_raise(ActiveRecord::RecordInvalid)
+        expect(user).to receive(:erase!).
+          with(editor: editor, reason: reason).
+          and_raise(ActiveRecord::RecordInvalid)
         subject
       end
 
@@ -1294,13 +1330,31 @@ RSpec.describe User do
   end
 
   describe '#erase!' do
-    subject { user.erase! }
+    subject { user.erase!(editor: editor, reason: reason) }
+
+    let(:editor) { instance_double(User) }
+    let(:reason) { 'GDPR' }
 
     context 'the user account is not closed' do
       let(:user) { FactoryBot.build(:user, about_me: 'Hi') }
 
       it 'raises an ActiveRecord::RecordInvalid' do
         expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+
+    context 'the user has unmasked attachments' do
+      let(:user) { FactoryBot.create(:user, :closed) }
+
+      before do
+        info_request = FactoryBot.create(:info_request, user: user)
+        message = FactoryBot.create(:plain_incoming_message,
+                                    info_request: info_request)
+        FactoryBot.create(:body_text, :unmasked, incoming_message: message)
+      end
+
+      it 'raises a RawEmail::UnmaskedAttachmentsError' do
+        expect { subject }.to raise_error(RawEmail::UnmaskedAttachmentsError)
       end
     end
 
@@ -1372,6 +1426,18 @@ RSpec.describe User do
       end
     end
 
+    context 'when the user has requests' do
+      let(:user) { FactoryBot.build(:user, :closed) }
+      let!(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+      it 'makes redactions permanent on each info request' do
+        expect_any_instance_of(InfoRequest).
+          to receive(:make_redactions_permanent).
+          with(editor: editor, reason: reason)
+        subject
+      end
+    end
+
     context 'the update is unsuccessful' do
       let(:user) { FactoryBot.build(:user, :closed, about_me: 'Hi') }
 
@@ -1382,6 +1448,20 @@ RSpec.describe User do
       it 'raises an ActiveRecord::RecordInvalid error' do
         expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
       end
+    end
+  end
+
+  describe '#erase_later' do
+    subject { user.erase_later(editor: editor, reason: reason) }
+
+    let(:user) { FactoryBot.create(:user) }
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'GDPR' }
+
+    it 'enqueues a User::ErasureJob' do
+      expect { subject }.
+        to have_enqueued_job(User::ErasureJob).
+        with(user, editor: editor, reason: reason)
     end
   end
 

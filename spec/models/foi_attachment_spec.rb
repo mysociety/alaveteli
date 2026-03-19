@@ -76,6 +76,26 @@ RSpec.describe FoiAttachment do
     it { is_expected.to_not include(non_erased_attachment) }
   end
 
+  describe '.masked' do
+    subject { described_class.masked }
+
+    let!(:masked_attachment) { FactoryBot.create(:body_text) }
+    let!(:unmasked_attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+    it { is_expected.to include(masked_attachment) }
+    it { is_expected.to_not include(unmasked_attachment) }
+  end
+
+  describe '.unmasked' do
+    subject { described_class.unmasked }
+
+    let!(:masked_attachment) { FactoryBot.create(:body_text) }
+    let!(:unmasked_attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+    it { is_expected.to_not include(masked_attachment) }
+    it { is_expected.to include(unmasked_attachment) }
+  end
+
   describe '.cached_urls' do
     it 'includes the correct paths' do
       att = FactoryBot.create(:jpeg_attachment)
@@ -494,6 +514,58 @@ RSpec.describe FoiAttachment do
         )
       end
     end
+  end
+
+  describe '#redacted?' do
+    subject { foi_attachment.redacted? }
+
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+    let(:incoming_message) { info_request.incoming_messages.first }
+    let(:foi_attachment) { incoming_message.foi_attachments.first }
+
+    context 'when no redactions have been made' do
+      before { foi_attachment.mask }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when a censor rule redacts the filename' do
+      before do
+        FactoryBot.create(
+          :censor_rule,
+          text: 'attachment',
+          info_request: info_request
+        )
+
+        foi_attachment.mask
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when a censor rule redacts the body' do
+      before do
+        FactoryBot.create(
+          :censor_rule,
+          text: 'here',
+          info_request: info_request
+        )
+
+        foi_attachment.mask
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    # TODO: Not sure whether we need to test every redaction method
+    #context 'when the filename has been replaced' do
+      #before { foi_attachment.replaced_filename = 'redacted.txt' }
+      #it { is_expected.to eq(true) }
+    #end
+
+    #context 'when the body has been replaced' do
+      #before { foi_attachment.replacement_body = 'redacted' }
+      #it { is_expected.to eq(true) }
+    #end
   end
 
   describe 'masked?' do
