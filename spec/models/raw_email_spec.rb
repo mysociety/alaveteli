@@ -332,8 +332,13 @@ RSpec.describe RawEmail do
     context 'when erased' do
       before { allow(raw_email).to receive(:erased?).and_return(true) }
 
-      it 'raises an error' do
-        expect { subject }.to raise_error(described_class::ErasedError)
+      it 'does not erase raw email again' do
+        expect(raw_email).to_not receive(:lock_all_attachments)
+        expect(raw_email).to_not receive(:log_event)
+        expect(raw_email.file).to_not receive(:purge_later)
+        expect(raw_email).to_not receive(:touch)
+        expect(raw_email.info_request).to_not receive(:expire)
+        subject
       end
     end
 

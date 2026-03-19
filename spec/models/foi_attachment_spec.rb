@@ -1912,8 +1912,13 @@ RSpec.describe FoiAttachment do
     context 'when erased' do
       before { allow(foi_attachment).to receive(:erased?).and_return(true) }
 
-      it 'raises an error' do
-        expect { subject }.to raise_error(described_class::ErasedError)
+      it 'does not erase attachment again' do
+        expect(foi_attachment).to_not receive(:log_event)
+        expect(foi_attachment).to_not receive(:save!)
+        expect(foi_attachment).to_not receive(:delete_cached_file!)
+        expect(foi_attachment.raw_email).to_not receive(:erase)
+        expect(foi_attachment.info_request).to_not receive(:expire)
+        subject
       end
     end
 

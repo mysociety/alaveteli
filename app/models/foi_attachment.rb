@@ -293,7 +293,7 @@ class FoiAttachment < ApplicationRecord
   end
 
   def erase(editor:, reason:)
-    ensure_not_erased!
+    return if erased?
 
     transaction do |t|
       t.after_rollback { return false }

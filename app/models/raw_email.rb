@@ -93,7 +93,7 @@ class RawEmail < ApplicationRecord
   end
 
   def erase(editor:, reason:)
-    ensure_not_erased!
+    return if erased?
 
     raise UnmaskedAttachmentsError unless erasable?
 
