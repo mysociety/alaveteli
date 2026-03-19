@@ -76,6 +76,26 @@ RSpec.describe FoiAttachment do
     it { is_expected.to_not include(non_erased_attachment) }
   end
 
+  describe '.masked' do
+    subject { described_class.masked }
+
+    let!(:masked_attachment) { FactoryBot.create(:body_text) }
+    let!(:unmasked_attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+    it { is_expected.to include(masked_attachment) }
+    it { is_expected.to_not include(unmasked_attachment) }
+  end
+
+  describe '.unmasked' do
+    subject { described_class.unmasked }
+
+    let!(:masked_attachment) { FactoryBot.create(:body_text) }
+    let!(:unmasked_attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+    it { is_expected.to_not include(masked_attachment) }
+    it { is_expected.to include(unmasked_attachment) }
+  end
+
   describe '.cached_urls' do
     it 'includes the correct paths' do
       att = FactoryBot.create(:jpeg_attachment)
