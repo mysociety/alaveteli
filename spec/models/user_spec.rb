@@ -1260,6 +1260,35 @@ RSpec.describe User do
     end
   end
 
+  describe '#all_attachments_masked?' do
+    subject { user.all_attachments_masked? }
+
+    let(:user) { FactoryBot.create(:user) }
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+    let(:message) do
+      FactoryBot.create(:plain_incoming_message, info_request: info_request)
+    end
+
+    context 'when all attachments are masked' do
+      before { user.foi_attachments.each(&:mask) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when some attachments are not masked' do
+      before do
+        user.foi_attachments.each(&:mask)
+        FactoryBot.create(:body_text, :unmasked, incoming_message: message)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when there are no attachments' do
+      before { user.foi_attachments.destroy_all }
+      it { is_expected.to eq(true) }
+    end
+  end
+
   describe '#erase' do
     subject { user.erase }
 
