@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix signup crash when user name contains only non-Latin characters
+  (Guy Freeman)
 * Fix censor rules not being applied to attachment filenames in downloads
   (Gareth Rees)
 * Add ability to erase attachments (Graeme Porteous)

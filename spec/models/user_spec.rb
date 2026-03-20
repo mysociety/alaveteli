@@ -89,6 +89,12 @@ RSpec.describe User, "making up the URL name" do
     @user.valid?
     expect(@user.url_name).to eq('user')
   end
+
+  it 'should fall back to "user" for non-Latin names' do
+    @user.name = '邢佳兴'
+    @user.valid?
+    expect(@user.url_name).to eq('user')
+  end
 end
 
 RSpec.describe User, "banning the user" do
