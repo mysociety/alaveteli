@@ -45,6 +45,14 @@ to update overrides in your theme to match the new templates.
 
 ## Highlighted Features
 
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+
+# 0.46.2.0
+
+## Highlighted Features
+
 * Fix censor rules not being applied to attachment filenames in downloads
   (Gareth Rees)
 
