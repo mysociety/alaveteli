@@ -1,3 +1,11 @@
+# 0.43.2.2
+
+## Highlighted Features
+
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+
 # 0.43.2.1
 
 ## Highlighted Features
