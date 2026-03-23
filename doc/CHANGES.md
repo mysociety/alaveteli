@@ -1,3 +1,12 @@
+# Version 0.24.1.14
+
+## Highlighted Features
+
+* Fix issue with previous hotfix using an unavailable SecureRandom method for
+  Ruby versions supported by this Alaveteli series.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+
 # Version 0.24.1.13
 
 ## Highlighted Features
