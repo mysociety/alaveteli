@@ -421,7 +421,7 @@ GEM
     psych (5.3.1)
       date
       stringio
-    public_suffix (7.0.2)
+    public_suffix (7.0.5)
     puma (7.2.0)
       nio4r (~> 2.0)
     racc (1.8.1)
@@ -627,7 +627,7 @@ GEM
       actionview (>= 8.0.0)
       bindex (>= 0.4.0)
       railties (>= 8.0.0)
-    webmock (3.26.1)
+    webmock (3.26.2)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -749,7 +749,7 @@ DEPENDENCIES
   uri (~> 1.1.1)
   vpim (~> 24.2.20)
   web-console (>= 3.3.0)
-  webmock (~> 3.26.1)
+  webmock (~> 3.26.2)
   will_paginate (~> 4.0.1)
   wilson_score (~> 0.1.0)
   xapian-full-alaveteli (~> 1.4.22.2)
