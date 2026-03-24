@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Prevent external search indexing of password change form (Gareth Rees)
 * Fix censor rules not being applied to attachment filenames in downloads
   (Gareth Rees)
 * Add ability to erase attachments (Graeme Porteous)
