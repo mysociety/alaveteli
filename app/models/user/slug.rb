@@ -28,7 +28,8 @@ module User::Slug
       value = read_attribute(:name)
       return super('user') if value =~ /^[\d_\.]+$/
 
-      super(value).gsub('-', '_')
+      result = super(value).gsub('-', '_')
+      result.presence || super('user')
     end
 
     def to_param
