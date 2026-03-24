@@ -25,3 +25,4 @@ Disallow: */request/*/followups/new
 Disallow: */request/*/similar
 Disallow: */request/*/track
 Disallow: */request/*/upload
+Disallow: */profile/change_password/new*
