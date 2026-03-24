@@ -1,3 +1,10 @@
+# 0.45.5.0
+
+## Highlighted Features
+
+* Fix visibility check for attachments when downloading a batch request as a zip
+  file (Gareth Rees)
+
 # 0.45.4.1
 
 ## Highlighted Features
