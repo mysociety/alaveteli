@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix visibility check for attachments when downloading a batch request as a zip
+  file (Gareth Rees)
 * Fix censor rules not being applied to attachment filenames in downloads
   (Gareth Rees)
 * Add ability to erase attachments (Graeme Porteous)
