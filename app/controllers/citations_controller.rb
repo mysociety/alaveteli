@@ -5,6 +5,7 @@ class CitationsController < ApplicationController
   before_action :authenticate, except: :index
   before_action :load_resource_and_authorise, except: :index
   before_action :set_in_pro_area, except: :index
+  before_action :set_no_crawl_headers
 
   skip_before_action :html_response, only: :index
 
