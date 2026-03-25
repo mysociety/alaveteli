@@ -277,6 +277,13 @@ to match the new templates.
     app/views/user/wrong_user.html.erb
     app/views/user_mailer/already_registered.text.erb
 
+# 0.45.5.0
+
+## Highlighted Features
+
+* Fix visibility check for attachments when downloading a batch request as a zip
+  file (Gareth Rees)
+
 # 0.45.4.1
 
 ## Highlighted Features
