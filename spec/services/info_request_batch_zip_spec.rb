@@ -109,8 +109,11 @@ RSpec.describe InfoRequestBatchZip do
       let(:message) { event.incoming_message }
       let(:attachment) { message.get_attachments_for_display.first }
 
-      context 'can read message' do
-        before { ability.can :read, message }
+      context 'can read message and attachment' do
+        before do
+          ability.can :read, message
+          ability.can :read, attachment
+        end
 
         it 'includes attachments' do
           expect(paths).to include(
@@ -121,7 +124,24 @@ RSpec.describe InfoRequestBatchZip do
       end
 
       context 'cannot read message' do
-        before { ability.cannot :read, message }
+        before do
+          ability.cannot :read, message
+          ability.can :read, attachment
+        end
+
+        it 'does not include attachments' do
+          expect(paths).not_to include(
+            "#{base_path}/2019-11-11-103000/attachments-#{message.id}/" \
+              "#{attachment.display_filename}"
+          )
+        end
+      end
+
+      context 'cannot read attachment' do
+        before do
+          ability.can :read, message
+          ability.cannot :read, attachment
+        end
 
         it 'does not include attachments' do
           expect(paths).not_to include(
@@ -132,7 +152,10 @@ RSpec.describe InfoRequestBatchZip do
       end
 
       context 'when a censor rule redacts an attachment filename' do
-        before { ability.can :read, message }
+        before do
+          ability.can :read, message
+          ability.can :read, attachment
+        end
 
         it 'uses the redacted filename in the zip path' do
           request.censor_rules.create!(
