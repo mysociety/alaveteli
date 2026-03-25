@@ -13,6 +13,14 @@
 * Fix censor rules not being applied to attachment filenames in downloads
   (Gareth Rees)
 
+# 0.46.1.2
+
+## Highlighted Features
+
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+
 # 0.46.1.1
 
 ## Highlighted Features
@@ -25,6 +33,14 @@
 
 * Fix request list page caching (Graeme Porteous)
 * Update locale cookie handling (Graeme Porteous)
+
+# 0.46.0.3
+
+## Highlighted Features
+
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
 
 # 0.46.0.2
 
@@ -260,6 +276,14 @@ to match the new templates.
     app/views/user/signchangeemail_confirm.html.erb
     app/views/user/wrong_user.html.erb
     app/views/user_mailer/already_registered.text.erb
+
+# 0.45.4.1
+
+## Highlighted Features
+
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
 
 # 0.45.4.0
 
@@ -588,6 +612,14 @@ to match the new templates.
     app/views/widgets/new.html.erb
     app/views/widgets/show.html.erb
 
+# 0.44.0.3
+
+## Highlighted Features
+
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+
 # 0.44.0.2
 
 ## Highlighted Features
@@ -718,6 +750,14 @@ to match the new templates.
     app/views/request/request_subtitle/allow_new_responses_from/_nobody.html.erb
     app/views/user/show/_show_profile.html.erb
     app/views/users/messages/rate_limited.html.erb
+
+# 0.43.2.2
+
+## Highlighted Features
+
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
 
 # 0.43.2.1
 
@@ -877,6 +917,14 @@ to match the new templates.
     app/views/request/new.html.erb
     app/views/request/preview.html.erb
 
+# 0.42.0.2
+
+## Highlighted Features
+
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+
 # 0.42.0.1
 
 ## Highlighted Features
@@ -1029,6 +1077,14 @@ to match the new templates.
     app/views/request/new_defunct.html.erb
     app/views/request/show.html.erb
     app/views/request/show.text.erb
+
+# 0.41.1.2
+
+## Highlighted Features
+
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
 
 # 0.41.1.1
 
@@ -1610,6 +1666,14 @@ to match the new templates.
     app/views/user/show/_show_same_name_users.html.erb
     app/views/user/sign.html.erb
 
+# 0.38.4.5
+
+## Highlighted Features
+
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+
 # 0.38.4.4
 
 ## Highlighted Features
@@ -1683,6 +1747,23 @@ to match the new templates.
     app/views/alaveteli_pro/pages/marketing_roles/campaigners/_marketing_testimonials.html.erb
     app/views/alaveteli_pro/pages/marketing_roles/journalists/_marketing_testimonials.html.erb
     app/views/alaveteli_pro/pages/marketing_roles/researchers/_marketing_testimonials.html.erb
+
+# 0.38.1.3
+
+## Highlighted Features
+
+* Fix issue with previous hotfix using an unavailable SecureRandom method for
+  Ruby versions supported by this Alaveteli series.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+
+# 0.38.1.2
+
+## Highlighted Features
+
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
 
 # 0.38.1.1
 
@@ -3672,6 +3753,18 @@ to match the new templates.
     app/views/user/wall.html.erb
     app/views/widgets/show.html.erb
 
+# Version 0.24.1.14
+
+## Highlighted Features
+
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+
+# Version 0.24.1.1 - 0.24.1.13
+
+See: https://github.com/mysociety/alaveteli/compare/0.24.1.1...0.24.1.13
+
 # Version 0.24.1.0
 
 ## Highlighted Features
@@ -3875,6 +3968,18 @@ to match the new templates.
     app/views/user/wrong_user.html.erb
     app/views/user_mailer/confirm_login.text.erb
     app/views/widgets/show.html.erb
+
+# Version 0.23.2.8
+
+## Highlighted Features
+
+* Use SecureRandom when generating tokens.
+* This release includes an update to the commonlib submodule - you
+  should be warned about this when running `rails-post-deploy`.
+
+# Version 0.23.2.1 - 0.23.2.7
+
+See: https://github.com/mysociety/alaveteli/compare/0.23.2.1...0.23.2.7
 
 # Version 0.23.2.0
 
