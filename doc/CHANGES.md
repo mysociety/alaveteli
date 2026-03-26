@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add Content Security Policy with nonce-based script protection (Graeme
+  Porteous)
 * Add exception notifications to background job failures (Graeme Porteous)
 * Fix visibility check for attachments when downloading a batch request as a zip
   file (Gareth Rees)
@@ -33,6 +35,20 @@
     Rails.application.config.after_initialize do
       AtiNetworkController.showcase_enabled = false
     end
+
+* **Note:** A Content Security Policy (CSP) has been enabled with nonce-based
+  script protection. If your theme includes any inline `<script>` tags, replace
+  them with Rails helpers that automatically add nonces:
+
+  For inline scripts, use `javascript_tag` with `nonce: true`:
+
+      <%= javascript_tag nonce: true do %>
+        // your JavaScript here
+      <% end %>
+
+  For external scripts, use `javascript_include_tag` with `nonce: true`:
+
+      <%= javascript_include_tag "https://example.com/script.js", nonce: true %>
 
 ### Changed Templates
 

@@ -1,6 +1,6 @@
 <% unless @batch %>
   <% content_for :javascript do %>
-    <script type="text/javascript">
+    <%= javascript_tag nonce: true do %>
       $(document).ready(function(){
         // Avoid triggering too often (on each keystroke) by using the
         // debounce jQuery plugin:
@@ -60,7 +60,7 @@
         // is focused.
         questionInputs.filter(':checked').click()
       });
-    </script>
+    <% end %>
   <% end %>
 <% end %>
 

@@ -12,7 +12,7 @@
     <%= stylesheet_link_tag "admin", :title => "Main", :rel => "stylesheet" %>
     <%= stylesheet_link_tag 'admin/print', :rel => "stylesheet", :media => "print"  %>
 
-    <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+    <%= javascript_include_tag "https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js", nonce: true %>
 
     <%= render :partial => 'layouts/favicon' %>
     <%= content_for :javascript_head %>
