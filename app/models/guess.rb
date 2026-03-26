@@ -13,10 +13,9 @@ class Guess
   # Return InfoRequest which we guess should receive an incoming message based
   # on a threshold.
   #
-  def self.guessed_info_requests(email)
+  def self.guessed_info_requests(addresses)
     # Match the email address in the message without matching the hash
-    email_addresses = MailHandler.get_all_addresses(email)
-    guesses = InfoRequest.guess_by_incoming_email(email_addresses)
+    guesses = InfoRequest.guess_by_incoming_email(addresses)
 
     guesses_reaching_threshold = guesses.select do |ir_guess|
       id_score = ir_guess.id_score

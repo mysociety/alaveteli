@@ -1,15 +1,34 @@
-def receive_incoming_mail(email_name_or_string, **kargs)
-  kargs[:email_from] ||= 'geraldinequango@localhost'
-  content = load_file_fixture(email_name_or_string) || email_name_or_string
-  content = gsub_addresses(content.dup, **kargs)
-  content = ::Mail::Utilities.binary_unsafe_to_crlf(content)
-  RequestMailer.receive(content)
+def receive_incoming_mail(filename_or_string = nil, **kwargs)
+  kwargs[:from] ||= 'geraldinequango@localhost'
+  mail = get_fixture_mail(filename_or_string, **kwargs)
+
+  if kwargs[:info_request]
+    kwargs[:info_request].receive(
+      mail,
+      rejected_reason: kwargs[:rejected_reason],
+      override_stop_new_responses: kwargs[:override_stop_new_responses] || false
+    )
+
+  else
+    ActionMailbox::InboundEmail.create_and_extract_message_id!(
+      mail.raw_source, status: :processing
+    )&.route
+  end
+
+  mail
 end
 
-def get_fixture_mail(filename, email_to = nil, email_from = nil)
-  content = load_file_fixture(filename)
-  content = gsub_addresses(content, email_from: email_from, email_to: email_to)
-  MailHandler.mail_from_string(content)
+def get_fixture_mail(filename_or_string = nil, **kwargs)
+  filename_or_string ||= <<~EML
+    From: EMAIL_FROM
+    Subject: Basic Email
+
+    Hello, World
+  EML
+
+  content = load_file_fixture(filename_or_string) || filename_or_string
+  content = gsub_addresses(content, **kwargs)
+  Mail.from_source(content)
 end
 
 def parse_all_incoming_messages
@@ -30,15 +49,10 @@ def load_mail_server_logs(log)
   end
 end
 
-def gsub_addresses(content, **kargs)
-  content.gsub!('EMAIL_TO', kargs[:email_to]) if kargs[:email_to]
-  content.gsub!('EMAIL_FROM', kargs[:email_from]) if kargs[:email_from]
-  content.gsub!('EMAIL_CC', kargs[:email_cc]) if kargs[:email_cc]
-  content.gsub!('EMAIL_BCC', kargs[:email_bcc]) if kargs[:email_bcc]
-  if kargs[:email_envelope_to]
-    content.gsub!('EMAIL_ENVELOPE_TO', kargs[:email_envelope_to])
-  end
-  content
+def gsub_addresses(content, **kwargs)
+  kwargs.slice(*%i[to from cc bcc envelope_to]).
+    transform_keys { |k| "EMAIL_#{k.to_s.upcase}" }.
+    reduce(content) { |c, (k, v)| c.gsub(k, v) }
 end
 
 def build_incoming_message_mail(im)

@@ -2,10 +2,12 @@
 #
 # Table name: raw_emails
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime
-#  updated_at :datetime
-#  erased_at  :datetime
+#  id               :integer          not null, primary key
+#  created_at       :datetime
+#  updated_at       :datetime
+#  erased_at        :datetime
+#  message_id       :string
+#  message_checksum :string
 #
 
 require 'spec_helper'
@@ -72,7 +74,9 @@ RSpec.describe RawEmail do
 
     context 'checking validity to reply to with real emails' do
       def test_real(fixture_file, expected)
-        mail = get_fixture_mail(fixture_file, 'a@example.com', 'b@example.net')
+        mail = get_fixture_mail(
+          fixture_file, to: 'a@example.com', from: 'b@example.net'
+        )
         raw_email = FactoryBot.create(:raw_email)
         FactoryBot.create(:incoming_message, raw_email: raw_email)
         raw_email.update!(data: mail)
@@ -112,6 +116,58 @@ RSpec.describe RawEmail do
     end
   end
 
+  describe '#mail=' do
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+
+    context 'when Mail::Message was parsed from a string' do
+      let(:inbound_email) do
+        <<~EML.strip_heredoc
+          From: alice@example.com
+          To: bob@example.com
+
+          This is the body
+        EML
+      end
+
+      let(:mail) { Mail.read_from_string(inbound_email) }
+
+      it 'stores the raw_source as data' do
+        raw_email.mail = mail
+        raw_email.save!
+        raw_email.reload
+        expect(raw_email.data).to eq(inbound_email)
+      end
+
+      it 'attaches the file' do
+        raw_email.mail = mail
+        raw_email.save!
+        expect(raw_email.file).to be_attached
+      end
+    end
+
+    context 'when Mail::Message was built using the DSL' do
+      let(:mail) do
+        Mail.new do
+          from 'a@example.com'
+          to 'b@example.com'
+        end
+      end
+
+      it 'stores the encoded version as data' do
+        raw_email.mail = mail
+        raw_email.save!
+        raw_email.reload
+        expect(raw_email.data).to eq(mail.encoded)
+      end
+
+      it 'attaches the file' do
+        raw_email.mail = mail
+        raw_email.save!
+        expect(raw_email.file).to be_attached
+      end
+    end
+  end
+
   describe '#mail!' do
     let(:inbound_email) do
       <<-EOF.strip_heredoc
@@ -127,7 +183,7 @@ RSpec.describe RawEmail do
     let(:mock_mail) { Mail.new(inbound_email) }
 
     before do
-      allow(MailHandler).to receive(:mail_from_string).and_return(mock_mail)
+      allow(Mail).to receive(:from_source).and_return(mock_mail)
     end
 
     it 'parses the raw email data in to a structured mail object' do
@@ -140,7 +196,7 @@ RSpec.describe RawEmail do
 
       # Call mail! again to get a fresh cache
       updated = double('updated')
-      allow(MailHandler).to receive(:mail_from_string).and_return(updated)
+      allow(Mail).to receive(:from_source).and_return(updated)
       raw_email.mail!
 
       # Now when we call the safe mail, we should get the last cached
@@ -191,6 +247,40 @@ RSpec.describe RawEmail do
       end
 
       it { is_expected.to be_nil }
+    end
+  end
+
+  describe '#inbound_email' do
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
+
+    context 'when message_id and message_checksum are present' do
+      let!(:inbound_email) do
+        ActionMailbox::InboundEmail.create!(
+          message_id: raw_email.message_id,
+          message_checksum: raw_email.message_checksum,
+          status: :delivered
+        )
+      end
+
+      it 'returns the matching InboundEmail' do
+        expect(raw_email.inbound_email).to eq(inbound_email)
+      end
+    end
+
+    context 'when message_id or message_checksum are not set' do
+      before do
+        raw_email.update_columns(message_id: nil, message_checksum: nil)
+      end
+
+      it 'returns nil' do
+        expect(raw_email.inbound_email).to be_nil
+      end
+    end
+
+    context 'when no matching InboundEmail exists' do
+      it 'returns nil' do
+        expect(raw_email.inbound_email).to be_nil
+      end
     end
   end
 
@@ -292,6 +382,17 @@ RSpec.describe RawEmail do
       subject
     end
 
+    it 'destroys the associated inbound_email' do
+      inbound_email = ActionMailbox::InboundEmail.create!(
+        message_id: raw_email.message_id,
+        message_checksum: raw_email.message_checksum,
+        status: :delivered
+      )
+      expect { subject }.to change {
+        ActionMailbox::InboundEmail.exists?(inbound_email.id)
+      }.from(true).to(false)
+    end
+
     it { is_expected.to eq(true) }
 
     context 'when already erased' do
@@ -387,8 +488,9 @@ RSpec.describe RawEmail do
     subject { raw_email.from_email_domain }
 
     let(:raw_email) do
-      mail =
-        get_fixture_mail('incoming-request-plain.eml', nil, 'b@example.net')
+      mail = get_fixture_mail(
+        'incoming-request-plain.eml', from: 'b@example.net'
+      )
       raw_email = FactoryBot.create(:raw_email)
       FactoryBot.create(:incoming_message, raw_email: raw_email)
       raw_email.update!(data: mail)
