@@ -71,6 +71,11 @@ RSpec.describe AttachmentToHTML::Adapters::RTF do
       expect(adapter.body).to eq('')
     end
 
+    it 'sanitizes malicious files' do
+      attachment = FactoryBot.create(:rtf_attachment, body: load_file_fixture('rtf-xss.rtf'))
+      adapter = AttachmentToHTML::Adapters::RTF.new(attachment)
+      expect(adapter.body).not_to include('<script>alert(1)</script>')
+    end
   end
 
 
