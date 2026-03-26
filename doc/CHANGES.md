@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Restrict visibility of hidden and requester-only requests in projects (Gareth
+  Rees, Graeme Porteous)
 * Prevent banned Pro subscribers creating requests (Gareth Rees)
 * Integrate ActionMailbox for better inbound email processing (Graeme Porteous)
 * Allow responses to be received from any source (Graeme Porteous)
