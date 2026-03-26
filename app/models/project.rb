@@ -41,7 +41,10 @@ class Project < ApplicationRecord
            source_type: 'InfoRequestBatch'
 
   has_many :info_requests,
-           ->(project) { unscope(:where).for_project(project) },
+           ->(project) {
+             unscope(:where).for_project(project).
+               where.not(prominence: 'hidden')
+           },
            extend: Project::InfoRequestExtension
 
   has_one :key_set, class_name: 'Dataset::KeySet', as: :resource
