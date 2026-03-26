@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow responses to be received from any source (Graeme Porteous)
 * Add exception notifications to background job failures (Graeme Porteous)
 * Fix visibility check for attachments when downloading a batch request as a zip
   file (Gareth Rees)
@@ -27,6 +28,13 @@
 
 ## Upgrade Notes
 
+<<<<<<< HEAD
+=======
+* _Note:_ This release now allows responses to be received from any source,
+  1. Postfix/Exim `./script/mailin` pipe or 2. POP poller.
+  While you can have multiple sources configured we recommend using one only.
+
+>>>>>>> add-action-mailbox-prep
 * _Optional:_ The new ATI Network Impacts Showcase page can be disabled by
   adding a configuration setting in the theme controller patches:
 

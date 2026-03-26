@@ -3,7 +3,7 @@ class InfoRequest
     class HoldingPen < Base
       attr_reader :holding_pen
 
-      def initialize(info_request, mail, inbound_email)
+      def initialize(info_request, mail)
         super
         @holding_pen = InfoRequest.holding_pen_request
       end
@@ -12,9 +12,7 @@ class InfoRequest
         if info_request == holding_pen
           false
         else
-          holding_pen.receive(mail,
-                              inbound_email,
-                              { rejected_reason: reason })
+          holding_pen.receive(mail, rejected_reason: reason)
         end
       end
     end
