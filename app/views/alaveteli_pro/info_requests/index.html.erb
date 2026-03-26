@@ -25,5 +25,5 @@
 
 </div>  <!-- .dashboard -->
 <% content_for :javascript do %>
- <%= javascript_include_tag 'alaveteli_pro/request-index.js' %>
+ <%= javascript_include_tag 'alaveteli_pro/request-index.js', nonce: true %>
 <% end %>

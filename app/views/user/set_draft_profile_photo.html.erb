@@ -31,9 +31,9 @@
     <p>
       <%= hidden_field_tag 'submitted_draft_profile_photo', 1 %>
 
-      <script type="text/javascript" charset="utf-8">
+      <%= javascript_tag nonce: true do %>
         document.write('<%= submit_tag _("Next, crop your photo &gt;&gt;") %>');
-      </script>
+      <% end %>
     </p>
 
     <noscript>

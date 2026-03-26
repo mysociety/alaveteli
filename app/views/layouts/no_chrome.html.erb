@@ -12,7 +12,7 @@
       <% end %>
     </title>
 
-    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "application", nonce: true %>
 
     <%= render :partial => 'general/responsive_stylesheets' %>
     <%= render :partial => 'layouts/favicon' %>
