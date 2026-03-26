@@ -57,7 +57,7 @@ class InfoRequestBatchController < ApplicationController
   end
 
   def load_all_info_requests
-    @info_request_batch.info_requests
+    @info_request_batch.info_requests.where.not(prominence: 'hidden')
   end
 
   def load_searchable_info_requests

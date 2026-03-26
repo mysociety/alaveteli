@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix hidden request snippets appearing in embargoed batch lists (Gareth Rees)
 * Fix project membership bypassing hidden request prominence (Graeme Porteous)
 * Fix public token bypassing hidden request prominence (Graeme Porteous)
 * Add exception notifications to background job failures (Graeme Porteous)
