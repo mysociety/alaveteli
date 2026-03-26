@@ -1,3 +1,9 @@
+# 0.43.3.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.43.2.2
 
 ## Highlighted Features
