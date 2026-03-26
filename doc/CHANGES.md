@@ -1,3 +1,9 @@
+# 0.39.2.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.39.1.8
 
 ## Highlighted Features
