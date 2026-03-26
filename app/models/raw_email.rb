@@ -17,7 +17,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class RawEmail < ApplicationRecord
-  class AlreadyErasedError < StandardError; end
+  class ErasedError < StandardError; end
   class UnmaskedAttachmentsError < StandardError; end
 
   # deliberately don't strip_attributes, so keeps raw email properly
@@ -38,7 +38,7 @@ class RawEmail < ApplicationRecord
   delegate :expire, :log_event, to: :info_request
 
   delegate :lock_all_attachments, to: :incoming_message
-  delegate :all_attachments_masked?, to: :incoming_message
+  delegate :all_attachments_masked_or_erased?, to: :incoming_message
 
   def inbound_email
     ActionMailbox::InboundEmail.find_by(
@@ -104,13 +104,18 @@ class RawEmail < ApplicationRecord
     !file.attached? && erased_at.present?
   end
 
+  def ensure_not_erased!
+    raise ErasedError, "email has been erased (ID=#{id})" if erased?
+  end
+
   def erasable?
-    all_attachments_masked?
+    all_attachments_masked_or_erased?
   end
 
   def erase(editor:, reason:)
-    raise AlreadyErasedError if erased?
-    raise UnmaskedAttachmentsError unless all_attachments_masked?
+    return if erased?
+
+    raise UnmaskedAttachmentsError unless erasable?
 
     transaction do |t|
       t.after_rollback { return false }

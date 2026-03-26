@@ -95,11 +95,11 @@ RSpec.describe IncomingMessage do
 
     context 'when the raw_email is erased' do
       before do
-        allow(message).to receive(:raw_email).and_return(double(erased?: true))
+        allow(message.raw_email).to receive(:erased?).and_return(true)
       end
 
       it 'raises an error' do
-        expect { subject }.to raise_error(described_class::RawEmailErasedError)
+        expect { subject }.to raise_error(RawEmail::ErasedError)
       end
     end
   end
@@ -111,11 +111,11 @@ RSpec.describe IncomingMessage do
 
     context 'when the raw_email is erased' do
       before do
-        allow(message).to receive(:raw_email).and_return(double(erased?: true))
+        allow(message.raw_email).to receive(:erased?).and_return(true)
       end
 
       it 'raises an error' do
-        expect { subject }.to raise_error(described_class::RawEmailErasedError)
+        expect { subject }.to raise_error(RawEmail::ErasedError)
       end
     end
   end
@@ -208,15 +208,19 @@ RSpec.describe IncomingMessage do
     end
   end
 
-  describe '#all_attachments_masked?' do
-    subject { message.all_attachments_masked? }
+  describe '#all_attachments_masked_or_erased?' do
+    subject { message.all_attachments_masked_or_erased? }
 
     let(:message) { FactoryBot.create(:incoming_message) }
 
     context 'when all attachments are masked' do
       before do
-        allow(message).to receive(:foi_attachments).
-          and_return([double(masked?: true), double(masked?: true)])
+        allow(message).to receive(:foi_attachments).and_return(
+          [
+            double(masked?: true, erased?: false),
+            double(masked?: true, erased?: false)
+          ]
+        )
       end
 
       it { is_expected.to eq(true) }
@@ -224,8 +228,12 @@ RSpec.describe IncomingMessage do
 
     context 'when some attachments are not masked' do
       before do
-        allow(message).to receive(:foi_attachments).
-          and_return([double(masked?: true), double(masked?: false)])
+        allow(message).to receive(:foi_attachments).and_return(
+          [
+            double(masked?: true, erased?: false),
+            double(masked?: false, erased?: false)
+          ]
+        )
       end
 
       it { is_expected.to eq(false) }
@@ -233,8 +241,12 @@ RSpec.describe IncomingMessage do
 
     context 'when no attachments are masked' do
       before do
-        allow(message).to receive(:foi_attachments).
-          and_return([double(masked?: false), double(masked?: false)])
+        allow(message).to receive(:foi_attachments).and_return(
+          [
+            double(masked?: false, erased?: false),
+            double(masked?: false, erased?: false)
+          ]
+        )
       end
 
       it { is_expected.to eq(false) }
@@ -243,6 +255,19 @@ RSpec.describe IncomingMessage do
     context 'when there are no attachments' do
       before do
         message.foi_attachments.destroy_all
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when some attachments are erased' do
+      before do
+        allow(message).to receive(:foi_attachments).and_return(
+          [
+            double(masked?: true, erased?: false),
+            double(masked?: false, erased?: true)
+          ]
+        )
       end
 
       it { is_expected.to eq(true) }
@@ -266,6 +291,58 @@ RSpec.describe IncomingMessage do
     context 'when the raw_email is not erased' do
       let(:raw_email) { double(erased?: false) }
       it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#raw_email_erased?' do
+    subject { message.raw_email_erased? }
+
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    before do
+      allow(message).to receive(:raw_email).and_return(raw_email)
+    end
+
+    context 'when the raw_email is erased' do
+      let(:raw_email) { double(erased?: true) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the raw_email is erased' do
+      let(:raw_email) { double(erased?: false) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#raw_email_ensure_not_erased!' do
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    before do
+      allow(message).to receive(:raw_email).and_return(raw_email)
+    end
+
+    context 'when the raw_email is erased' do
+      let(:raw_email) { double(ensure_not_erased!: true) }
+
+      it 'returns true' do
+        expect(message.raw_email_ensure_not_erased!).to eq(true)
+      end
+    end
+
+    context 'when the raw_email is erased' do
+      let(:raw_email) do
+        double.tap do |d|
+          allow(d).to receive(:ensure_not_erased!).and_raise(
+            RawEmail::ErasedError, 'email has been erased (ID=123)'
+          )
+        end
+      end
+
+      it 'raises RawEmail::ErasedError' do
+        expect { message.raw_email_ensure_not_erased! }.to raise_error(
+          RawEmail::ErasedError, 'email has been erased (ID=123)'
+        )
+      end
     end
   end
 
@@ -641,6 +718,23 @@ RSpec.describe IncomingMessage do
     end
   end
 
+  describe '#clear_in_database_caches!' do
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+    let(:incoming_message) { info_request.incoming_messages.first }
+
+    before do
+      incoming_message.get_main_body_text_folded
+      incoming_message.reload
+    end
+
+    it 'clears cached values' do
+      expect(incoming_message.cached_main_body_text_folded).to be_present
+      incoming_message.clear_in_database_caches!
+      incoming_message.reload
+      expect(incoming_message.cached_main_body_text_folded).to be_nil
+    end
+  end
+
   describe '#get_attachment_text_full' do
     it 'does not generate incompatible character encodings' do
       message = FactoryBot.create(:incoming_message)
@@ -821,6 +915,35 @@ RSpec.describe IncomingMessage do
 
     context 'if there are no locked attachments' do
       it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#storage_keys' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+
+    it 'returns blob keys from raw email and foi attachments' do
+      storage_keys = incoming_message.storage_keys
+
+      expect(storage_keys).to be_an(Hash)
+      expect(storage_keys).to include(
+        raw_email: incoming_message.raw_email.file.blob.key,
+        attachments: incoming_message.foi_attachments.map { _1.file.blob.key }
+      )
+    end
+
+    context 'when no attachments are present' do
+      let(:incoming_message) { FactoryBot.create(:incoming_message) }
+
+      before do
+        allow(incoming_message.raw_email).to receive(:file).
+          and_return(double(attached?: false))
+        allow(incoming_message).to receive(:foi_attachments).and_return([])
+      end
+
+      it 'returns an hash without any keys' do
+        expect(incoming_message.storage_keys).
+          to eq({ raw_email: nil, attachments: [] })
+      end
     end
   end
 end
@@ -1478,32 +1601,16 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
     end
   end
 
-  describe '#storage_keys' do
+  context 'when main body attachment is erased' do
     let(:incoming_message) { FactoryBot.create(:incoming_message) }
 
-    it 'returns blob keys from raw email and foi attachments' do
-      storage_keys = incoming_message.storage_keys
-
-      expect(storage_keys).to be_an(Hash)
-      expect(storage_keys).to include(
-        raw_email: incoming_message.raw_email.file.blob.key,
-        attachments: incoming_message.foi_attachments.map { _1.file.blob.key }
-      )
+    before do
+      allow(incoming_message.get_main_body_text_part).to receive(:erased?).
+        and_return(true)
     end
 
-    context 'when no attachments are present' do
-      let(:incoming_message) { FactoryBot.create(:incoming_message) }
-
-      before do
-        allow(incoming_message.raw_email).to receive(:file).
-          and_return(double(attached?: false))
-        allow(incoming_message).to receive(:foi_attachments).and_return([])
-      end
-
-      it 'returns an hash without any keys' do
-        expect(incoming_message.storage_keys).
-          to eq({ raw_email: nil, attachments: [] })
-      end
+    it 'returns an empty string' do
+      expect(incoming_message.get_main_body_text_internal).to eq ''
     end
   end
 end

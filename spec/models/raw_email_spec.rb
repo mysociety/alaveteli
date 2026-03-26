@@ -291,7 +291,8 @@ RSpec.describe RawEmail do
 
     context 'when all attachments are masked' do
       before do
-        allow(raw_email).to receive(:all_attachments_masked?).and_return(true)
+        allow(raw_email).to receive(:all_attachments_masked_or_erased?).
+          and_return(true)
       end
 
       it { is_expected.to eq(true) }
@@ -299,7 +300,8 @@ RSpec.describe RawEmail do
 
     context 'when not all attachments are masked' do
       before do
-        allow(raw_email).to receive(:all_attachments_masked?).and_return(false)
+        allow(raw_email).to receive(:all_attachments_masked_or_erased?).
+          and_return(false)
       end
 
       it { is_expected.to eq(false) }
@@ -328,6 +330,38 @@ RSpec.describe RawEmail do
       end
 
       it { is_expected.to eq(true) }
+    end
+  end
+
+  describe '#ensure_not_erased!' do
+    let(:raw_email) do
+      request = FactoryBot.create(:info_request)
+      message = FactoryBot.create(:incoming_message, info_request: request)
+      message.raw_email = FactoryBot.create(:raw_email, :with_file)
+      message.save!
+      message.raw_email
+    end
+
+    context 'when not erased' do
+      it 'returns nil' do
+        expect(raw_email.ensure_not_erased!).to be_nil
+      end
+    end
+
+    context 'when erased' do
+      before do
+        raw_email.erase(
+          editor: FactoryBot.create(:admin_user),
+          reason: 'PII'
+        )
+      end
+
+      it 'raises ErasedError' do
+        expect { raw_email.ensure_not_erased! }.to raise_error(
+          described_class::ErasedError,
+          "email has been erased (ID=#{raw_email.id})"
+        )
+      end
     end
   end
 
@@ -368,13 +402,14 @@ RSpec.describe RawEmail do
       expect(raw_email.erased_at).to be_a(Time)
     end
 
-    def last_event
-      raw_email.info_request.info_request_events.last
+    def erase_raw_email_event
+      raw_email.info_request.info_request_events.find_by(
+        event_type: 'erase_raw_email'
+      )
     end
 
     it 'logs an event on the associated info_request' do
-      expect { subject }.to change { last_event }
-      expect(last_event.event_type).to eq('erase_raw_email')
+      expect { subject }.to change { erase_raw_email_event }.from(nil)
     end
 
     it 'expires the associated info_request' do
@@ -395,17 +430,23 @@ RSpec.describe RawEmail do
 
     it { is_expected.to eq(true) }
 
-    context 'when already erased' do
+    context 'when erased' do
       before { allow(raw_email).to receive(:erased?).and_return(true) }
 
-      it 'raises an error' do
-        expect { subject }.to raise_error(described_class::AlreadyErasedError)
+      it 'does not erase raw email again' do
+        expect(raw_email).to_not receive(:lock_all_attachments)
+        expect(raw_email).to_not receive(:log_event)
+        expect(raw_email.file).to_not receive(:purge_later)
+        expect(raw_email).to_not receive(:touch)
+        expect(raw_email.info_request).to_not receive(:expire)
+        subject
       end
     end
 
     context 'when there are unmasked attachments' do
       before do
-        allow(raw_email).to receive(:all_attachments_masked?).and_return(false)
+        allow(raw_email).to receive(:all_attachments_masked_or_erased?).
+          and_return(false)
       end
 
       it 'raises an error' do

@@ -18,7 +18,7 @@ class FoiAttachmentMaskJob < ApplicationJob
     @attachment = attachment
     mask
 
-  rescue FoiAttachment::MissingAttachment
+  rescue FoiAttachment::MissingError
     incoming_message.parse_raw_email!
 
     begin

@@ -42,8 +42,8 @@ class FoiAttachment < ApplicationRecord
   include Maskable
   include Replaceable
 
-  MissingAttachment = Class.new(StandardError)
-  AlreadyErasedError = Class.new(StandardError)
+  MissingError = Class.new(StandardError)
+  ErasedError = Class.new(StandardError)
 
   belongs_to :incoming_message, inverse_of: :foi_attachments, optional: true
   has_one :raw_email, through: :incoming_message, source: :raw_email
@@ -63,8 +63,8 @@ class FoiAttachment < ApplicationRecord
   scope :erased, -> { where.not(erased_at: nil) }
 
   delegate :expire, to: :info_request
-  delegate :raw_email_erased?, to: :incoming_message
   delegate :metadata, to: :file_blob, allow_nil: true
+  delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
                 include: %i[redacted_filename display_filename metadata]
@@ -126,7 +126,7 @@ class FoiAttachment < ApplicationRecord
   def body
     return @cached_body if @cached_body
 
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
+    ensure_not_erased!
 
     begin
       return file.download if locked? || masked?
@@ -147,24 +147,21 @@ class FoiAttachment < ApplicationRecord
 
   # body as UTF-8 text, with scrubbing of invalid chars if needed
   def body_as_text
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
-
+    ensure_not_erased!
     convert_string_to_utf8(body, 'UTF-8')
   end
 
   # for text types, the scrubbed UTF-8 text. For all other types, the
   # raw binary
   def default_body
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
-
+    ensure_not_erased!
     text_type? ? body_as_text.string : body
   end
 
   # return the body as it is in the raw email, unmasked without censor rules
   # applied
   def unmasked_body
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
-
+    ensure_not_erased!
     mail_attributes[:body]
   end
 
@@ -269,8 +266,7 @@ class FoiAttachment < ApplicationRecord
 
   # For "View as HTML" of attachment
   def body_as_html(**kwargs)
-    raise MissingAttachment, "attachment has been erased (ID=#{id})" if erased?
-
+    ensure_not_erased!
     AttachmentToHTML.to_html(self, **kwargs)
   end
 
@@ -289,11 +285,15 @@ class FoiAttachment < ApplicationRecord
   end
 
   def erased?
-    erased_at.present? || raw_email_erased?
+    erased_at.present?
+  end
+
+  def ensure_not_erased!
+    raise ErasedError, "attachment has been erased (ID=#{id})" if erased?
   end
 
   def erase(editor:, reason:)
-    raise AlreadyErasedError if erased?
+    return if erased?
 
     transaction do |t|
       t.after_rollback { return false }
@@ -310,8 +310,12 @@ class FoiAttachment < ApplicationRecord
       self.filename = nil
       ensure_filename!
 
+      self.erased_at = Time.zone.now
+      save!
+
       delete_cached_file!
-      touch(:erased_at)
+
+      raw_email.erase(editor: editor, reason: 'FoiAttachment#erase')
 
       expire
 
@@ -326,6 +330,8 @@ class FoiAttachment < ApplicationRecord
   private
 
   def mail_attributes
+    raw_email_ensure_not_erased!
+
     MailHandler.attachment_attributes_for_hexdigest(
       raw_email.mail,
       hexdigest: hexdigest
@@ -339,11 +345,11 @@ class FoiAttachment < ApplicationRecord
       ) if file.attached?
 
     rescue ActiveStorage::FileNotFoundError
-      raise MissingAttachment, "attachment missing from storage (ID=#{id})"
+      raise MissingError, "attachment missing from storage (ID=#{id})"
     end
 
     unless attributes
-      raise MissingAttachment, "attachment missing in raw email (ID=#{id})"
+      raise MissingError, "attachment missing in raw email (ID=#{id})"
     end
 
     update(hexdigest: attributes[:hexdigest])
@@ -354,7 +360,7 @@ class FoiAttachment < ApplicationRecord
     attachment = load_attachment_from_incoming_message
     return attachment if attachment
 
-    raise MissingAttachment, "attachment couldn't be reloaded using " \
+    raise MissingError, "attachment couldn't be reloaded using " \
       "url_part_number and display_filename attributes"
   end
 
