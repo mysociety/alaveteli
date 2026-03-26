@@ -16,7 +16,7 @@
   config.x_xss_protection = "1"
 
   # https://w3c.github.io/webappsec/specs/content-security-policy/
-  config.csp = SecureHeaders::OPT_OUT
+  # Use default
 
   # https://www.nwebsec.com/HttpHeaders/SecurityHeaders/XDownloadOptions
   config.x_download_options = SecureHeaders::OPT_OUT

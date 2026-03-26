@@ -1,6 +1,6 @@
 <% @title = _("Change profile photo") %>
 <% content_for :javascript do %>
-  <%= javascript_include_tag "profile-photos" %>
+  <%= nonced_javascript_include_tag "profile-photos" %>
   <%= stylesheet_link_tag "jquery.Jcrop.min.css" %>
 <% end %>
 

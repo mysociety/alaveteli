@@ -1,6 +1,6 @@
 <% unless @batch %>
   <% content_for :javascript do %>
-    <script type="text/javascript">
+    <script nonce="<%= content_security_policy_script_nonce %>">
       $(document).ready(function(){
         // Avoid triggering too often (on each keystroke) by using the
         // debounce jQuery plugin:
@@ -287,6 +287,6 @@
 
 <% if @batch %>
   <% content_for :javascript do %>
-    <%= javascript_include_tag 'new-request.js' %>
+    <%= nonced_javascript_include_tag 'new-request.js' %>
   <% end %>
 <% end %>

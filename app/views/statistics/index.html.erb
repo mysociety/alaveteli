@@ -137,15 +137,15 @@
   </div>
 
   <% content_for :javascript do %>
-    <script type="text/javascript">
+    <script nonce="<%= content_security_policy_script_nonce %>">
       var graphs_data = <%= @public_bodies.to_json.html_safe %>;
     </script>
-    <!--[if lte IE 8]><%= javascript_include_tag "excanvas.min.js" %><![endif]-->
-    <%= javascript_include_tag "stats" %>
+    <!--[if lte IE 8]><%= nonced_javascript_include_tag "excanvas.min.js" %><![endif]-->
+    <%= nonced_javascript_include_tag "stats" %>
 
-    <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js" %>
-    <%= javascript_include_tag "time_series" %>
-    <script type="text/javascript">
+    <%= nonced_javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js" %>
+    <%= nonced_javascript_include_tag "time_series" %>
+    <script nonce="<%= content_security_policy_script_nonce %>">
       if (typeof d3TimeSeries == 'function') {
         d3.json("<%= statistics_url(:format => 'json') %>", function(data) {
           d3TimeSeries(
