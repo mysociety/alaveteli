@@ -38,11 +38,11 @@
     <%= render :partial => 'general/opengraph_tags' %>
     <%= render :partial => 'general/before_head_end' %>
     <!-- Replace the html tag's no-js class with js -->
-    <script>
+    <%= javascript_tag nonce: true do %>
       (function(H){
         H.className = H.className.replace(/\bno-js\b/,'js-loaded')
       })(document.documentElement);
-    </script>
+    <% end %>
     <%= content_for :javascript_head %>
   </head>
   <body class="<%= yield :body_class -%> <% if @in_pro_area %>alaveteli-pro<% end %>">
@@ -103,7 +103,7 @@
 
       <% if AlaveteliConfiguration::force_registration_on_new_request && !@user %>
         <%= javascript_include_tag 'fancybox.js' %>
-        <script type="text/javascript">
+        <%= javascript_tag nonce: true do %>
           $(document).ready(function() {
             $("#make-request-link").fancybox({
               'modal': false,
@@ -119,7 +119,7 @@
               }
             });
           });
-        </script>
+        <% end %>
       <% end %>
 
       <%= content_for :javascript %>
