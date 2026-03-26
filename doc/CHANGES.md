@@ -2,7 +2,6 @@
 
 ## Highlighted Features
 
-* Sanitise RTF to HTML conversion (Gareth Rees)
 * Add exception notifications to background job failures (Graeme Porteous)
 * Fix visibility check for attachments when downloading a batch request as a zip
   file (Gareth Rees)
@@ -41,6 +40,12 @@ The following templates have been changed. Please use `script/reconcile-theme`
 to update overrides in your theme to match the new templates.
 
     None yet
+
+# 0.46.4.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
 
 # 0.46.3.0
 
