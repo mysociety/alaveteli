@@ -3,6 +3,7 @@
 ## Highlighted Features
 
 * Fix project membership bypassing hidden request prominence (Graeme Porteous)
+* Fix public token bypassing hidden request prominence (Graeme Porteous)
 * Add exception notifications to background job failures (Graeme Porteous)
 * Fix visibility check for attachments when downloading a batch request as a zip
   file (Gareth Rees)

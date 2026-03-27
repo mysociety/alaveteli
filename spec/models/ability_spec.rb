@@ -232,6 +232,21 @@ RSpec.describe Ability do
         it 'should return false for the owner' do
           expect(owner_ability).not_to be_able_to(:read, resource)
         end
+
+        context 'with public token' do
+          let(:guest_with_token) { Ability.guest(public_token: true) }
+          let(:user_with_token) do
+            Ability.new(FactoryBot.create(:user), public_token: true)
+          end
+
+          it 'should return false for a guest with public token' do
+            expect(guest_with_token).not_to be_able_to(:read, resource)
+          end
+
+          it 'should return false for a user with public token' do
+            expect(user_with_token).not_to be_able_to(:read, resource)
+          end
+        end
       end
 
       context 'if the prominence is requester_only' do
@@ -261,6 +276,21 @@ RSpec.describe Ability do
 
         it 'should return false if the user does not own the right resource' do
           expect(other_user_ability).not_to be_able_to(:read, resource)
+        end
+
+        context 'with public token' do
+          let(:guest_with_token) { Ability.guest(public_token: true) }
+          let(:user_with_token) do
+            Ability.new(FactoryBot.create(:user), public_token: true)
+          end
+
+          it 'should return false for a guest with public token' do
+            expect(guest_with_token).not_to be_able_to(:read, resource)
+          end
+
+          it 'should return false for a user with public token' do
+            expect(user_with_token).not_to be_able_to(:read, resource)
+          end
         end
       end
 
@@ -369,6 +399,46 @@ RSpec.describe Ability do
 
         it 'should return true if the user owns the right resource' do
           expect(owner_ability).to be_able_to(:read, resource)
+        end
+      end
+    end
+
+    context 'when the request is not embargoed' do
+      context 'if the prominence is hidden' do
+        let(:prominence) { 'hidden' }
+
+        context 'with public token' do
+          let(:guest_with_token) { Ability.guest(public_token: true) }
+          let(:user_with_token) do
+            Ability.new(FactoryBot.create(:user), public_token: true)
+          end
+
+          it 'should return false for a guest with public token' do
+            expect(guest_with_token).not_to be_able_to(:read, resource)
+          end
+
+          it 'should return false for a user with public token' do
+            expect(user_with_token).not_to be_able_to(:read, resource)
+          end
+        end
+      end
+
+      context 'if the prominence is requester_only' do
+        let(:prominence) { 'requester_only' }
+
+        context 'with public token' do
+          let(:guest_with_token) { Ability.guest(public_token: true) }
+          let(:user_with_token) do
+            Ability.new(FactoryBot.create(:user), public_token: true)
+          end
+
+          it 'should return false for a guest with public token' do
+            expect(guest_with_token).not_to be_able_to(:read, resource)
+          end
+
+          it 'should return false for a user with public token' do
+            expect(user_with_token).not_to be_able_to(:read, resource)
+          end
         end
       end
     end

@@ -105,7 +105,7 @@ class Ability
     can :read, InfoRequest do |info_request|
       can?(:_read, info_request) ||
         (project&.member?(user) && project&.info_request?(info_request)) ||
-        public_token
+        (public_token && %w[normal backpage].include?(info_request.prominence))
     end
 
     can :manage, OutgoingMessage::Snippet do |_request|
