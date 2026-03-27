@@ -186,6 +186,11 @@ gem 'excel_analyzer', path: 'gems/excel_analyzer', require: false
 # AI insights
 gem "ollama-ai", "~> 1.3.0"
 
+# search experiment
+gem "numo-narray", :git => "https://github.com/ruby-numo/numo-narray.git"
+gem "rb_sys"  # required to build transformers-rb (see mkmf error msg)?
+gem "transformers-rb"
+
 group :test do
   gem 'fivemat', '~> 1.3.7'
   gem 'webmock', '~> 3.26.1'
