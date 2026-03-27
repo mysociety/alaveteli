@@ -83,6 +83,15 @@ class OutgoingMessage < ApplicationRecord
   scope :followup, -> { where(message_type: 'followup') }
   scope :is_searchable, -> { where(prominence: 'normal') }
 
+  has_many :search_documents, as: :searchable_doc
+
+  def self.search(query)
+    # naive implementation: push OM retrieval down to pg
+    SearchDocument.
+      search(query, doc_type = name).
+      map(&:searchable_doc)
+  end
+
   def self.default_salutation(public_body)
     _("Dear {{public_body_name}},", public_body_name: public_body.name)
   end

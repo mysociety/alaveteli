@@ -1,0 +1,124 @@
+# the smallest "thing" we can search for (in info requests,
+# incoming/outgoing messages and attachments)
+# Can be a paragraph, a page, a sheet in a spreadsheet, or
+# an entire file depending on how each class defines its
+# search capabilities
+# == Schema Information
+#
+# Table name: search_documents
+#
+#  id                  :bigint           not null, primary key
+#  searchable_doc_type :string
+#  searchable_doc_id   :bigint
+#  raw_content         :text
+#  section_ref         :text
+#  content_tsv         :tsvector
+#  language            :text
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  embedding           :vector(384)
+#
+class SearchDocument < ApplicationRecord
+  belongs_to :searchable_doc, polymorphic: true
+
+  def self.init_raw_content
+    # 280ms to load 15k incoming_messages
+    # 850ms for 72k IM+OM
+    # 39s with GIN indexes (todo: drop index then reindex after loading)
+    sql = <<-SQL
+      ALTER TABLE search_documents DISABLE TRIGGER search_documents_content_tsv_trigger;
+
+      with incoming_msg AS (
+        select
+          'IncomingMessage' as searchable_doc_type,
+          id as searchable_doc_id,
+          cached_main_body_text_unfolded as raw_content,
+          'french' as language,
+          now()::timestamp as created_at,
+          now()::timestamp as updated_at
+        from incoming_messages
+      ),
+      outgoing_msg AS (
+        select
+          'OutgoingMessage' as searchable_doc_type,
+          id as searchable_doc_id,
+          body as raw_content,
+          'french' as language,
+          now()::timestamp as created_at,
+          now()::timestamp as updated_at
+        from outgoing_messages
+      )
+      insert into search_documents
+        (searchable_doc_type, searchable_doc_id, raw_content, language, created_at, updated_at)
+      (select * from incoming_msg union select * from outgoing_msg);
+
+      ALTER TABLE search_documents ENABLE TRIGGER search_documents_content_tsv_trigger;
+    SQL
+    ActiveRecord::Base.connection.execute(sql)
+  end
+
+  def self.init_content_tsv
+    # ugly backfill for testing
+    # 6-7s to backfill 15k incoming_messages
+    # 26s for 72k IM+OM
+    # 78s with GIN indexes
+    sql = <<-SQL
+      ALTER TABLE search_documents DISABLE TRIGGER search_documents_content_tsv_trigger;
+      UPDATE search_documents sd
+      SET content_tsv = (
+        SELECT to_tsvector(language::regconfig, coalesce(unaccent(raw_content), ''))
+        FROM search_documents
+        WHERE id = sd.id
+      );
+      ALTER TABLE search_documents ENABLE TRIGGER search_documents_content_tsv_trigger;
+    SQL
+    ActiveRecord::Base.connection.execute(sql)
+  end
+
+  def self.search(query, doc_type = nil, lang = 'french')
+    # This returns a chainable ActiveRecord object, and produces a single SQL
+    # query.
+    # There are certainly ways to optimise this and secure it against injection,
+    # and make it more elegant. Also curious about the ORM overhead.
+    search_terms = query.
+      split(' ').
+      map { |q| "to_tsquery('#{lang}', unaccent(COALESCE('#{q}', '')))" }.
+      join(' && ')
+
+    if doc_type.nil?
+      doc_type_q = "(1=1)"
+    else
+      doc_type_q = "searchable_doc_type = '#{doc_type}'"
+    end
+
+    sql = <<-SQL
+      SELECT
+        "search_documents".id FROM "search_documents" INNER JOIN (
+        SELECT
+          "search_documents"."id" AS search_id,
+          (ts_rank(("search_documents"."content_tsv"), (#{search_terms})), 0) AS rank
+        FROM "search_documents"
+        WHERE
+          (("search_documents"."content_tsv") @@ (#{search_terms}))
+          AND #{doc_type_q}
+        ) AS subreq
+      ON
+        "search_documents"."id" = subreq.search_id
+      ORDER BY
+        subreq.rank DESC,
+        "search_documents"."id" ASC
+    SQL
+
+    SearchDocument.where("id IN (#{sql})")
+  end
+
+
+end
+
+# volumes:
+# IM: 83MB
+# OM: 102MB
+# tot: 185MB
+# SD: 123MB without tsv
+#     340MB with tsv  (one record per IM/OM) ~2x IM+OM
+# indexes: see migration

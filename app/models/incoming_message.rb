@@ -70,6 +70,8 @@ class IncomingMessage < ApplicationRecord
              inverse_of: :incoming_message,
              dependent: :destroy
 
+  has_many :search_documents, as: :searchable_doc
+
   after_destroy :update_request
   after_update :update_request
 

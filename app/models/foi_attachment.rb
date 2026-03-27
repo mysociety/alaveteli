@@ -52,6 +52,8 @@ class FoiAttachment < ApplicationRecord
 
   has_one_attached :file, service: :attachments
 
+  has_many :search_documents, as: :searchable_doc
+
   validates_presence_of :content_type
   validates_presence_of :filename
   validates_presence_of :display_size
