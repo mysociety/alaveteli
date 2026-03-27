@@ -1853,4 +1853,22 @@ RSpec.describe Ability, 'with project' do
       expect(owner_ability).not_to be_able_to(:export, project)
     end
   end
+
+  describe 'read hidden requests not in the project' do
+    let(:hidden_request) do
+      FactoryBot.create(:info_request, prominence: 'hidden')
+    end
+
+    it 'does not allow a project owner to read a hidden request not in the project' do
+      expect(owner_ability).not_to be_able_to(:read, hidden_request)
+    end
+
+    it 'does not allow a project contributor to read a hidden request not in the project' do
+      expect(contributor_ability).not_to be_able_to(:read, hidden_request)
+    end
+
+    it 'does not allow a non-contributor to read a hidden request not in the project' do
+      expect(non_contributor_ability).not_to be_able_to(:read, hidden_request)
+    end
+  end
 end

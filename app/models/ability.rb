@@ -104,7 +104,7 @@ class Ability
     # Reading requests with prominence or via a project or public token
     can :read, InfoRequest do |info_request|
       can?(:_read, info_request) ||
-        project&.member?(user) ||
+        (project&.member?(user) && project&.info_request?(info_request)) ||
         public_token
     end
 
