@@ -8,7 +8,7 @@
       <%= @title ? "#{ @title } -" : "" %> <%= site_name %> admin
     </title>
 
-    <%= javascript_include_tag "admin" %>
+    <%= nonced_javascript_include_tag "admin" %>
     <%= stylesheet_link_tag "admin", :title => "Main", :rel => "stylesheet" %>
     <%= stylesheet_link_tag 'admin/print', :rel => "stylesheet", :media => "print"  %>
 

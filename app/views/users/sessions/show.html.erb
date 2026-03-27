@@ -2,7 +2,7 @@
   <%= _("You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>") %>
 </div>
 
-<script type="text/javascript">
+<script nonce="<%= content_security_policy_script_nonce %>">
   parent.modal_signin_successful = true;
 
   $("#send-request").click(function() {
