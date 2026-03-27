@@ -35,7 +35,8 @@ RSpec.describe Project, type: :model, feature: :projects do
       FactoryBot.create(
         :project, requests: [
           unclassified_request, classified_request, extracted_request,
-          other_project_extracted_request, both_projects_extracted_request
+          other_project_extracted_request, both_projects_extracted_request,
+          hidden_classified_request
         ]
       )
     end
@@ -76,6 +77,14 @@ RSpec.describe Project, type: :model, feature: :projects do
         described_state: 'successful'
       )
     end
+
+    let(:hidden_request) {
+      FactoryBot.build(:successful_request, :hidden)
+    }
+
+    let(:hidden_classified_request) {
+      FactoryBot.build(:successful_request, :hidden)
+    }
 
     before do
       FactoryBot.create(
@@ -310,10 +319,15 @@ RSpec.describe Project, type: :model, feature: :projects do
 
     let(:classifiable_request) { FactoryBot.create(:awaiting_description) }
     let(:non_classifiable_request) { FactoryBot.create(:successful_request) }
+    let(:hidden_request) { FactoryBot.create(:awaiting_description, :hidden) }
 
     let(:project) do
       project = FactoryBot.create(:project)
-      project.requests << [classifiable_request, non_classifiable_request]
+      project.requests << [
+        classifiable_request,
+        non_classifiable_request,
+        hidden_request
+      ]
       project
     end
 
@@ -325,10 +339,15 @@ RSpec.describe Project, type: :model, feature: :projects do
 
     let(:classifiable_request) { FactoryBot.create(:awaiting_description) }
     let(:classified_request) { FactoryBot.create(:successful_request) }
+    let(:hidden_request) { FactoryBot.create(:successful_request, :hidden) }
 
     let(:project) do
       project = FactoryBot.create(:project)
-      project.requests << [classifiable_request, classified_request]
+      project.requests << [
+        classifiable_request,
+        non_classifiable_request,
+        hidden_request
+      ]
       project
     end
 
@@ -383,6 +402,10 @@ RSpec.describe Project, type: :model, feature: :projects do
     it 'excludes requests extracted in both projects' do
       is_expected.not_to include both_projects_extracted_request
     end
+
+    it 'excludes hidden requests' do
+      is_expected.not_to include hidden_request
+    end
   end
 
   describe '#info_requests.extracted' do
@@ -408,6 +431,10 @@ RSpec.describe Project, type: :model, feature: :projects do
 
     it 'excludes requests extracted in different projects' do
       is_expected.not_to include other_project_extracted_request
+    end
+
+    it 'excludes hidden requests' do
+      is_expected.not_to include hidden_request
     end
   end
 

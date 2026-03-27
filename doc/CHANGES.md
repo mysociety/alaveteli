@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Only allow visible prominence requests in project queues (Gareth Rees)
 * Add exception notifications to background job failures (Graeme Porteous)
 * Fix visibility check for attachments when downloading a batch request as a zip
   file (Gareth Rees)

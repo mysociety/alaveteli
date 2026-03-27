@@ -7,11 +7,11 @@ class Project
     EXTRACTABLE_STATES = %w(successful partially_successful)
 
     def classifiable
-      where(awaiting_description: true)
+      where(awaiting_description: true, prominence: %[normal backpage])
     end
 
     def classified
-      where(awaiting_description: false)
+      where(awaiting_description: false, prominence: %[normal backpage])
     end
 
     def extractable
@@ -31,6 +31,7 @@ class Project
     def extracted
       joins(:extraction_project_submissions).
         where(project_submissions: { project: project }).
+        where(prominence: %w[normal backpage])
         distinct
     end
 
