@@ -70,6 +70,41 @@ RSpec.describe CommentsController, "when commenting on a request" do
     end
   end
 
+  describe 'handling malformed comment parameters' do
+    it 'does not raise exception when comment parameter is empty hash' do
+      expect {
+        get :new, params: {
+          url_title: info_requests(:naughty_chicken_request).url_title,
+          type: 'request',
+          comment: {}
+        }
+      }.not_to raise_error
+    end
+
+    it 'redirects to request page when comment parameter is empty hash' do
+      get :new, params: {
+        url_title: info_requests(:naughty_chicken_request).url_title,
+        type: 'request',
+        comment: {}
+      }
+      expect(response).to redirect_to(
+        request_url(info_requests(:naughty_chicken_request))
+      )
+    end
+
+    it 'does not raise exception on preview with empty comment hash' do
+      expect {
+        post :preview, params: {
+          url_title: info_requests(:naughty_chicken_request).url_title,
+          type: 'request',
+          comment: {},
+          submitted_comment: 1,
+          preview: 1
+        }
+      }.not_to raise_error
+    end
+  end
+
   it "should give an error and render 'new' template when body text is just some whitespace" do
     post :preview, params: {
       url_title: info_requests(:naughty_chicken_request).url_title,
@@ -225,10 +260,12 @@ RSpec.describe CommentsController, "when commenting on a request" do
   end
 
   describe 'when handling a comment that looks like spam' do
-    let(:user) { FactoryBot.create(:user,
-                                locale: 'en',
-                                name: 'bob',
-                                confirmed_not_spam: false) }
+    let(:user) {
+  FactoryBot.create(:user,
+                            locale: 'en',
+                            name: 'bob',
+                            confirmed_not_spam: false)
+}
     let(:body) { FactoryBot.create(:public_body) }
     let(:request) { FactoryBot.create(:info_request) }
 
