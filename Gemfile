@@ -81,7 +81,7 @@ source 'https://rubygems.org'
 
 git_source(:mysociety) { |repo| "https://github.com/mysociety/#{repo}.git" }
 
-gem 'rails', '~> 8.0.4'
+gem 'rails', '~> 8.0.5'
 
 gem 'pg', '~> 1.6.3'
 
