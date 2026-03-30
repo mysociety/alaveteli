@@ -208,7 +208,7 @@ group :development do
   gem 'annotaterb', '~> 4.22.0'
   gem 'launchy', '< 3.2.0'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 1.85.1', require: false
+  gem 'rubocop', '~> 1.86.0', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end
