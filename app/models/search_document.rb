@@ -75,6 +75,42 @@ class SearchDocument < ApplicationRecord
     ActiveRecord::Base.connection.execute(sql)
   end
 
+  def self.init_semantic_vectors(limit = 1)
+    # simple backfill to generate semantic vectors using transformers-rb
+    t0 = Time.now
+    model = Transformers.pipeline("embedding", "sentence-transformers/multi-qa-MiniLM-L6-cos-v1")
+    loading_t = Time.now
+    # this model is trained on 250 words text bits max, and truncates input text
+    # at 512 words, so we need to slice longer test before getting here
+    # (500 words is about 1 page of text)
+    # https://huggingface.co/sentence-transformers/multi-qa-MiniLM-L6-cos-v1#intended-uses
+    embed_t = 0
+    db_t = 0
+    failed = 0
+    where(embedding: nil).limit(limit).each do |doc|
+      # this randomly fails when the string *appears to contain too many words*
+      # (it's not a char limit)
+      begin
+        t1 = Time.now
+        doc_embedding = model.call(doc.raw_content[0..1600])
+        t2 = Time.now
+        # using the neighbor gem is an option instead of to_s
+        doc.update(embedding: doc_embedding.to_s)
+        t3 = Time.now
+        embed_t += (t2 - t1)
+        db_t += (t3 - t2)
+      rescue
+        puts "Failed to embed doc.id #{doc.id}"
+        failed += 1
+      end
+    end
+    puts "Load model: #{(loading_t - t0).round(2)} s"
+    puts "Embedding: #{embed_t.round(3)} s (#{(1000 * embed_t / limit).round(4)} ms / record)"
+    puts "DB update: #{db_t.round(3)} s"
+    puts "Failed to embed #{failed} / #{limit} records"
+    true
+  end
+
   def self.search(query, doc_type = nil, lang = 'french')
     # This returns a chainable ActiveRecord object, and produces a single SQL
     # query.
