@@ -2,13 +2,13 @@ name: CI
 
 on:
   push:
-    branches: [master, develop]
+    branches: [master, develop, "release/**"]
   pull_request:
 
 jobs:
   rspec:
     name: Ruby ${{ matrix.ruby }} / ${{ matrix.gemfile || 'Gemfile' }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
@@ -17,7 +17,6 @@ jobs:
         - { ruby: 2.5 }
         - { ruby: 2.6 }
         - { ruby: 2.7 }
-        - { ruby: 2.7, gemfile: 'Gemfile.rails_next' }
 
     services:
       postgres:
@@ -90,7 +89,7 @@ jobs:
   coveralls:
     name: Coveralls
     needs: rspec
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Coveralls Finished
         uses: coverallsapp/github-action@master
