@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [master, develop]
+    branches: [master, develop, "release/**"]
   pull_request:
 
 concurrency:
@@ -15,7 +15,7 @@ permissions:
 jobs:
   rspec:
     name: Ruby ${{ matrix.ruby }} / PostgreSQL ${{ matrix.postgres }} / ${{ matrix.gemfile || 'Gemfile' }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     permissions:
       checks: write # for coverallsapp/github-action to create new checks
@@ -25,7 +25,6 @@ jobs:
       matrix:
         include:
         - { ruby: 2.7, postgres: 13.5 }
-        - { ruby: 2.7, postgres: 13.5, gemfile: 'Gemfile.rails_next' }
 
     services:
       postgres:
@@ -104,7 +103,7 @@ jobs:
       checks: write
     name: Coveralls
     needs: rspec
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Coveralls Finished
         uses: coverallsapp/github-action@master
