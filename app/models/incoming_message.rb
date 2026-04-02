@@ -36,8 +36,6 @@ require 'rexml/document'
 require 'zip'
 
 class IncomingMessage < ApplicationRecord
-  class RawEmailErasedError < StandardError; end
-
   include MessageProminence
   include Taggable
 
@@ -83,6 +81,7 @@ class IncomingMessage < ApplicationRecord
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
+  delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.
@@ -95,7 +94,8 @@ class IncomingMessage < ApplicationRecord
     # values in case we want to regenerate them (due to mail
     # parsing bugs, etc).
     raise "Incoming message id=#{id} has no raw_email" if raw_email.nil?
-    raise RawEmailErasedError if raw_email_erased?
+
+    raw_email_ensure_not_erased!
 
     ActiveRecord::Base.transaction do
       extract_attachments
@@ -117,10 +117,6 @@ class IncomingMessage < ApplicationRecord
   end
 
   alias valid_to_reply_to? valid_to_reply_to
-
-  def raw_email_erased?
-    raw_email.erased?
-  end
 
   # We can't redeliver when the RawEmail has been erased because redelivery
   # currently extracts the underlying data and creates a new response as if it
