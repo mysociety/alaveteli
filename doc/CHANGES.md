@@ -771,6 +771,12 @@ to match the new templates.
     app/views/user/show/_show_profile.html.erb
     app/views/users/messages/rate_limited.html.erb
 
+# 0.43.3.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.43.2.2
 
 ## Highlighted Features
