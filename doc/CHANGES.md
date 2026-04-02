@@ -1098,6 +1098,12 @@ to match the new templates.
     app/views/request/show.html.erb
     app/views/request/show.text.erb
 
+# 0.41.2.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.41.1.2
 
 ## Highlighted Features
