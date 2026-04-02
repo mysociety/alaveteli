@@ -30,8 +30,8 @@ class OutgoingMessage
 
           unless replacements[:embargo]
             msg += "\n\n\n\n"
-            msg += _("A full history of my FOI request and all " \
-                     "correspondence is available on the Internet at this " \
+            msg += _("A full history of my FOI request, including all " \
+                     "correspondence, is available online at this " \
                      "address: {{url}}",
                      replacements)
           end
