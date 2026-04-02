@@ -336,6 +336,12 @@ to match the new templates.
     app/views/user/wrong_user.html.erb
     app/views/user_mailer/already_registered.text.erb
 
+# 0.45.6.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.45.5.0
 
 ## Highlighted Features
@@ -678,6 +684,12 @@ to match the new templates.
     app/views/widgets/new.html.erb
     app/views/widgets/show.html.erb
 
+# 0.44.1.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.44.0.3
 
 ## Highlighted Features
@@ -816,6 +828,12 @@ to match the new templates.
     app/views/request/request_subtitle/allow_new_responses_from/_nobody.html.erb
     app/views/user/show/_show_profile.html.erb
     app/views/users/messages/rate_limited.html.erb
+
+# 0.43.3.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
 
 # 0.43.2.2
 
@@ -983,6 +1001,12 @@ to match the new templates.
     app/views/request/new.html.erb
     app/views/request/preview.html.erb
 
+# 0.42.1.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.42.0.2
 
 ## Highlighted Features
@@ -1143,6 +1167,12 @@ to match the new templates.
     app/views/request/new_defunct.html.erb
     app/views/request/show.html.erb
     app/views/request/show.text.erb
+
+# 0.41.2.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
 
 # 0.41.1.2
 
@@ -1338,6 +1368,12 @@ to match the new templates.
     app/views/track/atom_feed.atom.erb
     app/views/track_mailer/event_digest.text.erb
     app/views/user/_show_user_info.html.erb
+
+# 0.40.2.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
 
 # 0.40.1.3
 
@@ -1547,6 +1583,12 @@ to match the new templates.
     app/views/track_mailer/event_digest.text.erb
     app/views/user/bad_token.html.erb
 
+# 0.39.2.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.39.1.8
 
 ## Highlighted Features
@@ -1731,6 +1773,12 @@ to match the new templates.
     app/views/user/show.html.erb
     app/views/user/show/_show_same_name_users.html.erb
     app/views/user/sign.html.erb
+
+# 0.38.5.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
 
 # 0.38.4.5
 
