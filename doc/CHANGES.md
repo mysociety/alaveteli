@@ -1501,6 +1501,12 @@ to match the new templates.
     app/views/track_mailer/event_digest.text.erb
     app/views/user/bad_token.html.erb
 
+# 0.39.2.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.39.1.8
 
 ## Highlighted Features
