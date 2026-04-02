@@ -1293,6 +1293,12 @@ to match the new templates.
     app/views/track_mailer/event_digest.text.erb
     app/views/user/_show_user_info.html.erb
 
+# 0.40.2.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.40.1.3
 
 ## Highlighted Features
