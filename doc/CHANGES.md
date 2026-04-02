@@ -1686,6 +1686,12 @@ to match the new templates.
     app/views/user/show/_show_same_name_users.html.erb
     app/views/user/sign.html.erb
 
+# 0.38.5.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.38.4.5
 
 ## Highlighted Features
