@@ -937,6 +937,12 @@ to match the new templates.
     app/views/request/new.html.erb
     app/views/request/preview.html.erb
 
+# 0.42.1.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.42.0.2
 
 ## Highlighted Features
