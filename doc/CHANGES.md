@@ -290,6 +290,12 @@ to match the new templates.
     app/views/user/wrong_user.html.erb
     app/views/user_mailer/already_registered.text.erb
 
+# 0.45.6.0
+
+## Highlighted Features
+
+* Sanitise RTF to HTML conversion (Gareth Rees)
+
 # 0.45.5.0
 
 ## Highlighted Features
