@@ -1969,6 +1969,9 @@ RSpec.describe FoiAttachment do
     let(:foi_attachment) { FactoryBot.create(:body_text) }
     let(:original_body) { 'The original body content' }
 
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'Testing' }
+
     before do
       allow(foi_attachment).to receive(:mail_attributes).
         and_return(body: original_body)
@@ -1982,7 +1985,7 @@ RSpec.describe FoiAttachment do
 
       it 'masks the attachment' do
         expect(foi_attachment).to receive(:mask_later)
-        foi_attachment.update(locked: true)
+        foi_attachment.lock(editor: editor, reason: reason)
       end
     end
 
@@ -2000,7 +2003,7 @@ RSpec.describe FoiAttachment do
       end
 
       it 'retains redacted filename' do
-        expect { foi_attachment.update(locked: true) }.
+        expect { foi_attachment.lock(editor: editor, reason: reason) }.
           to_not change(foi_attachment, :display_filename).from('redacted.txt')
       end
     end
@@ -2010,7 +2013,7 @@ RSpec.describe FoiAttachment do
 
       it 'does not mask the attachment' do
         expect(foi_attachment).to_not receive(:mask_later)
-        foi_attachment.update(locked: true)
+        foi_attachment.lock(editor: editor, reason: reason)
       end
     end
 
@@ -2021,13 +2024,13 @@ RSpec.describe FoiAttachment do
       it 'masks the attachment even if already masked' do
         expect(foi_attachment.masked_at).to_not be_nil
         expect(foi_attachment).to receive(:mask_later)
-        foi_attachment.update(locked: false)
+        foi_attachment.unlock(editor: editor, reason: reason)
       end
 
       it 'does not process replacements when unlocking' do
         foi_attachment.replacement_body = new_body
         expect(foi_attachment.file_blob).not_to receive(:upload)
-        foi_attachment.update(locked: false)
+        foi_attachment.unlock(editor: editor, reason: reason)
       end
     end
 
@@ -2041,19 +2044,19 @@ RSpec.describe FoiAttachment do
         # due to there being no associated incoming_message/info_request
         allow(foi_attachment).to receive(:masked?).and_return(true)
 
-        expect { foi_attachment.update(locked: false) }.
+        expect { foi_attachment.unlock(editor: editor, reason: reason) }.
           to change(foi_attachment, :body).
           from('New body').to(original_body)
       end
 
       it 'resets replaced_at' do
-        expect { foi_attachment.update(locked: false) }.
+        expect { foi_attachment.unlock(editor: editor, reason: reason) }.
           to change(foi_attachment, :replaced_at).
           to(nil)
       end
 
       it 'resets replaced_reason' do
-        expect { foi_attachment.update(locked: false) }.
+        expect { foi_attachment.unlock(editor: editor, reason: reason) }.
           to change(foi_attachment, :replaced_reason).
           to(nil)
       end
