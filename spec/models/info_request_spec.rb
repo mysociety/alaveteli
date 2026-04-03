@@ -1650,6 +1650,25 @@ RSpec.describe InfoRequest do
     end
   end
 
+  describe '#make_redactions_permanent' do
+    subject { info_request.make_redactions_permanent(editor: editor) }
+
+    let(:editor) { instance_double(User) }
+    let(:info_request) { FactoryBot.create(:info_request_with_plain_incoming) }
+
+    it 'makes redactions permanent on each outgoing message' do
+      expect_any_instance_of(OutgoingMessage).to receive(:make_redactions_permanent).
+        with(editor: editor, reason: 'InfoRequest#make_redactions_permanent')
+      subject
+    end
+
+    it 'makes redactions permanent on each incoming message' do
+      expect_any_instance_of(IncomingMessage).to receive(:make_redactions_permanent).
+        with(editor: editor, reason: 'InfoRequest#make_redactions_permanent')
+      subject
+    end
+  end
+
   describe '#clear_attachment_masks!' do
     let(:info_request) { FactoryBot.create(:info_request_with_plain_incoming) }
     let(:attachment) { info_request.foi_attachments.first }

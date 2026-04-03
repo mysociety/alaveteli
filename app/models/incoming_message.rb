@@ -45,6 +45,7 @@ class IncomingMessage < ApplicationRecord
   include IncomingMessage::CacheAttributesFromRawEmail
   include IncomingMessage::MainBody
   include IncomingMessage::QuoteHandling
+  include IncomingMessage::Redactable
   include IncomingMessage::Refusals
 
   UnableToExtractAttachments = Class.new(StandardError)
@@ -83,6 +84,8 @@ class IncomingMessage < ApplicationRecord
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
+
+  delegate :expire, :log_event, to: :info_request
 
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.

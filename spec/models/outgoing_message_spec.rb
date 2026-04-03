@@ -674,6 +674,112 @@ RSpec.describe OutgoingMessage do
     end
   end
 
+  describe '#redacted?' do
+    subject { outgoing_message.redacted? }
+
+    let(:user) { FactoryBot.create(:user, name: 'Alice Smith') }
+
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+    let(:outgoing_message) do
+      FactoryBot.create(:initial_request, info_request: info_request)
+    end
+
+    context 'when no redactions have been made' do
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when a censor rule redacts the from_name' do
+      before do
+        FactoryBot.create(
+          :censor_rule,
+          info_request: info_request,
+          text: 'Alice Smith'
+        )
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when a censor rule redacts the body' do
+      before do
+        FactoryBot.create(
+          :censor_rule,
+          info_request: info_request,
+          text: 'information'
+        )
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+
+  describe '#make_redactions_permanent' do
+    subject { outgoing_message.make_redactions_permanent(editor: editor) }
+
+    let(:editor) { FactoryBot.create(:admin_user) }
+
+    let(:user) { FactoryBot.create(:user, name: 'Alice Smith') }
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+    let(:outgoing_message) do
+      FactoryBot.create(:initial_request, info_request: info_request)
+    end
+
+    def last_event
+      outgoing_message.reload.info_request.info_request_events.last
+    end
+
+    context 'when not redacted' do
+      it 'does not change from_name' do
+        expect { subject }.
+          not_to change { outgoing_message.reload.read_attribute(:from_name) }
+      end
+
+      it 'does not change body' do
+        expect { subject }.
+          not_to change { outgoing_message.reload.read_attribute(:body) }
+      end
+
+      it 'does not log an event' do
+        expect { subject }.not_to change { last_event }
+      end
+    end
+
+    context 'when both from_name and body are redacted' do
+      before do
+        FactoryBot.
+          create(:censor_rule, info_request: info_request, text: 'Smith')
+
+        FactoryBot.
+          create(:censor_rule, info_request: info_request, text: 'information')
+      end
+
+      before { subject }
+
+      it 'persists the redacted from_name' do
+        attr = outgoing_message.reload.read_attribute(:from_name)
+        expect(attr).to eq('Alice [REDACTED]')
+      end
+
+      it 'persists the redacted body' do
+        attr = outgoing_message.reload.read_attribute(:body)
+
+        expect(attr).not_to include('information')
+        expect(attr).to include('[REDACTED]')
+      end
+
+      it 'logs an edit_outgoing event' do
+        expect(last_event.event_type).to eq('edit_outgoing')
+        expect(last_event.params[:editor]).to eq(editor)
+        expect(last_event.params[:reason]).
+          to eq('OutgoingMessage#make_redactions_permanent')
+        expect(last_event.params[:body_changed]).to eq(true)
+        expect(last_event.params[:from_name_changed]).to eq(true)
+      end
+    end
+  end
+
   describe '#apply_masks' do
     before(:each) do
       @message = FactoryBot.create(:initial_request)

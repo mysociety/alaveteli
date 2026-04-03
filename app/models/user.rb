@@ -50,6 +50,7 @@ class User < ApplicationRecord
   include AlaveteliPro::PhaseCounts
 
   include User::Authentication
+  include User::Erasable
   include User::InternalAdmin
   include User::LimitedProfile
   include User::LoginToken
@@ -436,37 +437,6 @@ class User < ApplicationRecord
     closed_at.present?
   end
 
-  def erase
-    erase!
-  rescue ActiveRecord::RecordInvalid
-    false
-  end
-
-  def erase!
-    raise ActiveRecord::RecordInvalid unless closed?
-
-    sha = Digest::SHA1.hexdigest(rand.to_s)
-
-    transaction do
-      slugs.destroy_all
-      sign_ins.destroy_all
-      email_histories.destroy_all
-      profile_photo&.destroy!
-
-      outgoing_messages.update!(
-        from_name: _('[Name Removed]')
-      )
-
-      update!(
-        name: _('[Name Removed]'),
-        email: "#{sha}@invalid",
-        url_name: sha,
-        about_me: '',
-        password: MySociety::Util.generate_token
-      )
-    end
-  end
-
   def anonymise!
     return if info_requests.none? && comments.none?
 
@@ -479,11 +449,11 @@ class User < ApplicationRecord
     end
   end
 
-  def close_and_anonymise
+  def close_and_anonymise(editor:, reason:)
     transaction do
       close!
       anonymise!
-      erase!
+      erase!(editor: editor, reason: reason)
     end
   end
 
@@ -703,6 +673,10 @@ class User < ApplicationRecord
   def record_sign_in(*args)
     sign_ins.create(*args)
     touch(:last_sign_in_at)
+  end
+
+  def all_attachments_masked?
+    foi_attachments.unmasked.none?
   end
 
   private

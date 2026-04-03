@@ -211,40 +211,26 @@ RSpec.describe IncomingMessage do
   describe '#all_attachments_masked?' do
     subject { message.all_attachments_masked? }
 
-    let(:message) { FactoryBot.create(:incoming_message) }
+    let(:message) do
+      FactoryBot.create(:incoming_message, :with_pdf_attachment)
+    end
 
     context 'when all attachments are masked' do
-      before do
-        allow(message).to receive(:foi_attachments).
-          and_return([double(masked?: true), double(masked?: true)])
-      end
-
+      before { message.foi_attachments.each(&:mask) }
       it { is_expected.to eq(true) }
     end
 
     context 'when some attachments are not masked' do
       before do
-        allow(message).to receive(:foi_attachments).
-          and_return([double(masked?: true), double(masked?: false)])
-      end
-
-      it { is_expected.to eq(false) }
-    end
-
-    context 'when no attachments are masked' do
-      before do
-        allow(message).to receive(:foi_attachments).
-          and_return([double(masked?: false), double(masked?: false)])
+        message.foi_attachments.each(&:mask)
+        FactoryBot.create(:body_text, :unmasked, incoming_message: message)
       end
 
       it { is_expected.to eq(false) }
     end
 
     context 'when there are no attachments' do
-      before do
-        message.foi_attachments.destroy_all
-      end
-
+      before { message.foi_attachments.destroy_all }
       it { is_expected.to eq(true) }
     end
   end
@@ -354,6 +340,302 @@ RSpec.describe IncomingMessage do
 
       expect(message.safe_from_name).to eq('FOI [REDACTED]')
     end
+  end
+
+  describe '#redacted?' do
+    subject { incoming_message.redacted? }
+
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:info_request) { incoming_message.info_request }
+
+    context 'when no redactions have been made' do
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when a censor rule redacts the from_name' do
+      before do
+        incoming_message.update!(from_name: 'Alice Smith')
+
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: info_request,
+          text: 'Alice'
+        )
+
+        info_request.reload
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when a censor rule redacts the cached main body' do
+      before do
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: info_request,
+          text: 'here'
+        )
+
+        info_request.reload
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when a text mask redacts the cached main body' do
+      let(:incoming_message) do
+        inbound_email = <<~EMAIL
+          From: Authority <authority@example.com>
+          To: Request <request@example.net>
+          Subject: Response
+
+          Please contact info@authority.example.com for more details.
+        EMAIL
+
+        FactoryBot.create(:incoming_message).tap do |im|
+          im.raw_email.data = inbound_email
+          im.raw_email.save!
+          im.parse_raw_email!
+        end
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when an attachment has been redacted' do
+      before do
+        allow(incoming_message.foi_attachments.first).
+          to receive(:redacted?).and_return(true)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+
+  describe '#make_redactions_permanent' do
+    subject { incoming_message.make_redactions_permanent(editor: editor) }
+
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:incoming_message) { FactoryBot.create(:plain_incoming_message) }
+
+    before { incoming_message.foi_attachments.each(&:mask) }
+
+    def last_edit_incoming_event
+      incoming_message.info_request.info_request_events.
+        where(event_type: 'edit_incoming').last
+    end
+
+    context 'when not redacted' do
+      it 'does not change from_name' do
+        expect { subject }.not_to change { incoming_message.reload.from_name }
+      end
+
+      it 'does not change cached_main_body_text_folded' do
+        expect { subject }.
+          not_to change { incoming_message.reload.cached_main_body_text_folded }
+      end
+
+      it 'does not change cached_main_body_text_unfolded' do
+        expect { subject }.
+          not_to \
+          change { incoming_message.reload.cached_main_body_text_unfolded }
+      end
+
+      it 'does not log an edit_incoming event' do
+        expect { subject }.not_to change { last_edit_incoming_event }
+      end
+
+      it 'does not lock attachments' do
+        expect { subject }.not_to \
+          change { incoming_message.reload.foi_attachments.first.locked? }
+      end
+
+      it 'does not erase the raw email' do
+        expect { subject }.not_to \
+          change { incoming_message.raw_email.erased? }
+      end
+    end
+
+    context 'when redactions exist' do
+      before do
+        # Match content in from_name
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: incoming_message.info_request,
+          text: 'Bob Responder'
+        )
+
+        # Match content in the body text
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: incoming_message.info_request,
+          text: 'rubbish'
+        )
+
+        # TODO
+        # Should convert to a message with a non-main body attachment and
+        # add a censor rule that affects that
+
+        # The ordering of these is important
+        incoming_message.info_request.expire
+        update_xapian_index
+
+        incoming_message.reload
+
+        incoming_message.foi_attachments.each(&:mask)
+      end
+
+      before do
+        perform_enqueued_jobs { subject }
+      end
+
+      it 'persists redactions to from_name' do
+        expect(incoming_message.reload.from_name).to eq('[REDACTED]')
+      end
+
+      it 'persists redactions to cached_main_body_text_folded' do
+        incoming_message.reload.get_main_body_text_folded
+        expect(incoming_message.cached_main_body_text_folded).
+          to include('a [REDACTED] question')
+      end
+
+      it 'persists redactions to cached_main_body_text_unfolded' do
+        incoming_message.reload.get_main_body_text_unfolded
+        expect(incoming_message.cached_main_body_text_unfolded).
+          to include('a [REDACTED] question')
+      end
+
+      it 'logs an edit_incoming event' do
+        expect(last_edit_incoming_event.event_type).to eq('edit_incoming')
+        expect(last_edit_incoming_event.params[:editor]).to eq(editor)
+        expect(last_edit_incoming_event.params[:reason]).
+          to eq('IncomingMessage#make_redactions_permanent')
+        expect(last_edit_incoming_event.params[:from_name_changed]).to eq(true)
+      end
+
+      it 'locks all attachments' do
+        expect(incoming_message.reload.foi_attachments).to all(be_locked)
+      end
+
+      it 'erases the raw email' do
+        expect(incoming_message.reload.raw_email).to be_erased
+      end
+    end
+
+    # Why might the raw email already be erased? Here's one example:
+    # * Erase a single attachment because data breach (which erases raw email)
+    # * A year later user requests RTE; we close, anonymise & erase the account
+    # * The new user censor rules won't get applied, because the attachments are
+    #   locked, but we don't want the process to fail while we iterate through
+    #   all their requests.
+    #
+    # Another example might be the reverse:
+    # * A user requests RTE; we close, anonymise & erase the account, which
+    #   persists redactions to the salutation from the FOI officer's response.
+    # * The FOI officer later requests RTE. We'd have to manually replace any
+    #   attachment content, but the cached header content could get redacted
+    #   by censor rules. Again, we wouldn't want this to fail if the raw email
+    #   is already erased
+    context 'when the raw email is already erased' do
+      before do
+        # Mask and erase the raw email while it is still present
+        event_params = { editor: editor, reason: 'test' }
+
+        # FIXME: This should be happening automatically
+        incoming_message.send(:_cache_main_body_text)
+
+        # A previous redaction on the main body text
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: incoming_message.info_request,
+          text: 'Francis',
+          replacement: '[initial_rule]'
+        )
+
+        # TODO: Not sure what we *actually* need from all this
+        # Ordering is important
+        incoming_message.info_request.expire
+        update_xapian_index
+        incoming_message.reload
+        incoming_message.foi_attachments.each(&:mask)
+
+        incoming_message.raw_email.erase(**event_params)
+        # NOTE: Attachments are now locked so no more censor rules can be
+        # applied
+      end
+
+      before do
+        # Make a new redaction for the FOI officer on the from_name
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: incoming_message.info_request,
+          text: 'Bob Responder',
+          replacement: '[new_rule_from_name]'
+        )
+
+        # Make a new redaction for the FOI officer on the main body text
+        FactoryBot.create(
+          :info_request_censor_rule,
+          info_request: incoming_message.info_request,
+          text: 'Quango',
+          replacement: '[new_rule_main_body]'
+        )
+
+        incoming_message.info_request.reload
+      end
+
+      before do
+        subject
+        incoming_message.reload.send(:_cache_main_body_text)
+      end
+
+      it 'still persists the previous redaction in the cached main body text' do
+        expect(incoming_message.cached_main_body_text_unfolded).
+          not_to include('Francis')
+        expect(incoming_message.cached_main_body_text_unfolded).
+          to include('[initial_rule]')
+      end
+
+      it 'persists the new redaction to from_name' do
+        expect(incoming_message.from_name).not_to eq('Bob Responder')
+        expect(incoming_message.from_name).to eq('[new_rule_from_name]')
+      end
+
+      # FIXME: This is not possible because we prevent masks being applied to
+      # the cached main body text when the main body text part is locked.
+      # See IncomingMessage#_cache_main_body_text
+      xit 'persists the new redaction to the cached main body text' do
+        expect(incoming_message.cached_main_body_text_unfolded).
+          not_to include('Quango')
+        expect(incoming_message.get_main_body_text_part.body_as_text).
+          not_to include('Quango')
+        expect(incoming_message.cached_main_body_text_unfolded).
+          to include('[new_rule_main_body]')
+      end
+
+      it 'logs an edit_incoming event' do
+        expect(last_edit_incoming_event.event_type).to eq('edit_incoming')
+        expect(last_edit_incoming_event.params[:editor]).to eq(editor)
+        expect(last_edit_incoming_event.params[:reason]).
+          to eq('IncomingMessage#make_redactions_permanent')
+        expect(last_edit_incoming_event.params[:from_name_changed]).to eq(true)
+      end
+    end
+
+    context 'when there are unmasked attachments' do
+      before do
+        allow(incoming_message).to receive(:redacted?).and_return(true)
+
+        allow(incoming_message).
+          to receive(:all_attachments_masked?).and_return(false)
+      end
+
+      it 'raises an error' do
+        expect { subject }.
+          to raise_error(RawEmail::UnmaskedAttachmentsError)
+      end
+    end
+
   end
 
   describe '#from_email' do
