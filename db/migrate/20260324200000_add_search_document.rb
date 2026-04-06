@@ -25,12 +25,20 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
     # TODO: fill embeddings with
     # https://github.com/ankane/transformers-ruby?tab=readme-ov-file#sentence-transformersmulti-qa-MiniLM-L6-cos-v1
     # (same model as previous experiment in python)
-    # gems fail to compile
     reversible do |direction|
       direction.up do
         execute <<-SQL
           alter table search_documents add column
             embedding vector(384);
+
+          -- reciprocal ranked fusion
+          CREATE OR REPLACE FUNCTION rrf_score(rank bigint, rrf_k bigint DEFAULT 50)
+          RETURNS numeric
+          LANGUAGE SQL
+          IMMUTABLE PARALLEL SAFE
+          AS $$
+              SELECT COALESCE(1.0 / ($1 + $2), 0.0);
+          $$ ;
 
           CREATE OR REPLACE FUNCTION update_search_document_tsv()
           RETURNS TRIGGER AS $$
@@ -48,7 +56,7 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
           $$ LANGUAGE plpgsql;
 
           CREATE TRIGGER search_documents_content_tsv_trigger
-          AFTER INSERT OR UPDATE ON search_documents
+          AFTER INSERT OR UPDATE OF raw_content ON search_documents
           FOR EACH ROW
           EXECUTE FUNCTION update_search_document_tsv();
         SQL

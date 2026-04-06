@@ -21,6 +21,8 @@
 class SearchDocument < ApplicationRecord
   belongs_to :searchable_doc, polymorphic: true
 
+  @@model = Transformers.pipeline("embedding", "sentence-transformers/multi-qa-MiniLM-L6-cos-v1")
+
   def self.init_raw_content
     # 280ms to load 15k incoming_messages
     # 850ms for 72k IM+OM
@@ -78,7 +80,6 @@ class SearchDocument < ApplicationRecord
   def self.init_semantic_vectors(limit = 1)
     # simple backfill to generate semantic vectors using transformers-rb
     t0 = Time.now
-    model = Transformers.pipeline("embedding", "sentence-transformers/multi-qa-MiniLM-L6-cos-v1")
     loading_t = Time.now
     # this model is trained on 250 words text bits max, and truncates input text
     # at 512 words, so we need to slice longer test before getting here
@@ -92,7 +93,9 @@ class SearchDocument < ApplicationRecord
       # (it's not a char limit)
       begin
         t1 = Time.now
-        doc_embedding = model.call(doc.raw_content[0..1600])
+        # in practice, text longer than about 1600 chars fails to embed, but no
+        # clear error message, will need investigating, might be model dependent
+        doc_embedding = @@model.call(doc.raw_content[0..1600])
         t2 = Time.now
         # using the neighbor gem is an option instead of to_s
         doc.update(embedding: doc_embedding.to_s)
@@ -108,7 +111,79 @@ class SearchDocument < ApplicationRecord
     puts "Embedding: #{embed_t.round(3)} s (#{(1000 * embed_t / limit).round(4)} ms / record)"
     puts "DB update: #{db_t.round(3)} s"
     puts "Failed to embed #{failed} / #{limit} records"
-    true
+    limit
+  end
+
+  def self.hybrid_search_internal(query, doc_type = nil, lang = 'french', semantic_threshold = 0.6)
+    search_terms = query.
+      split(' ').
+      map { |q| "to_tsquery('#{lang}', unaccent(COALESCE('#{q}', '')))" }.
+      join(' && ')
+
+    if doc_type.nil?
+      doc_type_q = "(1=1)"
+    else
+      doc_type_q = "searchable_doc_type = '#{doc_type}'"
+    end
+
+    q_embedding = @@model.call(query)
+
+    sql = <<-SQL
+      SELECT
+      searches.id,
+      searches.raw_content,
+      sum(searches.rank) AS rank_sum,
+      sum(rrf_score(searches.rank)) AS score
+      FROM (
+      (
+          SELECT
+              id,
+              raw_content,
+              rank() OVER (ORDER BY '#{q_embedding}'::vector <=> embedding) AS rank
+          FROM search_documents
+          WHERE embedding is not null
+          AND ('#{q_embedding}'::vector <=> embedding) < #{semantic_threshold}
+          ORDER BY '#{q_embedding}'::vector <=> embedding
+          LIMIT 40
+      )
+      UNION ALL
+      (
+          SELECT
+              id,
+              raw_content,
+              rank() OVER (
+                ORDER BY ts_rank_cd(content_tsv, plainto_tsquery('#{query}')) DESC
+              ) AS rank
+          FROM search_documents
+          WHERE
+              plainto_tsquery('#{lang}', '#{query}') @@ content_tsv
+          ORDER BY rank
+          LIMIT 40
+      )
+      ) searches
+      GROUP BY searches.id, searches.raw_content
+      ORDER BY score DESC
+      LIMIT 10
+    SQL
+
+    sql
+  end
+
+  def self.word_distance(w1, w2)
+    # just for debugging, helps understand cosine distance between 2 words/sentences
+    q1_embedding = @@model.call(w1)
+    q2_embedding = @@model.call(w2)
+    sql = <<-SQL
+      SELECT
+          (#{q1_embedding}::vector <=> #{q2_embedding}::vector) AS dist
+    SQL
+    sql
+  end
+
+  def self.hybrid_search(query, doc_type = nil, lang = 'french')
+    # chainable call
+    sql = hybrid_search_internal(query, doc_type, lang)
+    SearchDocument.where("id IN (SELECT s.id FROM (#{sql}) s)")
   end
 
   def self.search(query, doc_type = nil, lang = 'french')
