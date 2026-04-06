@@ -122,7 +122,7 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
-    addressable (2.8.9)
+    addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     annotaterb (4.22.0)
       activerecord (>= 6.0.0)
@@ -653,7 +653,7 @@ DEPENDENCIES
   active_model_otp
   activejob-uniqueness (~> 0.4.0)
   acts_as_versioned!
-  addressable (~> 2.8.9)
+  addressable (~> 2.9.0)
   alaveteli_features!
   annotaterb (~> 4.22.0)
   aws-sdk-s3
