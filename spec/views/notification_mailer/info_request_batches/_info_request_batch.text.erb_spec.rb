@@ -47,7 +47,7 @@ RSpec.describe(
 
   it "renders the authority list partial" do
     expected_partial = "alaveteli_pro/info_request_batches/authority_list"
-    expected_locals = { public_bodies: [public_body_1, public_body_2] }
+    expected_locals = { public_bodies: batch_request.public_bodies }
     expect(response).
       to render_template(partial: expected_partial, locals: expected_locals)
   end
