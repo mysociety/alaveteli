@@ -1,6 +1,6 @@
 # Allow admins to erase RawEmail records.
 class Admin::RawEmails::ErasuresController < AdminController
-  rescue_from RawEmail::AlreadyErasedError, with: :already_erased
+  rescue_from RawEmail::ErasedError, with: :already_erased
   rescue_from RawEmail::UnmaskedAttachmentsError, with: :unmasked_attachments
 
   before_action :set_raw_email

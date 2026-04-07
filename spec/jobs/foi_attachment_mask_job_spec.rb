@@ -11,16 +11,16 @@ RSpec.describe FoiAttachmentMaskJob, type: :job do
 
   before { rebuild_raw_emails(info_request) }
 
-  context 'after rescuing from FoiAttachment::MissingAttachment' do
+  context 'after rescuing from FoiAttachment::MissingError' do
     before do
-      # first call to #unmasked_body should raise MissingAttachment exception
+      # first call to #unmasked_body should raise MissingError exception
       # subsequent calls should call the original method.
       @raised = false
       allow(attachment).to receive(:unmasked_body).
         and_wrap_original do |original_method, *args, &block|
           unless @raised
             @raised = true
-            raise FoiAttachment::MissingAttachment
+            raise FoiAttachment::MissingError
           end
           original_method.call(*args, &block)
         end

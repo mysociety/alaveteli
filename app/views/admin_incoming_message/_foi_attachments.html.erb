@@ -24,6 +24,9 @@
               <% if attachment.replaced? %>
                 <span class="label">Replaced</span>
               <% end %>
+              <% if attachment.erased? %>
+                <span class="label">Erased</span>
+              <% end %>
             </td>
             <td><tt><%= attachment.content_type %></tt></td>
             <td><tt><%= attachment.hexdigest %></tt></td>

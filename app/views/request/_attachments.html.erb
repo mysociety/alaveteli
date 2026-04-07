@@ -74,5 +74,7 @@
   <% end %>
   <% if can?(:read, incoming_message.get_main_body_text_part) %>
     <%= incoming_message.get_body_for_html_display(@collapse_quotes) %>
+  <% elsif incoming_message.get_main_body_text_part.erased? %>
+    <%= _('This message has been erased.') %>
   <% end %>
 <% end %>

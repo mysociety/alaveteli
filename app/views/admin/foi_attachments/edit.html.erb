@@ -64,7 +64,7 @@
   <hr />
   <h2>Unmasked message body (quotes unfolded):</h2>
 
-  <% if @foi_attachment.erased? %>
+  <% if @foi_attachment.raw_email_erased? %>
     <div class="row">
       <div class="span12">
         <div class="alert alert-warning">
