@@ -77,15 +77,21 @@ jobs:
       uses: actions/checkout@v4
       with:
         submodules: true
-        fetch-depth: 0
+
+    - name: Cache apt packages
+      uses: actions/cache@v4
+      with:
+        path: /var/cache/apt/archives
+        key: apt-${{ runner.os }}-${{ hashFiles('config/packages') }}
 
     - name: Install packages
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo apt-get -y update
-        sudo apt-get -y install exim4-daemon-light
-        sudo apt-get -y install `cut -d " " -f 1 config/packages | egrep -v "(^#|wkhtml|bundler|^ruby|^rake)"`
+        sudo apt-get -y install --no-install-recommends \
+          exim4-daemon-light \
+          $(cut -d ' ' -f 1 config/packages | grep -Ev '(^#|wkhtml|bundler|^ruby|^rake)')
 
     - name: Install Ruby ${{ matrix.ruby }}
       uses: ruby/setup-ruby@v1
