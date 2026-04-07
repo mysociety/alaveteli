@@ -14,7 +14,7 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
       Hello, World
       EOF
       mail = MailHandler.mail_from_string(inbound_email)
-      args = [double('info_request'), mail, double('inbound_email')]
+      args = [double('info_request'), mail]
 
       expect(described_class.new(*args).reject).to eq(true)
     end
@@ -30,7 +30,7 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
       Hello, World
       EOF
       mail = MailHandler.mail_from_string(inbound_email)
-      args = [info_request, mail, double('inbound_email')]
+      args = [info_request, mail]
 
       expect(described_class.new(*args).reject).to eq(true)
     end
@@ -46,7 +46,7 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
       Hello, World
       EOF
       mail = MailHandler.mail_from_string(inbound_email)
-      args = [info_request, mail, double('inbound_email')]
+      args = [info_request, mail]
 
       expect(described_class.new(*args).reject).to eq(true)
     end
@@ -62,7 +62,7 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
       Hello, World
       EOF
       mail = MailHandler.mail_from_string(inbound_email)
-      args = [info_request, mail, double('inbound_email')]
+      args = [info_request, mail]
 
       expect(described_class.new(*args).reject).to eq(true)
     end
@@ -76,7 +76,7 @@ RSpec.describe InfoRequest::ResponseRejection::Bounce do
       Hello, World
       EOF
       mail = MailHandler.mail_from_string(inbound_email)
-      args = [info_request, mail, inbound_email]
+      args = [info_request, mail]
 
       described_class.new(*args).reject
 

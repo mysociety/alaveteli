@@ -109,7 +109,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         EOF
         mail = MailHandler.mail_from_string(inbound_email)
         info_request = FactoryBot.create(:info_request)
-        info_request.receive(mail, inbound_email)
+        info_request.receive(mail)
 
         gatekeeper = described_class.new(info_request)
 
@@ -125,7 +125,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         EOF
         mail = MailHandler.mail_from_string(inbound_email)
         info_request = FactoryBot.create(:info_request)
-        info_request.receive(mail, inbound_email)
+        info_request.receive(mail)
 
         gatekeeper = described_class.new(info_request)
 

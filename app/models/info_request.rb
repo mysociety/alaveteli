@@ -929,53 +929,31 @@ class InfoRequest < ApplicationRecord
     incoming_messages.any? { mail.message_id == _1.message_id }
   end
 
-  def receive(mail, inbound_email, *args)
+  def receive(mail, override_stop_new_responses: false, rejected_reason: nil)
     return if already_received?(mail)
 
-    defaults = { override_stop_new_responses: false,
-                 rejected_reason: nil,
-                 source: :internal }
+    accepted = override_stop_new_responses || accept_incoming?(mail)
+    return unless accepted
 
-    opts = if args.first.is_a?(Hash)
-      defaults.merge(args.shift)
+    incoming_message = create_response!(mail, rejected_reason: rejected_reason)
+
+    # Notify the user that a new response has been received, unless the
+    # request is external
+    return if is_external?
+
+    if use_notifications?
+      info_request_event = info_request_events.find_by(
+        event_type: 'response',
+        incoming_message_id: incoming_message.id
+      )
+      user.notify(info_request_event)
     else
-      defaults
-    end
-
-    if receive_mail_from_source? opts[:source]
-      # Is this request allowing responses?
-      accepted =
-        if opts[:override_stop_new_responses]
-          true
-        else
-          accept_incoming?(mail, inbound_email)
-        end
-
-      if accepted
-        incoming_message =
-          create_response!(mail, inbound_email, opts[:rejected_reason])
-
-        # Notify the user that a new response has been received, unless the
-        # request is external
-        unless is_external?
-          if use_notifications?
-            info_request_event = info_request_events.find_by(
-              event_type: 'response',
-              incoming_message_id: incoming_message.id
-            )
-            user.notify(info_request_event)
-          else
-            RequestMailer.new_response(self, incoming_message).deliver_now
-          end
-        end
-      end
+      RequestMailer.new_response(self, incoming_message).deliver_now
     end
   end
 
   def receive_redelivery(incoming_message, editor:)
-    receive(incoming_message.raw_email.mail,
-            incoming_message.raw_email.data,
-            { override_stop_new_responses: true })
+    receive(incoming_message.raw_email.mail, override_stop_new_responses: true)
 
     incoming_message.info_request.log_event(
       'redeliver_incoming',
@@ -1855,19 +1833,7 @@ class InfoRequest < ApplicationRecord
   end
   private_class_method :search_events
 
-  def receive_mail_from_source?(source)
-    if source == :internal
-      true
-    elsif feature_enabled?(:accept_mail_from_anywhere)
-      true
-    elsif user.features.enabled?(:accept_mail_from_poller)
-      source == :poller
-    else
-      source == :mailin
-    end
-  end
-
-  def accept_incoming?(mail, inbound_email)
+  def accept_incoming?(mail)
     # See if new responses are prevented
     gatekeeper = ResponseGatekeeper.for(allow_new_responses_from, self)
     # Take action if the message looks like spam
@@ -1888,8 +1854,7 @@ class InfoRequest < ApplicationRecord
     # Figure out how to reject the mail if it was rejected
     response_rejection =
       if response_rejector
-        ResponseRejection.
-          for(response_rejector.rejection_action, self, mail, inbound_email)
+        ResponseRejection.for(response_rejector.rejection_action, self, mail)
       end
 
     will_be_rejected = (response_rejector && response_rejection) ? true : false
@@ -1903,7 +1868,7 @@ class InfoRequest < ApplicationRecord
     end
   end
 
-  def create_response!(_mail, inbound_email, rejected_reason = nil)
+  def create_response!(mail, rejected_reason: nil)
     incoming_message = incoming_messages.build
 
     # To avoid a deadlock when simultaneously dealing with two
@@ -1914,7 +1879,10 @@ class InfoRequest < ApplicationRecord
       raw_email = RawEmail.new
       incoming_message.raw_email = raw_email
       incoming_message.save!
-      raw_email.data = inbound_email
+
+      data = mail.raw_source # If mail library is passed a string
+      data = mail.encoded if data.empty? # or if built using the DSL
+      raw_email.data = data
       raw_email.save!
 
       unless described_state == 'user_withdrawn'

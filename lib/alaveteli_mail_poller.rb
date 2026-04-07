@@ -59,7 +59,7 @@ class AlaveteliMailPoller
       if retrieve?(unique_id)
         inbound_email = popmail.pop
         Rails.logger.info "#{ self } retrieving #{ unique_id }"
-        RequestMailer.receive(inbound_email, :poller)
+        RequestMailer.receive(inbound_email)
         received = true
         popmail.delete
       end
