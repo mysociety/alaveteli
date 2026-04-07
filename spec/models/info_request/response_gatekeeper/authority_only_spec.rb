@@ -19,7 +19,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Subject: Basic Email
         Hello, World
         EOF
-        mail = MailHandler.mail_from_string(inbound_email)
+        mail = Mail.from_source(inbound_email)
         gatekeeper = described_class.new(FactoryBot.build(:info_request))
 
         expect(gatekeeper.allow?(mail)).to eq(false)
@@ -31,7 +31,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Subject: Basic Email
         Hello, World
         EOF
-        mail = MailHandler.mail_from_string(inbound_email)
+        mail = Mail.from_source(inbound_email)
         reason = 'Only the authority can reply to this request, but there is ' \
                  'no "From" address to check against'
         gatekeeper = described_class.new(FactoryBot.build(:info_request))
@@ -48,7 +48,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Subject: Basic Email
         Hello, World
         EOF
-        mail = MailHandler.mail_from_string(inbound_email)
+        mail = Mail.from_source(inbound_email)
         gatekeeper = described_class.new(FactoryBot.build(:info_request))
 
         expect(gatekeeper.allow?(mail)).to eq(false)
@@ -61,7 +61,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Subject: Basic Email
         Hello, World
         EOF
-        mail = MailHandler.mail_from_string(inbound_email)
+        mail = Mail.from_source(inbound_email)
         reason = "Only the authority can reply to this request, and I don't " \
                  "recognise the address this reply was sent from"
         gatekeeper = described_class.new(FactoryBot.build(:info_request))
@@ -78,7 +78,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Subject: Basic Email
         Hello, World
         EOF
-        mail = MailHandler.mail_from_string(inbound_email)
+        mail = Mail.from_source(inbound_email)
         gatekeeper = described_class.new(FactoryBot.build(:info_request))
 
         expect(gatekeeper.allow?(mail)).to eq(true)
@@ -91,7 +91,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Subject: Basic Email
         Hello, World
         EOF
-        mail = MailHandler.mail_from_string(inbound_email)
+        mail = Mail.from_source(inbound_email)
         gatekeeper = described_class.new(FactoryBot.build(:info_request))
         gatekeeper.allow?(mail)
 
@@ -107,7 +107,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Subject: Basic Email
         Hello, World
         EOF
-        mail = MailHandler.mail_from_string(inbound_email)
+        mail = Mail.from_source(inbound_email)
         info_request = FactoryBot.create(:info_request)
         info_request.receive(mail)
 
@@ -123,7 +123,7 @@ RSpec.describe InfoRequest::ResponseGatekeeper::AuthorityOnly do
         Subject: Basic Email
         Hello, World
         EOF
-        mail = MailHandler.mail_from_string(inbound_email)
+        mail = Mail.from_source(inbound_email)
         info_request = FactoryBot.create(:info_request)
         info_request.receive(mail)
 

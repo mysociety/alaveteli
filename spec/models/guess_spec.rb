@@ -6,13 +6,7 @@ RSpec.describe Guess do
   end
 
   describe '.guessed_info_requests' do
-    subject(:guesses) { described_class.guessed_info_requests(email) }
-
-    let(:email) do
-      mail = Mail.new
-      mail.to address
-      mail
-    end
+    subject(:guesses) { described_class.guessed_info_requests([address]) }
 
     let(:info_request) { FactoryBot.create(:info_request, id: 4566) }
     let!(:other_info_request) { FactoryBot.create(:info_request) }

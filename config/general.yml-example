@@ -1133,6 +1133,10 @@ PRO_BATCH_AUTHORITY_LIMIT: 500
 # As a string this is coerced into a symbol in config/environments/production.rb
 #
 # PRODUCTION_MAILER_RETRIEVER_METHOD - String (default: passive)
+# - passive: Generic relay
+# - pop: Legacy method
+# - postfix, exim, qmail: Local MTA pipe
+# - sendgrid, mailgun, mandrill, postmark: Third-party services
 #
 # Examples:
 #

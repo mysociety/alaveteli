@@ -10,57 +10,6 @@ RSpec.describe MailHandler::Backends::MailBackend do
     end
   end
 
-  describe :mail_from_string do
-    subject { mail_from_string(inbound_email) }
-
-    context 'when passed a binary string' do
-      # Read fixture file using 'rb' mode so we end up with a ASCII-8BIT string
-      let(:inbound_email) { load_file_fixture('raw_email_1.eml', 'rb') }
-
-      it 'does not raise error' do
-        expect { subject }.to_not raise_error
-      end
-
-      it 'returns a new mail instance of the email' do
-        is_expected.to eq Mail.read_from_string(inbound_email)
-      end
-    end
-
-    context 'when passed an UTF-8 string' do
-      let(:inbound_email) do
-        # Read fixture file using 'r' mode so we end up with a UTF-8 string
-        load_file_fixture('iso8859_1_with_extended_character_set.eml', 'r')
-      end
-
-      it 'does not raise error' do
-        expect { subject }.to_not raise_error
-      end
-
-      it 'returns a new mail with binary body' do
-        expect(subject.body.to_s).to eq(
-          "Information Governance\xA0Unit\n".force_encoding(Encoding::BINARY)
-        )
-      end
-    end
-
-    # FIXME: This is passing a String, not a Mail
-    context 'when passed a mail' do
-      let(:inbound_email) do
-        Mail.new(
-          load_file_fixture('incoming-request-attach-attachments.eml')
-        ).body
-      end
-
-      it 'does not raise error' do
-        expect { subject }.to_not raise_error
-      end
-
-      it 'returns a new mail instance of the email' do
-        is_expected.to eq Mail.read_from_string(inbound_email)
-      end
-    end
-  end
-
   describe :get_part_file_name do
     it 'returns the part file name' do
       mail = get_fixture_mail('document-pdf.eml')

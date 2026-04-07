@@ -44,3 +44,6 @@
 /tmp/
 /vendor/bundle
 /vendor/data/
+
+/config/credentials.yml.enc
+/config/master.key

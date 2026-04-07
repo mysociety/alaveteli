@@ -76,9 +76,11 @@ FactoryBot.define do
     sent_at { nil }
 
     after(:create) do |incoming_message, _evaluator|
-      inbound_email = load_file_fixture('incoming-request-plain.eml')
-      inbound_email.gsub!('EMAIL_FROM', 'Bob Responder <bob@example.com>')
-      incoming_message.raw_email.data = inbound_email
+      mail = get_fixture_mail(
+        'incoming-request-plain.eml',
+        from: 'Bob Responder <bob@example.com>'
+      )
+      incoming_message.raw_email.mail = mail
       incoming_message.raw_email.save!
       incoming_message.extract_attachments!
     end

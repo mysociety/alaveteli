@@ -48,11 +48,6 @@ module MailHandler
         'Mail'
       end
 
-      def mail_from_string(data)
-        data = data.force_encoding(Encoding::BINARY) if data.is_a? String
-        Mail.new(Mail::Utilities.binary_unsafe_to_crlf(data.to_s))
-      end
-
       # Extracts all attachments from the given TNEF file as a Mail object
       def mail_from_tnef(content)
         main = Mail.new
@@ -66,7 +61,7 @@ module MailHandler
       # Returns an outlook message as a Mail object
       def mail_from_outlook(content)
         msg = Mapi::Msg.open(StringIO.new(content))
-        mail = mail_from_string(msg.to_mime.to_s)
+        mail = Mail.from_source(msg.to_mime.to_s)
         mail.ready_to_send!
         mail
       end
@@ -193,7 +188,7 @@ module MailHandler
       def decode_attached_part(part, parent_mail)
         if get_content_type(part) == 'message/rfc822'
           # An email attached as text
-          part.rfc822_attachment = mail_from_string(part.body)
+          part.rfc822_attachment = Mail.from_source(part.body)
           if part.rfc822_attachment.nil?
             # Attached mail didn't parse, so treat as text
             part.content_type = 'text/plain'

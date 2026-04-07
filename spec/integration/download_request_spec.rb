@@ -29,7 +29,7 @@ RSpec.describe 'when making a zipfile available' do
     # in the thread, so we wait for a second to make sure this one will have a different
     # timestamp than the previous.
     sleep 1
-    receive_incoming_mail(name, email_to: info_request.incoming_email)
+    receive_incoming_mail(name, to: info_request.incoming_email)
   end
 
   it "should update the contents of the zipfile when the request changes" do

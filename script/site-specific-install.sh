@@ -109,60 +109,58 @@ if [ ! "$DEVELOPMENT_INSTALL" = true ]; then
         "$UNIX_USER"
 fi
 
-install_postfix
-
 # Now there's quite a bit of Postfix configuration that we need to
 # make sure is present:
+configure_postfix() {
+  ensure_line_present \
+      "^ *alaveteli *unix *" \
+      "alaveteli unix  -       n       n       -       -       pipe flags=R user=$UNIX_USER argv=$REPOSITORY/bin/rails action_mailbox:ingress:postfix URL=https://$HOST/rails/action_mailbox/postfix/inbound_emails INGRESS_PASSWORD=$INGRESS_PASSWORD" \
+      /etc/postfix/master.cf 644
 
-ensure_line_present \
-    "^ *alaveteli *unix *" \
-    "alaveteli unix  -       n       n       -       50      pipe flags=R user=$UNIX_USER argv=$REPOSITORY/script/mailin" \
-    /etc/postfix/master.cf 644
+  ensure_line_present \
+      "^ *transport_maps *=" \
+      "transport_maps = regexp:/etc/postfix/transports" \
+      /etc/postfix/main.cf 644
 
-ensure_line_present \
-    "^ *transport_maps *=" \
-    "transport_maps = regexp:/etc/postfix/transports" \
-    /etc/postfix/main.cf 644
+  ensure_line_present \
+      "^ *local_recipient_maps *=" \
+      "local_recipient_maps = proxy:unix:passwd.byname regexp:/etc/postfix/recipients" \
+      /etc/postfix/main.cf 644
 
-ensure_line_present \
-    "^ *local_recipient_maps *=" \
-    "local_recipient_maps = proxy:unix:passwd.byname regexp:/etc/postfix/recipients" \
-    /etc/postfix/main.cf 644
+  ensure_line_present \
+      "^ *mydestination *=" \
+      "mydestination = $HOST, $(hostname --fqdn), localhost.localdomain, localhost" \
+      /etc/postfix/main.cf 644
 
-ensure_line_present \
-    "^ *mydestination *=" \
-    "mydestination = $HOST, $(hostname --fqdn), localhost.localdomain, localhost" \
-    /etc/postfix/main.cf 644
+  ensure_line_present \
+      "^ *myhostname *=" \
+      "myhostname = $(hostname --fqdn)" \
+      /etc/postfix/main.cf 644
 
-ensure_line_present \
-    "^ *myhostname *=" \
-    "myhostname = $(hostname --fqdn)" \
-    /etc/postfix/main.cf 644
+  ensure_line_present \
+      "^do-not-reply" \
+      "do-not-reply-to-this-address:        :blackhole:" \
+      /etc/aliases 644
 
-ensure_line_present \
-    "^do-not-reply" \
-    "do-not-reply-to-this-address:        :blackhole:" \
-    /etc/aliases 644
+  ensure_line_present \
+      "^mail" \
+      "mail.*                          -/var/log/mail/mail.log" \
+      /etc/rsyslog.d/50-default.conf 644
 
-ensure_line_present \
-    "^mail" \
-    "mail.*                          -/var/log/mail/mail.log" \
-    /etc/rsyslog.d/50-default.conf 644
-
-cat > /etc/postfix/transports <<EOF
+  cat > /etc/postfix/transports <<EOF
 /^foi\+.*@$HOST$/                alaveteli
 EOF
 
-cat > /etc/postfix/recipients <<EOF
+  cat > /etc/postfix/recipients <<EOF
 /^foi.*/                this-is-ignored
 /^postmaster@/          this-is-ignored
 /^user-support@/        this-is-ignored
 /^team@/                this-is-ignored
 EOF
 
-if ! egrep '^ */var/log/mail/mail.log *{' /etc/logrotate.d/rsyslog > /dev/null
-then
-    cat >> /etc/logrotate.d/rsyslog <<EOF
+  if ! egrep '^ */var/log/mail/mail.log *{' /etc/logrotate.d/rsyslog > /dev/null
+  then
+      cat >> /etc/logrotate.d/rsyslog <<EOF
 /var/log/mail/mail.log {
           rotate 30
           daily
@@ -177,21 +175,21 @@ then
           endscript
 }
 EOF
-fi
+  fi
 
-if which systemctl > /dev/null && systemctl is-active --quiet rsyslog
-then
-  systemctl restart rsyslog.service
-elif [ -f /etc/init.d/rsyslog ]
-then
-  /etc/init.d/rsyslog restart
-fi
+  if which systemctl > /dev/null && systemctl is-active --quiet rsyslog
+  then
+    systemctl restart rsyslog.service
+  elif [ -f /etc/init.d/rsyslog ]
+  then
+    /etc/init.d/rsyslog restart
+  fi
 
-newaliases
-postmap /etc/postfix/transports
-postmap /etc/postfix/recipients
-postfix reload
-
+  newaliases
+  postmap /etc/postfix/transports
+  postmap /etc/postfix/recipients
+  postfix reload
+}
 # (end of the Postfix configuration)
 
 # Ensure we have required Ruby version from the current distribution package, if
@@ -272,11 +270,15 @@ if [ x"$RETRIEVER_METHOD" = x"pop" ] && [ "$DEVELOPMENT_INSTALL" = true ]; then
         adduser --quiet --disabled-password --gecos "An incoming mail user for the site $SITE" "alaveteli-incoming"
         usermod --groups mail --password `openssl passwd -1 alaveteli-incoming` alaveteli-incoming
   fi
- elif [ x"$RETRIEVER_METHOD" = x"pop" ]; then
+elif [ x"$RETRIEVER_METHOD" = x"pop" ]; then
 
   echo "Warning: No POP server has been setup, please install your own securely"
   echo "or use a remote one."
 
+else
+  export INGRESS_PASSWORD=$(su -l -c "cd '$REPOSITORY' && bundle exec rails runner 'puts Rails.application.credentials.action_mailbox.ingress_password'" "$UNIX_USER")
+  install_postfix
+  configure_postfix
 fi
 
 cd "$REPOSITORY"

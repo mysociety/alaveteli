@@ -41,8 +41,8 @@ RSpec.describe "When administering the site" do
     # deliver an incoming message to the closed request -
     # it gets bounced to the holding pen
     receive_incoming_mail('incoming-request-plain.eml',
-                          email_to: info_request.incoming_email,
-                          email_from: "frob@nowhere.com")
+                          to: info_request.incoming_email,
+                          from: "frob@nowhere.com")
     expect(holding_pen_messages.length).to eq(1)
     new_message = holding_pen_messages.first
     expect(info_request.incoming_messages.length).to eq(1)
@@ -76,8 +76,8 @@ RSpec.describe "When administering the site" do
     # deliver an incoming message to the closed request -
     # it gets bounced to the holding pen
     receive_incoming_mail('incoming-request-plain.eml',
-                          email_to: info_request.incoming_email,
-                          email_from: "frob@nowhere.com")
+                          to: info_request.incoming_email,
+                          from: "frob@nowhere.com")
     expect(holding_pen_messages.length).to eq(1)
     new_message = holding_pen_messages.first
 
@@ -118,8 +118,8 @@ RSpec.describe "When administering the site" do
                                        allow_new_responses_from: 'authority_only',
                                        handle_rejected_responses: 'holding_pen')
       receive_incoming_mail('incoming-request-plain.eml',
-                            email_to: info_request.incoming_email,
-                            email_from: "frob@nowhere.com")
+                            to: info_request.incoming_email,
+                            from: "frob@nowhere.com")
       using_session(@admin) do
         visit admin_raw_email_path last_holding_pen_mail
         expect(page).to have_content "Only the authority can reply to this request"
