@@ -76,6 +76,16 @@ RSpec.describe FoiAttachment do
     it { is_expected.to_not include(non_erased_attachment) }
   end
 
+  describe '.not_erased' do
+    subject { described_class.not_erased }
+
+    let!(:erased_attachment) { FactoryBot.create(:body_text, :erased) }
+    let!(:non_erased_attachment) { FactoryBot.create(:body_text) }
+
+    it { is_expected.to_not include(erased_attachment) }
+    it { is_expected.to include(non_erased_attachment) }
+  end
+
   describe '.masked' do
     subject { described_class.masked }
 

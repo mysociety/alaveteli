@@ -61,6 +61,7 @@ class FoiAttachment < ApplicationRecord
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
   scope :erased, -> { where.not(erased_at: nil) }
+  scope :not_erased, -> { where(erased_at: nil) }
 
   delegate :expire, to: :info_request
   delegate :metadata, to: :file_blob, allow_nil: true
