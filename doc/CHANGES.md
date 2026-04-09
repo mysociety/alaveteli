@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow censor rules to be case insensitive (Gareth Rees)
 * Add Content Security Policy with nonce-based script protection (Graeme
   Porteous)
 * Fix missing batch sent flash message after creating a batch (Graeme Porteous)
@@ -107,6 +108,12 @@
       # Change only a default mask's replacement
       AlaveteliTextMasker.replace_mask(:mobile_number, replacement: '[cell number]')
     end
+
+* _Optional:_ Censor rules can now be made case insensitive. This is disabled by
+  default while we beta test it before full release. Before then you can enable
+  it by running:
+
+    bin/rails runner "AlaveteliFeatures.backend.enable(:censor_rule_case_sensitive)"
 
 ### Changed Templates
 

@@ -13,6 +13,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  regexp            :boolean          default(FALSE), not null
+#  case_sensitive    :boolean          default(TRUE), not null
 #
 
 # models/censor_rule.rb:
@@ -40,7 +41,7 @@ class CensorRule < ApplicationRecord
              inverse_of: :censor_rules,
              optional: true
 
-  validate :require_valid_regexp, if: proc { |rule| rule.regexp? == true }
+  validate :require_valid_regexp, if: -> { regexp? || !case_sensitive? }
 
   validates_presence_of :text,
                         :replacement,
@@ -121,7 +122,11 @@ class CensorRule < ApplicationRecord
   end
 
   def to_replace(encoding)
-    regexp? ? make_regexp(encoding) : encoded_text(encoding)
+    if regexp? || !case_sensitive?
+      make_regexp(encoding)
+    else
+      encoded_text(encoding)
+    end
   end
 
   def encoded_text(encoding)
@@ -129,10 +134,20 @@ class CensorRule < ApplicationRecord
   end
 
   def make_regexp(encoding)
+    pattern = encoded_text(encoding)
+    pattern = Regexp.escape(pattern) unless regexp?
+
     ::Warning.with_raised_warnings do
-      Regexp.new(encoded_text(encoding), Regexp::MULTILINE)
+      Regexp.new(pattern, regexp_options)
     end
   rescue RaisedWarning => e
     raise RegexpError, e.message.split('warning: ').last.chomp
+  end
+
+  def regexp_options
+    options = 0
+    options |= Regexp::IGNORECASE unless case_sensitive?
+    options |= Regexp::MULTILINE if regexp?
+    options
   end
 end
