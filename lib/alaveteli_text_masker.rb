@@ -4,6 +4,8 @@ require 'config_helper'
 module AlaveteliTextMasker
   include ConfigHelper
 
+  mattr_accessor :pdftk_memory_limit, default: 536_870_912 # 512mb
+
   extend self
   DoNotBinaryMask = [ 'image/tiff',
                       'image/gif',
@@ -55,7 +57,8 @@ module AlaveteliTextMasker
     temp.close
 
     AlaveteliExternalCommand.run(
-      "pdftk", temp.path, "output", "-", "uncompress"
+      "pdftk", temp.path, "output", "-", "uncompress",
+      memory_limit: pdftk_memory_limit
     )
   ensure
     temp.unlink
@@ -79,7 +82,7 @@ module AlaveteliTextMasker
     else
       command = ["pdftk", temp.path, "output", "-", "compress"]
     end
-    AlaveteliExternalCommand.run(*command)
+    AlaveteliExternalCommand.run(*command, memory_limit: pdftk_memory_limit)
   ensure
     temp.unlink
   end
