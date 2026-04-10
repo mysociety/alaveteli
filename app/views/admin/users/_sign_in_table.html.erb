@@ -67,9 +67,7 @@
 
                     <td>
                       <% if sign_in.user_agent %>
-                        <span title="<%= sign_in.user_agent %>">
-                          <%= truncate(sign_in.user_agent, length: 50) %>
-                        </span>
+                        <small><tt><%= sign_in.user_agent %></tt></small>
                       <% else %>
                         <em>Not recorded</em>
                       <% end %>
