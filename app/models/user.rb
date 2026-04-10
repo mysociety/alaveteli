@@ -49,6 +49,7 @@ class User < ApplicationRecord
   include AlaveteliFeatures::Helpers
   include AlaveteliPro::PhaseCounts
 
+  include User::Anonymisable
   include User::Authentication
   include User::InternalAdmin
   include User::LimitedProfile
@@ -464,18 +465,6 @@ class User < ApplicationRecord
         about_me: '',
         password: MySociety::Util.generate_token
       )
-    end
-  end
-
-  def anonymise!
-    return if info_requests.none? && comments.none?
-
-    current_name = read_attribute(:name)
-    [current_name, *previous_names].each do |name|
-      censor_rules.create!(text: name,
-                           replacement: _('[Name Removed]'),
-                           last_edit_editor: 'User#anonymise!',
-                           last_edit_comment: 'User#anonymise!')
     end
   end
 
