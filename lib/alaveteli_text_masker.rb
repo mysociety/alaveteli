@@ -47,6 +47,35 @@ module AlaveteliTextMasker
     end
   end
 
+  def masks
+    @masks ||= default_text_masks
+  end
+
+  def add_mask(name, pattern:, replacement:)
+    name = name.to_sym
+    raise ArgumentError, "Mask already exists with name :#{name}" if
+      masks.key?(name)
+
+    masks[name] = { to_replace: pattern, replacement: replacement }
+  end
+
+  def remove_mask(name)
+    raise ArgumentError, "No mask found with name :#{name}" unless
+      masks.delete(name)
+  end
+
+  def replace_mask(name, pattern: nil, replacement: nil)
+    raise ArgumentError, "No mask found with name :#{name}" unless
+      masks.key?(name)
+
+    masks[name][:to_replace] = pattern if pattern
+    masks[name][:replacement] = replacement if replacement
+  end
+
+  def reset_masks!
+    @masks = nil
+  end
+
   private
 
   def uncompress_pdf(text)
@@ -153,23 +182,23 @@ module AlaveteliTextMasker
     text
   end
 
-  # Remove any email addresses, login links and mobile phone numbers
   def default_text_masks
-    [{ to_replace: MySociety::Validate.email_find_regexp,
-       replacement: "[#{_("email address")}]" },
-     { to_replace: /(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/,
-       replacement: "[#{_("mobile number")}]" },
-     { to_replace: /https?:\/\/#{AlaveteliConfiguration.domain}\/c\/[^\s]+/,
-       replacement: "[#{_("{{site_name}} login link",
-                          site_name: site_name)}]" }]
+    {
+      email_address: { to_replace: MySociety::Validate.email_find_regexp,
+                       replacement: "[#{_('email address')}]" },
+      mobile_number: { to_replace: /(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/,
+                       replacement: "[#{_('mobile number')}]" },
+      login_link:    { to_replace: /https?:\/\/#{AlaveteliConfiguration.domain}\/c\/[^\s]+/,
+                       replacement: "[#{_('{{site_name}} login link',
+                                          site_name: site_name)}]" }
+    }.with_indifferent_access.deep_symbolize_keys
   end
 
   def apply_text_masks(text, options = {})
-    masks = options[:masks] || []
-    masks += default_text_masks
+    all_masks = (options[:masks] || []) + masks.values
     censor_rules = options[:censor_rules] || []
 
-    text = masks.inject(text) do |memo, mask|
+    text = all_masks.inject(text) do |memo, mask|
       memo.gsub(mask[:to_replace], mask[:replacement])
     end
 
