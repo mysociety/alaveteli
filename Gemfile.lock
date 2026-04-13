@@ -473,7 +473,7 @@ GEM
       erb
       psych (>= 4.0.0)
       tsort
-    recaptcha (5.21.1)
+    recaptcha (5.21.2)
     redcarpet (3.6.1)
     redis (4.8.1)
     redis-client (0.23.0)
@@ -713,7 +713,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 8.1.0)
   rdoc (~> 7.2.0)
-  recaptcha (~> 5.21.1)
+  recaptcha (~> 5.21.2)
   redcarpet (~> 3.6.1)
   redis (~> 4.8.1)
   rolify (~> 6.0.1)
