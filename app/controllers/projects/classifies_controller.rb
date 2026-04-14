@@ -77,10 +77,17 @@ class Projects::ClassifiesController < Projects::BaseController
   end
 
   def load_info_request_from_queue
-    @info_request = (
-      @queue = Project::Queue.classifiable(@project, session)
-      @queue.next
-    )
+    @queue = Project::Queue.classifiable(@project, session)
+    @info_request = next_readable_request
+  end
+
+  def next_readable_request
+    request = @queue.next
+    while request && cannot?(:read, request)
+      @queue.skip(request)
+      request = @queue.next
+    end
+    request
   end
 
   def load_info_request_from_url_title
