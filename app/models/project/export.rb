@@ -21,6 +21,15 @@ class Project::Export
     end
   end
 
+  def has_embargoed_requests?
+    project.info_requests.embargoed.exists?
+  end
+
+  def has_requester_only_requests?
+    project.info_requests.
+      where(prominence: 'requester_only').exists?
+  end
+
   def ability
     @ability ||= Ability.new(user, project: project)
   end
