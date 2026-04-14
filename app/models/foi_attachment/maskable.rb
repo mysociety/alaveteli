@@ -20,6 +20,7 @@ module FoiAttachment::Maskable
 
   def mask
     return if masking_failed?
+    return if raw_email_erased? && masked?
 
     body = apply_masks(unmasked_body, content_type)
     body = sanitise_html(body) if content_type == 'text/html'

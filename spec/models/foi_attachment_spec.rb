@@ -1025,6 +1025,23 @@ RSpec.describe FoiAttachment do
         attachment.mask
       end
     end
+
+    context 'when the attachment is already masked and the raw email has been erased' do
+      before { attachment.mask }
+
+      before do
+        incoming_message.raw_email.erase(editor: 'test', reason: 'test')
+        attachment.reload
+      end
+
+      it 'returns nil without masking' do
+        expect(subject).to be_nil
+      end
+
+      it 'does not update masked_at' do
+        expect { subject }.not_to change { attachment.reload.masked_at }
+      end
+    end
   end
 
   describe '#mask_later' do
