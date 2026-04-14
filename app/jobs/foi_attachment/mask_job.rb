@@ -9,6 +9,8 @@ class FoiAttachment::MaskJob < ApplicationJob
   queue_as :default
   unique :until_and_while_executing, on_conflict: :log
 
+  discard_on RawEmail::ErasedError
+
   attr_reader :attachment
 
   delegate :incoming_message, to: :attachment
@@ -33,7 +35,7 @@ class FoiAttachment::MaskJob < ApplicationJob
   private
 
   def mask
-    attachment.mask
+    return unless attachment.mask
 
     # ensure the after_commit callback runs which uploads the blob, without this
     # the callback might not execute in time and the job exits resulting in the

@@ -13,6 +13,8 @@ module FoiAttachment::Maskable
   end
 
   def mask
+    return if raw_email_erased? && masked?
+
     body = AlaveteliTextMasker.apply_masks(
       unmasked_body,
       content_type,

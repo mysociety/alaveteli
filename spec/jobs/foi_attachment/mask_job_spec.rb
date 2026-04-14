@@ -11,6 +11,18 @@ RSpec.describe FoiAttachment::MaskJob, type: :job do
 
   before { rebuild_raw_emails(info_request) }
 
+  context 'when the raw email has been erased' do
+    before { incoming_message.raw_email.erase(editor: 'test', reason: 'test') }
+
+    it 'does not raise an error' do
+      expect { perform }.not_to raise_error
+    end
+
+    it 'does not update masked_at' do
+      expect { perform }.not_to change { attachment.reload.masked_at }
+    end
+  end
+
   context 'after rescuing from FoiAttachment::MissingError' do
     before do
       # first call to #unmasked_body should raise MissingError exception
