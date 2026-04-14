@@ -19,7 +19,7 @@ class AdminCensorRuleController < AdminController
   def create
     if @censor_rule.save
       flash[:notice] = 'Censor rule was successfully created.'
-      expire_requests_and_redirect
+      redirect_to_subject
     else
       render action: 'new'
     end
@@ -31,7 +31,7 @@ class AdminCensorRuleController < AdminController
   def update
     if @censor_rule.update(censor_rule_params)
       flash[:notice] = 'Censor rule was successfully updated.'
-      expire_requests_and_redirect
+      redirect_to_subject
     else
       render action: 'edit'
     end
@@ -44,7 +44,7 @@ class AdminCensorRuleController < AdminController
 
     flash[:notice] = "Censor rule was successfully destroyed."
 
-    expire_requests_and_redirect
+    redirect_to_subject
   end
 
   private
@@ -93,9 +93,7 @@ class AdminCensorRuleController < AdminController
     end
   end
 
-  def expire_requests_and_redirect
-    @censor_rule.expire_requests
-
+  def redirect_to_subject
     if @censor_rule.info_request
       redirect_to admin_request_url(@censor_rule.info_request)
     elsif @censor_rule.user

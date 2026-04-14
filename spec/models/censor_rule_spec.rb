@@ -18,6 +18,28 @@
 require 'spec_helper'
 
 RSpec.describe CensorRule do
+  describe 'after_commit callbacks' do
+    it 'expires requests after create' do
+      rule = FactoryBot.create(:global_censor_rule)
+      expect(rule).to receive(:expire_requests)
+      rule.run_callbacks(:commit)
+    end
+
+    it 'expires requests after update' do
+      rule = FactoryBot.create(:global_censor_rule)
+      rule.update!(text: 'updated text')
+      expect(rule).to receive(:expire_requests)
+      rule.run_callbacks(:commit)
+    end
+
+    it 'expires requests after destroy' do
+      rule = FactoryBot.create(:global_censor_rule)
+      rule.destroy!
+      expect(rule).to receive(:expire_requests)
+      rule.run_callbacks(:commit)
+    end
+  end
+
   describe '#apply_to_text' do
     it 'applies the rule to the text' do
       rule = FactoryBot.build(:censor_rule, text: 'secret')

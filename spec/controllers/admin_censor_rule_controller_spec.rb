@@ -202,16 +202,6 @@ RSpec.describe AdminCensorRuleController do
       end
 
       context 'successfully saving the censor rule' do
-        it 'calls expire_requests on the new censor_rule' do
-          censor_rule = FactoryBot.build(:global_censor_rule)
-          allow(CensorRule).to receive(:new) { censor_rule }
-          allow(censor_rule).to receive(:expire_requests)
-
-          create_censor_rule
-
-          expect(censor_rule).to have_received(:expire_requests)
-        end
-
         it 'redirects to the censor rules index' do
           create_censor_rule
           expect(response).to redirect_to(
@@ -298,23 +288,6 @@ RSpec.describe AdminCensorRuleController do
           expect(flash[:notice]).to eq(msg)
         end
 
-        it 'calls expire_requests on the new censor_rule' do
-          allow(InfoRequest).to receive(:find).and_return(info_request)
-          censor_rule_spy = FactoryBot.build(:info_request_censor_rule,
-                                             info_request: info_request)
-          allow(info_request.censor_rules).to receive(:build).
-            and_return(censor_rule_spy)
-
-          allow(censor_rule_spy).to receive(:expire_requests)
-
-          post :create, params: {
-                          censor_rule: censor_rule_params,
-                          request_id: info_request.id
-                        }
-
-          expect(censor_rule_spy).to have_received(:expire_requests)
-        end
-
         it 'redirects to the associated info request' do
           post :create, params: {
                           censor_rule: censor_rule_params,
@@ -387,18 +360,6 @@ RSpec.describe AdminCensorRuleController do
       end
 
       context 'successfully saving the censor rule' do
-        it 'calls expire_requests on the new censor_rule' do
-          allow(User).to receive(:find) { user }
-          censor_rule = FactoryBot.build(:user_censor_rule,
-                                         user: user)
-          allow(user.censor_rules).to receive(:build) { censor_rule }
-          allow(censor_rule).to receive(:expire_requests)
-
-          create_censor_rule
-
-          expect(censor_rule).to have_received(:expire_requests)
-        end
-
         it 'redirects to the associated info request' do
           create_censor_rule
           expect(response).to redirect_to(
@@ -480,21 +441,6 @@ RSpec.describe AdminCensorRuleController do
                         }
           msg = 'Censor rule was successfully created.'
           expect(flash[:notice]).to eq(msg)
-        end
-
-        it 'calls expire_requests on the new censor_rule' do
-          allow(PublicBody).to receive(:find) { public_body }
-          censor_rule = FactoryBot.build(:public_body_censor_rule,
-                                         public_body: public_body)
-          allow(public_body.censor_rules).to receive(:build) { censor_rule }
-          allow(censor_rule).to receive(:expire_requests)
-
-          post :create, params: {
-                          censor_rule: censor_rule_params,
-                          body_id: public_body.id
-                        }
-
-          expect(censor_rule).to have_received(:expire_requests)
         end
 
         it 'redirects to the associated public body' do
@@ -651,17 +597,6 @@ RSpec.describe AdminCensorRuleController do
           expect(flash[:notice]).to eq(msg)
         end
 
-        it 'calls expire_requests on the censor_rule' do
-          allow(CensorRule).to receive(:find) { censor_rule }
-          allow(censor_rule).to receive(:expire_requests)
-          put :update, params: {
-                         id: censor_rule.id,
-                         censor_rule: { text: 'different text' }
-                       }
-
-          expect(censor_rule).to have_received(:expire_requests)
-        end
-
         it 'redirects to the censor rule index' do
           put :update, params: {
                          id: censor_rule.id,
@@ -735,17 +670,6 @@ RSpec.describe AdminCensorRuleController do
                        }
           msg = 'Censor rule was successfully updated.'
           expect(flash[:notice]).to eq(msg)
-        end
-
-        it 'calls expire_requests on the censor_rule' do
-          allow(CensorRule).to receive(:find) { censor_rule }
-          allow(censor_rule).to receive(:expire_requests)
-          put :update, params: {
-                         id: censor_rule.id,
-                         censor_rule: { text: 'different text' }
-                       }
-
-          expect(censor_rule).to have_received(:expire_requests)
         end
 
         it 'redirects to the associated info request' do
@@ -825,17 +749,6 @@ RSpec.describe AdminCensorRuleController do
           expect(flash[:notice]).to eq(msg)
         end
 
-        it 'calls expire_requests on the censor_rule' do
-          allow(CensorRule).to receive(:find) { censor_rule }
-          allow(censor_rule).to receive(:expire_requests)
-          put :update, params: {
-                         id: censor_rule.id,
-                         censor_rule: { text: 'different text' }
-                       }
-
-          expect(censor_rule).to have_received(:expire_requests)
-        end
-
         it 'redirects to the associated info request' do
           put :update, params: {
                          id: censor_rule.id,
@@ -913,17 +826,6 @@ RSpec.describe AdminCensorRuleController do
           expect(flash[:notice]).to eq(msg)
         end
 
-        it 'calls expire_requests on the censor_rule' do
-          allow(CensorRule).to receive(:find) { censor_rule }
-          allow(censor_rule).to receive(:expire_requests)
-          put :update, params: {
-                         id: censor_rule.id,
-                         censor_rule: { text: 'different text' }
-                       }
-
-          expect(censor_rule).to have_received(:expire_requests)
-        end
-
         it 'redirects to the associated public body' do
           put :update, params: {
                          id: censor_rule.id,
@@ -997,14 +899,6 @@ RSpec.describe AdminCensorRuleController do
         expect(flash[:notice]).to eq(msg)
       end
 
-      it 'calls expire_requests on the censor rule' do
-        expect(CensorRule).to receive(:find) { censor_rule }
-        allow(censor_rule).to receive(:expire_requests)
-        delete :destroy, params: { id: censor_rule.id }
-
-        expect(censor_rule).to have_received(:expire_requests)
-      end
-
       it 'redirects to the associated info request' do
         delete :destroy, params: { id: censor_rule.id }
         expect(response).
@@ -1026,14 +920,6 @@ RSpec.describe AdminCensorRuleController do
         expect(flash[:notice]).to eq(msg)
       end
 
-      it 'calls expire_requests on the censor rule' do
-        expect(CensorRule).to receive(:find) { censor_rule }
-        allow(censor_rule).to receive(:expire_requests)
-        delete :destroy, params: { id: censor_rule.id }
-
-        expect(censor_rule).to have_received(:expire_requests)
-      end
-
       it 'redirects to the associated info request' do
         delete :destroy, params: { id: censor_rule.id }
         expect(response).to redirect_to(admin_user_path(censor_rule.user))
@@ -1052,14 +938,6 @@ RSpec.describe AdminCensorRuleController do
         delete :destroy, params: { id: censor_rule.id }
         msg = 'Censor rule was successfully destroyed.'
         expect(flash[:notice]).to eq(msg)
-      end
-
-      it 'calls expire_requests on the censor rule' do
-        expect(CensorRule).to receive(:find) { censor_rule }
-        allow(censor_rule).to receive(:expire_requests)
-        delete :destroy, params: { id: censor_rule.id }
-
-        expect(censor_rule).to have_received(:expire_requests)
       end
 
       it 'redirects to the associated public body' do

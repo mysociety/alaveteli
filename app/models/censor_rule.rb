@@ -57,6 +57,8 @@ class CensorRule < ApplicationRecord
                  instance_writer: false,
                  default: DEFAULT_CANNED_REPLACEMENTS.dup
 
+  after_commit :expire_requests
+
   def apply_to_text(text_to_censor)
     return nil if text_to_censor.nil?
 
