@@ -899,7 +899,7 @@ RSpec.describe User do
   describe '#expire_requests' do
     it 'create expire job for the user' do
       user = FactoryBot.build(:user)
-      expect(InfoRequestExpireJob).to receive(:perform_later).
+      expect(InfoRequest::ExpireJob).to receive(:perform_later).
         with(user, :info_requests)
       user.expire_requests
     end

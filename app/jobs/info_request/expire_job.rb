@@ -3,11 +3,11 @@
 # a collection of requests through an model associations.
 #
 # Examples:
-#   InfoRequestExpireJob.perform(InfoRequest.first)
-#   InfoRequestExpireJob.perform(InfoRequest, :all)
-#   InfoRequestExpireJob.perform(PublicBody.first, :info_requests)
+#   InfoRequest::ExpireJob.perform(InfoRequest.first)
+#   InfoRequest::ExpireJob.perform(InfoRequest, :all)
+#   InfoRequest::ExpireJob.perform(PublicBody.first, :info_requests)
 #
-class InfoRequestExpireJob < ApplicationJob
+class InfoRequest::ExpireJob < ApplicationJob
   queue_as :xapian
 
   def perform(object, method = nil)

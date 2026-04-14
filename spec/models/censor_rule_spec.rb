@@ -157,7 +157,7 @@ RSpec.describe CensorRule do
       request = FactoryBot.create(:info_request)
       rule = FactoryBot.create(:info_request_censor_rule,
                                info_request: request)
-      expect(InfoRequestExpireJob).to receive(:perform_later).with(request)
+      expect(InfoRequest::ExpireJob).to receive(:perform_later).with(request)
       expect(NotifyCacheJob).to receive(:perform_later).with(request)
       rule.expire_requests
     end
@@ -165,7 +165,7 @@ RSpec.describe CensorRule do
     it 'create expire job for the user if it is a user rule' do
       user = FactoryBot.create(:user)
       rule = FactoryBot.create(:user_censor_rule, user: user)
-      expect(InfoRequestExpireJob).to receive(:perform_later).
+      expect(InfoRequest::ExpireJob).to receive(:perform_later).
         with(user, :info_requests)
       rule.expire_requests
     end
@@ -173,14 +173,14 @@ RSpec.describe CensorRule do
     it 'create expire job for the public body if it is a public body rule' do
       body = FactoryBot.create(:public_body)
       rule = FactoryBot.create(:public_body_censor_rule, public_body: body)
-      expect(InfoRequestExpireJob).to receive(:perform_later).
+      expect(InfoRequest::ExpireJob).to receive(:perform_later).
         with(body, :info_requests)
       rule.expire_requests
     end
 
     it 'create expire job for all requests if it is a global rule' do
       rule = FactoryBot.build(:global_censor_rule)
-      expect(InfoRequestExpireJob).to receive(:perform_later).
+      expect(InfoRequest::ExpireJob).to receive(:perform_later).
         with(InfoRequest, :all)
       rule.expire_requests
     end

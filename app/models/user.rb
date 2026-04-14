@@ -340,7 +340,7 @@ class User < ApplicationRecord
   end
 
   def expire_requests
-    InfoRequestExpireJob.perform_later(self, :info_requests)
+    InfoRequest::ExpireJob.perform_later(self, :info_requests)
   end
 
   def expire_comments
