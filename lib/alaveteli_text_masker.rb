@@ -5,6 +5,22 @@ module AlaveteliTextMasker
   include ConfigHelper
 
   extend self
+
+  DEFAULT_TEXT_MASKS = {
+    email_address: {
+      to_replace: MySociety::Validate.email_find_regexp,
+      replacement: "[#{_('email address')}]"
+    },
+    mobile_number: {
+      to_replace: /(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/,
+      replacement: "[#{_('mobile number')}]"
+    },
+    login_link: {
+      to_replace: /https?:\/\/#{AlaveteliConfiguration.domain}\/c\/[^\s]+/,
+      replacement: "[#{_('{{site_name}} login link', site_name: site_name)}]"
+    }
+  }.with_indifferent_access.deep_symbolize_keys.freeze
+
   DoNotBinaryMask = [ 'image/tiff',
                       'image/gif',
                       'image/jpeg',
@@ -48,7 +64,7 @@ module AlaveteliTextMasker
   end
 
   def masks
-    @masks ||= default_text_masks
+    @masks ||= DEFAULT_TEXT_MASKS.dup
   end
 
   def add_mask(name, pattern:, replacement:)
@@ -180,18 +196,6 @@ module AlaveteliTextMasker
     raise "internal error in apply_binary_masks" if text.bytesize != orig_size
 
     text
-  end
-
-  def default_text_masks
-    {
-      email_address: { to_replace: MySociety::Validate.email_find_regexp,
-                       replacement: "[#{_('email address')}]" },
-      mobile_number: { to_replace: /(Mobile|Mob)([\s\/]*(Fax|Tel))*\s*:?[\s\d]*\d/,
-                       replacement: "[#{_('mobile number')}]" },
-      login_link:    { to_replace: /https?:\/\/#{AlaveteliConfiguration.domain}\/c\/[^\s]+/,
-                       replacement: "[#{_('{{site_name}} login link',
-                                          site_name: site_name)}]" }
-    }.with_indifferent_access.deep_symbolize_keys
   end
 
   def apply_text_masks(text, options = {})
