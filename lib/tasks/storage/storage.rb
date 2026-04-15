@@ -55,7 +55,7 @@ class Storage
         attachment = FoiAttachment.joins(:file_blob).
           find_by(active_storage_blobs: { id: blob })
         # Running the attachment masking will also mirror the file
-        FoiAttachmentMaskJob.set(queue: :low).perform_later(attachment)
+        FoiAttachment::MaskJob.set(queue: :low).perform_later(attachment)
       end
 
       print "#{prefix}: Mirrored #{index + 1}/#{count}"

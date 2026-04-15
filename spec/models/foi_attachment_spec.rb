@@ -244,8 +244,8 @@ RSpec.describe FoiAttachment do
           to receive(:download).and_raise(ActiveStorage::FileNotFoundError)
       end
 
-      it 'does not run FoiAttachmentMaskJob and raise error' do
-        expect(FoiAttachmentMaskJob).to_not receive(:perform_now)
+      it 'does not run FoiAttachment::MaskJob and raise error' do
+        expect(FoiAttachment::MaskJob).to_not receive(:perform_now)
         expect { foi_attachment.body }.
           to raise_error(ActiveStorage::FileNotFoundError)
       end
@@ -272,8 +272,8 @@ RSpec.describe FoiAttachment do
           to receive(:download).and_raise(ActiveStorage::FileNotFoundError)
       end
 
-      it 'calls the FoiAttachmentMaskJob now and return the masked body' do
-        expect(FoiAttachmentMaskJob).to receive(:perform_now).
+      it 'calls the FoiAttachment::MaskJob now and return the masked body' do
+        expect(FoiAttachment::MaskJob).to receive(:perform_now).
           with(foi_attachment).
           and_invoke(-> (_) {
             # mock the job
@@ -292,8 +292,8 @@ RSpec.describe FoiAttachment do
       end
       let(:foi_attachment) { incoming_message.foi_attachments.last }
 
-      it 'calls the FoiAttachmentMaskJob now and return the masked body' do
-        expect(FoiAttachmentMaskJob).to receive(:perform_now).
+      it 'calls the FoiAttachment::MaskJob now and return the masked body' do
+        expect(FoiAttachment::MaskJob).to receive(:perform_now).
           with(foi_attachment).
           and_invoke(-> (_) {
             # mock the job
@@ -315,7 +315,7 @@ RSpec.describe FoiAttachment do
       before do
         foi_attachment.update(hexdigest: '123')
 
-        expect(FoiAttachmentMaskJob).to receive(:perform_now).
+        expect(FoiAttachment::MaskJob).to receive(:perform_now).
           with(foi_attachment).
           and_invoke(-> (_) {
             # mock the job
@@ -905,7 +905,7 @@ RSpec.describe FoiAttachment do
 
     it 'enqueues the job' do
       expect { subject }.
-        to have_enqueued_job(FoiAttachmentMaskJob).with(foi_attachment)
+        to have_enqueued_job(FoiAttachment::MaskJob).with(foi_attachment)
     end
   end
 
@@ -1578,7 +1578,7 @@ RSpec.describe FoiAttachment do
       end
 
       it 'restores the original body' do
-        # ensure FoiAttachmentMaskJob isn't run when calling #body - it'll break
+        # ensure FoiAttachment::MaskJob isn't run when calling #body - it'll break
         # due to there being no associated incoming_message/info_request
         allow(foi_attachment).to receive(:masked?).and_return(true)
 
@@ -2116,7 +2116,7 @@ RSpec.describe FoiAttachment do
       end
 
       it 'resets body to original content' do
-        # ensure FoiAttachmentMaskJob isn't run when calling #body - it'll break
+        # ensure FoiAttachment::MaskJob isn't run when calling #body - it'll break
         # due to there being no associated incoming_message/info_request
         allow(foi_attachment).to receive(:masked?).and_return(true)
 

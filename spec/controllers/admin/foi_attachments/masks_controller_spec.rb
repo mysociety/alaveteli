@@ -21,7 +21,7 @@ RSpec.describe Admin::FoiAttachments::MasksController do
 
       it 'queues the masking job' do
         expect { post :create, params: params }.
-          to have_enqueued_job(FoiAttachmentMaskJob).with(attachment)
+          to have_enqueued_job(FoiAttachment::MaskJob).with(attachment)
       end
 
       it 'sets a success notice' do
