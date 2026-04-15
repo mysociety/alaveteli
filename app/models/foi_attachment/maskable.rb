@@ -25,7 +25,7 @@ module FoiAttachment::Maskable
   end
 
   def mask_later
-    FoiAttachmentMaskJob.perform_later(self)
+    FoiAttachment::MaskJob.perform_later(self)
   end
 
   private

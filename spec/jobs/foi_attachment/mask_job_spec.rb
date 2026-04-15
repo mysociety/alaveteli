@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe FoiAttachmentMaskJob, type: :job do
+RSpec.describe FoiAttachment::MaskJob, type: :job do
   let(:info_request) { FactoryBot.create(:info_request_with_html_attachment) }
   let(:incoming_message) { info_request.incoming_messages.first }
   let(:attachment) { incoming_message.foi_attachments.last }

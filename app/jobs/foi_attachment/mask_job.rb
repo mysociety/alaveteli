@@ -3,9 +3,9 @@
 # be stored as FoiAttachment#file ActiveStorage association.
 #
 # Example:
-#   FoiAttachmentMaskJob.perform(FoiAttachment.first)
+#   FoiAttachment::MaskJob.perform(FoiAttachment.first)
 #
-class FoiAttachmentMaskJob < ApplicationJob
+class FoiAttachment::MaskJob < ApplicationJob
   queue_as :default
   unique :until_and_while_executing, on_conflict: :log
 
