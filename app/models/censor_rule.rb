@@ -57,6 +57,8 @@ class CensorRule < ApplicationRecord
                  instance_writer: false,
                  default: DEFAULT_CANNED_REPLACEMENTS.dup
 
+  after_commit :expire_requests
+
   def apply_to_text(text_to_censor)
     return nil if text_to_censor.nil?
 
@@ -77,14 +79,14 @@ class CensorRule < ApplicationRecord
 
   def expire_requests
     if info_request
-      InfoRequestExpireJob.perform_later(info_request)
+      InfoRequest::ExpireJob.perform_later(info_request)
       NotifyCacheJob.perform_later(info_request)
     elsif user
-      InfoRequestExpireJob.perform_later(user, :info_requests)
+      InfoRequest::ExpireJob.perform_later(user, :info_requests)
     elsif public_body
-      InfoRequestExpireJob.perform_later(public_body, :info_requests)
+      InfoRequest::ExpireJob.perform_later(public_body, :info_requests)
     else # global rule
-      InfoRequestExpireJob.perform_later(InfoRequest, :all)
+      InfoRequest::ExpireJob.perform_later(InfoRequest, :all)
     end
   end
 

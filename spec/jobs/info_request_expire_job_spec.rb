@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe InfoRequestExpireJob, type: :job do
+RSpec.describe InfoRequest::ExpireJob, type: :job do
   let(:args) { [] }
   subject(:perform) { described_class.new.perform(*args) }
 

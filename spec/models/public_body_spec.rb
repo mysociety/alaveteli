@@ -767,7 +767,7 @@ RSpec.describe PublicBody do
   describe '#expire_requests' do
     it 'create expire job for the public body' do
       public_body = FactoryBot.build(:public_body)
-      expect(InfoRequestExpireJob).to receive(:perform_later).
+      expect(InfoRequest::ExpireJob).to receive(:perform_later).
         with(public_body, :info_requests)
       public_body.expire_requests
     end

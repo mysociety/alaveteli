@@ -18,6 +18,28 @@
 require 'spec_helper'
 
 RSpec.describe CensorRule do
+  describe 'after_commit callbacks' do
+    it 'expires requests after create' do
+      rule = FactoryBot.create(:global_censor_rule)
+      expect(rule).to receive(:expire_requests)
+      rule.run_callbacks(:commit)
+    end
+
+    it 'expires requests after update' do
+      rule = FactoryBot.create(:global_censor_rule)
+      rule.update!(text: 'updated text')
+      expect(rule).to receive(:expire_requests)
+      rule.run_callbacks(:commit)
+    end
+
+    it 'expires requests after destroy' do
+      rule = FactoryBot.create(:global_censor_rule)
+      rule.destroy!
+      expect(rule).to receive(:expire_requests)
+      rule.run_callbacks(:commit)
+    end
+  end
+
   describe '#apply_to_text' do
     it 'applies the rule to the text' do
       rule = FactoryBot.build(:censor_rule, text: 'secret')
@@ -153,36 +175,53 @@ RSpec.describe CensorRule do
   end
 
   describe '#expire_requests' do
-    it 'create expire job for the request if it is a request rule' do
-      request = FactoryBot.create(:info_request)
-      rule = FactoryBot.create(:info_request_censor_rule,
-                               info_request: request)
-      expect(InfoRequestExpireJob).to receive(:perform_later).with(request)
-      expect(NotifyCacheJob).to receive(:perform_later).with(request)
-      rule.expire_requests
+    subject { rule.expire_requests }
+
+    let(:job) { InfoRequest::ExpireJob }
+
+    context 'with a request rule' do
+      let(:request) { FactoryBot.create(:info_request) }
+      let!(:rule) { FactoryBot.create(:censor_rule, info_request: request) }
+
+      it 'expires the requests' do
+        expect { subject }.to have_enqueued_job(job).with(request)
+      end
+
+      it 'notifies the cache when configured' do
+        allow(AlaveteliConfiguration).to receive(:varnish_hosts).and_return('x')
+        expect { subject }.to have_enqueued_job(NotifyCacheJob).with(request)
+      end
+
+      it 'does not notify the cache when not configured' do
+        allow(AlaveteliConfiguration).to receive(:varnish_hosts).and_return('')
+        expect { subject }.not_to have_enqueued_job(NotifyCacheJob).with(request)
+      end
     end
 
-    it 'create expire job for the user if it is a user rule' do
-      user = FactoryBot.create(:user)
-      rule = FactoryBot.create(:user_censor_rule, user: user)
-      expect(InfoRequestExpireJob).to receive(:perform_later).
-        with(user, :info_requests)
-      rule.expire_requests
+    context 'with a user rule' do
+      let(:user) { FactoryBot.create(:user) }
+      let!(:rule) { FactoryBot.create(:censor_rule, user: user) }
+
+      it 'expires the requests' do      
+        expect { subject }.to have_enqueued_job(job).with(user, :info_requests)
+      end
     end
 
-    it 'create expire job for the public body if it is a public body rule' do
-      body = FactoryBot.create(:public_body)
-      rule = FactoryBot.create(:public_body_censor_rule, public_body: body)
-      expect(InfoRequestExpireJob).to receive(:perform_later).
-        with(body, :info_requests)
-      rule.expire_requests
+    context 'with a public body rule' do
+      let(:body) { FactoryBot.create(:public_body) }
+      let!(:rule) { FactoryBot.create(:censor_rule, public_body: body) }
+
+      it 'expires the requests' do
+        expect { subject }.to have_enqueued_job(job).with(body, :info_requests)
+      end
     end
 
-    it 'create expire job for all requests if it is a global rule' do
-      rule = FactoryBot.build(:global_censor_rule)
-      expect(InfoRequestExpireJob).to receive(:perform_later).
-        with(InfoRequest, :all)
-      rule.expire_requests
+    context 'with a global rule' do
+      let!(:rule) { FactoryBot.create(:global_censor_rule) }
+
+      it 'expires the requests' do
+        expect { subject }.to have_enqueued_job(job).with(InfoRequest, :all)
+      end
     end
   end
 
