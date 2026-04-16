@@ -47,6 +47,22 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
     end
   end
 
+  describe 'GET #new' do
+    context 'if the current_user is banned' do
+      before do
+        pro_user.update!(ban_text: 'banned')
+        sign_in pro_user
+      end
+
+      it 'renders user/banned' do
+        with_feature_enabled(:alaveteli_pro) do
+          get :new
+          expect(response).to render_template('user/banned')
+        end
+      end
+    end
+  end
+
   describe "#preview" do
     let(:draft) do
       FactoryBot.create(:draft_info_request, body: nil, user: pro_user)
@@ -88,6 +104,20 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
         end
       end
     end
+
+    context 'if the current_user is banned' do
+      before do
+        pro_user.update!(ban_text: 'banned')
+        sign_in pro_user
+      end
+
+      it 'renders user/banned' do
+        with_feature_enabled(:alaveteli_pro) do
+          post :preview, params: { draft_id: draft }
+          expect(response).to render_template('user/banned')
+        end
+      end
+    end
   end
 
   describe "#create" do
@@ -112,6 +142,20 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
         with_feature_enabled(:alaveteli_pro) do
           post :preview
           expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
+        end
+      end
+    end
+
+    context 'if the current_user is banned' do
+      before do
+        pro_user.update!(ban_text: 'banned')
+        sign_in pro_user
+      end
+
+      it 'renders user/banned' do
+        with_feature_enabled(:alaveteli_pro) do
+          post :create, params: { draft_id: draft }
+          expect(response).to render_template('user/banned')
         end
       end
     end

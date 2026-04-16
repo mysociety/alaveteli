@@ -1,6 +1,20 @@
 require 'spec_helper'
 
 shared_examples_for "an info_request_batch action" do
+  context 'if the current_user is banned' do
+    before do
+      user.update!(ban_text: 'banned')
+      sign_in user
+    end
+
+    it 'renders user/banned' do
+      with_feature_enabled(:alaveteli_pro) do
+        action
+        expect(response).to render_template('user/banned')
+      end
+    end
+  end
+
   it "sets @draft_info_request_batch from the draft_id param" do
     with_feature_enabled(:alaveteli_pro) do
       action
