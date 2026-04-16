@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Use Regexp rule when anonymising users to catch common name variants (Gareth
+  Rees)
 * Fix email change confirmation which wasn't bound to confirmed target address
   (Graeme Porteous)
 * Ensure only readable requests can be added to a Project (Gareth Rees)
