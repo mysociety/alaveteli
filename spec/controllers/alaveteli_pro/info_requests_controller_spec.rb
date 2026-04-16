@@ -140,7 +140,7 @@ RSpec.describe AlaveteliPro::InfoRequestsController do
       it 'redirects to new info request action' do
         sign_in pro_user
         with_feature_enabled(:alaveteli_pro) do
-          post :preview
+          post :create
           expect(response).to redirect_to(new_alaveteli_pro_info_request_url)
         end
       end
