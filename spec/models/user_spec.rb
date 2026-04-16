@@ -1403,7 +1403,7 @@ RSpec.describe User do
       end
     end
 
-    context 'when the user has info requests which uses an different name' do
+    context 'when the user has info requests that use a different name' do
       let(:previous_name) { 'Bob' }
 
       before do
