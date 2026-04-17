@@ -613,7 +613,7 @@ Rails.application.routes.draw do
       get 'import_csv', :on => :collection
       post 'import_csv', :on => :collection
       resources :censor_rules,
-        :controller => 'admin_censor_rule',
+        :controller => 'admin/censor_rules',
         :only => [:new, :create]
     end
   end
@@ -674,7 +674,7 @@ Rails.application.routes.draw do
       post 'generate_upload_url', :on => :member
       post 'hide', :on => :member
       resources :censor_rules,
-        :controller => 'admin_censor_rule',
+        :controller => 'admin/censor_rules',
         :only => [:new, :create]
     end
   end
@@ -781,7 +781,7 @@ Rails.application.routes.draw do
       post 'modify_comment_visibility', :on => :collection
       resources :slugs, controller: 'admin_user_slug', only: :destroy
       resources :censor_rules,
-        :controller => 'admin_censor_rule',
+        :controller => 'admin/censor_rules',
         :only => [:new, :create]
       end
   end
@@ -825,10 +825,9 @@ Rails.application.routes.draw do
   end
   ####
 
-  #### AdminCensorRule controller
-  scope '/admin', :as => 'admin' do
-    resources :censor_rules,
-      :controller => 'admin_censor_rule'
+  #### Admin::CensorRules controller
+  namespace :admin do
+    resources :censor_rules
   end
 
   #### AdminSpamAddresses controller
