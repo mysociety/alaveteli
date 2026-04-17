@@ -14,6 +14,7 @@
 #  updated_at        :datetime         not null
 #  regexp            :boolean          default(FALSE), not null
 #  case_sensitive    :boolean          default(TRUE), not null
+#  ignore_diacritics :boolean          default(FALSE), not null
 #
 
 require 'spec_helper'
@@ -98,6 +99,25 @@ RSpec.describe CensorRule do
       end
     end
 
+    context 'when sensitive to both diacritics and case' do
+      let(:rule) do
+        FactoryBot.build(
+          :censor_rule,
+          ignore_diacritics: false,
+          case_sensitive: true,
+          text: 'ecole'
+        )
+      end
+
+      it 'only matches the given text' do
+        expect(rule.apply_to_text('ecole text')).to eq('[REDACTED] text')
+        expect(rule.apply_to_text('école text')).to eq('école text')
+        expect(rule.apply_to_text('Ecole text')).to eq('Ecole text')
+        expect(rule.apply_to_text('ECOLE text')).to eq('ECOLE text')
+        expect(rule.apply_to_text('ÉCOLE text')).to eq('ÉCOLE text')
+      end
+    end
+
     context 'when case_sensitive is false with regexp rule' do
       let(:rule) do
         FactoryBot.build(
@@ -108,6 +128,48 @@ RSpec.describe CensorRule do
       it 'applies to text regardless of case' do
         expect(rule.apply_to_text('SECRET text')).to eq('[REDACTED] text')
         expect(rule.apply_to_text('secret text')).to eq('[REDACTED] text')
+      end
+    end
+
+    context 'when ignore_diacritics is true' do
+      let(:rule) do
+        FactoryBot.build(:censor_rule, :ignore_diacritics, text: 'ecole')
+      end
+
+      it 'matches diacritic variants of the same case' do
+        expect(rule.apply_to_text('ecole text')).to eq('[REDACTED] text')
+        expect(rule.apply_to_text('école text')).to eq('[REDACTED] text')
+      end
+
+      it 'handles multiple diacritics in the text' do
+        rule.text = 'maçã'
+        expect(rule.apply_to_text('Uma maçã por dia')).
+          to eq('Uma [REDACTED] por dia')
+      end
+
+      it 'does not match the opposite case' do
+        expect(rule.apply_to_text('Ecole text')).to eq('Ecole text')
+        expect(rule.apply_to_text('ECOLE text')).to eq('ECOLE text')
+        expect(rule.apply_to_text('ÉCOLE text')).to eq('ÉCOLE text')
+      end
+    end
+
+    context 'when ignoring diacritics and case' do
+      let(:rule) do
+        FactoryBot.build(
+          :censor_rule,
+          :ignore_diacritics,
+          :case_insensitive,
+          text: 'ecole'
+        )
+      end
+
+      it 'matches diacritic variants in any case' do
+        expect(rule.apply_to_text('ecole text')).to eq('[REDACTED] text')
+        expect(rule.apply_to_text('école text')).to eq('[REDACTED] text')
+        expect(rule.apply_to_text('Ecole text')).to eq('[REDACTED] text')
+        expect(rule.apply_to_text('ECOLE text')).to eq('[REDACTED] text')
+        expect(rule.apply_to_text('ÉCOLE text')).to eq('[REDACTED] text')
       end
     end
   end
@@ -221,6 +283,25 @@ RSpec.describe CensorRule do
       end
     end
 
+    context 'when sensitive to both diacritics and case' do
+      let(:rule) do
+        FactoryBot.build(
+          :censor_rule,
+          ignore_diacritics: false,
+          case_sensitive: true,
+          text: 'ecole'
+        )
+      end
+
+      it 'only matches the given text' do
+        expect(rule.apply_to_binary('ecole text')).to eq('xxxxx text')
+        expect(rule.apply_to_binary('école text')).to eq('école text')
+        expect(rule.apply_to_binary('Ecole text')).to eq('Ecole text')
+        expect(rule.apply_to_binary('ECOLE text')).to eq('ECOLE text')
+        expect(rule.apply_to_binary('ÉCOLE text')).to eq('ÉCOLE text')
+      end
+    end
+
     context 'when case_sensitive is false with a regexp rule' do
       let(:rule) do
         FactoryBot.build(
@@ -231,6 +312,42 @@ RSpec.describe CensorRule do
       it 'applies to binary regardless of case' do
         expect(rule.apply_to_binary('SECRET text')).to eq('xxxxxx text')
         expect(rule.apply_to_binary('secret text')).to eq('xxxxxx text')
+      end
+    end
+
+    context 'when ignore_diacritics is true' do
+      let(:rule) do
+        FactoryBot.build(:censor_rule, :ignore_diacritics, text: 'ecole')
+      end
+
+      it 'matches diacritic variants of the same case in binary' do
+        expect(rule.apply_to_binary('école text')).to eq('xxxxxx text')
+      end
+
+      it 'handles multiple diacritics in the text' do
+        rule.text = 'maçã'
+        expect(rule.apply_to_binary('Uma maçã por dia')).
+          to eq('Uma xxxxxx por dia')
+      end
+
+      it 'does not match the opposite case in binary' do
+        expect(rule.apply_to_binary('École text')).to eq('École text')
+      end
+    end
+
+    context 'when ignoring diacritics and case' do
+      let(:rule) do
+        FactoryBot.build(
+          :censor_rule,
+          :ignore_diacritics,
+          :case_insensitive,
+          text: 'ecole'
+        )
+      end
+
+      it 'matches diacritic variants in any case in binary' do
+        expect(rule.apply_to_binary('ECOLE text')).to eq('xxxxx text')
+        expect(rule.apply_to_binary('école text')).to eq('xxxxxx text')
       end
     end
   end
@@ -368,6 +485,42 @@ RSpec.describe 'when validating rules' do
     censor_rule = CensorRule.new
     censor_rule.valid?
     expect(censor_rule.errors[:last_edit_comment].size).to eq(1)
+  end
+
+  describe 'when validating an ignore_diacritics rule' do
+    let(:rule) do
+      CensorRule.new(ignore_diacritics: true,
+                     text: 'ecole',
+                     replacement: '[REDACTED]',
+                     last_edit_comment: 'test',
+                     last_edit_editor: 'rspec')
+    end
+
+    it 'is valid' do
+      expect(rule).to be_valid
+    end
+  end
+
+  describe 'when validating a regexp with ignore_diacritics rule' do
+    let(:rule) do
+      CensorRule.new(regexp: true,
+                     ignore_diacritics: true,
+                     text: 'ecole',
+                     replacement: '[REDACTED]',
+                     last_edit_comment: 'test',
+                     last_edit_editor: 'rspec')
+    end
+
+    it 'is not valid' do
+      expect(rule).not_to be_valid
+    end
+
+    it 'adds an error on text' do
+      rule.valid?
+      expect(rule.errors[:text]).to include(
+        'Cannot use regexp and ignore diacritics option together'
+      )
+    end
   end
 
   describe 'when validating a regexp rule' do

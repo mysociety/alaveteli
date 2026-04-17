@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow censor rules to ignore diacritics (Gareth Rees)
 * Allow censor rules to be case insensitive (Gareth Rees)
 * Add Content Security Policy with nonce-based script protection (Graeme
   Porteous)
@@ -114,6 +115,12 @@
   it by running:
 
     bin/rails runner "AlaveteliFeatures.backend.enable(:censor_rule_case_sensitive)"
+
+* _Optional:_ Censor rules can now ignore diacritics. This is disabled by
+  default while we beta test it before full release. Before then you can enable
+  it by running:
+
+    bin/rails runner "AlaveteliFeatures.backend.enable(:censor_rule_ignore_diacritics)"
 
 ### Changed Templates
 

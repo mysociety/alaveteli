@@ -87,7 +87,8 @@ class AdminCensorRuleController < AdminController
   def censor_rule_params
     if params[:censor_rule]
       params.require(:censor_rule).
-        permit(:regexp, :case_sensitive, :text, :replacement,
+        permit(:text, :replacement, :regexp,
+               :case_sensitive, :ignore_diacritics,
                :last_edit_comment, :last_edit_editor)
     else
       {}
