@@ -37,13 +37,13 @@ class FoiAttachment < ApplicationRecord
 
   include MessageProminence
 
+  include Erasable
   include Eventable
   include Lockable
   include Maskable
   include Replaceable
 
   MissingError = Class.new(StandardError)
-  ErasedError = Class.new(StandardError)
 
   belongs_to :incoming_message, inverse_of: :foi_attachments, optional: true
   has_one :raw_email, through: :incoming_message, source: :raw_email
@@ -60,11 +60,9 @@ class FoiAttachment < ApplicationRecord
   before_destroy :delete_cached_file!
 
   scope :binary, -> { where.not(content_type: AlaveteliTextMasker::TextMask) }
-  scope :erased, -> { where.not(erased_at: nil) }
 
   delegate :expire, to: :info_request
   delegate :metadata, to: :file_blob, allow_nil: true
-  delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
                 include: %i[redacted_filename display_filename metadata]
@@ -282,45 +280,6 @@ class FoiAttachment < ApplicationRecord
       url_part_number,
       display_filename
     )
-  end
-
-  def erased?
-    erased_at.present?
-  end
-
-  def ensure_not_erased!
-    raise ErasedError, "attachment has been erased (ID=#{id})" if erased?
-  end
-
-  def erase(editor:, reason:)
-    return if erased?
-
-    transaction do |t|
-      t.after_rollback { return false }
-
-      raise ActiveRecord::Rollback unless
-        log_event(
-          'erase_attachment',
-          editor: editor,
-          reason: reason,
-          attachment: self,
-          storage_key: storage_key
-        )
-
-      self.filename = nil
-      ensure_filename!
-
-      self.erased_at = Time.zone.now
-      save!
-
-      delete_cached_file!
-
-      raw_email.erase(editor: editor, reason: 'FoiAttachment#erase')
-
-      expire
-
-      true
-    end
   end
 
   def storage_key
