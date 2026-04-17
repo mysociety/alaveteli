@@ -5,6 +5,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
+  before_action :check_banned
+
   def new
     @draft_info_request_batch = load_draft
     load_data_from_draft(@draft_info_request_batch)
@@ -44,6 +46,13 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
   end
 
   private
+
+  def check_banned
+    if authenticated? && authenticated_user.suspended?
+      @details = authenticated_user.can_fail_html
+      render(template: 'user/banned') && return
+    end
+  end
 
   def rate_monitor
     @rate_monitor ||=

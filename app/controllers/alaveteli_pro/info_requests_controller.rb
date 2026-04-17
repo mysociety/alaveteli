@@ -9,6 +9,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   before_action :set_public_body, only: [:new]
   before_action :load_data_from_draft, only: [:preview, :create]
   before_action :check_public_body_is_requestable, only: [:preview, :create]
+  before_action :check_banned, only: [:new, :preview, :create]
 
   def index
     @request_filter = AlaveteliPro::RequestFilter.new
@@ -55,6 +56,13 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
   end
 
   private
+
+  def check_banned
+    if authenticated? && authenticated_user.suspended?
+      @details = authenticated_user.can_fail_html
+      render(template: 'user/banned') && return
+    end
+  end
 
   def show_errors
     # There'll be a duplicate error if the outgoing_message is invalid, so

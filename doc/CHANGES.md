@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Prevent banned Pro subscribers creating requests (Gareth Rees)
 * Integrate ActionMailbox for better inbound email processing (Graeme Porteous)
 * Allow responses to be received from any source (Graeme Porteous)
 * Fix hidden request snippets appearing in embargoed batch lists (Gareth Rees)
