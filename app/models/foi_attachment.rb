@@ -224,14 +224,14 @@ class FoiAttachment < ApplicationRecord
   end
 
   # Whether this type has a "View as HTML"
-  def has_body_as_html?
+  def body_to_html?
     return false if erased?
 
     AttachmentToHTML.extractable?(self)
   end
 
   # For "View as HTML" of attachment
-  def body_as_html(**kwargs)
+  def body_to_html(**kwargs)
     ensure_not_erased!
     AttachmentToHTML.to_html(self, **kwargs)
   end

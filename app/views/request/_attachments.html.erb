@@ -28,7 +28,7 @@
 
             <p class="attachment__meta">
               <%= a.display_size %>
-              <% if a.has_body_as_html? && incoming_message.info_request.prominence(:decorate => true).is_public? %>
+              <% if a.body_to_html? && incoming_message.info_request.prominence(:decorate => true).is_public? %>
                 <%= link_to _('View'), attachment_path(a, :html => true) %>
               <% end %>
               <%= link_to _('Download'), attachment_path(a) %>

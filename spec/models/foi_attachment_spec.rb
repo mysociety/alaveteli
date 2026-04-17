@@ -575,30 +575,30 @@ RSpec.describe FoiAttachment do
     end
   end
 
-  describe '#has_body_as_html?' do
+  describe '#body_to_html?' do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:pdf_attachment, :erased) }
 
       it 'returns false' do
-        expect(foi_attachment.has_body_as_html?).to be false
+        expect(foi_attachment.body_to_html?).to be false
       end
     end
 
     it 'should be true for a pdf attachment' do
-      expect(FactoryBot.build(:pdf_attachment).has_body_as_html?).to be true
+      expect(FactoryBot.build(:pdf_attachment).body_to_html?).to be true
     end
 
     it 'should be false for an html attachment' do
-      expect(FactoryBot.build(:html_attachment).has_body_as_html?).to be false
+      expect(FactoryBot.build(:html_attachment).body_to_html?).to be false
     end
   end
 
-  describe '#body_as_html' do
+  describe '#body_to_html' do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:pdf_attachment, :erased) }
 
       it 'raises ErasedError error' do
-        expect { foi_attachment.body_as_html }.to raise_error(
+        expect { foi_attachment.body_to_html }.to raise_error(
           FoiAttachment::ErasedError,
           "attachment has been erased (ID=#{foi_attachment.id})"
         )

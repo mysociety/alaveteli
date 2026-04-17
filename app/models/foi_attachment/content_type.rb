@@ -36,8 +36,8 @@ module FoiAttachment::ContentType
     cattr_reader :content_type_names, default: CONTENT_TYPE_NAMES
   end
 
-  # Name of type of attachment type - only valid for things that
-  # has_body_as_html?
+  # Name of type of attachment type - only valid for things where body_to_html?
+  # is true
   def name_of_content_type
     content_type_names[content_type]
   end
