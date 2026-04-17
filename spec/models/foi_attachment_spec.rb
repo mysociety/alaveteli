@@ -611,8 +611,9 @@ RSpec.describe FoiAttachment do
     subject { foi_attachment.name_of_content_type }
 
     before do
-      stub = { 'content/named' => 'Named content' }
-      stub_const("#{described_class}::CONTENT_TYPE_NAMES", stub)
+      allow_any_instance_of(described_class).
+        to receive(:content_type_names).
+        and_return('content/named' => 'Named content')
     end
 
     let(:foi_attachment) do
