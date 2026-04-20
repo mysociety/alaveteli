@@ -202,8 +202,13 @@ RSpec.describe PasswordChangesController do
 
   describe 'GET edit' do
     let(:user) { FactoryBot.create(:user) }
+
     let(:post_redirect) do
-      PostRedirect.create(user: user, uri: frontpage_url)
+      PostRedirect.create(
+        user: user,
+        uri: frontpage_url,
+        circumstance: 'change_password'
+      )
     end
 
     it 'assigns the pretoken if supplied' do
@@ -238,6 +243,15 @@ RSpec.describe PasswordChangesController do
         get :edit, params: { id: post_redirect.token, pretoken: 'abcdef' }
         expect(response).
           to redirect_to(new_password_change_path(pretoken: 'abcdef'))
+      end
+    end
+
+    context 'token with a different circumstance' do
+      before { post_redirect.update!(circumstance: 'normal') }
+
+      it 'redirects to new to force an email confirmation' do
+        get :edit, params: { id: post_redirect.token }
+        expect(response).to redirect_to new_password_change_path
       end
     end
 
@@ -293,8 +307,13 @@ RSpec.describe PasswordChangesController do
 
   describe 'PUT update' do
     let(:user) { FactoryBot.create(:user) }
+
     let(:post_redirect) do
-      PostRedirect.create(user: user, uri: frontpage_path)
+      PostRedirect.create(
+        user: user,
+        uri: frontpage_path,
+        circumstance: 'change_password'
+      )
     end
 
     before(:each) do
@@ -372,6 +391,18 @@ RSpec.describe PasswordChangesController do
       it 'redirects to new to force an email confirmation' do
         put :update, params: {
                        id: 'invalid',
+                       password_change_user: @valid_password_params
+                     }
+        expect(response).to redirect_to new_password_change_path
+      end
+    end
+
+    context 'token with a different circumstance' do
+      before { post_redirect.update!(circumstance: 'normal') }
+
+      it 'redirects to new to force an email confirmation' do
+        put :update, params: {
+                       id: post_redirect.token,
                        password_change_user: @valid_password_params
                      }
         expect(response).to redirect_to new_password_change_path
