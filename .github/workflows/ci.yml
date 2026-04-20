@@ -48,6 +48,7 @@ jobs:
     if: needs.check.outputs.skip_rspec == 'false'
 
     permissions:
+      contents: read
       checks: write # for coverallsapp/github-action to create new checks
 
     strategy:
@@ -145,6 +146,7 @@ jobs:
     needs: rspec
 
     permissions:
+      contents: read
       checks: write
 
     steps:
