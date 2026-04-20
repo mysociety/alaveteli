@@ -131,7 +131,10 @@ class PasswordChangesController < ApplicationController
   def set_user_from_token
     @password_change_user ||=
       if params[:id]
-        post_redirect = PostRedirect.find_by(token: params[:id])
+        post_redirect = PostRedirect.find_by(
+          token: params[:id],
+          circumstance: 'change_password'
+        )
         post_redirect.user if post_redirect
       end
   end

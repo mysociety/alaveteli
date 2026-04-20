@@ -216,8 +216,13 @@ describe PasswordChangesController do
   describe 'GET edit' do
 
     let(:user) { FactoryBot.create(:user) }
+
     let(:post_redirect) do
-      PostRedirect.create(:user => user, :uri => frontpage_url)
+      PostRedirect.create(
+        user: user,
+        uri: frontpage_url,
+        circumstance: 'change_password'
+      )
     end
 
     it 'assigns the pretoken if supplied' do
@@ -255,6 +260,15 @@ describe PasswordChangesController do
           to redirect_to(new_password_change_path(:pretoken => 'abcdef'))
       end
 
+    end
+
+    context 'token with a different circumstance' do
+      before { post_redirect.update!(circumstance: 'normal') }
+
+      it 'redirects to new to force an email confirmation' do
+        get :edit, params: { id: post_redirect.token }
+        expect(response).to redirect_to new_password_change_path
+      end
     end
 
     context 'invalid token' do
@@ -312,8 +326,13 @@ describe PasswordChangesController do
   describe 'PUT update' do
 
     let(:user) { FactoryBot.create(:user) }
+
     let(:post_redirect) do
-      PostRedirect.create(:user => user, :uri => frontpage_path)
+      PostRedirect.create(
+        user: user,
+        uri: frontpage_path,
+        circumstance: 'change_password'
+      )
     end
 
     before(:each) do
@@ -399,6 +418,18 @@ describe PasswordChangesController do
         expect(response).to redirect_to new_password_change_path
       end
 
+    end
+
+    context 'token with a different circumstance' do
+      before { post_redirect.update!(circumstance: 'normal') }
+
+      it 'redirects to new to force an email confirmation' do
+        put :update, params: {
+                       id: post_redirect.token,
+                       password_change_user: @valid_password_params
+                     }
+        expect(response).to redirect_to new_password_change_path
+      end
     end
 
     context 'when a pretoken is supplied' do
