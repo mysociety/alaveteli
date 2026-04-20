@@ -1,3 +1,9 @@
+# 0.41.3.0
+
+## Highlighted Features
+
+* Check `PostRedirect#circumstance` when changing password (Gareth Rees)
+
 # 0.41.2.0
 
 ## Highlighted Features
