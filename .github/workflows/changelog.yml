@@ -21,8 +21,9 @@ jobs:
 
     - name: Check for [skip changelog]
       id: skip
+      env:
+        PR_DESCRIPTION: ${{ github.event.pull_request.body }}
       run: |
-        PR_DESCRIPTION=$(gh pr view https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }} --json body -q '.body')
         if echo "$PR_DESCRIPTION" | grep -q "\[skip changelog\]"; then
           echo "skip_changelog=true" >> $GITHUB_OUTPUT
         else
