@@ -758,8 +758,32 @@ RSpec.describe UserController do
         expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
       end
 
+      context 'when the token belongs to a non-normal circumstance' do
+        let(:existing_user) { FactoryBot.create(:user) }
+
+        let!(:change_password_redirect) do
+          FactoryBot.create(:post_redirect,
+                            circumstance: 'change_password',
+                            user: existing_user)
+        end
+
+        it 'does not rebind the token to the existing user' do
+          post :signup, params: {
+            token: change_password_redirect.token,
+            user_signup: {
+              email: 'silly@localhost',
+              name: 'New Person',
+              password: 'sillypassword',
+              password_confirmation: 'sillypassword'
+            }
+          }
+
+          expect(change_password_redirect.reload.user).to eq(existing_user)
+        end
+      end
+
       it "should create a new PostRedirect if the old one has expired" do
-        allow(PostRedirect).to receive(:find_by_token).and_return(nil)
+        allow(PostRedirect).to receive(:find_by).and_return(nil)
         post :signup, params: {
                         user_signup: {
                           email: 'silly@localhost',
