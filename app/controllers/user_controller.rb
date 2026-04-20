@@ -470,7 +470,9 @@ class UserController < ApplicationController
 
   # If they register again
   def already_registered_mail(user)
-    post_redirect = PostRedirect.find_by_token(params[:token])
+    post_redirect =
+      PostRedirect.find_by(token: params[:token], circumstance: 'normal')
+
     post_redirect ||= generate_post_redirect_for_signup(params[:r])
     post_redirect.user = user
     post_redirect.save!
