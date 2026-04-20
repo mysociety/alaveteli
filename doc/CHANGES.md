@@ -64,6 +64,12 @@ to update overrides in your theme to match the new templates.
 
     None yet
 
+# 0.46.5.0
+
+## Highlighted Features
+
+* Check `PostRedirect#circumstance` when changing password (Gareth Rees)
+
 # 0.46.4.0
 
 ## Highlighted Features
