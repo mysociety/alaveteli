@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Validate profile photo content type before ImageMagick processing
+  (Graeme Porteous)
 * Prevent banned Pro subscribers creating requests (Gareth Rees)
 * Integrate ActionMailbox for better inbound email processing (Graeme Porteous)
 * Allow responses to be received from any source (Graeme Porteous)
