@@ -17,6 +17,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require "mini_magick"
+require "marcel"
 
 class ProfilePhoto < ApplicationRecord
   # deliberately don't strip_attributes, so keeps raw photo properly
@@ -24,6 +25,7 @@ class ProfilePhoto < ApplicationRecord
   WIDTH = 96
   HEIGHT = 96
   MAX_DRAFT = 500 # keep even pre-cropped images reasonably small
+  ALLOWED_CONTENT_TYPES = %w[image/png image/jpeg image/gif image/heic].freeze
 
   belongs_to :user,
              inverse_of: :profile_photo,
@@ -34,7 +36,7 @@ class ProfilePhoto < ApplicationRecord
   attr_accessor :x, :y, :w, :h
   attr_accessor :image
 
-  before_validation :convert_data_to_image
+  before_validation :convert_data_to_image, if: :allowed_content_type?
 
   # make image valid format and size
   def convert_image
@@ -80,8 +82,17 @@ class ProfilePhoto < ApplicationRecord
       return
     end
 
+    unless allowed_content_type?
+      errors.add(:data, _("We weren't able to identify the file type of your " \
+                          "photo. Please upload a PNG, JPEG, GIF or HEIC " \
+                          "image."))
+      return
+    end
+
     if image.nil?
-      errors.add(:data, _("Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and many other common image file formats are supported."))
+      errors.add(:data, _("Couldn't understand the image file that you " \
+                          "uploaded. PNG, JPEG, GIF and HEIC file formats " \
+                          "are supported."))
       return
     end
 
@@ -106,11 +117,6 @@ class ProfilePhoto < ApplicationRecord
 
   # Convert binary data blob into ImageMagick image when assigned
   def convert_data_to_image
-    if data.nil?
-      self.image = nil
-      return
-    end
-
     converted = MiniMagick::Image.read(data)
 
     unless converted.valid?
@@ -122,5 +128,12 @@ class ProfilePhoto < ApplicationRecord
     # in the file?
     self.image = converted
     convert_image
+  end
+
+  def allowed_content_type?
+    return false unless data
+
+    content_type = Marcel::MimeType.for(StringIO.new(data))
+    ALLOWED_CONTENT_TYPES.include?(content_type)
   end
 end

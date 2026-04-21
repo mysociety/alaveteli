@@ -61,4 +61,29 @@ RSpec.describe ProfilePhoto, "when constructing a new photo" do
     expect(profile_photo.image.width).to eq(198)
     expect(profile_photo.image.height).to eq(289)
   end
+
+  it 'should reject an SVG file' do
+    svg_data = '<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" />'
+    profile_photo = ProfilePhoto.new(data: svg_data, user: @mock_user)
+    expect(profile_photo).not_to be_valid
+    expect(profile_photo.errors[:data].first).to match(/identify the file type/)
+  end
+
+  it 'should reject a non-image file' do
+    profile_photo = ProfilePhoto.new(data: 'This is text', user: @mock_user)
+    expect(profile_photo).not_to be_valid
+    expect(profile_photo.errors[:data].first).to match(/identify the file type/)
+  end
+
+  it 'should not pass non-image data to ImageMagick' do
+    expect(MiniMagick::Image).not_to receive(:read)
+    profile_photo = ProfilePhoto.new(data: 'This is text', user: @mock_user)
+    profile_photo.valid?
+  end
+
+  it 'should allow PNG content type through validation' do
+    data = load_file_fixture("parrot.png")
+    profile_photo = ProfilePhoto.new(data: data, user: @mock_user)
+    expect(profile_photo.valid?).to eq(true)
+  end
 end
