@@ -440,9 +440,7 @@ class UserController < ApplicationController
 
   # Ask for email confirmation
   def send_confirmation_mail(user)
-    post_redirect = PostRedirect.find_by_token(params[:token])
-    post_redirect.user = user
-    post_redirect.save!
+    post_redirect = generate_confirmation_post_redirect(user)
 
     url = confirm_url(:email_token => post_redirect.email_token)
     UserMailer.
@@ -456,12 +454,7 @@ class UserController < ApplicationController
 
   # If they register again
   def already_registered_mail(user)
-    post_redirect =
-      PostRedirect.find_by(token: params[:token], circumstance: 'normal')
-
-    post_redirect ||= generate_post_redirect_for_signup(params[:r])
-    post_redirect.user = user
-    post_redirect.save!
+    post_redirect = generate_confirmation_post_redirect(user)
 
     url = confirm_url(:email_token => post_redirect.email_token)
     UserMailer.
@@ -523,6 +516,22 @@ class UserController < ApplicationController
 
   def current_user_is_display_user
     @user.try(:id) == @display_user.id
+  end
+
+  # Always generate a fresh user-bound PostRedirect for confirmation emails
+  def generate_confirmation_post_redirect(user)
+    source_post_redirect =
+      PostRedirect.find_by(token: params[:token],
+                           circumstance: 'normal',
+                           user: nil)
+
+    source_post_redirect ||= generate_post_redirect_for_signup(params[:r])
+
+    PostRedirect.create!(uri: source_post_redirect.uri,
+                         post_params: source_post_redirect.post_params,
+                         reason_params: source_post_redirect.reason_params,
+                         circumstance: 'normal',
+                         user: user)
   end
 
   # Redirects to front page later if nothing else specified
