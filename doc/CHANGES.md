@@ -1,3 +1,9 @@
+# 0.46.6.0
+
+## Highlighted Features
+
+* Prevent token rebinding for non-normal circumstance (Gareth Rees)
+
 # 0.46.5.0
 
 ## Highlighted Features
