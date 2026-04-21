@@ -47,7 +47,7 @@ class AlaveteliFileTypes
 
       # Marcel cannot detect plain text from content alone (unlike
       # libmagic/Mahoro). Check if content is valid text as a fallback.
-      text_content?(content) ? 'text/plain' : nil
+      text_content?(content) ? 'text/plain' : mime_type
     end
 
     def filename_to_mimetype(filename)

@@ -250,9 +250,12 @@ module MailHandler
           # PDFs often come with this mime type, fix it up for view code
           if get_content_type(part) == 'application/octet-stream'
             part_body = get_part_body(part)
-            calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(part_filename,
-                                                                            part_body)
-            part.content_type = calc_mime if calc_mime
+            calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(
+              part_filename, part_body
+            )
+            if calc_mime != 'application/octet-stream'
+              part.content_type = calc_mime
+            end
           end
 
           # Use standard content types for Word documents etc.
@@ -455,11 +458,7 @@ module MailHandler
           mime_type = AlaveteliFileTypes.filename_and_content_to_mimetype(
             filename, body
           )
-          if mime_type
-            content_type = MailHandler.normalise_content_type(mime_type)
-          else
-            content_type = 'application/octet-stream'
-          end
+          content_type = MailHandler.normalise_content_type(mime_type)
           hexdigest = Digest::MD5.hexdigest(body)
 
           {
