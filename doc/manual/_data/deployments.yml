@@ -211,15 +211,6 @@
     en: New Jersey, USA
     es: New Jersey, Estados Unidos
 
-- title: Derecho al Dato
-  url: https://derechoaldato.com.ar
-  image: derecho-al-dato.jpg
-  featured: false
-  pro: false
-  country:
-    en: Argentina
-    es: Argentina
-
 - title: Ask Gov
   url: https://askgov.ge
   image: askgov.png
