@@ -21,7 +21,7 @@ Francis
 
 --V0207lvV8h4k8FAm
 Content-Type: application/octet-stream; charset=us-ascii
-Content-Disposition: attachment; filename="incoming-request-two-same-name.email"
+Content-Disposition: attachment; filename="incoming-request-two-same-name.eml"
 
 From: EMAIL_FROM
 To: FOI Person <foi_person@localhost>

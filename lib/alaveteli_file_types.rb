@@ -14,21 +14,24 @@ class AlaveteliFileTypes
     "xlsx" => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     "ppt" => 'application/vnd.ms-powerpoint',
     "pptx" => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    "eml" => 'message/rfc822',
     "oft" => 'application/vnd.ms-outlook',
     "msg" => 'application/vnd.ms-outlook',
     "tnef" => 'application/ms-tnef',
     "tif" => 'image/tiff',
     "gif" => 'image/gif',
-    "jpg" => 'image/jpeg', # TODO: add jpeg
+    "jpeg" => 'image/jpeg',
+    "jpg" => 'image/jpeg',
     "png" => 'image/png',
     "bmp" => 'image/bmp',
-    "html" => 'text/html', # TODO: add htm
+    "htm" => 'text/html',
+    "html" => 'text/html',
     "vcf" => 'text/x-vcard',
     "zip" => 'application/zip',
     "delivery-status" => 'message/delivery-status'
   }
-  # TODO: doesn't have way of choosing default for inverse map - might want to add
-  # one when you need it
+  # Duplicate MIME types (e.g. image/jpeg) map to the last extension listed
+  # above, so preferred extensions (jpg, html) should come after aliases.
   FileExtensionToMimeTypeRev = FileExtensionToMimeType.invert
 
   class << self
