@@ -38,10 +38,10 @@ class AlaveteliFileTypes
 
     # Given file name and its content, return most likely type
     def filename_and_content_to_mimetype(filename, content)
-      # Try filename
-      ret = filename_to_mimetype(filename)
-      return ret unless ret.nil?
+      filename_to_mimetype(filename) || content_to_mimetype(content)
+    end
 
+    def content_to_mimetype(content)
       mime_type = Marcel::MimeType.for(StringIO.new(content))
       return mime_type unless mime_type == 'application/octet-stream'
 
