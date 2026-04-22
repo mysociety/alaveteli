@@ -77,7 +77,7 @@ class SearchDocument < ApplicationRecord
     ActiveRecord::Base.connection.execute(sql)
   end
 
-  def self.init_semantic_vectors(limit = 1)
+  def self.init_semantic_vectors(limit = 1, batch_size = 10)
     # simple backfill to generate semantic vectors using transformers-rb
     t0 = Time.now
     loading_t = Time.now
@@ -88,29 +88,43 @@ class SearchDocument < ApplicationRecord
     embed_t = 0
     db_t = 0
     failed = 0
-    where(embedding: nil).limit(limit).each do |doc|
-      # this randomly fails when the string *appears to contain too many words*
-      # (it's not a char limit)
+    where('embedding is null and id > 315000').limit(limit).find_in_batches(batch_size: batch_size) do |docs|
       begin
         t1 = Time.now
         # in practice, text longer than about 1600 chars fails to embed, but no
         # clear error message, will need investigating, might be model dependent
-        doc_embedding = @@model.call(doc.raw_content[0..1600])
+        doc_embeddings = @@model.call(docs.map {|d| d.raw_content[0..1600]})
         t2 = Time.now
-        # using the neighbor gem is an option instead of to_s
-        doc.update(embedding: doc_embedding.to_s)
+        values = []
+        doc_embeddings.zip(docs) { |ed| values.push("('#{ed[0]}'::vector, #{ed[1].id})") }
+        sql = <<-SQL
+        update search_documents as sd set
+            embedding = c.embedding
+        from (values
+            #{values.join(',')}
+        ) as c(embedding, id) 
+        where c.id = sd.id;
+        SQL
+
+        ActiveRecord::Base.connection.execute(sql)
         t3 = Time.now
         embed_t += (t2 - t1)
         db_t += (t3 - t2)
-      rescue
-        puts "Failed to embed doc.id #{doc.id}"
+        # print something just to show the process is not stuck
+        putc '.'
+      rescue ActiveRecord::RecordInvalid => invalid
+        putc "I"
+        failed += 1
+      rescue 
+        putc "x"
         failed += 1
       end
     end
-    puts "Load model: #{(loading_t - t0).round(2)} s"
+    puts
     puts "Embedding: #{embed_t.round(3)} s (#{(1000 * embed_t / limit).round(4)} ms / record)"
     puts "DB update: #{db_t.round(3)} s"
-    puts "Failed to embed #{failed} / #{limit} records"
+    puts "Failed to embed #{failed * batch_size} / #{limit} records"
+    puts "Average time per successful record: #{ (1000 * (embed_t + db_t) / (limit - failed)).round(4)} ms"
     limit
   end
 
@@ -230,6 +244,10 @@ end
 # IM: 83MB
 # OM: 102MB
 # tot: 185MB
-# SD: 123MB without tsv
+# SearchDocuments: 123MB without tsv
 #     340MB with tsv  (one record per IM/OM) ~2x IM+OM
+#     2769MB after inserting 5.845M HN comments (only raw_content)
+#     7568MB after adding content_tsv for HN comments (about 2x the raw content size)
+#     8573MB after embedding ~1M records (~1kB / record)
+#
 # indexes: see migration
