@@ -432,4 +432,32 @@ RSpec.describe Project, type: :model, feature: :projects do
       it { is_expected.to eq(0) }
     end
   end
+
+  describe 'strip_attachments' do
+    let(:project) { FactoryBot.create(:project) }
+
+    let(:html_with_attachment) do
+      '<div>Hello <strong>world</strong></div>' \
+        '<action-text-attachment sgid="abc" content-type="image/png">' \
+        '</action-text-attachment>'
+    end
+
+    it 'strips action-text-attachment nodes from briefing on save' do
+      project.briefing = html_with_attachment
+      project.save!
+      expect(project.briefing.to_s).not_to include('action-text-attachment')
+    end
+
+    it 'strips action-text-attachment nodes from dataset_description on save' do
+      project.dataset_description = html_with_attachment
+      project.save!
+      expect(project.dataset_description.to_s).not_to include('action-text-attachment')
+    end
+
+    it 'preserves plain formatting' do
+      project.briefing = '<div>Hello <strong>world</strong></div>'
+      project.save!
+      expect(project.briefing.to_s).to include('<strong>world</strong>')
+    end
+  end
 end

@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Strip ActionText attachments from Project rich text fields (Graeme Porteous)
 * Prevent banned Pro subscribers creating requests (Gareth Rees)
 * Integrate ActionMailbox for better inbound email processing (Graeme Porteous)
 * Allow responses to be received from any source (Graeme Porteous)
