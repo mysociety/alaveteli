@@ -20,8 +20,19 @@ module ActionTextExtensions
         return unless rich_text&.body&.present?
 
         doc = Nokogiri::HTML.fragment(rich_text.body.to_html)
-        doc.css('action-text-attachment').each(&:remove)
+        nodes = doc.css('action-text-attachment')
+        return if nodes.empty?
+
+        blobs = nodes.filter_map do |node|
+          sgid = node['sgid']
+          GlobalID::Locator.locate_signed(sgid, for: 'attachable') if sgid
+        rescue ActiveRecord::RecordNotFound
+          nil
+        end
+
+        nodes.each(&:remove)
         rich_text.body = ActionText::Content.new(doc.to_html)
+        blobs.each(&:purge_later)
       end
 
       private callback

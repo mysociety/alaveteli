@@ -459,5 +459,21 @@ RSpec.describe Project, type: :model, feature: :projects do
       project.save!
       expect(project.briefing.to_s).to include('<strong>world</strong>')
     end
+
+    it 'purges blobs referenced by stripped attachments' do
+      blob = ActiveStorage::Blob.create_and_upload!(
+        io: StringIO.new('fake image'), filename: 'test.png',
+        content_type: 'image/png'
+      )
+      sgid = blob.to_sgid(for: 'attachable').to_s
+      project.briefing = <<~HTML
+        <action-text-attachment sgid="#{sgid}" content-type="image/png">
+        </action-text-attachment>
+      HTML
+      project.save!
+      expect(project.briefing.to_s).not_to include('action-text-attachment')
+      perform_enqueued_jobs
+      expect(ActiveStorage::Blob.exists?(blob.id)).to be false
+    end
   end
 end
