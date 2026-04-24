@@ -1,3 +1,9 @@
+# 0.46.7.0
+
+## Highlighted Features
+
+Prevent token rebinding when it already has a user (Gareth Rees)
+
 # 0.46.6.0
 
 ## Highlighted Features
