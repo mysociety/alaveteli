@@ -1,3 +1,10 @@
+# 0.38.7.0
+
+## Highlighted Features
+
+* Prevent token rebinding when it already has a user (Gareth Rees, FOIMonkey)
+* Prevent token rebinding for non-normal circumstances (Gareth Rees)
+
 # 0.38.6.0
 
 ## Highlighted Features
