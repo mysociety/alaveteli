@@ -170,6 +170,190 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
         expect(response).to render_template(:edit)
       end
     end
+
+    context 'when editing resources' do
+      let(:other_user) { FactoryBot.create(:user) }
+
+      def update_requests(request_ids: [], batch_ids: [])
+        patch :update, params: {
+          id: project.id,
+          step: 'edit_resources',
+          project: { request_ids: request_ids, batch_ids: batch_ids }
+        }
+      end
+
+      it "adds the current user's own request" do
+        public_request = FactoryBot.create(:info_request, user: pro_user)
+        update_requests(request_ids: [public_request.id])
+        expect(project.reload.requests).to include(public_request)
+      end
+
+      it "adds the current user's private request" do
+        private_request = FactoryBot.create(:embargoed_request, user: pro_user)
+        update_requests(request_ids: [private_request.id])
+        expect(project.reload.requests).to include(private_request)
+      end
+
+      it 'adds a public request from another user' do
+        public_request = FactoryBot.create(:info_request, user: other_user)
+        update_requests(request_ids: [public_request.id])
+        expect(project.reload.requests).to include(public_request)
+      end
+
+      it "adds the current user's requester_only request" do
+        requester_only = FactoryBot.create(
+          :info_request, user: pro_user, prominence: 'requester_only'
+        )
+        update_requests(request_ids: [requester_only.id])
+        expect(project.reload.requests).to include(requester_only)
+      end
+
+      it "does not add another user's requester_only request" do
+        requester_only = FactoryBot.create(
+          :info_request, user: other_user, prominence: 'requester_only'
+        )
+        update_requests(request_ids: [requester_only.id])
+        expect(project.reload.requests).not_to include(requester_only)
+      end
+
+      it "does not add the current user's hidden request" do
+        hidden = FactoryBot.create(:hidden_request, user: pro_user)
+        update_requests(request_ids: [hidden.id])
+        expect(project.reload.requests).not_to include(hidden)
+      end
+
+      it "does not add another user's hidden request" do
+        hidden = FactoryBot.create(:hidden_request, user: other_user)
+        update_requests(request_ids: [hidden.id])
+        expect(project.reload.requests).not_to include(hidden)
+      end
+
+      it "does not add another user's embargoed request" do
+        embargoed = FactoryBot.create(:embargoed_request, user: other_user)
+        update_requests(request_ids: [embargoed.id])
+        expect(project.reload.requests).not_to include(embargoed)
+      end
+
+      it "adds the current user's public batch" do
+        public_batch = FactoryBot.create(:info_request_batch, user: pro_user)
+        update_requests(batch_ids: [public_batch.id])
+        expect(project.reload.batches).to include(public_batch)
+      end
+
+      it "adds another user's public batch" do
+        public_batch = FactoryBot.create(:info_request_batch, user: other_user)
+        update_requests(batch_ids: [public_batch.id])
+        expect(project.reload.batches).to include(public_batch)
+      end
+
+      it "adds the current user's embargoed batch" do
+        embargoed_batch = FactoryBot.create(
+          :info_request_batch, :embargoed, user: pro_user
+        )
+        update_requests(batch_ids: [embargoed_batch.id])
+        expect(project.reload.batches).to include(embargoed_batch)
+      end
+
+      it "does not add another user's embargoed batch" do
+        embargoed_batch = FactoryBot.create(
+          :info_request_batch, :embargoed, user: other_user
+        )
+        update_requests(batch_ids: [embargoed_batch.id])
+        expect(project.reload.batches).not_to include(embargoed_batch)
+      end
+    end
+
+    context 'when updating resources' do
+      let(:other_user) { FactoryBot.create(:user) }
+
+      def update_requests(request_ids: [], batch_ids: [])
+        patch :update, params: {
+          id: project.id,
+          step: 'update_resources',
+          project: { request_ids: request_ids, batch_ids: batch_ids }
+        }
+      end
+
+      it "adds the current user's own request" do
+        public_request = FactoryBot.create(:info_request, user: pro_user)
+        update_requests(request_ids: [public_request.id])
+        expect(project.reload.requests).to include(public_request)
+      end
+
+      it "adds the current user's private request" do
+        private_request = FactoryBot.create(:embargoed_request, user: pro_user)
+        update_requests(request_ids: [private_request.id])
+        expect(project.reload.requests).to include(private_request)
+      end
+
+      it 'adds a public request from another user' do
+        public_request = FactoryBot.create(:info_request, user: other_user)
+        update_requests(request_ids: [public_request.id])
+        expect(project.reload.requests).to include(public_request)
+      end
+
+      it "adds the current user's requester_only request" do
+        requester_only = FactoryBot.create(
+          :info_request, user: pro_user, prominence: 'requester_only'
+        )
+        update_requests(request_ids: [requester_only.id])
+        expect(project.reload.requests).to include(requester_only)
+      end
+
+      it "does not add another user's requester_only request" do
+        requester_only = FactoryBot.create(
+          :info_request, user: other_user, prominence: 'requester_only'
+        )
+        update_requests(request_ids: [requester_only.id])
+        expect(project.reload.requests).not_to include(requester_only)
+      end
+
+      it "does not add the current user's hidden request" do
+        hidden = FactoryBot.create(:hidden_request, user: pro_user)
+        update_requests(request_ids: [hidden.id])
+        expect(project.reload.requests).not_to include(hidden)
+      end
+
+      it "does not add another user's hidden request" do
+        hidden = FactoryBot.create(:hidden_request, user: other_user)
+        update_requests(request_ids: [hidden.id])
+        expect(project.reload.requests).not_to include(hidden)
+      end
+
+      it "does not add another user's embargoed request" do
+        embargoed = FactoryBot.create(:embargoed_request, user: other_user)
+        update_requests(request_ids: [embargoed.id])
+        expect(project.reload.requests).not_to include(embargoed)
+      end
+
+      it "adds the current user's public batch" do
+        public_batch = FactoryBot.create(:info_request_batch, user: pro_user)
+        update_requests(batch_ids: [public_batch.id])
+        expect(project.reload.batches).to include(public_batch)
+      end
+
+      it "adds another user's public batch" do
+        public_batch = FactoryBot.create(:info_request_batch, user: other_user)
+        update_requests(batch_ids: [public_batch.id])
+        expect(project.reload.batches).to include(public_batch)
+      end
+
+      it "adds the current user's embargoed batch" do
+        embargoed_batch = FactoryBot.create(
+          :info_request_batch, :embargoed, user: pro_user
+        )
+        update_requests(batch_ids: [embargoed_batch.id])
+        expect(project.reload.batches).to include(embargoed_batch)
+      end
+
+      it "does not add another user's embargoed batch" do
+        embargoed_batch = FactoryBot.create(
+          :info_request_batch, :embargoed, user: other_user
+        )
+        update_requests(batch_ids: [embargoed_batch.id])
+        expect(project.reload.batches).not_to include(embargoed_batch)
+      end
+    end
   end
 
   describe 'GET #edit_resources' do
