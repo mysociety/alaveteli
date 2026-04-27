@@ -292,6 +292,34 @@ RSpec.describe Ability do
             expect(user_with_token).not_to be_able_to(:read, resource)
           end
         end
+
+        context 'with project' do
+          let(:project_owner) { FactoryBot.create(:user) }
+          let(:contributor) { FactoryBot.create(:user) }
+
+          let(:project) do
+            project = FactoryBot.create(:project, owner: project_owner)
+            project.requests << resource
+            project.contributors << contributor
+            project
+          end
+
+          it 'should return false for the project owner' do
+            ability = Ability.new(project_owner, project: project)
+            expect(ability).not_to be_able_to(:read, resource)
+          end
+
+          it 'should return false for a project contributor' do
+            ability = Ability.new(contributor, project: project)
+            expect(ability).not_to be_able_to(:read, resource)
+          end
+
+          it 'should return true for a project member who is the requester' do
+            project.contributors << resource.user
+            ability = Ability.new(resource.user, project: project)
+            expect(ability).to be_able_to(:read, resource)
+          end
+        end
       end
 
       context 'if the prominence is normal' do
@@ -1939,6 +1967,46 @@ RSpec.describe Ability, 'with project' do
 
     it 'does not allow a non-contributor to read a hidden request not in the project' do
       expect(non_contributor_ability).not_to be_able_to(:read, hidden_request)
+    end
+  end
+
+  describe 'read hidden requests in the project' do
+    let(:hidden_request) do
+      FactoryBot.create(:info_request, prominence: 'hidden')
+    end
+
+    before { project.requests << hidden_request }
+
+    it 'does not allow a project owner to read a hidden project request' do
+      expect(owner_ability).not_to be_able_to(:read, hidden_request)
+    end
+
+    it 'does not allow a project contributor to read a hidden project request' do
+      expect(contributor_ability).not_to be_able_to(:read, hidden_request)
+    end
+  end
+
+  describe 'read requester_only requests in the project' do
+    let(:requester_only_request) do
+      FactoryBot.create(:info_request, prominence: 'requester_only')
+    end
+
+    before { project.requests << requester_only_request }
+
+    it 'does not allow the project owner who is not the requester' do
+      expect(owner_ability).not_to be_able_to(:read, requester_only_request)
+    end
+
+    it 'does not allow a project contributor who is not the requester' do
+      expect(contributor_ability).not_to be_able_to(:read, requester_only_request)
+    end
+
+    it 'allows the requester who is a project member' do
+      project.contributors << requester_only_request.user
+      requester_ability = Ability.new(
+        requester_only_request.user, project: project
+      )
+      expect(requester_ability).to be_able_to(:read, requester_only_request)
     end
   end
 end

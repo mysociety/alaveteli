@@ -170,6 +170,12 @@ RSpec.describe Project, type: :model, feature: :projects do
       it 'excludes non-project batch requests' do
         is_expected.not_to include(*other_batch.info_requests)
       end
+
+      it 'excludes hidden requests' do
+        hidden = FactoryBot.create(:info_request, :hidden)
+        project.requests << hidden
+        is_expected.not_to include(hidden)
+      end
     end
 
     it 'has one key set' do

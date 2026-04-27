@@ -8,7 +8,7 @@ class Projects::DatasetController < Projects::BaseController
 
   def show
     authorize! :export, @project
-    @export = Project::Export.new(@project)
+    @export = Project::Export.new(@project, user: current_user)
 
     respond_to do |format|
       format.html

@@ -50,9 +50,9 @@ RSpec.describe Projects::DatasetController, spec_meta do
       include_context 'when authorised to export project'
 
       before do
-        allow(Project::Export).to receive(:new).with(project).and_return(
-          double(to_csv: 'CSV_DATA', name: 'NAME')
-        )
+        allow(Project::Export).to receive(:new).
+          with(project, user: user).
+          and_return(double(to_csv: 'CSV_DATA', name: 'NAME'))
         show
       end
 
