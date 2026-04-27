@@ -28,4 +28,9 @@ namespace :storage do
     Rake::Task['storage:promote'].execute
     Rake::Task['storage:unlink'].execute
   end
+
+  desc 'Purge unattached blobs and their files'
+  task purge_unattached: :environment do
+    ActiveStorage::Blob.unattached.where(created_at: ..7.days.ago).find_each(&:purge_later)
+  end
 end
