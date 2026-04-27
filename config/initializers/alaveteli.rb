@@ -30,6 +30,7 @@ ActionMailer::Base.default_url_options[:host] = AlaveteliConfiguration.domain
 
 # Load monkey patches and other things from lib/
 require 'core_ext/warning'
+require 'core_ext/active_storage_ensure_attached'
 
 require 'use_spans_for_errors.rb'
 require 'world_foi_websites.rb'
