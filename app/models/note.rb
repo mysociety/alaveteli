@@ -63,4 +63,14 @@ class Note < ApplicationRecord
   class Translation # :nodoc:
     has_rich_text :rich_body
   end
+
+  # override the same method in the globalize gem which is not cached, and
+  # runs this query over and over, although it always returns the same result
+  Translation.class_eval do
+    def self.translated_locales
+      Rails.cache.fetch("notable_translation_locales", expires_in: 24.hours) do
+        select('DISTINCT locale').order(:locale).map(&:locale)
+      end
+    end
+  end
 end

@@ -48,6 +48,7 @@ class InfoRequest < ApplicationRecord
   include Taggable
   include Notable
   include RateLimited
+  include Searchable
 
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
@@ -209,6 +210,14 @@ class InfoRequest < ApplicationRecord
   after_update :reindex_request_events, if: :reindexable_attribute_changed?
   before_destroy :expire
   after_destroy :notify_associations, :update_counter_cache
+
+  searchable index: {
+               "title": "A",
+               "prominence_reason": "D"
+             },
+             filterable: [],
+             sortable: []
+
 
   # Return info request corresponding to an incoming email address, or nil if
   # none found. Checks the hash to ensure the email came from the public body -

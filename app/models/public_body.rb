@@ -35,6 +35,7 @@ class PublicBody < ApplicationRecord
   include Categorisable
   include Taggable
   include Notable
+  include Searchable
 
   include PublicBody::CalculatedHomePage
   include PublicBody::CsvImport
@@ -131,6 +132,19 @@ class PublicBody < ApplicationRecord
                    [:tag_array_for_search, 'U', "tag"]
                  ],
                  eager_load: [:translations]
+
+  searchable index: {
+               ".name": "A",
+               ".short_name": "A",
+               "home_page": "B",
+               ".notes_as_string": "C",
+               # TODO: replace this with ALL edit comments
+               "last_edit_editor": "A",
+               ".last_edit_comment": "A",
+               ".request_email": "A"
+             },
+             filterable: [],
+             sortable: []
 
   strip_attributes allow_empty: false, except: %i[request_email]
   strip_attributes allow_empty: true, only: %i[request_email]

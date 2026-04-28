@@ -38,6 +38,7 @@ require 'zip'
 class IncomingMessage < ApplicationRecord
   include MessageProminence
   include Taggable
+  include Searchable
 
   include IncomingMessage::Attachments
   include IncomingMessage::CacheAttributesFromRawEmail
@@ -82,6 +83,17 @@ class IncomingMessage < ApplicationRecord
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
   delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
+
+  searchable(
+    index: {
+      subject: "A",
+      get_body_for_indexing: "A",
+      from_email: "D",
+      prominence_reason: "D"
+    },
+    filterable: [],
+    sortable: []
+  )
 
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.
