@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ page.title }} | Alaveteli | mySociety</title>
+    <link rel="stylesheet" href="/assets/css/alaveteli-org.css">
+    <link href="/atom.xml" rel="alternate" title="Alaveteli" type="application/atom+xml">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
+    <meta name="viewport" content="initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <script src="/assets/scripts/modernizr.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="/assets/scripts/respond.js"></script>
+    <![endif]-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/assets/scripts/jquery.cookie.js"></script>
+    <script src="/assets/scripts/feedback-form.js"></script>
+    <script defer>Object.defineProperty(document,"cookie",{get:function(){var t=Object.getOwnPropertyDescriptor(Document.prototype,"cookie").get.call(document);return t.trim().length>0&&(t+="; "),t+="_ga=GA1.1."+Math.floor(1e9*Math.random())+"."+Math.floor(1e9*Math.random())},set:function(t){t.trim().startsWith("_ga")||Object.getOwnPropertyDescriptor(Document.prototype,"cookie").set.call(document,t)}});</script>
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-WCDPMPTLRB"></script>
+    <script>
+      var client_id = Math.floor(Math.random() * 1000000000) + '.' + Math.floor(Math.random() * 1000000000);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config','G-WCDPMPTLRB', {'client_id': client_id, 'cookie_expires': 1});
+      gtag('send', 'page_view');
+
+        (function() {
+          var cx = '017774751021845757815:coockvcxkjm';
+          var gcse = document.createElement('script');
+          gcse.type = 'text/javascript';
+          gcse.async = true;
+          gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+              '//www.google.com/cse/cse.js?cx=' + cx;
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(gcse, s);
+        })();
+
+
+    </script>
+  </head>
+  <body>
+
+  <div class="ms-header">
+    <nav class="ms-header__row">
+       <a class="ms-header__logo" href="https://www.mysociety.org">mySociety</a>
+    </nav>
+  </div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="{{ page.baseurl }}/" class="site-title"><h1>Alaveteli</h1></a>
+      <div id="lang-switcher" class="ui-dropdown-list">
+        <p class="ui-dropdown-list-trigger es">
+          <strong class="current-locale">ES</strong>
+        </p>
+        <ul class="available-languages">
+          <li><a href="{{ page.url | remove: "/es" }}" title="" class="en">EN</a></li>
+        </ul>
+      </div>
+      <div class="nav-position">
+        <nav role="navigation" class="site-nav nav-collapse">
+          <ul>
+            <li><a href="{{ page.baseurl }}/about/">Información</a></li>
+            <li><a href="{{ page.baseurl }}/docs/getting_started/">Primeros pasos</a></li>
+            <li><a href="{{ page.baseurl }}/docs/">Documentación</a></li>
+            <li><a href="https://www.mysociety.org/category/alaveteli/">Blog</a></li>
+            <li><a href="{{ page.baseurl }}/community/">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+    {{ content }}
+
+    {% include es/footer.html %}
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/scripts/responsive-nav.min.js"></script>
+    <script>
+      var nav = responsiveNav(".nav-collapse");
+    </script>
+    <script src="/assets/scripts/svgeezy.js"></script>
+    <script>
+      svgeezy.init('nocheck', 'png'); // this will tell the plugin to not check images with a class of 'nocheck'
+    </script>
+    <script>
+      function replace_str(base, replacement) {
+        return base + replacement; // FIXME TODO should replace %s
+      }
+
+      $(function(){
+
+        $('.reveal-on-click dd').hide();
+        $('.reveal-on-click dt').on('click', function(){
+          // $(this).find('+ dd').toggle();
+          var $dd = $(this).find('+ dd');
+          if ($dd.is(':visible')) {
+            $(this).removeClass('revealed');
+            $dd.slideUp();
+          } else {
+            $(this).addClass('revealed');
+            $dd.slideDown();
+          }
+        });
+
+        var reveal_all_text = {'reveal': 'Show all ', 'hide': 'Collapse all '}; // TODO add %s
+
+        $('dl.reveal-on-click').each(function(){
+          $(this).before("<div class='reveal-all revealed'>&nbsp;</div>");
+        });
+        $('.reveal-all').on('click', function(){
+          console.log("reveal all clicked");
+          var $dl = $(this).find('+ dl.reveal-on-click');
+          var noun = $dl.data('reveal-noun');
+          if ($(this).hasClass('revealed')) {
+            console.log("hiding all");
+            $dl.find('dt').removeClass('revealed');
+            $dl.find('dd').slideUp();
+            $(this).removeClass('revealed');
+            $(this).text(replace_str(reveal_all_text['reveal'], noun));
+          } else {
+            console.log("showing all");
+            $dl.find('dt').addClass('revealed');
+            $dl.find('dd').slideDown();
+            $(this).addClass('revealed');
+            $(this).text(replace_str(reveal_all_text['hide'], noun));
+          }
+        });
+        $('.reveal-all').trigger('click');
+      });
+      // Anchor links for the headings
+       $(function() {
+         return $("h1, h2, h3, h4, h5, h6").each(function(i, el) {
+           var $el, icon, id;
+           $el = $(el);
+           id = $el.attr('id');
+           if (id) {
+             return $el.append($("<a />").addClass("header-link").attr("href", "#" + id).html('#'));
+           }
+         });
+       });
+    </script>
+    <script src="/assets/scripts/how-it-works-slides.js"></script>
+    <script>
+       jQuery('#lang-switcher').find('.ui-dropdown-list-trigger').each(function() {
+         jQuery(this).click(function(){
+           jQuery(this).parent().toggleClass('active');
+         });
+       });
+     </script>
+  </body>
+</html>

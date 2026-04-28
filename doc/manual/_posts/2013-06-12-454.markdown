@@ -1,0 +1,6 @@
+---
+date: 2013-06-12 14:54:07+00:00
+slug: '454'
+title: Alaveteli gets an upgrade
+redirect_to: https://www.mysociety.org/2013/06/04/alaveteli-gets-an-upgrade/
+---
