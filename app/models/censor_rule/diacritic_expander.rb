@@ -19,7 +19,9 @@ class CensorRule::DiacriticExpander
     's' => '[sśš]',      'S' => '[SŚŠ]',
     'u' => '[uùúûüūů]',  'U' => '[UÙÚÛÜŪŮ]',
     'y' => '[yýÿ]',      'Y' => '[YÝŸ]',
-    'z' => '[zźżž]',     'Z' => '[ZŹŻŽ]'
+    'z' => '[zźżž]',     'Z' => '[ZŹŻŽ]',
+    'œ' => '(œ|oe)',     'Œ' => '(Œ|OE)',
+    'æ' => '(æ|ae)',     'Æ' => '(Æ|AE)'
   }.freeze
 
   cattr_accessor :character_map, default: DEFAULT_CHARACTER_MAP

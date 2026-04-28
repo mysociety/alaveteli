@@ -147,6 +147,12 @@ RSpec.describe CensorRule do
           to eq('Uma [REDACTED] por dia')
       end
 
+      it 'handles multi-letter diacritics' do
+        rule.text = 'œuf'
+        expect(rule.apply_to_text('Un œuf, des oeufs')).
+          to eq('Un [REDACTED], des [REDACTED]s')
+      end
+
       it 'does not match the opposite case' do
         expect(rule.apply_to_text('Ecole text')).to eq('Ecole text')
         expect(rule.apply_to_text('ECOLE text')).to eq('ECOLE text')
@@ -328,6 +334,12 @@ RSpec.describe CensorRule do
         rule.text = 'maçã'
         expect(rule.apply_to_binary('Uma maçã por dia')).
           to eq('Uma xxxxxx por dia')
+      end
+
+      it 'handles multi-letter diacritics' do
+        rule.text = 'œuf'
+        expect(rule.apply_to_binary('Un œuf, des oeufs')).
+          to eq('Un xxxx, des xxxxs')
       end
 
       it 'does not match the opposite case in binary' do

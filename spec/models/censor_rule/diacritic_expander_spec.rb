@@ -57,6 +57,11 @@ RSpec.describe CensorRule::DiacriticExpander do
         expect(expander.expand('Á')).to eq('[AÀÁÂÃÄÅĀ]')
       end
 
+      it 'handles multi-character diacritics' do
+        expect(expander.expand('œ')).to eq('(œ|oe)')
+        expect(expander.expand('Œ')).to eq('(Œ|OE)')
+      end
+
       it 'handles strings with spaces and punctuation' do
         expected =
           '[cçćč][aàáâãäåā]f[eèéêëēě] ' \
