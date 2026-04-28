@@ -1,3 +1,4 @@
+# Define search methods common to all searchable models
 module Searchable
   # rubocop:disable Style/ClassVars
   # store rails models that are searchable, with settings for each of them.
@@ -35,8 +36,12 @@ module Searchable
   # instance methods that help build SQL queries for indexing
   # searchable models.
   #
-  # The aim is to have updates run entirely inside the db as
-  # stored functions to speed up (re)indexing.
+  # The aim is to have updates run as much as possible inside the db
+  # to speed up (re)indexing.
+  # TODO: do we need an "admin_search_content" that includes various bits that
+  # we do NOT want regular users to search through? (user email addresses,
+  # edit comments, ...). These would most likely be searched only for GDPR purposes,
+  # so can
   def search_raw_content_query
     # TODO: adjust this to match the method below for content_tsv
     opts = @@searchable_models[self.class.to_s]
@@ -201,6 +206,7 @@ module Searchable
           "Call #{self}.searchable to make the model searchable"
         )
       end
+      puts(self)
 
       SearchDocument.hybrid_search(
         query,

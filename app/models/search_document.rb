@@ -4,6 +4,12 @@
 # Can be a paragraph, a page, a sheet in a spreadsheet, or
 # an entire file depending on how each class defines its
 # search capabilities
+#
+# The search_documents table is partitioned in postgresql for
+# better search performance. This is why `id` is called `sd_id`,
+# because Rails makes assumptions about the primary key that do
+# not work with this setup.
+#
 # == Schema Information
 #
 # Table name: search_documents
@@ -21,10 +27,6 @@
 class SearchDocument < ApplicationRecord
   belongs_to :searchable_doc, polymorphic: true
   self.primary_key = [:sd_id, :searchable_doc_type]
-
-  # def self.search(query, model = nil, language = nil)
-  #   Rails.logger.info("Searching for #{query} among model (#{model}) in lang #{language}")
-  # end
 
   # Do not use hybrid_search_internal directly as it does NOT sanitize
   # query, and is susceptible to injection. Use hybrid_search instead.
@@ -59,7 +61,7 @@ class SearchDocument < ApplicationRecord
     # conditionnally build a query for each search type (exact, FTS, semantic)
     # and UNION them
     search_queries = []
-    if !q_embedding.nil?
+    unless q_embedding.nil?
       #   semantic_query = "(1=1)"
       # else
       # semantic_query = <<-SQL

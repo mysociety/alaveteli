@@ -1,6 +1,5 @@
 class AddSearchDocument < ActiveRecord::Migration[8.0]
   def change
-
     # make sure all models (OutgoingMessage in particular) are loaded
     # so we don't miss any partition.
     Rails.application.eager_load!
@@ -28,6 +27,7 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
       # but might also be a direct copy of admin_index fields to allow
       # admins to do an exact text search.
       t.text(:raw_content)
+      t.text(:raw_admin_content)
       # page/sheet name/...
       t.text(:section_ref)
 
@@ -69,10 +69,19 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
         # https://github.com/ankane/transformers-ruby?tab=readme-ov-file#sentence-transformersmulti-qa-MiniLM-L6-cos-v1
         execute(
           <<-SQL
-          -- TODO: decide on vector dimension
+          -- TODO: enable vector extension, decide on vector dimension
           -- this requires the pgvector extension (called 'vector' inside pg)
-          alter table search_documents add column
-            embedding vector(384);
+          -- alter table search_documents add column
+          --   embedding vector(384);
+
+          -- reciprocal ranked fusion
+          CREATE OR REPLACE FUNCTION rrf_score(rank bigint, rrf_k bigint DEFAULT 50)
+          RETURNS numeric
+          LANGUAGE SQL
+          IMMUTABLE PARALLEL SAFE
+          AS $$
+              SELECT COALESCE(1.0 / ($1 + $2), 0.0);
+          $$ ;
 
           -- auto update the content_tsv column whenever the raw_content
           -- is modified so that data stays in sync. The index is updated
@@ -105,11 +114,11 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
       direction.down do
         execute(
           <<-SQL
-          DROP TRIGGER IF EXISTS
-            search_documents_content_tsv_trigger
-            ON search_documents;
-          DROP FUNCTION IF EXISTS update_search_document_tsv;
-          ALTER TABLE search_documents DROP COLUMN embedding;
+          -- DROP TRIGGER IF EXISTS
+          --   search_documents_content_tsv_trigger
+          --   ON search_documents;
+          -- DROP FUNCTION IF EXISTS update_search_document_tsv;
+          -- ALTER TABLE search_documents DROP COLUMN embedding;
           SQL
         )
 
@@ -129,7 +138,7 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
     add_index(:search_documents, [:searchable_doc_type, :searchable_doc_id, :section_ref, :language], unique: true)
 
     # supports semantic search using cosine similarity
-    add_index(:search_documents, :embedding, using: :hnsw, opclass: :vector_cosine_ops)
+    # add_index(:search_documents, :embedding, using: :hnsw, opclass: :vector_cosine_ops)
 
     # supports FTS
     add_index(:search_documents, :content_tsv, using: :gin)
