@@ -2,10 +2,11 @@
 class UploadResponseController < RequestController
   read_only only: [:new]
 
+  before_action :set_info_request
+  before_action :check_banned
+
   def new
     AlaveteliLocalization.with_locale(locale) do
-      @info_request = InfoRequest.not_embargoed.find_by_url_title!(params[:url_title])
-
       @reason_params = {
         web: _('To upload a response, you must be logged in using an ' \
                'email address from {{authority_name}}',
@@ -73,5 +74,19 @@ class UploadResponseController < RequestController
       redirect_to request_url(@info_request)
       nil
     end
+  end
+
+  private
+
+  def set_info_request
+    @info_request =
+      InfoRequest.not_embargoed.find_by_url_title!(params[:url_title])
+  end
+
+  def check_banned
+    return unless authenticated_user&.suspended?
+
+    msg = _('Banned users cannot upload responses.')
+    redirect_to request_url(@info_request), error: msg
   end
 end

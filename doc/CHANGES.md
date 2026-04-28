@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Prevent banned users replying through the response upload form (Gareth Rees)
 * Allow censor rules to be case insensitive (Gareth Rees)
 * Add Content Security Policy with nonce-based script protection (Graeme
   Porteous)
