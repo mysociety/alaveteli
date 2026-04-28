@@ -222,6 +222,27 @@ when it really should be application/pdf.\n
         expect(expand_and_normalize_parts(mail, mail).class).to eq(Mail::PartsList)
       end
     end
+
+    context 'when an attachment has an incorrect content type' do
+      it 'detects the correct content type from the file content' do
+        xlsx_content = load_file_fixture('interesting.xlsx')
+
+        mail = Mail.new
+        mail.body = 'Please find the requested data attached.'
+
+        mail.attachments['data.xlsx'] = {
+          content: xlsx_content,
+          mime_type: 'text/plain'
+        }
+
+        expand_and_normalize_parts(mail, mail)
+        attachment = mail.parts.last
+
+        expect(attachment.content_type).to match(
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+      end
+    end
   end
 
   describe :address_from_name_and_email do
