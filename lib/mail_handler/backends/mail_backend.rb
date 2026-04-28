@@ -247,10 +247,18 @@ module MailHandler
           calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(
             part_filename, part_body
           )
-          part.content_type = calc_mime if calc_mime
 
           # Use standard content types for Word documents etc.
-          part.content_type = normalise_content_type(get_content_type(part))
+          calc_mime = normalise_content_type(calc_mime || get_content_type(part))
+
+          # Preserve the filename when overwriting content_type, as setting
+          # content_type strips the name parameter from the header.
+          if part_filename
+            part.content_type = "#{calc_mime}; name=\"#{part_filename}\""
+          else
+            part.content_type = calc_mime
+          end
+
           decode_attached_part(part, parent_mail)
           part.charset = original_charset if original_charset
         end

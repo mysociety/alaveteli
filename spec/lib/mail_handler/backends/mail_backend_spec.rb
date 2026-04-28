@@ -243,6 +243,23 @@ when it really should be application/pdf.\n
         )
       end
     end
+
+    context 'when the filename is only in the content-type header' do
+      it 'preserves the filename after normalising the content type' do
+        pdf_content = load_file_fixture('interesting.pdf')
+
+        mail = Mail.new
+        part = Mail::Part.new
+        part.content_type = 'application/pdf; name="CAS-183685_redacted.pdf"'
+        part.body = Base64.encode64(pdf_content)
+        part.content_transfer_encoding = 'base64'
+        mail.parts << part
+
+        expand_and_normalize_parts(mail, mail)
+
+        expect(mail.parts.first.filename).to eq('CAS-183685_redacted.pdf')
+      end
+    end
   end
 
   describe :address_from_name_and_email do
