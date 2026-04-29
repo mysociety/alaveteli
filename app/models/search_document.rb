@@ -18,9 +18,11 @@
 #  searchable_doc_type :string           not null, primary key
 #  searchable_doc_id   :bigint
 #  raw_content         :text
+#  raw_admin_content   :text
 #  section_ref         :text
 #  language            :text
 #  content_tsv         :tsvector
+#  admin_content_tsv   :tsvector
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
@@ -91,6 +93,23 @@ class SearchDocument < ApplicationRecord
               AND #{doc_type_q}
           ORDER BY rank
           LIMIT #{limit * limit_ratio}
+        SQL
+    end
+
+    if admin_mode
+      search_queries << <<-SQL
+          SELECT
+              sd_id,
+              raw_content,
+              rank() OVER (
+                ORDER BY ts_rank_cd(admin_content_tsv, plainto_tsquery(#{query})) DESC
+              ) AS rank
+          FROM search_documents
+          WHERE
+              plainto_tsquery('simple', #{query}) @@ admin_content_tsv
+              AND #{doc_type_q}
+          ORDER BY rank
+          LIMIT #{limit * 3}
         SQL
     end
 

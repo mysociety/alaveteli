@@ -38,10 +38,6 @@ module Searchable
   #
   # The aim is to have updates run as much as possible inside the db
   # to speed up (re)indexing.
-  # TODO: do we need an "admin_search_content" that includes various bits that
-  # we do NOT want regular users to search through? (user email addresses,
-  # edit comments, ...). These would most likely be searched only for GDPR purposes,
-  # so can
   def search_raw_content_query
     # TODO: adjust this to match the method below for content_tsv
     opts = @@searchable_models[self.class.to_s]
@@ -107,9 +103,6 @@ module Searchable
     record = {
       searchable_doc_type: self.class.to_s,
       searchable_doc_id: id,
-      # TODO: merge the 2 queries below into a single one
-      admin_content_tsv: search_content_tsv(:admin_index,
-'simple').to_a.first["tsv"]
       language: language,
       section_ref: section_ref,
       content_tsv: if search_cfg[:index].empty?
@@ -122,6 +115,16 @@ module Searchable
                        to_a.
                        first["tsv"]
                    end,
+      admin_content_tsv: if search_cfg[:admin_index].empty?
+                           nil
+                         else
+                           search_content_tsv(
+                             :admin_index,
+                             'simple'
+                           ).
+                             to_a.
+                             first["tsv"]
+                         end
     }
     SearchDocument.upsert(
       record,
@@ -194,7 +197,9 @@ module Searchable
     # +model+ pass a rails model (PublicBody, InfoRequest...) to limit search
     #         scope to instances of it
     # +language+ is the language in which the search is done.
-    # +admin_mode+ adjusts the search for admin users (controllers still control permissions)
+    # +admin_mode+ adjusts the search for admin users (controllers still control
+    #              permissions), to include items that match the search query
+    #              based on the content of their `admin_index` elements.
     # +limit+ how many records to return.
     def newsearch(query,
                   language: Searchable.lang_from_locale(AlaveteliConfiguration.default_locale),

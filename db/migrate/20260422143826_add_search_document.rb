@@ -37,6 +37,16 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
       t.column(:language, :text)
       t.column(:content_tsv, :tsvector)
 
+      # similar tsvector but for data that is only admin-visible.
+      # The fields in `admin_index` are used to populate this column,
+      # always using the `simple` dictionary so as to be unmodified.
+      # This is mainly used for GDPR-type search where an admin needs
+      # to find all occurences of a name, email, etc...
+      # TODO: this content will not be language dependent, to avoid duplicate
+      # entries in the search index, can we attach this record to the site's
+      # default locale?
+      t.column(:admin_content_tsv, :tsvector)
+
       # semantic search is in raw sql below as this does not work
       # without the "neighbor" gem (which seems to add syntactic sugar only,
       # so isn't worth the extra surface)
