@@ -230,36 +230,35 @@ module MailHandler
       end
 
       # Expand and normalize a mail part recursively. Decodes attached messages into
-      # Mail objects wherever possible. Sets a default content type if none is
-      # set. Tries to set a more specific content type for binary content types.
+      # Mail objects wherever possible. Detects content types from file content
+      # rather than trusting declared MIME types.
       def expand_and_normalize_parts(part, parent_mail)
         if part.multipart?
           Mail::PartsList.new(part.parts.each { |sub_part| expand_and_normalize_parts(sub_part, parent_mail) })
         else
-          part_filename = get_part_file_name(part)
-          if part.has_charset?
-            original_charset = part.charset # save this, because overwriting content_type also resets charset
-          else
-            original_charset = nil
-          end
-          # Don't allow nil content_types
-          if get_content_type(part).nil?
-            part.content_type = 'application/octet-stream'
-          end
+          # save this, because overwriting content_type also resets charset
+          original_charset = part.charset if part.has_charset?
 
-          # PDFs often come with this mime type, fix it up for view code
-          if get_content_type(part) == 'application/octet-stream'
-            part_body = get_part_body(part)
-            calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(
-              part_filename, part_body
-            )
-            if calc_mime != 'application/octet-stream'
-              part.content_type = calc_mime
-            end
-          end
+          part_filename = get_part_file_name(part)
+          part_body = get_part_body(part)
+
+          # Always detect the content type from the actual content rather
+          # than trusting the declared MIME type, which is often wrong.
+          calc_mime = AlaveteliFileTypes.filename_and_content_to_mimetype(
+            part_filename, part_body
+          )
 
           # Use standard content types for Word documents etc.
-          part.content_type = normalise_content_type(get_content_type(part))
+          calc_mime = normalise_content_type(calc_mime || get_content_type(part))
+
+          # Preserve the filename when overwriting content_type, as setting
+          # content_type strips the name parameter from the header.
+          if part_filename
+            part.content_type = "#{calc_mime}; name=\"#{part_filename}\""
+          else
+            part.content_type = calc_mime
+          end
+
           decode_attached_part(part, parent_mail)
           part.charset = original_charset if original_charset
         end

@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix missing attachment filenames from content-type (Graeme Porteous)
+* Fix incorrect content type for mislabelled attachments (Graeme Porteous)
 * Replace Mahoro with Marcel for MIME type detection (Graeme Porteous)
 * Strip ActionText attachments from Project rich text fields (Graeme Porteous)
 * Validate profile photo content type before ImageMagick processing
