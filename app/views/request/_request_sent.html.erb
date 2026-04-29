@@ -14,38 +14,16 @@
                 :late_number_of_days => AlaveteliConfiguration.reply_late_after_days) %>
         </p>
 
-        <h2><%= _("Share your request") %></h2>
-
-        <%= link_to image_tag("next-step-twitter.png",
-                              :alt => _("Share on X"),
-                              :width => "120",
-                              :height => "37"),
-                              "https://twitter.com/intent/post?" << {
-                                :url => request.url,
-                                :via => AlaveteliConfiguration.twitter_username,
-                                :text => "'#{ @info_request.title }'",
-                                :related => _('mySociety:Helping people set ' \
-                                                'up sites like {{site_name}} ' \
-                                                'all over the world',
-                                              :site_name => site_name),
-                              }.to_query, :class => 'share-link',
-                                          :onclick => track_analytics_event(
-                                            AnalyticsEvent::Category::OUTBOUND,
-                                            AnalyticsEvent::Action::TWITTER_EXIT,
-                                            :label => "Share Request") %>
-
-
-        <%= link_to image_tag("next-step-facebook.png",
-                              :alt => _("Share on Facebook"),
-                              :width => "120",
-                              :height => "37"),
-                              "https://www.facebook.com/sharer/sharer.php?" << {
-                                :u => request.url
-                              }.to_query, :class => 'share-link',
-                                          :onclick => track_analytics_event(
-                                            AnalyticsEvent::Category::OUTBOUND,
-                                            AnalyticsEvent::Action::FACEBOOK_EXIT,
-                                            :label => "Share Request") %>
+        <a href="<%= request.url %>"
+          class="button button-share js-share-request"
+          role="button"
+          data-share-title="<%= @info_request.title %>"
+          data-share-url="<%= request.url %>"
+          data-clipboard-text="<%= request.url %>"
+          data-clipboard-success="<%= _('Link copied!') %>">
+          <%= File.read(Rails.root.join("app/assets/images/share-icon.svg")).html_safe %>
+          <span><%= _("Share this request") %></span>
+        </a>
 
         <h2><%= _("Keep your request up to date") %></h2>
 
