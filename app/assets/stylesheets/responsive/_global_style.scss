@@ -462,6 +462,30 @@ button,
   }
 }
 
+a.button-share, .button-share {
+  background-color: #373368;
+  color: #fff;
+  width: fit-content;
+  display: block;
+  text-decoration: none;
+  border-radius: 3px;
+  padding: 0.5em 0.75em;
+
+  svg {
+    vertical-align: middle;
+    max-width: 1.2em;
+  }
+
+  span {
+    vertical-align: middle;
+  }
+
+  &:hover {
+    color: #373368;
+    background-color: #b4b2d0;
+  }
+}
+
 .button--full-width {
   width: 100%;
   text-align: center;
