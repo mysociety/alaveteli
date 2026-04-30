@@ -17,10 +17,15 @@
 
 .view_html_prefix {
   text-align:center;
+  padding:0.75em 1em;
+  font-size: 0.9rem;
+  line-height: 120%;
   @include respond-min( $main_menu-mobile_menu_cutoff ){
     text-align:left;
     min-height:3em;
-    padding:0.5em 1em;
+    font-size: 1rem;
+    padding-right: 1.875em;
+    padding-left: 1.875em;
   }
   border-bottom: 1px solid #5F5F5F;
 }

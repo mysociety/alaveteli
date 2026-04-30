@@ -33,41 +33,34 @@ body#wrapper_embed {
 }
 
 .view_html_prefix {
-  @include grid-column(12);
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  column-gap: 2rem;
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ){
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   @include ie8{
-    padding-left: 0.9375em;
-    padding-right: 0.9375em;
+    padding-left: 1.875em;
+    padding-right: 1.875em;
     width: $main_menu-mobile_menu_cutoff;
   }
 
   .view_html_logo {
-    @include grid-column(12);
     @include respond-min( $main_menu-mobile_menu_cutoff ){
-      @include grid-column($columns:3);
-      @include ie8{
-        padding-right: 0.9375em;
-      }
+      max-width: 25%;
     }
   }
 
   .view_html_description {
-    @include grid-column(12);
-    @include respond-min($main_menu-mobile_menu_cutoff ){
-      @include grid-column($columns:7, $pull: 2);
-      @include ie8{
-        padding-left: 0.9375em;
-        padding-right: 0.9375em;
-      }
-    }
+    margin-bottom: 0;
   }
 
   .view_html_download_link {
-    @include grid-column(12);
-    @include respond-min( $main_menu-mobile_menu_cutoff ){
-      @include grid-column($columns:2, $push: 7);
-      @include ie8{
-        padding-left: 0.9375em;
-      }
-    }
+    order: 3;
   }
 }
