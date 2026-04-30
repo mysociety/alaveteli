@@ -782,11 +782,6 @@ RSpec.describe UserController do
       end
 
       context 'when a token already has a user (confirmation sent)' do
-        # Rebinding a post redirect that already has a user lets an attacker
-        # steal a victim account: attacker signs up with token A, gets a
-        # confirmation email pointing to token A's email_token, then rebinds
-        # token A to the victim, and clicks their confirmation link to log in
-        # as the victim.
         let(:user) { FactoryBot.create(:user) }
         let(:other_user) { FactoryBot.create(:user) }
 
