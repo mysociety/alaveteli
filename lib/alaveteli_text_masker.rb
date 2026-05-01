@@ -64,7 +64,7 @@ module AlaveteliTextMasker
   end
 
   def masks
-    @masks ||= DEFAULT_TEXT_MASKS.dup
+    @masks ||= DEFAULT_TEXT_MASKS.deep_dup
   end
 
   def add_mask(name, pattern:, replacement:)
