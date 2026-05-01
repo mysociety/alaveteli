@@ -70,14 +70,6 @@ namespace :config_files do
         path: '/etc/systemd/system',
         name: 'send-notifications.service',
         template: 'config/send-notifications.service.example'
-      },
-      {
-        path: '/etc/systemd/system',
-        name: 'poll-for-incoming',
-        template: 'config/poll-for-incoming.service.example',
-        condition: -> do
-          AlaveteliConfiguration.production_mailer_retriever_method == 'pop'
-        end
       }
     ]
   end

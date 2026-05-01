@@ -6,7 +6,9 @@ Rails.application.configure do
   when :mailgun, :mandrill, :postmark, :sendgrid
     config.action_mailbox.ingress = retriever
   else
-    config.action_mailbox.ingress = nil
+    raise "Unsupported PRODUCTION_MAILER_RETRIEVER_METHOD: " \
+          "#{ retriever.inspect }. Valid values are: passive, postfix, " \
+          "exim, qmail, mailgun, mandrill, postmark, sendgrid."
   end
 
   config.action_mailbox.storage_service = :inbound_emails
