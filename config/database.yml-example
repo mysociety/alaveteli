@@ -1,8 +1,7 @@
-# Database configuration. We're using PostgreSQL, but I guess it should work
-# with others.
+# Database configuration. Alaveteli requires PostgreSQL.
 #
 # Can also connect using the DATABASE_URL environment variable. For example, our
-# development Docker enviromement sets the adapter, host, username and password
+# development Docker environment sets the adapter, host, username and password
 # using this variable to override the relevant settings below.
 #
 default: &default
