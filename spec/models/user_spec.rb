@@ -1398,6 +1398,7 @@ RSpec.describe User do
         censor_rule = user.censor_rules.find { _1.text = user.name }
         expect(censor_rule).to_not be_nil
         expect(censor_rule.replacement).to eq('[Name Removed]')
+        expect(censor_rule.case_sensitive).to eq(false)
         expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
         expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
       end

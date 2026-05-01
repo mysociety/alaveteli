@@ -8,6 +8,7 @@ module User::Anonymisable
     [current_name, *previous_names].each do |name|
       censor_rules.create!(text: name,
                            replacement: _('[Name Removed]'),
+                           case_sensitive: false,
                            last_edit_editor: 'User#anonymise!',
                            last_edit_comment: 'User#anonymise!')
     end
