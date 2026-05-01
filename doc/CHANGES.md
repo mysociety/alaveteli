@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow customisation of text masks (Gareth Rees)
 * Strip ActionText attachments from Project rich text fields (Graeme Porteous)
 * Validate profile photo content type before ImageMagick processing
   (Graeme Porteous)
@@ -60,6 +61,28 @@
 
     Rails.application.config.after_initialize do
       AtiNetworkController.showcase_enabled = false
+    end
+
+* _Optional:_ Text masks can now be customised to allow fine tuning of the
+  default redactions that Alaveteli applies. Here are some examples of how to
+  add, remove or change masks using the new API.
+
+    # THEME/lib/model_patches.rb
+    Rails.configuration.to_prepare do
+      # Add a new mask specific to your site
+      AlaveteliTextMasker.add_mask(:reference_number, pattern: /\d{9} replacement: '[reference number]')
+
+      # Remove a default mask (not recommended!)
+      AlaveteliTextMasker.remove_mask(:email_address)
+
+      # Change a default mask
+      AlaveteliTextMasker.replace_mask(:mobile_number, pattern: /\d+/, replacement: '[cell number]')
+
+      # Change only a default mask's regexp pattern
+      AlaveteliTextMasker.replace_mask(:mobile_number, pattern: /\d+/)
+
+      # Change only a default mask's replacement
+      AlaveteliTextMasker.replace_mask(:mobile_number, replacement: '[cell number]')
     end
 
 ### Changed Templates

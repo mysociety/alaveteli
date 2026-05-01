@@ -212,4 +212,82 @@ RSpec.describe AlaveteliTextMasker do
       end
     end
   end
+
+  describe '.masks' do
+    after { described_class.reset_masks! }
+
+    it 'returns the three built-in masks' do
+      expect(described_class.masks.keys).
+        to eq(%i[email_address mobile_number login_link])
+    end
+  end
+
+  describe '.add_mask' do
+    after { described_class.reset_masks! }
+
+    it 'appends a new mask' do
+      described_class.add_mask(:reference, pattern: /\d/, replacement: '[ref]')
+      expect(described_class.masks.keys.last).to eq(:reference)
+    end
+
+    it 'raises ArgumentError when a mask with the same name already exists' do
+      expect {
+        described_class.
+          add_mask(:email_address, pattern: /.@./, replacement: '[x]')
+      }.to raise_error(ArgumentError, /email_address/)
+    end
+  end
+
+  describe '.remove_mask' do
+    after { described_class.reset_masks! }
+
+    it 'removes a built-in mask so it is no longer applied' do
+      described_class.remove_mask(:mobile_number)
+      expect(described_class.masks.keys).to eq(%i[email_address login_link])
+    end
+
+    it 'raises ArgumentError when the name does not exist' do
+      expect { described_class.remove_mask(:nonexistent) }.
+        to raise_error(ArgumentError, /nonexistent/)
+    end
+  end
+
+  describe '.replace_mask' do
+    after { described_class.reset_masks! }
+
+    it 'replaces the pattern but keeps the existing replacement' do
+      original_replacement = described_class.masks[:mobile_number][:replacement]
+
+      described_class.replace_mask(:mobile_number, pattern: /Cell \d+/)
+
+      mobile_number = described_class.masks[:mobile_number]
+      expect(mobile_number[:to_replace]).to eq(/Cell \d+/)
+      expect(mobile_number[:replacement]).to eq(original_replacement)
+    end
+
+    it 'replaces the replacement but keeps the existing pattern' do
+      original_pattern = described_class.masks[:mobile_number][:to_replace]
+
+      described_class.replace_mask(:mobile_number, replacement: '[phone]')
+
+      mobile_number = described_class.masks[:mobile_number]
+      expect(mobile_number[:to_replace]).to eq(original_pattern)
+      expect(mobile_number[:replacement]).to eq('[phone]')
+    end
+
+    it 'replaces both pattern and replacement' do
+      described_class.
+        replace_mask(:mobile_number, pattern: /Cell \d+/, replacement: '[cell]')
+
+      mobile_number = described_class.masks[:mobile_number]
+
+      expect(mobile_number[:to_replace]).to eq(/Cell \d+/)
+      expect(mobile_number[:replacement]).to eq('[cell]')
+    end
+
+    it 'raises ArgumentError when the name does not exist' do
+      expect { described_class.replace_mask(:nonexistent, pattern: /x/) }.
+        to raise_error(ArgumentError, /nonexistent/)
+    end
+  end
 end
