@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Prevent external search indexing of password change form (Gareth Rees)
 * Allow customisation of text masks (Gareth Rees)
 * Strip ActionText attachments from Project rich text fields (Graeme Porteous)
 * Validate profile photo content type before ImageMagick processing
