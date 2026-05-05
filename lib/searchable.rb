@@ -33,42 +33,30 @@ module Searchable
     Rails.logger.info("Searching through instance #{self.class}.#{id}")
   end
 
-  # instance methods that help build SQL queries for indexing
-  # searchable models.
-  #
-  # The aim is to have updates run as much as possible inside the db
-  # to speed up (re)indexing.
-  def search_raw_content_query
-    # TODO: adjust this to match the method below for content_tsv
-    opts = @@searchable_models[self.class.to_s]
-    query = <<-SQL
-      SELECT concat(#{opts[:index].keys.join(',')})
-      FROM #{self.class.table_name}
-      WHERE id=$1
-    SQL
-    query
-  end
-
   # We can't just use the raw_content here, because it has lost the
   # weight from various columns.
-  def search_content_tsv_query(idx_name, language)
+  def search_content_from_db_query(idx_name, language)
     opts = @@searchable_models[self.class.to_s]
 
+    raw_content_bits = []
     content_tsv_bits = []
     opts[idx_name].each do |col, w|
       if col.start_with?(".")
-        c = ActiveRecord::Base.connection.quote(send(col[1..])).to_s
+        c = ActiveRecord::Base.connection.quote("#{send(col[1..])} ")
       else
-        c = col
+        c = "(SELECT #{col} FROM #{self.class.table_name} WHERE id=$1)"
       end
 
+      raw_content_bits.push(c)
       content_tsv_bits.push(
         "setweight(to_tsvector('#{language}'::regconfig, coalesce(#{c}, '')), '#{w}')"
       )
     end
 
     query = <<-SQL
-      SELECT #{content_tsv_bits.join("||")} AS tsv
+      SELECT
+        concat(#{raw_content_bits.join(',')}) as raw,
+        #{content_tsv_bits.join("||")} AS tsv
       FROM #{self.class.table_name}
       WHERE id=$1
     SQL
@@ -83,54 +71,61 @@ module Searchable
   # TODO: if all keys in :idx_name are column names, we don't need to send the
   # query to the db, we can just pass it back to the upsert call to save one
   # round trip to db.
-  def search_content_tsv(idx_name, language)
-    ActiveRecord::Base.
-      connection.
-      exec_query(
-        search_content_tsv_query(idx_name, language),
-        "Search content_tsv",
-        [ActiveRecord::Relation::QueryAttribute.new("somename", id, ActiveRecord::Type::Integer.new)]
-      )
+  def search_content_from_db(idx_name, language)
+    search_cfg = @@searchable_models[self.class.to_s]
+    if search_cfg[idx_name].empty?
+      {}
+    else
+      ActiveRecord::Base.
+        connection.
+        exec_query(
+          search_content_from_db_query(idx_name, language),
+          "Search content query",
+          [ActiveRecord::Relation::QueryAttribute.new(
+            "somename",
+            id,
+            ActiveRecord::Type::Integer.new
+          )]
+        ).to_a.first
+    end
   end
 
   # upsert the content_tsv column.
   # This may result in multiple search docs:
   # if model is translatable
   # if model has multiple pages/paragraphs...
-  def upsert_content_tsv(language, section_ref)
+  def upsert_content(language, section_ref)
     search_cfg = @@searchable_models[self.class.to_s]
-    puts("search_cfg = #{search_cfg}")
+
+    content_from_db = search_content_from_db(
+      :index,
+      language
+    )
+    admin_content_from_db = search_content_from_db(
+      :admin_index,
+      'simple'
+    )
+
     record = {
       searchable_doc_type: self.class.to_s,
       searchable_doc_id: id,
       language: language,
       section_ref: section_ref,
-      content_tsv: if search_cfg[:index].empty?
-                     nil
-                   else
-                     search_content_tsv(
-                       :index,
-                       language
-                     ).
-                       to_a.
-                       first["tsv"]
-                   end,
-      admin_content_tsv: if search_cfg[:admin_index].empty?
-                           nil
-                         else
-                           search_content_tsv(
-                             :admin_index,
-                             'simple'
-                           ).
-                             to_a.
-                             first["tsv"]
-                         end
+      raw_content: content_from_db["raw"],
+      raw_admin_content: admin_content_from_db["raw"],
+      content_tsv: content_from_db["tsv"],
+      admin_content_tsv: admin_content_from_db["tsv"]
     }
     SearchDocument.upsert(
       record,
-      unique_by: [:searchable_doc_type, :searchable_doc_id, :section_ref,
+      unique_by: [:searchable_doc_type,
+                  :searchable_doc_id,
+                  :section_ref,
                   :language],
-      update_only: [:content_tsv]
+      update_only: [:raw_content,
+                    :raw_admin_content,
+                    :content_tsv,
+                    :admin_content_tsv]
     )
   end
 
@@ -141,14 +136,15 @@ module Searchable
     if respond_to?(:translated_versions)
       translations_by_locale.each do |l, v|
         AlaveteliLocalization.with_locale(l) do
-          upsert_content_tsv(Searchable.lang_from_locale(l.to_s), 1)
+          lang = Searchable.lang_from_locale(l.to_s)
+          # TODO: 1 is the section/page/etc... which needs to be
+          # extracted from content where relevant
+          upsert_content(lang, 1)
         end
       end
     else
-      # TODO: what language to use here?
-      upsert_content_tsv(
-        Searchable.lang_from_locale(AlaveteliConfiguration.default_locale), 1
-      )
+      lang = Searchable.lang_from_locale(AlaveteliConfiguration.default_locale)
+      upsert_content(lang, 1)
     end
   end
 
@@ -211,7 +207,6 @@ module Searchable
           "Call #{self}.searchable to make the model searchable"
         )
       end
-      puts(self)
 
       SearchDocument.hybrid_search(
         query,
