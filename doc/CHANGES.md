@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix missing batch sent flash message after creating a batch (Graeme Porteous)
 * Render public body category notes (Gareth Rees)
 * Prevent external search indexing of password change form (Gareth Rees)
 * Allow customisation of text masks (Gareth Rees)

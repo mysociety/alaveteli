@@ -36,6 +36,7 @@ class AlaveteliPro::InfoRequestBatchesController < AlaveteliPro::BaseController
 
       @info_request_batch.save!
       @draft_info_request_batch.destroy
+      flash[:batch_sent] = true
       redirect_to show_alaveteli_pro_batch_request_path(id: @info_request_batch.id)
     elsif all_models_valid?(ignore_existing_batch: true)
       render 'alaveteli_pro/info_requests/preview'
