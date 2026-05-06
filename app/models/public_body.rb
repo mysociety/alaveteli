@@ -89,8 +89,6 @@ class PublicBody < ApplicationRecord
                           class_name: 'AlaveteliPro::DraftInfoRequestBatch',
                           inverse_of: :public_bodies
 
-  has_many :search_documents, as: :searchable_doc
-
   validates_presence_of :name, message: N_("Name can't be blank")
   validates_presence_of :url_name, message: N_("URL name can't be blank")
   validates_presence_of :last_edit_editor,

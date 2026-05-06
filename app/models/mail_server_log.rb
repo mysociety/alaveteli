@@ -31,8 +31,6 @@ class MailServerLog < ApplicationRecord
              inverse_of: :mail_server_logs,
              optional: true
 
-  has_many :search_documents, as: :searchable_doc
-
   before_create :calculate_delivery_status
 
   # regular users should never be able to search email logs

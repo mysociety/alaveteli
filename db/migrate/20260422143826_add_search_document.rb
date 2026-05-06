@@ -63,12 +63,10 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
     reversible do |direction|
       direction.up do
         # create a table partition for each model.
-        say("#{Searchable.class_variable_get(:@@searchable_models)}")
         Searchable.class_variable_get(:@@searchable_models).keys.each do |model|
-          say("#{model}", true)
           execute(
             <<-SQL
-              CREATE TABLE IF NOT EXISTS search_documents_#{model.downcase}
+              CREATE TABLE IF NOT EXISTS search_documents_#{model.downcase.gsub("::", "_")}
                 PARTITION OF search_documents
                 FOR VALUES IN ('#{model}');
             SQL
@@ -93,30 +91,25 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
               SELECT COALESCE(1.0 / ($1 + $2), 0.0);
           $$ ;
 
-          -- auto update the content_tsv column whenever the raw_content
-          -- is modified so that data stays in sync. The index is updated
-          -- automatically as well.
-          -- FIXME: this does not work when searchable.index contains
-          -- keys with different weight. Is this trigger even useful?
-          -- CREATE OR REPLACE FUNCTION update_search_document_tsv()
-          -- RETURNS TRIGGER AS $$
-          -- BEGIN
-          --   UPDATE search_documents
-          --   SET content_tsv = (
-          --     SELECT to_tsvector(language::regconfig, coalesce(unaccent(raw_content), ''))
-          --     FROM search_documents
-          --     WHERE id = NEW.id
-          --   )
-          --   WHERE id = NEW.id;
-          --
-          --   RETURN NEW;
-          -- END;
-          -- $$ LANGUAGE plpgsql;
-          --
-          -- CREATE TRIGGER search_documents_content_tsv_trigger
-          --   AFTER INSERT OR UPDATE OF raw_content ON search_documents
-          --   FOR EACH ROW
-          --   EXECUTE FUNCTION update_search_document_tsv();
+          -- simplify jsonb columns to keep only values that are likely to be searched.
+          -- This excludes keys, timestamps and references to other objects.
+          CREATE OR REPLACE FUNCTION cleanup_jsonb_for_search(json_v jsonb)
+          RETURNS text
+          LANGUAGE SQL
+          IMMUTABLE PARALLEL SAFE
+          AS $$
+            SELECT string_agg(v, ' ' ORDER BY k)
+            FROM jsonb_each_text(json_v) AS x(k,v)
+            WHERE k NOT IN (
+              'described_state',
+              'embargo',
+              'event_created_at',
+              'incoming_message',
+              'old_described_state',
+              'outgoing_message',
+              'user'
+            )
+          $$;
           SQL
         )
       end
@@ -124,18 +117,15 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
       direction.down do
         execute(
           <<-SQL
-          -- DROP TRIGGER IF EXISTS
-          --   search_documents_content_tsv_trigger
-          --   ON search_documents;
-          -- DROP FUNCTION IF EXISTS update_search_document_tsv;
-          -- ALTER TABLE search_documents DROP COLUMN embedding;
+          DROP FUNCTION IF EXISTS rrf_score;
+          DROP FUNCTION IF EXISTS cleanup_jsonb_for_search;
           SQL
         )
 
         Searchable.class_variable_get(:@@searchable_models).keys.each do |model|
           execute(
             <<-SQL
-              DROP TABLE IF EXISTS search_documents_#{model.downcase};
+              DROP TABLE IF EXISTS search_documents_#{model.downcase.gsub("::", "_")};
             SQL
           )
         end

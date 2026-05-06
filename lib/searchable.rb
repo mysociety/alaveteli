@@ -73,7 +73,7 @@ module Searchable
   # round trip to db.
   def search_content_from_db(idx_name, language)
     search_cfg = @@searchable_models[self.class.to_s]
-    if search_cfg[idx_name].empty?
+    if search_cfg[idx_name].nil? or search_cfg[idx_name].empty?
       {}
     else
       ActiveRecord::Base.
@@ -237,6 +237,9 @@ module Searchable
   end
 
   def self.included(base)
+    base.class_eval do
+      has_many :search_documents, as: :searchable_doc
+    end
     base.extend(SearchableMethods)
   end
 end

@@ -44,6 +44,7 @@ class User < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
+  include Searchable
   include Taggable
 
   include AlaveteliFeatures::Helpers
@@ -221,6 +222,18 @@ class User < ApplicationRecord
                  ],
                  terms: [[:variety, 'V', 'variety']],
                  if: :indexed_by_search?
+
+  # leave index empty as we don't want users being able to search for
+  # other users
+  searchable admin_index: {
+    "email": "A",
+    "name": "A",
+    "url_name": "A",
+    "ban_text": "A",
+    "about_me": "A",
+    "locale ": "A",
+    "email_bounce_message": "A"
+  }
 
   def self.search(query)
     sql = <<~SQL
