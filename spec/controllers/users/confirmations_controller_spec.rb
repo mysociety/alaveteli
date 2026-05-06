@@ -149,21 +149,16 @@ RSpec.describe Users::ConfirmationsController do
         get :confirm, params: { email_token: @post_redirect.email_token }
       end
 
-      it 'confirms the post redirect user' do
-        expect(@user.reload.email_confirmed).to eq(true)
+      it 'does not confirm the post redirect user' do
+        expect(@user.reload.email_confirmed).to eq(false)
       end
 
-      # FIXME: There's no reason this should be allowed
-      it 'gets logged in as the post redirect user' do
-        expect(session[:user_id]).to eq(@user.id)
+      it 'stays logged in as the current user' do
+        expect(session[:user_id]).to eq(@current_user.id)
       end
 
-      it 'sets the user_circumstance to normal' do
-        expect(session[:user_circumstance]).to eq('normal')
-      end
-
-      it 'redirects to the post redirect uri' do
-        expect(response).to redirect_to('/?post_redirect=1')
+      it 'renders wrong_user' do
+        expect(response).to render_template('user/wrong_user')
       end
     end
 

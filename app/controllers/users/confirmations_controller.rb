@@ -12,6 +12,10 @@ class Users::ConfirmationsController < UserController
     when 'normal', 'change_email'
       if current_user&.stay_logged_in_on_redirect?
         session[:admin_confirmation] = 1
+      elsif current_user && current_user != user
+        @reason_params = { user_name: user.name }
+        render template: 'user/wrong_user'
+        return
       else
         user.confirm!
         sign_in(user)
