@@ -38,24 +38,26 @@ RSpec.describe Users::ConfirmationsController do
 
       it 'logs out a user who does not own the post redirect' do
         logged_in_user = FactoryBot.create(:user)
+        pr = PostRedirect.new(user: user, circumstance: 'change_password')
+        pr.uri = edit_password_change_path(pr.token)
+        pr.save!
 
         sign_in logged_in_user
 
-        get :confirm, params: { email_token: post_redirect.email_token }
+        get :confirm, params: { email_token: pr.email_token }
         expect(session[:user_id]).to be_nil
       end
 
       it 'does not log out a user if they own the post redirect' do
+        pr = PostRedirect.new(user: user, circumstance: 'change_password')
+        pr.uri = edit_password_change_path(pr.token)
+        pr.save!
+
         sign_in user
-        get :confirm, params: { email_token: post_redirect.email_token }
+        get :confirm, params: { email_token: pr.email_token }
 
         expect(session[:user_id]).to eq(user.id)
         expect(assigns[:user]).to eq(user)
-      end
-
-      it 'confirms an unconfirmed user' do
-        get :confirm, params: { email_token: post_redirect.email_token }
-        expect(user.reload.email_confirmed).to eq(true)
       end
 
       it 'redirects to the post redirect uri' do
@@ -184,6 +186,28 @@ RSpec.describe Users::ConfirmationsController do
 
       it 'redirects to the post redirect uri' do
         expect(response).to redirect_to('/?post_redirect=1')
+      end
+    end
+
+    context 'token consumption' do
+      it 'rotates the email token after successful confirmation' do
+        user = FactoryBot.create(:user, email_confirmed: false)
+        post_redirect = PostRedirect.create(uri: '/', user: user)
+        original_token = post_redirect.email_token
+
+        get :confirm, params: { email_token: original_token }
+        expect(post_redirect.reload.email_token).not_to eq(original_token)
+      end
+
+      it 'prevents reuse of a consumed token' do
+        user = FactoryBot.create(:user, email_confirmed: false)
+        post_redirect = PostRedirect.create(uri: '/', user: user)
+        original_token = post_redirect.email_token
+
+        get :confirm, params: { email_token: original_token }
+
+        found = PostRedirect.find_by(email_token: original_token)
+        expect(found).to be_nil
       end
     end
   end

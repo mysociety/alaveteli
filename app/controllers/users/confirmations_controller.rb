@@ -22,6 +22,7 @@ class Users::ConfirmationsController < UserController
       end
     end
 
+    post_redirect.update!(email_token: PostRedirect.generate_random_token)
     session[:user_circumstance] = post_redirect.circumstance
     do_post_redirect post_redirect, user
   end
