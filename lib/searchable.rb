@@ -196,10 +196,15 @@ module Searchable
     # +admin_mode+ adjusts the search for admin users (controllers still control
     #              permissions), to include items that match the search query
     #              based on the content of their `admin_index` elements.
+    # +exact_mode+ adds results that match *exactly* the query text, using
+    #              SQL LIKE search. This combines with `admin_mode` to also search
+    #              in the raw_admin_content. This search mode is potentially
+    #              slow/expensive on models with many instances.
     # +limit+ how many records to return.
     def newsearch(query,
                   language: Searchable.lang_from_locale(AlaveteliConfiguration.default_locale),
                   admin_mode: false,
+                  exact_mode: false,
                   limit: 10)
       unless Searchable.class_variable_get(:@@searchable_models).include?(name)
         raise(
@@ -213,6 +218,7 @@ module Searchable
         model: self,
         language: language,
         admin_mode: admin_mode,
+        exact_mode: exact_mode,
         limit: limit
       )
     end

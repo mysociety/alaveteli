@@ -38,6 +38,7 @@ class SearchDocument < ApplicationRecord
     language:,
     limit:,
     admin_mode:,
+    exact_mode:,
     semantic_threshold:,
     limit_ratio:
   )
@@ -113,6 +114,27 @@ class SearchDocument < ApplicationRecord
         SQL
     end
 
+    # exact_mode search is potentially costly as it is not backed by an index.
+    # This should probably not be exposed to non-admins.
+    if exact_mode
+      if admin_mode
+        adm_q = "OR raw_admin_content LIKE concat('%', #{query}, '%')"
+      else
+        adm_q = ""
+      end
+      search_queries << <<-SQL
+        SELECT
+          sd_id,
+          rank() OVER (ORDER BY sd_id DESC) AS rank
+        FROM search_documents
+        WHERE
+          raw_content LIKE concat('%', #{query}, '%')
+          #{adm_q}
+        LIMIT #{limit * limit_ratio}
+      SQL
+    end
+
+    # all searches use the FTS ts_vectors
     search_queries << <<-SQL
         SELECT
             sd_id,
@@ -146,6 +168,7 @@ class SearchDocument < ApplicationRecord
                          language: nil,
                          limit: 10,
                          admin_mode: false,
+                         exact_mode: false,
                          semantic_threshold: 0.6,
                          limit_ratio: 3)
     sql = hybrid_search_internal(
@@ -154,6 +177,7 @@ class SearchDocument < ApplicationRecord
       language: language,
       limit: limit,
       admin_mode: admin_mode,
+      exact_mode: exact_mode,
       semantic_threshold: semantic_threshold,
       limit_ratio: limit_ratio
     )
