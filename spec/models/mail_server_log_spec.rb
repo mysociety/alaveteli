@@ -98,6 +98,56 @@ RSpec.describe MailServerLog do
     end
   end
 
+  describe "search" do
+    it "returns matching lines only in admin search" do
+      MailServerLog.create(line: "Email delivered to bogus@example.com",
+                           order: 1)
+      MailServerLog.create(line: "Error messages from bogus@example.com",
+                           order: 2)
+      expect(MailServerLog.count).to eq(2)
+      MailServerLog.reindex_all
+      expect(SearchDocument.count).to eq(2)
+
+      admin_results = MailServerLog.newsearch("bogus@example.com",
+admin_mode: true)
+      expect(admin_results.length).to eq(2)
+
+      results = MailServerLog.newsearch("bogus@example.com",
+admin_mode: false)
+      expect(results.length).to eq(0)
+
+      results = MailServerLog.newsearch("Error", admin_mode: true)
+      expect(results.length).to eq(1)
+    end
+
+    it "matches on 'end of token' for admin exact text search" do
+      MailServerLog.create(line: "a60446c17@abc123.some-personal-domain.com",
+                           order: 1)
+      MailServerLog.reindex_all
+      # this does not match with FTS ts_vectors
+      r = MailServerLog.newsearch(
+        "some-personal-domain.com",
+        admin_mode: true,
+        exact_mode: false
+      )
+      expect(r.length).to eq(0)
+
+      r = MailServerLog.newsearch(
+        "some-personal-domain.com",
+        admin_mode: false,
+        exact_mode: true
+      )
+      expect(r.length).to eq(0)
+
+      r = MailServerLog.newsearch(
+        "some-personal-domain.com",
+        admin_mode: true,
+        exact_mode: true
+      )
+      expect(r.length).to eq(1)
+    end
+  end
+
   describe ".email_addresses_on_line" do
     before :each do
       allow(AlaveteliConfiguration).to receive(:incoming_email_domain).and_return("example.com")
