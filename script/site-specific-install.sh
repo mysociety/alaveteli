@@ -14,18 +14,6 @@ misuse() {
   exit 1
 }
 
-install_dovecot() {
-  echo -n "Installing dovecot... "
-  apt-get install -qq -y dovecot-pop3d >/dev/null
-  echo $DONE_MSG
-}
-
-install_mailutils() {
-  echo -n "Installing mailutils... "
-  apt-get install -qq -y mailutils >/dev/null
-  echo $DONE_MSG
-}
-
 clear_daemon() {
   path=$1
   if [ $path = "/etc/init.d" ]; then name="$SITE-$2"; fi
@@ -241,45 +229,9 @@ su -l -c "$BIN_DIRECTORY/install-as-user '$UNIX_USER' '$HOST' '$DIRECTORY' '$RUB
 # no longer need the PostgreSQL user to be a superuser:
 echo "ALTER USER \"$UNIX_USER\" WITH NOSUPERUSER;" | su -l -c 'psql' postgres
 
-
-RETRIEVER_METHOD=$(su -l -c "cd '$REPOSITORY' && bin/config PRODUCTION_MAILER_RETRIEVER_METHOD" "$UNIX_USER")
-if [ x"$RETRIEVER_METHOD" = x"pop" ] && [ "$DEVELOPMENT_INSTALL" = true ]; then
-
-  # Install dovecot
-  install_dovecot
-
-  # Install mailutils
-  install_mailutils
-
-  ensure_line_present \
-      "^\#* *listen" \
-      "listen = *, ::" \
-      /etc/dovecot/dovecot.conf 644
-
-
-  ensure_line_present \
-      "^\#* *log_path" \
-      "log_path = /var/log/dovecot.log" \
-      /etc/dovecot/dovecot.conf 644
-
-  # Add a user to handle incoming mail
-  if id "alaveteli-incoming" 2> /dev/null > /dev/null
-    then
-        echo "Incoming mail user already exists"
-    else
-        adduser --quiet --disabled-password --gecos "An incoming mail user for the site $SITE" "alaveteli-incoming"
-        usermod --groups mail --password `openssl passwd -1 alaveteli-incoming` alaveteli-incoming
-  fi
-elif [ x"$RETRIEVER_METHOD" = x"pop" ]; then
-
-  echo "Warning: No POP server has been setup, please install your own securely"
-  echo "or use a remote one."
-
-else
-  export INGRESS_PASSWORD=$(su -l -c "cd '$REPOSITORY' && bundle exec rails runner 'puts Rails.application.credentials.action_mailbox.ingress_password'" "$UNIX_USER")
-  install_postfix
-  configure_postfix
-fi
+export INGRESS_PASSWORD=$(su -l -c "cd '$REPOSITORY' && bundle exec rails runner 'puts Rails.application.credentials.action_mailbox.ingress_password'" "$UNIX_USER")
+install_postfix
+configure_postfix
 
 cd "$REPOSITORY"
 
