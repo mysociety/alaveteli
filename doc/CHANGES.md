@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Cache recent request events on the front page for 10 minutes (Chris Mytton)
 * Cache total requests count on the front page for 1 hour (Chris Mytton)
 * Accept a two factor code briefly after it expires (Graeme Porteous)
 * Add a nicer tagging widget for admin users (Laurent Savaete)

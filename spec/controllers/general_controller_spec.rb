@@ -196,6 +196,54 @@ RSpec.describe GeneralController, "when showing the frontpage" do
       expect(@response).to redirect_to alaveteli_pro_dashboard_path
     end
   end
+
+  describe 'caching of recent requests' do
+    before do
+      allow(Rails).to receive(:cache).
+        and_return(ActiveSupport::Cache::MemoryStore.new)
+    end
+
+    it 'searches once for two visits to the front page' do
+      call_count = 0
+      allow(InfoRequest).to receive(:recent_requests) do
+        call_count += 1
+        [FactoryBot.create(:info_request_event)]
+      end
+
+      get :frontpage
+      get :frontpage
+
+      expect(call_count).to eq(1)
+    end
+
+    it 'does not cache an empty search result' do
+      call_count = 0
+      allow(InfoRequest).to receive(:recent_requests) do
+        call_count += 1
+        []
+      end
+
+      get :frontpage
+      get :frontpage
+
+      expect(call_count).to eq(2)
+    end
+
+    it 'excludes requests hidden since the events were cached' do
+      visible_event = FactoryBot.create(:info_request_event)
+      hidden_event = FactoryBot.create(:info_request_event)
+      hidden_event.info_request.update!(prominence: 'hidden')
+
+      allow(InfoRequest).to receive(:recent_requests).
+        and_return([visible_event, hidden_event])
+
+      get :frontpage
+
+      assigned_ids = assigns[:request_events].ids
+      expect(assigned_ids).to include(visible_event.id)
+      expect(assigned_ids).not_to include(hidden_event.id)
+    end
+  end
 end
 
 RSpec.describe GeneralController, 'when using search' do
