@@ -165,6 +165,14 @@ RSpec.describe FoiAttachment do
       end
     end
 
+    it 'clears cached_text' do
+      attachment = FactoryBot.create(:body_text)
+      attachment.extracted_text
+      expect(attachment.cached_text).to be_present
+      attachment.body = 'new content'
+      expect(attachment.cached_text).to be_nil
+    end
+
     it 'does not update hexdigest if already present' do
       attachment = FoiAttachment.new(hexdigest: 'ABC')
       expect { attachment.body = 'foo' }.to_not change { attachment.hexdigest }

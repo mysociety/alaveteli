@@ -733,6 +733,14 @@ RSpec.describe IncomingMessage do
       incoming_message.reload
       expect(incoming_message.cached_main_body_text_folded).to be_nil
     end
+
+    it 'clears per-attachment cached text' do
+      attachment = incoming_message.foi_attachments.first
+      attachment.update_column(:cached_text, 'some cached text')
+      incoming_message.clear_in_database_caches!
+      attachment.reload
+      expect(attachment.cached_text).to be_nil
+    end
   end
 
   describe '#get_attachment_text_full' do

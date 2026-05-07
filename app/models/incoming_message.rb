@@ -171,6 +171,7 @@ class IncomingMessage < ApplicationRecord
     self.cached_main_body_text_unfolded = nil
     self.cached_main_body_text_folded = nil
     save!
+    foi_attachments.each(&:clear_extracted_text!)
   end
 
   # Returns text for indexing

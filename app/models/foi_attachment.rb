@@ -99,6 +99,7 @@ class FoiAttachment < ApplicationRecord
 
   def delete_cached_file!
     @cached_body = nil
+    self.cached_text = nil
     file.purge_later if file.attached?
   end
 
@@ -119,6 +120,7 @@ class FoiAttachment < ApplicationRecord
     end
 
     @cached_body = d.force_encoding("ASCII-8BIT")
+    self.cached_text = nil
     update_display_size!
   end
 
