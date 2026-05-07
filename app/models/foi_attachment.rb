@@ -20,6 +20,7 @@
 #  replaced_at           :datetime
 #  replaced_reason       :string
 #  erased_at             :datetime
+#  cached_text           :text
 #
 
 # models/foi_attachment.rb:
