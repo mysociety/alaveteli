@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Cache total requests count on the front page for 1 hour (Chris Mytton)
 * Fix email change confirmation which wasn't bound to confirmed target address
   (Graeme Porteous)
 * Ensure only readable requests can be added to a Project (Gareth Rees)

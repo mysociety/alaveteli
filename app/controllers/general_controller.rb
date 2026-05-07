@@ -19,7 +19,9 @@ class GeneralController < ApplicationController
     successful_query = InfoRequestEvent.make_query_from_params( latest_status: ['successful'] )
     @request_events, @request_events_all_successful = InfoRequest.recent_requests
     @track_thing = TrackThing.create_track_for_search_query(successful_query)
-    @number_of_requests = InfoRequest.is_searchable.count
+    @number_of_requests = Rails.cache.fetch(
+      'frontpage/info_request_count', expires_in: 1.hour
+    ) { InfoRequest.is_searchable.count }
     @number_of_authorities = PublicBody.visible.count
     @feed_autodetect = [ { url: do_track_url(@track_thing, 'feed'),
                            title: _('Successful requests'),
