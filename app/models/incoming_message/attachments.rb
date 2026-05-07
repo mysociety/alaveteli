@@ -167,9 +167,7 @@ module IncomingMessage::Attachments
     get_attachments_for_display.reduce('') { |memo, attachment|
       return memo if Ability.guest.cannot?(:read, attachment)
 
-      text = MailHandler.get_attachment_text_one_file(
-        attachment.content_type, attachment.default_body, attachment.charset
-      )
+      text = attachment.extracted_text
       text = convert_string_to_utf8(text, 'UTF-8').string
       text = apply_masks(text, 'text/html') unless attachment.locked?
 
