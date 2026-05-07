@@ -164,6 +164,26 @@ class FoiAttachment < ApplicationRecord
     mail_attributes[:body]
   end
 
+  def extracted_text
+    return cached_text if cached_text.present?
+
+    text = MailHandler.get_attachment_text_one_file(
+      content_type, default_body, charset
+    )
+
+    if persisted?
+      sanitised = text.encode('UTF-8', invalid: :replace, undef: :replace)
+      sanitised = sanitised.delete("\0")
+      update_column(:cached_text, sanitised)
+    end
+
+    text
+  end
+
+  def clear_extracted_text!
+    update_column(:cached_text, nil) if persisted?
+  end
+
   def main_body_part?
     self == incoming_message.get_main_body_text_part
   end

@@ -543,6 +543,39 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#extracted_text' do
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    it 'returns the extracted text for the attachment' do
+      text = foi_attachment.extracted_text
+      expect(text).to include(foi_attachment.default_body)
+    end
+
+    it 'caches the result in the cached_text column' do
+      expect(foi_attachment.cached_text).to be_nil
+      foi_attachment.extracted_text
+      foi_attachment.reload
+      expect(foi_attachment.cached_text).to be_present
+    end
+
+    it 'returns cached value without invoking MailHandler' do
+      foi_attachment.extracted_text
+      expect(MailHandler).not_to receive(:get_attachment_text_one_file)
+      foi_attachment.extracted_text
+    end
+  end
+
+  describe '#clear_extracted_text!' do
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    it 'clears the cached_text column' do
+      foi_attachment.extracted_text
+      foi_attachment.clear_extracted_text!
+      foi_attachment.reload
+      expect(foi_attachment.cached_text).to be_nil
+    end
+  end
+
   describe '#main_body_part?' do
     subject { attachment.main_body_part? }
 
