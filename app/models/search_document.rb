@@ -30,8 +30,7 @@ class SearchDocument < ApplicationRecord
   belongs_to :searchable_doc, polymorphic: true
   self.primary_key = [:sd_id, :searchable_doc_type]
 
-  # Do not use hybrid_search_internal directly as it does NOT sanitize
-  # query, and is susceptible to injection. Use hybrid_search instead.
+  # build the sql query for the search. This should be injection-safe.
   def self.hybrid_search_internal(
     query,
     model:,
@@ -45,15 +44,17 @@ class SearchDocument < ApplicationRecord
     Rails.logger.debug(
       "Searching for '#{query}' through #{model} in lang #{language}"
     )
-    search_terms = query.
-      split(" ").
-      map { |q| "to_tsquery('#{language}', unaccent(COALESCE('#{q}', '')))" }.
-      join(" && ")
+    sanitized_language = if language.nil? || language == ''
+                           Searchable.lang_from_locale(AlaveteliConfiguration.default_locale)
+                         else
+                           language
+                         end
+    query_values = { query: query, language: sanitized_language }
 
     if model.nil?
-      doc_type_q = "(1=1)"
+      doc_type_q = ""
     else
-      doc_type_q = "searchable_doc_type = '#{model}'"
+      doc_type_q = "AND searchable_doc_type = '#{model}'"
     end
 
     # TODO: loading the model is slow (10+s) and memory hungry (10+GB),
@@ -73,8 +74,8 @@ class SearchDocument < ApplicationRecord
             sd_id,
             rank() OVER (ORDER BY '#{q_embedding}'::vector <=> embedding) AS rank
         FROM search_documents
-        WHERE embedding is not null
-            AND #{doc_type_q}
+        WHERE embedding IS NOT NULL
+            #{doc_type_q}
             AND ('#{q_embedding}'::vector <=> embedding) < #{semantic_threshold}
         ORDER BY '#{q_embedding}'::vector <=> embedding
         LIMIT #{limit * limit_ratio}
@@ -82,16 +83,18 @@ class SearchDocument < ApplicationRecord
     end
 
     if admin_mode
-      search_queries << <<-SQL
+      # use 'simple' language config for admin mode, as we don't want to modify
+      # search words. Most probably this is a GDPR type search
+      search_queries << <<~SQL.chomp
           SELECT
               sd_id,
               rank() OVER (
-                ORDER BY ts_rank_cd(admin_content_tsv, plainto_tsquery(#{query})) DESC
+                ORDER BY ts_rank_cd(admin_content_tsv, plainto_tsquery('simple', :query)) DESC
               ) AS rank
           FROM search_documents
           WHERE
-              plainto_tsquery('simple', #{query}) @@ admin_content_tsv
-              AND #{doc_type_q}
+              plainto_tsquery('simple', :query) @@ admin_content_tsv
+              #{doc_type_q}
           ORDER BY rank
           LIMIT #{limit * limit_ratio}
         SQL
@@ -118,38 +121,39 @@ class SearchDocument < ApplicationRecord
     # This should probably not be exposed to non-admins.
     if exact_mode
       if admin_mode
-        adm_q = "OR raw_admin_content LIKE concat('%', #{query}, '%')"
+        adm_q = "OR raw_admin_content LIKE concat('%', :query::text, '%')"
       else
         adm_q = ""
       end
-      search_queries << <<-SQL
+      search_queries << <<~SQL.chomp
         SELECT
           sd_id,
           rank() OVER (ORDER BY sd_id DESC) AS rank
         FROM search_documents
         WHERE
-          raw_content LIKE concat('%', #{query}, '%')
+          raw_content LIKE concat('%', :query::text, '%')
           #{adm_q}
         LIMIT #{limit * limit_ratio}
       SQL
     end
 
     # all searches use the FTS ts_vectors
-    search_queries << <<-SQL
+    search_queries << <<~SQL.chomp
         SELECT
             sd_id,
             rank() OVER (
-              ORDER BY ts_rank_cd(content_tsv, plainto_tsquery(#{query})) DESC
+              ORDER BY ts_rank_cd(content_tsv, plainto_tsquery(:language, :query)) DESC
             ) AS rank
         FROM search_documents
         WHERE
-            plainto_tsquery('#{language}', #{query}) @@ content_tsv
-            AND #{doc_type_q}
+            plainto_tsquery(:language, :query) @@ content_tsv
+            AND language = :language
+            #{doc_type_q}
         ORDER BY rank
         LIMIT #{limit * limit_ratio}
       SQL
 
-    sql = <<-SQL
+    sql = <<~SQL.chomp.squeeze(' ')
       SELECT
         searches.sd_id,
         sum(searches.rank) AS rank_sum,
@@ -160,7 +164,7 @@ class SearchDocument < ApplicationRecord
       LIMIT #{limit}
     SQL
 
-    sql
+    { query: sql, values: query_values }
   end
 
   def self.hybrid_search(query,
@@ -171,8 +175,13 @@ class SearchDocument < ApplicationRecord
                          exact_mode: false,
                          semantic_threshold: 0.6,
                          limit_ratio: 3)
+    if model.is_a? String
+      raise(ArgumentError,
+"model should be a class, not its string representation")
+    end
+
     sql = hybrid_search_internal(
-      ActiveRecord::Base.connection.quote(query),
+      query,
       model: model,
       language: language,
       limit: limit,
@@ -182,14 +191,14 @@ class SearchDocument < ApplicationRecord
       limit_ratio: limit_ratio
     )
     if model.nil?
-      SearchDocument.where("sd_id IN (SELECT s.sd_id FROM (#{sql}) s)")
+      SearchDocument.where("sd_id IN (SELECT s.sd_id FROM (#{sql[:query]}) s)",
+sql[:values])
     else
-      model.with(search_results: Arel.sql(sql)).
-            joins(:search_documents).
-            joins(
-              "JOIN search_results " \
-              "ON search_results.sd_id = search_documents.sd_id"
-            )
+      sr = Arel.sql(sql[:query], **sql[:values])
+      model.with(search_results: sr).joins(:search_documents).joins(
+        "JOIN search_results " \
+        "ON search_results.sd_id = search_documents.sd_id"
+      )
     end
   end
 end

@@ -44,7 +44,7 @@ module Searchable
       if col.start_with?(".")
         c = ActiveRecord::Base.connection.quote("#{send(col[1..])} ")
       else
-        c = "(SELECT #{col} FROM #{self.class.table_name} WHERE id=$1)"
+        c = "(SELECT concat(#{col}, ' ') FROM #{self.class.table_name} WHERE id=$1)"
       end
 
       raw_content_bits.push(c)
