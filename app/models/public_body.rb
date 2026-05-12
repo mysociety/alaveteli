@@ -143,8 +143,8 @@ class PublicBody < ApplicationRecord
              admin_index: {
                # TODO: replace this with ALL edit comments
                "last_edit_editor": "A",
-               ".last_edit_comment": "A",
-               "request_email": "A"
+               "last_edit_comment": "A",
+               ".request_email": "A"
              },
              filterable: [],
              sortable: []

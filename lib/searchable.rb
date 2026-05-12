@@ -12,11 +12,13 @@ module Searchable
     "el" => 'greek',
     "en" => 'english',
     "es" => 'spanish',
+    "fr" => 'french',
     "fr_BE" => 'french',
     "fr_FR" => 'french',
     "hu" => 'hungarian',
     "nl" => 'dutch',
-    "sv_SE" => 'swedish'
+    "sv_SE" => 'swedish',
+    "sv" => 'swedish'
   }
   # fallback on "simple" which does not try to stem words at all. This allows
   # search to work in any language, but without tokenisation/stemming.
@@ -49,7 +51,7 @@ module Searchable
 
       raw_content_bits.push(c)
       content_tsv_bits.push(
-        "setweight(to_tsvector('#{language}'::regconfig, coalesce(#{c}, '')), '#{w}')"
+        "setweight(to_tsvector('#{language}'::regconfig, unaccent(coalesce(#{c}, ''))), '#{w}')"
       )
     end
 
@@ -103,7 +105,7 @@ module Searchable
     )
     admin_content_from_db = search_content_from_db(
       :admin_index,
-      'simple'
+      language
     )
 
     record = {
@@ -143,7 +145,7 @@ module Searchable
         end
       end
     else
-      lang = Searchable.lang_from_locale(AlaveteliConfiguration.default_locale)
+      lang = Searchable.lang_from_locale(AlaveteliLocalization.default_locale)
       upsert_content(lang, 1)
     end
   end
@@ -202,7 +204,7 @@ module Searchable
     #              slow/expensive on models with many instances.
     # +limit+ how many records to return.
     def newsearch(query,
-                  language: Searchable.lang_from_locale(AlaveteliConfiguration.default_locale),
+                  language: Searchable.lang_from_locale(AlaveteliLocalization.default_locale),
                   admin_mode: false,
                   exact_mode: false,
                   limit: 10)

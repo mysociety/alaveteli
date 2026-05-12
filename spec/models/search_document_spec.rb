@@ -28,9 +28,6 @@ RSpec.describe SearchDocument do
     end
   end
 
-  context 'when indexing a PublicBody with translations' do
-    it 'has one SearchDocument per translation' do
-      body = FactoryBot.create(:public_body)
   context 'when indexing a model with translations' do
     it 'PublicBody has one SearchDocument per translation' do
       name_en = "Some public authority ABCD"
@@ -56,24 +53,94 @@ RSpec.describe SearchDocument do
     end
 
     it 'Note has one SearchDocument per translation' do
-      n = FactoryBot.create(:note, body: 'A note in English')
+      n = FactoryBot.create(:note, rich_body: 'My note in English')
       n.translations.create(locale: 'fr',
-                            body: 'Une note en Français')
+                            rich_body: 'Une note en Français')
       expect(n.translations.size).to eq(2)
-      expect(n.body(:fr)).to eq('Une note en Français')
-      expect(n.body(:en)).to eq('A note in English')
 
       n.reindex
       expect(SearchDocument.count).to eq(2)
 
-      search1 = Note.newsearch("Français", admin_mode: true)
-      expect(search1).to match_array([n])
+      search1 = Note.newsearch("Français", admin_mode: true,
+                                           language: 'english')
+      expect(search1).to match_array([])
 
       search2 = Note.newsearch("Français", admin_mode: true, language: "french")
       expect(search2).to match_array([n])
 
       search3 = Note.newsearch("english", admin_mode: true, language: "french")
       expect(search3).to match_array([n])
+    end
+  end
+
+  context 'handles known problematic searches from various sites' do
+    # from https://github.com/mysociety/alaveteli/issues/1179
+    it 'finds UK public bodies' do
+      with_default_locale(:en) do
+        nhs = FactoryBot.create(:public_body, name: "NHS England")
+        bodies = [
+          nhs,
+          FactoryBot.create(:public_body, name: "NHS Improving Quality"),
+          FactoryBot.create(:public_body, name: "NHSX"),
+          FactoryBot.create(
+            :public_body,
+            name: "Northern England NHS fictitious center"
+          )
+        ]
+        bodies.each { |b| b.reindex }
+        expect(PublicBody.newsearch("NHS England").first).to eq(nhs)
+      end
+    end
+
+    it 'finds French public bodies' do
+      with_default_locale(:fr_FR) do
+        AlaveteliLocalization.with_locale(:fr_FR) do
+          body = FactoryBot.create(
+            :public_body,
+            name: "Ministère de l'Intérieur"
+          )
+          body.reindex
+          expect(PublicBody.newsearch(
+                   "ministere intérieur",
+            language: 'french'
+                 )).to match_array([body])
+          expect(PublicBody.newsearch("ministere interieur")).to match_array([body])
+          expect(PublicBody.newsearch("ministere de l'intérieur")).to match_array([body])
+        end
+      end
+    end
+
+    it 'finds the Australian attorney general' do
+      # from https://github.com/mysociety/alaveteli/issues/1179#issuecomment-304157132
+      with_default_locale(:en) do
+        ag = FactoryBot.create(:public_body,
+name: "WA Department of the Attorney General")
+        ag.reindex
+        expect(PublicBody.newsearch("WA Attorney General")).to match_array([ag])
+        expect(PublicBody.newsearch("Attorney General")).to match_array([ag])
+      end
+    end
+
+    it 'finds the Swedish name of a public body in either locale' do
+      with_default_locale(:sv) do
+        st = FactoryBot.create(:public_body, name: "Skånetrafiken")
+        st.translations.create(locale: "sv",
+                               name: "Skånetrafiken")
+        st.reindex
+        s = SearchDocument.first
+        AlaveteliLocalization.with_locale(:sv) do
+          expect(PublicBody.newsearch(
+                   "Skånetrafiken",
+               language: 'swedish'
+                 )).to match_array([st])
+        end
+        AlaveteliLocalization.with_locale(:en) do
+          expect(PublicBody.newsearch(
+                   "Skånetrafiken",
+               language: 'english'
+                 )).to match_array([st])
+        end
+      end
     end
   end
 end

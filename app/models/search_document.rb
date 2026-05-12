@@ -45,7 +45,7 @@ class SearchDocument < ApplicationRecord
       "Searching for '#{query}' through #{model} in lang #{language}"
     )
     sanitized_language = if language.nil? || language == ''
-                           Searchable.lang_from_locale(AlaveteliConfiguration.default_locale)
+                           Searchable.lang_from_locale(AlaveteliLocalization.default_locale)
                          else
                            language
                          end
@@ -83,17 +83,17 @@ class SearchDocument < ApplicationRecord
     end
 
     if admin_mode
-      # use 'simple' language config for admin mode, as we don't want to modify
-      # search words. Most probably this is a GDPR type search
+      # keep the same language for tokenization in admin mode, if the (admin) user wants
+      # exact text match, they should use `exact_mode`.
       search_queries << <<~SQL.chomp
           SELECT
               sd_id,
               rank() OVER (
-                ORDER BY ts_rank_cd(admin_content_tsv, plainto_tsquery('simple', :query)) DESC
+                ORDER BY ts_rank_cd(admin_content_tsv, plainto_tsquery(:language, unaccent(:query))) DESC
               ) AS rank
           FROM search_documents
           WHERE
-              plainto_tsquery('simple', :query) @@ admin_content_tsv
+              plainto_tsquery(:language, unaccent(:query)) @@ admin_content_tsv
               #{doc_type_q}
           ORDER BY rank
           LIMIT #{limit * limit_ratio}
@@ -142,11 +142,11 @@ class SearchDocument < ApplicationRecord
         SELECT
             sd_id,
             rank() OVER (
-              ORDER BY ts_rank_cd(content_tsv, plainto_tsquery(:language, :query)) DESC
+              ORDER BY ts_rank_cd(content_tsv, plainto_tsquery(:language, unaccent(:query))) DESC
             ) AS rank
         FROM search_documents
         WHERE
-            plainto_tsquery(:language, :query) @@ content_tsv
+            plainto_tsquery(:language, unaccent(:query)) @@ content_tsv
             AND language = :language
             #{doc_type_q}
         ORDER BY rank
@@ -190,6 +190,7 @@ class SearchDocument < ApplicationRecord
       semantic_threshold: semantic_threshold,
       limit_ratio: limit_ratio
     )
+
     if model.nil?
       SearchDocument.where("sd_id IN (SELECT s.sd_id FROM (#{sql[:query]}) s)",
 sql[:values])

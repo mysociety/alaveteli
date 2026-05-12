@@ -14,6 +14,7 @@
 
 class Note < ApplicationRecord
   include AdminColumn
+  include Searchable
 
   translates :body
   translates :rich_body, touch: true
@@ -44,6 +45,10 @@ class Note < ApplicationRecord
   validates :rich_body, presence: true, unless: ->(n) { n.original_style? }
   validates :style, presence: true
   validates :notable_or_notable_tag, presence: true
+
+  searchable admin_index: {
+    ".to_plain_text": "A"
+  }
 
   def self.sort(notes)
     notes.sort_by! { Note.style_labels.values.index(_1.style) }
