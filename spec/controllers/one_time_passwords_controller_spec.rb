@@ -130,7 +130,7 @@ RSpec.describe OneTimePasswordsController do
     end
 
     it 'regenerates the otp_code' do
-      user = FactoryBot.create(:user, otp_enabled: true)
+      user = FactoryBot.create(:user, otp_enabled: true, otp_counter: 1)
       expected = ROTP::HOTP.new(user.otp_secret_key).at(2)
       sign_in user
       put :update
