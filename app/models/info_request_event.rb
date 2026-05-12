@@ -612,7 +612,7 @@ class InfoRequestEvent < ApplicationRecord
 
       incoming_message.get_present_file_extensions
     else
-      ''
+      []
     end
   end
 
