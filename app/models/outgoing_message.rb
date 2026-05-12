@@ -86,12 +86,15 @@ class OutgoingMessage < ApplicationRecord
 
   searchable(
     index: {
-      body: "A",
       prominence_reason: "D",
+      ".get_text_for_indexing": "A",
+      # TODO: if the user's name is censored, from_name below still surfaces their
+      # request. should this move to admin_index? or should the name be censored too?
       from_name: "D"
+    },
+    admin_index: {
+      body: "A"
     }
-    # filterable: [:status],
-    # sortable: [:created_at]
   )
 
   def self.default_salutation(public_body)

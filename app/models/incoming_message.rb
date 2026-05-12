@@ -87,12 +87,15 @@ class IncomingMessage < ApplicationRecord
   searchable(
     index: {
       subject: "A",
-      get_body_for_indexing: "A",
+      # get_body_for_indexing does not exactly match the censorship
+      # applied on the public view
+      ".get_body_for_indexing": "A",
       from_email: "D",
       prominence_reason: "D"
     },
-    filterable: [],
-    sortable: []
+    admin_index: {
+      ".get_main_body_text_uncensored_for_indexing": "A"
+    }
   )
 
   # Given that there are in theory many info request events, a convenience
