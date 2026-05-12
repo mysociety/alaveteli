@@ -41,15 +41,15 @@ class SearchDocument < ApplicationRecord
     semantic_threshold:,
     limit_ratio:
   )
-    Rails.logger.debug(
-      "Searching for '#{query}' through #{model} in lang #{language}"
-    )
     sanitized_language = if language.nil? || language == ''
                            Searchable.lang_from_locale(AlaveteliLocalization.default_locale)
                          else
                            language
                          end
-    query_values = { query: query, language: sanitized_language }
+    # remove some characters that postgresql is allergic to. These should never
+    # reach this far though.
+    sanitized_query = query.scrub("").delete("\u0000")
+    query_values = { query: sanitized_query, language: sanitized_language }
 
     if model.nil?
       doc_type_q = ""
@@ -175,10 +175,26 @@ class SearchDocument < ApplicationRecord
                          exact_mode: false,
                          semantic_threshold: 0.6,
                          limit_ratio: 3)
-    if model.is_a? String
-      raise(ArgumentError,
-"model should be a class, not its string representation")
+    # try to provide some guidance during development
+    unless Rails.env == 'production'
+      if model.is_a? String
+        raise(
+          ArgumentError,
+          "model should be a class, not its string representation"
+        )
+      end
+      supported_langs = Searchable.class_variable_get(:@@locale_to_language_map).values.concat(
+        [
+          "simple",
+          nil
+        ]
+      )
+      unless supported_langs.include?(language)
+        raise(ArgumentError, "#{language} is not yet supported for search")
+      end
     end
+
+    return SearchDocument.none if limit < 1
 
     sql = hybrid_search_internal(
       query,
@@ -200,6 +216,43 @@ sql[:values])
         "JOIN search_results " \
         "ON search_results.sd_id = search_documents.sd_id"
       )
+    end
+  end
+
+  # temp code to remove before merging
+  # TODO: do the same thing for the indexing part
+  def self.fuzz_search
+    models = [nil, PublicBody, Note, MailServerLog, FoiAttachment]
+    languages = ['simple', nil, 'french', 'english']
+    limits = [0, -1, 30]
+    admin_modes = [true, false, nil]
+    exact_modes = [true, false, nil]
+    semantic_thresholds = [0.6]
+    limit_ratios = [1, 3, 0]
+
+    # one query string per line. https://gitlab.com/akihe/radamsa
+    # provides an easy way to generate nasty test strings
+    queries = IO.readlines('search_unique.txt')
+
+    models.each do |model|
+      languages.each do |language|
+        limits.each do |limit|
+          admin_modes.each do |admin_mode|
+            exact_modes.each do |exact_mode|
+              queries.each do |query|
+                puts SearchDocument.hybrid_search(query,
+                  model: model,
+                  language: language,
+                  limit: limit,
+                  admin_mode: admin_mode,
+                  exact_mode: exact_mode,
+                  semantic_threshold: semantic_thresholds[0],
+                  limit_ratio: limit_ratios[1]).count
+              end
+            end
+          end
+        end
+      end
     end
   end
 end
