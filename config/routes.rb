@@ -604,6 +604,12 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### Admin::TwoFactor controller
+  namespace :admin do
+    resource :two_factor, only: :show, controller: 'two_factor'
+  end
+  ####
+
   #### AdminPublicBody controller
   scope '/admin', :as => 'admin' do
     resources :bodies,

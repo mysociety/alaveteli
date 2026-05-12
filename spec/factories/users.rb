@@ -97,6 +97,13 @@ FactoryBot.define do
       after(:build, &:enable_otp)
     end
 
+    trait :enable_totp do
+      after(:build) do |user|
+        user.enable_otp
+        user.otp_counter = nil
+      end
+    end
+
     trait :unconfirmed do
       email_confirmed { false }
     end
