@@ -60,12 +60,36 @@ FactoryBot.define do
       foi_attachments_factories { [[:body_text]] }
     end
 
+    trait :with_doc_attachment do
+      foi_attachments_factories { [[:doc_attachment]] }
+    end
+
+    trait :with_docx_attachment do
+      foi_attachments_factories { [[:docx_attachment]] }
+    end
+
     trait :with_html_attachment do
       foi_attachments_factories { [[:html_attachment]] }
     end
 
     trait :with_pdf_attachment do
       foi_attachments_factories { [[:pdf_attachment]] }
+    end
+
+    trait :with_ppt_attachment do
+      foi_attachments_factories { [[:ppt_attachment]] }
+    end
+
+    trait :with_pptx_attachment do
+      foi_attachments_factories { [[:pptx_attachment]] }
+    end
+
+    trait :with_xls_attachment do
+      foi_attachments_factories { [[:xls_attachment]] }
+    end
+
+    trait :with_xlsx_attachment do
+      foi_attachments_factories { [[:xlsx_attachment]] }
     end
   end
 
