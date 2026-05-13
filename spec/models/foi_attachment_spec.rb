@@ -607,6 +607,34 @@ RSpec.describe FoiAttachment do
 
   end
 
+  describe '#body_to_text' do
+    subject { foi_attachment.body_to_text }
+
+    context 'when not erased' do
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      before do
+        allow(AttachmentToText).
+          to receive(:new).
+          with(foi_attachment).
+          and_return(instance_double(AttachmentToText, to_text: 'some text'))
+      end
+
+      it { is_expected.to eq('some text') }
+    end
+
+    context 'when erased' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
+
+      it 'raises ErasedError' do
+        expect { subject }.to raise_error(
+          FoiAttachment::ErasedError,
+          "attachment has been erased (ID=#{foi_attachment.id})"
+        )
+      end
+    end
+  end
+
   describe '#name_of_content_type' do
     subject { foi_attachment.name_of_content_type }
 
