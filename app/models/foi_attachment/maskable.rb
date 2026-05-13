@@ -8,11 +8,7 @@ module FoiAttachment::Maskable
   end
 
   def mask
-    body = AlaveteliTextMasker.apply_masks(
-      unmasked_body,
-      content_type,
-      masks
-    )
+    body = apply_masks(unmasked_body, content_type)
 
     if content_type == 'text/html'
       body =
@@ -26,6 +22,10 @@ module FoiAttachment::Maskable
 
   def mask_later
     FoiAttachment::MaskJob.perform_later(self)
+  end
+
+  def apply_masks(text, content_type)
+    AlaveteliTextMasker.apply_masks(text, content_type, masks)
   end
 
   private
