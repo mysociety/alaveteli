@@ -4,6 +4,11 @@ class AttachmentToText
     application/vnd.openxmlformats-officedocument.wordprocessingml.document
   ]
 
+  POWERPOINT_DOCS = %w[
+    application/vnd.ms-powerpoint
+    application/vnd.openxmlformats-officedocument.presentationml.presentation
+  ]
+
   # Temporary compatibility interface
   def self.from_part(part, text)
     interface = OpenStruct.new(
@@ -63,6 +68,8 @@ class AttachmentToText
                          timeout: 1200 }
       if WORD_DOCS.include?(content_type)
         text = extract_ms_word(tempfile)
+      elsif POWERPOINT_DOCS.include?(content_type)
+        text = extract_ms_powerpoint(tempfile)
       elsif content_type == 'application/rtf'
         # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
         AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
@@ -82,10 +89,6 @@ class AttachmentToText
         # notes. catdoc may be fooled by weird character sets, but will
         # probably do for UK FOI requests.
         AlaveteliExternalCommand.run("/usr/bin/strings", tempfile.path, default_params)
-      elsif content_type == 'application/vnd.ms-powerpoint'
-        # ppthtml seems to catch more text, but only outputs HTML when
-        # we want text, so just use catppt for now
-        AlaveteliExternalCommand.run("catppt", tempfile.path, default_params)
       elsif content_type == 'application/pdf'
         AlaveteliExternalCommand.run("pdftotext", tempfile.path, "-", default_params)
       elsif content_type == 'application/zip'
@@ -116,6 +119,26 @@ class AttachmentToText
         )
 
         File.read("#{ File.basename(tempfile.path) }.txt")
+      end
+    end
+  end
+
+  def extract_ms_powerpoint(tempfile)
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        AlaveteliExternalCommand.run(
+          'libreoffice', '--headless',
+          '--convert-to', 'pdf',
+          tempfile.path,
+          binary_output: false,
+          timeout: 1200
+        )
+
+        pdf = "#{ File.basename(tempfile.path) }.pdf"
+
+        AlaveteliExternalCommand.run(
+          'pdftotext', pdf, '-', binary_output: false, timeout: 1200
+        )
       end
     end
   end

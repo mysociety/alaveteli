@@ -27,10 +27,28 @@ RSpec.describe AttachmentToText do
       it { is_expected.to match(/thisisthebody/) }
     end
 
-    # FIXME: Does not extract text from example file
     context 'ppt' do
       let(:attachment) { FactoryBot.create(:ppt_attachment) }
-      xit { is_expected.to match(/interesting/) }
+
+      it 'includes contents from the first slide' do
+        is_expected.to match(/Interesting/)
+      end
+
+      it 'includes contents from subsequent slides' do
+        is_expected.to match(/Lorem/)
+      end
+    end
+
+    context 'pptx' do
+      let(:attachment) { FactoryBot.create(:pptx_attachment) }
+
+      it 'includes contents from the first slide' do
+        is_expected.to match(/Interesting/)
+      end
+
+      it 'includes contents from subsequent slides' do
+        is_expected.to match(/Lorem/)
+      end
     end
 
     context 'rtf' do
@@ -64,11 +82,6 @@ RSpec.describe AttachmentToText do
     context 'xlsx' do
       let(:attachment) { FactoryBot.create(:xlsx_attachment) }
       xit { is_expected.to match(/foo/) }
-    end
-
-    context 'pptx' do
-      let(:attachment) { FactoryBot.create(:pptx_attachment) }
-      xit { is_expected.to match(/interesting/) }
     end
 
     # Unhandled and unlikely to be

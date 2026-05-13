@@ -16,6 +16,7 @@ libmagic-dev
 libmagickwand-dev
 libpq-dev
 libreoffice-calc-nogui
+libreoffice-impress-nogui
 libreoffice-writer-nogui
 libsqlite3-dev
 libxml2-dev
