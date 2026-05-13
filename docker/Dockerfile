@@ -6,18 +6,17 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -y && \
     apt-get install -y \
-    catdoc \
     elinks \
     ghostscript \
     libmagic-dev \
+    libreoffice-writer-nogui \
     pdftk \
     poppler-utils \
     postgresql-client \
     sendmail \
     tnef \
     unrtf \
-    mutt \
-    wv
+    mutt
 
 # Wait-for-it
 RUN git clone https://github.com/vishnubob/wait-for-it.git /tmp/wait-for-it && \
