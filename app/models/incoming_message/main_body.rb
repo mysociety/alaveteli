@@ -188,14 +188,13 @@ module IncomingMessage::MainBody
     else
       # whatever kind of attachment it is, get the UTF-8 encoded text
       text = part.body_as_text.string
+
       if part.content_type == 'text/html'
         # e.g. http://www.whatdotheyknow.com/request/35/response/177
         # TODO: This is a bit of a hack as it is calling a
         # convert to text routine.  Could instead call a
         # sanitize HTML one.
-        text =
-          MailHandler.
-          get_attachment_text_one_file(part.content_type, text, 'UTF-8')
+        text = AttachmentToText.from_part(part, text).to_text
       end
     end
 

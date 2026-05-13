@@ -236,6 +236,11 @@ class FoiAttachment < ApplicationRecord
     AttachmentToHTML.to_html(self, **kwargs)
   end
 
+  def body_to_text
+    ensure_not_erased!
+    AttachmentToText.new(self).to_text
+  end
+
   def cached_urls
     [
       request_path(info_request)

@@ -164,17 +164,13 @@ module IncomingMessage::Attachments
 
   def _get_attachment_text_internal
     # Extract text from each attachment
-    get_attachments_for_display.reduce('') { |memo, attachment|
+    get_attachments_for_display.reduce('') do |memo, attachment|
       return memo if Ability.guest.cannot?(:read, attachment)
 
-      text = MailHandler.get_attachment_text_one_file(
-        attachment.content_type, attachment.default_body, attachment.charset
-      )
-      text = convert_string_to_utf8(text, 'UTF-8').string
+      text = attachment.body_to_text
       text = apply_masks(text, 'text/html') unless attachment.locked?
-
       memo += text
-    }
+    end
   end
 
   # rubocop:disable Lint::UnderscorePrefixedVariableName
