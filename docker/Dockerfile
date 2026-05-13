@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -y && \
     apt-get install -y \
+    catdoc \
     elinks \
     ghostscript \
     libmagic-dev \
@@ -15,7 +16,8 @@ RUN apt-get update -y && \
     sendmail \
     tnef \
     unrtf \
-    mutt
+    mutt \
+    wv
 
 # Wait-for-it
 RUN git clone https://github.com/vishnubob/wait-for-it.git /tmp/wait-for-it && \
