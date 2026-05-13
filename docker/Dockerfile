@@ -9,6 +9,7 @@ RUN apt-get update -y && \
     elinks \
     ghostscript \
     libmagic-dev \
+    libreoffice-impress-nogui \
     libreoffice-writer-nogui \
     pdftk \
     poppler-utils \
