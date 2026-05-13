@@ -1,4 +1,9 @@
 class AttachmentToText
+  WORD_DOCS = %w[
+    application/vnd.ms-word
+    application/vnd.openxmlformats-officedocument.wordprocessingml.document
+  ]
+
   # Temporary compatibility interface
   def self.from_part(part, text)
     interface = OpenStruct.new(
@@ -56,16 +61,8 @@ class AttachmentToText
       default_params = { append_to: text,
                          binary_output: false,
                          timeout: 1200 }
-      if content_type == 'application/vnd.ms-word'
-        AlaveteliExternalCommand.run("wvText", tempfile.path, tempfile.path + ".txt",
-                                     { memory_limit: 536_870_912, timeout: 120 } )
-        # Try catdoc if we get into trouble (e.g. for InfoRequestEvent 2701)
-        if !File.exist?(tempfile.path + ".txt")
-          AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
-        else
-          text += File.read(tempfile.path + ".txt") + "\n\n"
-          File.unlink(tempfile.path + ".txt")
-        end
+      if WORD_DOCS.include?(content_type)
+        text = extract_ms_word(tempfile)
       elsif content_type == 'application/rtf'
         # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
         AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
@@ -91,18 +88,6 @@ class AttachmentToText
         AlaveteliExternalCommand.run("catppt", tempfile.path, default_params)
       elsif content_type == 'application/pdf'
         AlaveteliExternalCommand.run("pdftotext", tempfile.path, "-", default_params)
-      elsif content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-        # This is Microsoft's XML office document format.
-        # Just pull out the main XML file, and strip it of text.
-        xml = AlaveteliExternalCommand.run("/usr/bin/unzip", "-qq",
-                                           "-c",
-                                           tempfile.path,
-                                           "word/document.xml",
-                                           { binary_output: false })
-        unless xml.nil?
-          doc = REXML::Document.new(xml)
-          text += doc.each_element( './/text()' ) {}.join(" ")
-        end
       elsif content_type == 'application/zip'
         # recurse into zip files
         begin
@@ -117,6 +102,22 @@ class AttachmentToText
     end
 
     text
+  end
+
+  def extract_ms_word(tempfile)
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        AlaveteliExternalCommand.run(
+          'libreoffice', '--headless',
+          '--convert-to', 'txt:Text (encoded):UTF8',
+          tempfile.path,
+          binary_output: false,
+          timeout: 1200
+        )
+
+        File.read("#{ File.basename(tempfile.path) }.txt")
+      end
+    end
   end
 
   def get_attachment_text_from_zip_file(zip_file)
