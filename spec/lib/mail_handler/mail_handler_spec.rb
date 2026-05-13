@@ -299,14 +299,19 @@ RSpec.describe 'when getting header strings' do
   end
 end
 
+# TODO: Move to AttachmentToText
 RSpec.describe "when parsing HTML mail" do
   it "should display UTF-8 characters in the plain text version correctly" do
     html = "<html><b>foo</b> është"
-    plain_text = MailHandler.get_attachment_text_one_file('text/html', html)
+
+    plain_text =
+      AttachmentToText.from_string(html, content_type: 'text/html').to_text
+
     expect(plain_text).to match(/është/)
   end
 end
 
+# TODO: Move to AttachmentToText
 RSpec.describe "when getting the attachment text" do
   it "should not raise an error if the expansion of a zip file raises an error" do
     mock_entry = double('Zip::File entry', file?: true)
@@ -314,12 +319,20 @@ RSpec.describe "when getting the attachment text" do
     allow(mock_entries).to receive(:close)
     allow(mock_entry).to receive(:get_input_stream).and_raise("invalid distance too far back")
     allow(Zip::File).to receive(:open).and_return(mock_entries)
-    MailHandler.get_attachment_text_one_file('application/zip', "some string")
+
+    AttachmentToText.
+      from_string('some string', content_type: 'application/zip').
+      to_text
   end
 
   it 'extracts plain text as UTF-8 from a zip file' do
     zip_contents = load_file_fixture('example.zip')
-    text = MailHandler.get_attachment_text_one_file('application/zip', zip_contents)
+
+    text = AttachmentToText.from_string(
+      zip_contents,
+      content_type: 'application/zip'
+    ).to_text
+
     expect(text.encoding.to_s).to eq('UTF-8')
   end
 end

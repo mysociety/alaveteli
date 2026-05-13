@@ -91,12 +91,18 @@ RSpec.describe AlaveteliTextMasker do
         orig_pdf = load_file_fixture('tfl.pdf')
         pdf = orig_pdf.dup
 
-        orig_text = MailHandler.get_attachment_text_one_file('application/pdf', pdf)
+        orig_text =
+          AttachmentToText.from_string(pdf, content_type: 'application/pdf').
+          to_text
+
         expect(orig_text).to match(/foi@tfl.gov.uk/)
 
         result = class_instance.apply_masks(pdf, "application/pdf")
 
-        masked_text = MailHandler.get_attachment_text_one_file('application/pdf', result)
+        masked_text =
+          AttachmentToText.from_string(result, content_type: 'application/pdf').
+          to_text
+
         expect(masked_text).not_to match(/foi@tfl.gov.uk/)
         expect(masked_text).to match(/xxx@xxx.xxx.xx/)
       end
