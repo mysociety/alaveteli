@@ -131,10 +131,18 @@ module Searchable
     )
   end
 
+  # Override this method per model to allow excluding specific objects
+  # from indexing.
+  def is_indexable
+    true
+  end
+
   # Refresh the search index data about a model.
   # This would be the right place to queue up jobs like content extraction,
   # embedding generation, etc...
   def reindex
+    return unless is_indexable
+
     if respond_to?(:translated_versions)
       translations_by_locale.each do |l, v|
         AlaveteliLocalization.with_locale(l) do
@@ -230,17 +238,20 @@ module Searchable
     # pre-existing database.
     def reindex_all(batch_size: 1000)
       start = Time.now
-      find_each(batch_size: batch_size) do |m|
+      indexable.find_each(batch_size: batch_size) do |m|
         m.reindex
       end
       t = Time.now - start
-      Rails.logger.info("Reindexed #{all.count} #{name} in #{t} seconds")
+      Rails.logger.info("Reindexed #{indexable.count} #{name} in #{t} seconds")
     end
   end
 
   def self.included(base)
     base.class_eval do
       has_many :search_documents, as: :searchable_doc
+      # Override this scope to help filter out records which don't need
+      # reindexing in `reindex_all`.
+      scope :indexable, -> {}
     end
     base.extend(SearchableMethods)
   end
