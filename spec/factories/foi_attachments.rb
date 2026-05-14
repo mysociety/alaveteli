@@ -121,7 +121,7 @@ FactoryBot.define do
     factory :csv_attachment do
       content_type { 'text/csv' }
       filename { 'interesting.csv' }
-      body { 'somecsv' }
+      body { load_file_fixture('interesting.csv') }
     end
 
     factory :delivery_status_notification_attachment do
