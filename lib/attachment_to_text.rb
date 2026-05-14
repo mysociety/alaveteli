@@ -70,21 +70,24 @@ class AttachmentToText
         file.print(body)
         file.flush
 
-        if WORD_DOCS.include?(content_type)
-          text = extract_ms_word(file)
-        elsif POWERPOINT_DOCS.include?(content_type)
-          text = extract_ms_powerpoint(file)
-        elsif EXCEL_DOCS.include?(content_type)
-          text = extract_ms_excel(file)
-        elsif content_type == 'application/rtf'
-          text = extract_rtf(file)
-        elsif content_type == 'text/html'
-          text = extract_html(file)
-        elsif content_type == 'application/pdf'
-          text = extract_pdf(file)
-        elsif content_type == 'application/zip'
-          text = extract_zip(file)
-        end
+        text =
+          if WORD_DOCS.include?(content_type)
+            extract_ms_word(file)
+          elsif POWERPOINT_DOCS.include?(content_type)
+            extract_ms_powerpoint(file)
+          elsif EXCEL_DOCS.include?(content_type)
+            extract_ms_excel(file)
+          elsif content_type == 'application/rtf'
+            extract_rtf(file)
+          elsif content_type == 'text/html'
+            extract_html(file)
+          elsif content_type == 'application/pdf'
+            extract_pdf(file)
+          elsif content_type == 'application/zip'
+            extract_zip(file)
+          else
+            ''
+          end
       end
     end
 
