@@ -9,6 +9,11 @@ class AttachmentToText
     application/vnd.openxmlformats-officedocument.presentationml.presentation
   ]
 
+  EXCEL_DOCS = %w[
+    application/vnd.ms-excel
+    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  ]
+
   # Temporary compatibility interface
   def self.from_part(part, text)
     interface = OpenStruct.new(
@@ -70,6 +75,8 @@ class AttachmentToText
         text = extract_ms_word(tempfile)
       elsif POWERPOINT_DOCS.include?(content_type)
         text = extract_ms_powerpoint(tempfile)
+      elsif EXCEL_DOCS.include?(content_type)
+        text = extract_ms_excel(tempfile)
       elsif content_type == 'application/rtf'
         # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
         AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
@@ -83,12 +90,6 @@ class AttachmentToText
                                      "-force-html", "-dump",
                                      tempfile.path,
                                      default_params.merge(env: { "LANG" => "C" }))
-      elsif content_type == 'application/vnd.ms-excel'
-        # Bit crazy using /usr/bin/strings - but xls2csv, xlhtml and
-        # py_xls2txt only extract text from cells, not from floating
-        # notes. catdoc may be fooled by weird character sets, but will
-        # probably do for UK FOI requests.
-        AlaveteliExternalCommand.run("/usr/bin/strings", tempfile.path, default_params)
       elsif content_type == 'application/pdf'
         AlaveteliExternalCommand.run("pdftotext", tempfile.path, "-", default_params)
       elsif content_type == 'application/zip'
@@ -141,6 +142,50 @@ class AttachmentToText
         )
       end
     end
+  end
+
+  # 44 = comma field separator.
+  # 34 = double-quote text delimiter.
+  # 76 = UTF-8 character set.
+  # 1 = start from row 1.
+  # empty token 5 = no column-specific format overrides.
+  # 0 = default/UI language.
+  # false = quoted fields are not forced to text.
+  # true = export number cells as numbers.
+  # false = do not use “save cell contents as shown”; export underlying values instead.
+  # false = do not export formulas; export values.
+  # empty token 11 = unused here; token 11 is only for CSV import (“remove spaces”).
+  # -1 in token 12 = export all sheets to separate files like sample-Sheet1.csv, sample-Sheet2.csv.
+  def extract_ms_excel(tempfile)
+    csv_filters = '(StarCalc):44,34,76,1,,0,false,true,false,false,,-1'
+
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        AlaveteliExternalCommand.run(
+          'libreoffice', '--headless',
+          '--convert-to', "csv:Text - txt - csv #{csv_filters}",
+          tempfile.path,
+          binary_output: false,
+          timeout: 1200
+        )
+
+        combine_csv_files_with_sheet_names(tempfile)
+      end
+    end
+  end
+
+  def combine_csv_files_with_sheet_names(tempfile)
+    Dir.glob("*.csv").each_with_object('') do |path, memo|
+      # Remove the .csv extension and tempfile prefix, leaving the sheet name
+      sheet_name =
+        File.basename(path, ".csv").
+        gsub("#{File.basename(tempfile.path)}-", '')
+
+      content =
+        File.read(path, encoding: "UTF-8", invalid: :replace, undef: :replace)
+
+      memo << "=== #{sheet_name} ===\n\n#{content}\n"
+    end.chomp
   end
 
   def get_attachment_text_from_zip_file(zip_file)
