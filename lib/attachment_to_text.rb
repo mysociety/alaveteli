@@ -78,8 +78,7 @@ class AttachmentToText
       elsif EXCEL_DOCS.include?(content_type)
         text = extract_ms_excel(tempfile)
       elsif content_type == 'application/rtf'
-        # catdoc on RTF prodcues less comments and extra bumf than --text option to unrtf
-        AlaveteliExternalCommand.run("catdoc", tempfile.path, default_params)
+        text = extract_rtf(tempfile)
       elsif content_type == 'text/html'
         # lynx wordwraps links in its output, which then don't
         # get formatted properly by Alaveteli. We use elinks
@@ -106,6 +105,10 @@ class AttachmentToText
     end
 
     text
+  end
+
+  def extract_rtf(tempfile)
+    extract_ms_word(tempfile)
   end
 
   def extract_ms_word(tempfile)
