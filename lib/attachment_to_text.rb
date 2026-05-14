@@ -59,18 +59,17 @@ class AttachmentToText
   def get_attachment_text_one_file(content_type, body, charset = 'utf-8')
     # NOTE: re. charset: TMail always tries to convert email bodies
     # to UTF8 by default, so normally it should already be that.
-    text = ''
     # TODO: - tell all these command line tools to return utf-8
+    text = ''
+
     if content_type == 'text/plain'
       text += body + "\n\n"
     else
       tempfile = Tempfile.new('foiextract')
       tempfile.binmode
-      tempfile.print body
+      tempfile.print(body)
       tempfile.flush
-      default_params = { append_to: text,
-                         binary_output: false,
-                         timeout: 1200 }
+
       if WORD_DOCS.include?(content_type)
         text = extract_ms_word(tempfile)
       elsif POWERPOINT_DOCS.include?(content_type)
@@ -80,35 +79,48 @@ class AttachmentToText
       elsif content_type == 'application/rtf'
         text = extract_rtf(tempfile)
       elsif content_type == 'text/html'
-        # lynx wordwraps links in its output, which then don't
-        # get formatted properly by Alaveteli. We use elinks
-        # instead, which doesn't do that.
-        AlaveteliExternalCommand.run("elinks", "-eval", "set document.codepage.assume = \"#{charset}\"",
-                                     "-eval", "set document.codepage.force_assumed = 1",
-                                     "-dump-charset", "utf-8",
-                                     "-force-html", "-dump",
-                                     tempfile.path,
-                                     default_params.merge(env: { "LANG" => "C" }))
+        text = extract_html(tempfile)
       elsif content_type == 'application/pdf'
-        AlaveteliExternalCommand.run("pdftotext", tempfile.path, "-", default_params)
+        text = extract_pdf(tempfile)
       elsif content_type == 'application/zip'
-        # recurse into zip files
-        begin
-          zip_file = Zip::File.open(tempfile.path)
-          text += get_attachment_text_from_zip_file(zip_file)
-          zip_file.close
-        rescue
-          $stderr.puts("Error processing zip file: #{$ERROR_INFO.inspect}")
-        end
+        text = extract_zip(tempfile)
       end
+
       tempfile.close
     end
 
     text
   end
 
+  def extract_html(tempfile, charset: 'utf-8')
+    # lynx wordwraps links in its output, which then don't
+    # get formatted properly by Alaveteli. We use elinks
+    # instead, which doesn't do that.
+    AlaveteliExternalCommand.run(
+      'elinks',
+      '-eval', "set document.codepage.assume = \"#{charset}\"",
+      '-eval', 'set document.codepage.force_assumed = 1',
+      '-dump-charset', 'utf-8',
+      '-force-html', '-dump',
+      tempfile.path,
+      binary_output: false,
+      timeout: 1200,
+      env: { 'LANG' => 'C' }
+    )
+  end
+
   def extract_rtf(tempfile)
     extract_ms_word(tempfile)
+  end
+
+  def extract_pdf(tempfile)
+    AlaveteliExternalCommand.run(
+      'pdftotext',
+      tempfile.path,
+      '-',
+      binary_output: false,
+      timeout: 1200,
+    )
   end
 
   def extract_ms_word(tempfile)
@@ -189,6 +201,21 @@ class AttachmentToText
 
       memo << "=== #{sheet_name} ===\n\n#{content}\n"
     end.chomp
+  end
+
+  def extract_zip(tempfile)
+    text = ''
+
+    # recurse into zip files
+    begin
+      zip_file = Zip::File.open(tempfile.path)
+      text += get_attachment_text_from_zip_file(zip_file)
+      zip_file.close
+    rescue
+      $stderr.puts("Error processing zip file: #{$ERROR_INFO.inspect}")
+    end
+
+    text
   end
 
   def get_attachment_text_from_zip_file(zip_file)
