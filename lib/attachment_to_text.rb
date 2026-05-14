@@ -62,6 +62,7 @@ class AttachmentToText
     when *POWERPOINT_DOCS  then extract_ms_powerpoint(body)
     when 'application/rtf' then extract_rtf(body)
     when 'application/zip' then extract_zip(body)
+    when /\Atext\//        then extract_plain(body)
     else ''
     end
   end

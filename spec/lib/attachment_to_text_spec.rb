@@ -101,16 +101,13 @@ RSpec.describe AttachmentToText do
       end
     end
 
-    # TODO: Add factory
-    context 'zip' do
-    end
-
-    # Unhandled but desirable
-    # --------------------------------------------------------------------------
-
     context 'csv' do
       let(:attachment) { FactoryBot.create(:csv_attachment) }
-      it { is_expected.to be_empty }
+      it { is_expected.to match(/foo/) }
+    end
+
+    # TODO: Add factory
+    context 'zip' do
     end
 
     # Unhandled and unlikely to be
