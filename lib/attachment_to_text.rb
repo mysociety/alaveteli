@@ -54,24 +54,16 @@ class AttachmentToText
     # NOTE: re. charset: TMail always tries to convert email bodies
     # to UTF8 by default, so normally it should already be that.
     # TODO: - tell all these command line tools to return utf-8
-    if WORD_DOCS.include?(content_type)
-      extract_ms_word(body)
-    elsif POWERPOINT_DOCS.include?(content_type)
-      extract_ms_powerpoint(body)
-    elsif EXCEL_DOCS.include?(content_type)
-      extract_ms_excel(body)
-    elsif content_type == 'application/rtf'
-      extract_rtf(body)
-    elsif content_type == 'text/plain'
-      extract_plain(body)
-    elsif content_type == 'text/html'
-      extract_html(body)
-    elsif content_type == 'application/pdf'
-      extract_pdf(body)
-    elsif content_type == 'application/zip'
-      extract_zip(body)
-    else
-      ''
+    case content_type
+    when 'text/plain'      then extract_plain(body)
+    when 'text/html'       then extract_html(body)
+    when 'application/pdf' then extract_pdf(body)
+    when *WORD_DOCS        then extract_ms_word(body)
+    when *EXCEL_DOCS       then extract_ms_excel(body)
+    when *POWERPOINT_DOCS  then extract_ms_powerpoint(body)
+    when 'application/rtf' then extract_rtf(body)
+    when 'application/zip' then extract_zip(body)
+    else ''
     end
   end
 
