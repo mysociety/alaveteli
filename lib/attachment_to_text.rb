@@ -123,40 +123,36 @@ class AttachmentToText
 
   def extract_ms_word(body)
     with_tempfile(body) do |file|
-      Dir.mktmpdir do |dir|
-        Dir.chdir(dir) do
-          AlaveteliExternalCommand.run(
-            'libreoffice', '--headless',
-            '--convert-to', 'txt:Text (encoded):UTF8',
-            file.path,
-            binary_output: false,
-            timeout: 1200
-          )
+      in_tempdir do
+        AlaveteliExternalCommand.run(
+          'libreoffice', '--headless',
+          '--convert-to', 'txt:Text (encoded):UTF8',
+          file.path,
+          binary_output: false,
+          timeout: 1200
+        )
 
-          File.read("#{ File.basename(file.path) }.txt")
-        end
+        File.read("#{ File.basename(file.path) }.txt")
       end
     end
   end
 
   def extract_ms_powerpoint(body)
     with_tempfile(body) do |file|
-      Dir.mktmpdir do |dir|
-        Dir.chdir(dir) do
-          AlaveteliExternalCommand.run(
-            'libreoffice', '--headless',
-            '--convert-to', 'pdf',
-            file.path,
-            binary_output: false,
-            timeout: 1200
-          )
+      in_tempdir do
+        AlaveteliExternalCommand.run(
+          'libreoffice', '--headless',
+          '--convert-to', 'pdf',
+          file.path,
+          binary_output: false,
+          timeout: 1200
+        )
 
-          pdf = "#{ File.basename(file.path) }.pdf"
+        pdf = "#{ File.basename(file.path) }.pdf"
 
-          AlaveteliExternalCommand.run(
-            'pdftotext', pdf, '-', binary_output: false, timeout: 1200
-          )
-        end
+        AlaveteliExternalCommand.run(
+          'pdftotext', pdf, '-', binary_output: false, timeout: 1200
+        )
       end
     end
   end
@@ -177,18 +173,16 @@ class AttachmentToText
     csv_filters = '(StarCalc):44,34,76,1,,0,false,true,false,false,,-1'
 
     with_tempfile(body) do |file|
-      Dir.mktmpdir do |dir|
-        Dir.chdir(dir) do
-          AlaveteliExternalCommand.run(
-            'libreoffice', '--headless',
-            '--convert-to', "csv:Text - txt - csv #{csv_filters}",
-            file.path,
-            binary_output: false,
-            timeout: 1200
-          )
+      in_tempdir do
+        AlaveteliExternalCommand.run(
+          'libreoffice', '--headless',
+          '--convert-to', "csv:Text - txt - csv #{csv_filters}",
+          file.path,
+          binary_output: false,
+          timeout: 1200
+        )
 
-          combine_csv_files_with_sheet_names(file)
-        end
+        combine_csv_files_with_sheet_names(file)
       end
     end
   end
@@ -250,6 +244,14 @@ class AttachmentToText
       end
     end
     text
+  end
+
+  def in_tempdir
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        yield
+      end
+    end
   end
 
   def with_tempfile(body)
