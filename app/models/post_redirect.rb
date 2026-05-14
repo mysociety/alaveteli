@@ -45,9 +45,9 @@ class PostRedirect < ApplicationRecord
     Rails.application.message_verifier(to_s)
   end
 
-  def self.generate_verifiable_token(user:, circumstance:)
+  def self.generate_verifiable_token(user:, circumstance:, nonce:)
     verifier.generate(
-      { user_id: user.id, login_token: user.login_token },
+      { user_id: user.id, login_token: user.login_token, nonce: nonce },
       purpose: circumstance
     )
   end
@@ -126,7 +126,7 @@ class PostRedirect < ApplicationRecord
     end
 
     self.email_token ||= PostRedirect.generate_verifiable_token(
-      user: user, circumstance: circumstance
+      user: user, circumstance: circumstance, nonce: token
     )
   end
 end
