@@ -299,18 +299,6 @@ RSpec.describe 'when getting header strings' do
   end
 end
 
-# TODO: Move to AttachmentToText
-RSpec.describe "when parsing HTML mail" do
-  it "should display UTF-8 characters in the plain text version correctly" do
-    html = "<html><b>foo</b> është"
-
-    plain_text =
-      AttachmentToText.from_string(html, content_type: 'text/html').to_text
-
-    expect(plain_text).to match(/është/)
-  end
-end
-
 RSpec.describe 'when getting attachment attributes' do
   it 'should handle an Outlook attachment with HTML generated from RTF' do
     mail = get_fixture_mail('outlook-encoding-rtf.eml')
