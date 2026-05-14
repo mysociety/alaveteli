@@ -19,7 +19,18 @@ RSpec.describe AttachmentToText do
 
     context 'html' do
       let(:attachment) { FactoryBot.create(:html_attachment) }
+
       it { is_expected.to match(/dull/) }
+
+      context 'with UTF-8 characters' do
+        let(:attachment) do
+          FactoryBot.create(:html_attachment, body: '<html><b>foo</b> është')
+        end
+
+        it 'retains the UTF-8 characters in the extracted text' do
+          is_expected.to match(/është/)
+        end
+      end
     end
 
     context 'pdf' do
