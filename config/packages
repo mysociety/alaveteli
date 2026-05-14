@@ -3,7 +3,6 @@
 # alavateli mailing list if you want to change it
 build-essential
 bundler
-catdoc
 elinks
 gettext
 ghostscript
