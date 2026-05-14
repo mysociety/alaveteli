@@ -12,12 +12,17 @@ class Users::ConfirmationsController < UserController
     when 'normal', 'change_email'
       if current_user&.stay_logged_in_on_redirect?
         session[:admin_confirmation] = 1
+      elsif current_user && current_user != user
+        @reason_params = { user_name: user.name }
+        render template: 'user/wrong_user'
+        return
       else
         user.confirm!
         sign_in(user)
       end
     end
 
+    post_redirect.update!(email_token: PostRedirect.generate_random_token)
     session[:user_circumstance] = post_redirect.circumstance
     do_post_redirect post_redirect, user
   end
