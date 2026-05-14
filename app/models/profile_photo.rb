@@ -17,7 +17,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 require "mini_magick"
-require "marcel"
 
 class ProfilePhoto < ApplicationRecord
   # deliberately don't strip_attributes, so keeps raw photo properly
@@ -133,7 +132,6 @@ class ProfilePhoto < ApplicationRecord
   def allowed_content_type?
     return false unless data
 
-    content_type = Marcel::MimeType.for(StringIO.new(data))
-    ALLOWED_CONTENT_TYPES.include?(content_type)
+    ALLOWED_CONTENT_TYPES.include?(AlaveteliFileTypes.content_to_mimetype(data))
   end
 end

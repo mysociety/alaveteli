@@ -37,8 +37,8 @@ PATH
   specs:
     excel_analyzer (0.0.1)
       activestorage
-      mahoro
       mail
+      marcel
       rubyXL
       rubyzip
 
@@ -336,7 +336,6 @@ GEM
     loofah (2.25.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    mahoro (0.5)
     mail (2.8.1)
       mini_mime (>= 0.1.1)
       net-imap
@@ -693,8 +692,8 @@ DEPENDENCIES
   json (~> 2.19.4)
   launchy (< 3.2.0)
   locale (~> 2.1.5)
-  mahoro (~> 0.5)
   mail (~> 2.8.1)
+  marcel (~> 1.0)
   matrix (~> 0.4.3)
   maxmind-db (~> 1.4.0)
   mime-types (< 4.0.0)

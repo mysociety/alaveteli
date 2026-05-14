@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Replace Mahoro with Marcel for MIME type detection (Graeme Porteous)
 * Update actions and pages which set "noindex", "nofollow" crawler directives
   (Graeme Porteous)
 * Make confirmation tokens one-time-use (Graeme Porteous)
