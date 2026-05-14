@@ -61,103 +61,102 @@ class AttachmentToText
     # NOTE: re. charset: TMail always tries to convert email bodies
     # to UTF8 by default, so normally it should already be that.
     # TODO: - tell all these command line tools to return utf-8
-    text = ''
-
-    if content_type == 'text/plain'
-      text += body + "\n\n"
+    if WORD_DOCS.include?(content_type)
+      extract_ms_word(body)
+    elsif POWERPOINT_DOCS.include?(content_type)
+      extract_ms_powerpoint(body)
+    elsif EXCEL_DOCS.include?(content_type)
+      extract_ms_excel(body)
+    elsif content_type == 'application/rtf'
+      extract_rtf(body)
+    elsif content_type == 'text/plain'
+      extract_plain(body)
+    elsif content_type == 'text/html'
+      extract_html(body)
+    elsif content_type == 'application/pdf'
+      extract_pdf(body)
+    elsif content_type == 'application/zip'
+      extract_zip(body)
     else
-      Tempfile.create('foiextract') do |file|
-        file.binmode
-        file.print(body)
-        file.flush
-
-        text =
-          if WORD_DOCS.include?(content_type)
-            extract_ms_word(file)
-          elsif POWERPOINT_DOCS.include?(content_type)
-            extract_ms_powerpoint(file)
-          elsif EXCEL_DOCS.include?(content_type)
-            extract_ms_excel(file)
-          elsif content_type == 'application/rtf'
-            extract_rtf(file)
-          elsif content_type == 'text/html'
-            extract_html(file)
-          elsif content_type == 'application/pdf'
-            extract_pdf(file)
-          elsif content_type == 'application/zip'
-            extract_zip(file)
-          else
-            ''
-          end
-      end
+      ''
     end
-
-    text
   end
 
-  def extract_html(tempfile, charset: 'utf-8')
-    # lynx wordwraps links in its output, which then don't
-    # get formatted properly by Alaveteli. We use elinks
-    # instead, which doesn't do that.
-    AlaveteliExternalCommand.run(
-      'elinks',
-      '-eval', "set document.codepage.assume = \"#{charset}\"",
-      '-eval', 'set document.codepage.force_assumed = 1',
-      '-dump-charset', 'utf-8',
-      '-force-html', '-dump',
-      tempfile.path,
-      binary_output: false,
-      timeout: 1200,
-      env: { 'LANG' => 'C' }
-    )
+  def extract_plain(body)
+    body + "\n\n"
   end
 
-  def extract_rtf(tempfile)
-    extract_ms_word(tempfile)
+  def extract_html(body, charset: 'utf-8')
+    with_tempfile(body) do |file|
+      # lynx wordwraps links in its output, which then don't
+      # get formatted properly by Alaveteli. We use elinks
+      # instead, which doesn't do that.
+      AlaveteliExternalCommand.run(
+        'elinks',
+        '-eval', "set document.codepage.assume = \"#{charset}\"",
+        '-eval', 'set document.codepage.force_assumed = 1',
+        '-dump-charset', 'utf-8',
+        '-force-html', '-dump',
+        file.path,
+        binary_output: false,
+        timeout: 1200,
+        env: { 'LANG' => 'C' }
+      )
+    end
   end
 
-  def extract_pdf(tempfile)
-    AlaveteliExternalCommand.run(
-      'pdftotext',
-      tempfile.path,
-      '-',
-      binary_output: false,
-      timeout: 1200,
-    )
+  def extract_rtf(body)
+    extract_ms_word(body)
   end
 
-  def extract_ms_word(tempfile)
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
-        AlaveteliExternalCommand.run(
-          'libreoffice', '--headless',
-          '--convert-to', 'txt:Text (encoded):UTF8',
-          tempfile.path,
-          binary_output: false,
-          timeout: 1200
-        )
+  def extract_pdf(body)
+    with_tempfile(body) do |file|
+      AlaveteliExternalCommand.run(
+        'pdftotext',
+        file.path,
+        '-',
+        binary_output: false,
+        timeout: 1200,
+      )
+    end
+  end
 
-        File.read("#{ File.basename(tempfile.path) }.txt")
+  def extract_ms_word(body)
+    with_tempfile(body) do |file|
+      Dir.mktmpdir do |dir|
+        Dir.chdir(dir) do
+          AlaveteliExternalCommand.run(
+            'libreoffice', '--headless',
+            '--convert-to', 'txt:Text (encoded):UTF8',
+            file.path,
+            binary_output: false,
+            timeout: 1200
+          )
+
+          File.read("#{ File.basename(file.path) }.txt")
+        end
       end
     end
   end
 
-  def extract_ms_powerpoint(tempfile)
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
-        AlaveteliExternalCommand.run(
-          'libreoffice', '--headless',
-          '--convert-to', 'pdf',
-          tempfile.path,
-          binary_output: false,
-          timeout: 1200
-        )
+  def extract_ms_powerpoint(body)
+    with_tempfile(body) do |file|
+      Dir.mktmpdir do |dir|
+        Dir.chdir(dir) do
+          AlaveteliExternalCommand.run(
+            'libreoffice', '--headless',
+            '--convert-to', 'pdf',
+            file.path,
+            binary_output: false,
+            timeout: 1200
+          )
 
-        pdf = "#{ File.basename(tempfile.path) }.pdf"
+          pdf = "#{ File.basename(file.path) }.pdf"
 
-        AlaveteliExternalCommand.run(
-          'pdftotext', pdf, '-', binary_output: false, timeout: 1200
-        )
+          AlaveteliExternalCommand.run(
+            'pdftotext', pdf, '-', binary_output: false, timeout: 1200
+          )
+        end
       end
     end
   end
@@ -174,20 +173,22 @@ class AttachmentToText
   # false = do not export formulas; export values.
   # empty token 11 = unused here; token 11 is only for CSV import ("remove spaces").
   # -1 in token 12 = export all sheets to separate files like sample-Sheet1.csv, sample-Sheet2.csv.
-  def extract_ms_excel(tempfile)
+  def extract_ms_excel(body)
     csv_filters = '(StarCalc):44,34,76,1,,0,false,true,false,false,,-1'
 
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
-        AlaveteliExternalCommand.run(
-          'libreoffice', '--headless',
-          '--convert-to', "csv:Text - txt - csv #{csv_filters}",
-          tempfile.path,
-          binary_output: false,
-          timeout: 1200
-        )
+    with_tempfile(body) do |file|
+      Dir.mktmpdir do |dir|
+        Dir.chdir(dir) do
+          AlaveteliExternalCommand.run(
+            'libreoffice', '--headless',
+            '--convert-to', "csv:Text - txt - csv #{csv_filters}",
+            file.path,
+            binary_output: false,
+            timeout: 1200
+          )
 
-        combine_csv_files_with_sheet_names(tempfile)
+          combine_csv_files_with_sheet_names(file)
+        end
       end
     end
   end
@@ -206,14 +207,16 @@ class AttachmentToText
     end.chomp
   end
 
-  def extract_zip(tempfile)
+  def extract_zip(body)
     text = ''
 
     # recurse into zip files
     begin
-      zip_file = Zip::File.open(tempfile.path)
-      text += get_attachment_text_from_zip_file(zip_file)
-      zip_file.close
+      with_tempfile(body) do |file|
+        zip_file = Zip::File.open(file.path)
+        text += get_attachment_text_from_zip_file(zip_file)
+        zip_file.close
+      end
     rescue
       $stderr.puts("Error processing zip file: #{$ERROR_INFO.inspect}")
     end
@@ -247,5 +250,14 @@ class AttachmentToText
       end
     end
     text
+  end
+
+  def with_tempfile(body)
+    Tempfile.create('foiextract') do |file|
+      file.binmode
+      file.print(body)
+      file.flush
+      yield file
+    end
   end
 end
