@@ -61,10 +61,44 @@ RSpec.describe AttachmentToText do
       it { is_expected.to match(/hereisthetext/) }
     end
 
-    # FIXME: Does not extract text from example file
     context 'xls' do
       let(:attachment) { FactoryBot.create(:xls_attachment) }
-      xit { is_expected.to match(/foo/) }
+
+      it 'includes the first sheet name' do
+        is_expected.to match(/Sheet1/)
+      end
+
+      it 'includes the first sheet contents' do
+        is_expected.to match(/foo/)
+      end
+
+      it 'includes subsequent sheet names' do
+        is_expected.to match(/Sheet2/)
+      end
+
+      it 'includes subsequent sheet contents' do
+        is_expected.to match(/baz/)
+      end
+    end
+
+    context 'xlsx' do
+      let(:attachment) { FactoryBot.create(:xlsx_attachment) }
+
+      it 'includes the first sheet name' do
+        is_expected.to match(/Sheet1/)
+      end
+
+      it 'includes the first sheet contents' do
+        is_expected.to match(/foo/)
+      end
+
+      it 'includes subsequent sheet names' do
+        is_expected.to match(/Sheet2/)
+      end
+
+      it 'includes subsequent sheet contents' do
+        is_expected.to match(/baz/)
+      end
     end
 
     # TODO: Add factory
@@ -77,11 +111,6 @@ RSpec.describe AttachmentToText do
     context 'csv' do
       let(:attachment) { FactoryBot.create(:csv_attachment) }
       it { is_expected.to be_empty }
-    end
-
-    context 'xlsx' do
-      let(:attachment) { FactoryBot.create(:xlsx_attachment) }
-      xit { is_expected.to match(/foo/) }
     end
 
     # Unhandled and unlikely to be
