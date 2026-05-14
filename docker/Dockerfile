@@ -18,8 +18,7 @@ RUN apt-get update -y && \
     sendmail \
     tnef \
     unrtf \
-    mutt \
-    wv
+    mutt
 
 # Wait-for-it
 RUN git clone https://github.com/vishnubob/wait-for-it.git /tmp/wait-for-it && \
