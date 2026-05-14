@@ -76,5 +76,5 @@
 </div>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag 'select-authorities.js' %>
+  <%= javascript_include_tag 'select-authorities.js', nonce: true %>
 <% end %>

@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add Content Security Policy with nonce-based script protection (Graeme
+  Porteous)
 * Fix missing batch sent flash message after creating a batch (Graeme Porteous)
 * Replace Mahoro with Marcel for MIME type detection (Graeme Porteous)
 * Update actions and pages which set "noindex", "nofollow" crawler directives
@@ -71,6 +73,19 @@
       AtiNetworkController.showcase_enabled = false
     end
 
+* **Note:** A Content Security Policy (CSP) has been enabled with nonce-based
+  script protection. If your theme includes any inline `<script>` tags, replace
+  them with Rails helpers that include `nonce: true`:
+
+  For inline scripts, use `javascript_tag` with `nonce: true`:
+
+      <%= javascript_tag nonce: true do %>
+        // your JavaScript here
+      <% end %>
+
+  For external scripts, use `javascript_include_tag` with `nonce: true`:
+
+      <%= javascript_include_tag "https://example.com/script.js", nonce: true %>
 * _Optional:_ Text masks can now be customised to allow fine tuning of the
   default redactions that Alaveteli applies. Here are some examples of how to
   add, remove or change masks using the new API.

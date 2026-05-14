@@ -1,5 +1,5 @@
 <% content_for :javascript  do %>
-  <script type="text/javascript">
+  <%= javascript_tag nonce: true do %>
   $(function() {
     $(".use-datepicker").datepicker(
       { closeText: '<%= j _("Done") %>',
@@ -15,5 +15,5 @@
         dateFormat: '<%= I18n.translate('date.formats.default').sub("%Y", "yy").sub("%m", "mm").sub("%d", "dd").gsub("-", "/") %>' }
     );
   });
-  </script>
+  <% end %>
 <% end %>
