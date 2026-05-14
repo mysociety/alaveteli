@@ -19,8 +19,7 @@ class AttachmentToText
   def self.from_part(part, text)
     interface = OpenStruct.new(
       content_type: part.content_type,
-      default_body: text,
-      charset: 'UTF-8'
+      default_body: text
     )
 
     new(interface)
@@ -30,8 +29,7 @@ class AttachmentToText
   def self.from_string(str, content_type: 'text/plain')
     interface = OpenStruct.new(
       content_type: content_type,
-      default_body: str,
-      charset: 'UTF-8'
+      default_body: str
     )
 
     new(interface)
@@ -42,12 +40,7 @@ class AttachmentToText
   end
 
   def to_text
-    text = get_attachment_text_one_file(
-      attachment.content_type,
-      attachment.default_body,
-      attachment.charset
-    )
-
+    text = extract_text(attachment.default_body, attachment.content_type)
     convert_string_to_utf8(text, 'UTF-8').string
   end
 
@@ -57,7 +50,7 @@ class AttachmentToText
 
   private
 
-  def get_attachment_text_one_file(content_type, body, charset = 'utf-8')
+  def extract_text(body, content_type)
     # NOTE: re. charset: TMail always tries to convert email bodies
     # to UTF8 by default, so normally it should already be that.
     # TODO: - tell all these command line tools to return utf-8
@@ -208,7 +201,7 @@ class AttachmentToText
     begin
       with_tempfile(body) do |file|
         zip_file = Zip::File.open(file.path)
-        text += get_attachment_text_from_zip_file(zip_file)
+        text += extract_zip_file(zip_file)
         zip_file.close
       end
     rescue
@@ -218,7 +211,7 @@ class AttachmentToText
     text
   end
 
-  def get_attachment_text_from_zip_file(zip_file)
+  def extract_zip_file(zip_file)
     text = ""
     zip_file.each do |entry|
       if entry.file?
@@ -240,7 +233,7 @@ class AttachmentToText
         if content_type == 'text/plain' && body.encoding.to_s == 'ASCII-8BIT'
           body = convert_string_to_utf8(body, 'ASCII-8BIT').string
         end
-        text += get_attachment_text_one_file(content_type, body)
+        text += extract_text(body, content_type)
       end
     end
     text
