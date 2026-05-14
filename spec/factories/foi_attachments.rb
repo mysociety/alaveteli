@@ -147,5 +147,11 @@ FactoryBot.define do
       filename { 'interesting.xlsx' }
       body { load_file_fixture('interesting.xlsx') }
     end
+
+    factory :zip_attachment do
+      content_type { 'application/zip' }
+      filename { 'example.zip' }
+      body { load_file_fixture('example.zip') }
+    end
   end
 end

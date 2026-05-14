@@ -311,32 +311,6 @@ RSpec.describe "when parsing HTML mail" do
   end
 end
 
-# TODO: Move to AttachmentToText
-RSpec.describe "when getting the attachment text" do
-  it "should not raise an error if the expansion of a zip file raises an error" do
-    mock_entry = double('Zip::File entry', file?: true)
-    mock_entries = [mock_entry]
-    allow(mock_entries).to receive(:close)
-    allow(mock_entry).to receive(:get_input_stream).and_raise("invalid distance too far back")
-    allow(Zip::File).to receive(:open).and_return(mock_entries)
-
-    AttachmentToText.
-      from_string('some string', content_type: 'application/zip').
-      to_text
-  end
-
-  it 'extracts plain text as UTF-8 from a zip file' do
-    zip_contents = load_file_fixture('example.zip')
-
-    text = AttachmentToText.from_string(
-      zip_contents,
-      content_type: 'application/zip'
-    ).to_text
-
-    expect(text.encoding.to_s).to eq('UTF-8')
-  end
-end
-
 RSpec.describe 'when getting attachment attributes' do
   it 'should handle an Outlook attachment with HTML generated from RTF' do
     mail = get_fixture_mail('outlook-encoding-rtf.eml')

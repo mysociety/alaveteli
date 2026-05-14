@@ -107,8 +107,27 @@ RSpec.describe AttachmentToText do
       it { is_expected.to match(/maçã/) }
     end
 
-    # TODO: Add factory
     context 'zip' do
+      let(:attachment) { FactoryBot.create(:zip_attachment) }
+
+      it { is_expected.to match(/Contravention/) }
+
+      context 'when the expansion of the zip raises an error' do
+        before do
+          mock_entry = double('Zip::File entry', file?: true)
+
+          allow(mock_entry).
+            to receive(:get_input_stream).
+            and_raise('invalid distance too far back')
+
+          mock_entries = [mock_entry]
+          allow(mock_entries).to receive(:close)
+
+          allow(Zip::File).to receive(:open).and_return(mock_entries)
+        end
+
+        it { is_expected.to be_empty }
+      end
     end
 
     # Unhandled and unlikely to be
