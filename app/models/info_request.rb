@@ -213,7 +213,13 @@ class InfoRequest < ApplicationRecord
 
   searchable index: {
                "title": "A",
+               "url_title": "B",
                "prominence_reason": "D"
+             },
+             admin_index: {
+               "external_user_name": "A",
+               "external_url": "A",
+               "prominence_reason": "A"
              },
              filterable: [],
              sortable: []
