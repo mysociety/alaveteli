@@ -65,28 +65,27 @@ class AttachmentToText
     if content_type == 'text/plain'
       text += body + "\n\n"
     else
-      tempfile = Tempfile.new('foiextract')
-      tempfile.binmode
-      tempfile.print(body)
-      tempfile.flush
+      Tempfile.create('foiextract') do |file|
+        file.binmode
+        file.print(body)
+        file.flush
 
-      if WORD_DOCS.include?(content_type)
-        text = extract_ms_word(tempfile)
-      elsif POWERPOINT_DOCS.include?(content_type)
-        text = extract_ms_powerpoint(tempfile)
-      elsif EXCEL_DOCS.include?(content_type)
-        text = extract_ms_excel(tempfile)
-      elsif content_type == 'application/rtf'
-        text = extract_rtf(tempfile)
-      elsif content_type == 'text/html'
-        text = extract_html(tempfile)
-      elsif content_type == 'application/pdf'
-        text = extract_pdf(tempfile)
-      elsif content_type == 'application/zip'
-        text = extract_zip(tempfile)
+        if WORD_DOCS.include?(content_type)
+          text = extract_ms_word(file)
+        elsif POWERPOINT_DOCS.include?(content_type)
+          text = extract_ms_powerpoint(file)
+        elsif EXCEL_DOCS.include?(content_type)
+          text = extract_ms_excel(file)
+        elsif content_type == 'application/rtf'
+          text = extract_rtf(file)
+        elsif content_type == 'text/html'
+          text = extract_html(file)
+        elsif content_type == 'application/pdf'
+          text = extract_pdf(file)
+        elsif content_type == 'application/zip'
+          text = extract_zip(file)
+        end
       end
-
-      tempfile.close
     end
 
     text
