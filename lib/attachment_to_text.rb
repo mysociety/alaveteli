@@ -164,9 +164,9 @@ class AttachmentToText
   # 0 = default/UI language.
   # false = quoted fields are not forced to text.
   # true = export number cells as numbers.
-  # false = do not use “save cell contents as shown”; export underlying values instead.
+  # false = do not use "save cell contents as shown"; export underlying values instead.
   # false = do not export formulas; export values.
-  # empty token 11 = unused here; token 11 is only for CSV import (“remove spaces”).
+  # empty token 11 = unused here; token 11 is only for CSV import ("remove spaces").
   # -1 in token 12 = export all sheets to separate files like sample-Sheet1.csv, sample-Sheet2.csv.
   def extract_ms_excel(body)
     csv_filters = '(StarCalc):44,34,76,1,,0,false,true,false,false,,-1'
