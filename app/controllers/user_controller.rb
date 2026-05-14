@@ -22,7 +22,8 @@ class UserController < ApplicationController
   before_action :set_request_from_foreign_country, only: [ :signup ]
   before_action :set_in_pro_area, only: [ :signup ]
   before_action :set_display_user, only: [ :show, :wall, :get_profile_photo ]
-  before_action :set_no_crawl, only: [ :show, :wall ]
+  before_action :set_no_crawl_headers, only: [ :wall ]
+  before_action :set_no_crawl_headers_if_suspended, only: [ :show ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
   # anyway as there shouldn't be a user_id in the session when the before
@@ -449,8 +450,8 @@ class UserController < ApplicationController
     @in_pro_area = true if @post_redirect && @post_redirect.reason_params[:pro]
   end
 
-  def set_no_crawl
-    @no_crawl = true unless @display_user&.active?
+  def set_no_crawl_headers_if_suspended
+    set_no_crawl_headers if @display_user&.suspended?
   end
 
   def normalize_url_name
