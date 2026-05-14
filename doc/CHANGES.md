@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix missing batch sent flash message after creating a batch (Graeme Porteous)
 * Replace Mahoro with Marcel for MIME type detection (Graeme Porteous)
 * Update actions and pages which set "noindex", "nofollow" crawler directives
   (Graeme Porteous)

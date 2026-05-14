@@ -238,6 +238,13 @@ RSpec.describe AlaveteliPro::InfoRequestBatchesController do
         end
       end
 
+      it "sets batch_sent flash" do
+        with_feature_enabled(:alaveteli_pro) do
+          action
+          expect(flash[:batch_sent]).to eq(true)
+        end
+      end
+
       it "redirects to show the batch" do
         with_feature_enabled(:alaveteli_pro) do
           action
