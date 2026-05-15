@@ -13,6 +13,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  regexp            :boolean          default(FALSE), not null
+#  case_sensitive    :boolean          default(TRUE), not null
 #
 
 require 'spec_helper'
@@ -78,6 +79,36 @@ RSpec.describe CensorRule do
       Hidden private info
       --REMOVED
       EOF
+    end
+
+    context 'when case_sensitive is false with a non-regexp rule' do
+      let(:rule) do
+        FactoryBot.build(:censor_rule, :case_insensitive, text: 'Secret')
+      end
+
+      it 'applies to text regardless of case' do
+        expect(rule.apply_to_text('SECRET text')).to eq('[REDACTED] text')
+        expect(rule.apply_to_text('secret text')).to eq('[REDACTED] text')
+      end
+
+      it 'escapes regexp metacharacters in text' do
+        rule.text = 'foo.bar'
+        expect(rule.apply_to_text('fooXbar')).to eq('fooXbar')
+        expect(rule.apply_to_text('foo.bar')).to eq('[REDACTED]')
+      end
+    end
+
+    context 'when case_sensitive is false with regexp rule' do
+      let(:rule) do
+        FactoryBot.build(
+          :censor_rule, :case_insensitive, regexp: true, text: 'sec+ret'
+        )
+      end
+
+      it 'applies to text regardless of case' do
+        expect(rule.apply_to_text('SECRET text')).to eq('[REDACTED] text')
+        expect(rule.apply_to_text('secret text')).to eq('[REDACTED] text')
+      end
     end
   end
 
@@ -171,6 +202,36 @@ RSpec.describe CensorRule do
       xxxxxxxxxxxxxxxxxxxxxxxx
       xxxxxxxxxxxx
       EOF
+    end
+
+    context 'when case_sensitive is false with a non-regexp rule' do
+      let(:rule) do
+        FactoryBot.build(:censor_rule, :case_insensitive, text: 'Secret')
+      end
+
+      it 'applies to binary regardless of case' do
+        expect(rule.apply_to_binary('SECRET text')).to eq('xxxxxx text')
+        expect(rule.apply_to_binary('secret text')).to eq('xxxxxx text')
+      end
+
+      it 'escapes regexp metacharacters in binary' do
+        rule.text = 'foo.bar'
+        expect(rule.apply_to_binary('fooXbar')).to eq('fooXbar')
+        expect(rule.apply_to_binary('foo.bar')).to eq('xxxxxxx')
+      end
+    end
+
+    context 'when case_sensitive is false with a regexp rule' do
+      let(:rule) do
+        FactoryBot.build(
+          :censor_rule, :case_insensitive, regexp: true, text: 'sec+ret'
+        )
+      end
+
+      it 'applies to binary regardless of case' do
+        expect(rule.apply_to_binary('SECRET text')).to eq('xxxxxx text')
+        expect(rule.apply_to_binary('secret text')).to eq('xxxxxx text')
+      end
     end
   end
 

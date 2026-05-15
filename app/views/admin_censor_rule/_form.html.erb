@@ -14,12 +14,21 @@
   </div>
 </div>
 
+<% if feature_enabled?(:censor_rule_case_sensitive) %>
+<div class="control-group">
+  <label for="censor_rule_case_sensitive" class="control-label">Case sensitive?</label>
+  <div class="controls">
+    <%= check_box 'censor_rule', 'case_sensitive' %>
+  </div>
+</div>
+<% end %>
+
 <div class="control-group">
   <label for="censor_rule_text" class="control-label">Text</label>
   <div class="controls">
     <%= text_field 'censor_rule', 'text', class: 'span6' %>
     <div class="help-block">
-      that you want to remove, case sensitive
+      that you want to remove, case sensitive by default
     </div>
   </div>
 </div>

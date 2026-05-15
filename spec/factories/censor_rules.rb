@@ -13,6 +13,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  regexp            :boolean          default(FALSE), not null
+#  case_sensitive    :boolean          default(TRUE), not null
 #
 
 FactoryBot.define do
@@ -40,6 +41,10 @@ FactoryBot.define do
     end
 
     factory :global_censor_rule do
+    end
+
+    trait :case_insensitive do
+      case_sensitive { false }
     end
   end
 end
