@@ -123,6 +123,9 @@
 
     bin/rails runner "AlaveteliFeatures.backend.enable(:censor_rule_ignore_diacritics)"
 
+* **Note:** `FACEBOOK_USERNAME` and `TWITTER_USERNAME` configuration values are
+  deprecated and will be removed after this release.
+
 ### Changed Templates
 
 The following templates have been changed. Please use `script/reconcile-theme`
