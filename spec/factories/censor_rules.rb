@@ -14,6 +14,7 @@
 #  updated_at        :datetime         not null
 #  regexp            :boolean          default(FALSE), not null
 #  case_sensitive    :boolean          default(TRUE), not null
+#  ignore_diacritics :boolean          default(FALSE), not null
 #
 
 FactoryBot.define do
@@ -45,6 +46,10 @@ FactoryBot.define do
 
     trait :case_insensitive do
       case_sensitive { false }
+    end
+
+    trait :ignore_diacritics do
+      ignore_diacritics { true }
     end
   end
 end

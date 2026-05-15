@@ -23,6 +23,18 @@
 </div>
 <% end %>
 
+<% if feature_enabled?(:censor_rule_ignore_diacritics) %>
+<div class="control-group">
+  <label for="censor_rule_ignore_diacritics" class="control-label">Ignore diacritics?</label>
+  <div class="controls">
+    <%= check_box 'censor_rule', 'ignore_diacritics' %>
+    <div class="help-block">
+      Automatically matches accented variants, e.g. "ecole" will also match "école"
+    </div>
+  </div>
+</div>
+<% end %>
+
 <div class="control-group">
   <label for="censor_rule_text" class="control-label">Text</label>
   <div class="controls">

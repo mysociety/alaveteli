@@ -14,6 +14,7 @@
 #  updated_at        :datetime         not null
 #  regexp            :boolean          default(FALSE), not null
 #  case_sensitive    :boolean          default(TRUE), not null
+#  ignore_diacritics :boolean          default(FALSE), not null
 #
 
 # models/censor_rule.rb:
@@ -41,7 +42,11 @@ class CensorRule < ApplicationRecord
              inverse_of: :censor_rules,
              optional: true
 
-  validate :require_valid_regexp, if: -> { regexp? || !case_sensitive? }
+  validate :require_valid_regexp,
+           if: -> { regexp? || !case_sensitive? || ignore_diacritics? }
+
+  validate :regexp_ignore_diacritics,
+           if: -> { regexp? && ignore_diacritics? }
 
   validates_presence_of :text,
                         :replacement,
@@ -122,7 +127,7 @@ class CensorRule < ApplicationRecord
   end
 
   def to_replace(encoding)
-    if regexp? || !case_sensitive?
+    if regexp? || !case_sensitive? || ignore_diacritics?
       make_regexp(encoding)
     else
       encoded_text(encoding)
@@ -134,8 +139,14 @@ class CensorRule < ApplicationRecord
   end
 
   def make_regexp(encoding)
-    pattern = encoded_text(encoding)
-    pattern = Regexp.escape(pattern) unless regexp?
+    pattern =
+      if ignore_diacritics?
+        diacritic_expander.expand(encoded_text(encoding))
+      else
+        encoded_text(encoding)
+      end
+
+    pattern = Regexp.escape(pattern) unless regexp? || ignore_diacritics?
 
     ::Warning.with_raised_warnings do
       Regexp.new(pattern, regexp_options)
@@ -149,5 +160,14 @@ class CensorRule < ApplicationRecord
     options |= Regexp::IGNORECASE unless case_sensitive?
     options |= Regexp::MULTILINE if regexp?
     options
+  end
+
+  def diacritic_expander
+    DiacriticExpander.new(case_sensitive: case_sensitive?)
+  end
+
+  def regexp_ignore_diacritics
+    msg = 'Cannot use regexp and ignore diacritics option together'
+    errors.add(:text, msg)
   end
 end
