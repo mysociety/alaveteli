@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Ensure only readable requests can be added to a Project (Gareth Rees)
 * Remove "Previously known as" from profile pages due to performance issues
   (Gareth Rees)
 * Only allow Citations to be added for external URLs (Gareth Rees)
