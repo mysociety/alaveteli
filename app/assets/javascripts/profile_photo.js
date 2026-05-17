@@ -28,9 +28,11 @@
       bounds = jcrop_api.getBounds();
       boundx = bounds[0];
       boundy = bounds[1];
+      // Has to live inside the init callback - jcrop_api isn't set yet
+      // outside it, and calling setSelect on undefined was killing the
+      // default crop box (#9196).
+      jcrop_api.setSelect([ l, t, initial, initial ]);
     });
-
-    jcrop_api.setSelect([ l, t, initial, initial ]);
 
     function showPreview(coords)
     {
