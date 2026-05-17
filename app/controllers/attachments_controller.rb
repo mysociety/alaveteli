@@ -47,7 +47,7 @@ class AttachmentsController < ApplicationController
       }
     )
 
-    html = @incoming_message.apply_masks(html, response.media_type)
+    html = mask_text_nodes(html, response.media_type)
 
     render html: html.html_safe
   end
@@ -181,6 +181,20 @@ class AttachmentsController < ApplicationController
     # when cached in cache_attachments above
     AlaveteliFileTypes.filename_to_mimetype(params[:file_name]) ||
       'application/octet-stream'
+  end
+
+  # Apply censor / email masks to the user-visible text in the rendered
+  # attachment HTML but not to attribute values like href and src, so the
+  # download link and the PDF viewer iframe URL don't get rewritten and 404
+  # (see #9139).
+  def mask_text_nodes(html, content_type)
+    doc = Nokogiri::HTML.parse(html)
+    doc.traverse do |node|
+      next unless node.text? && node.content.present?
+
+      node.content = @incoming_message.apply_masks(node.content, content_type)
+    end
+    doc.to_html
   end
 
   def attachment_is_public?
