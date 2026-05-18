@@ -29,6 +29,7 @@
     </p>
 
     <%= render 'code_form',
+                model: @enrolment,
                 form_url: one_time_password_path,
                 submit_label: _('Enable two factor authentication') %>
   </li>
