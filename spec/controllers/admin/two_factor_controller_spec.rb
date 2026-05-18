@@ -4,9 +4,9 @@ RSpec.describe Admin::TwoFactorController do
   before(:each) { basic_auth_login(@request) }
 
   describe 'GET #show' do
-    let!(:hotp_user)  { FactoryBot.create(:user, :enable_otp) }
+    let!(:hotp_user)  { FactoryBot.create(:user, :enable_hotp) }
     let!(:totp_user)  { FactoryBot.create(:user, :enable_totp) }
-    let!(:hotp_admin) { FactoryBot.create(:admin_user, :enable_otp) }
+    let!(:hotp_admin) { FactoryBot.create(:admin_user, :enable_hotp) }
     let!(:totp_admin) { FactoryBot.create(:admin_user, :enable_totp) }
 
     it 'returns a successful response' do
@@ -37,7 +37,7 @@ RSpec.describe Admin::TwoFactorController do
     it 'orders HOTP users by last_sign_in_at desc with nils last' do
       hotp_admin.update!(last_sign_in_at: 1.day.ago)
       hotp_user.update!(last_sign_in_at: 1.year.ago)
-      never = FactoryBot.create(:user, :enable_otp, last_sign_in_at: nil)
+      never = FactoryBot.create(:user, :enable_hotp, last_sign_in_at: nil)
 
       get :show
       expect(assigns[:hotp_users].map(&:id)).

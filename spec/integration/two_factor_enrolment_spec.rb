@@ -50,7 +50,7 @@ RSpec.describe 'enrolling in two factor authentication' do
   end
 
   context 'as a user already on HOTP' do
-    let(:user) { FactoryBot.create(:user, :enable_otp) }
+    let(:user) { FactoryBot.create(:user, :enable_hotp) }
 
     before { user.save! }
 

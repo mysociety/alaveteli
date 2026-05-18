@@ -93,14 +93,19 @@ FactoryBot.define do
       after(:create) { |user| user.add_role(:pro_admin) }
     end
 
-    trait :enable_otp do
-      after(:build, &:enable_otp)
+    trait :enable_hotp do
+      after(:build) do |user|
+        user.otp_regenerate_secret
+        user.otp_regenerate_counter
+        user.otp_enabled = true
+      end
     end
 
     trait :enable_totp do
       after(:build) do |user|
-        user.enable_otp
+        user.otp_regenerate_secret
         user.otp_counter = nil
+        user.otp_enabled = true
       end
     end
 

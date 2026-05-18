@@ -44,12 +44,6 @@ module User::OneTimePassword
     otp_enabled? && otp_counter.nil?
   end
 
-  def enable_otp
-    otp_regenerate_secret
-    otp_regenerate_counter
-    self.otp_enabled = true
-  end
-
   # Persist `secret` as the user's otp_secret_key and flip the user to TOTP.
   # No verification, so callers (e.g. OtpEnrolment) are responsible for proving
   # the user holds the secret before invoking this.
