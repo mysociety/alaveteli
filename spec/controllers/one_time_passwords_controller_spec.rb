@@ -382,7 +382,6 @@ RSpec.describe OneTimePasswordsController do
 
   describe 'DELETE #destroy' do
     it 'redirects to the sign-in page without a signed in user' do
-      user = FactoryBot.create(:user)
       delete :destroy
       expect(response).
         to redirect_to(signin_path(token: PostRedirect.last.token))
@@ -395,42 +394,124 @@ RSpec.describe OneTimePasswordsController do
       expect(assigns[:user]).to eq(user)
     end
 
-    it 'disables OTP for the user' do
-      user = FactoryBot.create(:user, :enable_hotp)
-      sign_in user
-      delete :destroy
-      expect(user.reload.otp_enabled?).to eq(false)
+    context 'for a TOTP-enabled user' do
+      let(:user) { FactoryBot.create(:user, :enable_totp) }
+      let(:valid_code) { user.otp_code }
+
+      before { sign_in user }
+
+      context 'with no code parameter (link click from show)' do
+        it 'renders the destroy_confirmation template' do
+          delete :destroy
+          expect(response).to render_template(:destroy_confirmation)
+        end
+
+        it 'does not disable two factor authentication' do
+          delete :destroy
+          expect(user.reload.otp_enabled?).to eq(true)
+        end
+
+        it 'does not show an error' do
+          delete :destroy
+          expect(flash[:error]).to be_blank
+        end
+      end
+
+      context 'with an empty code submitted' do
+        it 'renders the destroy_confirmation template' do
+          delete :destroy, params: { otp_code: '' }
+          expect(response).to render_template(:destroy_confirmation)
+        end
+
+        it 'does not disable two factor authentication' do
+          delete :destroy, params: { otp_code: '' }
+          expect(user.reload.otp_enabled?).to eq(true)
+        end
+
+        it 'shows an error in the response' do
+          delete :destroy, params: { otp_code: '' }
+          expect(flash[:error]).to be_present
+        end
+      end
+
+      context 'with an invalid code' do
+        let(:invalid_code) { valid_code == '000000' ? '000001' : '000000' }
+
+        it 'renders the destroy_confirmation template' do
+          delete :destroy, params: { otp_code: invalid_code }
+          expect(response).to render_template(:destroy_confirmation)
+        end
+
+        it 'does not disable two factor authentication' do
+          delete :destroy, params: { otp_code: invalid_code }
+          expect(user.reload.otp_enabled?).to eq(true)
+        end
+
+        it 'shows an error in the response' do
+          delete :destroy, params: { otp_code: invalid_code }
+          expect(flash[:error]).to be_present
+        end
+      end
+
+      context 'with a valid code' do
+        it 'disables two factor authentication' do
+          delete :destroy, params: { otp_code: valid_code }
+          expect(user.reload.otp_enabled?).to eq(false)
+        end
+
+        it 'redirects to the settings page' do
+          delete :destroy, params: { otp_code: valid_code }
+          expect(response).to redirect_to(one_time_password_path)
+        end
+
+        it 'sets a success notice' do
+          delete :destroy, params: { otp_code: valid_code }
+
+          expect(flash[:notice]).
+            to eq('Two factor authentication disabled')
+        end
+      end
     end
 
-    it 'sets a successful notification message' do
-      user = FactoryBot.create(:user)
-      sign_in user
-      delete :destroy
-      expect(flash[:notice]).to eq('Two factor authentication disabled')
+    context 'for a HOTP-enabled user' do
+      let(:user) { FactoryBot.create(:user, :enable_hotp) }
+
+      before { sign_in user }
+
+      it 'disables two factor authentication without requiring a code' do
+        delete :destroy
+        expect(user.reload.otp_enabled?).to eq(false)
+      end
+
+      it 'redirects to the settings page' do
+        delete :destroy
+        expect(response).to redirect_to(one_time_password_path)
+      end
+
+      it 'sets a success notice' do
+        delete :destroy
+        expect(flash[:notice]).to eq('Two factor authentication disabled')
+      end
     end
 
-    it 'redirects back to #show on success' do
-      user = FactoryBot.create(:user)
-      sign_in user
-      delete :destroy
-      expect(response).to redirect_to(one_time_password_path)
-    end
+    context 'on save failure for a non-TOTP user' do
+      let(:user) { FactoryBot.create(:user) }
 
-    it 'sets a failure notification message' do
-      allow_any_instance_of(User).to receive(:save).and_return(false)
-      user = FactoryBot.create(:user)
-      sign_in user
-      delete :destroy
-      expect(flash[:error]).
-        to eq('Two factor authentication could not be disabled')
-    end
+      before do
+        sign_in user
+        allow_any_instance_of(User).to receive(:save).and_return(false)
+      end
 
-    it 'renders #show on failure' do
-      allow_any_instance_of(User).to receive(:save).and_return(false)
-      user = FactoryBot.create(:user)
-      sign_in user
-      delete :destroy
-      expect(response).to render_template(:show)
+      it 'sets a failure notification message' do
+        delete :destroy
+        expect(flash[:error]).
+          to eq('Two factor authentication could not be disabled')
+      end
+
+      it 'renders #show on failure' do
+        delete :destroy
+        expect(response).to render_template(:show)
+      end
     end
 
     context 'when two factor auth is not enabled' do
