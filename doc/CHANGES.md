@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix Jcrop init race so the initial selection appears on the profile photo
+  crop page (Charlie Tonneslan)
 * Fix email change confirmation which wasn't bound to confirmed target address
   (Graeme Porteous)
 * Ensure only readable requests can be added to a Project (Gareth Rees)

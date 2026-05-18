@@ -28,9 +28,8 @@
       bounds = jcrop_api.getBounds();
       boundx = bounds[0];
       boundy = bounds[1];
+      jcrop_api.setSelect([ l, t, initial, initial ]);
     });
-
-    jcrop_api.setSelect([ l, t, initial, initial ]);
 
     function showPreview(coords)
     {
