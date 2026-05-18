@@ -451,7 +451,7 @@ RSpec.describe PasswordChangesController do
     end
 
     context 'when the user has two factor authentication enabled' do
-      let(:user) { FactoryBot.create(:user, :enable_otp) }
+      let(:user) { FactoryBot.create(:user, :enable_hotp) }
 
       before(:each) do
         allow(AlaveteliConfiguration).

@@ -61,7 +61,7 @@ RSpec.describe OneTimePasswordsController do
 
     context 'when the user is currently HOTP-enabled' do
       it 'does not touch the persisted HOTP secret or counter' do
-        user = FactoryBot.create(:user, :enable_otp)
+        user = FactoryBot.create(:user, :enable_hotp)
         user.save!
         original_secret = user.otp_secret_key
         original_counter = user.otp_counter
@@ -148,12 +148,7 @@ RSpec.describe OneTimePasswordsController do
     end
 
     context 'for a HOTP-enabled user' do
-      let(:user) do
-        u = FactoryBot.create(:user)
-        u.enable_otp
-        u.save!
-        u
-      end
+      let(:user) { FactoryBot.create(:user, :enable_hotp) }
 
       before { sign_in user }
 
@@ -245,12 +240,7 @@ RSpec.describe OneTimePasswordsController do
       end
 
       context 'and the user was previously on HOTP' do
-        let(:user) do
-          u = FactoryBot.create(:user)
-          u.enable_otp
-          u.save!
-          u
-        end
+        let(:user) { FactoryBot.create(:user, :enable_hotp) }
 
         it 'sets the upgrade-from-HOTP flag for the redirect target' do
           expect(user.hotp?).to eq(true)
@@ -407,9 +397,7 @@ RSpec.describe OneTimePasswordsController do
     end
 
     it 'disables OTP for the user' do
-      user = FactoryBot.create(:user)
-      user.enable_otp
-      user.save!
+      user = FactoryBot.create(:user, :enable_hotp)
       sign_in user
       delete :destroy
       expect(user.reload.otp_enabled?).to eq(false)
