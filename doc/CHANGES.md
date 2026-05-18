@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add explicit Referrer-Policy header (Graeme Porteous)
 * Fix email change confirmation which wasn't bound to confirmed target address
   (Graeme Porteous)
 * Ensure only readable requests can be added to a Project (Gareth Rees)

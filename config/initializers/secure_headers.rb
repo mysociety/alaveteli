@@ -18,6 +18,9 @@
   # https://w3c.github.io/webappsec/specs/content-security-policy/
   config.csp = SecureHeaders::OPT_OUT
 
+  # https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referrer-Policy
+  config.referrer_policy = 'strict-origin-when-cross-origin'
+
   # https://www.nwebsec.com/HttpHeaders/SecurityHeaders/XDownloadOptions
   config.x_download_options = SecureHeaders::OPT_OUT
 
