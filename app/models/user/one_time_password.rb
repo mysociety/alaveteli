@@ -50,6 +50,17 @@ module User::OneTimePassword
     self.otp_enabled = true
   end
 
+  # Persist `secret` as the user's otp_secret_key and flip the user to TOTP.
+  # No verification, so callers (e.g. OtpEnrolment) are responsible for proving
+  # the user holds the secret before invoking this.
+  def enable_totp(secret:)
+    self.otp_secret_key = secret
+    self.otp_counter = nil
+    self.otp_enabled = true
+    self.otp_enabled_at = Time.current
+    save
+  end
+
   def disable_otp
     self.otp_enabled = false
     self.require_otp = false

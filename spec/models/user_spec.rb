@@ -1137,6 +1137,31 @@ RSpec.describe User do
     end
   end
 
+  describe 'TOTP replay protection' do
+    it 'rejects the same code submitted twice within the 30s TOTP window' do
+      user = FactoryBot.create(:user, :enable_totp)
+
+      travel_to(Time.zone.local(2026, 5, 18, 12, 0, 0)) do
+        code = user.otp_code
+
+        expect(user.authenticate_otp(code)).to eq(true)
+        expect(user.authenticate_otp(code)).to eq(false)
+      end
+    end
+
+    it 'records otp_last_used_at as the matched TOTP period start' do
+      user = FactoryBot.create(:user, :enable_totp)
+      expect(user.otp_last_used_at).to be_nil
+
+      period_start = Time.utc(2026, 5, 18, 12, 0, 0)
+      travel_to(period_start + 17.seconds) do
+        user.authenticate_otp(user.otp_code)
+      end
+
+      expect(user.reload.otp_last_used_at).to eq(period_start.to_i)
+    end
+  end
+
   describe '#disable_otp' do
     it 'sets otp_enabled to false' do
       user = User.new(otp_enabled: true)

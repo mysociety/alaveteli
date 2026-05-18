@@ -3,8 +3,65 @@
 
 <h1 class="one-time-password-page-title"><%= @title %></h1>
 
-<% if @user.otp_enabled? %>
+<% if @user.totp? %>
   <div class="one-time-password">
+    <% if flash[:just_upgraded_from_hotp] %>
+      <div class="one-time-password__callout one-time-password__callout--warning">
+        <h2><%= _('Discard your previous one time passcode') %></h2>
+
+        <p>
+          <%= _('Your account previously used a one time passcode that you ' \
+                'were asked to save in a password manager or print out. ' \
+                'That passcode no longer works.') %>
+        </p>
+
+        <p>
+          <strong>
+            <%= _('Delete the passcode saved in your password manager and ' \
+                  'shred any printed copy.') %>
+          </strong>
+          <%= _("Don't delete the new authenticator app entry you just " \
+                "set up, that's what you will use from now on.") %>
+        </p>
+      </div>
+    <% end %>
+
+    <p>
+      <%= _('Two factor authentication is active on your account. Sign-ins ' \
+            'and password changes will now use the entry saved in your ' \
+            'authenticator app.') %>
+    </p>
+
+    <ul class="one-time-password-actions not-for-print">
+      <li class="one-time-password-actions__action-item action-item">
+        <% confirmation_msg = _('Are you sure you want to disable two ' \
+                                'factor authentication?') %>
+        <%= link_to one_time_password_path, :method => :delete,
+                                            :data => { :confirm => confirmation_msg },
+                                            :class => 'action-item__action' do %>
+          <%= _('Disable two factor authentication') %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+<% elsif @user.hotp? %>
+  <div class="one-time-password">
+    <div class="one-time-password__callout one-time-password__callout--info">
+      <h2><%= _('Upgrade to authenticator app') %></h2>
+
+      <p>
+        <%= _('You are using an older form of two factor authentication ' \
+              'based on a printable one time passcode. Switch to an ' \
+              'authenticator app for stronger protection — your printable ' \
+              'passcode will be replaced by codes generated on your phone ' \
+              'or computer.') %>
+      </p>
+
+      <%= link_to _('Upgrade to authenticator app'),
+                  new_one_time_password_path,
+                  class: 'button' %>
+    </div>
+
     <h2 class="one-time-password__title">
       <%= _('Your current one time passcode:') %>
     </h2>
@@ -58,9 +115,9 @@
 <% else %>
   <ul class="one-time-password-actions not-for-print">
     <li class="one-time-password-actions__action-item action-item">
-      <%= button_to _('Enable two factor authentication'),
-                    { :action => :create },
-                    { :class => 'action-item__action' } %>
+      <%= link_to _('Enable two factor authentication'),
+                  new_one_time_password_path,
+                  class: 'action-item__action' %>
     </li>
   </ul>
 <% end %>

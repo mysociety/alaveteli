@@ -1,33 +1,18 @@
 <div class="one-time-password-help-guide">
-  <h2>What is Two Factor Authentication?</h2>
+  <h2><%= _('What is Two Factor Authentication?') %></h2>
 
   <p>
-    <%= _("Two factor authentication adds extra security to your account by " \
-          "requiring more information to reset your password.") %>
+    <%= _('Two factor authentication adds an extra layer of security to ' \
+          'your account. With it enabled, you need both your password and ' \
+          'a fresh six-digit code from your authenticator app to verify ' \
+          'that it is you.') %>
   </p>
 
   <p>
-    <%= _("Only the correct combination of confirming your account through " \
-          "an email token and entering the correct one time passcode will " \
-          "allow your account password to be changed.") %>
-  </p>
-
-  <p>
-    <%= _("You will be given a one time passcode when you enable two factor " \
-          "authentication. Do not share this passcode. You can either keep " \
-          "it in your password manager, or print it and keep it somewhere " \
-          "safe.") %>
-  </p>
-
-  <p>
-    <%= _("When you want to change your account password, you will also need " \
-          "to enter your two factor one time passcode. Your one time " \
-          "passcode can only be used once, so a new one will be generated " \
-          "after you've successfully changed your password. You'll need to " \
-          "update your password manager or print the new passcode.") %>
-  </p>
-
-  <p>
-    <%= _("You can regenerate your one time passcode at any time.") %>
+    <%= _('To use two factor authentication you will need an authenticator ' \
+          'app such as Google Authenticator, Microsoft Authenticator or Authy. ' \
+          'When you set up two factor authentication you will scan a QR ' \
+          'code with your authenticator app, and it will generate a fresh ' \
+          'six-digit code every thirty seconds.') %>
   </p>
 </div>
