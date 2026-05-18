@@ -1442,8 +1442,12 @@ RSpec.describe FoiAttachment do
 
       it 'sets the replaced filename' do
         subject
-        # FIXME: See https://github.com/mysociety/alaveteli/issues/9016
-        expect(foi_attachment.reload.filename).to eq('redacted.png.txt')
+        expect(foi_attachment.reload.filename).to eq('redacted.png')
+      end
+
+      it 'updates the content_type to match the replacement file' do
+        subject
+        expect(foi_attachment.reload.content_type).to eq('image/png')
       end
 
       it 'sets the replaced reason' do
