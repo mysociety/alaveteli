@@ -1393,17 +1393,21 @@ RSpec.describe User do
     context 'when the user has info requests' do
       before { FactoryBot.create(:info_request, user: user) }
 
-      it 'creates a censor rule for user name' do
+      it 'creates a regexp censor rule for user name' do
         subject
-        censor_rule = user.censor_rules.find { _1.text = user.name }
+        expected_text =
+          User::Anonymisable::NamePattern.new('Bob Smith').to_censor_rule_text
+        censor_rule = user.censor_rules.find { _1.text == expected_text }
         expect(censor_rule).to_not be_nil
         expect(censor_rule.replacement).to eq('[Name Removed]')
+        expect(censor_rule.regexp).to eq(true)
+        expect(censor_rule.case_sensitive).to eq(false)
         expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
         expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
       end
     end
 
-    context 'when the user has info requests which uses an different name' do
+    context 'when the user has info requests that use a different name' do
       let(:previous_name) { 'Bob' }
 
       before do
@@ -1413,10 +1417,13 @@ RSpec.describe User do
         )
       end
 
-      it 'creates a censor rules for previous names' do
+      it 'creates a regexp censor rule for previous names' do
         subject
-        censor_rule = user.censor_rules.find { _1.text == previous_name }
+        expected_text =
+          User::Anonymisable::NamePattern.new(previous_name).to_censor_rule_text
+        censor_rule = user.censor_rules.find { _1.text == expected_text }
         expect(censor_rule).to_not be_nil
+        expect(censor_rule.regexp).to eq(true)
         expect(censor_rule.replacement).to eq('[Name Removed]')
         expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
         expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
@@ -1426,10 +1433,13 @@ RSpec.describe User do
     context 'when the user has annotations' do
       before { FactoryBot.create(:comment, user: user) }
 
-      it 'creates a censor rule for user name' do
+      it 'creates a regexp censor rule for user name' do
         subject
-        censor_rule = user.censor_rules.find { _1.text == user.name }
+        expected_text =
+          User::Anonymisable::NamePattern.new('Bob Smith').to_censor_rule_text
+        censor_rule = user.censor_rules.find { _1.text == expected_text }
         expect(censor_rule).to_not be_nil
+        expect(censor_rule.regexp).to be true
         expect(censor_rule.replacement).to eq('[Name Removed]')
         expect(censor_rule.last_edit_editor).to eq('User#anonymise!')
         expect(censor_rule.last_edit_comment).to eq('User#anonymise!')
@@ -1440,6 +1450,24 @@ RSpec.describe User do
       it 'does not create a censor rule' do
         subject
         expect(user.censor_rules).to be_empty
+      end
+    end
+
+    context 'when NamePattern.pattern is customised' do
+      around do |example|
+        original = User::Anonymisable::NamePattern.pattern
+        User::Anonymisable::NamePattern.pattern = '(?i)%{firstname}'
+        example.run
+        User::Anonymisable::NamePattern.pattern = original
+      end
+
+      before { FactoryBot.create(:info_request, user: user) }
+
+      it 'uses the custom regexp pattern' do
+        subject
+        censor_rule = user.censor_rules.find { _1.text == '(?i)Bob' }
+        expect(censor_rule).to_not be_nil
+        expect(censor_rule.regexp).to eq(true)
       end
     end
   end
