@@ -226,6 +226,7 @@ class UserController < ApplicationController
     # validate taking into account the user_circumstance
     validator_params = params[:signchangeemail].clone
     validator_params[:user_circumstance] = session[:user_circumstance]
+    validator_params[:post_redirect_token] = session[:post_redirect_token]
     @signchangeemail = ChangeEmailValidator.new(validator_params)
     @signchangeemail.logged_in_user = @user
 

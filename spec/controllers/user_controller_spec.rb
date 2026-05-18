@@ -1281,6 +1281,48 @@ RSpec.describe UserController, "when changing email address" do
     expect(history.new_email).to eq(new_email)
     expect(history.changed_at).to be_within(1.minute).of(Time.current)
   end
+
+  it 'should not allow changing to an address different from the confirmed one' do
+    @user = users(:bob_smith_user)
+    sign_in @user
+
+    old_email = @user.email
+    confirmed_email = 'confirmed@localhost'
+    different_email = 'different@localhost'
+
+    # Step 1: initiate change to confirmed_email
+    post :signchangeemail, params: {
+      signchangeemail: {
+        old_email: old_email,
+        password: 'jonespassword',
+        new_email: confirmed_email
+      },
+      submitted_signchangeemail_do: 1
+    }
+
+    expect(response).to render_template('signchangeemail_confirm')
+
+    # Step 2: simulate clicking the confirmation link
+    post_redirect = PostRedirect.order(:id).last
+    session[:user_circumstance] = 'change_email'
+    session[:post_redirect_token] = post_redirect.token
+
+    @user.reload
+    sign_in @user
+
+    # Step 3: submit with a DIFFERENT new_email than was confirmed
+    post :signchangeemail, params: {
+      signchangeemail: {
+        old_email: old_email,
+        new_email: different_email
+      },
+      submitted_signchangeemail_do: 1
+    }
+
+    @user.reload
+    expect(@user.email).not_to eq(different_email)
+    expect(@user.email).to eq(old_email)
+  end
 end
 
 RSpec.describe UserController, "when using profile photos" do

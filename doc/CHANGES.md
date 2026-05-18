@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix email change confirmation which wasn't bound to confirmed target address
+  (Graeme Porteous)
 * Ensure only readable requests can be added to a Project (Gareth Rees)
 * Remove "Previously known as" from profile pages due to performance issues
   (Gareth Rees)
