@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Upgrade jQuery from 1.12.4 to 3.7.1 (Graeme Porteous)
 * Add explicit Referrer-Policy header (Graeme Porteous)
 * Use Regexp rule when anonymising users to catch common name variants (Gareth
   Rees)
