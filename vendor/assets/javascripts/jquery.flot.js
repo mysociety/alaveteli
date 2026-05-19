@@ -1701,7 +1701,7 @@ Licensed under the MIT license.
                 };
             }
 
-            if ($.isFunction(opts.tickFormatter))
+            if (typeof opts.tickFormatter === 'function')
                 axis.tickFormatter = function (v, axis) { return "" + opts.tickFormatter(v, axis); };
 
             if (opts.alignTicksWithAxis != null) {
@@ -1748,7 +1748,7 @@ Licensed under the MIT license.
             if (oticks == null || (typeof oticks == "number" && oticks > 0))
                 ticks = axis.tickGenerator(axis);
             else if (oticks) {
-                if ($.isFunction(oticks))
+                if (typeof oticks === 'function')
                     // generate the ticks
                     ticks = oticks(axis);
                 else
@@ -1872,7 +1872,7 @@ Licensed under the MIT license.
             // draw markings
             var markings = options.grid.markings;
             if (markings) {
-                if ($.isFunction(markings)) {
+                if (typeof markings === 'function') {
                     axes = plot.getAxes();
                     // xmin etc. is backwards compatibility, to be
                     // removed in the future
@@ -2652,7 +2652,7 @@ Licensed under the MIT license.
             // Sort the legend using either the default or a custom comparator
 
             if (options.legend.sorted) {
-                if ($.isFunction(options.legend.sorted)) {
+                if (typeof options.legend.sorted === 'function') {
                     entries.sort(options.legend.sorted);
                 } else if (options.legend.sorted == "reverse") {
                 	entries.reverse();

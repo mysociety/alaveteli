@@ -1377,7 +1377,7 @@
 	
 			$input.attr('tabindex', -1).hide().after(self.$wrapper);
 	
-			if ($.isArray(settings.items)) {
+			if (Array.isArray(settings.items)) {
 				self.setValue(settings.items);
 				delete settings.items;
 			}
@@ -2205,7 +2205,7 @@
 				option      = self.options[results.items[i].id];
 				option_html = self.render('option', option);
 				optgroup    = option[self.settings.optgroupField] || '';
-				optgroups   = $.isArray(optgroup) ? optgroup : [optgroup];
+				optgroups   = Array.isArray(optgroup) ? optgroup : [optgroup];
 	
 				for (j = 0, k = optgroups && optgroups.length; j < k; j++) {
 					optgroup = optgroups[j];
@@ -2318,7 +2318,7 @@
 		addOption: function(data) {
 			var i, n, value, self = this;
 	
-			if ($.isArray(data)) {
+			if (Array.isArray(data)) {
 				for (i = 0, n = data.length; i < n; i++) {
 					self.addOption(data[i]);
 				}
@@ -2565,7 +2565,7 @@
 		 * @param {boolean} silent
 		 */
 		addItems: function(values, silent) {
-			var items = $.isArray(values) ? values : [values];
+			var items = Array.isArray(values) ? values : [values];
 			for (var i = 0, n = items.length; i < n; i++) {
 				this.isPending = (i < n - 1);
 				this.addItem(items[i], silent);
@@ -3441,7 +3441,7 @@
 						var arr = optionsMap[value][field_optgroup];
 						if (!arr) {
 							optionsMap[value][field_optgroup] = group;
-						} else if (!$.isArray(arr)) {
+						} else if (!Array.isArray(arr)) {
 							optionsMap[value][field_optgroup] = [arr, group];
 						} else {
 							arr.push(group);

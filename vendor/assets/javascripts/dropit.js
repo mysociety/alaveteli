@@ -75,7 +75,7 @@
     } else if (typeof method === 'object' || !method) {
       return methods.init.apply(this, arguments);
     } else {
-      $.error( 'Method "' +  method + '" does not exist in dropit plugin!');
+      throw new Error( 'Method "' +  method + '" does not exist in dropit plugin!');
     }
 
   };
