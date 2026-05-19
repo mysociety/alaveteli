@@ -45,7 +45,7 @@
         var urlParts = $this.attr('href').split('?');
         var path = urlParts[0];
         var querystring = urlParts[1];
-        var params = $.deparam(querystring);
+        var params = Object.fromEntries(new URLSearchParams(querystring));
         loadNewPage(e, path, params);
       }
       return false;
