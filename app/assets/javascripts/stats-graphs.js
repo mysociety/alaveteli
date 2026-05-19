@@ -87,7 +87,7 @@ $(document).ready(function() {
         dataset,
         options);
 
-        graph_div.bind("plotclick", function(event, pos, item) {
+        graph_div.on("plotclick", function(event, pos, item) {
           var i, pb, url, name;
           if (item) {
             i = item.dataIndex;
@@ -114,7 +114,7 @@ $(document).ready(function() {
           }).appendTo("body").fadeIn(200);
         }
 
-        graph_div.bind("plothover", function (event, pos, item) {
+        graph_div.on("plothover", function (event, pos, item) {
           var escapedName, x, y;
           if (item) {
             if (previousPoint != item.dataIndex) {
