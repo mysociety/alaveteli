@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add explicit Referrer-Policy header (Graeme Porteous)
 * Use Regexp rule when anonymising users to catch common name variants (Gareth
   Rees)
 * Fix email change confirmation which wasn't bound to confirmed target address
