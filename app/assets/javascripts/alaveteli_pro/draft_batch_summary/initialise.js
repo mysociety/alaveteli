@@ -47,7 +47,7 @@
     var urlParts = url.split('?');
     var path = urlParts[0];
     var querystring = urlParts[1];
-    var params = $.deparam(querystring);
+    var params = Object.fromEntries(new URLSearchParams(querystring));
 
     // 1. There is a DraftBatchSummary.draftId, but there is no draft_id param
     // in the url, so we want to add the param.
