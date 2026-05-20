@@ -30,6 +30,30 @@ module User::OneTimePassword
     def otp_counter_based # rubocop:disable Naming/PredicateMethod
       otp_counter.present?
     end
+
+    # active_model_otp persists the anti-replay timestamp via
+    # `update(otp_last_used_at: ts)` from inside `authenticate_totp`. When
+    # called during a save (e.g. PasswordChangesController#update with
+    # require_otp), that nested update re-runs validations and re-enters
+    # `verify_otp_code` with the same code. `otp_last_used_at` is now set, so
+    # ROTP rejects the code as replayed, the nested save adds an `:otp_code`
+    # error, and the outer save returns false despite a valid TOTP code.
+    #
+    # Workaround is to write the column using `update_column` to skip
+    # validations and callbacks.
+    def authenticate_totp(code, options = {})
+      totp = ROTP::TOTP.new(otp_secret_key,
+                            digits: otp_digits, interval: otp_interval)
+      verified_at = totp.verify(code,
+                                drift_behind: options[:drift] || 0,
+                                after: otp_last_used_at)
+      if verified_at
+        self.otp_last_used_at = verified_at
+        update_column(:otp_last_used_at, verified_at) if persisted?
+      end
+      verified_at
+    end
+    private :authenticate_totp
   end
 
   def otp_enabled?

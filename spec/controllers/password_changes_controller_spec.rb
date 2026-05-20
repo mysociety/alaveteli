@@ -527,5 +527,46 @@ RSpec.describe PasswordChangesController do
         expect(user.reload.hashed_password).to eq(old_hash)
       end
     end
+
+    context 'when the user has TOTP two factor authentication enabled' do
+      let(:user) { FactoryBot.create(:user, :enable_totp) }
+
+      before(:each) do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(true)
+      end
+
+      it 'changes the password with a correct otp_code' do
+        old_hash = user.hashed_password
+        params = @valid_password_params.merge(otp_code: user.otp_code)
+        put :update, params: {
+                       id: post_redirect.token,
+                       password_change_user: params
+                     }
+
+        expect(user.reload.hashed_password).not_to eq(old_hash)
+      end
+
+      it 'does not change the password with an incorrect otp_code' do
+        old_hash = user.hashed_password
+        params = @valid_password_params.merge(otp_code: 'invalid')
+        put :update, params: {
+                       id: post_redirect.token,
+                       password_change_user: params
+                     }
+
+        expect(user.reload.hashed_password).to eq(old_hash)
+      end
+
+      it 'does not change the password without an otp_code' do
+        old_hash = user.hashed_password
+        put :update, params: {
+                       id: post_redirect.token,
+                       password_change_user: @valid_password_params
+                     }
+
+        expect(user.reload.hashed_password).to eq(old_hash)
+      end
+    end
   end
 end

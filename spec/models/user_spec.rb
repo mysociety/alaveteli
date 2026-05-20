@@ -982,6 +982,22 @@ RSpec.describe User do
         user.valid?
         expect(user.otp_counter).to be_nil
       end
+
+      it 'is valid with a correct otp_code for a TOTP user' do
+        user = FactoryBot.create(:user, :enable_totp)
+        user.require_otp = true
+        user.entered_otp_code = user.otp_code
+        expect(user.valid?).to eq(true)
+      end
+
+      it 'saves a TOTP user with a correct otp_code' do
+        user = FactoryBot.create(:user, :enable_totp)
+        user.name = 'Renamed User'
+        user.require_otp = true
+        user.entered_otp_code = user.otp_code
+        expect(user.save).to eq(true)
+        expect(user.reload.name).to eq('Renamed User')
+      end
     end
 
     context 'with otp disabled' do
