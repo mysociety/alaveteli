@@ -72,7 +72,11 @@
       maxItems: 1,
       openOnFocus: false,
       render: {
-        option: function(body, escape) { return body.html; }
+        option: function(body, escape) {
+          return $(body.html).filter(function() {
+            return this.nodeType === Node.ELEMENT_NODE;
+          })[0].outerHTML;
+        }
       },
       onItemAdd: function(value, $item) {
         updateSalutation($item);
