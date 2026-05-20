@@ -1,5 +1,5 @@
 // ...
-//= require jquery
+//= require jquery3
 //= require jquery-ui/widgets/tabs
 //= require jquery-ui/widgets/sortable
 //= require jquery-ui/effects/effect-highlight

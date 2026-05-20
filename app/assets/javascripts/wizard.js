@@ -301,13 +301,13 @@
       $(this).data("refusalWizard", instance);
       return $(this);
     } else if (!instance) {
-      $.error(
+      throw new Error(
         "Plugin must be initialised before using method: " + methodOrOptions
       );
     } else if (methodOrOptions.indexOf("_") == 0) {
-      $.error("Method " + methodOrOptions + " is private!");
+      throw new Error("Method " + methodOrOptions + " is private!");
     } else {
-      $.error("Method " + methodOrOptions + " does not exist.");
+      throw new Error("Method " + methodOrOptions + " does not exist.");
     }
   };
 
@@ -360,16 +360,16 @@
   // work out what hashes we're looking for
   var IDs = [];
 
-  $("#help_unhappy h2[ID]").each(function(){ 
-    IDs.push(this.id); 
+  $("#help_unhappy h2[ID]").each(function(){
+    IDs.push(this.id);
   });
-  
+
   function checkHashes(hash) {
     if(IDs.includes(hash.slice(1))) {
       $(hash + ' + details' ).attr('open', '').addClass('flash');
     }
   }
- 
+
   // show unrolled details tag if they've come to the page with a known location hash
   checkHashes(window.location.hash);
 
