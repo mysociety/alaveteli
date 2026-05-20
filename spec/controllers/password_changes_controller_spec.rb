@@ -567,6 +567,40 @@ RSpec.describe PasswordChangesController do
 
         expect(user.reload.hashed_password).to eq(old_hash)
       end
+
+      it 'redirects to the user profile, not the two factor page' do
+        params = @valid_password_params.merge(otp_code: user.otp_code)
+        put :update, params: {
+                       id: post_redirect.token,
+                       password_change_user: params
+                     }
+
+        expect(response).
+          to redirect_to(show_user_profile_path(user.url_name))
+      end
+
+      it 'shows a plain password-changed message without passcode mention' do
+        params = @valid_password_params.merge(otp_code: user.otp_code)
+        put :update, params: {
+                       id: post_redirect.token,
+                       password_change_user: params
+                     }
+
+        expect(flash[:notice]).to eq('Your password has been changed.')
+        expect(flash[:notice]).not_to match(/passcode/i)
+      end
+
+      it 'respects a pretoken redirect on success' do
+        pretoken = PostRedirect.create(user: user, uri: '/')
+        params = @valid_password_params.merge(otp_code: user.otp_code)
+        put :update, params: {
+                       id: post_redirect.token,
+                       password_change_user: params,
+                       pretoken: pretoken.token
+                     }
+
+        expect(response).to redirect_to('/')
+      end
     end
   end
 end
