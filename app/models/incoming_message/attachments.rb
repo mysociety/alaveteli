@@ -121,11 +121,12 @@ module IncomingMessage::Attachments
     cached_attachment_text_clipped
   end
 
-  # Returns space separated list of file extensions of attachments to this
-  # message. Defaults to the normal extension for known mime type, otherwise
-  # uses other extensions.
+  # Returns an Array of file extensions of attachments to this message.
+  # Defaults to the normal extension for known mime type, otherwise uses other
+  # extensions.
   def get_present_file_extensions # rubocop:disable Naming/AccessorMethodName
     ret = {}
+
     get_attachments_for_display.each do |attachment|
       ext = AlaveteliFileTypes.mimetype_to_extension(attachment.content_type)
       if ext.nil? && !attachment.filename.nil?
@@ -133,7 +134,8 @@ module IncomingMessage::Attachments
       end
       ret[ext] = 1 unless ext.nil?
     end
-    ret.keys.join(" ")
+
+    ret.keys
   end
 
   def locked?

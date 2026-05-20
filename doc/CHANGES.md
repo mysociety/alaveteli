@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix indexing of multiple filetype values (Gareth Rees)
 * Add explicit Referrer-Policy header (Graeme Porteous)
 * Use Regexp rule when anonymising users to catch common name variants (Gareth
   Rees)

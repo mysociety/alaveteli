@@ -880,24 +880,35 @@ RSpec.describe InfoRequestEvent do
           with_message(/event type is 'response' but no incoming message for event/)
       end
 
-      it 'should return a blank string if there are no attachments' do
+      it 'returns an empty array if there are no attachments' do
         info_request = ire.info_request
-        expect(ire.send(:filetype)).to eq('')
+        expect(ire.send(:filetype)).to eq([])
       end
 
-      it 'should return a space separated list of the attachment file types' do
+      it 'returns an array with the attachment file type' do
         info_request = ire.info_request
         incoming = FactoryBot.create(:incoming_message, :with_pdf_attachment,
                                      info_request: info_request)
         ire.incoming_message = incoming
-        expect(ire.send(:filetype)).to eq('pdf')
+        expect(ire.send(:filetype)).to eq(%w[pdf])
+      end
+
+      it 'returns separate entries for each attachment type' do
+        info_request = ire.info_request
+        incoming = FactoryBot.create(
+          :incoming_message,
+          foi_attachments_factories: [[:pdf_attachment], [:rtf_attachment]],
+          info_request: info_request
+        )
+        ire.incoming_message = incoming
+        expect(ire.send(:filetype)).to eq(%w[pdf rtf])
       end
     end
 
     context 'not a response event' do
-      it 'should return a blank string' do
+      it 'returns an empty array' do
         ire = FactoryBot.create(:info_request_event, event_type: 'comment')
-        expect(ire.send(:filetype)).to eq('')
+        expect(ire.send(:filetype)).to eq([])
       end
     end
   end
