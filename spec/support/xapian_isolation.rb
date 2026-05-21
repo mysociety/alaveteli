@@ -1,29 +1,32 @@
 ##
-# Detect and warn when Xapian database is accessed during tests.
+# Prevent Xapian database access during tests.
 #
-# Prepends hooks on ActsAsXapian.readable_init and .writable_init to
-# emit warnings with a backtrace snippet, making it easy to find specs
-# that depend on a live Xapian index.
+# Prepends hooks on ActsAsXapian.readable_init and .writable_init that
+# raise when called from a spec not tagged with :xapian. This ensures
+# new specs cannot accidentally depend on a live Xapian database.
 #
 module XapianIsolation
-  module Warning
+  XapianAccessError = Class.new(Exception) # rubocop:disable Lint/InheritException
+
+  module Guard
     def readable_init
-      XapianIsolation.warn_xapian_access('readable_init')
+      XapianIsolation.guard_xapian_access!('readable_init')
       super
     end
 
     def writable_init(_suffix = "")
-      XapianIsolation.warn_xapian_access('writable_init')
+      XapianIsolation.guard_xapian_access!('writable_init')
       super
     end
   end
 
-  def self.warn_xapian_access(method)
+  def self.guard_xapian_access!(method)
     example = RSpec.current_example
     return if example&.metadata&.dig(:xapian)
 
-    warn "[XAPIAN] #{method} called during test"
+    raise XapianAccessError,
+          "#{method} called during test without :xapian tag"
   end
 end
 
-ActsAsXapian.singleton_class.prepend(XapianIsolation::Warning)
+ActsAsXapian.singleton_class.prepend(XapianIsolation::Guard)
