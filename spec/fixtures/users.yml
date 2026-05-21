@@ -58,6 +58,7 @@ bob_smith_user:
   about_me: 'I like making requests about fancy dogs and naughty chickens and stuff.'
   receive_email_alerts: true
   info_requests_count: 5
+  last_daily_track_email: <%= Time.zone.now %>
 silly_name_user:
   id: "2"
   name: "Silly <em>Name</em>"
@@ -74,6 +75,7 @@ silly_name_user:
   receive_email_alerts: true
   comments_count: 1
   track_things_count: 2
+  last_daily_track_email: <%= Time.zone.now %>
 admin_user:
   id: "3"
   name: Joe Admin
@@ -88,6 +90,7 @@ admin_user:
   locale: ''
   about_me: ''
   receive_email_alerts: true
+  last_daily_track_email: <%= Time.zone.now %>
 unconfirmed_user:
   id: "4"
   name: "Unconfirmed"
@@ -101,6 +104,7 @@ unconfirmed_user:
   ban_text: ''
   about_me: ''
   receive_email_alerts: true
+  last_daily_track_email: <%= Time.zone.now %>
 robin_user:
   id: 5
   name: Robin Houston
@@ -115,6 +119,7 @@ robin_user:
   about_me: 'I am the best'
   receive_email_alerts: true
   info_requests_count: 2
+  last_daily_track_email: <%= Time.zone.now %>
 another_user:
   id: 6
   name: Another User
@@ -129,6 +134,7 @@ another_user:
   about_me: 'Just another user'
   receive_email_alerts: true
   info_requests_count: 1
+  last_daily_track_email: <%= Time.zone.now %>
 paul_pro_user:
   id: 7
   name: Paul Pro
@@ -143,6 +149,7 @@ paul_pro_user:
   locale: 'en'
   about_me: 'Totes profesh'
   receive_email_alerts: true
+  last_daily_track_email: <%= Time.zone.now %>
 annie_all_roles_user:
   id: 8
   name: Annie All Roles
@@ -157,6 +164,7 @@ annie_all_roles_user:
   locale: 'en'
   about_me: 'All the roles'
   receive_email_alerts: true
+  last_daily_track_email: <%= Time.zone.now %>
 peter_pro_admin_user:
   id: 9
   name: Peter Pro Admin
@@ -171,6 +179,7 @@ peter_pro_admin_user:
   locale: 'en'
   about_me: ''
   receive_email_alerts: true
+  last_daily_track_email: <%= Time.zone.now %>
 ollie_foi_officer_user:
   id: 10
   name: Ollie Officer
