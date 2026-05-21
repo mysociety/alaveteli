@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe User, " when indexing users with Xapian", :xapian do
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should search by name" do
     xapian_object = ActsAsXapian::Search.new([User], "Bob", limit: 100)
     expect(xapian_object.results.size).to eq(1)
@@ -32,10 +28,6 @@ RSpec.describe User, " when indexing users with Xapian", :xapian do
 end
 
 RSpec.describe PublicBody, " when indexing public bodies with Xapian", :xapian do
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should search index the main name field" do
     xapian_object = ActsAsXapian::Search.new([PublicBody], "humpadinking", limit: 100)
     expect(xapian_object.results.size).to eq(1)
@@ -62,10 +54,6 @@ RSpec.describe PublicBody, " when indexing public bodies with Xapian", :xapian d
 end
 
 RSpec.describe PublicBody, " when indexing requests by body they are to", :xapian do
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should find requests to the body" do
     xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "requested_from:tgq", limit: 100)
     expect(xapian_object.results.size).to eq(PublicBody.find_by_url_name("tgq").info_requests.map(&:info_request_events).flatten.size)
@@ -118,10 +106,6 @@ RSpec.describe PublicBody, " when indexing requests by body they are to", :xapia
 end
 
 RSpec.describe User, " when indexing requests by user they are from", :xapian do
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should find requests from the user" do
     options = { sort_by_prefix: 'created_at',
                 sort_by_ascending: true,
@@ -252,10 +236,6 @@ RSpec.describe User, " when indexing requests by user they are from", :xapian do
 end
 
 RSpec.describe User, " when indexing comments by user they are by", :xapian do
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should find requests from the user" do
     xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "commented_by:silly_emnameem", limit: 100)
     expect(xapian_object.results.size).to eq(1)
@@ -286,10 +266,6 @@ RSpec.describe User, " when indexing comments by user they are by", :xapian do
 end
 
 RSpec.describe InfoRequest, " when indexing requests by their title", :xapian do
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should find events for the request" do
     xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], "request:how_much_public_money_is_wasted_o", limit: 100)
     expect(xapian_object.results.size).to eq(1)
@@ -314,10 +290,6 @@ RSpec.describe InfoRequest, " when indexing requests by their title", :xapian do
 end
 
 RSpec.describe InfoRequest, " when indexing requests by tag", :xapian do
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should find request by tag, even when changes" do
     ir = info_requests(:naughty_chicken_request)
     ir.tag_string = 'bunnyrabbit'
@@ -334,10 +306,6 @@ RSpec.describe InfoRequest, " when indexing requests by tag", :xapian do
 end
 
 RSpec.describe PublicBody, " when indexing authorities by tag", :xapian do
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should find request by tag, even when changes" do
     body = public_bodies(:geraldine_public_body)
     body.tag_string = 'mice:3'
@@ -357,10 +325,6 @@ RSpec.describe PublicBody, " when indexing authorities by tag", :xapian do
 end
 
 RSpec.describe PublicBody, " when only indexing selected things on a rebuild", :xapian do
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should only index what we ask it to" do
     body = public_bodies(:geraldine_public_body)
     body.tag_string = 'mice:3'
@@ -414,10 +378,6 @@ RSpec.describe PublicBody, " when only indexing selected things on a rebuild", :
 end
 
 RSpec.describe InfoRequestEvent, " when faced with a race condition during xapian_mark_needs_index", :xapian do
-  before(:each) do
-    update_xapian_index
-  end
-
   it 'should not raise an error but should fail silently' do
     with_duplicate_xapian_job_creation do
       ir = info_requests(:naughty_chicken_request)

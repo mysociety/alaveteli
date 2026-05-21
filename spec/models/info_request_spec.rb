@@ -3770,10 +3770,6 @@ RSpec.describe InfoRequest do
   end
 
   describe InfoRequest, 'when getting similar requests', :xapian do
-    before(:each) do
-      update_xapian_index
-    end
-
     it 'returns similar requests' do
       similar, more = info_requests(:spam_1_request).similar_requests(1)
       expect(similar.first).to eq(info_requests(:spam_2_request))
@@ -3792,10 +3788,6 @@ RSpec.describe InfoRequest do
   end
 
   describe InfoRequest, 'when constructing the list of recent requests', :xapian do
-    before(:each) do
-      update_xapian_index
-    end
-
     describe 'when there are fewer than five successful requests' do
       it 'lists the most recently sent and successful requests by the creation
                 date of the request event' do
@@ -3826,10 +3818,6 @@ RSpec.describe InfoRequest do
   end
 
   describe InfoRequest, "when constructing a list of requests by query", :xapian do
-    before(:each) do
-      update_xapian_index
-    end
-
     def apply_filters(filters)
       results = InfoRequest.request_list(filters, page=1, per_page=100, max_results=100)
       results[:results].map(&:info_request)

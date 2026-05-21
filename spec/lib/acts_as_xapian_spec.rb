@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe ActsAsXapian, :xapian do
-  before { update_xapian_index }
-
   describe '.update_index' do
     it 'processes jobs that were queued after a job that errors' do
       job1, job2 = Array.new(2) do |_i|
@@ -155,10 +153,6 @@ end
 RSpec.describe ActsAsXapian::Search, :xapian do
   describe "#words_to_highlight" do
     before do
-      update_xapian_index
-    end
-
-    before do
       @alice = FactoryBot.create(:public_body, name: 'alice')
       update_xapian_index
     end
@@ -224,10 +218,6 @@ RSpec.describe ActsAsXapian::Search, :xapian do
   end
 
   describe '#spelling_correction' do
-    before do
-      update_xapian_index
-    end
-
     before do
       @alice = FactoryBot.create(:public_body, name: 'alice')
       @bob = FactoryBot.create(:public_body, name: 'bôbby')
