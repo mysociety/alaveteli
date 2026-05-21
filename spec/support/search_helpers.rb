@@ -12,6 +12,47 @@
 #   end
 #
 module SearchHelpers
+  ##
+  # Lightweight stand-in for ActsAsXapian search results.
+  #
+  class NullSearchResult
+    DEFAULTS = {
+      results: [], matches_estimated: 0, spelling_correction: nil,
+      words_to_highlight: [], has_normal_search_terms?: false,
+      present?: true, blank?: false
+    }.freeze
+
+    def xapian_search
+      self
+    end
+
+    def method_missing(name, *, **)
+      DEFAULTS.fetch(name) { super }
+    end
+
+    def respond_to_missing?(name, include_private = false)
+      DEFAULTS.key?(name) || super
+    end
+  end
+
+  ##
+  # Guard prepended onto search class .new methods. When the global stub flag
+  # is set it returns a null object, avoiding any Xapian database access.
+  #
+  module Guard
+    def new(*, **)
+      SearchHelpers.stubbed? ? SearchHelpers::NullSearchResult.new : super
+    end
+  end
+
+  def self.stubbed?
+    Thread.current[:search_helpers_stubbed]
+  end
+
+  def self.stubbed=(value)
+    Thread.current[:search_helpers_stubbed] = value
+  end
+
   # Stub ActsAsXapian::Search.new to return results
   def stub_search_results(items: [], total: nil, spelling_correction: nil,
                           words_to_highlight: [], has_normal_search_terms: true)
@@ -75,6 +116,20 @@ module SearchHelpers
   end
 end
 
+ActsAsXapian::Search.singleton_class.prepend(SearchHelpers::Guard)
+ActsAsXapian::Similar.singleton_class.prepend(SearchHelpers::Guard)
+TypeaheadSearch.singleton_class.prepend(SearchHelpers::Guard)
+
 RSpec.configure do |config|
   config.include SearchHelpers
+
+  # Prevent any Xapian database access in non-xapian tests. Uses an
+  # around hook so the guard is active before spec-level around hooks
+  # that may trigger searches (e.g. integration test login helpers).
+  config.around(:each) do |example|
+    SearchHelpers.stubbed = true unless example.metadata[:xapian]
+    example.run
+  ensure
+    SearchHelpers.stubbed = false
+  end
 end
