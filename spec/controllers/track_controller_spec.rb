@@ -84,10 +84,6 @@ RSpec.describe TrackController do
     end
 
     context 'when getting feeds' do
-      before do
-        update_xapian_index
-      end
-
       it "should get the RSS feed" do
         track_thing = track_things(:track_fancy_dog_request)
 
@@ -243,12 +239,6 @@ RSpec.describe TrackController do
   describe "GET #track_public_body" do
     let(:public_body) { FactoryBot.create(:public_body) }
     let(:user) { FactoryBot.create(:user, locale: 'en', name: 'bob') }
-
-    before do
-      # these tests depend on the xapian index existing, although
-      # not on its specific contents.
-      update_xapian_index
-    end
 
     it "should save a search track and redirect to the right place" do
       sign_in user

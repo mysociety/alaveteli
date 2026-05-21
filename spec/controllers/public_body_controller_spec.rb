@@ -4,10 +4,6 @@ require 'nokogiri'
 RSpec.describe PublicBodyController, "when showing a body" do
   render_views
 
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should be successful" do
     get :show, params: { url_name: "dfh", view: 'all' }
     expect(response).to be_successful
@@ -478,10 +474,6 @@ end
 
 RSpec.describe PublicBodyController, "when doing type ahead searches" do
   render_views
-
-  before(:each) do
-    update_xapian_index
-  end
 
   it 'returns a 400 bad request status code without a query param' do
     get :search_typeahead

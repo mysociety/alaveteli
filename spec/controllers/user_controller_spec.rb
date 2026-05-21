@@ -123,17 +123,12 @@ RSpec.describe UserController do
       it 'does not show private requests' do
         user = FactoryBot.create(:pro_user)
         FactoryBot.create(:embargoed_request, user: user)
-        update_xapian_index
         get :show, params: { url_name: user.url_name, view: 'requests' }
         expect(assigns[:private_requests]).to be_empty
       end
     end
 
     context 'when filtering requests' do
-      before do
-        update_xapian_index
-      end
-
       it "searches the user's contributions" do
         user = users(:bob_smith_user)
 
@@ -256,15 +251,16 @@ RSpec.describe UserController do
         comment2 = FactoryBot.create(:visible_comment,
                                      info_request: shown_request,
                                      user: user)
-        FactoryBot.create(:info_request_event,
-                          event_type: 'comment',
-                          comment: comment2,
-                          info_request: shown_request)
+        comment_event = FactoryBot.create(:info_request_event,
+                                          event_type: 'comment',
+                                          comment: comment2,
+                                          info_request: shown_request)
 
         expect(user.reload.comments.size).to eq(2)
         expect(user.reload.comments.visible.size).to eq(1)
 
-        update_xapian_index
+        stub_search_results(items: [comment_event], total: 1)
+
         make_request
 
         expect(response.body).to match(/Your 1 annotation/)
@@ -273,7 +269,6 @@ RSpec.describe UserController do
       it 'shows private requests' do
         user = FactoryBot.create(:pro_user)
         info_request = FactoryBot.create(:embargoed_request, user: user)
-        update_xapian_index
         sign_in user
         get :show, params: { url_name: user.url_name, view: 'requests' }
         expect(assigns[:private_requests]).to match_array([info_request])
@@ -283,7 +278,6 @@ RSpec.describe UserController do
         user = FactoryBot.create(:pro_user)
         info_request = FactoryBot.create(:embargoed_request, user: user)
         FactoryBot.create(:embargoed_request, user: user, prominence: 'hidden')
-        update_xapian_index
         sign_in user
         get :show, params: { url_name: user.url_name, view: 'requests' }
         expect(assigns[:private_requests]).to match_array([info_request])
@@ -299,7 +293,9 @@ RSpec.describe UserController do
         request_1 =
           FactoryBot.create(:info_request, user: user, title: 'Some money?')
         FactoryBot.create(:info_request, user: user, title: 'How many books?')
-        update_xapian_index
+
+        event = request_1.info_request_events.first
+        stub_search_results(items: [event], total: 1)
 
         get :show, params: {
                      url_name: user.url_name,
@@ -320,7 +316,6 @@ RSpec.describe UserController do
           create(:embargoed_request, user: user, title: 'Some money?')
         FactoryBot.
           create(:embargoed_request, user: user, title: 'How many books?')
-        update_xapian_index
 
         sign_in user
 
@@ -338,7 +333,9 @@ RSpec.describe UserController do
           FactoryBot.create(:info_request, user: user, title: 'Some money?')
         FactoryBot.create(:successful_request, user: user, title: 'More money')
         FactoryBot.create(:info_request, user: user, title: 'How many books?')
-        update_xapian_index
+
+        event = request_1.info_request_events.first
+        stub_search_results(items: [event], total: 1)
 
         get :show, params: {
                      url_name: user.url_name,
@@ -362,7 +359,6 @@ RSpec.describe UserController do
         FactoryBot.
           create(:embargoed_request, user: user, title: 'More money').
           set_described_state('successful')
-        update_xapian_index
 
         get :show, params: {
                      url_name: user.url_name,
@@ -437,15 +433,16 @@ RSpec.describe UserController do
         comment2 = FactoryBot.create(:visible_comment,
                                      info_request: shown_request,
                                      user: user)
-        FactoryBot.create(:info_request_event,
-                          event_type: 'comment',
-                          comment: comment2,
-                          info_request: shown_request)
+        comment_event = FactoryBot.create(:info_request_event,
+                                          event_type: 'comment',
+                                          comment: comment2,
+                                          info_request: shown_request)
 
         expect(user.reload.comments.size).to eq(2)
         expect(user.reload.comments.visible.size).to eq(1)
 
-        update_xapian_index
+        stub_search_results(items: [comment_event], total: 1)
+
         make_request
 
         expect(response.body).to match(/This person's 1 annotation/)
@@ -454,7 +451,6 @@ RSpec.describe UserController do
       it 'does not show private requests' do
         pro_user = FactoryBot.create(:pro_user)
         info_request = FactoryBot.create(:embargoed_request, user: pro_user)
-        update_xapian_index
         get :show, params: { url_name: pro_user.url_name, view: 'requests' }
         expect(assigns[:private_requests]).to be_empty
       end
@@ -464,7 +460,6 @@ RSpec.describe UserController do
         info_request = FactoryBot.create(:embargoed_request, user: pro_user)
         FactoryBot.
           create(:embargoed_request, user: pro_user, prominence: 'hidden')
-        update_xapian_index
         get :show, params: { url_name: pro_user.url_name, view: 'requests' }
         expect(assigns[:private_requests]).to be_empty
       end
@@ -479,7 +474,9 @@ RSpec.describe UserController do
         request_1 =
           FactoryBot.create(:info_request, user: user, title: 'Some money?')
         FactoryBot.create(:info_request, user: user, title: 'How many books?')
-        update_xapian_index
+
+        event = request_1.info_request_events.first
+        stub_search_results(items: [event], total: 1)
 
         get :show, params: {
                      url_name: user.url_name,
@@ -500,7 +497,6 @@ RSpec.describe UserController do
           create(:embargoed_request, user: pro_user, title: 'Some money?')
         FactoryBot.
           create(:embargoed_request, user: pro_user, title: 'How many books?')
-        update_xapian_index
 
         get :show, params: {
                      url_name: pro_user.url_name,
@@ -516,7 +512,9 @@ RSpec.describe UserController do
           FactoryBot.create(:info_request, user: user, title: 'Some money?')
         FactoryBot.create(:successful_request, user: user, title: 'More money')
         FactoryBot.create(:info_request, user: user, title: 'How many books?')
-        update_xapian_index
+
+        event = request_1.info_request_events.first
+        stub_search_results(items: [event], total: 1)
 
         get :show, params: {
                      url_name: user.url_name,
@@ -541,7 +539,6 @@ RSpec.describe UserController do
         FactoryBot.
           create(:embargoed_request, user: pro_user, title: 'More money').
           set_described_state('successful')
-        update_xapian_index
 
         get :show, params: {
                      url_name: pro_user.url_name,
@@ -1449,10 +1446,6 @@ end
 RSpec.describe UserController, "when viewing the wall" do
   render_views
 
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should show users stuff on their wall, most recent first" do
     user = users(:silly_name_user)
     ire = info_request_events(:useless_incoming_message_event)
@@ -1497,7 +1490,6 @@ RSpec.describe UserController, "when viewing the wall" do
     user = FactoryBot.create(:user)
     comment = FactoryBot.create(:visible_comment, :with_event, user: user)
     user.close_and_anonymise
-    update_xapian_index
     get :wall, params: { url_name: user.url_name }
     expect(assigns[:feed_results]).to be_empty
   end

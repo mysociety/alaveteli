@@ -201,11 +201,6 @@ end
 RSpec.describe GeneralController, 'when using xapian search' do
   render_views
 
-  # rebuild xapian index after fixtures loaded
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should redirect from search query URL to pretty URL" do
     # query hidden in POST parameters
     post :search_redirect, params: { query: "mouse" }
@@ -299,17 +294,21 @@ RSpec.describe GeneralController, 'when using xapian search' do
   end
 
   it 'should prioritise direct matches of public body names' do
-    FactoryBot.create(:public_body, :with_note,
-                      name: 'Cardiff Business Technology Centre Limited',
-                      note_body: 'Something cardiff council something else.')
+    body1 = FactoryBot.create(
+      :public_body, :with_note,
+      name: 'Cardiff Business Technology Centre Limited',
+      note_body: 'Something cardiff council something else.'
+    )
 
-    FactoryBot.create(:public_body, :with_note,
-                      name: 'Cardiff and Vale of Glamorgan Health Council',
-                      note_body: 'Another notes mentioning Cardiff Council.')
+    body2 = FactoryBot.create(
+      :public_body, :with_note,
+      name: 'Cardiff and Vale of Glamorgan Health Council',
+      note_body: 'Another notes mentioning Cardiff Council.'
+    )
 
-    FactoryBot.create(:public_body, name: 'Cardiff Council')
+    body3 = FactoryBot.create(:public_body, name: 'Cardiff Council')
 
-    update_xapian_index
+    stub_search_results(items: [body3, body1, body2], total: 3)
 
     get :search, params: { query: 'cardiff council',
                            combined: 'cardiff council/bodies' }

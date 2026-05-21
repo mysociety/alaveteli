@@ -99,9 +99,6 @@ RSpec.describe PostRedirect do
 end
 
 RSpec.describe PostRedirect, " when constructing" do
-  before do
-  end
-
   it "should generate a different token from email token" do
     pr = PostRedirect.new
     expect(pr.token).not_to eq(pr.email_token)
@@ -164,9 +161,6 @@ RSpec.describe PostRedirect, " when constructing" do
 end
 
 RSpec.describe PostRedirect, " when accessing values" do
-  before do
-  end
-
   it "should convert post parameters into YAML and back successfully" do
     pr = PostRedirect.new
     example_post_params = { foo: 'this is stuff', bar: 83, humbug: "yikes!!!" }

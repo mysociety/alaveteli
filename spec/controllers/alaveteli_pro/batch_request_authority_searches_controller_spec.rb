@@ -38,7 +38,6 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
       authority_1.save!
       authority_2.save!
       authority_3.save!
-      update_xapian_index
       sign_in pro_user
     end
 
@@ -68,6 +67,7 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     context "when responding to a normal request" do
       before do
         with_feature_enabled(:alaveteli_pro) do
+          stub_typeahead_results(items: [authority_1, authority_2, authority_3])
           get :index, params: { authority_query: 'Example' }
         end
       end
@@ -99,6 +99,7 @@ RSpec.describe AlaveteliPro::BatchRequestAuthoritySearchesController do
     context "when responding to an ajax request" do
       before do
         with_feature_enabled :alaveteli_pro do
+          stub_typeahead_results(items: [authority_1, authority_2, authority_3])
           get :index, xhr: true, params: { authority_query: 'Example' }
         end
       end

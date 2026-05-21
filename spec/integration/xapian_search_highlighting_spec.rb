@@ -3,10 +3,6 @@ require 'spec_helper'
 RSpec.describe 'highlighting search results' do
   include HighlightHelper
 
-  before do
-    update_xapian_index
-  end
-
   it 'ignores stopwords' do
     phrase = 'department of humpadinking'
     search = ActsAsXapian::Search.new([PublicBody], phrase, limit: 1)

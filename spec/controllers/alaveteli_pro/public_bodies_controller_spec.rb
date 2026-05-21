@@ -17,11 +17,11 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     before do
       sign_in pro_user
-      update_xapian_index
     end
 
     it "returns json" do
       with_feature_enabled :alaveteli_pro do
+        stub_typeahead_results(items: [body])
         get :index, params: { query: body.name }
         expect(response.media_type).to eq('application/json')
       end
@@ -29,6 +29,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     it "returns bodies which match the search query" do
       with_feature_enabled :alaveteli_pro do
+        stub_typeahead_results(items: [body])
         get :index, params: { query: body.name }
         results = JSON.parse(response.body)
         expect(results[0]['name']).to eq(body.name)
@@ -37,6 +38,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     it "returns a whitelisted set of properties for each body" do
       with_feature_enabled :alaveteli_pro do
+        stub_typeahead_results(items: [body])
         get :index, params: { query: body.name }
         results = JSON.parse(response.body)
         expected_keys = %w{id name notes info_requests_visible_count short_name
@@ -47,6 +49,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     it "excludes defunct bodies" do
       with_feature_enabled :alaveteli_pro do
+        stub_typeahead_results(items: [defunct_body])
         get :index, params: { query: defunct_body.name }
         results = JSON.parse(response.body)
         expect(results).to be_empty
@@ -55,6 +58,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     it "excludes not_apply bodies" do
       with_feature_enabled :alaveteli_pro do
+        stub_typeahead_results(items: [not_apply_body])
         get :index, params: { query: not_apply_body.name }
         results = JSON.parse(response.body)
         expect(results).to be_empty
@@ -63,6 +67,7 @@ RSpec.describe AlaveteliPro::PublicBodiesController do
 
     it "excludes bodies that aren't requestable" do
       with_feature_enabled :alaveteli_pro do
+        stub_typeahead_results(items: [not_requestable_body])
         get :index, params: { query: not_requestable_body.name }
         results = JSON.parse(response.body)
         expect(results).to be_empty
