@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ActsAsXapian do
+RSpec.describe ActsAsXapian, :xapian do
   before { update_xapian_index }
 
   describe '.update_index' do
@@ -152,7 +152,7 @@ RSpec.describe ActsAsXapian::FailedJob do
   end
 end
 
-RSpec.describe ActsAsXapian::Search do
+RSpec.describe ActsAsXapian::Search, :xapian do
   describe "#words_to_highlight" do
     before do
       update_xapian_index

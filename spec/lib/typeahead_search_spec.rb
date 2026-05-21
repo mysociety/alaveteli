@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe TypeaheadSearch do
+RSpec.describe TypeaheadSearch, :xapian do
   let(:options) { { model: InfoRequestEvent } }
 
   describe "#initialize" do

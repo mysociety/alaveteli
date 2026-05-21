@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe User, " when indexing users with Xapian" do
+RSpec.describe User, " when indexing users with Xapian", :xapian do
   before(:each) do
     update_xapian_index
   end
@@ -31,7 +31,7 @@ RSpec.describe User, " when indexing users with Xapian" do
   end
 end
 
-RSpec.describe PublicBody, " when indexing public bodies with Xapian" do
+RSpec.describe PublicBody, " when indexing public bodies with Xapian", :xapian do
   before(:each) do
     update_xapian_index
   end
@@ -61,7 +61,7 @@ RSpec.describe PublicBody, " when indexing public bodies with Xapian" do
   end
 end
 
-RSpec.describe PublicBody, " when indexing requests by body they are to" do
+RSpec.describe PublicBody, " when indexing requests by body they are to", :xapian do
   before(:each) do
     update_xapian_index
   end
@@ -117,7 +117,7 @@ RSpec.describe PublicBody, " when indexing requests by body they are to" do
   end
 end
 
-RSpec.describe User, " when indexing requests by user they are from" do
+RSpec.describe User, " when indexing requests by user they are from", :xapian do
   before(:each) do
     update_xapian_index
   end
@@ -251,7 +251,7 @@ RSpec.describe User, " when indexing requests by user they are from" do
   end
 end
 
-RSpec.describe User, " when indexing comments by user they are by" do
+RSpec.describe User, " when indexing comments by user they are by", :xapian do
   before(:each) do
     update_xapian_index
   end
@@ -285,7 +285,7 @@ RSpec.describe User, " when indexing comments by user they are by" do
   end
 end
 
-RSpec.describe InfoRequest, " when indexing requests by their title" do
+RSpec.describe InfoRequest, " when indexing requests by their title", :xapian do
   before(:each) do
     update_xapian_index
   end
@@ -313,7 +313,7 @@ RSpec.describe InfoRequest, " when indexing requests by their title" do
   end
 end
 
-RSpec.describe InfoRequest, " when indexing requests by tag" do
+RSpec.describe InfoRequest, " when indexing requests by tag", :xapian do
   before(:each) do
     update_xapian_index
   end
@@ -333,7 +333,7 @@ RSpec.describe InfoRequest, " when indexing requests by tag" do
   end
 end
 
-RSpec.describe PublicBody, " when indexing authorities by tag" do
+RSpec.describe PublicBody, " when indexing authorities by tag", :xapian do
   before(:each) do
     update_xapian_index
   end
@@ -356,7 +356,7 @@ RSpec.describe PublicBody, " when indexing authorities by tag" do
   end
 end
 
-RSpec.describe PublicBody, " when only indexing selected things on a rebuild" do
+RSpec.describe PublicBody, " when only indexing selected things on a rebuild", :xapian do
   before(:each) do
     update_xapian_index
   end
@@ -413,7 +413,7 @@ RSpec.describe PublicBody, " when only indexing selected things on a rebuild" do
   end
 end
 
-RSpec.describe InfoRequestEvent, " when faced with a race condition during xapian_mark_needs_index" do
+RSpec.describe InfoRequestEvent, " when faced with a race condition during xapian_mark_needs_index", :xapian do
   before(:each) do
     update_xapian_index
   end

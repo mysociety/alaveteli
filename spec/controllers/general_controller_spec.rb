@@ -198,7 +198,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
   end
 end
 
-RSpec.describe GeneralController, 'when using xapian search' do
+RSpec.describe GeneralController, 'when using xapian search', :xapian do
   render_views
 
   it "should redirect from search query URL to pretty URL" do

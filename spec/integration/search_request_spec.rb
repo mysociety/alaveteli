@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
-RSpec.describe "When searching" do
+RSpec.describe "When searching", :xapian do
   it "should not strip quotes from quoted query" do
     get "/search", params: { query: '"mouse stilton"' }
     follow_redirect!

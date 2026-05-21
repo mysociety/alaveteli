@@ -2545,7 +2545,7 @@ RSpec.describe InfoRequest do
         to eq("FOI requests at TGQ")
     end
 
-    it "copes with indexing after item is deleted" do
+    it "copes with indexing after item is deleted", :xapian do
       IncomingMessage.find_each(&:parse_raw_email)
       destroy_and_rebuild_xapian_index
       # delete event from underneath indexing; shouldn't cause error
@@ -3769,7 +3769,7 @@ RSpec.describe InfoRequest do
     end
   end
 
-  describe InfoRequest, 'when getting similar requests' do
+  describe InfoRequest, 'when getting similar requests', :xapian do
     before(:each) do
       update_xapian_index
     end
@@ -3791,7 +3791,7 @@ RSpec.describe InfoRequest do
     end
   end
 
-  describe InfoRequest, 'when constructing the list of recent requests' do
+  describe InfoRequest, 'when constructing the list of recent requests', :xapian do
     before(:each) do
       update_xapian_index
     end
@@ -3825,7 +3825,7 @@ RSpec.describe InfoRequest do
     end
   end
 
-  describe InfoRequest, "when constructing a list of requests by query" do
+  describe InfoRequest, "when constructing a list of requests by query", :xapian do
     before(:each) do
       update_xapian_index
     end

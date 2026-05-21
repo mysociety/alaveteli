@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'highlighting search results' do
+RSpec.describe 'highlighting search results', :xapian do
   include HighlightHelper
 
   it 'ignores stopwords' do

@@ -19,6 +19,9 @@ module XapianIsolation
   end
 
   def self.warn_xapian_access(method)
+    example = RSpec.current_example
+    return if example&.metadata&.dig(:xapian)
+
     warn "[XAPIAN] #{method} called during test"
   end
 end

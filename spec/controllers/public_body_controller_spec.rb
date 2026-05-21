@@ -19,7 +19,7 @@ RSpec.describe PublicBodyController, "when showing a body" do
     expect(assigns[:public_body]).to eq(public_bodies(:humpadink_public_body))
   end
 
-  it "should assign the requests (1)" do
+  it "should assign the requests (1)", :xapian do
     get :show, params: { url_name: "tgq", view: 'all' }
     conditions = { public_body_id: public_bodies(:geraldine_public_body).id }
     actual = assigns[:xapian_requests].results.map do |x|
@@ -28,7 +28,7 @@ RSpec.describe PublicBodyController, "when showing a body" do
     expect(actual).to match_array(InfoRequest.where(conditions))
   end
 
-  it "should assign the requests (2)" do
+  it "should assign the requests (2)", :xapian do
     get :show, params: { url_name: "tgq", view: 'successful' }
     conditions = { described_state: 'successful',
                    public_body_id: public_bodies(:geraldine_public_body).id }
@@ -38,7 +38,7 @@ RSpec.describe PublicBodyController, "when showing a body" do
     expect(actual).to match_array(InfoRequest.where(conditions))
   end
 
-  it "should assign the requests (3)" do
+  it "should assign the requests (3)", :xapian do
     get :show, params: { url_name: "dfh", view: 'all' }
     conditions = { public_body_id: public_bodies(:humpadink_public_body).id }
     actual = assigns[:xapian_requests].results.map do |x|
@@ -485,12 +485,12 @@ RSpec.describe PublicBodyController, "when doing type ahead searches" do
     expect(response).to render_template('public_body/_search_ahead')
   end
 
-  it 'assigns the xapian search to the view as xapian_requests' do
+  it 'assigns the xapian search to the view as xapian_requests', :xapian do
     get :search_typeahead, params: { query: "Geraldine Humpadinking" }
     expect(assigns[:xapian_requests]).to be_an_instance_of ActsAsXapian::Search
   end
 
-  it "shows the number of bodies matching the keywords" do
+  it "shows the number of bodies matching the keywords", :xapian do
     get :search_typeahead, params: { query: "Geraldine Humpadinking" }
     expect(response.body).to match("2 matching authorities")
   end

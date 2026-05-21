@@ -128,7 +128,7 @@ RSpec.describe UserController do
       end
     end
 
-    context 'when filtering requests' do
+    context 'when filtering requests', :xapian do
       it "searches the user's contributions" do
         user = users(:bob_smith_user)
 
@@ -1443,7 +1443,7 @@ RSpec.describe UserController, "when showing JSON version for API" do
   end
 end
 
-RSpec.describe UserController, "when viewing the wall" do
+RSpec.describe UserController, "when viewing the wall", :xapian do
   render_views
 
   it "should show users stuff on their wall, most recent first" do

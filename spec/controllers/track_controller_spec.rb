@@ -83,7 +83,7 @@ RSpec.describe TrackController do
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
-    context 'when getting feeds' do
+    context 'when getting feeds', :xapian do
       it "should get the RSS feed" do
         track_thing = track_things(:track_fancy_dog_request)
 
