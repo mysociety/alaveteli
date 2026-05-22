@@ -36,6 +36,51 @@ RSpec.describe AttachmentToText do
     context 'pdf' do
       let(:attachment) { FactoryBot.create(:pdf_attachment) }
       it { is_expected.to match(/thisisthebody/) }
+
+      context 'when pdf_ocr_threshold is not set' do
+        let(:instance) { described_class.new(attachment) }
+
+        before { described_class.pdf_ocr_threshold = nil }
+
+        it 'does not fall back to OCR even when extracted text is empty' do
+          allow(instance).to receive(:extract_text_pdf).and_return('')
+          expect(instance).not_to receive(:ocr_pdf)
+          instance.to_text
+        end
+      end
+
+      context 'when pdf_ocr_threshold is set' do
+        let(:instance) { described_class.new(attachment) }
+
+        around do |example|
+          described_class.pdf_ocr_threshold = 100
+          example.run
+        ensure
+          described_class.pdf_ocr_threshold = nil
+        end
+
+        context 'when the extracted text length meets the threshold' do
+          before do
+            allow(instance).to receive(:extract_text_pdf).and_return('a' * 200)
+          end
+
+          it 'returns the pdftotext result without OCR' do
+            expect(instance).not_to receive(:ocr_pdf)
+            instance.to_text
+          end
+        end
+
+        context 'when the extracted text length is below the threshold' do
+          before do
+            allow(instance).to receive(:extract_text_pdf).and_return('short')
+          end
+
+          it 'falls back to OCR' do
+            expect(instance).to receive(:ocr_pdf).and_return('')
+            instance.to_text
+          end
+        end
+      end
     end
 
     context 'ppt' do

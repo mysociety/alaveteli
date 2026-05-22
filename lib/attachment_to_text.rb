@@ -40,6 +40,10 @@ class AttachmentToText
     application/vnd.oasis.opendocument.spreadsheet-flat-xml
   ]
 
+  # If set OCR will be attempted if the extracted text length is below the
+  # configured threshold
+  cattr_accessor :pdf_ocr_threshold, default: nil
+
   # Temporary compatibility interface
   def self.from_part(part, text)
     interface = OpenStruct.new(
@@ -124,6 +128,22 @@ class AttachmentToText
   end
 
   def extract_pdf(body)
+    text = extract_text_pdf(body)
+
+    if above_ocr_threshold?(text)
+      text
+    else
+      ocr_pdf(body)
+    end
+  end
+
+  def above_ocr_threshold?(text)
+    return true if pdf_ocr_threshold.nil?
+
+    text.length >= pdf_ocr_threshold
+  end
+
+  def extract_text_pdf(body)
     with_tempfile(body) do |file|
       AlaveteliExternalCommand.run(
         'pdftotext',
@@ -133,6 +153,11 @@ class AttachmentToText
         timeout: 5.minutes,
       )
     end
+  end
+
+  # Not Implemented Yet: Hook provided for easier experimentation.
+  def ocr_pdf(body)
+    ''
   end
 
   def extract_ms_word(body)
