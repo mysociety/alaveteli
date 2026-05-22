@@ -1,8 +1,9 @@
 # Extracts text from the masked body of an FoiAttachment for search indexing
 class AttachmentToText
   MS_WORD_DOCS = %w[
-    application/vnd.ms-word
     application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    application/vnd.ms-word
+    application/vnd.ms-word.document.macroenabled.12
   ]
 
   WORD_PROCESSING_DOCS = %w[
@@ -14,8 +15,10 @@ class AttachmentToText
   ]
 
   MS_POWERPOINT_DOCS = %w[
-    application/vnd.ms-powerpoint
     application/vnd.openxmlformats-officedocument.presentationml.presentation
+    application/vnd.ms-powerpoint
+    application/vnd.ms-powerpoint.presentation.macroenabled.12
+    application/vnd.ms-powerpoint.slideshow.macroenabled.12
   ]
 
   PRESENTATION_DOCS = %w[
@@ -25,8 +28,10 @@ class AttachmentToText
   ]
 
   MS_EXCEL_DOCS = %w[
-    application/vnd.ms-excel
     application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    application/vnd.ms-excel
+    application/vnd.ms-excel.sheet.macroenabled.12
+    application/vnd.ms-excel.sheet.binary.macroenabled.12
   ]
 
   SPREADSHEET_DOCS = %w[
