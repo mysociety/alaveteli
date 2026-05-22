@@ -85,7 +85,7 @@ class AttachmentToText
         '-force-html', '-dump',
         file.path,
         binary_output: false,
-        timeout: 1200,
+        timeout: 5.minutes,
         env: { 'LANG' => 'C' }
       )
     end
@@ -102,7 +102,7 @@ class AttachmentToText
         file.path,
         '-',
         binary_output: false,
-        timeout: 1200,
+        timeout: 5.minutes,
       )
     end
   end
@@ -115,7 +115,7 @@ class AttachmentToText
           '--convert-to', 'txt:Text (encoded):UTF8',
           file.path,
           binary_output: false,
-          timeout: 1200
+          timeout: 5.minutes
         )
 
         File.read("#{ File.basename(file.path) }.txt")
@@ -131,13 +131,13 @@ class AttachmentToText
           '--convert-to', 'pdf',
           file.path,
           binary_output: false,
-          timeout: 1200
+          timeout: 5.minutes
         )
 
         pdf = "#{ File.basename(file.path) }.pdf"
 
         AlaveteliExternalCommand.run(
-          'pdftotext', pdf, '-', binary_output: false, timeout: 1200
+          'pdftotext', pdf, '-', binary_output: false, timeout: 5.minutes
         )
       end
     end
@@ -165,7 +165,7 @@ class AttachmentToText
           '--convert-to', "csv:Text - txt - csv #{csv_filters}",
           file.path,
           binary_output: false,
-          timeout: 1200
+          timeout: 5.minutes
         )
 
         combine_csv_files_with_sheet_names(file)
