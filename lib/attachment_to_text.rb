@@ -208,7 +208,7 @@ class AttachmentToText
           timeout: 5.minutes
         )
 
-        combine_csv_files_with_sheet_names(file)
+        combine_csv_files_with_sheet_names(file).squeeze(',')
       end
     end
   end

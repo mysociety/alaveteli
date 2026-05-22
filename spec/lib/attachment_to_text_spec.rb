@@ -110,6 +110,23 @@ RSpec.describe AttachmentToText do
       it 'includes subsequent sheet contents' do
         is_expected.to match(/baz/)
       end
+
+      context 'with a sparsely populated spreadsheet' do
+        let(:attachment) do
+          FactoryBot.create(
+            :xlsx_attachment,
+            body: load_file_fixture('sparse.xlsx')
+          )
+        end
+
+        it 'extracts the substantive contents' do
+          is_expected.to match(/cat/)
+        end
+
+        it 'squeezes repetitive commas' do
+          is_expected.not_to match(/,,/)
+        end
+      end
     end
 
     context 'csv' do
