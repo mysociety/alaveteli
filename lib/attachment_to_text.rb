@@ -1,18 +1,38 @@
 # Extracts text from the masked body of an FoiAttachment for search indexing
 class AttachmentToText
-  WORD_DOCS = %w[
+  MS_WORD_DOCS = %w[
     application/vnd.ms-word
     application/vnd.openxmlformats-officedocument.wordprocessingml.document
   ]
 
-  POWERPOINT_DOCS = %w[
+  WORD_PROCESSING_DOCS = %w[
+    application/vnd.oasis.opendocument.text
+    application/vnd.oasis.opendocument.text-template
+    application/vnd.oasis.opendocument.text-flat-xml
+    application/vnd.sun.xml.writer
+    application/vnd.sun.xml.writer.template
+  ]
+
+  MS_POWERPOINT_DOCS = %w[
     application/vnd.ms-powerpoint
     application/vnd.openxmlformats-officedocument.presentationml.presentation
   ]
 
-  EXCEL_DOCS = %w[
+  PRESENTATION_DOCS = %w[
+    application/vnd.oasis.opendocument.presentation
+    application/vnd.oasis.opendocument.presentation-template
+    application/vnd.oasis.opendocument.presentation-flat-xml
+  ]
+
+  MS_EXCEL_DOCS = %w[
     application/vnd.ms-excel
     application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  ]
+
+  SPREADSHEET_DOCS = %w[
+    application/vnd.oasis.opendocument.spreadsheet
+    application/vnd.oasis.opendocument.spreadsheet-template
+    application/vnd.oasis.opendocument.spreadsheet-flat-xml
   ]
 
   # Temporary compatibility interface
@@ -55,15 +75,18 @@ class AttachmentToText
     # to UTF8 by default, so normally it should already be that.
     # TODO: - tell all these command line tools to return utf-8
     case content_type
-    when 'text/plain'      then extract_plain(body)
-    when 'text/html'       then extract_html(body)
-    when 'application/pdf' then extract_pdf(body)
-    when *WORD_DOCS        then extract_ms_word(body)
-    when *EXCEL_DOCS       then extract_ms_excel(body)
-    when *POWERPOINT_DOCS  then extract_ms_powerpoint(body)
-    when 'application/rtf' then extract_rtf(body)
-    when 'application/zip' then extract_zip(body)
-    when /\Atext\//        then extract_plain(body)
+    when 'text/plain'          then extract_plain(body)
+    when 'text/html'           then extract_html(body)
+    when 'application/pdf'     then extract_pdf(body)
+    when *MS_WORD_DOCS         then extract_ms_word(body)
+    when *WORD_PROCESSING_DOCS then extract_word_processing(body)
+    when *MS_EXCEL_DOCS        then extract_ms_excel(body)
+    when *SPREADSHEET_DOCS     then extract_spreadsheet(body)
+    when *MS_POWERPOINT_DOCS   then extract_ms_powerpoint(body)
+    when *PRESENTATION_DOCS    then extract_presentation(body)
+    when 'application/rtf'     then extract_rtf(body)
+    when 'application/zip'     then extract_zip(body)
+    when /\Atext\//            then extract_plain(body)
     else ''
     end
   end
@@ -92,7 +115,7 @@ class AttachmentToText
   end
 
   def extract_rtf(body)
-    extract_ms_word(body)
+    extract_word_processing(body)
   end
 
   def extract_pdf(body)
@@ -108,6 +131,10 @@ class AttachmentToText
   end
 
   def extract_ms_word(body)
+    extract_word_processing(body)
+  end
+
+  def extract_word_processing(body)
     with_tempfile(body) do |file|
       in_tempdir do
         AlaveteliExternalCommand.run(
@@ -124,6 +151,10 @@ class AttachmentToText
   end
 
   def extract_ms_powerpoint(body)
+    extract_presentation(body)
+  end
+
+  def extract_presentation(body)
     with_tempfile(body) do |file|
       in_tempdir do
         AlaveteliExternalCommand.run(
@@ -143,6 +174,10 @@ class AttachmentToText
     end
   end
 
+  def extract_ms_excel(body)
+    extract_spreadsheet(body)
+  end
+
   # 44 = comma field separator.
   # 34 = double-quote text delimiter.
   # 76 = UTF-8 character set.
@@ -155,7 +190,7 @@ class AttachmentToText
   # false = do not export formulas; export values.
   # empty token 11 = unused here; token 11 is only for CSV import ("remove spaces").
   # -1 in token 12 = export all sheets to separate files like sample-Sheet1.csv, sample-Sheet2.csv.
-  def extract_ms_excel(body)
+  def extract_spreadsheet(body)
     csv_filters = '(StarCalc):44,34,76,1,,0,false,true,false,false,,-1'
 
     with_tempfile(body) do |file|
