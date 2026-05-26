@@ -63,10 +63,34 @@ FactoryBot.define do
       filename { 'attachment.txt' }
     end
 
+    factory :doc_attachment do
+      content_type { 'application/vnd.ms-word' }
+      filename { 'lorem.doc' }
+      body { load_file_fixture('lorem.doc') }
+    end
+
+    factory :docx_attachment do
+      content_type { 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }
+      filename { 'lorem.docx' }
+      body { load_file_fixture('lorem.docx') }
+    end
+
     factory :pdf_attachment do
       content_type { 'application/pdf' }
       filename { 'interesting.pdf' }
       body { load_file_fixture('interesting.pdf') }
+    end
+
+    factory :ppt_attachment do
+      content_type { 'application/vnd.ms-powerpoint' }
+      filename { 'interesting.ppt' }
+      body { load_file_fixture('interesting.ppt') }
+    end
+
+    factory :pptx_attachment do
+      content_type { 'application/vnd.openxmlformats-officedocument.presentationml.presentation' }
+      filename { 'interesting.pptx' }
+      body { load_file_fixture('interesting.pptx') }
     end
 
     factory :rtf_attachment do
@@ -97,7 +121,7 @@ FactoryBot.define do
     factory :csv_attachment do
       content_type { 'text/csv' }
       filename { 'interesting.csv' }
-      body { 'somecsv' }
+      body { load_file_fixture('interesting.csv') }
     end
 
     factory :delivery_status_notification_attachment do
@@ -110,6 +134,24 @@ FactoryBot.define do
       content_type { 'application/unknown' }
       filename { 'interesting.spc' }
       body { 'something' }
+    end
+
+    factory :xls_attachment do
+      content_type { 'application/vnd.ms-excel' }
+      filename { 'interesting.xls' }
+      body { load_file_fixture('interesting.xls') }
+    end
+
+    factory :xlsx_attachment do
+      content_type { 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }
+      filename { 'interesting.xlsx' }
+      body { load_file_fixture('interesting.xlsx') }
+    end
+
+    factory :zip_attachment do
+      content_type { 'application/zip' }
+      filename { 'example.zip' }
+      body { load_file_fixture('example.zip') }
     end
   end
 end

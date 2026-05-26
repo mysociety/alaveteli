@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Improve search indexing of Microsoft Office, Open Office, RTF and CSV
+  attachments (Gareth Rees)
 * Fix indexing of multiple filetype values (Gareth Rees)
 * Add explicit Referrer-Policy header (Graeme Porteous)
 * Use Regexp rule when anonymising users to catch common name variants (Gareth

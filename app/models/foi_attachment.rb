@@ -37,6 +37,7 @@ class FoiAttachment < ApplicationRecord
 
   include MessageProminence
 
+  include ContentType
   include Erasable
   include Eventable
   include Lockable
@@ -52,7 +53,6 @@ class FoiAttachment < ApplicationRecord
 
   has_one_attached :file, service: :attachments
 
-  validates_presence_of :content_type
   validates_presence_of :filename
   validates_presence_of :display_size
 
@@ -69,32 +69,6 @@ class FoiAttachment < ApplicationRecord
 
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
-
-  # rubocop:disable Layout/LineLength
-  CONTENT_TYPE_NAMES = {
-    # Plain Text
-    "text/plain" => 'Text file',
-    'application/rtf' => 'RTF file',
-
-    # Binary Documents
-    'application/pdf' => 'PDF file',
-
-    # Images
-    'image/tiff' => 'TIFF image',
-
-    # Word Processing
-    'application/vnd.ms-word' => 'Word document',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'Word document',
-
-    # Presentation
-    'application/vnd.ms-powerpoint' => 'PowerPoint presentation',
-    'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'PowerPoint presentation',
-
-    # Spreadsheet
-    'application/vnd.ms-excel' => 'Excel spreadsheet',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'Excel spreadsheet'
-  }.freeze
-  # rubocop:enable Layout/LineLength
 
   def delete_cached_file!
     @cached_body = nil
@@ -250,22 +224,21 @@ class FoiAttachment < ApplicationRecord
   end
 
   # Whether this type has a "View as HTML"
-  def has_body_as_html?
+  def html_viewer?
     return false if erased?
 
     AttachmentToHTML.extractable?(self)
   end
 
-  # Name of type of attachment type - only valid for things that
-  # has_body_as_html?
-  def name_of_content_type
-    CONTENT_TYPE_NAMES[content_type]
-  end
-
   # For "View as HTML" of attachment
-  def body_as_html(**kwargs)
+  def body_to_html(**kwargs)
     ensure_not_erased!
     AttachmentToHTML.to_html(self, **kwargs)
+  end
+
+  def body_to_text
+    ensure_not_erased!
+    AttachmentToText.new(self).to_text
   end
 
   def cached_urls
@@ -323,7 +296,4 @@ class FoiAttachment < ApplicationRecord
       "url_part_number and display_filename attributes"
   end
 
-  def text_type?
-    AlaveteliTextMasker::TextMask.include?(content_type)
-  end
 end

@@ -3,7 +3,6 @@
 # alavateli mailing list if you want to change it
 build-essential
 bundler
-catdoc
 elinks
 gettext
 ghostscript
@@ -16,6 +15,8 @@ libmagic-dev
 libmagickwand-dev
 libpq-dev
 libreoffice-calc-nogui
+libreoffice-impress-nogui
+libreoffice-writer-nogui
 libsqlite3-dev
 libxml2-dev
 libxslt1-dev
@@ -38,5 +39,4 @@ ttf-bitstream-vera
 unrtf
 unzip
 uuid-dev
-wv
 xapian-tools

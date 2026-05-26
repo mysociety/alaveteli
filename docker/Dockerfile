@@ -9,6 +9,9 @@ RUN apt-get update -y && \
     elinks \
     ghostscript \
     libmagic-dev \
+    libreoffice-calc-nogui \
+    libreoffice-impress-nogui \
+    libreoffice-writer-nogui \
     pdftk \
     poppler-utils \
     postgresql-client \

@@ -575,30 +575,30 @@ RSpec.describe FoiAttachment do
     end
   end
 
-  describe '#has_body_as_html?' do
+  describe '#html_viewer?' do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:pdf_attachment, :erased) }
 
       it 'returns false' do
-        expect(foi_attachment.has_body_as_html?).to be false
+        expect(foi_attachment.html_viewer?).to be false
       end
     end
 
     it 'should be true for a pdf attachment' do
-      expect(FactoryBot.build(:pdf_attachment).has_body_as_html?).to be true
+      expect(FactoryBot.build(:pdf_attachment).html_viewer?).to be true
     end
 
     it 'should be false for an html attachment' do
-      expect(FactoryBot.build(:html_attachment).has_body_as_html?).to be false
+      expect(FactoryBot.build(:html_attachment).html_viewer?).to be false
     end
   end
 
-  describe '#body_as_html' do
+  describe '#body_to_html' do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:pdf_attachment, :erased) }
 
       it 'raises ErasedError error' do
-        expect { foi_attachment.body_as_html }.to raise_error(
+        expect { foi_attachment.body_to_html }.to raise_error(
           FoiAttachment::ErasedError,
           "attachment has been erased (ID=#{foi_attachment.id})"
         )
@@ -607,12 +607,41 @@ RSpec.describe FoiAttachment do
 
   end
 
+  describe '#body_to_text' do
+    subject { foi_attachment.body_to_text }
+
+    context 'when not erased' do
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      before do
+        allow(AttachmentToText).
+          to receive(:new).
+          with(foi_attachment).
+          and_return(instance_double(AttachmentToText, to_text: 'some text'))
+      end
+
+      it { is_expected.to eq('some text') }
+    end
+
+    context 'when erased' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
+
+      it 'raises ErasedError' do
+        expect { subject }.to raise_error(
+          FoiAttachment::ErasedError,
+          "attachment has been erased (ID=#{foi_attachment.id})"
+        )
+      end
+    end
+  end
+
   describe '#name_of_content_type' do
     subject { foi_attachment.name_of_content_type }
 
     before do
-      stub = { 'content/named' => 'Named content' }
-      stub_const("#{described_class}::CONTENT_TYPE_NAMES", stub)
+      allow_any_instance_of(described_class).
+        to receive(:content_type_names).
+        and_return('content/named' => 'Named content')
     end
 
     let(:foi_attachment) do
