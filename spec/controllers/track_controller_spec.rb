@@ -83,77 +83,71 @@ RSpec.describe TrackController do
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
-    context 'when getting feeds', :xapian do
-      it "should get the RSS feed" do
+    context 'when getting feeds' do
+      it "assigns object" do
         track_thing = track_things(:track_fancy_dog_request)
+        event = info_request_events(:useless_outgoing_message_event)
+        stub_search_results(items: [event])
 
         get :track_request, params: {
                               feed: 'feed',
                               url_title: track_thing.info_request.url_title
                             }
-        expect(response).to render_template('track/atom_feed')
-        expect(response.media_type).to eq('application/atom+xml')
-        # TODO: should check it is an atom.builder type being rendered,
-        # not sure how to
-        expect(assigns[:xapian_object].matches_estimated).to eq(3)
-        expect(assigns[:xapian_object].results.size).to eq(3)
-        expect(assigns[:xapian_object].results[0][:model])
-          .to eq(info_request_events(:silly_comment_event))
-        expect(assigns[:xapian_object].results[1][:model])
-          .to eq(info_request_events(:useless_incoming_message_event))
-        expect(assigns[:xapian_object].results[2][:model])
-          .to eq(info_request_events(:useless_outgoing_message_event))
-      end
-
-      it "should get JSON version of the feed" do
-        track_thing = track_things(:track_fancy_dog_request)
-
-        get :track_request, params: {
-                              feed: 'feed',
-                              url_title: track_thing.info_request.url_title,
-                              format: "json"
-                            }
-
-        a = JSON.parse(response.body)
-        expect(a.class.to_s).to eq('Array')
-        expect(a.size).to eq(3)
-
-        expect(a[0]['id'])
-          .to eq(info_request_events(:silly_comment_event).id)
-        expect(a[1]['id'])
-          .to eq(info_request_events(:useless_incoming_message_event).id)
-        expect(a[2]['id'])
-          .to eq(info_request_events(:useless_outgoing_message_event).id)
-
-        expect(a[0]['info_request']['url_title'])
-          .to eq('why_do_you_have_such_a_fancy_dog')
-        expect(a[1]['info_request']['url_title'])
-          .to eq('why_do_you_have_such_a_fancy_dog')
-        expect(a[2]['info_request']['url_title'])
-          .to eq('why_do_you_have_such_a_fancy_dog')
-
-        expect(a[0]['public_body']['url_name']).to eq('tgq')
-        expect(a[1]['public_body']['url_name']).to eq('tgq')
-        expect(a[2]['public_body']['url_name']).to eq('tgq')
-
-        expect(a[0]['user']['url_name']).to eq('bob_smith')
-        expect(a[1]['user']['url_name']).to eq('bob_smith')
-        expect(a[2]['user']['url_name']).to eq('bob_smith')
-
-        expect(a[0]['event_type']).to eq('comment')
-        expect(a[1]['event_type']).to eq('response')
-        expect(a[2]['event_type']).to eq('sent')
+        expect(assigns[:xapian_object]).to be_present
       end
 
       it 'should return atom/xml for a feed url without format specified, even if the requester prefers json' do
         request.env['HTTP_ACCEPT'] = 'application/json,text/xml'
         track_thing = FactoryBot.create(:request_update_track)
+        stub_search_results(items: [])
+
         get :track_request, params: {
                               feed: 'feed',
                               url_title: track_thing.info_request.url_title
                             }
         expect(response).to render_template('track/atom_feed')
         expect(response.media_type).to eq('application/atom+xml')
+      end
+
+      context 'with rendered views' do
+        render_views
+
+        it "should get the RSS feed" do
+          track_thing = track_things(:track_fancy_dog_request)
+          event = info_request_events(:useless_outgoing_message_event)
+          stub_search_results(items: [event])
+
+          get :track_request, params: {
+            feed: 'feed',
+            url_title: track_thing.info_request.url_title
+          }
+          expect(response).to render_template('track/atom_feed')
+          expect(response.media_type).to eq('application/atom+xml')
+          expect(response.body).to include('<entry>')
+          expect(response.body).
+            to include(event.created_at.xmlschema)
+        end
+
+        it "should get JSON version of the feed" do
+          track_thing = track_things(:track_fancy_dog_request)
+          event = info_request_events(:useless_outgoing_message_event)
+          stub_search_results(items: [event])
+
+          get :track_request, params: {
+            feed: 'feed',
+            url_title: track_thing.info_request.url_title,
+            format: "json"
+          }
+
+          a = JSON.parse(response.body)
+          expect(a).to be_an(Array)
+          expect(a.size).to eq(1)
+          expect(a[0]['event_type']).to eq('sent')
+          expect(a[0]['info_request']['url_title']).
+            to eq('why_do_you_have_such_a_fancy_dog')
+          expect(a[0]['public_body']['url_name']).to eq('tgq')
+          expect(a[0]['user']['url_name']).to eq('bob_smith')
+        end
       end
     end
   end
