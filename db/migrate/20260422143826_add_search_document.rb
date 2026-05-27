@@ -4,8 +4,22 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
     # so we don't miss any partition.
     Rails.application.eager_load!
 
-    # enable_extension 'vector'
-
+    models_for_search_document_partitions = [
+      CensorRule,
+      Citation,
+      Comment,
+      User::EmailHistory,
+      FoiAttachment,
+      IncomingMessage,
+      InfoRequest,
+      InfoRequestEvent,
+      OutgoingMessage,
+      MailServerLog,
+      Note,
+      PublicBody,
+      PublicBodyChangeRequest,
+      User
+    ]
     # partition the search table by doctype/model. For bigger deployments,
     # this should result in faster search for public bodies (which is likely to be
     # very common) because the index for that table can stay in memory. Searches for
@@ -62,11 +76,13 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
 
     reversible do |direction|
       direction.up do
+        execute("create extension unaccent")
+
         # create a table partition for each model.
-        Searchable.class_variable_get(:@@searchable_models).keys.each do |model|
+        models_for_search_document_partitions.each do |model|
           execute(
             <<-SQL
-              CREATE TABLE IF NOT EXISTS search_documents_#{model.downcase.gsub("::", "_")}
+              CREATE TABLE IF NOT EXISTS search_documents_#{model.name.downcase.gsub("::", "_")}
                 PARTITION OF search_documents
                 FOR VALUES IN ('#{model}');
             SQL
