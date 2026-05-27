@@ -5,26 +5,26 @@ module FoiAttachment::ContentType
   # rubocop:disable Layout/LineLength
   CONTENT_TYPE_NAMES = {
     # Plain Text
-    "text/plain" => 'Text file',
-    'application/rtf' => 'RTF file',
+    "text/plain" => _('Text file'),
+    'application/rtf' => _('RTF file'),
 
     # Binary Documents
-    'application/pdf' => 'PDF file',
+    'application/pdf' => _('PDF file'),
 
     # Images
-    'image/tiff' => 'TIFF image',
+    'image/tiff' => _('TIFF image'),
 
     # Word Processing
-    'application/vnd.ms-word' => 'Word document',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'Word document',
+    'application/vnd.ms-word' => _('Word document'),
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => _('Word document'),
 
     # Presentation
-    'application/vnd.ms-powerpoint' => 'PowerPoint presentation',
-    'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'PowerPoint presentation',
+    'application/vnd.ms-powerpoint' => _('PowerPoint presentation'),
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation' => _('PowerPoint presentation'),
 
     # Spreadsheet
-    'application/vnd.ms-excel' => 'Excel spreadsheet',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'Excel spreadsheet'
+    'application/vnd.ms-excel' => _('Excel spreadsheet'),
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => _('Excel spreadsheet')
   }.freeze
   # rubocop:enable Layout/LineLength
 
