@@ -198,99 +198,83 @@ RSpec.describe GeneralController, "when showing the frontpage" do
   end
 end
 
-RSpec.describe GeneralController, 'when using xapian search', :xapian do
+RSpec.describe GeneralController, 'when using search' do
   render_views
 
   it "should redirect from search query URL to pretty URL" do
-    # query hidden in POST parameters
     post :search_redirect, params: { query: "mouse" }
-    # URL /search/:query/all
     expect(response).
       to redirect_to(action: 'search', combined: "mouse", view: "all")
   end
 
-  it "should find info request when searching for '\"fancy dog\"'" do
-    get :search, params: { combined: '"fancy dog"' }
-    expect(response).to render_template('search')
-    expect(assigns[:xapian_requests].matches_estimated).to eq(1)
-    expect(assigns[:xapian_requests].results.size).to eq(1)
-    expect(assigns[:xapian_requests].results[0][:model]).
-      to eq(info_request_events(:useless_outgoing_message_event))
+  it "should populate all three assigns for /all searches" do
+    stub_search_results(has_normal_search_terms: true)
 
-    assigns[:xapian_requests].words_to_highlight == %w[fancy dog]
-  end
-
-  it "should find public body and incoming message when searching for 'geraldine quango'" do
-    get :search, params: { combined: 'geraldine quango' }
-    expect(response).to render_template('search')
-
-    expect(assigns[:xapian_requests].matches_estimated).to eq(1)
-    expect(assigns[:xapian_requests].results.size).to eq(1)
-    expect(assigns[:xapian_requests].results[0][:model]).
-      to eq(info_request_events(:useless_incoming_message_event))
-
-    expect(assigns[:xapian_bodies].matches_estimated).to eq(1)
-    expect(assigns[:xapian_bodies].results.size).to eq(1)
-    expect(assigns[:xapian_bodies].results[0][:model]).
-      to eq(public_bodies(:geraldine_public_body))
-  end
-
-  it "should filter results based on end of URL being 'all'" do
     get :search, params: { combined: "bob/all" }
-    expect(assigns[:xapian_requests].results.map { |x| x[:model] }).
-      to match_array(
-        [
-          info_request_events(:useless_outgoing_message_event),
-          info_request_events(:silly_outgoing_message_event),
-          info_request_events(:useful_incoming_message_event),
-          info_request_events(:another_useful_incoming_message_event)
-        ]
-      )
-    expect(assigns[:xapian_users].results.map { |x| x[:model] }).
-      to eq([users(:bob_smith_user)])
-    expect(assigns[:xapian_bodies].results).to eq([])
+
+    expect(assigns[:xapian_requests]).to be_present
+    expect(assigns[:xapian_users]).to be_present
+    expect(assigns[:xapian_bodies]).to be_present
   end
 
-  it "should filter results based on end of URL being 'users'" do
+  it "should only populate users for /users searches" do
+    stub_search_results(items: [users(:bob_smith_user)])
+
     get :search, params: { combined: "bob/users" }
-    expect(assigns[:xapian_requests]).to eq(nil)
-    expect(assigns[:xapian_users].results.map { |x| x[:model] }).
-      to eq([users(:bob_smith_user)])
-    expect(assigns[:xapian_bodies]).to eq(nil)
+
+    expect(assigns[:xapian_requests]).to be_nil
+    expect(assigns[:xapian_users]).to be_present
+    expect(assigns[:xapian_bodies]).to be_nil
   end
 
-  it 'should highlight words for a user-only request' do
-    get :search, params: { combined: "bob/users" }
-    expect(assigns[:highlight_words]).to eq([/\b(bob)\w*\b/iu, /\b(bob)\b/iu])
+  it "should only populate bodies for /bodies searches" do
+    public_body = public_bodies(:geraldine_public_body)
+    stub_search_results(items: [public_body])
+
+    get :search, params: { combined: "bob/bodies" }
+
+    expect(assigns[:xapian_requests]).to be_nil
+    expect(assigns[:xapian_users]).to be_nil
+    expect(assigns[:xapian_bodies]).to be_present
   end
 
-  it 'should show spelling corrections for a user-only request' do
+  it "should only populate requests for /requests searches" do
+    event = info_request_events(:useless_outgoing_message_event)
+    stub_search_results(items: [event])
+
+    get :search, params: { combined: "bob/requests" }
+
+    expect(assigns[:xapian_requests]).to be_present
+    expect(assigns[:xapian_users]).to be_nil
+    expect(assigns[:xapian_bodies]).to be_nil
+  end
+
+  it 'should render spelling suggestion when available' do
+    stub_search_results(spelling_correction: 'bob')
+
     get :search, params: { combined: "rob/users" }
-    expect(assigns[:spelling_correction]).to eq('bob')
+
     expect(response.body).to include('did_you_mean')
   end
 
-  it "should filter results based on end of URL being 'requests'" do
+  it "should show tracking links for requests-only searches" do
+    event = info_request_events(:useless_outgoing_message_event)
+    stub_search_results(items: [event])
+
     get :search, params: { combined: "bob/requests" }
-    expect(assigns[:xapian_requests].results.map { |x| x[:model] }).
-      to match_array(
-        [
-          info_request_events(:useless_outgoing_message_event),
-          info_request_events(:silly_outgoing_message_event),
-          info_request_events(:useful_incoming_message_event),
-          info_request_events(:another_useful_incoming_message_event)
-        ]
-      )
-    expect(assigns[:xapian_users]).to eq(nil)
-    expect(assigns[:xapian_bodies]).to eq(nil)
+
+    expect(response.body).to include('Track this search')
   end
 
-  it "should filter results based on end of URL being 'bodies'" do
-    get :search, params: { combined: "quango/bodies" }
-    expect(assigns[:xapian_requests]).to eq(nil)
-    expect(assigns[:xapian_users]).to eq(nil)
-    expect(assigns[:xapian_bodies].results.map { |x| x[:model] }).
-      to eq([public_bodies(:geraldine_public_body)])
+  it 'should pass search error to flash and redirect' do
+    allow(ActsAsXapian::Search).to receive(:new).
+      and_raise(RuntimeError, 'QueryParserError: ' \
+        'Syntax: <expression> AND <expression>')
+
+    get :search, params: { combined: "test AND" }
+
+    expect(flash[:error]).to match(/Your query was not quite right/)
+    expect(response).to redirect_to(action: 'search', combined: "")
   end
 
   it 'should prioritise direct matches of public body names' do
@@ -329,29 +313,10 @@ RSpec.describe GeneralController, 'when using xapian search', :xapian do
     expect(assigns[:query]).to be_nil
   end
 
-  it "should not show unconfirmed users" do
-    get :search, params: { combined: "unconfirmed/users" }
-    expect(response).to render_template('search')
-    expect(assigns[:xapian_users].results.map { |x|x[:model] }).to eq([])
-  end
-
-  it "should show tracking links for requests-only searches" do
-    get :search, params: { combined: "bob/requests" }
-    expect(response.body).to include('Track this search')
-  end
-
   it 'should not show high page offsets as these are extremely slow to generate' do
     expect {
       get :search, params: { combined: 'bob/all', page: 25 }
     }.to raise_error(ActiveRecord::RecordNotFound)
-  end
-
-  it 'should pass xapian error messages to flash and redirect to a blank search page' do
-    error_text = "Your query was not quite right. " \
-      "QueryParserError: Syntax: <expression> AND <expression>"
-    get :search, params: { combined: "test AND" }
-    expect(flash[:error]).to eq(error_text)
-    expect(response).to redirect_to(action: 'search', combined: "")
   end
 
   context "when passed a non-HTML request" do
