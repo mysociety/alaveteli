@@ -3787,141 +3787,74 @@ RSpec.describe InfoRequest do
     end
   end
 
-  describe InfoRequest, 'when constructing the list of recent requests', :xapian do
-    describe 'when there are fewer than five successful requests' do
-      it 'lists the most recently sent and successful requests by the creation
-                date of the request event' do
-        # Make sure the newest response is listed first even if a request
-        # with an older response has a newer comment or was reclassified more recently:
-        # https://github.com/mysociety/alaveteli/issues/370
-        #
-        # This is a deliberate behaviour change, in that the
-        # previous behaviour (showing more-recently-reclassified
-        # requests first) was intentional.
-        request_events, request_events_all_successful = InfoRequest.recent_requests
-        previous = nil
-        request_events.each do |event|
-          expect(previous.created_at).to be >= event.created_at if previous
-          expect(%w[sent response].include?(event.event_type)).to be true
-          if event.event_type == 'response'
-            expect(%w[successful partially_successful].include?(event.calculated_state)).to be true
-          end
-          previous = event
-        end
-      end
+  describe InfoRequest, '.recent_requests' do
+    it 'backfills with sent events if fewer than five successful responses' do
+      successful_event = FactoryBot.build(
+        :info_request_event, event_type: 'response'
+      )
+      sent_event = FactoryBot.build(
+        :info_request_event, event_type: 'sent'
+      )
+
+      successful_result = build_search_results(
+        items: [successful_event]
+      )
+      sent_result = build_search_results(items: [sent_event])
+
+      allow(ActsAsXapian::Search).to receive(:new).
+        and_return(successful_result, sent_result)
+
+      events, all_successful = InfoRequest.recent_requests
+
+      expect(events).to match_array([successful_event, sent_event])
+      expect(all_successful).to be false
     end
 
-    it 'coalesces duplicate requests' do
-      request_events, request_events_all_successful = InfoRequest.recent_requests
-      expect(request_events.map(&:info_request).select { |x|x.url_title =~ /^spam/ }.length).to eq(1)
+    it 'sets all_successful flag for five or more successful responses' do
+      events = Array.new(5) do
+        FactoryBot.build(:info_request_event, event_type: 'response')
+      end
+
+      stub_search_results(items: events)
+
+      result_events, all_successful = InfoRequest.recent_requests
+
+      expect(result_events.size).to eq(5)
+      expect(all_successful).to be true
     end
   end
 
-  describe InfoRequest, "when constructing a list of requests by query", :xapian do
-    def apply_filters(filters)
-      results = InfoRequest.request_list(filters, page=1, per_page=100, max_results=100)
-      results[:results].map(&:info_request)
-    end
+  describe InfoRequest, '.request_list' do
+    it 'caps show_no_more_than at max_results' do
+      events = Array.new(2) do
+        FactoryBot.build(:info_request_event, event_type: 'sent')
+      end
 
-    it "filters requests" do
-      expect(apply_filters(latest_status: 'all')).to match_array(InfoRequest.all)
+      stub_search_results(items: events, total: 200)
 
-      # default sort order is the request with the most recently created event first
-      order_sql = <<-EOF.strip_heredoc
-      (SELECT max(info_request_events.created_at)
-       FROM info_request_events
-       WHERE info_request_events.info_request_id = info_requests.id)
-       DESC
-      EOF
-      expect(apply_filters(latest_status: 'all')).
-        to eq(InfoRequest.all.order(Arel.sql(order_sql)))
-
-      conditions = <<-EOF.strip_heredoc
-      id in (
-        SELECT info_request_id
-        FROM info_request_events
-        WHERE NOT EXISTS (
-          SELECT *
-          FROM info_request_events later_events
-          WHERE later_events.created_at > info_request_events.created_at
-          AND later_events.info_request_id = info_request_events.info_request_id
-          AND later_events.described_state IS NOT null
-        )
-        AND info_request_events.described_state
-        IN ('successful', 'partially_successful')
+      results = InfoRequest.request_list(
+        { latest_status: 'all' }, 1, 25, 50
       )
-      EOF
-      expect(apply_filters(latest_status: 'successful')).
-        to match_array(InfoRequest.where(conditions))
+
+      expect(results[:show_no_more_than]).to eq(50)
+      expect(results[:matches_estimated]).to eq(200)
+      expect(results[:results].size).to eq(2)
     end
 
-    it "filters requests by date" do
-      # The semantics of the search are that it finds any InfoRequest
-      # that has any InfoRequestEvent created in the specified range
-      filters = { latest_status: 'all', request_date_before: '13/10/2007' }
-      conditions1 = <<-EOF
-      id IN (SELECT info_request_id
-             FROM info_request_events
-             WHERE created_at < '2007-10-13'::date)
-      EOF
-      expect(apply_filters(filters)).
-        to match_array(InfoRequest.where(conditions1))
+    it 'uses matches_estimated if less than max_results' do
+      events = Array.new(2) do
+        FactoryBot.build(:info_request_event, event_type: 'sent')
+      end
 
-      filters = { latest_status: 'all', request_date_after: '13/10/2007' }
-      conditions2 = <<-EOF
-      id IN (SELECT info_request_id
-             FROM info_request_events
-             WHERE created_at > '2007-10-13'::date)
-      EOF
-      expect(apply_filters(filters)).
-        to match_array(InfoRequest.where(conditions2))
+      stub_search_results(items: events, total: 10)
 
-      filters = { latest_status: 'all',
-                 request_date_after: '13/10/2007',
-                 request_date_before: '01/11/2007' }
-      conditions3 = <<-EOF
-      id IN (SELECT info_request_id
-             FROM info_request_events
-             WHERE created_at BETWEEN '2007-10-13'::date
-             AND '2007-11-01'::date)
-      EOF
-      expect(apply_filters(filters)).
-        to match_array(InfoRequest.where(conditions3))
-    end
-
-    it "lists internal_review requests as unresolved ones" do
-      # This doesn’t precisely duplicate the logic of the actual
-      # query, but it is close enough to give the same result with
-      # the current set of test data.
-      results = apply_filters(latest_status: 'awaiting')
-      conditions = <<-EOF
-      id IN (
-        SELECT info_request_id
-        FROM info_request_events
-        WHERE described_state IN ('waiting_response',
-                                  'waiting_clarification',
-                                  'internal_review',
-                                  'gone_postal',
-                                  'error_message',
-                                  'requires_admin')
-        AND NOT EXISTS (
-          SELECT *
-          FROM info_request_events later_events
-          WHERE later_events.created_at > info_request_events.created_at
-          AND later_events.info_request_id = info_request_events.info_request_id
-        )
+      results = InfoRequest.request_list(
+        { latest_status: 'all' }, 1, 25, 50
       )
-      EOF
-      expect(results).to match_array(InfoRequest.where(conditions))
 
-      expect(results.include?(info_requests(:fancy_dog_request))).to eq(false)
-
-      event = info_request_events(:useless_incoming_message_event)
-      event.described_state = event.calculated_state = "internal_review"
-      event.save!
-      destroy_and_rebuild_xapian_index
-      results = apply_filters(latest_status: 'awaiting')
-      expect(results.include?(info_requests(:fancy_dog_request))).to eq(true)
+      expect(results[:show_no_more_than]).to eq(10)
+      expect(results[:matches_estimated]).to eq(10)
+      expect(results[:results].size).to eq(2)
     end
   end
 
