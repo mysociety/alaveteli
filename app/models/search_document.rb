@@ -60,7 +60,6 @@ class SearchDocument < ApplicationRecord
     # TODO: loading the model is slow (10+s) and memory hungry (10+GB),
     # so it needs to be locked away behind some kind of config flag.
     q_embedding = nil
-    # q_embedding = @@model.call(query)
 
     # conditionnally build a query for each search type (exact, FTS, semantic)
     # and UNION them
@@ -68,7 +67,6 @@ class SearchDocument < ApplicationRecord
     unless q_embedding.nil?
       #   semantic_query = "(1=1)"
       # else
-      # semantic_query = <<-SQL
       search_queries << <<-SQL
         SELECT
             sd_id,
@@ -219,7 +217,9 @@ sql[:values])
     end
   end
 
-  # temp code to remove before merging
+  # temp code to remove before merging. Throw variations of inputs
+  # at the search function to make sure there is no weird crash
+  # happening in the various SQL building parts.
   # TODO: do the same thing for the indexing part
   def self.fuzz_search
     models = [nil, PublicBody, Note, MailServerLog, FoiAttachment]

@@ -33,8 +33,6 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
       options: "PARTITION BY LIST (searchable_doc_type)"
     ) do |t|
       t.bigserial(:sd_id)
-      # TODO: can searchable_doc_type be changed to an enum
-      # to reduce storage size?
       t.belongs_to(:searchable_doc, polymorphic: true)
       # plain text content of the related document.
       # This might come from a text extraction tool (for attachments),
@@ -45,28 +43,21 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
       # page/sheet name/...
       t.text(:section_ref)
 
+      # this is the postgres language, which is not the same as the locale
+      # that ruby knows.
+      t.column(:language, :text)
+
       # Full text search
       # we need to store tsvectors because unaccent is not immutable
-      # so it can't be used in the index definition
-      t.column(:language, :text)
+      # so it can't be used in the index definition. This allows support
+      # for accented languages.
       t.column(:content_tsv, :tsvector)
 
       # similar tsvector but for data that is only admin-visible.
-      # The fields in `admin_index` are used to populate this column,
-      # always using the `simple` dictionary so as to be unmodified.
+      # The fields in `admin_index` are used to populate this column.
       # This is mainly used for GDPR-type search where an admin needs
       # to find all occurences of a name, email, etc...
-      # TODO: this content will not be language dependent, to avoid duplicate
-      # entries in the search index, can we attach this record to the site's
-      # default locale?
       t.column(:admin_content_tsv, :tsvector)
-
-      # semantic search is in raw sql below as this does not work
-      # without the "neighbor" gem (which seems to add syntactic sugar only,
-      # so isn't worth the extra surface)
-
-      # TODO: add trigram index to help suggest spelling corrections
-      # see https://www.postgresql.org/docs/18/pgtrgm.html#PGTRGM-TEXT-SEARCH
 
       # we don't really need these, include them while developing to help
       # with debugging, but drop them once we're more comfortable with the
@@ -89,15 +80,8 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
           )
         end
 
-        # TODO: fill embeddings with
-        # https://github.com/ankane/transformers-ruby?tab=readme-ov-file#sentence-transformersmulti-qa-MiniLM-L6-cos-v1
         execute(
           <<-SQL
-          -- TODO: enable vector extension, decide on vector dimension
-          -- this requires the pgvector extension (called 'vector' inside pg)
-          -- alter table search_documents add column
-          --   embedding vector(384);
-
           -- reciprocal ranked fusion
           CREATE OR REPLACE FUNCTION rrf_score(rank bigint, rrf_k bigint DEFAULT 50)
           RETURNS numeric
@@ -138,6 +122,8 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
           SQL
         )
 
+        # when undoing the migration, we need to remove all partitions, or
+        # the main table won't be dropped.
         Searchable.class_variable_get(:@@searchable_models).keys.each do |model|
           execute(
             <<-SQL
@@ -150,16 +136,9 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
 
     # the indices below are declared on the main table, but a matching index is
     # automatically created on each partition automatically by postgres.
-
     add_index(:search_documents, [:searchable_doc_type, :searchable_doc_id, :section_ref, :language], unique: true)
-
-    # supports semantic search using cosine similarity
-    # add_index(:search_documents, :embedding, using: :hnsw, opclass: :vector_cosine_ops)
 
     # supports FTS
     add_index(:search_documents, :content_tsv, using: :gin)
-    # used by typo suggestions. This index is rather heavy to maintain, so it is
-    # disabled for now
-    # add_index(:search_documents, :raw_content, using: :gin, opclass: :gin_trgm_ops)
   end
 end

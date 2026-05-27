@@ -21,7 +21,8 @@ module Searchable
     "sv" => 'swedish'
   }
   # fallback on "simple" which does not try to stem words at all. This allows
-  # search to work in any language, but without tokenisation/stemming.
+  # search to work in any language, but without tokenisation/stemming. In such
+  # cases, the search quality should be much lower.
   @@locale_to_language_map.default = 'simple'
   # rubocop:enable Style/ClassVars
 
@@ -33,7 +34,6 @@ module Searchable
   # Search entry point for searching a single instance of a model.
   # Override per model as each one will have custom logic
   def newsearch(_query, _include_linked_items: true)
-    # TODO: implement for User, InfoRequest...
     Rails.logger.info("Searching through instance #{self.class}.#{id}")
   end
 
@@ -67,14 +67,10 @@ module Searchable
     query
   end
 
-  # Build a tsvector record for the model+language combination.
+  # Build a search record
   #
-  # +idx_name+ is either :index of :admin_index
+  # +idx_name+ is either :index or :admin_index
   # +language+ is the language for the pg dictionary to tokenize content.
-  #            For :admin_index, language is always 'simple'
-  # TODO: if all keys in :idx_name are column names, we don't need to send the
-  # query to the db, we can just pass it back to the upsert call to save one
-  # round trip to db.
   def search_content_from_db(idx_name, language)
     search_cfg = @@searchable_models[self.class.to_s]
     if search_cfg[idx_name].nil? or search_cfg[idx_name].empty?
@@ -94,10 +90,7 @@ module Searchable
     end
   end
 
-  # upsert the content_tsv column.
-  # This may result in multiple search docs:
-  # if model is translatable
-  # if model has multiple pages/paragraphs...
+  # upsert the search content
   def upsert_content(language, section_ref)
     search_cfg = @@searchable_models[self.class.to_s]
 
