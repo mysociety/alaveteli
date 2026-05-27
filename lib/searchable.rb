@@ -31,7 +31,9 @@ module Searchable
 
   # TODO: rename to `search`
   # Search entry point for searching a single instance of a model.
-  def newsearch(_query)
+  # Override per model as each one will have custom logic
+  def newsearch(_query, _include_linked_items: true)
+    # TODO: implement for User, InfoRequest...
     Rails.logger.info("Searching through instance #{self.class}.#{id}")
   end
 
@@ -140,10 +142,12 @@ module Searchable
   # Refresh the search index data about a model.
   # This would be the right place to queue up jobs like content extraction,
   # embedding generation, etc...
+  # TODO: produce more than 1 section for attachments
   def reindex
     return unless is_indexable
 
     if respond_to?(:translated_versions)
+      # if translated_columns.length > 0
       translations_by_locale.each do |l, v|
         AlaveteliLocalization.with_locale(l) do
           lang = Searchable.lang_from_locale(l.to_s)
