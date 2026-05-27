@@ -207,6 +207,22 @@ RSpec.describe GeneralController, 'when using search' do
       to redirect_to(action: 'search', combined: "mouse", view: "all")
   end
 
+  it "should redirect from query string search to URL-based page" do
+    get :search_redirect, params: { query: "bob" }
+    expect(response).
+      to redirect_to(action: 'search', combined: "bob", view: "all")
+  end
+
+  it "should not strip quotes from a quoted query" do
+    stub_search_results(has_normal_search_terms: true)
+
+    post :search_redirect, params: { query: '"mouse stilton"' }
+    expect(response).
+      to redirect_to(action: 'search',
+                     combined: '"mouse stilton"',
+                     view: "all")
+  end
+
   it "should populate all three assigns for /all searches" do
     stub_search_results(has_normal_search_terms: true)
 
@@ -311,6 +327,16 @@ RSpec.describe GeneralController, 'when using search' do
     expect(response).to render_template('search')
     expect(assigns[:total_hits]).to be_nil
     expect(assigns[:query]).to be_nil
+  end
+
+  it "should not log a logged-in user out when searching" do
+    user = FactoryBot.create(:user)
+    sign_in user
+    stub_search_results(has_normal_search_terms: true)
+
+    get :search, params: { combined: "test/all" }
+
+    expect(session[:user_id]).to eq(user.id)
   end
 
   it 'should not show high page offsets as these are extremely slow to generate' do

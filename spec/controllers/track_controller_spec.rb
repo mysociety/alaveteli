@@ -213,6 +213,17 @@ RSpec.describe TrackController do
       expect(flash[:notice]).to eq(expected)
     end
 
+    it "should render an atom feed for a search query" do
+      stub_search_results(items: [])
+
+      get :track_search_query, params: {
+        query_array: "bob 2007/10/13..2007/11/13",
+        feed: 'feed'
+      }
+      expect(response).to render_template('track/atom_feed')
+      expect(response.media_type).to eq('application/atom+xml')
+    end
+
     it "should redirect with an error message if the query is too long" do
       long_track = TrackThing.new(track_type: 'search_query',
                                   track_query: "lorem ipsum " * 42)
