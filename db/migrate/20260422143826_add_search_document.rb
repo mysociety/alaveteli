@@ -140,5 +140,6 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
 
     # supports FTS
     add_index(:search_documents, :content_tsv, using: :gin)
+    add_index(:search_documents, :admin_content_tsv, using: :gin)
   end
 end
