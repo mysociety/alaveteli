@@ -87,11 +87,11 @@ class SearchDocument < ApplicationRecord
           SELECT
               sd_id,
               rank() OVER (
-                ORDER BY ts_rank_cd(admin_content_tsv, plainto_tsquery(:language, unaccent(:query))) DESC
+                ORDER BY ts_rank_cd(admin_content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
               ) AS rank
           FROM search_documents
           WHERE
-              plainto_tsquery(:language, unaccent(:query)) @@ admin_content_tsv
+              websearch_to_tsquery(:language, unaccent(:query)) @@ admin_content_tsv
               #{doc_type_q}
           ORDER BY rank
           LIMIT #{limit * limit_ratio}
@@ -141,11 +141,11 @@ class SearchDocument < ApplicationRecord
         SELECT
             sd_id,
             rank() OVER (
-              ORDER BY ts_rank_cd(content_tsv, plainto_tsquery(:language, unaccent(:query))) DESC
+              ORDER BY ts_rank_cd(content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
             ) AS rank
         FROM search_documents
         WHERE
-            plainto_tsquery(:language, unaccent(:query)) @@ content_tsv
+            websearch_to_tsquery(:language, unaccent(:query)) @@ content_tsv
             AND language = :language
             #{doc_type_q}
         ORDER BY rank
