@@ -42,7 +42,10 @@ class SearchDocument < ApplicationRecord
     limit_ratio:
   )
     sanitized_language = if language.nil? || language == ''
-                           Searchable.lang_from_locale(AlaveteliLocalization.default_locale)
+                           Searchable.
+                             lang_from_locale(
+                               AlaveteliLocalization.default_locale
+                             )
                          else
                            language
                          end
@@ -81,8 +84,8 @@ class SearchDocument < ApplicationRecord
     end
 
     if admin_mode
-      # keep the same language for tokenization in admin mode, if the (admin) user wants
-      # exact text match, they should use `exact_mode`.
+      # keep the same language for tokenization in admin mode, if the (admin)
+      # user wants exact text match, they should use `exact_mode`.
       search_queries << <<~SQL.chomp
           SELECT
               sd_id,
@@ -182,12 +185,15 @@ class SearchDocument < ApplicationRecord
           "model should be a class, not its string representation"
         )
       end
-      supported_langs = Searchable.class_variable_get(:@@locale_to_language_map).values.concat(
-        [
-          "simple",
-          nil
-        ]
-      )
+      supported_langs = Searchable.
+        class_variable_get(:@@locale_to_language_map).
+        values.
+        concat(
+          [
+            "simple",
+            nil
+          ]
+        )
       unless supported_langs.include?(language)
         raise(ArgumentError, "#{language} is not yet supported for search")
       end
@@ -216,9 +222,9 @@ sql[:values])
         "ON search_results.sd_id = search_documents.sd_id"
         # postgresql has a DISTINCT ON (id) construct, but it's not sql standard
         # so is not supported directly by rails ORM. It should be faster than
-        # the .distinct ORM construct, which compares all columns of each record.
-        # This prevents duplicate models in cases where multiple translations match
-        # the query.
+        # the .distinct ORM construct that compares all columns of each record.
+        # This prevents duplicate models in cases where multiple translations
+        # match the query.
       ).distinct
     end
   end

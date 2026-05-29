@@ -91,7 +91,7 @@ class FoiAttachment < ApplicationRecord
     file.purge_later if file.attached?
   end
 
-  def is_indexable
+  def is_indexable?
     # do not index images/videos as we can't extract text from them
     # at this point
     !(content_type.start_with?("image/") || content_type.start_with?("video/"))

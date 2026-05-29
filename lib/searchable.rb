@@ -73,7 +73,7 @@ module Searchable
   # +language+ is the language for the pg dictionary to tokenize content.
   def search_content_from_db(idx_name, language)
     search_cfg = @@searchable_models[self.class.to_s]
-    if search_cfg[idx_name].nil? or search_cfg[idx_name].empty?
+    if search_cfg[idx_name].nil? || search_cfg[idx_name].empty?
       {}
     else
       ActiveRecord::Base.
@@ -128,7 +128,7 @@ module Searchable
 
   # Override this method per model to allow excluding specific objects
   # from indexing.
-  def is_indexable
+  def is_indexable?
     true
   end
 
@@ -137,11 +137,11 @@ module Searchable
   # embedding generation, etc...
   # TODO: produce more than 1 section for attachments
   def reindex
-    return unless is_indexable
+    return unless is_indexable?
 
     if respond_to?(:translated_versions)
       # if translated_columns.length > 0
-      translations_by_locale.each do |l, v|
+      translations_by_locale.each do |l, _|
         AlaveteliLocalization.with_locale(l) do
           lang = Searchable.lang_from_locale(l.to_s)
           # TODO: 1 is the section/page/etc... which needs to be
@@ -204,12 +204,15 @@ module Searchable
     #              permissions), to include items that match the search query
     #              based on the content of their `admin_index` elements.
     # +exact_mode+ adds results that match *exactly* the query text, using
-    #              SQL LIKE search. This combines with `admin_mode` to also search
-    #              in the raw_admin_content. This search mode is potentially
-    #              slow/expensive on models with many instances.
+    #              SQL LIKE search. This combines with `admin_mode` to also
+    #              search in the raw_admin_content. This search mode is
+    #              potentially slow/expensive on models with many instances.
     # +limit+ how many records to return.
     def newsearch(query,
-                  language: Searchable.lang_from_locale(AlaveteliLocalization.default_locale),
+                  language: Searchable.
+                              lang_from_locale(
+                                AlaveteliLocalization.default_locale
+                              ),
                   admin_mode: false,
                   exact_mode: false,
                   limit: 10)
@@ -235,9 +238,7 @@ module Searchable
     # pre-existing database.
     def reindex_all(batch_size: 1000)
       start = Time.now
-      indexable.find_each(batch_size: batch_size) do |m|
-        m.reindex
-      end
+      indexable.find_each(batch_size: batch_size).map(&:reindex)
       t = Time.now - start
       Rails.logger.info("Reindexed #{indexable.count} #{name} in #{t} seconds")
     end

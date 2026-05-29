@@ -87,7 +87,7 @@ RSpec.describe SearchDocument do
             name: "Northern England NHS fictitious center"
           )
         ]
-        bodies.each { |b| b.reindex }
+        bodies.each(&:reindex)
         expect(PublicBody.newsearch("NHS England").first).to eq(nhs)
       end
     end
@@ -104,8 +104,12 @@ RSpec.describe SearchDocument do
                    "ministere intérieur",
             language: 'french'
                  )).to match_array([body])
-          expect(PublicBody.newsearch("ministere interieur")).to match_array([body])
-          expect(PublicBody.newsearch("ministere de l'intérieur")).to match_array([body])
+          expect(
+            PublicBody.newsearch("ministere interieur")
+          ).to match_array([body])
+          expect(
+            PublicBody.newsearch("ministere de l'intérieur")
+          ).to match_array([body])
         end
       end
     end
