@@ -129,8 +129,9 @@ class SearchDocument < ApplicationRecord
           rank() OVER (ORDER BY sd_id DESC) AS rank
         FROM search_documents
         WHERE
-          raw_content LIKE concat('%', :query::text, '%')
-          #{adm_q}
+          (raw_content LIKE concat('%', :query::text, '%')
+          #{adm_q})
+          #{doc_type_q}
         LIMIT #{limit * limit_ratio}
       SQL
     end
