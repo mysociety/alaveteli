@@ -213,7 +213,12 @@ sql[:values])
       model.with(search_results: sr).joins(:search_documents).joins(
         "JOIN search_results " \
         "ON search_results.sd_id = search_documents.sd_id"
-      )
+        # postgresql has a DISTINCT ON (id) construct, but it's not sql standard
+        # so is not supported directly by rails ORM. It should be faster than
+        # the .distinct ORM construct, which compares all columns of each record.
+        # This prevents duplicate models in cases where multiple translations match
+        # the query.
+      ).distinct
     end
   end
 
