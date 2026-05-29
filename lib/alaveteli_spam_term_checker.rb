@@ -17,8 +17,6 @@ class AlaveteliSpamTermChecker
     /films?-?hd/i,
     /\[DVDscr\]/i,
     /W@tch/i,
-    /720p/i,
-    /1080p/i,
     /MEGA.TV/i,
     /1080.HD/i,
     /\[Online-Free\]/i,
