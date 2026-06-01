@@ -45,7 +45,7 @@ RSpec.describe "admin_request/show" do
       FactoryBot.create(:info_request_censor_rule,
                         text: 'information',
                         replacement: '[REDACTED]',
-                        info_request: request)
+                        censorable: request)
       request.reload
     end
 

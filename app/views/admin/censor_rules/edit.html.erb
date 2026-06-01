@@ -9,10 +9,7 @@
 </div>
 
 <%= form_tag admin_censor_rule_path(@censor_rule), method: :put, class: 'form form-horizontal' do %>
-  <%= render partial: 'form',
-             locals: { info_request: @censor_rule.info_request,
-                       user: @censor_rule.user,
-                       public_body: @censor_rule.public_body } %>
+  <%= render partial: 'form' %>
 
   <div class="form-actions">
     <%= submit_tag 'Save', accesskey: 's', class: 'btn btn-success' %>

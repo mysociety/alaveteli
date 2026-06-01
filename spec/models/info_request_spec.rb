@@ -1457,10 +1457,11 @@ RSpec.describe InfoRequest do
     end
 
     it 'destroys associated censor_rules' do
-      censor_rule = FactoryBot.create(:censor_rule, info_request: info_request)
+      censor_rule = FactoryBot.create(:censor_rule, censorable: info_request)
       info_request.reload
       info_request.destroy
-      expect(CensorRule.where(info_request_id: info_request.id)).to be_empty
+      expect(CensorRule.info_request.where(censorable_id: info_request.id)).
+        to be_empty
     end
 
     it 'destroys associated comments' do

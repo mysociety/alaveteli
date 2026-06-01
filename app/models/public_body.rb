@@ -68,7 +68,8 @@ class PublicBody < ApplicationRecord
            dependent: :destroy
   has_many :censor_rules,
            -> { order(created_at: :desc) },
-           inverse_of: :public_body,
+           as: :censorable,
+           inverse_of: :censorable,
            dependent: :destroy
   has_many :track_things_sent_emails,
            -> { order(created_at: :desc) },

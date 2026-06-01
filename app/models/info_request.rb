@@ -121,7 +121,8 @@ class InfoRequest < ApplicationRecord
            dependent: :destroy
   has_many :censor_rules,
            -> { order(created_at: :desc) },
-           inverse_of: :info_request,
+           as: :censorable,
+           inverse_of: :censorable,
            dependent: :destroy
   has_many :mail_server_logs,
            -> { order(:mail_server_log_done_id, :order) },

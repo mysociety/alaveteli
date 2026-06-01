@@ -427,7 +427,7 @@ RSpec.describe IncomingMessage do
       message.reload
       FactoryBot.create(:censor_rule,
                         text: 'Person',
-                        info_request: message.info_request)
+                        censorable: message.info_request)
 
       expect(message.safe_from_name).to eq('FOI [REDACTED]')
     end

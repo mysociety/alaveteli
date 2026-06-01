@@ -37,12 +37,8 @@ class Admin::CensorRulesController < AdminController
   end
 
   def destroy
-    info_request = @censor_rule.info_request
-    user = @censor_rule.user
     @censor_rule.destroy
-
     flash[:notice] = "Censor rule was successfully destroyed."
-
     redirect_to_subject
   end
 
@@ -95,12 +91,13 @@ class Admin::CensorRulesController < AdminController
   end
 
   def redirect_to_subject
-    if @censor_rule.info_request
-      redirect_to admin_request_url(@censor_rule.info_request)
-    elsif @censor_rule.user
-      redirect_to admin_user_url(@censor_rule.user)
-    elsif @censor_rule.public_body
-      redirect_to admin_body_url(@censor_rule.public_body)
+    case @censor_rule.censorable
+    when InfoRequest
+      redirect_to admin_request_url(@censor_rule.censorable)
+    when User
+      redirect_to admin_user_url(@censor_rule.censorable)
+    when PublicBody
+      redirect_to admin_body_url(@censor_rule.censorable)
     else
       redirect_to admin_censor_rules_path
     end

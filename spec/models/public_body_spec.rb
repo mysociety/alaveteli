@@ -1287,9 +1287,10 @@ RSpec.describe PublicBody, "when destroying" do
   end
 
   it 'should destroy the associated censor_rules' do
-    FactoryBot.create(:censor_rule, public_body: public_body)
+    censor_rule = FactoryBot.create(:censor_rule, censorable: public_body)
     public_body.destroy
-    expect(CensorRule.where(public_body_id: public_body.id)).to be_empty
+    expect(CensorRule.public_body.where(censorable_id: public_body.id)).
+      to be_empty
   end
 
   it 'destroys associated translations' do

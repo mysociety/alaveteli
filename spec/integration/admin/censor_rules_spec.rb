@@ -64,7 +64,7 @@ RSpec.describe 'Updating censor rules' do
 
     it 'clears the cache for existing requests when a rule is updated' do
       rule = FactoryBot.create(:public_body_censor_rule,
-                               public_body: authority,
+                               censorable: authority,
                                text: "rubbish",
                                replacement: "[REDACTED]")
 
@@ -89,7 +89,7 @@ RSpec.describe 'Updating censor rules' do
 
     it 'clears the cache for existing requests when a rule is deleted' do
       rule = FactoryBot.create(:public_body_censor_rule,
-                               public_body: authority,
+                               censorable: authority,
                                text: "rubbish",
                                replacement: "[REDACTED]")
 
@@ -133,7 +133,7 @@ RSpec.describe 'Updating censor rules' do
 
     it 'clears the cache for existing requests when a rule is updated' do
       rule = FactoryBot.create(:user_censor_rule,
-                               user: user,
+                               censorable: user,
                                text: "rubbish",
                                replacement: "[REDACTED]")
 
@@ -158,7 +158,7 @@ RSpec.describe 'Updating censor rules' do
 
     it 'clears the cache for existing requests when a rule is deleted' do
       rule = FactoryBot.create(:user_censor_rule,
-                               user: user,
+                               censorable: user,
                                text: "rubbish",
                                replacement: "[REDACTED]")
 
@@ -204,7 +204,7 @@ RSpec.describe 'Updating censor rules' do
     it 'clears the cache for existing requests when a rule is updated' do
       request_id = request.id
       rule = FactoryBot.create(:info_request_censor_rule,
-                               info_request: request,
+                               censorable: request,
                                text: "rubbish",
                                replacement: "[REDACTED]")
 
@@ -230,7 +230,7 @@ RSpec.describe 'Updating censor rules' do
     it 'clears the cache for existing requests when a rule is deleted' do
       request_id = request.id
       rule = FactoryBot.create(:info_request_censor_rule,
-                               info_request: request,
+                               censorable: request,
                                text: "rubbish",
                                replacement: "[REDACTED]")
 

@@ -3,9 +3,6 @@
 # Table name: censor_rules
 #
 #  id                :integer          not null, primary key
-#  info_request_id   :integer
-#  user_id           :integer
-#  public_body_id    :integer
 #  text              :text             not null
 #  replacement       :text             not null
 #  last_edit_editor  :string           not null
@@ -15,6 +12,8 @@
 #  regexp            :boolean          default(FALSE), not null
 #  case_sensitive    :boolean          default(TRUE), not null
 #  ignore_diacritics :boolean          default(FALSE), not null
+#  censorable_type   :string
+#  censorable_id     :bigint
 #
 
 # models/censor_rule.rb:
@@ -32,14 +31,8 @@ class CensorRule < ApplicationRecord
     _('[extraneous and potentially defamatory material removed]')
   ].freeze
 
-  belongs_to :info_request,
-             inverse_of: :censor_rules,
-             optional: true
-  belongs_to :user,
-             inverse_of: :censor_rules,
-             optional: true
-  belongs_to :public_body,
-             inverse_of: :censor_rules,
+  belongs_to :censorable,
+             polymorphic: true,
              optional: true
 
   validate :require_valid_regexp,
@@ -53,11 +46,10 @@ class CensorRule < ApplicationRecord
                         :last_edit_comment,
                         :last_edit_editor
 
-  scope :global, -> {
-    where(info_request_id: nil,
-          user_id: nil,
-          public_body_id: nil)
-  }
+  scope :info_request, -> { where(censorable_type: 'InfoRequest') }
+  scope :public_body, -> { where(censorable_type: 'PublicBody') }
+  scope :user, -> { where(censorable_type: 'User') }
+  scope :global, -> { where(censorable_id: nil, censorable_type: nil) }
 
   cattr_accessor :canned_replacements,
                  instance_writer: false,
@@ -80,38 +72,32 @@ class CensorRule < ApplicationRecord
   end
 
   def is_global?
-    info_request_id.nil? && user_id.nil? && public_body_id.nil?
+    censorable_id.nil? && censorable_type.nil?
   end
 
   def expire_requests
-    if info_request
-      InfoRequest::ExpireJob.perform_later(info_request)
-      NotifyCacheJob.perform_later(info_request)
-    elsif user
-      InfoRequest::ExpireJob.perform_later(user, :info_requests)
-    elsif public_body
-      InfoRequest::ExpireJob.perform_later(public_body, :info_requests)
-    else # global rule
+    case censorable
+    when InfoRequest
+      InfoRequest::ExpireJob.perform_later(censorable)
+      NotifyCacheJob.perform_later(censorable)
+    when User, PublicBody
+      InfoRequest::ExpireJob.perform_later(censorable, :info_requests)
+    else
       InfoRequest::ExpireJob.perform_later(InfoRequest, :all)
     end
   end
 
   def censorable_requests
-    if info_request
+    case censorable
+    when InfoRequest
       # Prefer a chainable query instead of wrapping in Array for similar API
       # between CensorRule types
-      InfoRequest.where(id: info_request_id)
-    elsif user
-      user.info_requests
-    elsif public_body
-      public_body.info_requests
+      InfoRequest.where(id: censorable_id)
+    when User, PublicBody
+      censorable.info_requests
     else
       InfoRequest.unscoped
     end
-  end
-
-  def censorable
-    info_request || user || public_body || nil
   end
 
   private

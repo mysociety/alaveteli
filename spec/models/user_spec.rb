@@ -491,7 +491,7 @@ RSpec.describe User, 'previous names' do
   describe '#safe_previous_names' do
     it 'returns unique safe previous names without current name' do
       FactoryBot.create(
-        :censor_rule, user: user, text: 'Bobby', replacement: '[redacted]'
+        :censor_rule, censorable: user, text: 'Bobby', replacement: '[redacted]'
       )
 
       expect(user.safe_previous_names).to include('[redacted]').once
@@ -878,8 +878,8 @@ RSpec.describe User do
 
     it 'destroys any associated censor_rules' do
       censor_rule = FactoryBot.create(:user_censor_rule)
-      censor_rule.user.destroy
-      expect(CensorRule.where(id: censor_rule.id)).to be_empty
+      censor_rule.censorable.destroy
+      expect(CensorRule.user.where(censorable_id: user.id)).to be_empty
     end
 
     it 'destroys any associated info_request_batches' do
