@@ -13,10 +13,9 @@
     <table class="table table-condensed table-hover span12 censor-rule-list">
       <tr>
         <th>Id</th>
-        <% CensorRule.content_columns.each do |column| %>
-          <th><%= column.name.humanize %></th>
+        <% CensorRule.content_columns_names.each do |column| %>
+          <th><%= column.humanize %></th>
         <% end %>
-        <th>Applies to</th>
         <th>Actions</th>
       </tr>
 
@@ -24,13 +23,15 @@
         <tr class="<%= cycle('odd', 'even') %>">
           <td class="id"><%=h censor_rule.id %></td>
 
-          <% CensorRule.content_columns.map { |c| c.name }.each do |column| %>
-            <td class="<%= column %>"><%=h censor_rule.send(column) %></td>
+          <% CensorRule.content_columns_names.each do |column| %>
+            <% if column == 'censorable_type' %>
+              <td class="applies-to">
+                <%=h censor_rule.send(column) || 'Global' %>
+              </td>
+            <% else %>
+              <td class="<%= column %>"><%=h censor_rule.send(column) %></td>
+            <% end %>
           <% end %>
-
-          <td class="applies-to">
-            <%= censor_rule_applicable_class(censor_rule) %>
-          </td>
 
           <td>
             <%= link_to "Edit", edit_admin_censor_rule_path(censor_rule) %>
