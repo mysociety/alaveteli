@@ -13,7 +13,7 @@ module CensorRule::Polymorphic
     scope :global, -> { where(censorable_id: nil, censorable_type: nil) }
   end
 
-  def is_global?
+  def global?
     censorable_id.nil? && censorable_type.nil?
   end
 

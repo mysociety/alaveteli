@@ -81,6 +81,20 @@ RSpec.describe CensorRule do
     end
   end
 
+  describe '#global?' do
+    subject { rule.global? }
+
+    context 'without a censorable' do
+      let(:rule) { FactoryBot.build(:global_censor_rule) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'with a censorable' do
+      let(:rule) { FactoryBot.build(:user_censor_rule) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#apply_to_text' do
     it 'applies the rule to the text' do
       rule = FactoryBot.build(:censor_rule, text: 'secret')
@@ -590,14 +604,3 @@ RSpec.describe 'when validating rules' do
   end
 end
 
-RSpec.describe 'when handling global rules' do
-  describe 'an instance without a censorable' do
-    before do
-      @global_rule = CensorRule.new
-    end
-
-    it 'should return a value of true from is_global?' do
-      expect(@global_rule.is_global?).to eq(true)
-    end
-  end
-end
