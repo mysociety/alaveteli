@@ -37,7 +37,7 @@ class Admin::CensorRulesController < AdminController
   end
 
   def destroy
-    @censor_rule.destroy
+    @censor_rule.destroy!
     flash[:notice] = "Censor rule was successfully destroyed."
     redirect_to_subject
   end
