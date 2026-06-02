@@ -88,16 +88,7 @@ class CensorRule < ApplicationRecord
   end
 
   def censorable_requests
-    case censorable
-    when InfoRequest
-      # Prefer a chainable query instead of wrapping in Array for similar API
-      # between CensorRule types
-      InfoRequest.where(id: censorable_id)
-    when User, PublicBody
-      censorable.info_requests
-    else
-      InfoRequest.unscoped
-    end
+    censorable&.info_requests || InfoRequest.unscoped
   end
 
   private

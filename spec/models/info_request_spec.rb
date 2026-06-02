@@ -5147,4 +5147,11 @@ RSpec.describe InfoRequest do
       it { is_expected.to eq([reference]) }
     end
   end
+
+  describe '#info_requests' do
+    subject { info_request.info_requests }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    it { is_expected.to match_array([info_request]) }
+    it { is_expected.to respond_to(:where) }
+  end
 end

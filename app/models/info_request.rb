@@ -1818,6 +1818,12 @@ class InfoRequest < ApplicationRecord
     ]
   end
 
+  # Return only this request in a chainable relation. This is mainly for
+  # duck-typing with other censorable relationships.
+  def info_requests
+    self.class.where(id: id)
+  end
+
   private
 
   def self.add_conditions_from_extra_params(params, extra_params)
