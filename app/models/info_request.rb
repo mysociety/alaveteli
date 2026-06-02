@@ -1824,6 +1824,13 @@ class InfoRequest < ApplicationRecord
     self.class.where(id: id)
   end
 
+  # Expire this request. This is mainly for
+  # duck-typing with other censorable relationships.
+  def expire_requests
+    InfoRequest::ExpireJob.perform_later(self)
+    NotifyCacheJob.perform_later(self)
+  end
+
   private
 
   def self.add_conditions_from_extra_params(params, extra_params)

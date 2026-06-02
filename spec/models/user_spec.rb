@@ -897,11 +897,13 @@ RSpec.describe User do
   end
 
   describe '#expire_requests' do
-    it 'create expire job for the user' do
-      user = FactoryBot.build(:user)
-      expect(InfoRequest::ExpireJob).to receive(:perform_later).
-        with(user, :info_requests)
-      user.expire_requests
+    subject { user.expire_requests }
+
+    let(:user) { FactoryBot.create(:user) }
+
+    it 'expires the requests' do
+      expect { subject }.
+        to have_enqueued_job(InfoRequest::ExpireJob).with(user, :info_requests)
     end
   end
 

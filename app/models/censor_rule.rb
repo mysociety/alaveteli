@@ -76,12 +76,8 @@ class CensorRule < ApplicationRecord
   end
 
   def expire_requests
-    case censorable
-    when InfoRequest
-      InfoRequest::ExpireJob.perform_later(censorable)
-      NotifyCacheJob.perform_later(censorable)
-    when User, PublicBody
-      InfoRequest::ExpireJob.perform_later(censorable, :info_requests)
+    if censorable
+      censorable.expire_requests
     else
       InfoRequest::ExpireJob.perform_later(InfoRequest, :all)
     end

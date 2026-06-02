@@ -406,50 +406,21 @@ RSpec.describe CensorRule do
   describe '#expire_requests' do
     subject { rule.expire_requests }
 
-    let(:job) { InfoRequest::ExpireJob }
+    context 'with a censorable' do
+      let(:rule) { FactoryBot.create(:info_request_censor_rule) }
 
-    context 'with a request rule' do
-      let(:request) { FactoryBot.create(:info_request) }
-      let!(:rule) { FactoryBot.create(:censor_rule, censorable: request) }
-
-      it 'expires the requests' do
-        expect { subject }.to have_enqueued_job(job).with(request)
-      end
-
-      it 'notifies the cache when configured' do
-        allow(AlaveteliConfiguration).to receive(:varnish_hosts).and_return('x')
-        expect { subject }.to have_enqueued_job(NotifyCacheJob).with(request)
-      end
-
-      it 'does not notify the cache when not configured' do
-        allow(AlaveteliConfiguration).to receive(:varnish_hosts).and_return('')
-        expect { subject }.not_to have_enqueued_job(NotifyCacheJob).with(request)
-      end
-    end
-
-    context 'with a user rule' do
-      let(:user) { FactoryBot.create(:user) }
-      let!(:rule) { FactoryBot.create(:censor_rule, censorable: user) }
-
-      it 'expires the requests' do      
-        expect { subject }.to have_enqueued_job(job).with(user, :info_requests)
-      end
-    end
-
-    context 'with a public body rule' do
-      let(:body) { FactoryBot.create(:public_body) }
-      let!(:rule) { FactoryBot.create(:censor_rule, censorable: body) }
-
-      it 'expires the requests' do
-        expect { subject }.to have_enqueued_job(job).with(body, :info_requests)
+      it 'expires the requests via the censorable' do
+        expect(rule.censorable).to receive(:expire_requests)
+        subject
       end
     end
 
     context 'with a global rule' do
       let!(:rule) { FactoryBot.create(:global_censor_rule) }
 
-      it 'expires the requests' do
-        expect { subject }.to have_enqueued_job(job).with(InfoRequest, :all)
+      it 'expires the requests directly' do
+        expect { subject }.
+          to have_enqueued_job(InfoRequest::ExpireJob).with(InfoRequest, :all)
       end
     end
   end
