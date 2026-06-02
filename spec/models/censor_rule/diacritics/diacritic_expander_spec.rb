@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe CensorRule::DiacriticExpander do
+RSpec.describe CensorRule::Diacritics::DiacriticExpander do
   describe '.character_map' do
     subject { described_class.character_map }
 
