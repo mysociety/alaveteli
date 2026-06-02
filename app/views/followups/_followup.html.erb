@@ -132,9 +132,7 @@
       <p>
         <%= o.text_area :body, rows: 15, cols: 55 %>
       </p>
-      <% if lookup_context.template_exists?('theme_info_for_requester', ['request'], true) %>
-        <%= render :partial => 'request/theme_info_for_requester' %>
-      <% end %>
+      <%= render_theme_partial 'followups/below_followup_message' %>
 
       <% if @internal_review %>
         <%= hidden_field_tag 'outgoing_message[what_doing]',
