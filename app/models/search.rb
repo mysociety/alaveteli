@@ -16,7 +16,7 @@
 #
 module Search
   def self.backend
-    @backend
+    @backend ||= Adapters::Xapian::Adapter.new
   end
 
   def self.backend=(backend)
