@@ -246,6 +246,8 @@
             <% end %>
           </li>
 
+          <%= render_theme_partial 'request/additional_advice_new' %>
+
           <% unless @user %>
             <li>
               <%= raw(_('<a href="{{url}}">Thinking of using a pseudonym?</a>',

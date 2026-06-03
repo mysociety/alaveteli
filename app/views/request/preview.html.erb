@@ -21,6 +21,7 @@
           <li><%= _('<a href="{{url}}">Do you want to request private ' \
                       'information about yourself?</a>',
                     :url => help_requesting_path(:anchor => "data_protection").html_safe) %></li>
+          <%= render_theme_partial 'request/additional_advice_preview' %>
         </ul>
       </div>
     </div>
@@ -54,6 +55,8 @@
           <p class="event_actions"></p>
         </div>
       <% end %>
+
+      <%= render_theme_partial 'request/below_request' %>
 
       <% if @render_recaptcha %>
       <p>

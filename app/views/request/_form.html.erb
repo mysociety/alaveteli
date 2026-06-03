@@ -23,6 +23,8 @@
 
 <%= render partial: 'new_message_text_length' %>
 
+<%= render_theme_partial 'request/below_request' %>
+
 <div class="form_button">
   <% if @batch %>
     <% params[:public_body_ids].each do |public_body_id| %>
