@@ -14,7 +14,7 @@ namespace :reindex do
       InfoRequestEvent.where("id > #{last_id}").find_in_batches(batch_size: batch_size) do |events|
         events.each do |event|
           current_id = event.id
-          event.xapian_mark_needs_index
+          Search.reindex_later(event)
           last_id = event.id
         end
         reindex_log.info("* queued batch ending: #{events.last.id}")
@@ -45,7 +45,7 @@ namespace :reindex do
       PublicBody.where("id > #{last_id}").find_in_batches(batch_size: batch_size) do |bodies|
         bodies.each do |body|
           current_id = body.id
-          body.xapian_mark_needs_index
+          Search.reindex_later(body)
           last_id = body.id
         end
         reindex_log.info("* queued batch ending: #{bodies.last.id}")
@@ -76,7 +76,7 @@ namespace :reindex do
       User.where("id > #{last_id}").find_in_batches(batch_size: batch_size) do |users|
         users.each do |user|
           current_id = user.id
-          user.xapian_mark_needs_index
+          Search.reindex_later(user)
           last_id = user.id
         end
         reindex_log.info("* queued batch ending: #{users.last.id}")

@@ -1829,14 +1829,14 @@ RSpec.describe RequestController, "when showing similar requests" do
     expect(assigns[:info_request]).to eq(info_requests(:badger_request))
   end
 
-  it "assigns a xapian object with similar requests" do
+  it "assigns a results object with similar requests" do
     expected = InfoRequest.all.reject { |request| request == badger_request }
     events = expected.map { |r| r.info_request_events.first }
     stub_similar_requests(items: events, total: events.size)
 
     get :similar, params: { url_title: badger_request.url_title }
 
-    results = assigns[:xapian_object].results
+    results = assigns[:results].results
     expect(results.map { |result| result[:model].info_request })
       .to match_array(expected)
   end

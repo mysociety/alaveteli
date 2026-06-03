@@ -780,7 +780,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def reindex_request_events
-    info_request_events.find_each(&:xapian_mark_needs_index)
+    info_request_events.find_each { |e| Search.reindex_later(e) }
   end
 
   # Force reindex when tag string changes
@@ -1037,7 +1037,7 @@ class InfoRequest < ApplicationRecord
   def calculate_event_states
     curr_state = nil
     info_request_events.reverse.each do |event|
-      event.xapian_mark_needs_index # we need to reindex all events in order to update their latest_* terms
+      Search.reindex_later(event)
       if curr_state.nil?
         curr_state = event.described_state if event.described_state
       end
@@ -1563,35 +1563,8 @@ class InfoRequest < ApplicationRecord
     body.update_counter_cache
   end
 
-  def similar_cache_key
-    "request/similar/#{id}"
-  end
-
-  # Get requests that have similar important terms
-  def similar_requests(limit=10)
-    ids, more = similar_ids(limit)
-    [InfoRequest.includes(public_body: :translations).where(id: ids), more]
-  end
-
-  # Get the ids of similar requests, and whether there are more
-  def similar_ids(limit=10)
-    Rails.cache.fetch(similar_cache_key, expires_in: 3.days) do
-      ids = []
-      xapian_similar_more = false
-      begin
-        xapian_similar =
-          ActsAsXapian::Similar.new([InfoRequestEvent],
-                                    info_request_events,
-                                    limit: limit,
-                                    collapse_by_prefix: 'request_collapse')
-        xapian_similar_more = (xapian_similar.matches_estimated > limit)
-        ids = xapian_similar.results.map do |result|
-          result[:model].info_request_id
-        end
-      rescue
-      end
-      [ids, xapian_similar_more]
-    end
+  def similar_requests
+    Search.context(info_request: self).similar_requests
   end
 
   def move_to_public_body(destination_public_body, opts = {})

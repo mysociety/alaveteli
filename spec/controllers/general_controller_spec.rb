@@ -84,10 +84,10 @@ RSpec.describe GeneralController, "when showing the frontpage" do
                                     info_request: info_request,
                                     described_at: Time.zone.now,
                                     search_text_main: 'example text')
-    xapian_result = double(
-      'xapian result', results: [{ model: info_request_event }]
+    search_result = double(
+      'search result', results: [{ model: info_request_event }]
     )
-    allow(controller).to receive(:perform_search).and_return(xapian_result)
+    allow(controller).to receive(:perform_search).and_return(search_result)
   end
 
   it "should render the front page successfully" do
@@ -283,9 +283,12 @@ RSpec.describe GeneralController, 'when using search' do
   end
 
   it 'should pass search error to flash and redirect' do
-    allow(ActsAsXapian::Search).to receive(:new).
-      and_raise(RuntimeError, 'QueryParserError: ' \
-        'Syntax: <expression> AND <expression>')
+    searcher = double('FullTextSearch')
+    allow(Search).to receive(:search).and_return(searcher)
+    allow(searcher).to receive(:results).and_raise(
+      RuntimeError, 'QueryParserError: ' \
+        'Syntax: <expression> AND <expression>'
+    )
 
     get :search, params: { combined: "test AND" }
 

@@ -3769,21 +3769,25 @@ RSpec.describe InfoRequest do
     end
   end
 
-  describe InfoRequest, 'when getting similar requests', :xapian do
+  describe InfoRequest, 'when getting similar requests' do
+    let(:request) { info_requests(:spam_1_request) }
+    let(:similar_request) { info_requests(:spam_1_request) }
+
     it 'returns similar requests' do
-      similar, more = info_requests(:spam_1_request).similar_requests(1)
-      expect(similar.first).to eq(info_requests(:spam_2_request))
+      stub_similar_requests(items: [similar_request], total: 1)
+      similar, _more = request.similar_requests.first(10)
+      expect(similar).to eq([similar_request])
     end
 
-    it 'returns a flag set to true' do
-      similar, more = info_requests(:spam_1_request).similar_requests(1)
+    it 'returns the more flag' do
+      stub_similar_requests(items: [similar_request], total: 11)
+      _similar, more = request.similar_requests.first(10)
       expect(more).to be true
     end
 
-    it 'should not raise error if similar request has been deleted' do
-      request = info_requests(:spam_1_request)
-      allow(request).to receive(:similar_ids).and_return([[-1, -2], 0])
-      expect { request.similar_requests }.to_not raise_error
+    it 'does not raise error if similar request has been deleted' do
+      stub_similar_requests(items: [], total: 0)
+      expect { request.similar_requests.first(10) }.to_not raise_error
     end
   end
 
