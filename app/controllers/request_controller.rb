@@ -44,7 +44,7 @@ class RequestController < ApplicationController
     unless params[:query].nil?
       query = params[:query]
       flash[:search_params] = params.slice(:query, :bodies, :page)
-      @xapian_requests = typeahead_search(query, model: PublicBody)
+      @request_results = typeahead_search(query, model: PublicBody)
     end
     medium_cache
   end
@@ -343,7 +343,7 @@ class RequestController < ApplicationController
     @per_page = (params.fetch(:per_page) { 25 }).to_i
 
     @query << params[:q].to_s
-    @xapian_requests = typeahead_search(@query,
+    @request_results = typeahead_search(@query,
                                         { model: InfoRequestEvent,
                                           per_page: @per_page })
     render partial: "request/search_ahead"

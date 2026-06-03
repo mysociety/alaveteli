@@ -23,7 +23,7 @@ RSpec.describe PublicBodyController, "when showing a body" do
     event = info_request_events(:useless_outgoing_message_event)
     stub_search_results(items: [event])
     get :show, params: { url_name: "tgq", view: 'all' }
-    expect(assigns[:xapian_requests]).to be_present
+    expect(assigns[:request_results]).to be_present
   end
 
   it "should display the body using same locale as that used in url_name" do
@@ -469,7 +469,7 @@ RSpec.describe PublicBodyController, "when doing type ahead searches" do
     public_body_2 = public_bodies(:humpadink_public_body)
     stub_typeahead_results(items: [public_body_1, public_body_2])
     get :search_typeahead, params: { query: "Geraldine Humpadinking" }
-    expect(assigns[:xapian_requests]).to be_present
+    expect(assigns[:request_results]).to be_present
   end
 
   it "shows the number of bodies matching the keywords" do

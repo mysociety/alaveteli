@@ -11,7 +11,7 @@ RSpec.describe "track_mailer/event_digest" do
   end
   let(:track) { FactoryBot.create(:search_track, tracking_user: user) }
   let(:search_results) do
-    double('xapian search', results: [event], words_to_highlight: 'test')
+    double('search results', results: [event], words_to_highlight: 'test')
   end
 
   before do

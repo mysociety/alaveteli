@@ -90,19 +90,24 @@ class UserController < ApplicationController
       requests_query = 'requested_by:' + @display_user.url_name
       comments_query = 'commented_by:' + @display_user.url_name
       # TODO: combine these as OR query
-      @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
-      @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
+      @request_results = perform_search(
+        [InfoRequestEvent], requests_query,
+        'newest', 'request_collapse'
+      )
+      @comment_results = perform_search(
+        [InfoRequestEvent], comments_query, 'newest', nil
+      )
 
     rescue
-      @xapian_requests = nil
-      @xapian_comments = nil
+      @request_results = nil
+      @comment_results = nil
     end
 
-    if @xapian_requests
-      feed_results += @xapian_requests.results.map { |x| x[:model] }
+    if @request_results
+      feed_results += @request_results.results.map { |x| x[:model] }
     end
-    if @xapian_comments
-      feed_results += @xapian_comments.results.map { |x| x[:model] }
+    if @comment_results
+      feed_results += @comment_results.results.map { |x| x[:model] }
     end
 
     # All tracks for the user
@@ -575,13 +580,18 @@ class UserController < ApplicationController
     end
 
     begin
-      @xapian_requests = perform_search([InfoRequestEvent], requests_query, 'newest', 'request_collapse')
-      @xapian_comments = perform_search([InfoRequestEvent], comments_query, 'newest', nil)
+      @request_results = perform_search(
+        [InfoRequestEvent], requests_query,
+        'newest', 'request_collapse'
+      )
+      @comment_results = perform_search(
+        [InfoRequestEvent], comments_query, 'newest', nil
+      )
     # TODO: make this rescue specific to errors thrown when xapian is not working
 
     rescue
-      @xapian_requests = nil
-      @xapian_comments = nil
+      @request_results = nil
+      @comment_results = nil
     end
 
     @page_desc = (@page > 1) ? " (page " + @page.to_s + ")" : ""
