@@ -67,7 +67,7 @@ class OutgoingMessage < ApplicationRecord
            inverse_of: :outgoing_message,
            dependent: :destroy
 
-  delegate :expire, :log_event, to: :info_request
+  delegate :apply_masks, :expire, :log_event, to: :info_request
   delegate :public_body, to: :info_request, private: true, allow_nil: true
 
   after_initialize :set_default_letter
@@ -196,10 +196,6 @@ class OutgoingMessage < ApplicationRecord
 
   def raw_body
     read_attribute(:body)
-  end
-
-  def apply_masks(text, content_type)
-    info_request.apply_masks(text, content_type)
   end
 
   # Used to give warnings when writing new messages

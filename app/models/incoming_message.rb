@@ -83,6 +83,8 @@ class IncomingMessage < ApplicationRecord
   delegate :parts, to: :raw_email
   delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 
+  delegate :apply_masks, to: :info_request
+
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.
   def response_event
@@ -157,12 +159,6 @@ class IncomingMessage < ApplicationRecord
   # when updating an IncomingMessage associated with the request
   def update_request
     info_request.update_last_public_response_at
-  end
-
-  def apply_masks(text, content_type)
-    mask_options = { censor_rules: info_request.applicable_censor_rules,
-                     masks: info_request.masks }
-    AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
   end
 
   # Removes anything cached about the object in the database, and saves
