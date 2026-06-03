@@ -23,3 +23,7 @@ if File.exist? old_xapiandbs_path
 end
 
 require 'acts_as_xapian/acts_as_xapian'
+
+Rails.application.config.after_initialize do
+  Search::Adapters::Xapian::Indexing.configure!
+end

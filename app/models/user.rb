@@ -215,13 +215,6 @@ class User < ApplicationRecord
   after_update :reindex_referencing_models, :invalidate_cached_pages,
                unless: :no_xapian_reindex
 
-  acts_as_xapian texts: [:name, :about_me],
-                 values: [
-                   [:created_at_numeric, 1, 'created_at', :number] # for sorting
-                 ],
-                 terms: [[:variety, 'V', 'variety']],
-                 if: :indexed_by_search?
-
   def self.search(query)
     sql = <<~SQL
       users.name ILIKE '%'||:query||'%' OR

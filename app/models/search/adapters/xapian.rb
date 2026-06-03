@@ -1,3 +1,4 @@
+require_relative 'xapian/indexing'
 require_relative 'xapian/similar_requests'
 require_relative 'xapian/full_text_search'
 require_relative 'xapian/typeahead'
