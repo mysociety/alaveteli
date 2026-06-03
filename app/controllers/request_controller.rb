@@ -122,12 +122,11 @@ class RequestController < ApplicationController
 
     return render_hidden if cannot?(:read, @info_request)
 
-    @xapian_object = ActsAsXapian::Similar.new([InfoRequestEvent],
-                                               @info_request.info_request_events,
-                                               offset: (@page - 1) * @per_page,
-                                               limit: @per_page,
-                                               collapse_by_prefix: 'request_collapse')
-    @matches_estimated = @xapian_object.matches_estimated
+    @results = @info_request.similar_requests.results(
+      page: @page,
+      per_page: @per_page
+    )
+    @matches_estimated = @results.matches_estimated
     @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
   end
 
@@ -453,7 +452,7 @@ class RequestController < ApplicationController
 
     @show_action_menu = !@render_to_file
 
-    @similar_requests, @similar_more = @info_request.similar_requests
+    @similar_requests, @similar_more = @info_request.similar_requests.first(10)
 
     @citations = @info_request.citations.newest(3)
   end

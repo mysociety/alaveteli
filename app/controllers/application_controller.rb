@@ -379,16 +379,10 @@ class ApplicationController < ActionController::Base
     @per_page = per_page
     @page = this_page || get_search_page_from_params
 
-    result = ActsAsXapian::Search.new(models, @query,
-                                      offset: (@page - 1) * @per_page,
-                                      limit: @per_page,
-                                      sort_by_prefix: order,
-                                      sort_by_ascending: ascending,
-                                      collapse_by_prefix: collapse
-                                      )
-    result.results # Touch the results to load them, otherwise accessing them from the view
-    # might fail later if the database has subsequently been reopened.
-    result
+    Search.search(@query, models: models, sort_by: order,
+                          sort_ascending: ascending,
+                          collapse_by: collapse).
+      results(page: @page, per_page: @per_page)
   end
 
   def get_search_page_from_params
@@ -400,10 +394,10 @@ class ApplicationController < ActionController::Base
   def typeahead_search(query, options)
     @page = get_search_page_from_params
     @per_page = options[:per_page] || 25
-    options.merge!( page: @page,
-                    per_page: @per_page )
-    typeahead_search = TypeaheadSearch.new(query, options)
-    typeahead_search.xapian_search
+
+    Search.typeahead(query, model: options[:model],
+                            exclude_tags: options[:exclude_tags] || []).
+      results(page: @page, per_page: @per_page)
   end
 
   # Store last visited pages, for contact form; but only for logged in users, as otherwise this breaks caching

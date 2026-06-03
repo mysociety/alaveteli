@@ -2404,7 +2404,7 @@ RSpec.describe User do
     let(:user) { FactoryBot.create(:user) }
 
     it 'mark as needed to be indexed' do
-      expect(user).to receive(:xapian_mark_needs_index)
+      expect(Search).to receive(:reindex_later).with(user)
       user.info_request_count_changed
     end
   end

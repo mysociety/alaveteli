@@ -81,51 +81,66 @@ RSpec.describe TrackMailer do
                                                 :track_thing_id= => true,
                                                 :info_request_event_id= => true)
           allow(TrackThingsSentEmail).to receive(:new).and_return(@track_things_sent_email)
-          @xapian_search = double('xapian search', results: [])
+          @search_results = double('search results', results: [])
           @found_event = mock_model(InfoRequestEvent, described_at: @track_thing.created_at + 1.day)
           @search_result = { model: @found_event }
-          allow(ActsAsXapian::Search).to receive(:new).and_return(@xapian_search)
+          @searcher = double('searcher', results: @search_results)
+          allow(Search).to receive(:search).and_return(@searcher)
         end
 
         it 'should ask for the events returned by the tracking query' do
-          expect(ActsAsXapian::Search).to receive(:new).with([InfoRequestEvent], 'test query',
-                                                         sort_by_prefix: 'described_at',
-                                                         sort_by_ascending: true,
-                                                         collapse_by_prefix: nil,
-                                                         limit: 100).and_return(@xapian_search)
+          expect(Search).to receive(:search).with(
+            'test query',
+            models: [InfoRequestEvent],
+            sort_by: 'described_at',
+            sort_ascending: true
+          ).and_return(@searcher)
+          expect(@searcher).to receive(:results).with(
+            page: 1, per_page: 100
+          ).and_return(@search_results)
           TrackMailer.alert_tracks
         end
 
         it 'should not include in the email any events that the user has already been sent a tracking email about' do
           sent_email = mock_model(TrackThingsSentEmail, info_request_event_id: @found_event.id)
-          allow(@track_things_sent_emails_array).to receive(:where).and_return([sent_email]) # this is for the date range find (created in last 14 days)
-          allow(@xapian_search).to receive(:results).and_return([@search_result])
+          # this is for the date range find (created in last 14 days)
+          allow(@track_things_sent_emails_array).
+            to receive(:where).and_return([sent_email])
+          allow(@search_results).to receive(:results).and_return([@search_result])
           expect(TrackMailer).not_to receive(:event_digest)
           TrackMailer.alert_tracks
         end
 
-        it 'should not include in the email any events not sent in a previous tracking email that were described before the track was set up' do
-          allow(@found_event).to receive(:described_at).and_return(@track_thing.created_at - 1.day)
-          allow(@xapian_search).to receive(:results).and_return([@search_result])
+        it 'should not include events described before the track was set up' do
+          allow(@found_event).to receive(:described_at).
+            and_return(@track_thing.created_at - 1.day)
+          allow(@search_results).to receive(:results).
+            and_return([@search_result])
           expect(TrackMailer).not_to receive(:event_digest)
           TrackMailer.alert_tracks
         end
 
-        it 'should include in the email any events that the user has not been sent a tracking email on that have been described since the track was set up' do
-          allow(@found_event).to receive(:described_at).and_return(@track_thing.created_at + 1.day)
-          allow(@xapian_search).to receive(:results).and_return([@search_result])
+        it 'should include new events described since the track was set up' do
+          allow(@found_event).to receive(:described_at).
+            and_return(@track_thing.created_at + 1.day)
+          allow(@search_results).to receive(:results).
+            and_return([@search_result])
           expect(TrackMailer).to receive(:event_digest)
           TrackMailer.alert_tracks
         end
 
-        it 'should raise an error if a non-event class is returned by the tracking query' do
-          allow(@xapian_search).to receive(:results).and_return([{ model: 'string class' }])
-          expect { TrackMailer.alert_tracks }.to raise_error('need to add other types to TrackMailer.alert_tracks (unalerted)')
+        it 'should raise an error if a non-event class is returned' do
+          allow(@search_results).to receive(:results).
+            and_return([{ model: 'string class' }])
+          expect { TrackMailer.alert_tracks }.to raise_error(
+            'need to add other types to ' \
+            'TrackMailer.alert_tracks (unalerted)'
+          )
         end
 
-        it 'should record that a tracking email has been sent for each event that
-            has been included in the email' do
-          allow(@xapian_search).to receive(:results).and_return([@search_result])
+        it 'should record sent tracking email for each included event' do
+          allow(@search_results).to receive(:results).
+            and_return([@search_result])
           sent_email = mock_model(TrackThingsSentEmail)
           expect(TrackThingsSentEmail).to receive(:new).and_return(sent_email)
           expect(sent_email).to receive(:track_thing_id=).with(@track_thing.id)

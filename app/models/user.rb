@@ -686,7 +686,7 @@ class User < ApplicationRecord
   end
 
   def info_request_count_changed
-    xapian_mark_needs_index
+    Search.reindex_later(self)
   end
 
   def record_sign_in(*args)
