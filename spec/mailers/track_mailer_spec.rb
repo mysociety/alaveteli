@@ -106,7 +106,8 @@ RSpec.describe TrackMailer do
           # this is for the date range find (created in last 14 days)
           allow(@track_things_sent_emails_array).
             to receive(:where).and_return([sent_email])
-          allow(@search_results).to receive(:results).and_return([@search_result])
+          allow(@search_results).to receive(:results).
+            and_return([@search_result])
           expect(TrackMailer).not_to receive(:event_digest)
           TrackMailer.alert_tracks
         end
