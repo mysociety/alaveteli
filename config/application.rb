@@ -104,6 +104,14 @@ module Alaveteli
     config.autoload_paths << "#{Rails.root}/app/controllers/concerns"
     config.autoload_paths << "#{Rails.root}/app/models/concerns"
 
+    # Configure app/search as a namespaced directory so that files
+    # within it define constants under the Search namespace
+    # (e.g. app/search/backend.rb -> Search::Backend).
+    module ::Search; end
+    Rails.autoloaders.main.push_dir(
+      "#{Rails.root}/app/search", namespace: ::Search
+    )
+
     # See Rails::Configuration for more options
     ENV['RECAPTCHA_SITE_KEY'] = AlaveteliConfiguration.recaptcha_site_key
     ENV['RECAPTCHA_SECRET_KEY'] = AlaveteliConfiguration.recaptcha_secret_key
