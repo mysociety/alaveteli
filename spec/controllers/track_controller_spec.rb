@@ -93,7 +93,7 @@ RSpec.describe TrackController do
                               feed: 'feed',
                               url_title: track_thing.info_request.url_title
                             }
-        expect(assigns[:xapian_object]).to be_present
+        expect(assigns[:search_results]).to be_present
       end
 
       it 'should return atom/xml for a feed url without format specified, even if the requester prefers json' do

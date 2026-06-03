@@ -264,7 +264,7 @@ RSpec.describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+          assigns[:request_results].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
       end
@@ -305,7 +305,7 @@ RSpec.describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+          assigns[:request_results].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
       end
@@ -445,7 +445,7 @@ RSpec.describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+          assigns[:request_results].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
       end
@@ -484,7 +484,7 @@ RSpec.describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+          assigns[:request_results].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
       end

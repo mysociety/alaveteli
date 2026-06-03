@@ -4,7 +4,7 @@
   <link type="text/html" rel="alternate" href="<%= request.protocol + request.host_with_port %>"/>
   <link type="application/atom+xml" rel="self" href="<%= request.url %>"/>
   <title><%= @track_thing.params[:title_in_rss] %></title>
-  <% @xapian_object.results.each do |result| %>
+  <% @search_results.results.each do |result| %>
     <%
       # Get the HTML content from the same partial template as website search does
       content = ''

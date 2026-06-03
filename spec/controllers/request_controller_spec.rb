@@ -642,8 +642,8 @@ RSpec.describe RequestController, "when searching for an authority" do
     get :select_authority, params: { query: "Quango" }
 
     expect(response).to render_template('select_authority')
-    expect(assigns[:xapian_requests].results.size).to eq(1)
-    expect(assigns[:xapian_requests].results[0][:model].name).
+    expect(assigns[:request_results].results.size).to eq(1)
+    expect(assigns[:request_results].results[0][:model].name).
       to eq(body.name)
   end
 
@@ -1808,7 +1808,7 @@ RSpec.describe RequestController, "when doing type ahead searches" do
     stub_typeahead_results(items: [event], total: 1)
     get :search_typeahead, params: { q: 'boring', per_page: '1' }
     expect(assigns[:per_page]).to eq(1)
-    expect(assigns[:xapian_requests].results.size).to eq(1)
+    expect(assigns[:request_results].results.size).to eq(1)
   end
 end
 

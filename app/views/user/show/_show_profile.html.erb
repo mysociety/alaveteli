@@ -6,7 +6,7 @@
       <%= render :partial => 'track/rss_feed', :locals => { :track_thing => @track_thing, :location => 'sidebar' } %>
     <% end %>
 
-    <% if @xapian_requests %>
+    <% if @request_results %>
       <h2><%= _('On this page') %></h2>
       <a href="#foi_requests"><%= _('FOI requests') %></a>
       <% if feature_enabled?(:annotations) %>
