@@ -3787,74 +3787,28 @@ RSpec.describe InfoRequest do
     end
   end
 
-  describe InfoRequest, '.recent_requests' do
-    it 'backfills with sent events if fewer than five successful responses' do
-      successful_event = FactoryBot.build(
-        :info_request_event, event_type: 'response'
-      )
-      sent_event = FactoryBot.build(
-        :info_request_event, event_type: 'sent'
-      )
+  describe InfoRequest, '.request_list' do
+    it 'delegates to the InfoRequest search context' do
+      context = instance_double(Search::Context::InfoRequest)
+      filters = { latest_status: 'all' }
 
-      successful_result = build_search_results(
-        items: [successful_event]
-      )
-      sent_result = build_search_results(items: [sent_event])
+      expect(Search).to receive(:context).
+        with(info_request: InfoRequest).and_return(context)
+      expect(context).to receive(:request_list).with(filters, 1, 25, 50)
 
-      allow(ActsAsXapian::Search).to receive(:new).
-        and_return(successful_result, sent_result)
-
-      events, all_successful = InfoRequest.recent_requests
-
-      expect(events).to match_array([successful_event, sent_event])
-      expect(all_successful).to be false
-    end
-
-    it 'sets all_successful flag for five or more successful responses' do
-      events = Array.new(5) do
-        FactoryBot.build(:info_request_event, event_type: 'response')
-      end
-
-      stub_search_results(items: events)
-
-      result_events, all_successful = InfoRequest.recent_requests
-
-      expect(result_events.size).to eq(5)
-      expect(all_successful).to be true
+      InfoRequest.request_list(filters, 1, 25, 50)
     end
   end
 
-  describe InfoRequest, '.request_list' do
-    it 'caps show_no_more_than at max_results' do
-      events = Array.new(2) do
-        FactoryBot.build(:info_request_event, event_type: 'sent')
-      end
+  describe InfoRequest, '.recent_requests' do
+    it 'delegates to the InfoRequest search context' do
+      context = instance_double(Search::Context::InfoRequest)
 
-      stub_search_results(items: events, total: 200)
+      expect(Search).to receive(:context).
+        with(info_request: InfoRequest).and_return(context)
+      expect(context).to receive(:recent_requests)
 
-      results = InfoRequest.request_list(
-        { latest_status: 'all' }, 1, 25, 50
-      )
-
-      expect(results[:show_no_more_than]).to eq(50)
-      expect(results[:matches_estimated]).to eq(200)
-      expect(results[:results].size).to eq(2)
-    end
-
-    it 'uses matches_estimated if less than max_results' do
-      events = Array.new(2) do
-        FactoryBot.build(:info_request_event, event_type: 'sent')
-      end
-
-      stub_search_results(items: events, total: 10)
-
-      results = InfoRequest.request_list(
-        { latest_status: 'all' }, 1, 25, 50
-      )
-
-      expect(results[:show_no_more_than]).to eq(10)
-      expect(results[:matches_estimated]).to eq(10)
-      expect(results[:results].size).to eq(2)
+      InfoRequest.recent_requests
     end
   end
 
