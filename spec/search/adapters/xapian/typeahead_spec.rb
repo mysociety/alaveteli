@@ -49,5 +49,24 @@ RSpec.describe Search::Adapters::Xapian::Typeahead, :xapian do
       results = ta.results(page: 1, per_page: 25)
       expect(results.items).to be_empty
     end
+
+    it 'truncates queries longer than 252 bytes' do
+      ta = described_class.new('a' * 500, model: InfoRequestEvent)
+      results = ta.results(page: 1, per_page: 25)
+      expect(results).to be_a(Search::Results)
+    end
+
+    it 'handles queries with short trailing words' do
+      ta = described_class.new('chicken a', model: InfoRequestEvent)
+      results = ta.results(page: 1, per_page: 25)
+      expect(results).to be_a(Search::Results)
+    end
+
+    it 'paginates results with offset' do
+      ta = described_class.new('geraldine', model: PublicBody)
+      results = ta.results(page: 2, per_page: 10)
+      expect(results.current_page).to eq(2)
+      expect(results.per_page).to eq(10)
+    end
   end
 end
