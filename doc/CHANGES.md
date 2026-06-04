@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add Search module providing a backend-agnostic search interface, decoupling
+  controllers, models and mailers from Xapian (Graeme Porteous)
 * Check request prominence when annotating requests (Gareth Rees, Santosh Kumar
   Puppala)
 * Remove user name from account confirmation email to guard against spam
