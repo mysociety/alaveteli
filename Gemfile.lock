@@ -545,7 +545,7 @@ GEM
     rubyXL (3.4.37)
       nokogiri (>= 1.10.8)
       rubyzip (>= 3.2.2)
-    rubyzip (3.3.0)
+    rubyzip (3.3.1)
     sass (3.4.25)
     sass-rails (5.0.8)
       railties (>= 5.2.0)
@@ -723,7 +723,7 @@ DEPENDENCIES
   rubocop-rails
   ruby-msg (~> 1.5.0)!
   ruby-progressbar (~> 1.13)
-  rubyzip (~> 3.3.0)
+  rubyzip (~> 3.3.1)
   sass-rails (~> 5.0.8)
   secure_headers (~> 7.2.0)
   sidekiq (~> 6.5.12)
