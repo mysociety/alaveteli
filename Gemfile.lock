@@ -416,7 +416,7 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (8.0.1)
+    puma (8.0.2)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (2.2.23)
@@ -705,7 +705,7 @@ DEPENDENCIES
   pg (~> 1.6.3)
   pry (~> 0.16.0)
   pstore (~> 0.2.1)
-  puma (~> 8.0.1)
+  puma (~> 8.0.2)
   rack (~> 2.2.23)
   rack-utf8_sanitizer (~> 1.11.1)
   rails (~> 8.0.5)
