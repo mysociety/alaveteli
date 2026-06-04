@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
-RSpec.describe 'Destroying a Comment' do
+RSpec.describe 'Destroying a Comment', :xapian do
   before do
     allow(AlaveteliConfiguration).to receive(:skip_admin_auth).and_return(false)
 

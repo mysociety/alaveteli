@@ -48,6 +48,7 @@ FactoryBot.define do
     email_confirmed { true }
     ban_text { '' }
     confirmed_not_spam { true }
+    last_daily_track_email { Time.zone.now }
 
     after(:build) { |user| user.send :set_slug }
 
