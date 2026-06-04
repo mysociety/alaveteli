@@ -21,3 +21,9 @@ def update_xapian_index
   @xapian_index_setup ||= destroy_and_rebuild_xapian_index
   ActsAsXapian.update_index(flush_to_disk=false, verbose=false)
 end
+
+RSpec.configure do |config|
+  config.before(:each, xapian: true) do
+    update_xapian_index
+  end
+end

@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: foi_attachments
+#
+#  id                    :integer          not null, primary key
+#  content_type          :text
+#  filename              :text
+#  charset               :text
+#  display_size          :text
+#  url_part_number       :integer
+#  within_rfc822_subject :text
+#  incoming_message_id   :integer
+#  hexdigest             :string(32)
+#  created_at            :datetime
+#  updated_at            :datetime
+#  prominence            :string           default("normal")
+#  prominence_reason     :text
+#  masked_at             :datetime
+#  locked                :boolean          default(FALSE)
+#  replaced_at           :datetime
+#  replaced_reason       :string
+#  erased_at             :datetime
+#
 FactoryBot.define do
   factory :foi_attachment do
     incoming_message

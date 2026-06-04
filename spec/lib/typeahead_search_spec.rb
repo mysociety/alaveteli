@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe TypeaheadSearch do
+RSpec.describe TypeaheadSearch, :xapian do
   let(:options) { { model: InfoRequestEvent } }
 
   describe "#initialize" do
@@ -86,10 +86,6 @@ RSpec.describe TypeaheadSearch do
   end
 
   describe "#xapian_search" do
-    before do
-      update_xapian_index
-    end
-
     def search_info_requests(xapian_search)
       xapian_search.results.map { |result| result[:model].info_request }
     end

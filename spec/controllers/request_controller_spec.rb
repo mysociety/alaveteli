@@ -18,8 +18,6 @@ RSpec.describe RequestController, "when listing request categories" do
 end
 
 RSpec.describe RequestController, "when listing recent requests" do
-  before { update_xapian_index }
-
   it "should be successful" do
     get :list, params: { view: 'all' }
     expect(response).to be_successful
@@ -59,17 +57,17 @@ RSpec.describe RequestController, "when listing recent requests" do
     FactoryBot.create(:category, :info_request,
                       title: 'Climate requests', category_tag: 'climate')
 
-    update_xapian_index
     get :list, params: { view: 'all', tag: 'climate' }
     expect(assigns[:title]).to eq('Climate requests')
   end
 
   it 'sets title based on if tag does not match an request category' do
+    stub_search_results(items: [], total: 0)
     get :list, params: { view: 'all', tag: 'other' }
     expect(assigns[:title]).to eq('Found 0 requests tagged ‘other’')
 
-    FactoryBot.create(:info_request, tag_string: 'other')
-    update_xapian_index
+    request = FactoryBot.create(:info_request, tag_string: 'other')
+    stub_search_results(items: [request], total: 1)
     get :list, params: { view: 'all', tag: 'other' }
     expect(assigns[:title]).to eq('Found 1 request tagged ‘other’')
   end
@@ -635,17 +633,18 @@ RSpec.describe RequestController, "when searching for an authority" do
   # so we make sure we're logged in, just in case
   before do
     @user = users(:bob_smith_user)
-    update_xapian_index
   end
 
   it "should return matching bodies" do
     sign_in @user
+    body = public_bodies(:geraldine_public_body)
+    stub_typeahead_results(items: [body], total: 1)
     get :select_authority, params: { query: "Quango" }
 
     expect(response).to render_template('select_authority')
-    assigns[:xapian_requests].results.size == 1
+    expect(assigns[:xapian_requests].results.size).to eq(1)
     expect(assigns[:xapian_requests].results[0][:model].name).
-      to eq(public_bodies(:geraldine_public_body).name)
+      to eq(body.name)
   end
 
   it "remembers the search params" do
@@ -1794,10 +1793,6 @@ RSpec.describe RequestController, "when showing JSON version for API" do
 end
 
 RSpec.describe RequestController, "when doing type ahead searches" do
-  before :each do
-    update_xapian_index
-  end
-
   it 'can filter search results by public body' do
     get :search_typeahead, params: { q: 'boring', requested_from: 'dfh' }
     expect(assigns[:query]).to eq('requested_from:dfh boring')
@@ -1809,6 +1804,8 @@ RSpec.describe RequestController, "when doing type ahead searches" do
   end
 
   it 'can limit the number of searches returned' do
+    event = info_request_events(:useless_outgoing_message_event)
+    stub_typeahead_results(items: [event], total: 1)
     get :search_typeahead, params: { q: 'boring', per_page: '1' }
     expect(assigns[:per_page]).to eq(1)
     expect(assigns[:xapian_requests].results.size).to eq(1)
@@ -1816,10 +1813,6 @@ RSpec.describe RequestController, "when doing type ahead searches" do
 end
 
 RSpec.describe RequestController, "when showing similar requests" do
-  before do
-    update_xapian_index
-  end
-
   let(:badger_request) { info_requests(:badger_request) }
 
   it "renders the 'similar' template" do
@@ -1837,11 +1830,13 @@ RSpec.describe RequestController, "when showing similar requests" do
   end
 
   it "assigns a xapian object with similar requests" do
+    expected = InfoRequest.all.reject { |request| request == badger_request }
+    events = expected.map { |r| r.info_request_events.first }
+    stub_similar_requests(items: events, total: events.size)
+
     get :similar, params: { url_title: badger_request.url_title }
 
-    # Xapian seems to think *all* the requests are similar
     results = assigns[:xapian_object].results
-    expected = InfoRequest.all.reject { |request| request == badger_request }
     expect(results.map { |result| result[:model].info_request })
       .to match_array(expected)
   end

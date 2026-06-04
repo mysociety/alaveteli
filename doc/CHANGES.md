@@ -2,6 +2,10 @@
 
 ## Highlighted Features
 
+* Remove user name from account confirmation email to guard against spam
+  reputation issues (Gareth Rees)
+* Remove 720p and 1080p from default spam terms, as these are too generic and
+  can easily be used in legitimate requests (Gareth Rees)
 * Improve search indexing of Microsoft Office, Open Office, RTF and CSV
   attachments (Gareth Rees)
 * Fix indexing of multiple filetype values (Gareth Rees)

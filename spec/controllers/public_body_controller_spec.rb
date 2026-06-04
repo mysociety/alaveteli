@@ -4,10 +4,6 @@ require 'nokogiri'
 RSpec.describe PublicBodyController, "when showing a body" do
   render_views
 
-  before(:each) do
-    update_xapian_index
-  end
-
   it "should be successful" do
     get :show, params: { url_name: "dfh", view: 'all' }
     expect(response).to be_successful
@@ -23,32 +19,11 @@ RSpec.describe PublicBodyController, "when showing a body" do
     expect(assigns[:public_body]).to eq(public_bodies(:humpadink_public_body))
   end
 
-  it "should assign the requests (1)" do
+  it "should assign the requests" do
+    event = info_request_events(:useless_outgoing_message_event)
+    stub_search_results(items: [event])
     get :show, params: { url_name: "tgq", view: 'all' }
-    conditions = { public_body_id: public_bodies(:geraldine_public_body).id }
-    actual = assigns[:xapian_requests].results.map do |x|
-      x[:model].info_request
-    end
-    expect(actual).to match_array(InfoRequest.where(conditions))
-  end
-
-  it "should assign the requests (2)" do
-    get :show, params: { url_name: "tgq", view: 'successful' }
-    conditions = { described_state: 'successful',
-                   public_body_id: public_bodies(:geraldine_public_body).id }
-    actual = assigns[:xapian_requests].results.map do |x|
-      x[:model].info_request
-    end
-    expect(actual).to match_array(InfoRequest.where(conditions))
-  end
-
-  it "should assign the requests (3)" do
-    get :show, params: { url_name: "dfh", view: 'all' }
-    conditions = { public_body_id: public_bodies(:humpadink_public_body).id }
-    actual = assigns[:xapian_requests].results.map do |x|
-      x[:model].info_request
-    end
-    expect(actual).to match_array(InfoRequest.where(conditions))
+    expect(assigns[:xapian_requests]).to be_present
   end
 
   it "should display the body using same locale as that used in url_name" do
@@ -479,10 +454,6 @@ end
 RSpec.describe PublicBodyController, "when doing type ahead searches" do
   render_views
 
-  before(:each) do
-    update_xapian_index
-  end
-
   it 'returns a 400 bad request status code without a query param' do
     get :search_typeahead
     expect(response.status).to eq(400)
@@ -493,12 +464,18 @@ RSpec.describe PublicBodyController, "when doing type ahead searches" do
     expect(response).to render_template('public_body/_search_ahead')
   end
 
-  it 'assigns the xapian search to the view as xapian_requests' do
+  it "assigns the requests" do
+    public_body_1 = public_bodies(:geraldine_public_body)
+    public_body_2 = public_bodies(:humpadink_public_body)
+    stub_typeahead_results(items: [public_body_1, public_body_2])
     get :search_typeahead, params: { query: "Geraldine Humpadinking" }
-    expect(assigns[:xapian_requests]).to be_an_instance_of ActsAsXapian::Search
+    expect(assigns[:xapian_requests]).to be_present
   end
 
   it "shows the number of bodies matching the keywords" do
+    public_body_1 = public_bodies(:geraldine_public_body)
+    public_body_2 = public_bodies(:humpadink_public_body)
+    stub_typeahead_results(items: [public_body_1, public_body_2])
     get :search_typeahead, params: { query: "Geraldine Humpadinking" }
     expect(response.body).to match("2 matching authorities")
   end

@@ -2,10 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe "administering requests" do
-  before do
-    update_xapian_index
-  end
-
   context 'when the admin user is a pro' do
     let!(:pro_admin_user) do
       pro_user = FactoryBot.create(:pro_user)
@@ -20,12 +16,9 @@ RSpec.describe "administering requests" do
                           name: 'example')
       end
 
-      before do
-        update_xapian_index
-      end
-
       context "the admin user visits the non admin user's confirmation link" do
         it 'confirms the request' do
+          stub_typeahead_results(items: [public_body], total: 1)
           post_redirect = create_request_and_user(public_body)
 
           using_pro_session(pro_admin_user_session) do

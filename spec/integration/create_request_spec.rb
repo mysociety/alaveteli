@@ -2,19 +2,12 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe "When creating requests" do
-  before do
-    update_xapian_index
-  end
-
   let!(:admin_user) { FactoryBot.create(:admin_user) }
   let!(:public_body) { FactoryBot.create(:public_body, name: 'example') }
   let!(:admin_user_session) { login(admin_user) }
 
-  before do
-    update_xapian_index
-  end
-
   it 'associates the request with the requestor, even if it is approved by an admin' do
+    stub_typeahead_results(items: [public_body], total: 1)
     post_redirect = create_request_and_user(public_body)
     # Now log in as an admin user, then follow the confirmation link in the
     # email that was sent to the unconfirmed user

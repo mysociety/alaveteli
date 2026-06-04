@@ -40,18 +40,12 @@ def search_results
   page.find_all(".batch-builder__list__item__name").map(&:text)
 end
 
-RSpec.describe "creating batch requests in alaveteli_pro" do
+RSpec.describe "creating batch requests in alaveteli_pro", :xapian do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let!(:pro_user_session) { login(pro_user) }
   let!(:authorities) { FactoryBot.create_list(:public_body, 26) }
 
-  before do
-    update_xapian_index
-  end
-
-  before do
-    update_xapian_index
-  end
+  before { update_xapian_index }
 
   it "allows the user to build a list of authorities" do
     using_pro_session(pro_user_session) do

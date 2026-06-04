@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
-RSpec.describe 'Adding/removing embargoes from requests' do
+RSpec.describe 'Adding/removing embargoes from requests', :xapian do
   let(:pro_user) { FactoryBot.create(:pro_user) }
   let(:user) { FactoryBot.create(:user) }
   let!(:user_session) { login(user) }

@@ -1,11 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe 'highlighting search results' do
+RSpec.describe 'highlighting search results', :xapian do
   include HighlightHelper
-
-  before do
-    update_xapian_index
-  end
 
   it 'ignores stopwords' do
     phrase = 'department of humpadinking'

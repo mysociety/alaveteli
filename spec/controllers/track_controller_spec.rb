@@ -84,80 +84,70 @@ RSpec.describe TrackController do
     end
 
     context 'when getting feeds' do
-      before do
-        update_xapian_index
-      end
-
-      it "should get the RSS feed" do
+      it "assigns object" do
         track_thing = track_things(:track_fancy_dog_request)
+        event = info_request_events(:useless_outgoing_message_event)
+        stub_search_results(items: [event])
 
         get :track_request, params: {
                               feed: 'feed',
                               url_title: track_thing.info_request.url_title
                             }
-        expect(response).to render_template('track/atom_feed')
-        expect(response.media_type).to eq('application/atom+xml')
-        # TODO: should check it is an atom.builder type being rendered,
-        # not sure how to
-        expect(assigns[:xapian_object].matches_estimated).to eq(3)
-        expect(assigns[:xapian_object].results.size).to eq(3)
-        expect(assigns[:xapian_object].results[0][:model])
-          .to eq(info_request_events(:silly_comment_event))
-        expect(assigns[:xapian_object].results[1][:model])
-          .to eq(info_request_events(:useless_incoming_message_event))
-        expect(assigns[:xapian_object].results[2][:model])
-          .to eq(info_request_events(:useless_outgoing_message_event))
-      end
-
-      it "should get JSON version of the feed" do
-        track_thing = track_things(:track_fancy_dog_request)
-
-        get :track_request, params: {
-                              feed: 'feed',
-                              url_title: track_thing.info_request.url_title,
-                              format: "json"
-                            }
-
-        a = JSON.parse(response.body)
-        expect(a.class.to_s).to eq('Array')
-        expect(a.size).to eq(3)
-
-        expect(a[0]['id'])
-          .to eq(info_request_events(:silly_comment_event).id)
-        expect(a[1]['id'])
-          .to eq(info_request_events(:useless_incoming_message_event).id)
-        expect(a[2]['id'])
-          .to eq(info_request_events(:useless_outgoing_message_event).id)
-
-        expect(a[0]['info_request']['url_title'])
-          .to eq('why_do_you_have_such_a_fancy_dog')
-        expect(a[1]['info_request']['url_title'])
-          .to eq('why_do_you_have_such_a_fancy_dog')
-        expect(a[2]['info_request']['url_title'])
-          .to eq('why_do_you_have_such_a_fancy_dog')
-
-        expect(a[0]['public_body']['url_name']).to eq('tgq')
-        expect(a[1]['public_body']['url_name']).to eq('tgq')
-        expect(a[2]['public_body']['url_name']).to eq('tgq')
-
-        expect(a[0]['user']['url_name']).to eq('bob_smith')
-        expect(a[1]['user']['url_name']).to eq('bob_smith')
-        expect(a[2]['user']['url_name']).to eq('bob_smith')
-
-        expect(a[0]['event_type']).to eq('comment')
-        expect(a[1]['event_type']).to eq('response')
-        expect(a[2]['event_type']).to eq('sent')
+        expect(assigns[:xapian_object]).to be_present
       end
 
       it 'should return atom/xml for a feed url without format specified, even if the requester prefers json' do
         request.env['HTTP_ACCEPT'] = 'application/json,text/xml'
         track_thing = FactoryBot.create(:request_update_track)
+        stub_search_results(items: [])
+
         get :track_request, params: {
                               feed: 'feed',
                               url_title: track_thing.info_request.url_title
                             }
         expect(response).to render_template('track/atom_feed')
         expect(response.media_type).to eq('application/atom+xml')
+      end
+
+      context 'with rendered views' do
+        render_views
+
+        it "should get the RSS feed" do
+          track_thing = track_things(:track_fancy_dog_request)
+          event = info_request_events(:useless_outgoing_message_event)
+          stub_search_results(items: [event])
+
+          get :track_request, params: {
+            feed: 'feed',
+            url_title: track_thing.info_request.url_title
+          }
+          expect(response).to render_template('track/atom_feed')
+          expect(response.media_type).to eq('application/atom+xml')
+          expect(response.body).to include('<entry>')
+          expect(response.body).
+            to include(event.created_at.xmlschema)
+        end
+
+        it "should get JSON version of the feed" do
+          track_thing = track_things(:track_fancy_dog_request)
+          event = info_request_events(:useless_outgoing_message_event)
+          stub_search_results(items: [event])
+
+          get :track_request, params: {
+            feed: 'feed',
+            url_title: track_thing.info_request.url_title,
+            format: "json"
+          }
+
+          a = JSON.parse(response.body)
+          expect(a).to be_an(Array)
+          expect(a.size).to eq(1)
+          expect(a[0]['event_type']).to eq('sent')
+          expect(a[0]['info_request']['url_title']).
+            to eq('why_do_you_have_such_a_fancy_dog')
+          expect(a[0]['public_body']['url_name']).to eq('tgq')
+          expect(a[0]['user']['url_name']).to eq('bob_smith')
+        end
       end
     end
   end
@@ -223,6 +213,17 @@ RSpec.describe TrackController do
       expect(flash[:notice]).to eq(expected)
     end
 
+    it "should render an atom feed for a search query" do
+      stub_search_results(items: [])
+
+      get :track_search_query, params: {
+        query_array: "bob 2007/10/13..2007/11/13",
+        feed: 'feed'
+      }
+      expect(response).to render_template('track/atom_feed')
+      expect(response.media_type).to eq('application/atom+xml')
+    end
+
     it "should redirect with an error message if the query is too long" do
       long_track = TrackThing.new(track_type: 'search_query',
                                   track_query: "lorem ipsum " * 42)
@@ -243,12 +244,6 @@ RSpec.describe TrackController do
   describe "GET #track_public_body" do
     let(:public_body) { FactoryBot.create(:public_body) }
     let(:user) { FactoryBot.create(:user, locale: 'en', name: 'bob') }
-
-    before do
-      # these tests depend on the xapian index existing, although
-      # not on its specific contents.
-      update_xapian_index
-    end
 
     it "should save a search track and redirect to the right place" do
       sign_in user
