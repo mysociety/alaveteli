@@ -101,23 +101,6 @@ class SearchDocument < ApplicationRecord
         SQL
     end
 
-    if admin_mode
-      search_queries << <<-SQL
-          SELECT
-              sd_id,
-              raw_content,
-              rank() OVER (
-                ORDER BY ts_rank_cd(admin_content_tsv, plainto_tsquery(#{query})) DESC
-              ) AS rank
-          FROM search_documents
-          WHERE
-              plainto_tsquery('simple', #{query}) @@ admin_content_tsv
-              AND #{doc_type_q}
-          ORDER BY rank
-          LIMIT #{limit * 3}
-        SQL
-    end
-
     # exact_mode search is potentially costly as it is not backed by an index.
     # This should probably not be exposed to non-admins.
     if exact_mode
