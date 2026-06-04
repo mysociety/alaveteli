@@ -351,13 +351,12 @@ RSpec.describe ActsAsXapian::Search, :xapian do
   end
 end
 
-RSpec.describe TypeaheadSearch, :xapian do
+RSpec.describe 'Search.typeahead', :xapian do
   it 'finds authorities matching search terms' do
-    typeahead = TypeaheadSearch.new(
+    result = Search.typeahead(
       'Geraldine Humpadinking',
-      model: PublicBody, page: 1, per_page: 25
-    )
-    result = typeahead.xapian_search
+      model: PublicBody
+    ).results(page: 1, per_page: 25)
     bodies = result.results.map { |r| r[:model] }
 
     expect(bodies).to include(
