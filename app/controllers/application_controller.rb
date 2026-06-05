@@ -169,6 +169,23 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  # Establish the session and send the user on to where they were heading.
+  def complete_sign_in(user, post_redirect:, remember_me:)
+    sign_in(user, remember_me: remember_me)
+
+    if modal_dialog?
+      render template: 'users/sessions/show'
+    elsif post_redirect
+      do_post_redirect(post_redirect, user)
+    else
+      redirect_to frontpage_path
+    end
+  end
+
+  def modal_dialog?
+    params[:modal].to_i != 0
+  end
+
   # Logout form
   def clear_session_credentials
     session[:admin_id] = nil
@@ -181,6 +198,7 @@ class ApplicationController < ActionController::Base
     session[:change_password_post_redirect_id] = nil
     session[:post_redirect_token] = nil
     session[:ttl] = nil
+    PendingTwoFactorSignIn.new(session).clear
   end
 
   def render_exception(exception)

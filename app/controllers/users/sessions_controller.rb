@@ -42,13 +42,19 @@ class Users::SessionsController < UserController
         end && return
       end
 
-      sign_in(@user_signin, remember_me: params[:remember_me].present?)
-
-      if is_modal_dialog
-        render template: 'users/sessions/show'
-      else
-        do_post_redirect @post_redirect, @user_signin
+      if @user_signin.totp?
+        PendingTwoFactorSignIn.new(session).start(
+          user: @user_signin,
+          remember_me: params[:remember_me].present?,
+          post_redirect: @post_redirect
+        )
+        redirect_to signin_two_factor_path(modal: params[:modal].presence)
+        return
       end
+
+      complete_sign_in(@user_signin,
+                       post_redirect: @post_redirect,
+                       remember_me: params[:remember_me].present?)
     else
       send_confirmation_mail @user_signin
     end

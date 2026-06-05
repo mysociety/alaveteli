@@ -114,6 +114,13 @@ def login(user, **params)
       fill_in "user_signin_password", with: "jonespassword"
       find("input[name='commit']", visible: true).click
     end
+
+    # TOTP users are gated by the sign-in two factor challenge
+    if u.totp?
+      fill_in 'Code from your authenticator app',
+              with: u.otp_code
+      click_button 'Verify'
+    end
   end
   u.id
 end

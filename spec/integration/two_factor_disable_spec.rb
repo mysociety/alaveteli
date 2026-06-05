@@ -11,29 +11,35 @@ RSpec.describe 'disabling two factor authentication' do
     let(:user) { FactoryBot.create(:user, :enable_totp) }
 
     it 'requires a current authenticator code to disable' do
-      using_session(login(user)) do
-        page.driver.submit :delete, one_time_password_path, {}
+      session_id = login(user)
 
-        expect(page).
-          to have_content('Disabling two factor authentication will remove')
-        expect(page).
-          to have_field('Code from your authenticator app')
+      # The sign-in challenge consumed the current TOTP code; move past its
+      # window so the disable code isn't rejected as a replay.
+      travel(31.seconds) do
+        using_session(session_id) do
+          page.driver.submit :delete, one_time_password_path, {}
 
-        valid_code = user.otp_code
-        invalid_code = valid_code == '000000' ? '000001' : '000000'
+          expect(page).
+            to have_content('Disabling two factor authentication will remove')
+          expect(page).
+            to have_field('Code from your authenticator app')
 
-        fill_in 'Code from your authenticator app', with: invalid_code
-        click_button 'Disable two factor authentication'
+          valid_code = user.otp_code
+          invalid_code = valid_code == '000000' ? '000001' : '000000'
 
-        expect(page).to have_content('Invalid one time password')
-        expect(user.reload.otp_enabled).to eq(true)
+          fill_in 'Code from your authenticator app', with: invalid_code
+          click_button 'Disable two factor authentication'
 
-        fill_in 'Code from your authenticator app', with: valid_code
-        click_button 'Disable two factor authentication'
+          expect(page).to have_content('Invalid one time password')
+          expect(user.reload.otp_enabled).to eq(true)
 
-        expect(page).
-          to have_content('Two factor authentication disabled')
-        expect(user.reload.otp_enabled).to eq(false)
+          fill_in 'Code from your authenticator app', with: valid_code
+          click_button 'Disable two factor authentication'
+
+          expect(page).
+            to have_content('Two factor authentication disabled')
+          expect(user.reload.otp_enabled).to eq(false)
+        end
       end
     end
   end
