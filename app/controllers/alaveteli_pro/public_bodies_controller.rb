@@ -7,7 +7,7 @@ class AlaveteliPro::PublicBodiesController < AlaveteliPro::BaseController
     query = params[:query] || ""
     search_results = typeahead_search(query, model: PublicBody,
                                       exclude_tags: %w[defunct not_apply])
-    results = search_results.present? ? search_results.results : []
+    results = search_results.results
     # Exclude any bodies we can't make a request to (in addition to the ones
     # we've already filtered out by the excluded tags above)
     results.select! { |result| result[:model].is_requestable? }

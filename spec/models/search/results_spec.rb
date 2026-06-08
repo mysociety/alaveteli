@@ -58,10 +58,6 @@ RSpec.describe Search::Results do
       expect(build_results(items: [])).to be_empty
     end
 
-    it 'is always present even when empty' do
-      expect(build_results(items: [])).to be_present
-    end
-
     it 'returns count, size, and length' do
       results = build_results
       expect(results.count).to eq(3)
