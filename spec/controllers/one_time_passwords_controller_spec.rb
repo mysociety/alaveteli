@@ -29,11 +29,11 @@ RSpec.describe OneTimePasswordsController do
 
     it 'reuses an existing candidate secret across refreshes' do
       sign_in user
-      get :new
-      first_secret = session[:pending_otp_secret_key]
+      existing_secret = ROTP::Base32.random
+      session[:pending_otp_secret_key] = existing_secret
       get :new
 
-      expect(session[:pending_otp_secret_key]).to eq(first_secret)
+      expect(session[:pending_otp_secret_key]).to eq(existing_secret)
     end
 
     it 'exposes an enrolment for the candidate to the view' do
@@ -62,7 +62,6 @@ RSpec.describe OneTimePasswordsController do
     context 'when the user is currently HOTP-enabled' do
       it 'does not touch the persisted HOTP secret or counter' do
         user = FactoryBot.create(:user, :enable_hotp)
-        user.save!
         original_secret = user.otp_secret_key
         original_counter = user.otp_counter
 
