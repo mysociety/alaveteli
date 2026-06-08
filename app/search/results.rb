@@ -47,11 +47,6 @@ module Search
       items.empty?
     end
 
-    # TODO: Remove once callers are updated to not rely on #present?
-    # Preserves old ActsAsXapian behaviour where search objects were always
-    # present regardless of result count.
-    def present? = true
-
     def size
       items.size
     end

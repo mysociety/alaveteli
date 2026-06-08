@@ -228,9 +228,9 @@ RSpec.describe GeneralController, 'when using search' do
 
     get :search, params: { combined: "bob/all" }
 
-    expect(assigns[:request_results]).to be_present
-    expect(assigns[:user_results]).to be_present
-    expect(assigns[:body_results]).to be_present
+    expect(assigns[:request_results]).to be_a(Search::Results)
+    expect(assigns[:user_results]).to be_a(Search::Results)
+    expect(assigns[:body_results]).to be_a(Search::Results)
   end
 
   it "should only populate users for /users searches" do

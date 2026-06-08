@@ -29,8 +29,7 @@ RSpec.describe '_search_results' do
       end
 
       it "renders search results" do
-        expect(search).to be_present
-        expect(search.results).to be_present
+        expect(search).to be_any
         render_view(search: search,
                     query: authority_1.name,
                     draft_batch_request: draft_batch_request,
