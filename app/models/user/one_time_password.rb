@@ -31,29 +31,22 @@ module User::OneTimePassword
       otp_counter.present?
     end
 
-    # active_model_otp persists the anti-replay timestamp via
-    # `update(otp_last_used_at: ts)` from inside `authenticate_totp`. When
-    # called during a save (e.g. PasswordChangesController#update with
+    # active_model_otp's `authenticate_totp` persists the anti-replay
+    # timestamp via `update(otp_last_used_at: ts)`. When `authenticate_otp`
+    # runs inside a save (e.g. PasswordChangesController#update with
     # require_otp), that nested update re-runs validations and re-enters
     # `verify_otp_code` with the same code. `otp_last_used_at` is now set, so
-    # ROTP rejects the code as replayed, the nested save adds an `:otp_code`
-    # error, and the outer save returns false despite a valid TOTP code.
-    #
-    # Workaround is to write the column using `update_column` to skip
-    # validations and callbacks.
-    def authenticate_totp(code, options = {})
-      totp = ROTP::TOTP.new(otp_secret_key,
-                            digits: otp_digits, interval: otp_interval)
-      verified_at = totp.verify(code,
-                                drift_behind: options[:drift] || 0,
-                                after: otp_last_used_at)
-      if verified_at
-        self.otp_last_used_at = verified_at
-        update_column(:otp_last_used_at, verified_at) if persisted?
-      end
-      verified_at
+    # ROTP rejects it as replayed and the outer save fails despite a valid
+    # code. Flag the in-progress authentication so the re-entrant validation
+    # skips re-verifying. The override must live here (on the class) rather
+    # than in the module body so `super` reaches the gem's method, which is
+    # included into the class by `has_one_time_password` above.
+    def authenticate_otp(code, options = {})
+      @authenticating_otp = true
+      super
+    ensure
+      @authenticating_otp = false
     end
-    private :authenticate_totp
   end
 
   def otp_enabled?
@@ -75,7 +68,7 @@ module User::OneTimePassword
     self.otp_secret_key = secret
     self.otp_counter = nil
     self.otp_enabled = true
-    self.otp_enabled_at = Time.current
+    self.otp_enabled_at = Time.zone.now
     save
   end
 
@@ -114,6 +107,8 @@ module User::OneTimePassword
   end
 
   def verify_otp_code
+    return if @authenticating_otp
+
     if entered_otp_code.nil? || !authenticate_otp(entered_otp_code)
       msg = _('Invalid one time password')
       errors.add(:otp_code, msg)
