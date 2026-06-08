@@ -27,15 +27,16 @@
     <% end %>
 
     <p>
-      <%= _('Two factor authentication is active on your account. Sign-ins ' \
-            'and password changes will now use the entry saved in your ' \
-            'authenticator app.') %>
+      <%= _('Two factor authentication is active on your account. ' \
+            "You'll need to enter the code from your authenticator app " \
+            'for sensitive actions like sign-ins and password changes.') %>
     </p>
 
     <ul class="one-time-password-actions not-for-print">
       <li class="one-time-password-actions__action-item action-item">
         <% confirmation_msg = _('Are you sure you want to disable two ' \
-                                'factor authentication?') %>
+                                'factor authentication? Your account will ' \
+                                'be less secure.') %>
         <%= link_to one_time_password_path, :method => :delete,
                                             :data => { :confirm => confirmation_msg },
                                             :class => 'action-item__action' do %>
@@ -103,7 +104,8 @@
       </li>
       <li class="one-time-password-actions__action-item action-item">
         <% confirmation_msg = _('Are you sure you want to disable two factor ' \
-                                'authentication?') %>
+                                'authentication? Your account will be less ' \
+                                'secure.') %>
         <%= link_to one_time_password_path, :method => :delete,
                                             :data => { :confirm => confirmation_msg },
                                             :class => 'action-item__action' do %>
