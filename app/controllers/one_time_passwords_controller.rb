@@ -23,11 +23,12 @@ class OneTimePasswordsController < ApplicationController
       secret: session[:pending_otp_secret_key],
       otp_code: enrolment_params[:otp_code].to_s
     )
-    was_hotp = @user.hotp?
 
     if @enrolment.save
       session.delete(:pending_otp_secret_key)
-      flash[:just_upgraded_from_hotp] = true if was_hotp
+      if @user.otp_counter_previously_was.present?
+        flash[:just_upgraded_from_hotp] = true
+      end
       redirect_to one_time_password_path,
                   notice: _('Two factor authentication enabled')
     else
