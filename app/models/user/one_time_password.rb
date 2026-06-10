@@ -3,8 +3,14 @@ module User::OneTimePassword
   extend ActiveSupport::Concern
 
   included do
-    has_one_time_password after_column_name: :otp_last_used_at,
-                          one_time_backup_codes: true
+    has_one_time_password after_column_name: :otp_last_used_at
+
+    # otp_backup_codes is a single encrypted text column holding a JSON array of
+    # the plaintext codes. active_model_otp expects an array, so serialize back
+    # to one and default to an empty array when unset.
+    serialize :otp_backup_codes, coder: JSON, type: Array
+    attribute :otp_backup_codes, default: []
+    encrypts :otp_backup_codes
 
     attr_accessor :entered_otp_code
 
@@ -15,14 +21,6 @@ module User::OneTimePassword
     validate :verify_otp_code, if: :otp_enabled_and_required?
     validate :otp_backup_codes_paired_with_timestamp
 
-    # The `before_create` hook in active_model_otp auto-generates backup codes
-    # if the `otp_backup_codes` column exists, but it has no awareness of the
-    # `otp_backup_codes_generated_at` column, so codes would be persisted
-    # without a matching issued-at timestamp. Codes are only meaningful
-    # alongside the timestamp, so suppress the auto-generation and let
-    # TOTP enrolment populate both columns together.
-    before_create -> { self.otp_backup_codes = [] }
-
     # active_model_otp reads `otp_counter_based` from self in
     # `authenticate_otp`, `otp_code` and `provisioning_uri`, so deriving it
     # from the persisted counter dispatches each user to the right HOTP/TOTP
@@ -31,22 +29,65 @@ module User::OneTimePassword
       otp_counter.present?
     end
 
-    # active_model_otp's `authenticate_totp` persists the anti-replay
-    # timestamp via `update(otp_last_used_at: ts)`. When `authenticate_otp`
-    # runs inside a save (e.g. PasswordChangesController#update with
-    # require_otp), that nested update re-runs validations and re-enters
-    # `verify_otp_code` with the same code. `otp_last_used_at` is now set, so
-    # ROTP rejects it as replayed and the outer save fails despite a valid
-    # code. Flag the in-progress authentication so the re-entrant validation
-    # skips re-verifying. The override must live here (on the class) rather
-    # than in the module body so `super` reaches the gem's method, which is
-    # included into the class by `has_one_time_password` above.
+    # Override the gem's `authenticate_otp` for two reasons:
+    #
+    # 1. The gem checks backup codes before the primary factor. Try the primary
+    #    factor first so a valid authenticator code never spends one of the
+    #    user's single-use backup codes, only falling back to backup codes when
+    #    it fails.
+    #
+    # 2. active_model_otp's `authenticate_totp` persists the anti-replay
+    #    timestamp via `update(otp_last_used_at: ts)`. When this runs inside a
+    #    save (e.g. PasswordChangesController#update with require_otp), that
+    #    nested update re-runs validations and re-enters `verify_otp_code`
+    #    with the same code. `otp_last_used_at` is now set, so ROTP rejects it
+    #    as replayed and the outer save fails despite a valid code. Flag the
+    #    in-progress authentication so the re-entrant validation skips
+    #    re-verifying.
+    #
+    # The override must live here (on the class) rather than in the module
+    # body so `super` reaches the gem's method, which is included into the
+    # class by `has_one_time_password` above.
     def authenticate_otp(code, options = {})
+      return false if code.blank?
+
       @authenticating_otp = true
-      super
+      super || authenticate_backup_code(code)
     ensure
       @authenticating_otp = false
     end
+
+    # active_model_otp's `before_create` hook would generate backup codes for
+    # every new user. Switch the gem's machinery off and replace it with the
+    # implementation below: `otp_regenerate_backup_codes` issues codes only when
+    # called explicitly, and `authenticate_otp` restores backup codes as a
+    # fallback to the primary factor.
+    def backup_codes_enabled?
+      false
+    end
+
+    # Replaces the gem's generator. Returns the codes, the only point at which
+    # they're shown to the user. They're persisted encrypted at rest via the
+    # `encrypts :otp_backup_codes` declaration. Callers are responsible for
+    # saving.
+    def otp_regenerate_backup_codes
+      codes = Array.new(self.class.otp_backup_codes_count) do
+        format("%0#{otp_digits}d", SecureRandom.random_number(10**otp_digits))
+      end
+      self.otp_backup_codes = codes
+      self.otp_backup_codes_generated_at = Time.current
+      codes
+    end
+
+    def authenticate_backup_code(code) # rubocop:disable Naming/PredicateMethod
+      return false unless otp_backup_codes.include?(code)
+
+      remaining = otp_backup_codes - [code]
+      self.otp_backup_codes = remaining
+      update_column(:otp_backup_codes, remaining) if persisted?
+      true
+    end
+    private :authenticate_backup_code
   end
 
   def otp_enabled?
@@ -93,14 +134,14 @@ module User::OneTimePassword
     otp_enabled? && require_otp?
   end
 
-  # Backup codes are only meaningful alongside a generated-at timestamp.
-  # Writing one without the other would mean e.g. the management page showing
-  # "last regenerated never" for a user who has codes.
-  # Enforce that they're set or cleared together.
+  # Backup codes are only meaningful alongside a generated-at timestamp,
+  # codes without one would mean e.g. the management page showing "last
+  # regenerated never" for a user who has codes. The reverse, a timestamp
+  # with no codes, is a legitimate state once every issued code has been
+  # consumed.
   def otp_backup_codes_paired_with_timestamp
-    has_codes = otp_backup_codes.present?
-    has_timestamp = otp_backup_codes_generated_at.present?
-    return if has_codes == has_timestamp
+    return if otp_backup_codes.blank? ||
+              otp_backup_codes_generated_at.present?
 
     errors.add(:otp_backup_codes,
                'must be set together with otp_backup_codes_generated_at')

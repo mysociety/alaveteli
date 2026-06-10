@@ -4,6 +4,10 @@ class OtpEnrolment
 
   attr_accessor :user, :secret, :otp_code
 
+  # Plaintext backup codes issued by a successful save, the only point at
+  # which they're exposed outside the encrypted column.
+  attr_reader :backup_codes
+
   validate :code_matches_secret
 
   def save
