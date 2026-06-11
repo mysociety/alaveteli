@@ -33,7 +33,15 @@ class AdminUserController < AdminController
     @roles = params[:roles] || []
 
     users = @base_scope || User
-    users = users.search(@query) if @query.present?
+    if params[:current_only]
+      users = users.current_search(@query)
+    else
+      users = users.newsearch(@query,
+                              admin_mode: true,
+                              exact_mode: params[:exact_mode],
+                              limit: 10000
+                             ) if @query.present?
+    end
 
     # with_all_roles returns an array as it takes multiple queries
     # so we need to requery in order to paginate

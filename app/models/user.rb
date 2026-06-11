@@ -228,24 +228,20 @@ class User < ApplicationRecord
   searchable admin_index: {
     "email": "A",
     "name": "A",
-    "url_name": "A",
-    "ban_text": "A",
     "about_me": "A",
-    "locale ": "A",
-    "email_bounce_message": "A"
+    "url_name": "B",
+    "ban_text": "C",
+    "email_bounce_message": "D"
   }
 
-  def self.search(query)
+  def self.current_search(query)
     sql = <<~SQL
       users.name ILIKE '%'||:query||'%' OR
       users.email ILIKE '%'||:query||'%' OR
-      users.about_me ILIKE '%'||:query||'%' OR
-      has_tag_string_tags.name ILIKE :query
+      users.about_me ILIKE '%'||:query||'%'
     SQL
 
-    left_outer_joins(:tags).
-      where(sql, query: query).
-      distinct
+    where(sql, query: query).distinct
   end
 
   def self.pro
