@@ -44,6 +44,25 @@ RSpec.describe 'signing in with two factor authentication' do
         expect(page).to have_content(user.name)
       end
     end
+
+    it 'accepts a backup code in place of an authenticator code' do
+      codes = user.otp_regenerate_backup_codes
+      user.save!
+
+      using_session(without_login) do
+        submit_credentials(user)
+
+        expect(page).
+          to have_content('If you have lost access to your authenticator ' \
+                          'app, you can enter one of your backup codes ' \
+                          'instead')
+
+        fill_in 'Code from your authenticator app', with: codes.first
+        click_button 'Verify'
+
+        expect(page).to have_content(user.name)
+      end
+    end
   end
 
   context 'as a HOTP user' do
