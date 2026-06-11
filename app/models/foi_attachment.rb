@@ -92,9 +92,7 @@ class FoiAttachment < ApplicationRecord
   end
 
   def is_indexable?
-    # do not index images/videos as we can't extract text from them
-    # at this point
-    !(content_type.start_with?("image/") || content_type.start_with?("video/"))
+    true
   end
 
   def unredacted_content_for_indexing
