@@ -14,21 +14,21 @@
 #
 # Table name: search_documents
 #
-#  sd_id               :bigint           not null, primary key
-#  searchable_doc_type :string           not null, primary key
-#  searchable_doc_id   :bigint
-#  raw_content         :text
-#  raw_admin_content   :text
-#  section_ref         :text
-#  language            :text
-#  content_tsv         :tsvector
-#  admin_content_tsv   :tsvector
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  sd_id             :bigint           not null, primary key
+#  searchable_type   :string           not null, primary key
+#  searchable_id     :bigint
+#  raw_content       :text
+#  raw_admin_content :text
+#  section_ref       :text
+#  language          :text
+#  content_tsv       :tsvector
+#  admin_content_tsv :tsvector
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 class SearchDocument < ApplicationRecord
-  belongs_to :searchable_doc, polymorphic: true
-  self.primary_key = [:sd_id, :searchable_doc_type]
+  belongs_to :searchable, polymorphic: true
+  self.primary_key = [:sd_id, :searchable_type]
 
   # build the sql query for the search. This should be injection-safe.
   def self.hybrid_search_internal(
@@ -57,7 +57,7 @@ class SearchDocument < ApplicationRecord
     if model.nil?
       doc_type_q = ""
     else
-      doc_type_q = "AND searchable_doc_type = '#{model}'"
+      doc_type_q = "AND searchable_type = '#{model}'"
     end
 
     # TODO: loading the model is slow (10+s) and memory hungry (10+GB),

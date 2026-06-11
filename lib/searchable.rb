@@ -104,8 +104,8 @@ module Searchable
     )
 
     record = {
-      searchable_doc_type: self.class.to_s,
-      searchable_doc_id: id,
+      searchable_type: self.class.to_s,
+      searchable_id: id,
       language: language,
       section_ref: section_ref,
       raw_content: content_from_db["raw"],
@@ -115,8 +115,8 @@ module Searchable
     }
     SearchDocument.upsert(
       record,
-      unique_by: [:searchable_doc_type,
-                  :searchable_doc_id,
+      unique_by: [:searchable_type,
+                  :searchable_id,
                   :section_ref,
                   :language],
       update_only: [:raw_content,
@@ -246,7 +246,7 @@ module Searchable
 
   def self.included(base)
     base.class_eval do
-      has_many :search_documents, as: :searchable_doc
+      has_many :search_documents, as: :searchable
       # Override this scope to help filter out records which don't need
       # reindexing in `reindex_all`.
       scope :indexable, -> {}

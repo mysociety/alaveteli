@@ -3,17 +3,17 @@ require 'spec_helper'
 #
 # Table name: search_documents
 #
-#  sd_id               :bigint           not null, primary key
-#  searchable_doc_type :string           not null, primary key
-#  searchable_doc_id   :bigint
-#  raw_content         :text
-#  raw_admin_content   :text
-#  section_ref         :text
-#  language            :text
-#  content_tsv         :tsvector
-#  admin_content_tsv   :tsvector
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  sd_id             :bigint           not null, primary key
+#  searchable_type   :string           not null, primary key
+#  searchable_id     :bigint
+#  raw_content       :text
+#  raw_admin_content :text
+#  section_ref       :text
+#  language          :text
+#  content_tsv       :tsvector
+#  admin_content_tsv :tsvector
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 
 require 'spec_helper'

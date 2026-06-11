@@ -28,12 +28,12 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
     # On smaller deployments, it shouldn't really make a difference.
     create_table(
       "search_documents",
-      primary_key: [:searchable_doc_type, :sd_id],
+      primary_key: [:searchable_type, :sd_id],
       force: :cascade,
-      options: "PARTITION BY LIST (searchable_doc_type)"
+      options: "PARTITION BY LIST (searchable_type)"
     ) do |t|
       t.bigserial(:sd_id)
-      t.belongs_to(:searchable_doc, polymorphic: true)
+      t.belongs_to(:searchable, polymorphic: true)
       # plain text content of the related document.
       # This might come from a text extraction tool (for attachments),
       # but might also be a direct copy of admin_index fields to allow
@@ -67,7 +67,9 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
 
     reversible do |direction|
       direction.up do
-        execute("create extension unaccent")
+        # do not drop the extension on the way down, as it may be used elsewhere
+        # by local setups
+        execute("create extension if not exists unaccent")
 
         # create a table partition for each model.
         models_for_search_document_partitions.each do |model|
@@ -135,8 +137,8 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
     end
 
     # the indices below are declared on the main table, but a matching index is
-    # automatically created on each partition automatically by postgres.
-    add_index(:search_documents, [:searchable_doc_type, :searchable_doc_id, :section_ref, :language], unique: true)
+    # automatically created on each partition by postgres.
+    add_index(:search_documents, [:searchable_type, :searchable_id, :section_ref, :language], unique: true)
 
     # supports FTS
     add_index(:search_documents, :content_tsv, using: :gin)
