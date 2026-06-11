@@ -83,24 +83,6 @@ class SearchDocument < ApplicationRecord
         SQL
     end
 
-    if admin_mode
-      # keep the same language for tokenization in admin mode, if the (admin)
-      # user wants exact text match, they should use `exact_mode`.
-      search_queries << <<~SQL.chomp
-          SELECT
-              sd_id,
-              rank() OVER (
-                ORDER BY ts_rank_cd(admin_content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
-              ) AS rank
-          FROM search_documents
-          WHERE
-              websearch_to_tsquery(:language, unaccent(:query)) @@ admin_content_tsv
-              #{doc_type_q}
-          ORDER BY rank
-          LIMIT #{limit * limit_ratio}
-        SQL
-    end
-
     # exact_mode search is potentially costly as it is not backed by an index.
     # This should probably not be exposed to non-admins.
     if exact_mode
@@ -120,23 +102,42 @@ class SearchDocument < ApplicationRecord
           #{doc_type_q}
         LIMIT #{limit * limit_ratio}
       SQL
-    end
+    else
+      # "non-exact" search
+      if admin_mode
+        # keep the same language for tokenization in admin mode, if the (admin)
+        # user wants exact text match, they should use `exact_mode`.
+        search_queries << <<~SQL.chomp
+            SELECT
+                sd_id,
+                rank() OVER (
+                  ORDER BY ts_rank_cd('{0.0,0.0,0.0,1.0}',admin_content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
+                ) AS rank
+            FROM search_documents
+            WHERE
+                websearch_to_tsquery(:language, unaccent(:query)) @@ admin_content_tsv
+                #{doc_type_q}
+            ORDER BY rank
+            LIMIT #{limit * limit_ratio}
+          SQL
+      end
 
-    # all searches use the FTS ts_vectors
-    search_queries << <<~SQL.chomp
-        SELECT
-            sd_id,
-            rank() OVER (
-              ORDER BY ts_rank_cd(content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
-            ) AS rank
-        FROM search_documents
-        WHERE
-            websearch_to_tsquery(:language, unaccent(:query)) @@ content_tsv
-            AND language = :language
-            #{doc_type_q}
-        ORDER BY rank
-        LIMIT #{limit * limit_ratio}
-      SQL
+      # all searches use the FTS ts_vectors
+      search_queries << <<~SQL.chomp
+          SELECT
+              sd_id,
+              rank() OVER (
+                ORDER BY ts_rank_cd(content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
+              ) AS rank
+          FROM search_documents
+          WHERE
+              websearch_to_tsquery(:language, unaccent(:query)) @@ content_tsv
+              AND language = :language
+              #{doc_type_q}
+          ORDER BY rank
+          LIMIT #{limit * limit_ratio}
+        SQL
+    end
 
     sql = <<~SQL.chomp.squeeze(' ')
       SELECT
@@ -208,7 +209,9 @@ sql[:values])
         # the .distinct ORM construct that compares all columns of each record.
         # This prevents duplicate models in cases where multiple translations
         # match the query.
-      ).distinct
+      )
+      # this does a cross-join when trying to count (because rails throw a count(*)
+      # ).group("#{model.table_name}.id, search_results.score").order("search_results.score DESC")
     end
   end
 
