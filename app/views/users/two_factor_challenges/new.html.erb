@@ -11,4 +11,9 @@
   <%= render 'one_time_passwords/code_form',
              model: false,
              form_url: signin_two_factor_path(modal: params[:modal].presence) %>
+
+  <p>
+    <%= _('If you have lost access to your authenticator app, you can ' \
+          'enter one of your backup codes instead.') %>
+  </p>
 </div>
