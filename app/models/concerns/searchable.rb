@@ -1,5 +1,7 @@
 # Define search methods common to all searchable models
 module Searchable
+  extend ActiveSupport::Concern
+
   # rubocop:disable Style/ClassVars
   # store rails models that are searchable, with settings for each of them.
   # See the `searchable` method below for details.
