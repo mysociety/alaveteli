@@ -53,4 +53,10 @@
     e.clearSelection();
   });
 
+  // Inline onclick handlers are blocked by the CSP, so bind print triggers here.
+  $(document).on('click', '[data-print]', function(e) {
+    e.preventDefault();
+    window.print();
+  });
+
 })(window.jQuery);

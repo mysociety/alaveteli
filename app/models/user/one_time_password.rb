@@ -116,6 +116,8 @@ module User::OneTimePassword
   def disable_otp
     self.otp_enabled = false
     self.require_otp = false
+    self.otp_backup_codes = []
+    self.otp_backup_codes_generated_at = nil
     true
   end
 

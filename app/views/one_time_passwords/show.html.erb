@@ -26,6 +26,10 @@
       </div>
     <% end %>
 
+    <% if flash[:backup_codes] %>
+      <%= render 'backup_codes', codes: flash[:backup_codes] %>
+    <% end %>
+
     <p>
       <%= _('Two factor authentication is active on your account. ' \
             "You'll need to enter the code from your authenticator app " \
@@ -33,6 +37,12 @@
     </p>
 
     <ul class="one-time-password-actions not-for-print">
+      <li class="one-time-password-actions__action-item action-item">
+        <%= link_to one_time_password_backup_codes_path,
+                    :class => 'action-item__action' do %>
+          <%= _('Manage backup codes') %>
+        <% end %>
+      </li>
       <li class="one-time-password-actions__action-item action-item">
         <%= link_to one_time_password_path, :method => :delete,
                                             :class => 'action-item__action' do %>

@@ -98,6 +98,19 @@ RSpec.describe OtpEnrolment do
       it 'returns true' do
         expect(enrolment.save).to eq(true)
       end
+
+      it 'issues backup codes alongside their timestamp' do
+        enrolment.save
+        user.reload
+        expect(user.otp_backup_codes.size).to eq(12)
+        expect(user.otp_backup_codes_generated_at).to be_present
+      end
+
+      it 'exposes the plaintext backup codes after saving' do
+        enrolment.save
+        expect(enrolment.backup_codes.size).to eq(12)
+        expect(enrolment.backup_codes).to all(match(/\A\d{6}\z/))
+      end
     end
 
     context 'with a code that does not match' do
@@ -124,6 +137,14 @@ RSpec.describe OtpEnrolment do
         enrolment.save
         expect(enrolment.errors[:otp_code]).to be_present
       end
+
+      it 'does not issue backup codes' do
+        enrolment.save
+        user.reload
+        expect(user.otp_backup_codes).to be_empty
+        expect(user.otp_backup_codes_generated_at).to be_nil
+        expect(enrolment.backup_codes).to be_nil
+      end
     end
 
     context 'when the underlying user save returns false' do
@@ -132,6 +153,12 @@ RSpec.describe OtpEnrolment do
       it 'returns false rather than reporting success' do
         allow(user).to receive(:save).and_return(false)
         expect(enrolment.save).to eq(false)
+      end
+
+      it 'does not expose backup codes' do
+        allow(user).to receive(:save).and_return(false)
+        enrolment.save
+        expect(enrolment.backup_codes).to be_nil
       end
     end
   end
