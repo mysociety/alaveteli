@@ -88,12 +88,11 @@ class OutgoingMessage < ApplicationRecord
     index: {
       prominence_reason: "D",
       ".get_text_for_indexing": "A",
-      # TODO: if the user's name is censored, from_name below still surfaces their
-      # request. should this move to admin_index? or should the name be censored too?
-      from_name: "D"
+      safe_from_name: "D"
     },
     admin_index: {
-      body: "A"
+      body: "A",
+      from_name: "D"
     }
   )
 
