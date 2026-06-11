@@ -1194,6 +1194,17 @@ RSpec.describe User do
       user = User.new
       expect(user.disable_otp).to eq(true)
     end
+
+    it 'clears backup codes and their generated-at timestamp' do
+      user = FactoryBot.create(:user, :enable_totp)
+      user.otp_regenerate_backup_codes
+      user.save!
+
+      user.disable_otp
+
+      expect(user.otp_backup_codes).to be_empty
+      expect(user.otp_backup_codes_generated_at).to be_nil
+    end
   end
 
   describe '#require_otp?' do

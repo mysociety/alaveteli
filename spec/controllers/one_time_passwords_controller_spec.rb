@@ -230,6 +230,12 @@ RSpec.describe OneTimePasswordsController do
         expect(flash[:notice]).to eq('Two factor authentication enabled')
       end
 
+      it 'passes the new backup codes to the redirect target' do
+        post :create, params: { otp_enrolment: { otp_code: valid_code } }
+
+        expect(flash[:backup_codes].size).to eq(12)
+      end
+
       context 'and the user had no 2FA before' do
         it 'does not set the upgrade-from-HOTP flag' do
           post :create, params: { otp_enrolment: { otp_code: valid_code } }
@@ -457,6 +463,17 @@ RSpec.describe OneTimePasswordsController do
         it 'disables two factor authentication' do
           delete :destroy, params: { otp_code: valid_code }
           expect(user.reload.otp_enabled?).to eq(false)
+        end
+
+        it 'clears any backup codes' do
+          user.otp_regenerate_backup_codes
+          user.save!
+
+          delete :destroy, params: { otp_code: valid_code }
+
+          user.reload
+          expect(user.otp_backup_codes).to be_empty
+          expect(user.otp_backup_codes_generated_at).to be_nil
         end
 
         it 'redirects to the settings page' do

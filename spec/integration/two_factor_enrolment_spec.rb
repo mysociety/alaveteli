@@ -47,6 +47,23 @@ RSpec.describe 'enrolling in two factor authentication' do
         expect(user.totp?).to eq(true)
       end
     end
+
+    it 'shows the new backup codes exactly once' do
+      using_session(login(user)) do
+        visit new_one_time_password_path
+        complete_enrolment_with_valid_code
+
+        expect(page).to have_content('Save these codes somewhere safe')
+        codes = page.all('.backup-codes__list code').map(&:text)
+        expect(codes.size).to eq(12)
+        expect(codes).to all(match(/\A\d{6}\z/))
+
+        expect(user.reload.authenticate_otp(codes.first)).to eq(true)
+
+        visit one_time_password_path
+        expect(page).not_to have_content('Save these codes somewhere safe')
+      end
+    end
   end
 
   context 'as a user already on HOTP' do
