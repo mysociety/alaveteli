@@ -18,7 +18,7 @@ class Redactable::Redacted < SimpleDelegator
     if record.respond_to?("apply_masks_to_#{attr}")
       record.send("apply_masks_to_#{attr}")
     elsif record.respond_to?(attr)
-      record.apply_masks(record.public_send(attr).to_s, 'text/plain')
+      record.apply_masks(record.unredacted.public_send(attr).to_s, 'text/plain')
     else
       msg = "Unknown method :#{attr} given to #{record.class} redactable"
       raise ArgumentError, msg
