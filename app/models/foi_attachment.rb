@@ -36,6 +36,7 @@ class FoiAttachment < ApplicationRecord
   include LinkToHelper
 
   include MessageProminence
+  include Redactable
 
   include ContentType
   include Erasable
@@ -66,6 +67,8 @@ class FoiAttachment < ApplicationRecord
 
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
                 include: %i[redacted_filename display_filename metadata]
+
+  redactable :filename, :body
 
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
@@ -128,6 +131,10 @@ class FoiAttachment < ApplicationRecord
   def default_body
     ensure_not_erased!
     text_type? ? body_as_text.string : body
+  end
+
+  def apply_masks_to_body
+    apply_masks(unmasked_body, content_type)
   end
 
   # return the body as it is in the raw email, unmasked without censor rules

@@ -48,6 +48,7 @@ class InfoRequest < ApplicationRecord
   include Taggable
   include Notable
   include RateLimited
+  include Redactable
 
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
@@ -56,7 +57,6 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
-
 
   admin_columns exclude: %i[title url_title],
                 include: %i[rejected_incoming_count]
@@ -70,6 +70,8 @@ class InfoRequest < ApplicationRecord
   strip_attributes allow_empty: true
   strip_attributes only: [:title],
                    replace_newlines: true, collapse_spaces: true
+
+  redactable :title
 
   belongs_to :user,
              inverse_of: :info_requests,
@@ -1816,6 +1818,12 @@ class InfoRequest < ApplicationRecord
       user_path(user),
       show_user_wall_path(url_name: user.url_name)
     ]
+  end
+
+  # Return this request. This is mainly for
+  # duck-typing with other censorable relationships.
+  def info_request
+    self
   end
 
   # Return only this request in a chainable relation. This is mainly for
