@@ -13,6 +13,7 @@ class AdminController < ApplicationController
 
   before_action :authenticate
   before_action :enforce_two_factor_auth, if: :require_two_factor_auth?
+  before_action { Redactable::Current.unredacted_access = true }
 
   # action to take if expecting an authenticity token and one isn't received
   def handle_unverified_request
