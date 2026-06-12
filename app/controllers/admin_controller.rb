@@ -7,6 +7,7 @@
 class AdminController < ApplicationController
   layout "admin"
   before_action :authenticate
+  before_action { Redactable::Current.unredacted_access = true }
 
   # action to take if expecting an authenticity token and one isn't received
   def handle_unverified_request

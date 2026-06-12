@@ -42,6 +42,6 @@ module Redactable
   end
 
   def unredacted_access
-    @unredacted_access || false
+    @unredacted_access || Redactable::Current.unredacted_access || false
   end
 end
