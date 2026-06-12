@@ -42,6 +42,7 @@ RSpec.describe 'signing in with two factor authentication' do
         click_button 'Verify'
 
         expect(page).to have_content(user.name)
+        expect(page).to have_no_content('You used a backup code')
       end
     end
 
@@ -61,6 +62,29 @@ RSpec.describe 'signing in with two factor authentication' do
         click_button 'Verify'
 
         expect(page).to have_content(user.name)
+        expect(page).
+          to have_content('You used a backup code, which cannot be used ' \
+                          'again. You have 11 backup codes left.')
+        expect(page).to have_link('Generate new backup codes')
+      end
+    end
+
+    it 'warns when the last backup code is used' do
+      codes = user.otp_regenerate_backup_codes
+      user.otp_backup_codes = [user.otp_backup_codes.first]
+      user.save!
+
+      using_session(without_login) do
+        submit_credentials(user)
+
+        fill_in 'Code from your authenticator app', with: codes.first
+        click_button 'Verify'
+
+        expect(page).to have_content(user.name)
+        expect(page).
+          to have_content('You used your last backup code. Generate new ' \
+                          'backup codes now so you are not locked out')
+        expect(page).to have_link('Generate new backup codes')
       end
     end
   end

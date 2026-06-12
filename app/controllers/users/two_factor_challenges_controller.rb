@@ -15,6 +15,7 @@ class Users::TwoFactorChallengesController < UserController
 
   def create
     if @pending.user.authenticate_otp(params[:otp_code])
+      flash_backup_code_warning(@pending.user)
       complete_two_factor_sign_in
     else
       flash.now[:error] = _('Invalid one time password')
@@ -38,6 +39,15 @@ class Users::TwoFactorChallengesController < UserController
       post_redirect: @pending.post_redirect,
       remember_me: @pending.remember_me
     )
+  end
+
+  def flash_backup_code_warning(user)
+    return unless user.used_backup_code?
+
+    flash[:notice] = {
+      partial: 'one_time_passwords/backup_code_used',
+      locals: { remaining: user.otp_backup_codes.size }
+    }
   end
 
   def handle_rate_limit

@@ -85,6 +85,7 @@ module User::OneTimePassword
       remaining = otp_backup_codes - [code]
       self.otp_backup_codes = remaining
       update_column(:otp_backup_codes, remaining) if persisted?
+      @used_backup_code = true
       true
     end
     private :authenticate_backup_code
@@ -111,6 +112,13 @@ module User::OneTimePassword
     self.otp_enabled = true
     self.otp_enabled_at = Time.zone.now
     save
+  end
+
+  # Whether this instance consumed a backup code (rather than an
+  # authenticator code) in a successful `authenticate_otp` call, so
+  # controllers can warn the user that single-use codes are running down.
+  def used_backup_code?
+    @used_backup_code == true
   end
 
   def disable_otp

@@ -1343,6 +1343,16 @@ RSpec.describe User do
       expect(user.authenticate_otp(user.otp_code)).to eq(true)
     end
 
+    it 'records that a backup code was used' do
+      expect { user.authenticate_otp(codes.first) }.
+        to change(user, :used_backup_code?).from(false).to(true)
+    end
+
+    it 'does not set the backup-code flag for an authenticator code' do
+      user.authenticate_otp(user.otp_code)
+      expect(user.used_backup_code?).to eq(false)
+    end
+
     it 'leaves the user valid after the last code is consumed' do
       user.otp_backup_codes.size.times { |i| user.authenticate_otp(codes[i]) }
       user.reload
