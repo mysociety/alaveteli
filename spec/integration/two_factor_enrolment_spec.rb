@@ -58,6 +58,10 @@ RSpec.describe 'enrolling in two factor authentication' do
         expect(codes.size).to eq(12)
         expect(codes).to all(match(/\A\d{6}\z/))
 
+        copy_button = page.find_button('Copy codes')
+        expect(copy_button['data-clipboard-text']).to eq(codes.join("\n"))
+        expect(copy_button['data-clipboard-success']).to eq('Copied!')
+
         expect(user.reload.authenticate_otp(codes.first)).to eq(true)
 
         visit one_time_password_path
