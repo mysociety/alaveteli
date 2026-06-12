@@ -21,7 +21,15 @@
     <% end %>
   </ul>
 
-  <p class="not-for-print">
+  <div class="backup-codes__actions not-for-print">
+    <%= button_tag _('Copy codes'),
+                   type: 'button',
+                   class: 'button',
+                   data: {
+                     'clipboard-text': codes.join("\n"),
+                     'clipboard-success': _('Copied!')
+                   } %>
+
     <%= link_to _('Print codes'), '#', data: { print: true } %>
-  </p>
+  </div>
 </div>
