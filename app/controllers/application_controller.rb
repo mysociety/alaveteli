@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   class RouteNotFound < StandardError
   end
 
+  before_action { Redactable::Current.unredacted_access = true }
   before_action :set_gettext_locale, :store_gettext_locale
   before_action :redirect_gettext_locale, :collect_locales
 

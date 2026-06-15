@@ -243,11 +243,12 @@ class OutgoingMessage < ApplicationRecord
 
   # Returns text for indexing / text display
   def get_text_for_indexing(strip_salutation = true, opts = {})
-    if opts.empty?
-      text = body.strip
-    else
-      text = body(opts).strip
-    end
+    text = body.strip
+    #if opts.empty?
+      #text = body.strip
+    #else
+      #text = body(opts).strip
+    #end
 
     if strip_salutation && public_body
       salutation = self.class.default_salutation(public_body)
