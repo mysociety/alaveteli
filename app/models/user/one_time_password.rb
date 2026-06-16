@@ -5,6 +5,8 @@ module User::OneTimePassword
   included do
     has_one_time_password after_column_name: :otp_last_used_at
 
+    encrypts :otp_secret_key
+
     # otp_backup_codes is a single encrypted text column holding a JSON array of
     # the plaintext codes. active_model_otp expects an array, so serialize back
     # to one and default to an empty array when unset.
