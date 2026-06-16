@@ -33,6 +33,7 @@ class PublicBody < ApplicationRecord
   include LinkToHelper
 
   include Categorisable
+  include Searchable
   include Taggable
   include Notable
 

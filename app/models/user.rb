@@ -44,6 +44,7 @@ class User < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
+  include Searchable
   include Taggable
 
   include AlaveteliFeatures::Helpers
