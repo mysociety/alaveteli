@@ -14,6 +14,15 @@ module Search
           SimilarRequests.new(record)
         end
 
+        def search_scope(query, relation, **)
+          model = relation.klass
+          xapian_search = ActsAsXapian::Search.new(
+            [model], query, offset: 0, limit: 1000
+          )
+          ids = xapian_search.results.map { |r| r[:model].id }
+          relation.where(id: ids)
+        end
+
         def search(query, models:, sort_by: nil, sort_ascending: true,
                    collapse_by: nil)
           FullTextSearch.new(
