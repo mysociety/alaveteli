@@ -22,6 +22,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class InfoRequestEvent < ApplicationRecord
+  include Searchable
+
   extend XapianQueries
 
   EVENT_TYPES = [
