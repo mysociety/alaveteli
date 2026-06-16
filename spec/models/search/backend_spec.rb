@@ -11,6 +11,14 @@ RSpec.describe Search::Backend do
     end
   end
 
+  describe '#search_scope' do
+    it 'raises NotImplementedError' do
+      expect { backend.search_scope('query', User.all) }.to raise_error(
+        NotImplementedError, 'Subclasses must implement #search_scope'
+      )
+    end
+  end
+
   describe '#typeahead' do
     it 'raises NotImplementedError' do
       expect { backend.typeahead('query', model: User) }.to raise_error(

@@ -32,6 +32,11 @@ module Search
     backend.search(query, models: models, **options)
   end
 
+  # Search scoped to a relation - returns a chainable ActiveRecord::Relation
+  def self.search_scope(query, relation, **options)
+    backend.search_scope(query, relation, **options)
+  end
+
   # Typeahead search - returns a searchable object
   def self.typeahead(query, model:, **options)
     backend.typeahead(query, model: model, **options)

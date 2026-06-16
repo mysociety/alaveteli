@@ -10,6 +10,12 @@ module Search
       raise NotImplementedError, 'Subclasses must implement #search'
     end
 
+    # Required: full-text search constrained to an ActiveRecord relation,
+    # returning a chainable ActiveRecord::Relation
+    def search_scope(query, relation, **options)
+      raise NotImplementedError, 'Subclasses must implement #search_scope'
+    end
+
     # Required: typeahead/autocomplete search returning a searchable object
     def typeahead(query, model:, **options)
       raise NotImplementedError, 'Subclasses must implement #typeahead'
