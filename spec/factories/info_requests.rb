@@ -217,6 +217,10 @@ FactoryBot.define do
       prominence { 'hidden' }
     end
 
+    trait :requester_only do
+      prominence { 'requester_only' }
+    end
+
     trait :backpage do
       prominence { 'backpage' }
     end
@@ -302,6 +306,7 @@ FactoryBot.define do
             traits: [:with_old_incoming, :awaiting_description]
     factory :awaiting_description, traits: [:awaiting_description]
     factory :hidden_request, traits: [:hidden]
+    factory :requester_only_request, traits: [:requester_only]
     factory :backpage_request, traits: [:backpage]
     factory :overdue_request, traits: [:overdue]
     factory :very_overdue_request, traits: [:very_overdue]
