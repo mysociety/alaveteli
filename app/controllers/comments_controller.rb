@@ -63,9 +63,7 @@ class CommentsController < ApplicationController
     raise "Unknown type #{ params[:type] }" unless params[:type] == 'request'
 
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-    return unless @info_request.embargo && cannot?(:read, @info_request)
-
-    raise ActiveRecord::RecordNotFound
+    render_hidden if cannot?(:read, @info_request)
   end
 
   def build_track_thing
