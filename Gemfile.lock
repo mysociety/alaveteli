@@ -537,7 +537,7 @@ GEM
       rubocop-ast (>= 1.44.0, < 2.0)
     ruby-ole (1.2.13.1)
     ruby-progressbar (1.13.0)
-    rubyXL (3.4.37)
+    rubyXL (3.4.38)
       nokogiri (>= 1.10.8)
       rubyzip (>= 3.2.2)
     rubyzip (3.4.0)
