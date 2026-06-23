@@ -38,7 +38,6 @@ class SearchDocument < ApplicationRecord
     limit:,
     admin_mode:,
     exact_mode:,
-    semantic_threshold:,
     limit_ratio:
   )
     sanitized_language = if language.nil? || language == ''
@@ -60,28 +59,9 @@ class SearchDocument < ApplicationRecord
       doc_type_q = "AND searchable_type = '#{model}'"
     end
 
-    # TODO: loading the model is slow (10+s) and memory hungry (10+GB),
-    # so it needs to be locked away behind some kind of config flag.
-    q_embedding = nil
-
-    # conditionnally build a query for each search type (exact, FTS, semantic)
+    # conditionally build a query for each search type (exact, FTS)
     # and UNION them
     search_queries = []
-    unless q_embedding.nil?
-      #   semantic_query = "(1=1)"
-      # else
-      search_queries << <<-SQL
-        SELECT
-            sd_id,
-            rank() OVER (ORDER BY '#{q_embedding}'::vector <=> embedding) AS rank
-        FROM search_documents
-        WHERE embedding IS NOT NULL
-            #{doc_type_q}
-            AND ('#{q_embedding}'::vector <=> embedding) < #{semantic_threshold}
-        ORDER BY '#{q_embedding}'::vector <=> embedding
-        LIMIT #{limit * limit_ratio}
-        SQL
-    end
 
     if admin_mode
       # keep the same language for tokenization in admin mode, if the (admin)
@@ -158,7 +138,6 @@ class SearchDocument < ApplicationRecord
                          limit: 10,
                          admin_mode: false,
                          exact_mode: false,
-                         semantic_threshold: 0.6,
                          limit_ratio: 3)
     # try to provide some guidance during development
     unless Rails.env == 'production'
@@ -191,7 +170,6 @@ class SearchDocument < ApplicationRecord
       limit: limit,
       admin_mode: admin_mode,
       exact_mode: exact_mode,
-      semantic_threshold: semantic_threshold,
       limit_ratio: limit_ratio
     )
 
@@ -209,45 +187,6 @@ sql[:values])
         # This prevents duplicate models in cases where multiple translations
         # match the query.
       ).distinct
-    end
-  end
-
-  # temp code to remove before merging. Throw variations of inputs
-  # at the search function to make sure there is no weird crash
-  # happening in the various SQL building parts.
-  # TODO: do the same thing for the indexing part
-  def self.fuzz_search
-    models = [nil, PublicBody, Note, MailServerLog, FoiAttachment]
-    languages = ['simple', nil, 'french', 'english']
-    limits = [0, -1, 30]
-    admin_modes = [true, false, nil]
-    exact_modes = [true, false, nil]
-    semantic_thresholds = [0.6]
-    limit_ratios = [1, 3, 0]
-
-    # one query string per line. https://gitlab.com/akihe/radamsa
-    # provides an easy way to generate nasty test strings
-    queries = IO.readlines('search_unique.txt')
-
-    models.each do |model|
-      languages.each do |language|
-        limits.each do |limit|
-          admin_modes.each do |admin_mode|
-            exact_modes.each do |exact_mode|
-              queries.each do |query|
-                puts SearchDocument.hybrid_search(query,
-                  model: model,
-                  language: language,
-                  limit: limit,
-                  admin_mode: admin_mode,
-                  exact_mode: exact_mode,
-                  semantic_threshold: semantic_thresholds[0],
-                  limit_ratio: limit_ratios[1]).count
-              end
-            end
-          end
-        end
-      end
     end
   end
 end
