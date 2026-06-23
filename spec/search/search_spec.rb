@@ -39,6 +39,29 @@ RSpec.describe Search do
     end
   end
 
+  describe '.backend_for' do
+    it 'builds the registered adapter for a name' do
+      expect(Search.backend_for('xapian')).
+        to be_a(Search::Adapters::Xapian::Adapter)
+    end
+
+    it 'accepts a symbol name' do
+      expect(Search.backend_for(:xapian)).
+        to be_a(Search::Adapters::Xapian::Adapter)
+    end
+
+    it 'raises for an unknown backend' do
+      expect { Search.backend_for('bogus') }.
+        to raise_error(ArgumentError, /Unknown search backend/)
+    end
+  end
+
+  describe 'default configuration' do
+    it 'defaults SEARCH_BACKEND to xapian' do
+      expect(AlaveteliConfiguration.search_backend).to eq('xapian')
+    end
+  end
+
   describe '.context' do
     it 'returns an InfoRequest context when given an info_request' do
       request = double

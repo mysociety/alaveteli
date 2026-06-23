@@ -31,6 +31,19 @@ module Search
     @index_backends = Array(backends)
   end
 
+  def self.backends
+    @backends ||= {
+      xapian: 'Search::Adapters::Xapian::Adapter'
+    }
+  end
+
+  def self.backend_for(name)
+    class_name = backends.fetch(name.to_sym) do
+      raise ArgumentError, "Unknown search backend: #{name.inspect}"
+    end
+    class_name.constantize.new
+  end
+
   def self.context(info_request: nil)
     Search::Context::InfoRequest.new(info_request) if info_request
   end
