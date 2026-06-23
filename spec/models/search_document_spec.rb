@@ -147,4 +147,82 @@ name: "WA Department of the Attorney General")
       end
     end
   end
+
+  context 'de-duplicating records matched via several translations' do
+    it 'returns the record once and counts it once' do
+      body = FactoryBot.create(:public_body, name: "Some authority ABCD")
+      body.translations.create(locale: 'fr', name: "Une administration ABCD")
+      body.reindex
+      expect(SearchDocument.where(searchable: body).count).to eq(2)
+
+      results = PublicBody.newsearch(
+        "ABCD", exact_mode: true, language: 'english'
+      )
+
+      expect(results).to match_array([body])
+      expect(results.count).to eq(1)
+    end
+  end
+
+  context 'searching within a provided base relation' do
+    it 'restricts the search to the given relation' do
+      with_default_locale(:en) do
+        keep = FactoryBot.create(:public_body, name: "Keeper ABCD")
+        drop = FactoryBot.create(:public_body, name: "Dropper ABCD")
+        [keep, drop].each(&:reindex)
+
+        results = SearchDocument.hybrid_search(
+          "ABCD",
+          relation: PublicBody.where.not(id: drop.id),
+          language: 'english'
+        )
+
+        expect(results).to match_array([keep])
+      end
+    end
+
+    it 'composes with conditions chained after the search' do
+      with_default_locale(:en) do
+        a = FactoryBot.create(:public_body, name: "Alpha ABCD")
+        b = FactoryBot.create(:public_body, name: "Beta ABCD")
+        [a, b].each(&:reindex)
+
+        results = PublicBody.newsearch("ABCD", language: 'english').
+                  where.not(id: b.id)
+
+        expect(results).to match_array([a])
+      end
+    end
+  end
+
+  context 'when order_by_score is set' do
+    it 'de-duplicates a record matched via several translations' do
+      body = FactoryBot.create(:public_body, name: "Some authority ABCD")
+      body.translations.create(locale: 'fr', name: "Une administration ABCD")
+      body.reindex
+
+      results = SearchDocument.hybrid_search(
+        "ABCD", model: PublicBody, exact_mode: true, language: 'english',
+        order_by_score: true
+      )
+
+      expect(results.to_a).to eq([body])
+    end
+
+    it 'orders results by descending relevance score' do
+      with_default_locale(:en) do
+        strong = FactoryBot.create(:public_body, name: "ABCD ABCD authority")
+        weak = FactoryBot.create(:public_body, name: "ABCD office building")
+        [strong, weak].each(&:reindex)
+
+        results = SearchDocument.hybrid_search(
+          "ABCD", model: PublicBody, language: 'english', order_by_score: true
+        ).to_a
+
+        expect(results).to match_array([strong, weak])
+        scores = results.map(&:search_score)
+        expect(scores).to eq(scores.sort.reverse)
+      end
+    end
+  end
 end

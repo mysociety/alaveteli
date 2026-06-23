@@ -132,13 +132,32 @@ class SearchDocument < ApplicationRecord
     { query: sql, values: query_values }
   end
 
+  # Run the hybrid full-text search and return a chainable relation.
+  #
+  # +relation+ an optional base ActiveRecord::Relation to search within;
+  #            defaults to +model.all+. Lets callers pre-filter the search
+  #            perimeter and chain further conditions onto the result.
+  # +model+ the model class to search; inferred from +relation+ when omitted.
+  #         When both are nil the search spans every model and returns a
+  #         SearchDocument relation.
+  # +order_by_score+ when true, orders results by search relevance, grouped so
+  #                  each record appears once. Grouping makes a plain .count
+  #                  return a per-group hash, so this form suits ranked result
+  #                  listing rather than pagination via .count. When false (the
+  #                  default) the relation is de-duplicated and stays countable
+  #                  and paginatable.
   def self.hybrid_search(query,
+                         relation: nil,
                          model: nil,
                          language: nil,
                          limit: 10,
                          admin_mode: false,
                          exact_mode: false,
+                         order_by_score: false,
                          limit_ratio: 3)
+    relation ||= model&.all
+    model ||= relation&.klass
+
     # try to provide some guidance during development
     unless Rails.env == 'production'
       if model.is_a? String
@@ -161,7 +180,7 @@ class SearchDocument < ApplicationRecord
       end
     end
 
-    return SearchDocument.none if limit < 1
+    return (relation || SearchDocument.all).none if limit < 1
 
     sql = hybrid_search_internal(
       query,
@@ -177,16 +196,28 @@ class SearchDocument < ApplicationRecord
       SearchDocument.where("sd_id IN (SELECT s.sd_id FROM (#{sql[:query]}) s)",
 sql[:values])
     else
-      sr = Arel.sql(sql[:query], **sql[:values])
-      model.with(search_results: sr).joins(:search_documents).joins(
-        "JOIN search_results " \
-        "ON search_results.sd_id = search_documents.sd_id"
-        # postgresql has a DISTINCT ON (id) construct, but it's not sql standard
-        # so is not supported directly by rails ORM. It should be faster than
-        # the .distinct ORM construct that compares all columns of each record.
-        # This prevents duplicate models in cases where multiple translations
-        # match the query.
-      ).distinct
+      table = model.table_name
+      scoped = relation.
+        with(search_results: Arel.sql(sql[:query], **sql[:values])).
+        joins(:search_documents).
+        joins(
+          "JOIN search_results " \
+          "ON search_results.sd_id = search_documents.sd_id"
+        )
+
+      if order_by_score
+        scoped.
+          select("#{table}.*, MAX(search_results.score) AS search_score").
+          group("#{table}.id").
+          order(Arel.sql("MAX(search_results.score) DESC"))
+      else
+        # De-duplicate records that match through several translations or
+        # sections (the join yields one row per matching search_document).
+        # DISTINCT keeps the relation chainable, countable and paginatable;
+        # a faster DISTINCT ON (id) is not expressible through the ORM without
+        # losing those properties.
+        scoped.distinct
+      end
     end
   end
 end
