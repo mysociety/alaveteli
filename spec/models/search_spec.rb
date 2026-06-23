@@ -3,11 +3,14 @@ require 'spec_helper'
 RSpec.describe Search do
   before do
     @original_backend = Search.backend
+    @original_index_backends = Search.index_backends
     Search.backend = instance_double(Search::Backend)
+    Search.index_backends = [Search.backend]
   end
 
   after do
     Search.backend = @original_backend
+    Search.index_backends = @original_index_backends
   end
 
   let(:backend) { Search.backend }
@@ -15,6 +18,24 @@ RSpec.describe Search do
   describe '.backend' do
     it 'returns the configured backend' do
       expect(Search.backend).to eq(backend)
+    end
+  end
+
+  describe '.index_backends' do
+    it 'defaults to the query backend' do
+      Search.instance_variable_set(:@index_backends, nil)
+      expect(Search.index_backends).to eq([Search.backend])
+    end
+
+    it 'can be assigned a list of backends' do
+      other = instance_double(Search::Backend)
+      Search.index_backends = [backend, other]
+      expect(Search.index_backends).to eq([backend, other])
+    end
+
+    it 'wraps a single backend in an array' do
+      Search.index_backends = backend
+      expect(Search.index_backends).to eq([backend])
     end
   end
 
@@ -66,17 +87,23 @@ RSpec.describe Search do
   end
 
   describe '.reindex_later' do
-    it 'delegates to the backend' do
+    it 'indexes every backend' do
+      other = instance_double(Search::Backend)
+      Search.index_backends = [backend, other]
       record = double
       expect(backend).to receive(:reindex_later).with(record)
+      expect(other).to receive(:reindex_later).with(record)
       Search.reindex_later(record)
     end
   end
 
   describe '.queued_jobs_count' do
-    it 'delegates to the backend' do
-      expect(backend).to receive(:queued_jobs_count).and_return(5)
-      expect(Search.queued_jobs_count).to eq(5)
+    it 'sums the count across every index backend' do
+      other = instance_double(Search::Backend)
+      Search.index_backends = [backend, other]
+      allow(backend).to receive(:queued_jobs_count).and_return(5)
+      allow(other).to receive(:queued_jobs_count).and_return(3)
+      expect(Search.queued_jobs_count).to eq(8)
     end
   end
 end
