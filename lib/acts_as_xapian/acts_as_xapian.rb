@@ -1137,7 +1137,7 @@ module ActsAsXapian
 
     # Allow reindexing to be skipped if a flag is set
     def xapian_mark_needs_index_if_reindex
-      if respond_to?(:no_xapian_reindex) && no_xapian_reindex == true
+      if respond_to?(:skip_search_reindex) && skip_search_reindex == true
         return true
       end
 

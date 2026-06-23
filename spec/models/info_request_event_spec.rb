@@ -214,7 +214,7 @@ RSpec.describe InfoRequestEvent do
   describe 'after saving' do
     let(:request) { FactoryBot.create(:info_request) }
 
-    it 'should mark the model for reindexing in xapian if there is no no_xapian_reindex flag on the object' do
+    it 'should mark the model for reindexing in xapian if there is no skip_search_reindex flag on the object' do
       event = InfoRequestEvent.new(info_request: request,
                                    event_type: 'sent',
                                    params: {})

@@ -127,7 +127,7 @@ class TrackMailer < ApplicationMailer
         end
       end
       user.last_daily_track_email = now
-      user.no_xapian_reindex = true
+      user.skip_search_reindex = true
       user.save!(touch: false)
       done_something = true
     end

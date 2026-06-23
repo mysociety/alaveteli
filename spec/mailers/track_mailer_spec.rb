@@ -10,7 +10,7 @@ RSpec.describe TrackMailer do
                                url_name: 'test-name',
                                last_daily_track_email: 2.days.ago,
                                updated_at: 1.day.ago)
-      user.no_xapian_reindex = false
+      user.skip_search_reindex = false
       request = FactoryBot.create(:info_request)
       FactoryBot.create(:track_thing,
                         tracking_user: user,
@@ -36,7 +36,7 @@ RSpec.describe TrackMailer do
       before do
         allow(User).to receive_message_chain(:where, :find_each).and_yield(user)
         allow(user).to receive(:receive_email_alerts).and_return(true)
-        allow(user).to receive(:no_xapian_reindex=)
+        allow(user).to receive(:skip_search_reindex=)
       end
 
       it 'asks for any daily track things for the user' do
@@ -49,8 +49,8 @@ RSpec.describe TrackMailer do
         subject
       end
 
-      it 'sets the no_xapian_reindex flag on the user' do
-        expect(user).to receive(:no_xapian_reindex=).with(true)
+      it 'sets the skip_search_reindex flag on the user' do
+        expect(user).to receive(:skip_search_reindex=).with(true)
         subject
       end
 
@@ -157,7 +157,7 @@ RSpec.describe TrackMailer do
         allow(User).to receive_message_chain(:where, :find_each).and_yield(user)
         allow(user).to receive(:should_be_emailed?).and_return(false)
         allow(user).to receive(:receive_email_alerts).and_return(true)
-        allow(user).to receive(:no_xapian_reindex=)
+        allow(user).to receive(:skip_search_reindex=)
       end
 
       it 'does not ask for any daily track things for the user' do
@@ -178,8 +178,8 @@ RSpec.describe TrackMailer do
         subject
       end
 
-      it 'does not set the no_xapian_reindex flag on the user' do
-        expect(user).not_to receive(:no_xapian_reindex=).with(true)
+      it 'does not set the skip_search_reindex flag on the user' do
+        expect(user).not_to receive(:skip_search_reindex=).with(true)
         subject
       end
 

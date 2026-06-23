@@ -93,7 +93,7 @@ class InfoRequestEvent < ApplicationRecord
     self.event_type = "hide"
   end
   after_create :update_request, if: :response?
-  after_create :invalidate_cached_pages, unless: :no_xapian_reindex
+  after_create :invalidate_cached_pages, unless: :skip_search_reindex
 
   after_commit -> { info_request.create_or_update_request_summary },
                   on: [:create]
@@ -107,7 +107,7 @@ class InfoRequestEvent < ApplicationRecord
     scope "#{event_type}_events", -> { where(event_type: event_type) }
   end
 
-  attr_accessor :no_xapian_reindex
+  attr_accessor :skip_search_reindex
 
   def self.count_of_hides_by_week
     where(event_type: "hide").group("date(date_trunc('week', created_at))").count.sort
