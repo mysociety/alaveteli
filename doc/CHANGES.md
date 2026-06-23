@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Check request prominence when annotating requests (Gareth Rees, Santosh Kumar
+  Puppala)
 * Remove user name from account confirmation email to guard against spam
   reputation issues (Gareth Rees)
 * Remove 720p and 1080p from default spam terms, as these are too generic and

@@ -9,6 +9,186 @@ RSpec.describe CommentsController, "when commenting on a request" do
     allow(controller).to receive(:current_ability).and_return(ability)
   end
 
+  describe 'when the request is hidden' do
+    let(:request_owner) { FactoryBot.create(:user) }
+    let(:hidden_request) do
+      FactoryBot.create(:info_request, :hidden, user: request_owner)
+    end
+
+    context 'when a user is not logged in' do
+      it 'does not render the annotation form' do
+        get :new, params: {
+          url_title: hidden_request.url_title,
+          type: 'request'
+        }
+
+        expect(response).to render_template('request/hidden')
+        expect(response.code).to eq('403')
+      end
+
+      it 'does not render the preview' do
+        post :preview, params: {
+          url_title: hidden_request.url_title,
+          comment: { body: 'Some content' },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 1
+        }
+
+        expect(response).to render_template('request/hidden')
+        expect(response.code).to eq('403')
+      end
+    end
+
+    context 'when logged in as a non-owner' do
+      let(:other_user) { FactoryBot.create(:user) }
+      let(:ability) { Ability.new(other_user) }
+
+      before { sign_in other_user }
+
+      it 'does not render the annotation form' do
+        get :new, params: {
+          url_title: hidden_request.url_title,
+          type: 'request'
+        }
+
+        expect(response).to render_template('request/hidden')
+        expect(response.code).to eq('403')
+      end
+
+      it 'does not render the preview' do
+        post :preview, params: {
+          url_title: hidden_request.url_title,
+          comment: { body: 'Some content' },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 1
+        }
+
+        expect(response).to render_template('request/hidden')
+        expect(response.code).to eq('403')
+      end
+    end
+
+    context 'when logged in as the request owner' do
+      let(:ability) { Ability.new(request_owner) }
+
+      before { sign_in request_owner }
+
+      it 'does not render the annotation form' do
+        get :new, params: {
+          url_title: hidden_request.url_title,
+          type: 'request'
+        }
+
+        expect(response).to render_template('request/hidden')
+        expect(response.code).to eq('403')
+      end
+
+      it 'does not render the preview' do
+        post :preview, params: {
+          url_title: hidden_request.url_title,
+          comment: { body: 'Some content' },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 1
+        }
+
+        expect(response).to render_template('request/hidden')
+        expect(response.code).to eq('403')
+      end
+    end
+  end
+
+  describe 'when the request is requester_only' do
+    let(:request_owner) { FactoryBot.create(:user) }
+    let(:requester_only_request) do
+      FactoryBot.create(:info_request, :requester_only, user: request_owner)
+    end
+
+    context 'when the user is not logged in' do
+      it 'does not render the annotation form' do
+        get :new, params: {
+          url_title: requester_only_request.url_title,
+          type: 'request'
+        }
+
+        expect(response).to render_template('request/hidden')
+        expect(response.code).to eq('403')
+      end
+
+      it 'does not render the preview' do
+        post :preview, params: {
+          url_title: requester_only_request.url_title,
+          comment: { body: 'Some content' },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 1
+        }
+
+        expect(response).to render_template('request/hidden')
+        expect(response.code).to eq('403')
+      end
+    end
+
+    context 'when logged in as a non-owner' do
+      let(:other_user) { FactoryBot.create(:user) }
+      let(:ability) { Ability.new(other_user) }
+
+      before { sign_in other_user }
+
+      it 'does not render the annotation form' do
+        get :new, params: {
+          url_title: requester_only_request.url_title,
+          type: 'request'
+        }
+
+        expect(response).to render_template('request/hidden')
+        expect(response.code).to eq('403')
+      end
+
+      it 'does not render the preview' do
+        post :preview, params: {
+          url_title: requester_only_request.url_title,
+          comment: { body: 'Some content' },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 1
+        }
+
+        expect(response).to render_template('request/hidden')
+        expect(response.code).to eq('403')
+      end
+    end
+
+    context 'when logged in as the request owner' do
+      let(:ability) { Ability.new(request_owner) }
+
+      before { sign_in request_owner }
+
+      it 'renders the annotation form' do
+        get :new, params: {
+          url_title: requester_only_request.url_title,
+          type: 'request'
+        }
+
+        expect(response).to be_successful
+      end
+
+      it 'renders the preview' do
+        post :preview, params: {
+          url_title: requester_only_request.url_title,
+          comment: { body: 'Some content' },
+          type: 'request',
+          submitted_comment: 1,
+          preview: 1
+        }
+
+        expect(response).to be_successful
+      end
+    end
+  end
+
   describe 'dealing with embargoed requests' do
     let(:user) { FactoryBot.create(:user) }
     let(:pro_user) { FactoryBot.create(:pro_user) }
