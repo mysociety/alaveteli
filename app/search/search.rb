@@ -23,6 +23,14 @@ module Search
     @backend = backend
   end
 
+  def self.index_backends
+    @index_backends ||= [backend]
+  end
+
+  def self.index_backends=(backends)
+    @index_backends = Array(backends)
+  end
+
   def self.context(info_request: nil)
     Search::Context::InfoRequest.new(info_request) if info_request
   end
@@ -47,13 +55,14 @@ module Search
     backend.similar(record)
   end
 
-  # Queue a record for a later search index update
+  # Queue a record for a later search index update across every indexed
+  # backend
   def self.reindex_later(record)
-    backend.reindex_later(record)
+    index_backends.each { |b| b.reindex_later(record) }
   end
 
-  # Index job queue count for health monitoring
+  # Index job queue count for health monitoring across every indexed backend
   def self.queued_jobs_count
-    backend.queued_jobs_count
+    index_backends.sum(&:queued_jobs_count)
   end
 end
