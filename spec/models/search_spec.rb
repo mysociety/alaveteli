@@ -65,6 +65,27 @@ RSpec.describe Search do
     it 'defaults SEARCH_BACKEND to xapian' do
       expect(AlaveteliConfiguration.search_backend).to eq('xapian')
     end
+
+    it 'defaults SEARCH_INDEX_BACKENDS to xapian only' do
+      expect(AlaveteliConfiguration.search_index_backends).to eq(['xapian'])
+    end
+  end
+
+  describe '.use_configured_backends!' do
+    it 'sets the query and index backends from configuration' do
+      allow(AlaveteliConfiguration).to receive(:search_backend).
+        and_return('xapian')
+      allow(AlaveteliConfiguration).to receive(:search_index_backends).
+        and_return(%w[xapian postgresql])
+
+      Search.use_configured_backends!
+
+      expect(Search.backend).to be_a(Search::Adapters::Xapian::Adapter)
+      expect(Search.index_backends.map(&:class)).to eq(
+        [Search::Adapters::Xapian::Adapter,
+         Search::Adapters::Postgresql::Adapter]
+      )
+    end
   end
 
   describe '.context' do

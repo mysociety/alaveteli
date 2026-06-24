@@ -45,6 +45,15 @@ module Search
     class_name.constantize.new
   end
 
+  # Apply the configured query backend and the set of backends kept indexed.
+  # Called from the search initializer once the app has booted.
+  def self.use_configured_backends!
+    self.backend = backend_for(AlaveteliConfiguration.search_backend)
+    self.index_backends =
+      Array(AlaveteliConfiguration.search_index_backends).
+      map { |name| backend_for(name) }
+  end
+
   def self.context(info_request: nil)
     Search::Context::InfoRequest.new(info_request) if info_request
   end

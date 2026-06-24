@@ -714,6 +714,15 @@ UTILITY_SEARCH_PATH: ["/usr/bin", "/usr/local/bin"]
 # ---
 SEARCH_BACKEND: xapian
 
+# Lists which backends are kept indexed on every write. During a backend
+# migration set both so both indexes stay fresh while only SEARCH_BACKEND
+# answers queries; see doc/SEARCH.md.
+#
+# SEARCH_INDEX_BACKENDS - Array (default: [xapian])
+#
+# ---
+SEARCH_INDEX_BACKENDS: [xapian]
+
 # Path to your exim or postfix log files that will get sucked up by
 # script/load-mail-server-logs
 #
