@@ -23,14 +23,6 @@ module Search
     @backend = backend
   end
 
-  def self.index_backends
-    @index_backends ||= [backend]
-  end
-
-  def self.index_backends=(backends)
-    @index_backends = Array(backends)
-  end
-
   def self.backends
     @backends ||= {
       xapian: 'Search::Adapters::Xapian::Adapter',
@@ -43,6 +35,12 @@ module Search
       raise ArgumentError, "Unknown search backend: #{name.inspect}"
     end
     class_name.constantize.new
+  end
+
+  # Apply the configured query backend. Called from the search initializer
+  # once the app has booted.
+  def self.use_configured_backend!
+    self.backend = backend_for(AlaveteliConfiguration.search_backend)
   end
 
   def self.context(info_request: nil)
@@ -69,14 +67,13 @@ module Search
     backend.similar(record)
   end
 
-  # Queue a record for a later search index update across every indexed
-  # backend
+  # Queue a record for a later search index update across every backend
   def self.reindex_later(record)
-    index_backends.each { |b| b.reindex_later(record) }
+    backends.keys.map { backend_for(_1) }.each { |b| b.reindex_later(record) }
   end
 
-  # Index job queue count for health monitoring across every indexed backend
+  # Index job queue count for health monitoring across every backend
   def self.queued_jobs_count
-    index_backends.sum(&:queued_jobs_count)
+    backends.keys.map { backend_for(_1) }.sum(&:queued_jobs_count)
   end
 end

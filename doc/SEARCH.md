@@ -103,27 +103,6 @@ Backends with async indexing (Xapian) queue a job. Backends where the
 search index is the database itself (e.g. PostgreSQL) can leave this
 as a no-op.
 
-### Query role vs index role
-
-The facade splits the two backend roles. `Search.backend` is the single
-backend that answers queries (`search`, `typeahead`, `similar`,
-`search_scope`). `Search.index_backends` is the list of backends kept fresh
-on writes; `Search.reindex_later` and `Search.queued_jobs_count` fan out
-across it.
-
-```ruby
-Search.backend         # => the live query backend
-Search.index_backends  # => [Search.backend] by default
-```
-
-During a transition both indexes must stay current while only one answers
-queries, so you can index into several backends but query just one:
-
-```ruby
-Search.backend = xapian            # queries go to Xapian
-Search.index_backends = [xapian, postgresql] # both stay indexed
-```
-
 ### Request-scoped convenience methods
 
 Request-specific listings live on `InfoRequest`, which delegates to the
@@ -257,10 +236,6 @@ then a config change, not a code edit:
 # config/general.yml
 SEARCH_BACKEND: postgresql
 ```
-
-To populate a second index during a transition without making it answer
-queries yet, add it to `Search.index_backends` (see "Query role vs index
-role" above).
 
 ### 5. Indexing (if applicable)
 
