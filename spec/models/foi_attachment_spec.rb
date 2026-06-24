@@ -2401,4 +2401,13 @@ RSpec.describe FoiAttachment do
       end
     end
   end
+
+  describe '#unredacted_diff_for_admin_indexing' do
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    it 'diffs the text using Diff::LCS without raising' do
+      expect { foi_attachment.unredacted_diff_for_admin_indexing }.
+        not_to raise_error
+    end
+  end
 end

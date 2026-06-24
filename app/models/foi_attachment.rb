@@ -30,6 +30,7 @@
 # This is the type which is used to send data about attachments to the view
 
 require 'digest'
+require 'diff/lcs'
 
 class FoiAttachment < ApplicationRecord
   include Rails.application.routes.url_helpers
@@ -111,7 +112,7 @@ class FoiAttachment < ApplicationRecord
   # 3 distinct strings: someone, domain and com, instead of a single email
   # address. This makes it hard to use for search.
   # It is possible to modify AlaveteliTextMasker.apply_binary_masks to get
-  # rid of @ and periods, but this in turn breaks certains features at
+  # rid of @ and periods, but this in turn breaks certain features at
   # display time.
   def unredacted_diff_for_admin_indexing
     sdiff = Diff::LCS.sdiff(
