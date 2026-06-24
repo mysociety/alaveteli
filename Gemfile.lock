@@ -660,6 +660,7 @@ DEPENDENCIES
   compare-xml (~> 0.66)
   csv (~> 3.3.5)
   dalli (~> 5.0.5)
+  diff-lcs (~> 1.6.2)
   drb (~> 2.2.3)
   excel_analyzer!
   exception_notification (~> 5.0.1)
