@@ -10,26 +10,33 @@
 # It exercises the backend-agnostic interface against real fixture data, so
 # the including spec must run with an indexed backend (e.g. tagged :xapian).
 RSpec.shared_examples 'a search backend' do
+  # Backends that only index some models privately (e.g. PostgreSQL indexes
+  # users in the admin index) can supply the options needed to search them.
+  let(:search_scope_options) { {} }
+
   describe '#search_scope' do
     it 'returns an ActiveRecord::Relation' do
-      scope = adapter.search_scope('bob', User.all)
+      scope = adapter.search_scope('bob', User.all, **search_scope_options)
       expect(scope).to be_a(ActiveRecord::Relation)
     end
 
     it 'constrains the relation to matching records' do
-      scope = adapter.search_scope('bob', User.all)
+      scope = adapter.search_scope('bob', User.all, **search_scope_options)
       expect(scope).to include(users(:bob_smith_user))
     end
 
     it 'keeps the relation chainable with further conditions' do
       bob = users(:bob_smith_user)
-      scope = adapter.search_scope('bob', User.all).where.not(id: bob.id)
+      scope = adapter.search_scope('bob', User.all, **search_scope_options).
+              where.not(id: bob.id)
       expect(scope).not_to include(bob)
     end
 
     it 'respects conditions already applied to the relation' do
       bob = users(:bob_smith_user)
-      scope = adapter.search_scope('bob', User.where.not(id: bob.id))
+      scope = adapter.search_scope(
+        'bob', User.where.not(id: bob.id), **search_scope_options
+      )
       expect(scope).not_to include(bob)
     end
   end
@@ -39,6 +46,14 @@ RSpec.shared_examples 'a search backend' do
       searcher = subject.search('bob', models: [User])
       results = searcher.results(page: 1, per_page: 25)
       expect(results).to be_a(Search::Results)
+    end
+
+    it 'accepts the ranking options callers pass' do
+      searcher = subject.search(
+        'bob', models: [User],
+        sort_by: nil, sort_ascending: true, collapse_by: nil
+      )
+      expect { searcher.results(page: 1, per_page: 25) }.not_to raise_error
     end
   end
 
