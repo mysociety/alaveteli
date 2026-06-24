@@ -33,7 +33,8 @@ module Search
 
   def self.backends
     @backends ||= {
-      xapian: 'Search::Adapters::Xapian::Adapter'
+      xapian: 'Search::Adapters::Xapian::Adapter',
+      postgresql: 'Search::Adapters::Postgresql::Adapter'
     }
   end
 
