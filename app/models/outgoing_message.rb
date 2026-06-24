@@ -88,7 +88,7 @@ class OutgoingMessage < ApplicationRecord
     index: {
       prominence_reason: "D",
       ".get_text_for_indexing": "A",
-      safe_from_name: "D"
+      ".safe_from_name": "D"
     },
     admin_index: {
       body: "A",

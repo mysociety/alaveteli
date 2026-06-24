@@ -1968,6 +1968,16 @@ RSpec.describe OutgoingMessage do
   end
 end
 
+RSpec.describe OutgoingMessage, '#reindex', :postgresql do
+  let(:message) { outgoing_messages(:useless_outgoing_message) }
+
+  it 'indexes safe_from_name as a method rather than a column' do
+    SearchDocument.delete_all
+    expect { message.reindex }.not_to raise_error
+    expect(OutgoingMessage.not_indexed).not_to include(message)
+  end
+end
+
 RSpec.describe OutgoingMessage, " when making an outgoing message" do
   before do
     @om = outgoing_messages(:useless_outgoing_message)
