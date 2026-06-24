@@ -24,8 +24,8 @@
     </div>
   <% end %>
 
-  <% if @xapian_requests %>
-    <% if @xapian_requests.results.empty? %>
+  <% if @request_results %>
+    <% if @request_results.results.empty? %>
       <% if @page == 1 %>
         <h2 class="foi_results foi_requests" id="foi_requests">
           <% if @is_you %>
@@ -54,22 +54,22 @@
           <%= n_('Your Freedom of Information request',
                  'Your Freedom of Information requests ' \
                  '(approximately {{count}})',
-                 @xapian_requests.matches_estimated,
-                 :count => @xapian_requests.matches_estimated) %>
+                 @request_results.matches_estimated,
+                 :count => @request_results.matches_estimated) %>
         <% else %>
           <%= n_("This person's Freedom of Information request",
                  "This person's Freedom of Information requests " \
                  "(approximately {{count}})",
-                 @xapian_requests.matches_estimated,
-                 :count => @xapian_requests.matches_estimated) %>
+                 @request_results.matches_estimated,
+                 :count => @request_results.matches_estimated) %>
         <% end %>
 
-        <!-- matches_estimated <%= @xapian_requests.matches_estimated %> -->
+        <!-- matches_estimated <%= @request_results.matches_estimated %> -->
         <%= @match_phrase %>
         <%= @page_desc %>
       </h2>
 
-      <% @xapian_requests.results.each do |result| %>
+      <% @request_results.results.each do |result| %>
         <%= render partial: 'request/request_listing_via_event',
                    locals: { event: result[:model] } %>
       <% end %>
@@ -77,7 +77,7 @@
       <% requests_collection =
            WillPaginate::Collection.new(@page,
                                         @per_page,
-                                        @xapian_requests.matches_estimated) %>
+                                        @request_results.matches_estimated) %>
       <%= will_paginate requests_collection %>
     <% end %>
   <% else %>
@@ -116,8 +116,8 @@
     <%= will_paginate @private_requests %>
   <% end %>
 
-  <% if @xapian_comments && feature_enabled?(:annotations) %>
-    <% if @xapian_comments.results.empty? %>
+  <% if @comment_results && feature_enabled?(:annotations) %>
+    <% if @comment_results.results.empty? %>
       <% if @page == 1 %>
         <h2>
           <% if @is_you %>
@@ -145,11 +145,11 @@
                    :count => @display_user.comments.visible.size) %>
           <% end %>
 
-        <!-- matches_estimated <%= @xapian_comments.matches_estimated %> -->
+        <!-- matches_estimated <%= @comment_results.matches_estimated %> -->
         <%= @page_desc %>
       </h2>
 
-      <% @xapian_comments.results.each do |result| %>
+      <% @comment_results.results.each do |result| %>
         <%= render partial: 'request/request_listing_via_event',
                    locals: { event: result[:model] } %>
       <% end %>

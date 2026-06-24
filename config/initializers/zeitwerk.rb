@@ -7,6 +7,12 @@ Rails.autoloaders.main.inflector.inflect(
   "world_foi_websites" => "WorldFOIWebsites"
 )
 
+# search.rb reopens the Search module (adding facade methods) rather than
+# defining Search::Search, so Zeitwerk must ignore it. It is required below
+# after the ignore list.
+Rails.autoloaders.main.ignore("#{Rails.root}/app/search/search.rb")
+require_relative "../../app/search/search"
+
 Rails.autoloaders.main.ignore(
   "lib/configuration.rb",
   "lib/i18n_fixes.rb",

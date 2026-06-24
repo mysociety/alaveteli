@@ -104,7 +104,8 @@ class GeneralController < ApplicationController
       # structured query which should show newest first, rather than a free text search
       # where we want most relevant as default.
       begin
-        dummy_query = ActsAsXapian::Search.new([InfoRequestEvent], @query, limit: 1)
+        dummy_query = Search.search(@query, models: [InfoRequestEvent]).
+                       results(page: 1, per_page: 1)
       rescue => e
         redirect_to search_url(""),
                     error: "Your query was not quite right. #{e.message}"
@@ -129,33 +130,40 @@ class GeneralController < ApplicationController
       raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / requests_per_page}."
     end
 
-    @total_hits = @xapian_requests_hits = @xapian_bodies_hits = @xapian_users_hits = 0
+    @request_result_count = @body_result_count = @user_result_count = 0
+    @total_hits = 0
     if @requests
-      @xapian_requests = perform_search([InfoRequestEvent], @query, @sortby, 'request_collapse', requests_per_page)
+      @request_results = perform_search(
+        [InfoRequestEvent], @query, @sortby,
+        'request_collapse', requests_per_page
+      )
       @requests_per_page = @per_page
-      @xapian_requests_hits = @xapian_requests.results.size
-      @xapian_requests_total_hits = @xapian_requests.matches_estimated
-      @total_hits += @xapian_requests.matches_estimated
-      @request_for_spelling = @xapian_requests
-      @max_requests = (@xapian_requests.matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @xapian_requests.matches_estimated
+      @request_result_count = @request_results.results.size
+      @request_total_count = @request_results.matches_estimated
+      @total_hits += @request_results.matches_estimated
+      @request_for_spelling = @request_results
+      @max_requests = [@request_results.matches_estimated,
+                       MAX_RESULTS].min
     end
     if @bodies
-      @xapian_bodies = perform_search([PublicBody], @query, @sortby, nil, 5)
+      @body_results = perform_search([PublicBody], @query, @sortby, nil, 5)
       @bodies_per_page = @per_page
-      @xapian_bodies_hits = @xapian_bodies.results.size
-      @xapian_bodies_total_hits = @xapian_bodies.matches_estimated
-      @total_hits += @xapian_bodies.matches_estimated
-      @request_for_spelling = @xapian_bodies
-      @max_bodies = (@xapian_bodies.matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @xapian_bodies.matches_estimated
+      @body_result_count = @body_results.results.size
+      @body_total_count = @body_results.matches_estimated
+      @total_hits += @body_results.matches_estimated
+      @request_for_spelling = @body_results
+      @max_bodies = [@body_results.matches_estimated,
+                     MAX_RESULTS].min
     end
     if @users
-      @xapian_users = perform_search([User], @query, @sortby, nil, 5)
+      @user_results = perform_search([User], @query, @sortby, nil, 5)
       @users_per_page = @per_page
-      @xapian_users_hits = @xapian_users.results.size
-      @xapian_users_total_hits = @xapian_users.matches_estimated
-      @total_hits += @xapian_users.matches_estimated
-      @request_for_spelling = @xapian_users
-      @max_users = (@xapian_users.matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @xapian_users.matches_estimated
+      @user_result_count = @user_results.results.size
+      @user_total_count = @user_results.matches_estimated
+      @total_hits += @user_results.matches_estimated
+      @request_for_spelling = @user_results
+      @max_users = [@user_results.matches_estimated,
+                    MAX_RESULTS].min
     end
 
     # Spelling and highlight words are same for all three queries

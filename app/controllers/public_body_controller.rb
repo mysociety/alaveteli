@@ -64,14 +64,17 @@ class PublicBodyController < ApplicationController
       # TODO: really should just use SQL query here rather than Xapian.
       sortby = "described"
       begin
-        @xapian_requests = perform_search([InfoRequestEvent], query, sortby, 'request_collapse', requests_per_page)
+        @request_results = perform_search(
+          [InfoRequestEvent], query, sortby,
+          'request_collapse', requests_per_page
+        )
         if @page > 1
           @page_desc = " (page #{ @page })"
         else
           @page_desc = ""
         end
       rescue
-        @xapian_requests = nil
+        @request_results = nil
       end
 
       flash.keep(:search_params)
@@ -177,7 +180,7 @@ class PublicBodyController < ApplicationController
     return head :bad_request unless query
 
     flash[:search_params] = params.slice(:query, :bodies, :page)
-    @xapian_requests = typeahead_search(query, model: PublicBody)
+    @request_results = typeahead_search(query, model: PublicBody)
     render partial: "public_body/search_ahead"
   end
 end

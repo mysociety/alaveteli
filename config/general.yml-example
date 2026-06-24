@@ -701,6 +701,14 @@ OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS: ''
 # ---
 UTILITY_SEARCH_PATH: ["/usr/bin", "/usr/local/bin"]
 
+# Selects which search backend answers queries. Xapian is the default and
+# only built-in backend; see doc/SEARCH.md for registering others.
+#
+# SEARCH_BACKEND - String (default: xapian)
+#
+# ---
+SEARCH_BACKEND: xapian
+
 # Path to your exim or postfix log files that will get sucked up by
 # script/load-mail-server-logs
 #

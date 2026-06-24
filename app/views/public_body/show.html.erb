@@ -124,14 +124,14 @@
       <% end %>
     <% end %>
 
-    <% if @xapian_requests %>
-      <% @xapian_requests.results.each do |result| %>
+    <% if @request_results %>
+      <% @request_results.results.each do |result| %>
         <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
       <% end %>
 
-      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @xapian_requests.matches_estimated) %>
+      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @request_results.matches_estimated) %>
 
-      <% if @xapian_requests.results.empty? %>
+      <% if @request_results.results.empty? %>
         <p><% _('There were no requests matching your query.') %></p>
       <% else %>
         <p>

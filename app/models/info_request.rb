@@ -610,55 +610,12 @@ class InfoRequest < ApplicationRecord
   end
 
   def self.request_list(filters, page, per_page, max_results)
-    query = InfoRequestEvent.make_query_from_params(filters)
-    search_options = {
-      limit: 25,
-      offset: (page - 1) * per_page,
-      collapse_by_prefix: 'request_collapse' }
-
-    xapian_object = search_events(query, search_options)
-    list_results = xapian_object.results.map { |r| r[:model] }
-    matches_estimated = xapian_object.matches_estimated
-    show_no_more_than = [matches_estimated, max_results].min
-    { results: list_results,
-      matches_estimated: matches_estimated,
-      show_no_more_than: show_no_more_than }
+    Search.context(info_request: self).
+      request_list(filters, page, per_page, max_results)
   end
 
   def self.recent_requests
-    request_events = []
-    request_events_all_successful = false
-    # Get some successful requests
-    begin
-      query = 'variety:response (status:successful OR status:partially_successful)'
-      max_count = 5
-      search_options = {
-        limit: max_count,
-        collapse_by_prefix: 'request_title_collapse' }
-
-      xapian_object = search_events(query, search_options)
-      xapian_object.results
-      request_events = xapian_object.results.map { |r| r[:model] }
-
-      # If there are not yet enough successful requests, fill out the list with
-      # other requests
-      if request_events.count < max_count
-        query = 'variety:sent'
-        search_options[:limit] = max_count-request_events.count
-        xapian_object = search_events(query, search_options)
-        xapian_object.results
-        more_events = xapian_object.results.map { |r| r[:model] }
-        request_events += more_events
-        # Overall we still want the list sorted with the newest first
-        request_events.sort! { |e1,e2| e2.created_at <=> e1.created_at }
-      else
-        request_events_all_successful = true
-      end
-    rescue
-      request_events = []
-    end
-
-    [request_events, request_events_all_successful]
+    Search.context(info_request: self).recent_requests
   end
 
   def self.find_in_state(state)
@@ -823,7 +780,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def reindex_request_events
-    info_request_events.find_each(&:xapian_mark_needs_index)
+    info_request_events.find_each { |e| Search.reindex_later(e) }
   end
 
   # Force reindex when tag string changes
@@ -1080,7 +1037,7 @@ class InfoRequest < ApplicationRecord
   def calculate_event_states
     curr_state = nil
     info_request_events.reverse.each do |event|
-      event.xapian_mark_needs_index # we need to reindex all events in order to update their latest_* terms
+      Search.reindex_later(event)
       if curr_state.nil?
         curr_state = event.described_state if event.described_state
       end
@@ -1606,35 +1563,8 @@ class InfoRequest < ApplicationRecord
     body.update_counter_cache
   end
 
-  def similar_cache_key
-    "request/similar/#{id}"
-  end
-
-  # Get requests that have similar important terms
-  def similar_requests(limit=10)
-    ids, more = similar_ids(limit)
-    [InfoRequest.includes(public_body: :translations).where(id: ids), more]
-  end
-
-  # Get the ids of similar requests, and whether there are more
-  def similar_ids(limit=10)
-    Rails.cache.fetch(similar_cache_key, expires_in: 3.days) do
-      ids = []
-      xapian_similar_more = false
-      begin
-        xapian_similar =
-          ActsAsXapian::Similar.new([InfoRequestEvent],
-                                    info_request_events,
-                                    limit: limit,
-                                    collapse_by_prefix: 'request_collapse')
-        xapian_similar_more = (xapian_similar.matches_estimated > limit)
-        ids = xapian_similar.results.map do |result|
-          result[:model].info_request_id
-        end
-      rescue
-      end
-      [ids, xapian_similar_more]
-    end
+  def similar_requests
+    Search.context(info_request: self).similar_requests
   end
 
   def move_to_public_body(destination_public_body, opts = {})
@@ -1827,17 +1757,6 @@ class InfoRequest < ApplicationRecord
     end
   end
   private_class_method :add_conditions_from_extra_params
-
-  def self.search_events(query, opts = {})
-    defaults = {
-      offset: 0,
-      limit: 20,
-      sort_by_prefix: 'created_at',
-      sort_by_ascending: true
-    }
-    ActsAsXapian::Search.new([InfoRequestEvent], query, defaults.merge(opts))
-  end
-  private_class_method :search_events
 
   def accept_incoming?(mail)
     # See if new responses are prevented

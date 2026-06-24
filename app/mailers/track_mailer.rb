@@ -73,14 +73,14 @@ class TrackMailer < ApplicationMailer
         # Query for things in this track. We use described_at for the
         # ordering, so we catch anything new (before described), or
         # anything whose new status has been described.
-        xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], track_thing.track_query,
-                                                 sort_by_prefix: 'described_at',
-                                                 sort_by_ascending: true,
-                                                 collapse_by_prefix: nil,
-                                                 limit: 100)
+        search_results = Search.search(track_thing.track_query,
+                                       models: [InfoRequestEvent],
+                                       sort_by: 'described_at',
+                                       sort_ascending: true).
+                           results(page: 1, per_page: 100)
         # Go through looking for unalerted things
         alert_results = []
-        xapian_object.results.each do |result|
+        search_results.results.each do |result|
           if result[:model].class.to_s != "InfoRequestEvent"
             raise "need to add other types to TrackMailer.alert_tracks (unalerted)"
           end
@@ -99,8 +99,8 @@ class TrackMailer < ApplicationMailer
           alert_results.push(result)
         end
         # If there were more alerts for this track, then store them
-        if !alert_results.empty?
-          email_about_things.push([track_thing, alert_results, xapian_object])
+        unless alert_results.empty?
+          email_about_things.push([track_thing, alert_results, search_results])
         end
       end
 
