@@ -48,6 +48,13 @@ module Searchable
     @@locale_to_language_map[locale]
   end
 
+  # Every model registered as searchable. The app must be eager loaded first
+  # (e.g. via +Rails.application.eager_load!+) so all +searchable+ declarations
+  # have run, otherwise lazily-loaded models will be missing.
+  def self.searchable_models
+    class_variable_get(:@@searchable_models).keys.map(&:constantize)
+  end
+
   # TODO: rename to `search`
   # Search entry point for searching a single instance of a model.
   # Override per model as each one will have custom logic
@@ -251,7 +258,40 @@ module Searchable
       )
     end
 
-    # Reindex all instances of a model.
+    # Records that have no search document yet. Lets a reindex resume after an
+    # interruption and skip records already in the index, without depending on
+    # id ordering. Backed by the unique
+    # (searchable_type, searchable_id, section_ref, language) index via a
+    # NOT EXISTS correlated subquery.
+    def not_indexed
+      where(
+        "NOT EXISTS (" \
+          "SELECT 1 FROM search_documents " \
+          "WHERE search_documents.searchable_type = :type " \
+          "AND search_documents.searchable_id = #{quoted_table_name}.id" \
+        ")",
+        type: name
+      )
+    end
+
+    # Reindex a single record, logging and swallowing any failure so a batch
+    # run is not aborted by one bad record. Returns true when the record was
+    # indexed, false when it raised.
+    def reindex_record(record)
+      record.reindex
+      true
+    rescue StandardError => e
+      Rails.logger.error(
+        "Failed to reindex #{name}##{record.id}: #{e.class}: #{e.message}"
+      )
+      false
+    end
+
+    # Reindex all instances of a model in a single process. Suited to small,
+    # in-process rebuilds (e.g. the test suite or a console); large rebuilds
+    # should use the chunked `reindex:all` rake task, which releases memory
+    # between chunks. Unlike that task this raises on the first failing record,
+    # which is the behaviour the tests rely on to surface problems.
     # This would normally not be run beyond the initial indexing of a
     # pre-existing database.
     def reindex_all(batch_size: 1000)
