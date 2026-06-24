@@ -50,6 +50,11 @@ RSpec.describe Search do
         to be_a(Search::Adapters::Xapian::Adapter)
     end
 
+    it 'builds the Postgresql adapter for postgresql' do
+      expect(Search.backend_for('postgresql')).
+        to be_a(Search::Adapters::Postgresql::Adapter)
+    end
+
     it 'raises for an unknown backend' do
       expect { Search.backend_for('bogus') }.
         to raise_error(ArgumentError, /Unknown search backend/)
