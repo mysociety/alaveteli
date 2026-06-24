@@ -12,8 +12,8 @@ module Searchable
   extend ActiveSupport::Concern
 
   class_methods do
-    def search_scope(query)
-      Search.search_scope(query, all)
+    def search_scope(query, **options)
+      Search.search_scope(query, all, **options)
     end
   end
 end
