@@ -3,14 +3,13 @@
 <div class="row">
   <%= form_tag nil, method: :get, class: 'form form-search span12' do %>
     <div class="input-append">
-      <%= text_field_tag 'query', params[:query], size: 30, class: 'input-large search-query' %>
-      <%= hidden_field_tag 'sort_order', @sort_order %>
-      <%= submit_tag 'Search', class: 'btn' %>
+      <%= text_field_tag "query",
+      params[:query],
+      size: 30,
+      class: "input-large search-query" %>
+      <%= hidden_field_tag "sort_order", @sort_order %>
+      <%= submit_tag "Search", class: "btn" %>
     </div>
-
-    <span class="help-inline">
-      (substring search, names, emails and about me; exact match of tags)
-    </span>
 
     <div class="input-group role-filter">
       <span class="help-inline">Filter by role:</span>
@@ -21,6 +20,17 @@
           <%= role.name.humanize %>
         </label>
       <% end %>
+    </div>
+    <div class="input-group">
+      <label class="checkbox-inline">
+        <span class="help-inline">Exact search (matches partial strings)</span>
+        <%= check_box_tag "exact_mode", "1", params[:exact_mode] %>
+      </label>
+      <label class="checkbox-inline">
+        <span class="help-inline">Current data only (matches on name, current email and "about me"
+          only)</span>
+        <%= check_box_tag "current_only", "1", params[:current_only] %>
+      </label>
     </div>
   <% end %>
 </div>

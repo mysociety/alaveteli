@@ -216,17 +216,25 @@ class User < ApplicationRecord
   after_update :reindex_referencing_models, :invalidate_cached_pages,
                unless: :no_xapian_reindex
 
-  def self.search(query)
+  # leave index empty as we don't want users being able to search for
+  # other users
+  searchable admin_index: {
+    "email": "A",
+    "name": "A",
+    "about_me": "A",
+    "url_name": "B",
+    "ban_text": "C",
+    "email_bounce_message": "D"
+  }
+
+  def self.current_search(query)
     sql = <<~SQL
       users.name ILIKE '%'||:query||'%' OR
       users.email ILIKE '%'||:query||'%' OR
-      users.about_me ILIKE '%'||:query||'%' OR
-      has_tag_string_tags.name ILIKE :query
+      users.about_me ILIKE '%'||:query||'%'
     SQL
 
-    left_outer_joins(:tags).
-      where(sql, query: query).
-      distinct
+    where(sql, query: query).distinct
   end
 
   def self.pro

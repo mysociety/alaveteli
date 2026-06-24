@@ -69,6 +69,7 @@
 * Drop support for Ruby 3.3 (Graeme Porteous)
 * Drop support for Ruby 3.2 (Graeme Porteous)
 * Block various action links via robots.txt (Laurent Savaete)
+* Setup general search methods in postgresql (Laurent Savaete)
 
 ## Upgrade Notes
 

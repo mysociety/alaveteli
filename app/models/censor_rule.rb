@@ -24,6 +24,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class CensorRule < ApplicationRecord
+  include Searchable
+
   DEFAULT_CANNED_REPLACEMENTS = [
     _('[Personally Identifiable Information removed]'),
     _('[name removed]'),
@@ -64,6 +66,13 @@ class CensorRule < ApplicationRecord
                  default: DEFAULT_CANNED_REPLACEMENTS.dup
 
   after_commit :expire_requests
+
+  searchable admin_index: {
+    "text": "A",
+    "replacement": "A",
+    "last_edit_editor": "A",
+    "last_edit_comment": "A"
+  }
 
   def apply_to_text(text_to_censor)
     return nil if text_to_censor.nil?
