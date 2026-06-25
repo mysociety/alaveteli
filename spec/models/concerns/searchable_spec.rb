@@ -70,5 +70,12 @@ RSpec.describe Searchable do
         with(/Failed to reindex PublicBody/)
       expect(PublicBody.reindex_record(body)).to be(false)
     end
+
+    it 'logs and returns false when the record times out' do
+      allow(body).to receive(:reindex) { sleep 0.2 }
+      expect(Rails.logger).to receive(:error).
+        with(/Failed to reindex PublicBody.*Timeout::Error/)
+      expect(PublicBody.reindex_record(body, timeout: 0.01)).to be(false)
+    end
   end
 end

@@ -1,3 +1,5 @@
+require "timeout"
+
 ##
 # Adds a chainable, backend-agnostic full-text search to indexed models.
 # Define search methods common to all searchable models
@@ -269,10 +271,16 @@ module Searchable
     end
 
     # Reindex a single record, logging and swallowing any failures so a batch
-    # run is not aborted by one bad record. Returns true when the record was
-    # indexed, false when it raised.
-    def reindex_record(record)
-      record.reindex
+    # run is not aborted by one bad record. Pass +timeout+ (seconds) to abort a
+    # record that takes too long, e.g. an IncomingMessage whose email parsing
+    # hangs; a timeout is logged and treated as a failure. Returns true when the
+    # record was indexed, false when it raised or timed out.
+    def reindex_record(record, timeout: nil)
+      if timeout
+        Timeout.timeout(timeout) { record.reindex }
+      else
+        record.reindex
+      end
       true
     rescue StandardError => e
       Rails.logger.error(
