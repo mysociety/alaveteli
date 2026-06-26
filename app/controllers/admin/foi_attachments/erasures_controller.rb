@@ -31,7 +31,10 @@ class Admin::FoiAttachments::ErasuresController < AdminController
   end
 
   def failure_message
-    'Could not erase this attachment. Request technical assistance.'
+    <<~EOF
+    Could not erase this attachment. Check that all attachments belonging to
+    this message are masked or request technical assistance.
+    EOF
   end
 
   def set_foi_attachment

@@ -54,7 +54,7 @@ RSpec.describe Admin::FoiAttachments::ErasuresController do
       expect(response).
         to redirect_to(edit_admin_foi_attachment_path(foi_attachment))
       expect(flash[:error]).
-        to eq('Could not erase this attachment. Request technical assistance.')
+        to match('Could not erase this attachment')
     end
 
     it 'raises ParameterMissing if reason is blank' do
