@@ -9,7 +9,8 @@ RSpec.describe PendingTwoFactorSignIn do
 
   describe '#start' do
     before do
-      pending.start(user: user, remember_me: true, post_redirect: post_redirect)
+      pending.start(user: user, remember_me: true, post_redirect: post_redirect,
+                    circumstance: 'change_email')
     end
 
     it 'stores the user id' do
@@ -28,6 +29,21 @@ RSpec.describe PendingTwoFactorSignIn do
     it 'stores the post redirect token' do
       expect(session[:pending_2fa_post_redirect_token]).
         to eq(post_redirect.token)
+    end
+
+    it 'stores the circumstance' do
+      expect(session[:pending_2fa_circumstance]).to eq('change_email')
+    end
+  end
+
+  describe '#circumstance' do
+    it 'reads it back from the session' do
+      session[:pending_2fa_circumstance] = 'change_email'
+      expect(pending.circumstance).to eq('change_email')
+    end
+
+    it 'is nil when none was stashed' do
+      expect(pending.circumstance).to be_nil
     end
   end
 

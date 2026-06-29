@@ -170,8 +170,12 @@ class ApplicationController < ActionController::Base
   end
 
   # Establish the session and send the user on to where they were heading.
-  def complete_sign_in(user, post_redirect:, remember_me:)
+  # `circumstance` is re-set after sign_in because sign_in clears it (see
+  # clear_session_credentials). A sign-in resumed after a 2FA challenge, e.g.
+  # change_email confirmation, still needs it downstream.
+  def complete_sign_in(user, post_redirect:, remember_me:, circumstance: nil)
     sign_in(user, remember_me: remember_me)
+    session[:user_circumstance] = circumstance if circumstance
 
     if modal_dialog?
       render template: 'users/sessions/show'
