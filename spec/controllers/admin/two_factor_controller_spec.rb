@@ -9,6 +9,13 @@ RSpec.describe Admin::TwoFactorController do
     let!(:hotp_admin) { FactoryBot.create(:admin_user, :enable_hotp) }
     let!(:totp_admin) { FactoryBot.create(:admin_user, :enable_totp) }
 
+    # HACK: Exclude fixture data for clarity
+    before do
+      annie = users(:annie_all_roles_user)
+      annie.disable_otp
+      annie.save!
+    end
+
     it 'returns a successful response' do
       get :show
       expect(response).to be_successful
