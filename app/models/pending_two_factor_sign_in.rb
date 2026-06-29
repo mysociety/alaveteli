@@ -7,11 +7,12 @@ class PendingTwoFactorSignIn
     @session = session
   end
 
-  def start(user:, remember_me:, post_redirect:)
+  def start(user:, remember_me:, post_redirect:, circumstance: nil)
     @session[:pending_2fa_user_id] = user.id
     @session[:pending_2fa_started_at] = Time.zone.now.to_i
     @session[:pending_2fa_remember_me] = remember_me
     @session[:pending_2fa_post_redirect_token] = post_redirect.token
+    @session[:pending_2fa_circumstance] = circumstance
   end
 
   def user_id
@@ -20,6 +21,10 @@ class PendingTwoFactorSignIn
 
   def remember_me
     @session[:pending_2fa_remember_me]
+  end
+
+  def circumstance
+    @session[:pending_2fa_circumstance]
   end
 
   def user
@@ -47,6 +52,7 @@ class PendingTwoFactorSignIn
     %i[pending_2fa_user_id
        pending_2fa_started_at
        pending_2fa_remember_me
-       pending_2fa_post_redirect_token].each { |key| @session.delete(key) }
+       pending_2fa_post_redirect_token
+       pending_2fa_circumstance].each { |key| @session.delete(key) }
   end
 end

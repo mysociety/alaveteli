@@ -48,6 +48,24 @@ RSpec.describe Users::TwoFactorChallengesController do
       end
     end
 
+    context 'with a circumstance carried from the confirmation link' do
+      before do
+        PendingTwoFactorSignIn.new(session).start(
+          user: user, remember_me: false, post_redirect: post_redirect,
+          circumstance: 'change_email'
+        )
+        post :create, params: { otp_code: valid_code }
+      end
+
+      it 'restores the user_circumstance after signing in' do
+        expect(session[:user_circumstance]).to eq('change_email')
+      end
+
+      it 'redirects to the stashed destination' do
+        expect(response).to redirect_to(request_list_path(post_redirect: 1))
+      end
+    end
+
     context 'with an invalid code' do
       before do
         start_pending_sign_in
