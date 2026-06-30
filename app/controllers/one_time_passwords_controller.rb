@@ -29,6 +29,7 @@ class OneTimePasswordsController < ApplicationController
       if @user.otp_counter_previously_was.present?
         flash[:just_upgraded_from_hotp] = true
       end
+      flash[:backup_codes] = @enrolment.backup_codes
       redirect_to one_time_password_path,
                   notice: _('Two factor authentication enabled')
     else

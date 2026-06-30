@@ -1,0 +1,35 @@
+<%# locals: (codes:) %>
+<div class="one-time-password__callout one-time-password__callout--warning backup-codes">
+  <h2><%= _('Your backup codes') %></h2>
+
+  <p>
+    <%= _('Each backup code can be used once in place of a code from your ' \
+          'authenticator app, for example if you lose your phone.') %>
+  </p>
+
+  <p>
+    <strong>
+      <%= _('Save these codes somewhere safe, they will not be shown ' \
+            'again. You can add them to a password manager or print them ' \
+            'and store them in a safe place.') %>
+    </strong>
+  </p>
+
+  <ul class="backup-codes__list">
+    <% codes.each do |code| %>
+      <li><code><%= code %></code></li>
+    <% end %>
+  </ul>
+
+  <div class="backup-codes__actions not-for-print">
+    <%= button_tag _('Copy codes'),
+                   type: 'button',
+                   class: 'button',
+                   data: {
+                     'clipboard-text': codes.join("\n"),
+                     'clipboard-success': _('Copied!')
+                   } %>
+
+    <%= link_to _('Print codes'), '#', data: { print: true } %>
+  </div>
+</div>

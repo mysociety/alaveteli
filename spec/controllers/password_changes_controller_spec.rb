@@ -590,6 +590,24 @@ RSpec.describe PasswordChangesController do
         expect(flash[:notice]).not_to match(/passcode/i)
       end
 
+      it 'changes the password with a backup code and notes its use' do
+        codes = user.otp_regenerate_backup_codes
+        user.save!
+        old_hash = user.hashed_password
+
+        params = @valid_password_params.merge(otp_code: codes.first)
+        put :update, params: {
+          id: post_redirect.token,
+          password_change_user: params
+        }
+
+        expect(user.reload.hashed_password).not_to eq(old_hash)
+        expect(flash[:notice]).
+          to eq(partial: 'one_time_passwords/backup_code_used',
+                locals: { lead: 'Your password has been changed.',
+                          remaining: 11 })
+      end
+
       it 'respects a pretoken redirect on success' do
         pretoken = PostRedirect.create(user: user, uri: '/')
         params = @valid_password_params.merge(otp_code: user.otp_code)

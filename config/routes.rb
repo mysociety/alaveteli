@@ -281,6 +281,11 @@ Rails.application.routes.draw do
            :only => [:new, :show, :create, :update, :destroy],
            :path => '/profile/two_factor'
 
+  resource :one_time_password_backup_codes,
+           :only => [:show, :create],
+           :path => '/profile/two_factor/backup_codes',
+           :controller => 'one_time_passwords/backup_codes'
+
   match '/profile/sign_in' => 'users/sessions#new',
         :as => :signin,
         :via => :get

@@ -4,12 +4,19 @@ class OtpEnrolment
 
   attr_accessor :user, :secret, :otp_code
 
+  # Plaintext backup codes issued by a successful save, the only point at
+  # which they're exposed outside the encrypted column.
+  attr_reader :backup_codes
+
   validate :code_matches_secret
 
   def save
     return false unless valid?
 
-    user.enable_totp(secret: secret)
+    codes = user.otp_regenerate_backup_codes
+    saved = user.enable_totp(secret: secret)
+    @backup_codes = codes if saved
+    saved
   end
 
   def provisioning_uri

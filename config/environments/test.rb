@@ -9,6 +9,14 @@ Rails.application.configure do
   # While tests run files are not watched, reloading is not necessary.
   config.enable_reloading = false
 
+  # Production reads the Active Record Encryption keys from credentials, but the
+  # test suite runs without them, so set insecure static keys here instead.
+  config.active_record.encryption.update(
+    primary_key: "test insecure primary key",
+    deterministic_key: "test insecure deterministic key",
+    key_derivation_salt: "test insecure key derivation salt"
+  )
+
   # Eager loading loads your entire application. When running a single test locally,
   # this is usually not necessary, and can slow down your test suite. However, it's
   # recommended that you enable it in continuous integration systems to ensure eager
