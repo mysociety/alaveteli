@@ -33,6 +33,26 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
       expect(records).to include(body)
       expect(records).to include(user)
     end
+
+    it 'collapses results to one per request when asked' do
+      request = FactoryBot.create(:info_request, title: 'Wibblefitz Inquiry')
+      message = request.outgoing_messages.first
+      message.update!(body: 'Wibblefitz details of the matter')
+      [request, message].each(&:reindex)
+
+      models = [InfoRequest, OutgoingMessage]
+
+      uncollapsed = adapter.search('Wibblefitz', models: models).
+                    results(page: 1, per_page: 25).results
+      collapsed = adapter.
+                  search('Wibblefitz', models: models,
+                                       collapse_by: 'request_collapse').
+                  results(page: 1, per_page: 25).results
+
+      expect(uncollapsed.size).to be > 1
+      expect(collapsed.size).to eq(1)
+      expect(collapsed.first[:model]).to eq(request)
+    end
   end
 
   describe '#typeahead' do

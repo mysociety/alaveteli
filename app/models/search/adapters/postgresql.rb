@@ -23,17 +23,18 @@ module Search
         # Full-text search returning a paginated, relevance-ordered
         # Postgresql::FullTextSearch (a Search::Results producer).
         #
-        # Accepts the Xapian-style ranking options (+sort_by+,
-        # +sort_ascending+, +collapse_by+) for interface compatibility but does
-        # not yet act on them; ordering and collapsing are follow-on work.
+        # Accepts the Xapian-style +sort_by+/+sort_ascending+ options for
+        # interface compatibility but does not yet act on them; ordering is
+        # follow-on work. +collapse_by+ 'request_collapse' is honoured.
         def search(query, models:, admin_mode: false, exact_mode: false,
-                   language: nil, **)
+                   language: nil, collapse_by: nil, **)
           FullTextSearch.new(
             query,
             models: models,
             admin_mode: admin_mode,
             exact_mode: exact_mode,
-            language: language
+            language: language,
+            collapse_by: collapse_by
           )
         end
 
