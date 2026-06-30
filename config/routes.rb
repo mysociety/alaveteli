@@ -290,6 +290,11 @@ Rails.application.routes.draw do
   match '/profile/sign_out' => 'users/sessions#destroy',
         :as => :signout,
         :via => :get
+  match '/profile/sign_in/two_factor' => 'users/two_factor_challenges#new',
+        :as => :signin_two_factor,
+        :via => :get
+  match '/profile/sign_in/two_factor' => 'users/two_factor_challenges#create',
+        :via => :post
   match '/profile/sign_up' => 'user#signup',
         :as => :signup, :via => :post
 

@@ -486,13 +486,9 @@ class UserController < ApplicationController
     params.require(key).permit(:name, :email, :password, :password_confirmation)
   end
 
-  def is_modal_dialog
-    params[:modal].to_i != 0
-  end
-
   # when logging in through a modal iframe, don't display chrome around the content
   def select_layout
-    is_modal_dialog ? 'no_chrome' : 'default'
+    modal_dialog? ? 'no_chrome' : 'default'
   end
 
   # Decide where we are going to redirect back to after signin/signup,

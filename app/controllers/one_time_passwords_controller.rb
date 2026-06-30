@@ -47,6 +47,15 @@ class OneTimePasswordsController < ApplicationController
   end
 
   def destroy
+    if @user.totp?
+      return render :destroy_confirmation if params[:otp_code].nil?
+
+      unless @user.authenticate_otp(params[:otp_code])
+        flash.now[:error] = _('Invalid one time password')
+        return render :destroy_confirmation
+      end
+    end
+
     @user.disable_otp
 
     if @user.save

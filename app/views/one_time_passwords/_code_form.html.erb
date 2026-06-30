@@ -1,4 +1,8 @@
-<%= form_with model: @enrolment, url: form_url, local: true do |f| %>
+<%# locals: (model:, form_url:, form_method: :post, submit_label: _('Verify')) %>
+<%= form_with model: model,
+              url: form_url,
+              method: form_method,
+              local: true do |f| %>
   <p>
     <%= f.label :otp_code,
                 _('Code from your authenticator app'),
@@ -12,6 +16,6 @@
   </p>
 
   <div class="form_button">
-    <%= f.submit local_assigns.fetch(:submit_label, _('Verify')) %>
+    <%= f.submit submit_label %>
   </div>
 <% end %>
