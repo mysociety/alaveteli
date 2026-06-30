@@ -169,6 +169,11 @@ annie_all_roles_user:
   about_me: 'All the roles'
   receive_email_alerts: true
   last_daily_track_email: <%= Time.zone.now %>
+  otp_enabled: true
+  otp_secret_key: W5LLD4AHA7JAINQIQV7NGSEBU3CQGO3D # See https://github.com/mysociety/alaveteli/pull/9343 for setup help
+  otp_enabled_at: 2007-10-31 10:39:15.491593
+  otp_backup_codes: '["133107","591088","687254","426010","773637","735999","489138","769201","198169","600907","821923","805386"]'
+  otp_backup_codes_generated_at: 2007-10-31 10:39:15.491593
 peter_pro_admin_user:
   id: 9
   name: Peter Pro Admin
