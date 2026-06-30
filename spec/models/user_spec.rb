@@ -22,7 +22,7 @@
 #  can_make_batch_requests           :boolean          default(FALSE), not null
 #  otp_enabled                       :boolean          default(FALSE), not null
 #  otp_secret_key                    :string
-#  otp_counter                       :integer          default(1)
+#  otp_counter                       :integer
 #  confirmed_not_spam                :boolean          default(FALSE), not null
 #  comments_count                    :integer          default(0), not null
 #  info_requests_count               :integer          default(0), not null
@@ -38,6 +38,10 @@
 #  user_messages_count               :integer          default(0), not null
 #  status_update_count               :integer          default(0), not null
 #  last_sign_in_at                   :datetime
+#  otp_last_used_at                  :integer
+#  otp_backup_codes                  :string           default([]), is an Array
+#  otp_enabled_at                    :datetime
+#  otp_backup_codes_generated_at     :datetime
 #
 
 require 'spec_helper'
@@ -976,6 +980,16 @@ RSpec.describe User do
         user.valid?
         expect(user.otp_counter).to eq(counter + 1)
       end
+
+      it 'does not touch the otp_counter for a TOTP user' do
+        user = FactoryBot.build(:user)
+        user.enable_otp
+        user.otp_counter = nil
+        user.require_otp = true
+        user.entered_otp_code = user.otp_code
+        user.valid?
+        expect(user.otp_counter).to be_nil
+      end
     end
 
     context 'with otp disabled' do
@@ -1015,15 +1029,7 @@ RSpec.describe User do
       expect(user.otp_enabled?).to eq(false)
     end
 
-    it 'requires an otp_counter to be enabled' do
-      attrs = { otp_enabled: true,
-                otp_secret_key: '123',
-                otp_counter: nil }
-      user = User.new(attrs)
-      expect(user.otp_enabled?).to eq(false)
-    end
-
-    it 'requires an otp_enabled to be true to be enabled' do
+    it 'requires otp_enabled to be true to be enabled' do
       attrs = { otp_enabled: false,
                 otp_secret_key: '123',
                 otp_counter: 1 }
@@ -1031,12 +1037,78 @@ RSpec.describe User do
       expect(user.otp_enabled?).to eq(false)
     end
 
-    it 'requires otp_enabled, otp_secret_key and otp_counter to be enabled' do
+    it 'is true for a HOTP user (counter present)' do
       attrs = { otp_enabled: true,
                 otp_secret_key: '123',
                 otp_counter: 1 }
       user = User.new(attrs)
       expect(user.otp_enabled?).to eq(true)
+    end
+
+    it 'is true for a TOTP user (counter nil)' do
+      attrs = { otp_enabled: true,
+                otp_secret_key: '123',
+                otp_counter: nil }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(true)
+    end
+  end
+
+  describe '#hotp?' do
+    it 'is true when otp is enabled and a counter is set' do
+      user = User.new(otp_enabled: true,
+                      otp_secret_key: 'secret',
+                      otp_counter: 1)
+      expect(user.hotp?).to eq(true)
+    end
+
+    it 'is false when the counter is nil (TOTP state)' do
+      user = User.new(otp_enabled: true,
+                      otp_secret_key: 'secret',
+                      otp_counter: nil)
+      expect(user.hotp?).to eq(false)
+    end
+
+    it 'is false when otp is not enabled, regardless of counter' do
+      user = User.new(otp_enabled: false,
+                      otp_secret_key: 'secret',
+                      otp_counter: 1)
+      expect(user.hotp?).to eq(false)
+    end
+  end
+
+  describe '#totp?' do
+    it 'is true when otp is enabled, the counter is nil, and a secret is set' do
+      user = User.new(otp_enabled: true,
+                      otp_secret_key: 'secret',
+                      otp_counter: nil)
+      expect(user.totp?).to eq(true)
+    end
+
+    it 'is false when the counter is present (HOTP state)' do
+      user = User.new(otp_enabled: true,
+                      otp_secret_key: 'secret',
+                      otp_counter: 1)
+      expect(user.totp?).to eq(false)
+    end
+
+    it 'is false when otp is not enabled' do
+      user = User.new(otp_enabled: false,
+                      otp_secret_key: 'secret',
+                      otp_counter: nil)
+      expect(user.totp?).to eq(false)
+    end
+  end
+
+  describe '#otp_counter_based' do
+    it 'is true when the counter is set (HOTP)' do
+      user = User.new(otp_counter: 1)
+      expect(user.otp_counter_based).to eq(true)
+    end
+
+    it 'is false when the counter is nil (TOTP)' do
+      user = User.new(otp_counter: nil)
+      expect(user.otp_counter_based).to eq(false)
     end
   end
 
@@ -1112,9 +1184,9 @@ RSpec.describe User do
   end
 
   describe '#otp_counter' do
-    it 'defaults to 1' do
+    it 'defaults to nil' do
       user = User.new
-      expect(user.otp_counter).to eq(1)
+      expect(user.otp_counter).to be_nil
     end
 
     it 'can be set on initialization' do
@@ -1126,6 +1198,43 @@ RSpec.describe User do
       user = User.new
       user.otp_counter = 200
       expect(user.otp_counter).to eq(200)
+    end
+  end
+
+  describe '#otp_backup_codes' do
+    it 'is empty on a newly created user' do
+      user = FactoryBot.create(:user)
+      expect(user.otp_backup_codes).to eq([])
+    end
+
+    it 'is valid when both codes and timestamp are blank' do
+      user = FactoryBot.build(:user,
+                              otp_backup_codes: [],
+                              otp_backup_codes_generated_at: nil)
+      expect(user).to be_valid
+    end
+
+    it 'is valid when both codes and timestamp are set' do
+      user = FactoryBot.build(:user,
+                              otp_backup_codes: ['abc123'],
+                              otp_backup_codes_generated_at: Time.current)
+      expect(user).to be_valid
+    end
+
+    it 'is invalid when codes are set without a timestamp' do
+      user = FactoryBot.build(:user,
+                              otp_backup_codes: ['abc123'],
+                              otp_backup_codes_generated_at: nil)
+      expect(user).not_to be_valid
+      expect(user.errors[:otp_backup_codes]).not_to be_empty
+    end
+
+    it 'is invalid when a timestamp is set without codes' do
+      user = FactoryBot.build(:user,
+                              otp_backup_codes: [],
+                              otp_backup_codes_generated_at: Time.current)
+      expect(user).not_to be_valid
+      expect(user.errors[:otp_backup_codes]).not_to be_empty
     end
   end
 
