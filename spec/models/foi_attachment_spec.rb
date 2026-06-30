@@ -950,6 +950,64 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#mask_siblings' do
+    subject { foi_attachment.mask_siblings }
+
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+    let(:incoming_message) { info_request.incoming_messages.first }
+    let(:foi_attachment) do
+      FactoryBot.create(:body_text, incoming_message: incoming_message)
+    end
+
+    context 'with an unmasked sibling' do
+      let!(:sibling) do
+        FactoryBot.create(
+          :body_text, :unmasked, incoming_message: incoming_message
+        )
+      end
+
+      it 'masks the sibling' do
+        expect { subject }.to change { sibling.reload.masked? }.
+          from(false).to(true)
+      end
+    end
+
+    context 'with a masked sibling' do
+      let!(:sibling) do
+        FactoryBot.create(:body_text, incoming_message: incoming_message)
+      end
+
+      it 'does not re-mask the sibling' do
+        expect { subject }.to_not change { sibling.reload.masked_at }
+      end
+    end
+
+    context 'with an erased sibling' do
+      let!(:sibling) do
+        FactoryBot.create(
+          :body_text, :erased, :unmasked, incoming_message: incoming_message
+        )
+      end
+
+      it 'does not mask the sibling' do
+        expect { subject }.to_not change { sibling.reload.masked_at }.from(nil)
+      end
+    end
+
+    context 'when itself is unmasked' do
+      let(:foi_attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked, incoming_message: incoming_message
+        )
+      end
+
+      it 'does not mask itself' do
+        expect { subject }.to_not change { foi_attachment.reload.masked? }.
+          from(false)
+      end
+    end
+  end
+
   describe '#lock' do
     subject do
       foi_attachment.lock(editor: editor, reason: reason, extra: 'context')
@@ -2036,6 +2094,43 @@ RSpec.describe FoiAttachment do
       end
 
       it { is_expected.to eq(false) }
+    end
+
+    context 'when a sibling attachment is unmasked' do
+      let!(:sibling) do
+        FactoryBot.create(
+          :body_text, :unmasked, incoming_message: incoming_message
+        )
+      end
+
+      it 'masks the sibling' do
+        expect { subject }.to change { sibling.reload.masked? }.
+          from(false).to(true)
+      end
+
+      it 'erases the attachment' do
+        expect { subject }.to change { foi_attachment.reload.erased? }.
+          from(false).to(true)
+      end
+
+      it 'erases the raw email' do
+        subject
+        expect(foi_attachment.raw_email.reload).to be_erased
+      end
+    end
+  end
+
+  describe '#erase_later' do
+    subject { foi_attachment.erase_later(editor: editor, reason: reason) }
+
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'Removing PII' }
+
+    it 'enqueues the job' do
+      expect { subject }.
+        to have_enqueued_job(FoiAttachment::EraseJob).
+        with(foi_attachment, editor: editor, reason: reason)
     end
   end
 

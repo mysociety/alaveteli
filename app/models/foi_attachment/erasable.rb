@@ -18,8 +18,14 @@ module FoiAttachment::Erasable
     raise ErasedError, "attachment has been erased (ID=#{id})" if erased?
   end
 
+  def erase_later(editor:, reason:)
+    FoiAttachment::EraseJob.perform_later(self, editor: editor, reason: reason)
+  end
+
   def erase(editor:, reason:)
     return if erased?
+
+    mask_siblings
 
     transaction do |t|
       t.after_rollback { return false }

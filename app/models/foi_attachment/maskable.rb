@@ -27,4 +27,13 @@ module FoiAttachment::Maskable
   def mask_later
     FoiAttachment::MaskJob.perform_later(self)
   end
+
+  def mask_siblings
+    incoming_message.foi_attachments.each do |sibling|
+      next if sibling == self
+      next if sibling.masked? || sibling.erased?
+
+      sibling.mask
+    end
+  end
 end
