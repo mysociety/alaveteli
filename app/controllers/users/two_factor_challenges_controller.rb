@@ -37,7 +37,8 @@ class Users::TwoFactorChallengesController < UserController
     complete_sign_in(
       @pending.user,
       post_redirect: @pending.post_redirect,
-      remember_me: @pending.remember_me
+      remember_me: @pending.remember_me,
+      circumstance: @pending.circumstance
     )
   end
 
