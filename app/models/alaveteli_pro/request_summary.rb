@@ -6,8 +6,8 @@
 #  title              :text
 #  body               :text
 #  public_body_names  :text
-#  summarisable_id    :integer          not null
 #  summarisable_type  :string           not null
+#  summarisable_id    :integer          not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  user_id            :integer
