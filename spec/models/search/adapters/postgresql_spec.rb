@@ -19,9 +19,19 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
         to include(users(:bob_smith_user))
     end
 
-    it 'raises on a true multi-model search' do
-      expect { adapter.search('x', models: [User, PublicBody]) }.
-        to raise_error(ArgumentError)
+    it 'searches across several models at once' do
+      body = FactoryBot.create(:public_body, name: 'Zarquon Authority')
+      body.reindex
+      user = FactoryBot.create(:user, name: 'Zarquon Person')
+      user.reindex
+
+      results = adapter.
+                search('Zarquon', models: [PublicBody, User], admin_mode: true).
+                results(page: 1, per_page: 25)
+
+      records = results.results.map { |r| r[:model] }
+      expect(records).to include(body)
+      expect(records).to include(user)
     end
   end
 

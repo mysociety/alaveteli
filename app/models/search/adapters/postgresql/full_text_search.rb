@@ -3,8 +3,12 @@ module Search
     module Postgresql
       ##
       # Relevance-ordered, paginated full-text search over the
-      # +search_documents+ table, wrapping SearchDocument.hybrid_search in the
+      # +search_documents+ table, wrapping the ranked documents in the
       # Search::Results interface.
+      #
+      # A search may span several models, so it ranks documents (not a single
+      # model's rows) and resolves each to its searchable record, mirroring the
+      # Xapian search result shape of +{ model: record }+ items.
       #
       # Pagination slices an in-memory window of ranked rows. The inner query
       # has no cheap window-function count, so +total_estimate+ reports the
@@ -17,11 +21,6 @@ module Search
                        exact_mode: false, language: nil)
           @query_string = query_string
           @models = Array(models)
-          if @models.size > 1
-            raise ArgumentError,
-                  'PostgreSQL search supports a single model or none'
-          end
-          @model = @models.first
           @admin_mode = admin_mode
           @exact_mode = exact_mode
           @language = language
@@ -30,14 +29,12 @@ module Search
 
         def results(page: 1, per_page: 25)
           offset = calculate_offset(page, per_page)
-          records = ranked_records(limit: offset + per_page)
-          page_records = records[offset, per_page] || []
+          documents = ranked_documents(limit: offset + per_page)
+          page_documents = documents[offset, per_page] || []
 
           create_search_results(
-            # mirror the Xapian search result shape: each item is a hash
-            # carrying the matched record under :model.
-            items: page_records.map { |record| { model: record } },
-            total_estimate: records.size,
+            items: searchables(page_documents).map { |r| { model: r } },
+            total_estimate: documents.size,
             current_page: page,
             per_page: per_page,
             offset: offset
@@ -46,16 +43,24 @@ module Search
 
         private
 
-        def ranked_records(limit:)
-          SearchDocument.hybrid_search(
+        def ranked_documents(limit:)
+          SearchDocument.ranked_documents(
             @query_string,
-            model: @model,
+            models: @models,
             language: @language,
             admin_mode: @admin_mode,
             exact_mode: @exact_mode,
-            order_by_score: true,
             limit: limit
           ).to_a
+        end
+
+        # Load each document's searchable record, preserving rank order and
+        # dropping any whose record has since been deleted.
+        def searchables(documents)
+          ActiveRecord::Associations::Preloader.new(
+            records: documents, associations: :searchable
+          ).call
+          documents.map(&:searchable).compact
         end
       end
     end

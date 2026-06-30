@@ -30,10 +30,21 @@ class SearchDocument < ApplicationRecord
   belongs_to :searchable, polymorphic: true
   self.primary_key = [:sd_id, :searchable_type]
 
+  # SQL fragment restricting a search to the given searchable types. An empty
+  # list searches every type. Types are model class names, never user input,
+  # but quote them anyway to stay injection-safe.
+  def self.document_type_filter(models)
+    types = Array(models).map(&:to_s)
+    return "" if types.empty?
+
+    quoted = types.map { |type| connection.quote(type) }.join(", ")
+    "AND searchable_type IN (#{quoted})"
+  end
+
   # build the sql query for the search. This should be injection-safe.
   def self.hybrid_search_internal(
     query,
-    model:,
+    models:,
     language:,
     limit:,
     admin_mode:,
@@ -53,11 +64,7 @@ class SearchDocument < ApplicationRecord
     sanitized_query = query.scrub("").delete("\u0000")
     query_values = { query: sanitized_query, language: sanitized_language }
 
-    if model.nil?
-      doc_type_q = ""
-    else
-      doc_type_q = "AND searchable_type = '#{model}'"
-    end
+    doc_type_q = document_type_filter(models)
 
     # conditionally build a query for each search type (exact, FTS)
     # and UNION them
@@ -184,7 +191,7 @@ class SearchDocument < ApplicationRecord
 
     sql = hybrid_search_internal(
       query,
-      model: model,
+      models: Array(model),
       language: language,
       limit: limit,
       admin_mode: admin_mode,
@@ -219,5 +226,38 @@ sql[:values])
         scoped.distinct
       end
     end
+  end
+
+  # Ranked search documents for a full-text search that may span several
+  # models. Returns SearchDocument rows (carrying searchable_type and
+  # searchable_id) ordered by descending relevance, each annotated with its
+  # +score+. The caller resolves them to their searchable records. +models+ is
+  # a list of model classes; an empty list searches every type.
+  def self.ranked_documents(query,
+                            models: [],
+                            language: nil,
+                            limit: 10,
+                            admin_mode: false,
+                            exact_mode: false,
+                            limit_ratio: 3)
+    return none if limit < 1
+
+    sql = hybrid_search_internal(
+      query,
+      models: models,
+      language: language,
+      limit: limit,
+      admin_mode: admin_mode,
+      exact_mode: exact_mode,
+      limit_ratio: limit_ratio
+    )
+
+    ranked_sql = sanitize_sql_array([sql[:query], sql[:values]])
+    select("search_documents.*, ranked.score").
+      joins(
+        "JOIN (#{ranked_sql}) ranked " \
+        "ON ranked.sd_id = search_documents.sd_id"
+      ).
+      order(Arel.sql("ranked.score DESC"))
   end
 end
