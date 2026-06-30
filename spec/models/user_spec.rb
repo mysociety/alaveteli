@@ -929,8 +929,7 @@ RSpec.describe User do
   describe '#valid?' do
     context 'with require_otp' do
       it 'has no effect when otp is disabled' do
-        user = FactoryBot.build(:user)
-        user.enable_otp
+        user = FactoryBot.build(:user, :enable_hotp)
         user.disable_otp
         user.require_otp = true
         user.entered_otp_code = 'invalid'
@@ -938,24 +937,21 @@ RSpec.describe User do
       end
 
       it 'it has no effect when require_otp is false' do
-        user = FactoryBot.build(:user)
-        user.enable_otp
+        user = FactoryBot.build(:user, :enable_hotp)
         user.require_otp = false
         user.entered_otp_code = 'invalid'
         expect(user.valid?).to eq(true)
       end
 
       it 'is invalid with an incorrect otp' do
-        user = FactoryBot.build(:user)
-        user.enable_otp
+        user = FactoryBot.build(:user, :enable_hotp)
         user.require_otp = true
         user.entered_otp_code = 'invalid'
         expect(user.valid?).to eq(false)
       end
 
       it 'is invalid with a nil otp' do
-        user = FactoryBot.build(:user)
-        user.enable_otp
+        user = FactoryBot.build(:user, :enable_hotp)
         user.require_otp = true
         user.entered_otp_code = nil
         expect(user.valid?).to eq(false)
@@ -963,8 +959,7 @@ RSpec.describe User do
 
       it 'adds an error for an invalid otp' do
         msg = 'Invalid one time password'
-        user = FactoryBot.build(:user)
-        user.enable_otp
+        user = FactoryBot.build(:user, :enable_hotp)
         user.require_otp = true
         user.entered_otp_code = 'invalid'
         user.valid?
@@ -972,8 +967,7 @@ RSpec.describe User do
       end
 
       it 'increments the otp_counter if a correct otp_code is used' do
-        user = FactoryBot.build(:user)
-        user.enable_otp
+        user = FactoryBot.build(:user, :enable_hotp)
         user.require_otp = true
         user.entered_otp_code = user.otp_code
         counter = user.otp_counter
@@ -982,13 +976,27 @@ RSpec.describe User do
       end
 
       it 'does not touch the otp_counter for a TOTP user' do
-        user = FactoryBot.build(:user)
-        user.enable_otp
-        user.otp_counter = nil
+        user = FactoryBot.build(:user, :enable_totp)
         user.require_otp = true
         user.entered_otp_code = user.otp_code
         user.valid?
         expect(user.otp_counter).to be_nil
+      end
+
+      it 'is valid with a correct otp_code for a TOTP user' do
+        user = FactoryBot.create(:user, :enable_totp)
+        user.require_otp = true
+        user.entered_otp_code = user.otp_code
+        expect(user.valid?).to eq(true)
+      end
+
+      it 'saves a TOTP user with a correct otp_code' do
+        user = FactoryBot.create(:user, :enable_totp)
+        user.name = 'Renamed User'
+        user.require_otp = true
+        user.entered_otp_code = user.otp_code
+        expect(user.save).to eq(true)
+        expect(user.reload.name).to eq('Renamed User')
       end
     end
 
@@ -1112,28 +1120,48 @@ RSpec.describe User do
     end
   end
 
-  describe '#enable_otp' do
-    it 'resets the otp_counter' do
-      user = User.new(otp_counter: 200)
-      user.enable_otp
-      expect(user.otp_counter).to eq(1)
+  describe 'new user defaults' do
+    it 'leaves otp_counter nil so new users are TOTP-shaped' do
+      expect(User.new.otp_counter).to be_nil
+    end
+  end
+
+  describe 'factory traits' do
+    it ':enable_hotp produces a hotp? user' do
+      user = FactoryBot.build(:user, :enable_hotp)
+      expect(user.hotp?).to eq(true)
+      expect(user.totp?).to eq(false)
     end
 
-    it 'regenerates the otp_secret_key' do
-      user = User.new(otp_secret_key: '123')
-      user.enable_otp
-      expect(user.otp_secret_key.length).to eq(32)
+    it ':enable_totp produces a totp? user' do
+      user = FactoryBot.build(:user, :enable_totp)
+      expect(user.totp?).to eq(true)
+      expect(user.hotp?).to eq(false)
+    end
+  end
+
+  describe 'TOTP replay protection' do
+    it 'rejects the same code submitted twice within the 30s TOTP window' do
+      user = FactoryBot.create(:user, :enable_totp)
+
+      travel_to(Time.zone.local(2026, 5, 18, 12, 0, 0)) do
+        code = user.otp_code
+
+        expect(user.authenticate_otp(code)).to eq(true)
+        expect(user.authenticate_otp(code)).to eq(false)
+      end
     end
 
-    it 'sets otp_enabled to true' do
-      user = User.new
-      user.enable_otp
-      expect(user.otp_enabled).to eq(true)
-    end
+    it 'records otp_last_used_at as the matched TOTP period start' do
+      user = FactoryBot.create(:user, :enable_totp)
+      expect(user.otp_last_used_at).to be_nil
 
-    it 'returns true' do
-      user = User.new
-      expect(user.enable_otp).to eq(true)
+      period_start = Time.utc(2026, 5, 18, 12, 0, 0)
+      travel_to(period_start + 17.seconds) do
+        user.authenticate_otp(user.otp_code)
+      end
+
+      expect(user.reload.otp_last_used_at).to eq(period_start.to_i)
     end
   end
 

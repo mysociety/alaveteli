@@ -278,7 +278,7 @@ Rails.application.routes.draw do
             :path_names => { :edit => '' }
 
   resource :one_time_password,
-           :only => [:show, :create, :update, :destroy],
+           :only => [:new, :show, :create, :update, :destroy],
            :path => '/profile/two_factor'
 
   match '/profile/sign_in' => 'users/sessions#new',

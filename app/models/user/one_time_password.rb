@@ -30,6 +30,23 @@ module User::OneTimePassword
     def otp_counter_based # rubocop:disable Naming/PredicateMethod
       otp_counter.present?
     end
+
+    # active_model_otp's `authenticate_totp` persists the anti-replay
+    # timestamp via `update(otp_last_used_at: ts)`. When `authenticate_otp`
+    # runs inside a save (e.g. PasswordChangesController#update with
+    # require_otp), that nested update re-runs validations and re-enters
+    # `verify_otp_code` with the same code. `otp_last_used_at` is now set, so
+    # ROTP rejects it as replayed and the outer save fails despite a valid
+    # code. Flag the in-progress authentication so the re-entrant validation
+    # skips re-verifying. The override must live here (on the class) rather
+    # than in the module body so `super` reaches the gem's method, which is
+    # included into the class by `has_one_time_password` above.
+    def authenticate_otp(code, options = {})
+      @authenticating_otp = true
+      super
+    ensure
+      @authenticating_otp = false
+    end
   end
 
   def otp_enabled?
@@ -44,10 +61,15 @@ module User::OneTimePassword
     otp_enabled? && otp_counter.nil?
   end
 
-  def enable_otp
-    otp_regenerate_secret
-    otp_regenerate_counter
+  # Persist `secret` as the user's otp_secret_key and flip the user to TOTP.
+  # No verification, so callers (e.g. OtpEnrolment) are responsible for proving
+  # the user holds the secret before invoking this.
+  def enable_totp(secret:)
+    self.otp_secret_key = secret
+    self.otp_counter = nil
     self.otp_enabled = true
+    self.otp_enabled_at = Time.zone.now
+    save
   end
 
   def disable_otp
@@ -85,6 +107,8 @@ module User::OneTimePassword
   end
 
   def verify_otp_code
+    return if @authenticating_otp
+
     if entered_otp_code.nil? || !authenticate_otp(entered_otp_code)
       msg = _('Invalid one time password')
       errors.add(:otp_code, msg)

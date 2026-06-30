@@ -1,0 +1,17 @@
+<%= form_with model: @enrolment, url: form_url, local: true do |f| %>
+  <p>
+    <%= f.label :otp_code,
+                _('Code from your authenticator app'),
+                class: 'form_label' %>
+    <%= f.text_field :otp_code,
+                     autocomplete: 'one-time-code',
+                     autofocus: true,
+                     inputmode: 'numeric',
+                     pattern: '\d{6}',
+                     size: 6 %>
+  </p>
+
+  <div class="form_button">
+    <%= f.submit local_assigns.fetch(:submit_label, _('Verify')) %>
+  </div>
+<% end %>
