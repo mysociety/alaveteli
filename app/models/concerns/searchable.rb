@@ -248,7 +248,7 @@ module Searchable
 
   def self.included(base)
     base.class_eval do
-      has_many :search_documents, as: :searchable
+      has_many :search_documents, as: :searchable, dependent: :destroy
       # Override this scope to help filter out records which don't need
       # reindexing in `reindex_all`.
       scope :indexable, -> {}
