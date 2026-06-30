@@ -21,21 +21,10 @@ RSpec.describe Admin::FoiAttachments::ErasuresController do
       }
     end
 
-    def erase_attachment_event
-      info_request.info_request_events.find_by(event_type: 'erase_attachment')
-    end
-
-    it 'erases the attachment' do
-      post :create, params: erase_params
-      expect { foi_attachment.reload }.to change(foi_attachment, :erased?).
-        from(false).to(true)
-    end
-
-    it 'logs event with editor and reason' do
+    it 'queues an erase job for the attachment' do
       expect { post :create, params: erase_params }.
-        to change { erase_attachment_event }.from(nil)
-      expect(erase_attachment_event.params[:editor]).to eq(admin_user)
-      expect(erase_attachment_event.params[:reason]).to eq('GDPR request')
+        to have_enqueued_job(FoiAttachment::EraseJob).
+        with(foi_attachment, editor: admin_user, reason: 'GDPR request')
     end
 
     it 'redirects to edit page with success message' do
@@ -43,18 +32,7 @@ RSpec.describe Admin::FoiAttachments::ErasuresController do
 
       expect(response).
         to redirect_to(edit_admin_foi_attachment_path(foi_attachment))
-      expect(flash[:notice]).to eq('Attachment successfully erased.')
-    end
-
-    it 'shows error message if erasure fails' do
-      allow_any_instance_of(FoiAttachment).to receive(:erase).and_return(false)
-
-      post :create, params: erase_params
-
-      expect(response).
-        to redirect_to(edit_admin_foi_attachment_path(foi_attachment))
-      expect(flash[:error]).
-        to eq('Could not erase this attachment. Request technical assistance.')
+      expect(flash[:notice]).to eq('Attachment erasure has been queued.')
     end
 
     it 'raises ParameterMissing if reason is blank' do

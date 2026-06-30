@@ -6,12 +6,10 @@ class Admin::FoiAttachments::ErasuresController < AdminController
   before_action :check_info_request
 
   def create
-    if @foi_attachment.erase(editor: admin_current_user, reason: erasure_reason)
-      flash[:notice] = success_message
-    else
-      flash[:error] = failure_message
-    end
-
+    @foi_attachment.erase_later(
+      editor: admin_current_user, reason: erasure_reason
+    )
+    flash[:notice] = 'Attachment erasure has been queued.'
     redirect_to edit_admin_foi_attachment_path(@foi_attachment)
   end
 
@@ -24,14 +22,6 @@ class Admin::FoiAttachments::ErasuresController < AdminController
 
   def erasure_params
     params.require(:foi_attachment).permit(:erasure_reason)
-  end
-
-  def success_message
-    'Attachment successfully erased.'
-  end
-
-  def failure_message
-    'Could not erase this attachment. Request technical assistance.'
   end
 
   def set_foi_attachment
