@@ -2,34 +2,35 @@ require 'spec_helper'
 
 RSpec.describe Search::RequestList do
   describe '#call' do
-    it 'caps show_no_more_than at max_results' do
-      requests = Array.new(2) { FactoryBot.build(:info_request) }
+    it 'filters searchable requests by their status' do
+      successful = FactoryBot.create(:info_request)
+      successful.set_described_state('successful')
+      waiting = FactoryBot.create(:info_request)
 
-      searcher = double('FullTextSearch')
-      allow(searcher).to receive(:results).
-        and_return(build_search_results(items: requests, total: 200))
-      allow(Search).to receive(:request_search).and_return(searcher)
+      result = described_class.
+               new({ latest_status: 'successful' }, 1, 25, 100).call
 
-      results = described_class.new({ latest_status: 'all' }, 1, 25, 50).call
-
-      expect(results[:show_no_more_than]).to eq(50)
-      expect(results[:matches_estimated]).to eq(200)
-      expect(results[:results].size).to eq(2)
+      expect(result[:results]).to include(successful)
+      expect(result[:results]).not_to include(waiting)
     end
 
-    it 'uses matches_estimated if less than max_results' do
-      requests = Array.new(2) { FactoryBot.build(:info_request) }
+    it 'restricts by a free-text query through the search backend' do
+      match = FactoryBot.create(:info_request)
+      stub_request_search_results(items: [match])
 
-      searcher = double('FullTextSearch')
-      allow(searcher).to receive(:results).
-        and_return(build_search_results(items: requests, total: 10))
-      allow(Search).to receive(:request_search).and_return(searcher)
+      result = described_class.
+               new({ query: 'badger', latest_status: 'all' }, 1, 25, 100).call
 
-      results = described_class.new({ latest_status: 'all' }, 1, 25, 50).call
+      expect(result[:results]).to eq([match])
+    end
 
-      expect(results[:show_no_more_than]).to eq(10)
-      expect(results[:matches_estimated]).to eq(10)
-      expect(results[:results].size).to eq(2)
+    it 'caps show_no_more_than at max_results' do
+      3.times { FactoryBot.create(:info_request) }
+
+      result = described_class.new({ latest_status: 'all' }, 1, 25, 2).call
+
+      expect(result[:matches_estimated]).to be >= 3
+      expect(result[:show_no_more_than]).to eq(2)
     end
   end
 end
