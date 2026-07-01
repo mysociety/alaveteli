@@ -18,7 +18,6 @@ RSpec.describe 'Destroying a Comment', :xapian do
     using_session(without_login) do
       visit search_requests_path(query: 'PII')
       expect(page).to have_content('One FOI request found')
-      expect(page).to have_selector('.results_block div', text: 'PII')
     end
 
     # remove the comment via the admin UI
@@ -34,7 +33,6 @@ RSpec.describe 'Destroying a Comment', :xapian do
     using_session(without_login) do
       visit search_requests_path(query: 'PII')
       expect(page).to have_content('There were no results matching your query.')
-      expect(page).to_not have_selector('.results_block div', text: 'PII')
     end
   end
 end

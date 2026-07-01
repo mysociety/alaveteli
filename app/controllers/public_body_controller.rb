@@ -64,9 +64,8 @@ class PublicBodyController < ApplicationController
       # TODO: really should just use SQL query here rather than Xapian.
       sortby = "described"
       begin
-        @request_results = perform_search(
-          [InfoRequestEvent], query, sortby,
-          'request_collapse', requests_per_page
+        @request_results = perform_request_search(
+          query, sortby, requests_per_page
         )
         if @page > 1
           @page_desc = " (page #{ @page })"
