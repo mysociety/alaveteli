@@ -1,0 +1,25 @@
+<%# locals: (remaining:, lead: nil) %>
+<% if lead %>
+  <p><%= lead %></p>
+<% end %>
+
+<% if remaining.zero? %>
+  <p>
+    <%= _('You used your last backup code. Generate new backup codes now ' \
+          'so you are not locked out if you lose access to your ' \
+          'authenticator app.') %>
+  </p>
+<% else %>
+  <p>
+    <%= _('You used a backup code, which cannot be used again.') %>
+    <%= n_('You have {{count}} backup code left.',
+           'You have {{count}} backup codes left.',
+           remaining,
+           count: remaining) %>
+  </p>
+<% end %>
+
+<p>
+  <%= link_to _('Generate new backup codes'),
+              one_time_password_backup_codes_path %>
+</p>

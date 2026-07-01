@@ -18,6 +18,9 @@
               <li><%= link_to 'Summary', admin_general_index_path %></li>
               <li><%= link_to 'Timeline', admin_timeline_path %></li>
               <li><%= link_to 'Stats', admin_stats_path %></li>
+
+              <li class="divider"></li>
+
               <li><%= link_to 'Debug', admin_debug_index_path %></li>
             </ul>
           </li>
@@ -27,10 +30,18 @@
             <ul class="dropdown-menu" role="menu">
               <li><%= link_to 'Requests', admin_requests_path %></li>
               <li><%= link_to 'Comments', admin_comments_path %></li>
+              <% if feature_enabled?(:projects) && can?(:admin, Project) %>
+                <li><%= link_to 'Projects', admin_projects_path %></li>
+              <% end %>
+
+              <li class="divider"></li>
+
               <li><%= link_to 'Categories', admin_categories_path(model_type: 'InfoRequest') %></li>
               <li><%= link_to 'Tags', admin_tags_path(model_type: 'InfoRequest') %></li>
+
+              <li class="divider"></li>
+
               <li><%= link_to 'Citations', admin_citations_path %></li>
-              <% if feature_enabled?(:projects) && can?(:admin, Project) %><li><%= link_to 'Projects', admin_projects_path %></li><% end %>
               <% if feature_enabled?(:refusal_snippets) %><li><%= link_to 'Snippets', admin_snippets_path %></li><% end %>
             </ul>
           </li>
@@ -39,6 +50,9 @@
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Authorities<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><%= link_to 'Authorities', admin_bodies_path %></li>
+
+              <li class="divider"></li>
+
               <li><%= link_to 'Categories', admin_categories_path(model_type: 'PublicBody') %></li>
               <li><%= link_to 'Tags', admin_tags_path(model_type: 'PublicBody') %></li>
             </ul>
@@ -49,7 +63,12 @@
             <ul class="dropdown-menu" role="menu">
               <li><%= link_to 'Users', admin_users_path %></li>
               <li><%= link_to 'Tracks', admin_tracks_path %></li>
+
+              <li class="divider"></li>
+
               <li><%= link_to 'Tags', admin_tags_path(model_type: 'User') %></li>
+              <li class="divider"></li>
+              <li><%= link_to 'Two factor', admin_two_factor_path %></li>
             </ul>
           </li>
 

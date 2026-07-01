@@ -22,7 +22,7 @@
 #  can_make_batch_requests           :boolean          default(FALSE), not null
 #  otp_enabled                       :boolean          default(FALSE), not null
 #  otp_secret_key                    :string
-#  otp_counter                       :integer          default(1)
+#  otp_counter                       :integer
 #  confirmed_not_spam                :boolean          default(FALSE), not null
 #  comments_count                    :integer          default(0), not null
 #  info_requests_count               :integer          default(0), not null
@@ -38,6 +38,10 @@
 #  user_messages_count               :integer          default(0), not null
 #  status_update_count               :integer          default(0), not null
 #  last_sign_in_at                   :datetime
+#  otp_last_used_at                  :integer
+#  otp_enabled_at                    :datetime
+#  otp_backup_codes_generated_at     :datetime
+#  otp_backup_codes                  :text
 #
 
 require 'spec_helper'
@@ -925,8 +929,7 @@ RSpec.describe User do
   describe '#valid?' do
     context 'with require_otp' do
       it 'has no effect when otp is disabled' do
-        user = FactoryBot.build(:user)
-        user.enable_otp
+        user = FactoryBot.build(:user, :enable_hotp)
         user.disable_otp
         user.require_otp = true
         user.entered_otp_code = 'invalid'
@@ -934,24 +937,21 @@ RSpec.describe User do
       end
 
       it 'it has no effect when require_otp is false' do
-        user = FactoryBot.build(:user)
-        user.enable_otp
+        user = FactoryBot.build(:user, :enable_hotp)
         user.require_otp = false
         user.entered_otp_code = 'invalid'
         expect(user.valid?).to eq(true)
       end
 
       it 'is invalid with an incorrect otp' do
-        user = FactoryBot.build(:user)
-        user.enable_otp
+        user = FactoryBot.build(:user, :enable_hotp)
         user.require_otp = true
         user.entered_otp_code = 'invalid'
         expect(user.valid?).to eq(false)
       end
 
       it 'is invalid with a nil otp' do
-        user = FactoryBot.build(:user)
-        user.enable_otp
+        user = FactoryBot.build(:user, :enable_hotp)
         user.require_otp = true
         user.entered_otp_code = nil
         expect(user.valid?).to eq(false)
@@ -959,8 +959,7 @@ RSpec.describe User do
 
       it 'adds an error for an invalid otp' do
         msg = 'Invalid one time password'
-        user = FactoryBot.build(:user)
-        user.enable_otp
+        user = FactoryBot.build(:user, :enable_hotp)
         user.require_otp = true
         user.entered_otp_code = 'invalid'
         user.valid?
@@ -968,13 +967,47 @@ RSpec.describe User do
       end
 
       it 'increments the otp_counter if a correct otp_code is used' do
-        user = FactoryBot.build(:user)
-        user.enable_otp
+        user = FactoryBot.build(:user, :enable_hotp)
         user.require_otp = true
         user.entered_otp_code = user.otp_code
         counter = user.otp_counter
         user.valid?
         expect(user.otp_counter).to eq(counter + 1)
+      end
+
+      it 'does not touch the otp_counter for a TOTP user' do
+        user = FactoryBot.build(:user, :enable_totp)
+        user.require_otp = true
+        user.entered_otp_code = user.otp_code
+        user.valid?
+        expect(user.otp_counter).to be_nil
+      end
+
+      it 'is valid with a correct otp_code for a TOTP user' do
+        user = FactoryBot.create(:user, :enable_totp)
+        user.require_otp = true
+        user.entered_otp_code = user.otp_code
+        expect(user.valid?).to eq(true)
+      end
+
+      it 'saves a TOTP user with a correct otp_code' do
+        user = FactoryBot.create(:user, :enable_totp)
+        user.name = 'Renamed User'
+        user.require_otp = true
+        user.entered_otp_code = user.otp_code
+        expect(user.save).to eq(true)
+        expect(user.reload.name).to eq('Renamed User')
+      end
+
+      it 'saves a TOTP user with a backup code' do
+        user = FactoryBot.create(:user, :enable_totp)
+        codes = user.otp_regenerate_backup_codes
+        user.save!
+        user.name = 'Renamed User'
+        user.require_otp = true
+        user.entered_otp_code = codes.first
+        expect(user.save).to eq(true)
+        expect(user.reload.name).to eq('Renamed User')
       end
     end
 
@@ -1015,15 +1048,7 @@ RSpec.describe User do
       expect(user.otp_enabled?).to eq(false)
     end
 
-    it 'requires an otp_counter to be enabled' do
-      attrs = { otp_enabled: true,
-                otp_secret_key: '123',
-                otp_counter: nil }
-      user = User.new(attrs)
-      expect(user.otp_enabled?).to eq(false)
-    end
-
-    it 'requires an otp_enabled to be true to be enabled' do
+    it 'requires otp_enabled to be true to be enabled' do
       attrs = { otp_enabled: false,
                 otp_secret_key: '123',
                 otp_counter: 1 }
@@ -1031,37 +1056,123 @@ RSpec.describe User do
       expect(user.otp_enabled?).to eq(false)
     end
 
-    it 'requires otp_enabled, otp_secret_key and otp_counter to be enabled' do
+    it 'is true for a HOTP user (counter present)' do
       attrs = { otp_enabled: true,
                 otp_secret_key: '123',
                 otp_counter: 1 }
       user = User.new(attrs)
       expect(user.otp_enabled?).to eq(true)
     end
+
+    it 'is true for a TOTP user (counter nil)' do
+      attrs = { otp_enabled: true,
+                otp_secret_key: '123',
+                otp_counter: nil }
+      user = User.new(attrs)
+      expect(user.otp_enabled?).to eq(true)
+    end
   end
 
-  describe '#enable_otp' do
-    it 'resets the otp_counter' do
-      user = User.new(otp_counter: 200)
-      user.enable_otp
-      expect(user.otp_counter).to eq(1)
+  describe '#hotp?' do
+    it 'is true when otp is enabled and a counter is set' do
+      user = User.new(otp_enabled: true,
+                      otp_secret_key: 'secret',
+                      otp_counter: 1)
+      expect(user.hotp?).to eq(true)
     end
 
-    it 'regenerates the otp_secret_key' do
-      user = User.new(otp_secret_key: '123')
-      user.enable_otp
-      expect(user.otp_secret_key.length).to eq(32)
+    it 'is false when the counter is nil (TOTP state)' do
+      user = User.new(otp_enabled: true,
+                      otp_secret_key: 'secret',
+                      otp_counter: nil)
+      expect(user.hotp?).to eq(false)
     end
 
-    it 'sets otp_enabled to true' do
-      user = User.new
-      user.enable_otp
-      expect(user.otp_enabled).to eq(true)
+    it 'is false when otp is not enabled, regardless of counter' do
+      user = User.new(otp_enabled: false,
+                      otp_secret_key: 'secret',
+                      otp_counter: 1)
+      expect(user.hotp?).to eq(false)
+    end
+  end
+
+  describe '#totp?' do
+    it 'is true when otp is enabled, the counter is nil, and a secret is set' do
+      user = User.new(otp_enabled: true,
+                      otp_secret_key: 'secret',
+                      otp_counter: nil)
+      expect(user.totp?).to eq(true)
     end
 
-    it 'returns true' do
-      user = User.new
-      expect(user.enable_otp).to eq(true)
+    it 'is false when the counter is present (HOTP state)' do
+      user = User.new(otp_enabled: true,
+                      otp_secret_key: 'secret',
+                      otp_counter: 1)
+      expect(user.totp?).to eq(false)
+    end
+
+    it 'is false when otp is not enabled' do
+      user = User.new(otp_enabled: false,
+                      otp_secret_key: 'secret',
+                      otp_counter: nil)
+      expect(user.totp?).to eq(false)
+    end
+  end
+
+  describe '#otp_counter_based' do
+    it 'is true when the counter is set (HOTP)' do
+      user = User.new(otp_counter: 1)
+      expect(user.otp_counter_based).to eq(true)
+    end
+
+    it 'is false when the counter is nil (TOTP)' do
+      user = User.new(otp_counter: nil)
+      expect(user.otp_counter_based).to eq(false)
+    end
+  end
+
+  describe 'new user defaults' do
+    it 'leaves otp_counter nil so new users are TOTP-shaped' do
+      expect(User.new.otp_counter).to be_nil
+    end
+  end
+
+  describe 'factory traits' do
+    it ':enable_hotp produces a hotp? user' do
+      user = FactoryBot.build(:user, :enable_hotp)
+      expect(user.hotp?).to eq(true)
+      expect(user.totp?).to eq(false)
+    end
+
+    it ':enable_totp produces a totp? user' do
+      user = FactoryBot.build(:user, :enable_totp)
+      expect(user.totp?).to eq(true)
+      expect(user.hotp?).to eq(false)
+    end
+  end
+
+  describe 'TOTP replay protection' do
+    it 'rejects the same code submitted twice within the 30s TOTP window' do
+      user = FactoryBot.create(:user, :enable_totp)
+
+      travel_to(Time.zone.local(2026, 5, 18, 12, 0, 0)) do
+        code = user.otp_code
+
+        expect(user.authenticate_otp(code)).to eq(true)
+        expect(user.authenticate_otp(code)).to eq(false)
+      end
+    end
+
+    it 'records otp_last_used_at as the matched TOTP period start' do
+      user = FactoryBot.create(:user, :enable_totp)
+      expect(user.otp_last_used_at).to be_nil
+
+      period_start = Time.utc(2026, 5, 18, 12, 0, 0)
+      travel_to(period_start + 17.seconds) do
+        user.authenticate_otp(user.otp_code)
+      end
+
+      expect(user.reload.otp_last_used_at).to eq(period_start.to_i)
     end
   end
 
@@ -1082,6 +1193,17 @@ RSpec.describe User do
     it 'returns true' do
       user = User.new
       expect(user.disable_otp).to eq(true)
+    end
+
+    it 'clears backup codes and their generated-at timestamp' do
+      user = FactoryBot.create(:user, :enable_totp)
+      user.otp_regenerate_backup_codes
+      user.save!
+
+      user.disable_otp
+
+      expect(user.otp_backup_codes).to be_empty
+      expect(user.otp_backup_codes_generated_at).to be_nil
     end
   end
 
@@ -1112,9 +1234,9 @@ RSpec.describe User do
   end
 
   describe '#otp_counter' do
-    it 'defaults to 1' do
+    it 'defaults to nil' do
       user = User.new
-      expect(user.otp_counter).to eq(1)
+      expect(user.otp_counter).to be_nil
     end
 
     it 'can be set on initialization' do
@@ -1126,6 +1248,116 @@ RSpec.describe User do
       user = User.new
       user.otp_counter = 200
       expect(user.otp_counter).to eq(200)
+    end
+  end
+
+  describe '#otp_backup_codes' do
+    it 'is empty on a newly created user' do
+      user = FactoryBot.create(:user)
+      expect(user.otp_backup_codes).to eq([])
+      expect(user.otp_backup_codes_generated_at).to be_nil
+    end
+
+    it 'is valid when both codes and timestamp are blank' do
+      user = FactoryBot.build(:user,
+                              otp_backup_codes: [],
+                              otp_backup_codes_generated_at: nil)
+      expect(user).to be_valid
+    end
+
+    it 'is valid when both codes and timestamp are set' do
+      user = FactoryBot.build(:user,
+                              otp_backup_codes: ['abc123'],
+                              otp_backup_codes_generated_at: Time.current)
+      expect(user).to be_valid
+    end
+
+    it 'is invalid when codes are set without a timestamp' do
+      user = FactoryBot.build(:user,
+                              otp_backup_codes: ['abc123'],
+                              otp_backup_codes_generated_at: nil)
+      expect(user).not_to be_valid
+      expect(user.errors[:otp_backup_codes]).not_to be_empty
+    end
+
+    it 'is valid when a timestamp remains after all codes are consumed' do
+      user = FactoryBot.build(:user,
+                              otp_backup_codes: [],
+                              otp_backup_codes_generated_at: Time.current)
+      expect(user).to be_valid
+    end
+  end
+
+  describe '#otp_regenerate_backup_codes' do
+    it 'returns the configured number of plaintext codes' do
+      user = FactoryBot.build(:user, :enable_totp)
+      codes = user.otp_regenerate_backup_codes
+      expect(codes.size).to eq(12)
+      expect(codes).to all(match(/\A\d{6}\z/))
+    end
+
+    it 'stores the codes encrypted at rest' do
+      user = FactoryBot.create(:user, :enable_totp)
+      codes = user.otp_regenerate_backup_codes
+      user.save!
+
+      raw = User.connection.select_value(
+        "SELECT otp_backup_codes FROM users WHERE id = #{user.id}"
+      )
+      codes.each { |code| expect(raw).not_to include(code) }
+      expect(user.reload.otp_backup_codes).to eq(codes)
+    end
+
+    it 'sets otp_backup_codes_generated_at' do
+      user = FactoryBot.build(:user, :enable_totp)
+      expect { user.otp_regenerate_backup_codes }.
+        to change(user, :otp_backup_codes_generated_at).from(nil)
+    end
+  end
+
+  describe 'backup code authentication' do
+    let(:user) { FactoryBot.create(:user, :enable_totp) }
+    let!(:codes) { user.otp_regenerate_backup_codes.tap { user.save! } }
+
+    it 'accepts an issued backup code' do
+      expect(user.authenticate_otp(codes.first)).to eq(true)
+    end
+
+    it 'consumes a backup code on use' do
+      user.authenticate_otp(codes.first)
+      expect(user.reload.otp_backup_codes.size).to eq(codes.size - 1)
+      expect(user.authenticate_otp(codes.first)).to eq(false)
+    end
+
+    it 'leaves the remaining codes usable after one is consumed' do
+      user.authenticate_otp(codes.first)
+      expect(user.authenticate_otp(codes.last)).to eq(true)
+    end
+
+    it 'rejects a code that was not issued' do
+      unissued = format('%06d', (codes.first.to_i + 1) % 1_000_000)
+      expect(user.authenticate_otp(unissued)).to eq(false)
+    end
+
+    it 'still accepts a current TOTP code when backup codes exist' do
+      expect(user.authenticate_otp(user.otp_code)).to eq(true)
+    end
+
+    it 'records that a backup code was used' do
+      expect { user.authenticate_otp(codes.first) }.
+        to change(user, :used_backup_code?).from(false).to(true)
+    end
+
+    it 'does not set the backup-code flag for an authenticator code' do
+      user.authenticate_otp(user.otp_code)
+      expect(user.used_backup_code?).to eq(false)
+    end
+
+    it 'leaves the user valid after the last code is consumed' do
+      user.otp_backup_codes.size.times { |i| user.authenticate_otp(codes[i]) }
+      user.reload
+      expect(user.otp_backup_codes).to be_empty
+      expect(user).to be_valid
     end
   end
 

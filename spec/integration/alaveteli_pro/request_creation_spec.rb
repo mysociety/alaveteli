@@ -7,13 +7,10 @@ RSpec.describe "creating requests in alaveteli_pro" do
     let!(:pro_user) { FactoryBot.create(:pro_user) }
     let!(:pro_user_session) { login(pro_user) }
 
-    before do
-      update_xapian_index
-    end
-
     it 'shows the link to the batch request form to pro users' do
       using_pro_session(pro_user_session) do
         # New request form
+        stub_typeahead_results(items: [public_body], total: 1)
         create_pro_request(public_body)
         expect(page).to have_content("start a batch request")
       end
@@ -22,6 +19,7 @@ RSpec.describe "creating requests in alaveteli_pro" do
     it "allows us to save a draft" do
       using_pro_session(pro_user_session) do
         # New request form
+        stub_typeahead_results(items: [public_body], total: 1)
         create_pro_request(public_body)
         click_button "Save draft"
 
@@ -50,6 +48,7 @@ RSpec.describe "creating requests in alaveteli_pro" do
     it "allows us to preview the request" do
       using_pro_session(pro_user_session) do
         # New request form
+        stub_typeahead_results(items: [public_body], total: 1)
         create_pro_request(public_body)
         click_button "Preview and send"
 
@@ -86,6 +85,7 @@ RSpec.describe "creating requests in alaveteli_pro" do
     it "allows us to send the request" do
       using_pro_session(pro_user_session) do
         # New request form
+        stub_typeahead_results(items: [public_body], total: 1)
         create_pro_request(public_body)
         click_button "Preview and send"
 
@@ -122,6 +122,7 @@ RSpec.describe "creating requests in alaveteli_pro" do
     it "allow us to edit a request after previewing" do
       using_pro_session(pro_user_session) do
         # New request form
+        stub_typeahead_results(items: [public_body], total: 1)
         create_pro_request(public_body)
         click_button "Preview and send"
 
@@ -220,6 +221,7 @@ Yours faithfully,
     it "redirects to the pro page if the user starts the normal process" do
       # Make a request in the normal way
       with_feature_enabled(:alaveteli_pro) do
+        stub_typeahead_results(items: [public_body], total: 1)
         create_request(public_body)
 
         # Sign in page

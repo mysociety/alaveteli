@@ -22,7 +22,7 @@
 #  can_make_batch_requests           :boolean          default(FALSE), not null
 #  otp_enabled                       :boolean          default(FALSE), not null
 #  otp_secret_key                    :string
-#  otp_counter                       :integer          default(1)
+#  otp_counter                       :integer
 #  confirmed_not_spam                :boolean          default(FALSE), not null
 #  comments_count                    :integer          default(0), not null
 #  info_requests_count               :integer          default(0), not null
@@ -38,6 +38,10 @@
 #  user_messages_count               :integer          default(0), not null
 #  status_update_count               :integer          default(0), not null
 #  last_sign_in_at                   :datetime
+#  otp_last_used_at                  :integer
+#  otp_enabled_at                    :datetime
+#  otp_backup_codes_generated_at     :datetime
+#  otp_backup_codes                  :text
 #
 
 # If sample data has been loaded you can log in as any of these users with their
@@ -58,6 +62,7 @@ bob_smith_user:
   about_me: 'I like making requests about fancy dogs and naughty chickens and stuff.'
   receive_email_alerts: true
   info_requests_count: 5
+  last_daily_track_email: <%= Time.zone.now %>
 silly_name_user:
   id: "2"
   name: "Silly <em>Name</em>"
@@ -74,6 +79,7 @@ silly_name_user:
   receive_email_alerts: true
   comments_count: 1
   track_things_count: 2
+  last_daily_track_email: <%= Time.zone.now %>
 admin_user:
   id: "3"
   name: Joe Admin
@@ -88,6 +94,7 @@ admin_user:
   locale: ''
   about_me: ''
   receive_email_alerts: true
+  last_daily_track_email: <%= Time.zone.now %>
 unconfirmed_user:
   id: "4"
   name: "Unconfirmed"
@@ -101,6 +108,7 @@ unconfirmed_user:
   ban_text: ''
   about_me: ''
   receive_email_alerts: true
+  last_daily_track_email: <%= Time.zone.now %>
 robin_user:
   id: 5
   name: Robin Houston
@@ -115,6 +123,7 @@ robin_user:
   about_me: 'I am the best'
   receive_email_alerts: true
   info_requests_count: 2
+  last_daily_track_email: <%= Time.zone.now %>
 another_user:
   id: 6
   name: Another User
@@ -129,6 +138,7 @@ another_user:
   about_me: 'Just another user'
   receive_email_alerts: true
   info_requests_count: 1
+  last_daily_track_email: <%= Time.zone.now %>
 paul_pro_user:
   id: 7
   name: Paul Pro
@@ -143,6 +153,7 @@ paul_pro_user:
   locale: 'en'
   about_me: 'Totes profesh'
   receive_email_alerts: true
+  last_daily_track_email: <%= Time.zone.now %>
 annie_all_roles_user:
   id: 8
   name: Annie All Roles
@@ -157,6 +168,12 @@ annie_all_roles_user:
   locale: 'en'
   about_me: 'All the roles'
   receive_email_alerts: true
+  last_daily_track_email: <%= Time.zone.now %>
+  otp_enabled: true
+  otp_secret_key: W5LLD4AHA7JAINQIQV7NGSEBU3CQGO3D # See https://github.com/mysociety/alaveteli/pull/9343 for setup help
+  otp_enabled_at: 2007-10-31 10:39:15.491593
+  otp_backup_codes: '["133107","591088","687254","426010","773637","735999","489138","769201","198169","600907","821923","805386"]'
+  otp_backup_codes_generated_at: 2007-10-31 10:39:15.491593
 peter_pro_admin_user:
   id: 9
   name: Peter Pro Admin
@@ -171,6 +188,7 @@ peter_pro_admin_user:
   locale: 'en'
   about_me: ''
   receive_email_alerts: true
+  last_daily_track_email: <%= Time.zone.now %>
 ollie_foi_officer_user:
   id: 10
   name: Ollie Officer

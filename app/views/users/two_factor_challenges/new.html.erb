@@ -1,0 +1,19 @@
+<% @title = _('Two factor authentication') %>
+
+<h1><%= @title %></h1>
+
+<div>
+  <p>
+    <%= _('Enter a current code from your authenticator app to finish ' \
+          'signing in.') %>
+  </p>
+
+  <%= render 'one_time_passwords/code_form',
+             model: false,
+             form_url: signin_two_factor_path(modal: params[:modal].presence) %>
+
+  <p>
+    <%= _('If you have lost access to your authenticator app, you can ' \
+          'enter one of your backup codes instead.') %>
+  </p>
+</div>

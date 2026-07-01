@@ -249,19 +249,16 @@ namespace :config_files do
     end
   end
 
-  desc 'Set the initial Rails credentials'
-  task set_initial_credentials: :environment do
-    next if Rails.root.join("config/credentials.yml.enc").exist?
-
-    check_for_env_vars(%w[SECRET_KEY_BASE INGRESS_PASSWORD], <<~TXT.squish)
-      rake config_files:set_initial_credentials
-        SECRET_KEY_BASE=...
-        INGRESS_PASSWORD=...
-    TXT
-    secret_key_base = ENV.fetch("SECRET_KEY_BASE")
-    ingress_password = ENV.fetch("INGRESS_PASSWORD")
-
+  desc 'Set the Rails credentials, adding any that are missing'
+  task set_credentials: :environment do
     require "active_support/encrypted_configuration"
+
+    # Generate the master key on first run so a single command can bootstrap the
+    # credentials, the same way `rails credentials:edit` would.
+    master_key = Rails.root.join("config/master.key")
+    unless master_key.exist? || ENV["RAILS_MASTER_KEY"]
+      master_key.write(ActiveSupport::EncryptedFile.generate_key)
+    end
 
     encrypted_file = ActiveSupport::EncryptedConfiguration.new(
       config_path: "config/credentials.yml.enc",
@@ -270,12 +267,55 @@ namespace :config_files do
       raise_if_missing_key: true
     )
 
-    encrypted_file.change do |tmp_path|
-      File.write(tmp_path, <<~YAML)
-        secret_key_base: #{secret_key_base}
+    # Add only what is missing, generating any value not supplied through the
+    # environment. Existing values are left untouched, so this is safe to run
+    # repeatedly and against credentials set up another way. secret_key_base is
+    # only a placeholder: config/general.yml is authoritative and overrides it
+    # at boot (see config/initializers/secret_token.rb).
+    existing = YAML.safe_load(encrypted_file.read) || {}
+
+    blocks = []
+
+    unless existing.key?("secret_key_base")
+      secret_key_base = ENV.fetch("SECRET_KEY_BASE") { SecureRandom.hex(64) }
+      blocks << "secret_key_base: #{secret_key_base}"
+    end
+
+    unless existing.dig("action_mailbox", "ingress_password")
+      ingress_password =
+        ENV.fetch("INGRESS_PASSWORD") { SecureRandom.alphanumeric(24) }
+      blocks << <<~YAML.chomp
         action_mailbox:
           ingress_password: #{ingress_password}
       YAML
+
+      puts "\e[1;33m" \
+        "ActionMailbox ingress password: #{ingress_password}\n" \
+        "Set this same value in your MTA (Postfix/Exim) configuration." \
+        "\e[0m"
     end
+
+    unless existing.key?("active_record_encryption")
+      blocks << <<~YAML.chomp
+        active_record_encryption:
+          primary_key: #{SecureRandom.alphanumeric(32)}
+          deterministic_key: #{SecureRandom.alphanumeric(32)}
+          key_derivation_salt: #{SecureRandom.alphanumeric(32)}
+      YAML
+    end
+
+    next if blocks.empty?
+
+    encrypted_file.change do |tmp_path|
+      parts = ([File.read(tmp_path).chomp] + blocks).reject(&:empty?)
+      File.write(tmp_path, parts.join("\n") + "\n")
+    end
+
+    puts "\e[1;33m" \
+      "IMPORTANT: back up config/master.key and config/credentials.yml.enc " \
+      "now, somewhere safe and separate from the server. Without " \
+      "config/master.key the credentials, and every database column " \
+      "encrypted with them, cannot be read." \
+      "\e[0m"
   end
 end

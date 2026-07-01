@@ -22,7 +22,7 @@
 #  can_make_batch_requests           :boolean          default(FALSE), not null
 #  otp_enabled                       :boolean          default(FALSE), not null
 #  otp_secret_key                    :string
-#  otp_counter                       :integer          default(1)
+#  otp_counter                       :integer
 #  confirmed_not_spam                :boolean          default(FALSE), not null
 #  comments_count                    :integer          default(0), not null
 #  info_requests_count               :integer          default(0), not null
@@ -38,6 +38,10 @@
 #  user_messages_count               :integer          default(0), not null
 #  status_update_count               :integer          default(0), not null
 #  last_sign_in_at                   :datetime
+#  otp_last_used_at                  :integer
+#  otp_enabled_at                    :datetime
+#  otp_backup_codes_generated_at     :datetime
+#  otp_backup_codes                  :text
 #
 
 FactoryBot.define do
@@ -48,6 +52,7 @@ FactoryBot.define do
     email_confirmed { true }
     ban_text { '' }
     confirmed_not_spam { true }
+    last_daily_track_email { Time.zone.now }
 
     after(:build) { |user| user.send :set_slug }
 
@@ -88,8 +93,20 @@ FactoryBot.define do
       after(:create) { |user| user.add_role(:pro_admin) }
     end
 
-    trait :enable_otp do
-      after(:build, &:enable_otp)
+    trait :enable_hotp do
+      after(:build) do |user|
+        user.otp_regenerate_secret
+        user.otp_regenerate_counter
+        user.otp_enabled = true
+      end
+    end
+
+    trait :enable_totp do
+      after(:build) do |user|
+        user.otp_regenerate_secret
+        user.otp_counter = nil
+        user.otp_enabled = true
+      end
     end
 
     trait :unconfirmed do

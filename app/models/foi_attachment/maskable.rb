@@ -3,6 +3,10 @@
 module FoiAttachment::Maskable
   extend ActiveSupport::Concern
 
+  included do
+    delegate :apply_masks, to: :info_request
+  end
+
   def masked?
     file.attached? && masked_at.present? && masked_at < Time.zone.now
   end
@@ -22,18 +26,5 @@ module FoiAttachment::Maskable
 
   def mask_later
     FoiAttachment::MaskJob.perform_later(self)
-  end
-
-  def apply_masks(text, content_type)
-    AlaveteliTextMasker.apply_masks(text, content_type, masks)
-  end
-
-  private
-
-  def masks
-    {
-      censor_rules: info_request.applicable_censor_rules,
-      masks: info_request.masks
-    }
   end
 end

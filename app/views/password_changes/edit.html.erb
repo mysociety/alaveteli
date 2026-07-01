@@ -35,7 +35,11 @@
     <% if @otp_enabled %>
       <p>
         <%= f.label :otp_code, class: 'form_label' do %>
-          <%= _('Two factor one time passcode:') %>
+          <% if @password_change_user.totp? %>
+            <%= _('Code from your authenticator app:') %>
+          <% else %>
+            <%= _('Two factor one time passcode:') %>
+          <% end %>
         <% end %>
 
         <%= f.text_field :otp_code, size: 15, autocomplete: 'off', value: nil %>

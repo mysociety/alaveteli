@@ -1,0 +1,21 @@
+<%# locals: (model:, form_url:, form_method: :post, submit_label: _('Verify')) %>
+<%= form_with model: model,
+              url: form_url,
+              method: form_method,
+              local: true do |f| %>
+  <p>
+    <%= f.label :otp_code,
+                _('Code from your authenticator app'),
+                class: 'form_label' %>
+    <%= f.text_field :otp_code,
+                     autocomplete: 'one-time-code',
+                     autofocus: true,
+                     inputmode: 'numeric',
+                     pattern: '\d{6}',
+                     size: 6 %>
+  </p>
+
+  <div class="form_button">
+    <%= f.submit submit_label %>
+  </div>
+<% end %>

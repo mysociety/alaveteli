@@ -1,0 +1,47 @@
+<% @title = _('Backup codes') %>
+
+<h1><%= @title %></h1>
+
+<% if flash[:backup_codes] %>
+  <%= render 'one_time_passwords/backup_codes',
+             codes: flash[:backup_codes] %>
+<% else %>
+  <% if @user.otp_backup_codes_generated_at %>
+    <p>
+      <%= _('Your current backup codes were generated on {{date}}.',
+            date: simple_date(@user.otp_backup_codes_generated_at,
+                              format: :text)) %>
+    </p>
+
+    <p>
+      <%= n_('You have {{count}} backup code remaining.',
+             'You have {{count}} backup codes remaining.',
+             @user.otp_backup_codes.size,
+             count: @user.otp_backup_codes.size) %>
+    </p>
+  <% else %>
+    <p>
+      <%= _('You have no backup codes yet. Backup codes let you sign in ' \
+            'if you lose access to your authenticator app.') %>
+    </p>
+  <% end %>
+
+  <p>
+    <%= _('Generating new backup codes replaces all of your existing ' \
+          'codes.') %>
+  </p>
+
+  <p>
+    <%= _('Enter a current code from your authenticator app to confirm.') %>
+  </p>
+
+  <%= render 'one_time_passwords/code_form',
+             model: false,
+             form_url: one_time_password_backup_codes_path,
+             submit_label: _('Generate new backup codes') %>
+<% end %>
+
+<p>
+  <%= link_to _('Back to two factor authentication'),
+              one_time_password_path %>
+</p>

@@ -16,19 +16,19 @@ RSpec.describe '_search_results' do
     let!(:authority_3) { FactoryBot.create(:public_body) }
 
     before do
-      update_xapian_index
       allow(view).to receive(:mode)
       allow(view).to receive(:category_tag)
     end
 
     describe "and there are some results" do
-      let(:search) {
-        ActsAsXapian::Search.new([PublicBody], authority_1.name, limit: 3)
-      }
+      let(:search) do
+        build_search_results(
+          items: [authority_1, authority_2, authority_3],
+          total: 3
+        )
+      end
 
       it "renders search results" do
-        # TODO: This fails, as the view doesn't render anything, but I
-        # can't figure out why. It passes if this example runs first!
         expect(search).to be_present
         expect(search.results).to be_present
         render_view(search: search,
@@ -44,7 +44,7 @@ RSpec.describe '_search_results' do
 
     describe 'and there are no results' do
       let(:query) { 'search term' }
-      let(:search) { ActsAsXapian::Search.new([PublicBody], query, limit: 3) }
+      let(:search) { build_search_results(items: [], total: 0) }
 
       it 'renders a no results message' do
         render_view(

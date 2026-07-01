@@ -2,6 +2,12 @@
 
 ## Highlighted Features
 
+* Check request prominence when annotating requests (Gareth Rees, Santosh Kumar
+  Puppala)
+* Remove user name from account confirmation email to guard against spam
+  reputation issues (Gareth Rees)
+* Remove 720p and 1080p from default spam terms, as these are too generic and
+  can easily be used in legitimate requests (Gareth Rees)
 * Improve search indexing of Microsoft Office, Open Office, RTF and CSV
   attachments (Gareth Rees)
 * Fix indexing of multiple filetype values (Gareth Rees)
@@ -64,17 +70,47 @@
 
 ## Upgrade Notes
 
-* _Note:_ This release now allows responses to be received from any source,
-  1. Postfix/Exim `./script/mailin` pipe, 2. POP poller or 3. ActionMailbox
+* _Required:_ This release now allows responses to be received from any source,
+  1. Postfix/Exim `./script/mailin` pipe,
+  2. POP poller or
+  3. ActionMailbox
+
   While you can have multiple sources configured we recommend migrating to
-  ActionMailbox as the others are depreicated and will be removed in a future
+  ActionMailbox as the others are deprecated and will be removed in a future
   release.
+
   See: https://github.com/mysociety/alaveteli/wiki/ActionMailbox-Migration-Guide
 
-* _Required:_ After ActionMailbox migration please backup `config/master.key`.
-  This file gets generated automatically and is the private encryption key for
-  the credentials. Without it the application can't read credentials. If you
-  ever move servers or reinstall Alaveteli then you will need this file. See:
+* _Required:_ This release encrypts sensitive database columns (such as users'
+  two factor authentication secret and backup codes) with Active Record
+  Encryption, which reads its keys from the Rails credentials. Set the
+  credentials up with:
+
+      bin/rails config_files:set_credentials
+
+  This generates `config/master.key` and the credentials if they are missing,
+  adds an ActionMailbox ingress password and a set of Active Record Encryption
+  keys for anything not already set, and prints the ingress password so you can
+  configure it in your MTA (see above).
+
+  Existing values are never changed and it is safe to run more than once and
+  fresh installs already run this during installation.
+
+  Keep the encryption keys stable and secret; losing or changing them makes the
+  encrypted data unrecoverable. Back up the credentials as described below.
+
+* _Required:_ Back up `config/master.key` and `config/credentials.yml.enc`.
+  These are generated automatically and are not kept in version control.
+
+  The credentials file holds secrets such as the ActionMailbox ingress password
+  and the Active Record Encryption keys (see above), and `config/master.key` is
+  the private key needed to read it.
+
+  Without `config/master.key` the credentials, and every database column
+  encrypted with them, cannot be read, so store both somewhere safe and separate
+  from the server.
+
+  If you ever move servers or reinstall Alaveteli then you will need them. See:
   https://guides.rubyonrails.org/security.html#custom-credentials
 
 * _Required:_ Please update your `config/storage.yml` file to include a

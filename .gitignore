@@ -18,6 +18,7 @@
 /config/newrelic.yml
 /config/rails_env.rb
 /config/sidekiq.yml
+/config/spam_terms.txt
 /config/storage.yml
 /config/user_spam_scorer.yml
 /config/xapian.yml

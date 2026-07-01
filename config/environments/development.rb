@@ -6,6 +6,14 @@ Rails.application.configure do
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
 
+  # Production reads the Active Record Encryption keys from credentials, but
+  # development runs without them, so set insecure static keys here instead.
+  config.active_record.encryption.update(
+    primary_key: "development insecure primary key",
+    deterministic_key: "development insecure deterministic key",
+    key_derivation_salt: "development insecure key derivation salt"
+  )
+
   # Do not eager load code on boot.
   config.eager_load = false
 

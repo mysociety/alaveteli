@@ -85,25 +85,17 @@ class PasswordChangesController < ApplicationController
       if @password_change_user.save
         sign_in(@password_change_user)
 
-        if @pretoken_redirect
-          if @otp_enabled
-                msg = _("Your password has been changed. " \
-                        "You also have a new one time passcode which you'll " \
-                        "need next time you want to change your password")
-                redirect_to one_time_password_path, notice: msg
-          else
-            redirect_to SafeRedirect.new(@pretoken_redirect.uri).path,
-                        notice: _('Your password has been changed.')
-          end
-        elsif @otp_enabled
+        if otp_enabled?(@password_change_user) && @password_change_user.hotp?
           msg = _("Your password has been changed. " \
-                        "You also have a new one time passcode which you'll " \
-                        "need next time you want to change your password")
-                redirect_to one_time_password_path, notice: msg
+                  "You also have a new one time passcode which you'll " \
+                  "need next time you want to change your password")
+          redirect_to one_time_password_path, notice: msg
+        elsif @pretoken_redirect
+          redirect_to SafeRedirect.new(@pretoken_redirect.uri).path,
+                      notice: password_changed_notice(@password_change_user)
         else
-          msg = _('Your password has been changed.')
           redirect_to show_user_profile_path(@password_change_user.url_name),
-                      notice: msg
+                      notice: password_changed_notice(@password_change_user)
         end
       else
         render :edit
@@ -114,6 +106,14 @@ class PasswordChangesController < ApplicationController
   end
 
   protected
+
+  def password_changed_notice(user)
+    changed = _('Your password has been changed.')
+    return changed unless user.used_backup_code?
+
+    { partial: 'one_time_passwords/backup_code_used',
+      locals: { lead: changed, remaining: user.otp_backup_codes.size } }
+  end
 
   def set_pretoken
     @pretoken = params.fetch(:pretoken, '').blank? ? nil : params[:pretoken]

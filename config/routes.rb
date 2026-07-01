@@ -278,8 +278,13 @@ Rails.application.routes.draw do
             :path_names => { :edit => '' }
 
   resource :one_time_password,
-           :only => [:show, :create, :update, :destroy],
+           :only => [:new, :show, :create, :update, :destroy],
            :path => '/profile/two_factor'
+
+  resource :one_time_password_backup_codes,
+           :only => [:show, :create],
+           :path => '/profile/two_factor/backup_codes',
+           :controller => 'one_time_passwords/backup_codes'
 
   match '/profile/sign_in' => 'users/sessions#new',
         :as => :signin,
@@ -290,6 +295,11 @@ Rails.application.routes.draw do
   match '/profile/sign_out' => 'users/sessions#destroy',
         :as => :signout,
         :via => :get
+  match '/profile/sign_in/two_factor' => 'users/two_factor_challenges#new',
+        :as => :signin_two_factor,
+        :via => :get
+  match '/profile/sign_in/two_factor' => 'users/two_factor_challenges#create',
+        :via => :post
   match '/profile/sign_up' => 'user#signup',
         :as => :signup, :via => :post
 
@@ -601,6 +611,12 @@ Rails.application.routes.draw do
   #### Admin::PostRedirectsController
   namespace :admin do
     resources :post_redirects, only: [:destroy]
+  end
+  ####
+
+  #### Admin::TwoFactor controller
+  namespace :admin do
+    resource :two_factor, only: :show, controller: 'two_factor'
   end
   ####
 

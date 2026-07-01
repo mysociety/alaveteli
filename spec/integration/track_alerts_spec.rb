@@ -2,13 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe "When sending track alerts" do
-  before do
-    # TODO: required to make sure xapian index can find files for raw emails
-    # associated with fixtures - can be removed when fixtures no longer
-    # automatically loaded for all specs
-    update_xapian_index
-  end
-
   it "should send alerts" do
     info_request = FactoryBot.create(:info_request)
     user = FactoryBot.create(:user, last_daily_track_email: 3.days.ago)
@@ -26,7 +19,10 @@ RSpec.describe "When sending track alerts" do
       click_button 'Post annotation'
     end
 
-    destroy_and_rebuild_xapian_index
+    # Stub search to return the comment event that was just created
+    comment_event = info_request.info_request_events.
+      where(event_type: 'comment').last
+    stub_search_results(items: [comment_event], total: 1)
 
     TrackMailer.alert_tracks
 
@@ -79,7 +75,9 @@ RSpec.describe "When sending track alerts" do
       click_button 'Post annotation'
     end
 
-    destroy_and_rebuild_xapian_index
+    comment_event = info_request.info_request_events.
+      where(event_type: 'comment').last
+    stub_search_results(items: [comment_event], total: 1)
 
     TrackMailer.alert_tracks
     deliveries = ActionMailer::Base.deliveries

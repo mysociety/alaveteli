@@ -6,7 +6,79 @@ RSpec.describe OneTimePasswordsController do
       to receive(:enable_two_factor_auth).and_return(true)
   end
 
+  describe 'GET new' do
+    render_views
+
+    let(:user) { FactoryBot.create(:user) }
+
+    it 'redirects to the sign-in page without a signed in user' do
+      get :new
+
+      expect(response).
+        to redirect_to(signin_path(token: PostRedirect.last.token))
+    end
+
+    it 'renders an SVG QR code and the base32 fallback in the response' do
+      sign_in user
+      get :new
+
+      expect(session[:pending_otp_secret_key]).to be_present
+      expect(response.body).to include('<svg')
+      expect(response.body).to include(session[:pending_otp_secret_key])
+    end
+
+    it 'reuses an existing candidate secret across refreshes' do
+      sign_in user
+      existing_secret = ROTP::Base32.random
+      session[:pending_otp_secret_key] = existing_secret
+      get :new
+
+      expect(session[:pending_otp_secret_key]).to eq(existing_secret)
+    end
+
+    it 'exposes an enrolment for the candidate to the view' do
+      sign_in user
+      get :new
+
+      expect(assigns[:enrolment]).to be_a(OtpEnrolment)
+      expect(assigns[:enrolment].secret).
+        to eq(session[:pending_otp_secret_key])
+    end
+
+    it 'does not modify the persisted user record' do
+      original_secret = user.otp_secret_key
+      original_counter = user.otp_counter
+      original_enabled = user.otp_enabled
+
+      sign_in user
+      get :new
+
+      user.reload
+      expect(user.otp_secret_key).to eq(original_secret)
+      expect(user.otp_counter).to eq(original_counter)
+      expect(user.otp_enabled).to eq(original_enabled)
+    end
+
+    context 'when the user is currently HOTP-enabled' do
+      it 'does not touch the persisted HOTP secret or counter' do
+        user = FactoryBot.create(:user, :enable_hotp)
+        original_secret = user.otp_secret_key
+        original_counter = user.otp_counter
+
+        sign_in user
+        get :new
+
+        user.reload
+        expect(user.otp_secret_key).to eq(original_secret)
+        expect(user.otp_counter).to eq(original_counter)
+        expect(user.otp_enabled).to eq(true)
+      end
+    end
+  end
+
   describe 'GET show' do
+    render_views
+
     it 'redirects to the sign-in page without a signed in user' do
       get :show
 
@@ -32,6 +104,80 @@ RSpec.describe OneTimePasswordsController do
       expect(response).to render_template('show')
     end
 
+    context 'for a TOTP-enabled user' do
+      let(:user) { FactoryBot.create(:user, :enable_totp) }
+
+      before { sign_in user }
+
+      it 'does not render a live OTP code' do
+        get :show
+
+        expect(response.body).not_to include(user.otp_code)
+      end
+
+      it 'renders a disable link' do
+        get :show
+
+        expect(response.body).to match(/disable two factor/i)
+      end
+
+      it 'does not render a regenerate link' do
+        get :show
+
+        expect(response.body).not_to match(/regenerate/i)
+      end
+
+      context 'with a just-upgraded-from-HOTP flash' do
+        it 'renders the discard-old-passcode block' do
+          get :show, flash: { just_upgraded_from_hotp: true }
+
+          expect(response.body).
+            to match(/Discard your previous one time passcode/i)
+        end
+      end
+
+      context 'without the just-upgraded-from-HOTP flash' do
+        it 'does not render the discard-old-passcode block' do
+          get :show
+
+          expect(response.body).
+            not_to match(/Discard your previous one time passcode/i)
+        end
+      end
+    end
+
+    context 'for a HOTP-enabled user' do
+      let(:user) { FactoryBot.create(:user, :enable_hotp) }
+
+      before { sign_in user }
+
+      it 'still renders the current HOTP code' do
+        get :show
+
+        expect(response.body).to include(user.otp_code)
+      end
+
+      it 'renders an upgrade CTA linking to the enrolment page' do
+        get :show
+
+        expect(response.body).to match(/Upgrade to authenticator app/i)
+        expect(response.body).to include(new_one_time_password_path)
+      end
+    end
+
+    context 'for a user with no 2FA' do
+      let(:user) { FactoryBot.create(:user) }
+
+      before { sign_in user }
+
+      it 'renders a link to the enrolment page' do
+        get :show
+
+        expect(response.body).to include(new_one_time_password_path)
+        expect(response.body).to match(/Enable two factor authentication/i)
+      end
+    end
+
     context 'when 2factor auth is not enabled' do
       it 'raises ActiveRecord::RecordNotFound' do
         allow(AlaveteliConfiguration).
@@ -44,6 +190,10 @@ RSpec.describe OneTimePasswordsController do
   end
 
   describe 'POST #create' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:candidate_secret) { ROTP::Base32.random }
+    let(:valid_code) { ROTP::TOTP.new(candidate_secret).now }
+
     it 'redirects to the sign-in page without a signed in user' do
       post :create
       expect(response).
@@ -51,57 +201,112 @@ RSpec.describe OneTimePasswordsController do
     end
 
     it 'assigns the signed in user' do
-      user = FactoryBot.create(:user)
       sign_in user
       post :create
       expect(assigns[:user]).to eq(user)
     end
 
-    it 'enables OTP for the user' do
-      user = FactoryBot.create(:user)
-      sign_in user
-      post :create
-      expect(user.reload.otp_enabled?).to eq(true)
+    context 'with a valid code and a candidate in the session' do
+      before do
+        sign_in user
+        session[:pending_otp_secret_key] = candidate_secret
+      end
+
+      it 'clears the pending candidate from the session' do
+        post :create, params: { otp_enrolment: { otp_code: valid_code } }
+
+        expect(session[:pending_otp_secret_key]).to be_nil
+      end
+
+      it 'redirects to the two factor settings page' do
+        post :create, params: { otp_enrolment: { otp_code: valid_code } }
+
+        expect(response).to redirect_to(one_time_password_path)
+      end
+
+      it 'sets a success notice' do
+        post :create, params: { otp_enrolment: { otp_code: valid_code } }
+
+        expect(flash[:notice]).to eq('Two factor authentication enabled')
+      end
+
+      it 'passes the new backup codes to the redirect target' do
+        post :create, params: { otp_enrolment: { otp_code: valid_code } }
+
+        expect(flash[:backup_codes].size).to eq(12)
+      end
+
+      context 'and the user had no 2FA before' do
+        it 'does not set the upgrade-from-HOTP flag' do
+          post :create, params: { otp_enrolment: { otp_code: valid_code } }
+
+          expect(flash[:just_upgraded_from_hotp]).to be_nil
+        end
+      end
+
+      context 'and the user was previously on HOTP' do
+        let(:user) { FactoryBot.create(:user, :enable_hotp) }
+
+        it 'sets the upgrade-from-HOTP flag for the redirect target' do
+          expect(user.hotp?).to eq(true)
+
+          post :create, params: { otp_enrolment: { otp_code: valid_code } }
+
+          expect(flash[:just_upgraded_from_hotp]).to eq(true)
+        end
+      end
     end
 
-    it 'does not disable OTP for the user' do
-      user = FactoryBot.create(:user)
-      user.enable_otp
-      user.save!
-      sign_in user
-      post :create
-      expect(user.reload.otp_enabled?).to eq(true)
+    context 'with an invalid code' do
+      let(:invalid_code) { valid_code == '000000' ? '000001' : '000000' }
+
+      before do
+        sign_in user
+        session[:pending_otp_secret_key] = candidate_secret
+      end
+
+      it 'preserves the candidate secret in the session' do
+        post :create, params: { otp_enrolment: { otp_code: invalid_code } }
+
+        expect(session[:pending_otp_secret_key]).to eq(candidate_secret)
+      end
+
+      it 're-renders the new template' do
+        post :create, params: { otp_enrolment: { otp_code: invalid_code } }
+
+        expect(response).to render_template(:new)
+      end
+
+      it 'populates an error on the enrolment form object' do
+        post :create, params: { otp_enrolment: { otp_code: invalid_code } }
+
+        expect(assigns[:enrolment].errors[:otp_code]).to be_present
+      end
     end
 
-    it 'sets a successful notification message' do
-      user = FactoryBot.create(:user)
-      sign_in user
-      post :create
-      expect(flash[:notice]).to eq('Two factor authentication enabled')
-    end
+    context 'with no candidate in the session' do
+      before { sign_in user }
 
-    it 'redirects back to #show on success' do
-      user = FactoryBot.create(:user)
-      sign_in user
-      post :create
-      expect(response).to redirect_to(one_time_password_path)
-    end
+      it 'redirects to the new enrolment page' do
+        post :create, params: { otp_enrolment: { otp_code: '123456' } }
 
-    it 'renders #show on failure' do
-      allow_any_instance_of(User).to receive(:save).and_return(false)
-      user = FactoryBot.create(:user)
-      sign_in user
-      post :create
-      expect(response).to render_template(:show)
-    end
+        expect(response).to redirect_to(new_one_time_password_path)
+      end
 
-    it 'sets a failure notification message' do
-      allow_any_instance_of(User).to receive(:save).and_return(false)
-      user = FactoryBot.create(:user)
-      sign_in user
-      post :create
-      expect(flash[:error]).
-        to eq('Two factor authentication could not be enabled')
+      it 'does not modify the user record' do
+        original_enabled = user.otp_enabled
+
+        post :create, params: { otp_enrolment: { otp_code: '123456' } }
+
+        expect(user.reload.otp_enabled).to eq(original_enabled)
+      end
+
+      it 'sets a flash explaining the setup expired' do
+        post :create, params: { otp_enrolment: { otp_code: '123456' } }
+
+        expect(flash[:notice]).
+          to match(/two factor authentication setup expired/i)
+      end
     end
 
     context 'when 2factor auth is not enabled' do
@@ -130,7 +335,7 @@ RSpec.describe OneTimePasswordsController do
     end
 
     it 'regenerates the otp_code' do
-      user = FactoryBot.create(:user, otp_enabled: true)
+      user = FactoryBot.create(:user, otp_enabled: true, otp_counter: 1)
       expected = ROTP::HOTP.new(user.otp_secret_key).at(2)
       sign_in user
       put :update
@@ -183,7 +388,6 @@ RSpec.describe OneTimePasswordsController do
 
   describe 'DELETE #destroy' do
     it 'redirects to the sign-in page without a signed in user' do
-      user = FactoryBot.create(:user)
       delete :destroy
       expect(response).
         to redirect_to(signin_path(token: PostRedirect.last.token))
@@ -196,44 +400,135 @@ RSpec.describe OneTimePasswordsController do
       expect(assigns[:user]).to eq(user)
     end
 
-    it 'disables OTP for the user' do
-      user = FactoryBot.create(:user)
-      user.enable_otp
-      user.save!
-      sign_in user
-      delete :destroy
-      expect(user.reload.otp_enabled?).to eq(false)
+    context 'for a TOTP-enabled user' do
+      let(:user) { FactoryBot.create(:user, :enable_totp) }
+      let(:valid_code) { user.otp_code }
+
+      before { sign_in user }
+
+      context 'with no code parameter (link click from show)' do
+        it 'renders the destroy_confirmation template' do
+          delete :destroy
+          expect(response).to render_template(:destroy_confirmation)
+        end
+
+        it 'does not disable two factor authentication' do
+          delete :destroy
+          expect(user.reload.otp_enabled?).to eq(true)
+        end
+
+        it 'does not show an error' do
+          delete :destroy
+          expect(flash[:error]).to be_blank
+        end
+      end
+
+      context 'with an empty code submitted' do
+        it 'renders the destroy_confirmation template' do
+          delete :destroy, params: { otp_code: '' }
+          expect(response).to render_template(:destroy_confirmation)
+        end
+
+        it 'does not disable two factor authentication' do
+          delete :destroy, params: { otp_code: '' }
+          expect(user.reload.otp_enabled?).to eq(true)
+        end
+
+        it 'shows an error in the response' do
+          delete :destroy, params: { otp_code: '' }
+          expect(flash[:error]).to be_present
+        end
+      end
+
+      context 'with an invalid code' do
+        let(:invalid_code) { valid_code == '000000' ? '000001' : '000000' }
+
+        it 'renders the destroy_confirmation template' do
+          delete :destroy, params: { otp_code: invalid_code }
+          expect(response).to render_template(:destroy_confirmation)
+        end
+
+        it 'does not disable two factor authentication' do
+          delete :destroy, params: { otp_code: invalid_code }
+          expect(user.reload.otp_enabled?).to eq(true)
+        end
+
+        it 'shows an error in the response' do
+          delete :destroy, params: { otp_code: invalid_code }
+          expect(flash[:error]).to be_present
+        end
+      end
+
+      context 'with a valid code' do
+        it 'disables two factor authentication' do
+          delete :destroy, params: { otp_code: valid_code }
+          expect(user.reload.otp_enabled?).to eq(false)
+        end
+
+        it 'clears any backup codes' do
+          user.otp_regenerate_backup_codes
+          user.save!
+
+          delete :destroy, params: { otp_code: valid_code }
+
+          user.reload
+          expect(user.otp_backup_codes).to be_empty
+          expect(user.otp_backup_codes_generated_at).to be_nil
+        end
+
+        it 'redirects to the settings page' do
+          delete :destroy, params: { otp_code: valid_code }
+          expect(response).to redirect_to(one_time_password_path)
+        end
+
+        it 'sets a success notice' do
+          delete :destroy, params: { otp_code: valid_code }
+
+          expect(flash[:notice]).
+            to eq('Two factor authentication disabled')
+        end
+      end
     end
 
-    it 'sets a successful notification message' do
-      user = FactoryBot.create(:user)
-      sign_in user
-      delete :destroy
-      expect(flash[:notice]).to eq('Two factor authentication disabled')
+    context 'for a HOTP-enabled user' do
+      let(:user) { FactoryBot.create(:user, :enable_hotp) }
+
+      before { sign_in user }
+
+      it 'disables two factor authentication without requiring a code' do
+        delete :destroy
+        expect(user.reload.otp_enabled?).to eq(false)
+      end
+
+      it 'redirects to the settings page' do
+        delete :destroy
+        expect(response).to redirect_to(one_time_password_path)
+      end
+
+      it 'sets a success notice' do
+        delete :destroy
+        expect(flash[:notice]).to eq('Two factor authentication disabled')
+      end
     end
 
-    it 'redirects back to #show on success' do
-      user = FactoryBot.create(:user)
-      sign_in user
-      delete :destroy
-      expect(response).to redirect_to(one_time_password_path)
-    end
+    context 'on save failure for a non-TOTP user' do
+      let(:user) { FactoryBot.create(:user) }
 
-    it 'sets a failure notification message' do
-      allow_any_instance_of(User).to receive(:save).and_return(false)
-      user = FactoryBot.create(:user)
-      sign_in user
-      delete :destroy
-      expect(flash[:error]).
-        to eq('Two factor authentication could not be disabled')
-    end
+      before do
+        sign_in user
+        allow_any_instance_of(User).to receive(:save).and_return(false)
+      end
 
-    it 'renders #show on failure' do
-      allow_any_instance_of(User).to receive(:save).and_return(false)
-      user = FactoryBot.create(:user)
-      sign_in user
-      delete :destroy
-      expect(response).to render_template(:show)
+      it 'sets a failure notification message' do
+        delete :destroy
+        expect(flash[:error]).
+          to eq('Two factor authentication could not be disabled')
+      end
+
+      it 'renders #show on failure' do
+        delete :destroy
+        expect(response).to render_template(:show)
+      end
     end
 
     context 'when two factor auth is not enabled' do

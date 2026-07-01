@@ -1,0 +1,34 @@
+# A pending TOTP enrolment — the candidate secret is not yet persisted.
+class OtpEnrolment
+  include ActiveModel::Model
+
+  attr_accessor :user, :secret, :otp_code
+
+  # Plaintext backup codes issued by a successful save, the only point at
+  # which they're exposed outside the encrypted column.
+  attr_reader :backup_codes
+
+  validate :code_matches_secret
+
+  def save
+    return false unless valid?
+
+    codes = user.otp_regenerate_backup_codes
+    saved = user.enable_totp(secret: secret)
+    @backup_codes = codes if saved
+    saved
+  end
+
+  def provisioning_uri
+    ROTP::TOTP.new(secret, issuer: AlaveteliConfiguration.site_name).
+      provisioning_uri(user.email)
+  end
+
+  private
+
+  def code_matches_secret
+    return if ROTP::TOTP.new(secret).verify(otp_code.to_s)
+
+    errors.add(:otp_code, _('That code did not match. Please try again.'))
+  end
+end
