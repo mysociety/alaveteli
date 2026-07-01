@@ -47,11 +47,19 @@ module Search
             total_estimate: records.size,
             current_page: page,
             per_page: per_page,
-            offset: offset
+            offset: offset,
+            words_to_highlight: highlight_terms
           )
         end
 
         private
+
+        # Terms the view highlights in results: the query's own words, matched
+        # case-insensitively by the highlight helper. Highlighting stemmed
+        # variants, the way Xapian does, is follow-on.
+        def highlight_terms
+          @query_string.to_s.scan(/[[:word:]]+/).uniq
+        end
 
         def fetch_limit(offset, per_page)
           window = offset + per_page

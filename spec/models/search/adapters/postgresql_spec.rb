@@ -53,6 +53,13 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
       expect(collapsed.size).to eq(1)
       expect(collapsed.first[:model]).to eq(request)
     end
+
+    it 'exposes the query terms to highlight' do
+      results = adapter.search('geraldine quango', models: [PublicBody]).
+                results(page: 1, per_page: 10)
+
+      expect(results.words_to_highlight).to include('geraldine', 'quango')
+    end
   end
 
   describe '#typeahead' do
