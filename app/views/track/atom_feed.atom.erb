@@ -8,8 +8,8 @@
     <%
       # Get the HTML content from the same partial template as website search does
       content = ''
-      if result[:model].class.to_s == 'InfoRequestEvent'
-        content += render :partial => 'request/request_listing_via_event', :formats => [:html], :locals => { :event => result[:model] }
+      if result[:model].class.to_s == 'InfoRequest'
+        content += render :partial => 'request/request_listing_single', :formats => [:html], :locals => { :info_request => result[:model] }
       else
         content = "<p><strong>Unknown search result type " + result[:model].class.to_s + "</strong></p>"
       end
@@ -22,7 +22,7 @@
     <entry>
       <id>tag:<%= request.host %>,2005:<%= result[:model].class %>/<%= result[:model].id %></id>
       <published><%= result[:model].created_at.xmlschema %></published>
-      <link type="text/html" rel="alternate" href="<%= polymorphic_url(result[:model]) %>"/>
+      <link type="text/html" rel="alternate" href="<%= request_url(result[:model]) %>"/>
       <title type="html"><%= heading_text %></title>
       <content type="html"><%= content %></content>
     </entry>

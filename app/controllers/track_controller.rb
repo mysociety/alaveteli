@@ -170,26 +170,16 @@ class TrackController < ApplicationController
   end
 
   def atom_feed_internal
-    @search_results = perform_search(
-      [InfoRequestEvent], @track_thing.track_query,
-      @track_thing.params[:feed_sortby], nil, 25
+    @search_results = perform_request_search(
+      @track_thing.track_query, @track_thing.params[:feed_sortby], 25
     )
     # We're assuming that a request to a feed url with no format suffix wants atom/xml
     # so set that as the default, regardless of content negotiation
     request.format = params[:format] || 'xml'
     respond_to do |format|
       format.json do
-        highlight = ->(t) do
-          view_context.highlight_and_excerpt(
-            t,
-            @search_results.words_to_highlight(
-              regex: true, include_original: true
-            ),
-            150
-          )
-        end
         json = @search_results.results.map do |r|
-          r[:model].json_for_api(true, highlight)
+          r[:model].json_for_api(true)
         end
         render json: json
       end

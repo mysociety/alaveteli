@@ -86,8 +86,7 @@ RSpec.describe TrackController do
     context 'when getting feeds' do
       it "assigns object" do
         track_thing = track_things(:track_fancy_dog_request)
-        event = info_request_events(:useless_outgoing_message_event)
-        stub_search_results(items: [event])
+        stub_request_search_results(items: [track_thing.info_request])
 
         get :track_request, params: {
                               feed: 'feed',
@@ -114,8 +113,8 @@ RSpec.describe TrackController do
 
         it "should get the RSS feed" do
           track_thing = track_things(:track_fancy_dog_request)
-          event = info_request_events(:useless_outgoing_message_event)
-          stub_search_results(items: [event])
+          info_request = track_thing.info_request
+          stub_request_search_results(items: [info_request])
 
           get :track_request, params: {
             feed: 'feed',
@@ -125,13 +124,12 @@ RSpec.describe TrackController do
           expect(response.media_type).to eq('application/atom+xml')
           expect(response.body).to include('<entry>')
           expect(response.body).
-            to include(event.created_at.xmlschema)
+            to include(info_request.created_at.xmlschema)
         end
 
         it "should get JSON version of the feed" do
           track_thing = track_things(:track_fancy_dog_request)
-          event = info_request_events(:useless_outgoing_message_event)
-          stub_search_results(items: [event])
+          stub_request_search_results(items: [track_thing.info_request])
 
           get :track_request, params: {
             feed: 'feed',
@@ -142,8 +140,7 @@ RSpec.describe TrackController do
           a = JSON.parse(response.body)
           expect(a).to be_an(Array)
           expect(a.size).to eq(1)
-          expect(a[0]['event_type']).to eq('sent')
-          expect(a[0]['info_request']['url_title']).
+          expect(a[0]['url_title']).
             to eq('why_do_you_have_such_a_fancy_dog')
           expect(a[0]['public_body']['url_name']).to eq('tgq')
           expect(a[0]['user']['url_name']).to eq('bob_smith')
