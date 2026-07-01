@@ -83,7 +83,7 @@ class User < ApplicationRecord
   admin_columns include: [:user_messages_count],
                 exclude: [:hashed_password, :salt,
                           :login_token,
-                          :otp_secret_key, :otp_counter, :otp_backup_codes
+                          :otp_secret_key, :otp_counter, :otp_backup_codes,
                           :url_name]
 
   attr_accessor :no_xapian_reindex
