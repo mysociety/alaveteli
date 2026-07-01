@@ -113,6 +113,14 @@
   If you ever move servers or reinstall Alaveteli then you will need them. See:
   https://guides.rubyonrails.org/security.html#custom-credentials
 
+* _Note:_ `SECRET_KEY_BASE` in `config/general.yml` is deprecated and will be
+  removed in a future release. The secret is now read from the encrypted
+  credentials (`config/credentials.yml.enc`).
+
+  When running `bin/rails config_files:set_credentials` (see above) it copies
+  your existing `config/general.yml` value into the credentials, so sessions and
+  signed/encrypted cookies keep working.
+
 * _Required:_ Please update your `config/storage.yml` file to include a
   production configuration for `inbound_emails`. See
   `config/storage.yml-example` as an example.
