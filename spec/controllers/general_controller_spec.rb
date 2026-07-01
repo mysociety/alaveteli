@@ -255,8 +255,7 @@ RSpec.describe GeneralController, 'when using search' do
   end
 
   it "should only populate requests for /requests searches" do
-    event = info_request_events(:useless_outgoing_message_event)
-    stub_search_results(items: [event])
+    stub_request_search_results(items: [info_requests(:fancy_dog_request)])
 
     get :search, params: { combined: "bob/requests" }
 
@@ -274,8 +273,7 @@ RSpec.describe GeneralController, 'when using search' do
   end
 
   it "should show tracking links for requests-only searches" do
-    event = info_request_events(:useless_outgoing_message_event)
-    stub_search_results(items: [event])
+    stub_request_search_results(items: [info_requests(:fancy_dog_request)])
 
     get :search, params: { combined: "bob/requests" }
 

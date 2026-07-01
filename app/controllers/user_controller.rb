@@ -90,9 +90,8 @@ class UserController < ApplicationController
       requests_query = 'requested_by:' + @display_user.url_name
       comments_query = 'commented_by:' + @display_user.url_name
       # TODO: combine these as OR query
-      @request_results = perform_search(
-        [InfoRequestEvent], requests_query,
-        'newest', 'request_collapse'
+      @request_results = perform_request_search(
+        requests_query, 'newest'
       )
       @comment_results = perform_search(
         [InfoRequestEvent], comments_query, 'newest', nil
@@ -576,9 +575,8 @@ class UserController < ApplicationController
     end
 
     begin
-      @request_results = perform_search(
-        [InfoRequestEvent], requests_query,
-        'newest', 'request_collapse'
+      @request_results = perform_request_search(
+        requests_query, 'newest'
       )
       @comment_results = perform_search(
         [InfoRequestEvent], comments_query, 'newest', nil

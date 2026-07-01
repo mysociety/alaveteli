@@ -126,7 +126,7 @@
 
     <% if @request_results %>
       <% @request_results.results.each do |result| %>
-        <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
+        <%= render :partial => 'request/request_listing_single', :locals => { :info_request => result[:model] } %>
       <% end %>
 
       <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @request_results.matches_estimated) %>

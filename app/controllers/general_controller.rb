@@ -133,9 +133,8 @@ class GeneralController < ApplicationController
     @request_result_count = @body_result_count = @user_result_count = 0
     @total_hits = 0
     if @requests
-      @request_results = perform_search(
-        [InfoRequestEvent], @query, @sortby,
-        'request_collapse', requests_per_page
+      @request_results = perform_request_search(
+        @query, @sortby, requests_per_page
       )
       @requests_per_page = @per_page
       @request_result_count = @request_results.results.size

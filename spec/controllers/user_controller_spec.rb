@@ -254,8 +254,7 @@ RSpec.describe UserController do
           FactoryBot.create(:info_request, user: user, title: 'Some money?')
         FactoryBot.create(:info_request, user: user, title: 'How many books?')
 
-        event = request_1.info_request_events.first
-        stub_search_results(items: [event], total: 1)
+        stub_request_search_results(items: [request_1], total: 1)
 
         get :show, params: {
                      url_name: user.url_name,
@@ -264,7 +263,7 @@ RSpec.describe UserController do
                    }
 
         actual =
-          assigns[:request_results].results.map { |x| x[:model].info_request }
+          assigns[:request_results].results.map { |x| x[:model] }
 
         expect(actual).to match_array([request_1])
       end
@@ -294,8 +293,7 @@ RSpec.describe UserController do
         FactoryBot.create(:successful_request, user: user, title: 'More money')
         FactoryBot.create(:info_request, user: user, title: 'How many books?')
 
-        event = request_1.info_request_events.first
-        stub_search_results(items: [event], total: 1)
+        stub_request_search_results(items: [request_1], total: 1)
 
         get :show, params: {
                      url_name: user.url_name,
@@ -305,7 +303,7 @@ RSpec.describe UserController do
                    }
 
         actual =
-          assigns[:request_results].results.map { |x| x[:model].info_request }
+          assigns[:request_results].results.map { |x| x[:model] }
 
         expect(actual).to match_array([request_1])
       end
@@ -435,8 +433,7 @@ RSpec.describe UserController do
           FactoryBot.create(:info_request, user: user, title: 'Some money?')
         FactoryBot.create(:info_request, user: user, title: 'How many books?')
 
-        event = request_1.info_request_events.first
-        stub_search_results(items: [event], total: 1)
+        stub_request_search_results(items: [request_1], total: 1)
 
         get :show, params: {
                      url_name: user.url_name,
@@ -445,7 +442,7 @@ RSpec.describe UserController do
                    }
 
         actual =
-          assigns[:request_results].results.map { |x| x[:model].info_request }
+          assigns[:request_results].results.map { |x| x[:model] }
 
         expect(actual).to match_array([request_1])
       end
@@ -473,8 +470,7 @@ RSpec.describe UserController do
         FactoryBot.create(:successful_request, user: user, title: 'More money')
         FactoryBot.create(:info_request, user: user, title: 'How many books?')
 
-        event = request_1.info_request_events.first
-        stub_search_results(items: [event], total: 1)
+        stub_request_search_results(items: [request_1], total: 1)
 
         get :show, params: {
                      url_name: user.url_name,
@@ -484,7 +480,7 @@ RSpec.describe UserController do
                    }
 
         actual =
-          assigns[:request_results].results.map { |x| x[:model].info_request }
+          assigns[:request_results].results.map { |x| x[:model] }
 
         expect(actual).to match_array([request_1])
       end
