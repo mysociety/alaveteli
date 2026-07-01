@@ -77,10 +77,14 @@ class User < ApplicationRecord
   rolify before_add: :setup_pro_account,
          after_add: :assign_role_features,
          after_remove: :assign_role_features
+
   strip_attributes allow_empty: true
 
   admin_columns include: [:user_messages_count],
-                exclude: [:otp_secret_key, :url_name]
+                exclude: [:hashed_password, :salt,
+                          :login_token,
+                          :otp_secret_key, :otp_counter, :otp_backup_codes
+                          :url_name]
 
   attr_accessor :no_xapian_reindex
 
