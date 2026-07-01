@@ -41,6 +41,10 @@ module SearchHelpers
       SearchHelpers.stubbed? ? SearchHelpers::NullSearcher.new : super
     end
 
+    def request_search(query, **options)
+      SearchHelpers.stubbed? ? SearchHelpers::NullSearcher.new : super
+    end
+
     def typeahead(query, model:, **options)
       SearchHelpers.stubbed? ? SearchHelpers::NullSearcher.new : super
     end
@@ -72,7 +76,9 @@ module SearchHelpers
 
     searcher = double('FullTextSearch', results: results)
     allow(Search).to receive(:search).and_return(searcher)
+    allow(Search).to receive(:request_search).and_return(searcher)
     allow(Search.backend).to receive(:search).and_return(searcher)
+    allow(Search.backend).to receive(:request_search).and_return(searcher)
     results
   end
 
