@@ -41,6 +41,79 @@ class MailServerLog < ApplicationRecord
              filterable: [],
              sortable: []
 
+  # Replace the default method to do everything in a single query.
+  def self.reindex_all2
+    start = Time.now
+
+    query = <<-SQL
+      INSERT INTO "search_documents" (
+        "searchable_type",
+        "searchable_id",
+        "language",
+        "section_ref",
+        "raw_content",
+        "raw_admin_content",
+        "content_tsv",
+        "admin_content_tsv",
+        "created_at",
+        "updated_at"
+      )
+      SELECT
+        'MailServerLog',
+        mail_server_logs.id,
+        'english',
+        '1',
+        NULL,
+        concat(mail_server_logs.line, ' '),
+        NULL,
+        setweight(to_tsvector('english'::regconfig, unaccent(coalesce(concat(line, ' '), ''))), 'A'),
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      FROM mail_server_logs
+      ON CONFLICT ("searchable_type","searchable_id","section_ref","language") DO UPDATE SET updated_at=(CASE WHEN ("search_documents"."raw_content" IS NOT DISTINCT FROM excluded."raw_content" AND "search_documents"."raw_admin_content" IS NOT DISTINCT FROM excluded."raw_admin_content" AND "search_documents"."content_tsv" IS NOT DISTINCT FROM excluded."content_tsv" AND "search_documents"."admin_content_tsv" IS NOT DISTINCT FROM excluded."admin_content_tsv") THEN "search_documents".updated_at ELSE CURRENT_TIMESTAMP END),"raw_content"=excluded."raw_content","raw_admin_content"=excluded."raw_admin_content","content_tsv"=excluded."content_tsv","admin_content_tsv"=excluded."admin_content_tsv"
+    SQL
+
+    ActiveRecord::Base.connection.exec_query(query)
+    t = Time.now - start
+    Rails.logger.info("Reindexed #{indexable.count} #{name} in #{t} seconds")
+  end
+
+  # do the same thing, but avoid conflict checks by wiping out the table beforehand
+  def self.reindex_all3
+    start = Time.now
+
+    query = <<-SQL
+      INSERT INTO "search_documents" (
+        "searchable_type",
+        "searchable_id",
+        "language",
+        "section_ref",
+        "raw_content",
+        "raw_admin_content",
+        "content_tsv",
+        "admin_content_tsv",
+        "created_at",
+        "updated_at"
+      )
+      SELECT
+        'MailServerLog',
+        mail_server_logs.id,
+        'english',
+        '1',
+        NULL,
+        concat(mail_server_logs.line, ' '),
+        NULL,
+        setweight(to_tsvector('english'::regconfig, unaccent(coalesce(concat(line, ' '), ''))), 'A'),
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      FROM mail_server_logs
+    SQL
+
+    ActiveRecord::Base.connection.exec_query("TRUNCATE search_documents_mailserverlog")
+    ActiveRecord::Base.connection.exec_query(query)
+    t = Time.now - start
+    Rails.logger.info("Reindexed #{indexable.count} #{name} in #{t} seconds")
+  end
   # Load in exim or postfix log file from disk, or update if we already have it
   # Assumes files are named with date, rather than cyclically.
   # Doesn't do anything if file hasn't been modified since it was last loaded.
