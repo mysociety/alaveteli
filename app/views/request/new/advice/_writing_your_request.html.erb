@@ -1,0 +1,18 @@
+<div class="advice-panel">
+  <h4><%= _('Writing your request') %></h4>
+
+  <ul>
+    <li>
+      <%= raw(_("<strong>Can I request information about myself?</strong> " \
+                "<a href=\"{{url}}\">No!</a>",
+                :url => help_requesting_path(:anchor => "data_protection").html_safe)) %>
+    </li>
+    <li><%= _('Write your request in <strong>simple, precise language</strong>.') %></li>
+    <li><%= _('Ask for <strong>specific</strong> documents or ' \
+                  'information, this site is not suitable for general ' \
+                  'enquiries.') %></li>
+    <li><%= _('<a href="{{url}}">Keep it <strong>focused</strong></a>, ' \
+                  'you\'ll be more likely to get what you want.',
+              :url => help_requesting_path(:anchor => 'focused').html_safe) %></li>
+  </ul>
+</div>
