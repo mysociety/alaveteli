@@ -7,6 +7,7 @@ class OneTimePasswordsController < ApplicationController
   include OtpRateLimit
 
   before_action :check_two_factor_config, :authenticate
+  before_action :require_hotp, only: :update
   before_action :require_pending_otp_secret, only: :create
 
   limit_otp_attempts only: :destroy, by: -> { @user.id },
@@ -78,6 +79,16 @@ class OneTimePasswordsController < ApplicationController
 
   def enrolment_params
     params.fetch(:otp_enrolment, {}).permit(:otp_code)
+  end
+
+  # Prevent TOTP users from being downgraded to HOTP by restricting to HOTP
+  # users only.
+  def require_hotp
+    return if @user.hotp?
+
+    flash[:error] =
+      _('Your account does not have a two factor one time passcode to update')
+    redirect_to one_time_password_path
   end
 
   def require_pending_otp_secret
