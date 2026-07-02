@@ -4,8 +4,14 @@
 # Copyright (c) 2015 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 class OneTimePasswordsController < ApplicationController
+  include OtpRateLimit
+
   before_action :check_two_factor_config, :authenticate
   before_action :require_pending_otp_secret, only: :create
+
+  limit_otp_attempts only: :destroy, by: -> { @user.id },
+                     if: -> { @user.totp? && !params[:otp_code].nil? },
+                     template: :destroy_confirmation
 
   def new
     session[:pending_otp_secret_key] ||= ROTP::Base32.random
