@@ -72,6 +72,10 @@ FactoryBot.define do
       foi_attachments_factories { [[:html_attachment]] }
     end
 
+    trait :with_deeply_nested_html_attachment do
+      foi_attachments_factories { [[:deeply_nested_html_attachment]] }
+    end
+
     trait :with_pdf_attachment do
       foi_attachments_factories { [[:pdf_attachment]] }
     end

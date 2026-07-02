@@ -868,22 +868,34 @@ RSpec.describe FoiAttachment do
       expect { subject }.to change { attachment.masked_at }.to(Time)
     end
 
-    it 'sanitises HTML attachments' do
-      # Nokogiri adds the meta tag; see
-      # https://github.com/sparklemotion/nokogiri/issues/1008
-      expected = <<-EOF.squish
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        </head>
-        <body>dull
-        </body>
-      </html>
-      EOF
+    context 'with HTML attachment' do
+      it 'preserves structural tags' do
+        subject
+        expect(attachment.body).to include('<!DOCTYPE html>')
+        expect(attachment.body).to include('<html>')
+      end
 
-      subject
-      expect(attachment.body.squish).to eq(expected)
+      it 'sanitises the attachments' do
+        subject
+        expect(attachment.body).to include('dull')
+        expect(attachment.body).not_to include('<script>')
+      end
+    end
+
+    context 'with deeply nested HTML attachment' do
+      let(:info_request) do
+        FactoryBot.create(:info_request_with_deeply_nested_html_attachment)
+      end
+
+      it 'preserves content from deeply nested elements' do
+        subject
+        expect(attachment.body).to include('Deeply nested content')
+      end
+
+      it 'sanitises the attachments' do
+        subject
+        expect(attachment.body).not_to include('<script>')
+      end
     end
 
     it 'censors attachments downloaded directly' do

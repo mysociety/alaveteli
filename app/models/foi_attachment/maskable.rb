@@ -16,9 +16,9 @@ module FoiAttachment::Maskable
 
     if content_type == 'text/html'
       body =
-        Loofah.scrub_document(body, :prune).
-        to_html(encoding: 'UTF-8').
-        try(:html_safe)
+        Loofah.html5_document(body) { |c| c[:max_tree_depth] = 800 }.
+        scrub!(:prune).
+        to_html(encoding: 'UTF-8')
     end
 
     update(body: body, masked_at: Time.zone.now)

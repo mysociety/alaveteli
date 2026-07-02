@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix blank responses caused by deeply nested emails (Graeme Porteous)
 * Check request prominence when annotating requests (Gareth Rees, Santosh Kumar
   Puppala)
 * Remove user name from account confirmation email to guard against spam
