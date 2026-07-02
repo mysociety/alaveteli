@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add Search module providing a backend-agnostic search interface, decoupling
+  controllers, models and mailers from Xapian (Graeme Porteous)
 * Fix blank responses caused by deeply nested emails (Graeme Porteous)
 * Check request prominence when annotating requests (Gareth Rees, Santosh Kumar
   Puppala)

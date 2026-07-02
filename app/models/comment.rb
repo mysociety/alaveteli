@@ -109,7 +109,7 @@ class Comment < ApplicationRecord
   end
 
   def reindex_request_events
-    info_request_events.find_each(&:xapian_mark_needs_index)
+    info_request_events.find_each { |e| Search.reindex_later(e) }
   end
 
   # Return body for display as HTML

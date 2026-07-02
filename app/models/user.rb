@@ -48,6 +48,7 @@ class User < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
+  include Searchable
   include Taggable
 
   include AlaveteliFeatures::Helpers
@@ -222,13 +223,6 @@ class User < ApplicationRecord
   after_update :update_pro_account
   after_update :reindex_referencing_models, :invalidate_cached_pages,
                unless: :no_xapian_reindex
-
-  acts_as_xapian texts: [:name, :about_me],
-                 values: [
-                   [:created_at_numeric, 1, 'created_at', :number] # for sorting
-                 ],
-                 terms: [[:variety, 'V', 'variety']],
-                 if: :indexed_by_search?
 
   def self.search(query)
     sql = <<~SQL
@@ -694,7 +688,7 @@ class User < ApplicationRecord
   end
 
   def info_request_count_changed
-    xapian_mark_needs_index
+    Search.reindex_later(self)
   end
 
   def record_sign_in(*args)

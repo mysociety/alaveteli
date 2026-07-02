@@ -1,10 +1,9 @@
 ##
-# Helper methods for stubbing search in tests.
-#
-# Stubs ActsAsXapian and TypeaheadSearch so specs can run without a
-# Xapian search index.
+# Helper methods for mocking the Search module in tests.
 #
 # Usage in specs:
+#   include SearchHelpers
+#
 #   it 'searches for bodies' do
 #     stub_search_results(items: [public_body], total: 1)
 #     # or for typeahead:
@@ -13,35 +12,41 @@
 #
 module SearchHelpers
   ##
-  # Lightweight stand-in for ActsAsXapian search results.
+  # Lightweight stand-in for a search backend searcher object.
+  # Returns empty Search::Results from .results and [[], false] from .first.
   #
-  class NullSearchResult
-    DEFAULTS = {
-      results: [], matches_estimated: 0, spelling_correction: nil,
-      words_to_highlight: [], has_normal_search_terms?: false,
-      present?: true, blank?: false
-    }.freeze
-
-    def xapian_search
-      self
+  class NullSearcher
+    def results(page: 1, per_page: 25)
+      Search::Results.new(
+        items: [],
+        total_estimate: 0,
+        current_page: page,
+        per_page: per_page,
+        offset: (page - 1) * per_page
+      )
     end
 
-    def method_missing(name, *, **)
-      DEFAULTS.fetch(name) { super }
-    end
-
-    def respond_to_missing?(name, include_private = false)
-      DEFAULTS.key?(name) || super
+    def first(_limit = 10)
+      [[], false]
     end
   end
 
   ##
-  # Guard prepended onto search class .new methods. When the global stub flag
-  # is set it returns a null object, avoiding any Xapian database access.
+  # Guard prepended onto the search backend adapter. When the global stub
+  # flag is set it returns a null searcher, avoiding any Xapian database
+  # access.
   #
   module Guard
-    def new(*, **)
-      SearchHelpers.stubbed? ? SearchHelpers::NullSearchResult.new : super
+    def search(query, models:, **options)
+      SearchHelpers.stubbed? ? SearchHelpers::NullSearcher.new : super
+    end
+
+    def typeahead(query, model:, **options)
+      SearchHelpers.stubbed? ? SearchHelpers::NullSearcher.new : super
+    end
+
+    def similar(record)
+      SearchHelpers.stubbed? ? SearchHelpers::NullSearcher.new : super
     end
   end
 
@@ -53,50 +58,62 @@ module SearchHelpers
     Thread.current[:search_helpers_stubbed] = value
   end
 
-  # Stub ActsAsXapian::Search.new to return results
+  # Stub Search.search to return a Results object with the given items
   def stub_search_results(items: [], total: nil, spelling_correction: nil,
                           words_to_highlight: [], has_normal_search_terms: true)
     total ||= items.size
-    result = build_search_results(
+    results = build_search_results(
       items: items,
       total: total,
       spelling_correction: spelling_correction,
       words_to_highlight: words_to_highlight,
       has_normal_search_terms: has_normal_search_terms
     )
-    allow(ActsAsXapian::Search).to receive(:new).and_return(result)
-    result
+
+    searcher = double('FullTextSearch', results: results)
+    allow(Search).to receive(:search).and_return(searcher)
+    allow(Search.backend).to receive(:search).and_return(searcher)
+    results
   end
 
-  # Stub TypeaheadSearch to return results
+  # Stub Search.typeahead to return a Results object with the given items
   def stub_typeahead_results(items: [], total: nil, spelling_correction: nil,
                              words_to_highlight: [])
     total ||= items.size
-    result = build_search_results(
+    results = build_search_results(
       items: items,
       total: total,
       spelling_correction: spelling_correction,
       words_to_highlight: words_to_highlight
     )
-    typeahead = double('TypeaheadSearch', xapian_search: result)
-    allow(TypeaheadSearch).to receive(:new).and_return(typeahead)
-    result
+
+    searcher = double('Typeahead', results: results)
+    allow(Search).to receive(:typeahead).and_return(searcher)
+    allow(Search.backend).to receive(:typeahead).and_return(searcher)
+    results
   end
 
-  # Stub ActsAsXapian::Similar.new to return results
+  # Stub similar requests search
   def stub_similar_requests(items: [], total: nil)
     total ||= items.size
-    build_search_results(items: items, total: total).tap do |result|
-      allow(ActsAsXapian::Similar).to receive(:new).and_return(result)
-    end
+    results = build_search_results(items: items, total: total)
+
+    searcher = double('SimilarRequests', results: results,
+                                         first: [items, total > items.size])
+    allow(Search).to receive(:similar).and_return(searcher)
+    allow(Search.backend).to receive(:similar).and_return(searcher)
+    results
   end
 
-  # Build a double mimicking an ActsAsXapian search result object
-  def build_search_results(items: [], total: nil, spelling_correction: nil,
-                           words_to_highlight: [],
+  # Build a Search::Results object with the given attributes
+  def build_search_results(items: [], total: nil, page: 1, per_page: 25,
+                           spelling_correction: nil, words_to_highlight: [],
                            has_normal_search_terms: false)
     total ||= items.size
+    offset = (page - 1) * per_page
 
+    # Convert items to the format expected by views (hash with :model key)
+    # if they're not already in that format
     formatted_items = items.map do |item|
       if item.is_a?(Hash) && item.key?(:model)
         item
@@ -105,27 +122,34 @@ module SearchHelpers
       end
     end
 
-    double('XapianResult',
-           results: formatted_items,
-           matches_estimated: total,
-           spelling_correction: spelling_correction,
-           words_to_highlight: words_to_highlight,
-           has_normal_search_terms?: has_normal_search_terms,
-           present?: true,
-           blank?: false)
+    Search::Results.new(
+      items: formatted_items,
+      total_estimate: total,
+      current_page: page,
+      per_page: per_page,
+      offset: offset,
+      spelling_correction: spelling_correction,
+      words_to_highlight: words_to_highlight,
+      has_normal_search_terms: has_normal_search_terms
+    )
+  end
+
+  # Stub an empty search result
+  def stub_empty_search_results
+    stub_search_results(items: [], total: 0)
+  end
+
+  # Stub an empty typeahead result
+  def stub_empty_typeahead_results
+    stub_typeahead_results(items: [], total: 0)
   end
 end
 
-ActsAsXapian::Search.singleton_class.prepend(SearchHelpers::Guard)
-ActsAsXapian::Similar.singleton_class.prepend(SearchHelpers::Guard)
-TypeaheadSearch.singleton_class.prepend(SearchHelpers::Guard)
+Search::Adapters::Xapian::Adapter.prepend(SearchHelpers::Guard)
 
 RSpec.configure do |config|
   config.include SearchHelpers
 
-  # Prevent any Xapian database access in non-xapian tests. Uses an
-  # around hook so the guard is active before spec-level around hooks
-  # that may trigger searches (e.g. integration test login helpers).
   config.around(:each) do |example|
     SearchHelpers.stubbed = true unless example.metadata[:xapian]
     example.run

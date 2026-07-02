@@ -84,10 +84,10 @@ RSpec.describe GeneralController, "when showing the frontpage" do
                                     info_request: info_request,
                                     described_at: Time.zone.now,
                                     search_text_main: 'example text')
-    xapian_result = double(
-      'xapian result', results: [{ model: info_request_event }]
+    search_result = double(
+      'search result', results: [{ model: info_request_event }]
     )
-    allow(controller).to receive(:perform_search).and_return(xapian_result)
+    allow(controller).to receive(:perform_search).and_return(search_result)
   end
 
   it "should render the front page successfully" do
@@ -228,9 +228,9 @@ RSpec.describe GeneralController, 'when using search' do
 
     get :search, params: { combined: "bob/all" }
 
-    expect(assigns[:xapian_requests]).to be_present
-    expect(assigns[:xapian_users]).to be_present
-    expect(assigns[:xapian_bodies]).to be_present
+    expect(assigns[:request_results]).to be_a(Search::Results)
+    expect(assigns[:user_results]).to be_a(Search::Results)
+    expect(assigns[:body_results]).to be_a(Search::Results)
   end
 
   it "should only populate users for /users searches" do
@@ -238,9 +238,9 @@ RSpec.describe GeneralController, 'when using search' do
 
     get :search, params: { combined: "bob/users" }
 
-    expect(assigns[:xapian_requests]).to be_nil
-    expect(assigns[:xapian_users]).to be_present
-    expect(assigns[:xapian_bodies]).to be_nil
+    expect(assigns[:request_results]).to be_nil
+    expect(assigns[:user_results]).to be_present
+    expect(assigns[:body_results]).to be_nil
   end
 
   it "should only populate bodies for /bodies searches" do
@@ -249,9 +249,9 @@ RSpec.describe GeneralController, 'when using search' do
 
     get :search, params: { combined: "bob/bodies" }
 
-    expect(assigns[:xapian_requests]).to be_nil
-    expect(assigns[:xapian_users]).to be_nil
-    expect(assigns[:xapian_bodies]).to be_present
+    expect(assigns[:request_results]).to be_nil
+    expect(assigns[:user_results]).to be_nil
+    expect(assigns[:body_results]).to be_present
   end
 
   it "should only populate requests for /requests searches" do
@@ -260,9 +260,9 @@ RSpec.describe GeneralController, 'when using search' do
 
     get :search, params: { combined: "bob/requests" }
 
-    expect(assigns[:xapian_requests]).to be_present
-    expect(assigns[:xapian_users]).to be_nil
-    expect(assigns[:xapian_bodies]).to be_nil
+    expect(assigns[:request_results]).to be_present
+    expect(assigns[:user_results]).to be_nil
+    expect(assigns[:body_results]).to be_nil
   end
 
   it 'should render spelling suggestion when available' do
@@ -283,9 +283,12 @@ RSpec.describe GeneralController, 'when using search' do
   end
 
   it 'should pass search error to flash and redirect' do
-    allow(ActsAsXapian::Search).to receive(:new).
-      and_raise(RuntimeError, 'QueryParserError: ' \
-        'Syntax: <expression> AND <expression>')
+    searcher = double('FullTextSearch')
+    allow(Search).to receive(:search).and_return(searcher)
+    allow(searcher).to receive(:results).and_raise(
+      RuntimeError, 'QueryParserError: ' \
+        'Syntax: <expression> AND <expression>'
+    )
 
     get :search, params: { combined: "test AND" }
 
@@ -312,7 +315,7 @@ RSpec.describe GeneralController, 'when using search' do
 
     get :search, params: { query: 'cardiff council',
                            combined: 'cardiff council/bodies' }
-    results = assigns[:xapian_bodies].results.map { |x| x[:model] }
+    results = assigns[:body_results].results.map { |x| x[:model] }
 
     expect(results.first.name).to eq('Cardiff Council')
   end

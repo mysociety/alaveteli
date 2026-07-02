@@ -55,7 +55,7 @@ namespace :cleanup do
 
   desc 'Reindex banned users'
   task reindex_banned_users: :environment do
-    User.banned.find_each(&:xapian_mark_needs_index)
+    User.banned.find_each { |user| Search.reindex_later(user) }
   end
 
   desc 'Export of last 2 days of requests to search for spam'
