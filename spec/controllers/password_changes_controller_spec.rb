@@ -385,6 +385,16 @@ RSpec.describe PasswordChangesController do
         }
         expect(response).to redirect_to(new_password_change_path)
       end
+
+      it 'redirects to #new with a pretoken when a user cannot be found' do
+        put :update, params: {
+          id: post_redirect.token,
+          password_change_user: @valid_password_params,
+          pretoken: 'abcdef'
+        }
+        expect(response).
+          to redirect_to(new_password_change_path(pretoken: 'abcdef'))
+      end
     end
 
     context 'invalid token' do
@@ -393,6 +403,19 @@ RSpec.describe PasswordChangesController do
           id: 'invalid',
           password_change_user: @valid_password_params
         }
+        expect(response).to redirect_to new_password_change_path
+      end
+
+      it 'keeps redirecting when retried past the rate limit' do
+        described_class.cache_store.clear
+
+        6.times do
+          put :update, params: {
+            id: 'invalid',
+            password_change_user: @valid_password_params
+          }
+        end
+
         expect(response).to redirect_to new_password_change_path
       end
     end
@@ -447,6 +470,32 @@ RSpec.describe PasswordChangesController do
           password_change_user: @valid_password_params
         }
         expect(response).to redirect_to(show_user_profile_path(user.url_name))
+      end
+    end
+
+    context 'when the user has no two factor authentication' do
+      before { described_class.cache_store.clear }
+
+      def submit(params)
+        put :update, params: {
+          id: post_redirect.token, password_change_user: params
+        }
+      end
+
+      it 'does not rate limit repeated validation failures' do
+        6.times { submit(@invalid_password_params) }
+
+        expect(response).to render_template(:edit)
+        expect(flash[:error]).to be_blank
+      end
+
+      it 'changes the password after repeated validation failures' do
+        old_hash = user.hashed_password
+
+        5.times { submit(@invalid_password_params) }
+        submit(@valid_password_params)
+
+        expect(user.reload.hashed_password).not_to eq(old_hash)
       end
     end
 
@@ -618,6 +667,36 @@ RSpec.describe PasswordChangesController do
         }
 
         expect(response).to redirect_to('/')
+      end
+
+      context 'when the attempt limit is exceeded' do
+        before { described_class.cache_store.clear }
+
+        def submit(code)
+          put :update, params: {
+            id: post_redirect.token,
+            password_change_user: @valid_password_params.merge(otp_code: code)
+          }
+        end
+
+        it 're-renders the form with a rate-limit error' do
+          6.times { submit('invalid') }
+
+          expect(response).to render_template(:edit)
+          expect(response).to have_http_status(:too_many_requests)
+          expect(flash[:error]).to match(/Too many attempts/)
+          expect(assigns[:otp_enabled]).to eq(true)
+        end
+
+        it 'blocks even a valid code once the limit is exceeded' do
+          old_hash = user.hashed_password
+
+          5.times { submit('invalid') }
+          submit(user.otp_code)
+
+          expect(flash[:error]).to match(/Too many attempts/)
+          expect(user.reload.hashed_password).to eq(old_hash)
+        end
       end
     end
   end

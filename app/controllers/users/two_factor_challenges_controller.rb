@@ -3,12 +3,11 @@
 # A correct authenticator code completes the sign-in and sends the user on to
 # their original destination.
 class Users::TwoFactorChallengesController < UserController
+  include OtpRateLimit
+
   before_action :load_pending_sign_in
 
-  rate_limit to: 5, within: 1.minute,
-             by: -> { @pending.user_id },
-             with: -> { handle_rate_limit },
-             only: :create
+  limit_otp_attempts only: :create, by: -> { @pending.user_id }, template: :new
 
   def new
   end
@@ -49,11 +48,5 @@ class Users::TwoFactorChallengesController < UserController
       partial: 'one_time_passwords/backup_code_used',
       locals: { remaining: user.otp_backup_codes.size }
     }
-  end
-
-  def handle_rate_limit
-    flash.now[:error] =
-      _('Too many attempts. Please wait a minute and try again.')
-    render :new
   end
 end
