@@ -269,15 +269,20 @@ namespace :config_files do
 
     # Add only what is missing, generating any value not supplied through the
     # environment. Existing values are left untouched, so this is safe to run
-    # repeatedly and against credentials set up another way. secret_key_base is
-    # only a placeholder: config/general.yml is authoritative and overrides it
-    # at boot (see config/initializers/secret_token.rb).
+    # repeatedly and against credentials set up another way.
     existing = YAML.safe_load(encrypted_file.read) || {}
 
     blocks = []
 
     unless existing.key?("secret_key_base")
-      secret_key_base = ENV.fetch("SECRET_KEY_BASE") { SecureRandom.hex(64) }
+      secret_key_base = ENV.fetch("SECRET_KEY_BASE") do
+        configured = AlaveteliConfiguration.secret_key_base
+        if configured == AlaveteliConfiguration::DEFAULTS[:SECRET_KEY_BASE]
+          SecureRandom.hex(64)
+        else
+          configured
+        end
+      end
       blocks << "secret_key_base: #{secret_key_base}"
     end
 
