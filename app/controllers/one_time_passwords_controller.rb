@@ -7,6 +7,7 @@ class OneTimePasswordsController < ApplicationController
   include OtpRateLimit
 
   before_action :check_two_factor_config, :authenticate
+  before_action :prevent_reenrolment, only: [:new, :create]
   before_action :require_hotp, only: :update
   before_action :require_pending_otp_secret, only: :create
 
@@ -79,6 +80,18 @@ class OneTimePasswordsController < ApplicationController
 
   def enrolment_params
     params.fetch(:otp_enrolment, {}).permit(:otp_code)
+  end
+
+  # Block enrolment for users who already have an authenticator app. HOTP users
+  # are allowed through so they can upgrade to an authenticator app.
+  def prevent_reenrolment
+    return unless @user.totp?
+
+    flash[:error] =
+      _('Two factor authentication is already set up. To use a different ' \
+        'authenticator app, disable two factor authentication first, then ' \
+        'set it up again.')
+    redirect_to one_time_password_path
   end
 
   # Prevent TOTP users from being downgraded to HOTP by restricting to HOTP

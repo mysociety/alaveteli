@@ -74,6 +74,18 @@ RSpec.describe OneTimePasswordsController do
         expect(user.otp_enabled).to eq(true)
       end
     end
+
+    context 'when the user already has TOTP enabled' do
+      let(:user) { FactoryBot.create(:user, :enable_totp) }
+
+      it 'redirects to the settings page instead of starting enrolment' do
+        sign_in user
+        get :new
+
+        expect(response).to redirect_to(one_time_password_path)
+        expect(session[:pending_otp_secret_key]).to be_nil
+      end
+    end
   end
 
   describe 'GET show' do
@@ -281,6 +293,31 @@ RSpec.describe OneTimePasswordsController do
         post :create, params: { otp_enrolment: { otp_code: invalid_code } }
 
         expect(assigns[:enrolment].errors[:otp_code]).to be_present
+      end
+    end
+
+    context 'when the user already has TOTP enabled' do
+      let(:user) { FactoryBot.create(:user, :enable_totp) }
+
+      before do
+        sign_in user
+        session[:pending_otp_secret_key] = candidate_secret
+      end
+
+      it 'does not overwrite the existing authenticator secret' do
+        original_secret = user.otp_secret_key
+
+        post :create, params: { otp_enrolment: { otp_code: valid_code } }
+
+        expect(user.reload.otp_secret_key).to eq(original_secret)
+      end
+
+      it 'redirects to the settings page with an explanation' do
+        post :create, params: { otp_enrolment: { otp_code: valid_code } }
+
+        expect(response).to redirect_to(one_time_password_path)
+        expect(flash[:error]).
+          to match('Two factor authentication is already set up.')
       end
     end
 
