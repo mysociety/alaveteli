@@ -765,11 +765,13 @@ RSpec.describe PublicBody do
   end
 
   describe '#expire_requests' do
-    it 'create expire job for the public body' do
-      public_body = FactoryBot.build(:public_body)
-      expect(InfoRequest::ExpireJob).to receive(:perform_later).
-        with(public_body, :info_requests)
-      public_body.expire_requests
+    subject { body.expire_requests }
+
+    let(:body) { FactoryBot.create(:public_body) }
+
+    it 'expires the requests' do
+      expect { subject }.
+        to have_enqueued_job(InfoRequest::ExpireJob).with(body, :info_requests)
     end
   end
 
@@ -1287,9 +1289,10 @@ RSpec.describe PublicBody, "when destroying" do
   end
 
   it 'should destroy the associated censor_rules' do
-    FactoryBot.create(:censor_rule, public_body: public_body)
+    censor_rule = FactoryBot.create(:censor_rule, censorable: public_body)
     public_body.destroy
-    expect(CensorRule.where(public_body_id: public_body.id)).to be_empty
+    expect(CensorRule.public_body.where(censorable_id: public_body.id)).
+      to be_empty
   end
 
   it 'destroys associated translations' do

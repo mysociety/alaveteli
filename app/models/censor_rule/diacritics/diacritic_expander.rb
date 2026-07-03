@@ -1,5 +1,5 @@
 # Maps characters to a regexp covering its diacritic variants.
-class CensorRule::DiacriticExpander
+class CensorRule::Diacritics::DiacriticExpander
   # Maps each character to cover diacritic variants. Separate lowercase and
   # uppercase entries preserve the original case of the input — when
   # case_sensitive is false Regexp::IGNORECASE covers the other case without

@@ -1457,10 +1457,11 @@ RSpec.describe InfoRequest do
     end
 
     it 'destroys associated censor_rules' do
-      censor_rule = FactoryBot.create(:censor_rule, info_request: info_request)
+      censor_rule = FactoryBot.create(:censor_rule, censorable: info_request)
       info_request.reload
       info_request.destroy
-      expect(CensorRule.where(info_request_id: info_request.id)).to be_empty
+      expect(CensorRule.info_request.where(censorable_id: info_request.id)).
+        to be_empty
     end
 
     it 'destroys associated comments' do
@@ -5023,6 +5024,35 @@ RSpec.describe InfoRequest do
       end
 
       it { is_expected.to eq([reference]) }
+    end
+  end
+
+  describe '#info_requests' do
+    subject { info_request.info_requests }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    it { is_expected.to match_array([info_request]) }
+    it { is_expected.to respond_to(:where) }
+  end
+
+  describe '#expire_requests' do
+    subject { info_request.expire_requests }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    it 'expires the request' do
+      expect { subject }.
+        to have_enqueued_job(InfoRequest::ExpireJob).with(info_request)
+    end
+
+    it 'notifies the cache when configured' do
+      allow(AlaveteliConfiguration).to receive(:varnish_hosts).and_return('x')
+      expect { subject }.to have_enqueued_job(NotifyCacheJob).with(info_request)
+    end
+
+    it 'does not notify the cache when not configured' do
+      allow(AlaveteliConfiguration).to receive(:varnish_hosts).and_return('')
+      expect { subject }.
+        not_to have_enqueued_job(NotifyCacheJob).with(info_request)
     end
   end
 end

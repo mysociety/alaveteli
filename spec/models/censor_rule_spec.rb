@@ -3,9 +3,6 @@
 # Table name: censor_rules
 #
 #  id                :integer          not null, primary key
-#  info_request_id   :integer
-#  user_id           :integer
-#  public_body_id    :integer
 #  text              :text             not null
 #  replacement       :text             not null
 #  last_edit_editor  :string           not null
@@ -15,11 +12,53 @@
 #  regexp            :boolean          default(FALSE), not null
 #  case_sensitive    :boolean          default(TRUE), not null
 #  ignore_diacritics :boolean          default(FALSE), not null
+#  censorable_type   :string
+#  censorable_id     :bigint
 #
 
 require 'spec_helper'
 
 RSpec.describe CensorRule do
+  describe '.info_request' do
+    subject { described_class.info_request }
+
+    let(:global_rule) { FactoryBot.create(:global_censor_rule) }
+    let(:request_rule) { FactoryBot.create(:info_request_censor_rule) }
+
+    it { is_expected.to include(request_rule) }
+    it { is_expected.not_to include(global_rule) }
+  end
+
+  describe '.public_body' do
+    subject { described_class.public_body }
+
+    let(:global_rule) { FactoryBot.create(:global_censor_rule) }
+    let(:public_body_rule) { FactoryBot.create(:public_body_censor_rule) }
+
+    it { is_expected.to include(public_body_rule) }
+    it { is_expected.not_to include(global_rule) }
+  end
+
+  describe '.user' do
+    subject { described_class.user }
+
+    let(:global_rule) { FactoryBot.create(:global_censor_rule) }
+    let(:user_rule) { FactoryBot.create(:user_censor_rule) }
+
+    it { is_expected.to include(user_rule) }
+    it { is_expected.not_to include(global_rule) }
+  end
+
+  describe '.global' do
+    subject { described_class.global }
+
+    let(:global_rule) { FactoryBot.create(:global_censor_rule) }
+    let(:user_rule) { FactoryBot.create(:user_censor_rule) }
+
+    it { is_expected.to include(global_rule) }
+    it { is_expected.not_to include(user_rule) }
+  end
+
   describe 'after_commit callbacks' do
     it 'expires requests after create' do
       rule = FactoryBot.create(:global_censor_rule)
@@ -39,6 +78,20 @@ RSpec.describe CensorRule do
       rule.destroy!
       expect(rule).to receive(:expire_requests)
       rule.run_callbacks(:commit)
+    end
+  end
+
+  describe '#global?' do
+    subject { rule.global? }
+
+    context 'without a censorable' do
+      let(:rule) { FactoryBot.build(:global_censor_rule) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'with a censorable' do
+      let(:rule) { FactoryBot.build(:user_censor_rule) }
+      it { is_expected.to eq(false) }
     end
   end
 
@@ -367,50 +420,21 @@ RSpec.describe CensorRule do
   describe '#expire_requests' do
     subject { rule.expire_requests }
 
-    let(:job) { InfoRequest::ExpireJob }
+    context 'with a censorable' do
+      let(:rule) { FactoryBot.create(:info_request_censor_rule) }
 
-    context 'with a request rule' do
-      let(:request) { FactoryBot.create(:info_request) }
-      let!(:rule) { FactoryBot.create(:censor_rule, info_request: request) }
-
-      it 'expires the requests' do
-        expect { subject }.to have_enqueued_job(job).with(request)
-      end
-
-      it 'notifies the cache when configured' do
-        allow(AlaveteliConfiguration).to receive(:varnish_hosts).and_return('x')
-        expect { subject }.to have_enqueued_job(NotifyCacheJob).with(request)
-      end
-
-      it 'does not notify the cache when not configured' do
-        allow(AlaveteliConfiguration).to receive(:varnish_hosts).and_return('')
-        expect { subject }.not_to have_enqueued_job(NotifyCacheJob).with(request)
-      end
-    end
-
-    context 'with a user rule' do
-      let(:user) { FactoryBot.create(:user) }
-      let!(:rule) { FactoryBot.create(:censor_rule, user: user) }
-
-      it 'expires the requests' do      
-        expect { subject }.to have_enqueued_job(job).with(user, :info_requests)
-      end
-    end
-
-    context 'with a public body rule' do
-      let(:body) { FactoryBot.create(:public_body) }
-      let!(:rule) { FactoryBot.create(:censor_rule, public_body: body) }
-
-      it 'expires the requests' do
-        expect { subject }.to have_enqueued_job(job).with(body, :info_requests)
+      it 'expires the requests via the censorable' do
+        expect(rule.censorable).to receive(:expire_requests)
+        subject
       end
     end
 
     context 'with a global rule' do
       let!(:rule) { FactoryBot.create(:global_censor_rule) }
 
-      it 'expires the requests' do
-        expect { subject }.to have_enqueued_job(job).with(InfoRequest, :all)
+      it 'expires the requests directly' do
+        expect { subject }.
+          to have_enqueued_job(InfoRequest::ExpireJob).with(InfoRequest, :all)
       end
     end
   end
@@ -420,13 +444,12 @@ RSpec.describe CensorRule do
 
     context 'with an info_request censor rule' do
       let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
-      let(:requests) { censorable.info_requests }
-      it { is_expected.to match_array([censor_rule.info_request]) }
+      it { is_expected.to match_array([censor_rule.censorable]) }
     end
 
     context 'with a public_body censor rule' do
       let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
-      let(:censorable) { censor_rule.public_body }
+      let(:censorable) { censor_rule.censorable }
 
       before { FactoryBot.create(:info_request, public_body: censorable) }
 
@@ -435,7 +458,7 @@ RSpec.describe CensorRule do
 
     context 'with a user censor rule' do
       let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
-      let(:censorable) { censor_rule.user }
+      let(:censorable) { censor_rule.censorable }
 
       before { FactoryBot.create(:info_request, user: censorable) }
 
@@ -453,17 +476,17 @@ RSpec.describe CensorRule do
 
     context 'with an info_request censor rule' do
       let(:censor_rule) { FactoryBot.build(:info_request_censor_rule) }
-      it { is_expected.to eq(censor_rule.info_request) }
+      it { is_expected.to be_an(InfoRequest) }
     end
 
     context 'with a public_body censor rule' do
       let(:censor_rule) { FactoryBot.build(:public_body_censor_rule) }
-      it { is_expected.to eq(censor_rule.public_body) }
+      it { is_expected.to be_a(PublicBody) }
     end
 
     context 'with a user censor rule' do
       let(:censor_rule) { FactoryBot.build(:user_censor_rule) }
-      it { is_expected.to eq(censor_rule.user) }
+      it { is_expected.to be_a(User) }
     end
 
     context 'with a global censor rule' do
@@ -581,41 +604,3 @@ RSpec.describe 'when validating rules' do
   end
 end
 
-RSpec.describe 'when handling global rules' do
-  describe 'an instance without user_id, request_id or public_body_id' do
-    before do
-      @global_rule = CensorRule.new
-    end
-
-    it 'should return a value of true from is_global?' do
-      expect(@global_rule.is_global?).to eq(true)
-    end
-  end
-
-  describe '.global' do
-    before do
-      @global_rule = CensorRule.create!(text: 'hide me',
-                                        replacement: 'nothing to see here',
-                                        last_edit_editor: 1,
-                                        last_edit_comment: 'comment')
-      @user_rule = CensorRule.create!(user_id: 1,
-                                      text: 'hide me',
-                                      replacement: 'nothing to see here',
-                                      last_edit_editor: 1,
-                                      last_edit_comment: 'comment')
-    end
-
-    it 'should include an instance without user_id, request_id or public_body_id' do
-      expect(CensorRule.global.include?(@global_rule)).to eq(true)
-    end
-
-    it 'should not include a request with user_id' do
-      expect(CensorRule.global.include?(@user_rule)).to eq(false)
-    end
-
-    after do
-      @global_rule.destroy if @global_rule
-      @user_rule.destroy if @user_rule
-    end
-  end
-end

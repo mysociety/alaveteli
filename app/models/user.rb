@@ -139,7 +139,8 @@ class User < ApplicationRecord
           dependent: :destroy
   has_many :censor_rules,
            -> { order(created_at: :desc) },
-           inverse_of: :user,
+           as: :censorable,
+           inverse_of: :censorable,
            dependent: :destroy
   has_many :info_request_batches,
            -> { order(created_at: :desc) },

@@ -243,7 +243,7 @@ RSpec.describe 'when making a zipfile available' do
       FactoryBot.create(:censor_rule,
                         text: 'First',
                         replacement: 'REDACTED',
-                        info_request: info_request)
+                        censorable: info_request)
 
       sleep_and_receive_mail('incoming-request-two-same-name.eml', info_request)
 

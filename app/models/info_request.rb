@@ -121,7 +121,8 @@ class InfoRequest < ApplicationRecord
            dependent: :destroy
   has_many :censor_rules,
            -> { order(created_at: :desc) },
-           inverse_of: :info_request,
+           as: :censorable,
+           inverse_of: :censorable,
            dependent: :destroy
   has_many :mail_server_logs,
            -> { order(:mail_server_log_done_id, :order) },
@@ -1745,6 +1746,19 @@ class InfoRequest < ApplicationRecord
       user_path(user),
       show_user_wall_path(url_name: user.url_name)
     ]
+  end
+
+  # Return only this request in a chainable relation. This is mainly for
+  # duck-typing with other censorable relationships.
+  def info_requests
+    self.class.where(id: id)
+  end
+
+  # Expire this request. This is mainly for
+  # duck-typing with other censorable relationships.
+  def expire_requests
+    InfoRequest::ExpireJob.perform_later(self)
+    NotifyCacheJob.perform_later(self)
   end
 
   private
