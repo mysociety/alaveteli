@@ -1240,11 +1240,10 @@ class InfoRequest < ApplicationRecord
 
   # Text from the the initial request, for use in summary display
   def initial_request_text
-    return '' if outgoing_messages.empty?
-
-    body_opts = { censor_rules: applicable_censor_rules }
     first_message = outgoing_messages.first
-    first_message.is_public? ? first_message.get_text_for_indexing(true, body_opts) : ''
+    return '' unless first_message&.is_public?
+
+    first_message.get_text_for_indexing(true).strip
   end
 
   def last_event_id_needing_description
