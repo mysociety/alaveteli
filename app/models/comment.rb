@@ -24,6 +24,7 @@ class Comment < ApplicationRecord
   include LinkToHelper
 
   include RateLimited
+  include Searchable
 
   strip_attributes allow_empty: true
 
@@ -64,6 +65,8 @@ class Comment < ApplicationRecord
           where('embargoes.id IS NULL').
             references(:embargoes)
   }
+
+  searchable index: { body: 'A' }
 
   after_save :reindex_request_events
 
