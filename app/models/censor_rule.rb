@@ -28,9 +28,18 @@ class CensorRule < ApplicationRecord
   include CensorRule::Expiry
   include CensorRule::Polymorphic
   include CensorRule::Regexp
+  include Searchable
+
 
   validates_presence_of :text, :replacement,
                         :last_edit_comment, :last_edit_editor
+
+  searchable admin_index: {
+    "text": "A",
+    "replacement": "A",
+    "last_edit_editor": "A",
+    "last_edit_comment": "A"
+  }
 
   def apply_to_text(text_to_censor)
     return nil if text_to_censor.nil?

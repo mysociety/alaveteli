@@ -38,6 +38,7 @@ require 'zip'
 class IncomingMessage < ApplicationRecord
   include MessageProminence
   include Taggable
+  include Searchable
 
   include IncomingMessage::Attachments
   include IncomingMessage::CacheAttributesFromRawEmail
@@ -84,6 +85,20 @@ class IncomingMessage < ApplicationRecord
   delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 
   delegate :apply_masks, to: :info_request
+
+  searchable(
+    index: {
+      subject: "A",
+      # get_body_for_indexing does not exactly match the censorship
+      # applied on the public view
+      ".get_body_for_indexing": "A",
+      from_email: "D",
+      prominence_reason: "D"
+    },
+    admin_index: {
+      ".get_main_body_text_uncensored_for_indexing": "A"
+    }
+  )
 
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.

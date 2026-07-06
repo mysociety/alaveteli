@@ -12,11 +12,17 @@
 #
 
 class User::EmailHistory < ApplicationRecord
+  include Searchable
   belongs_to :user
 
   validates :old_email, presence: true
   validates :new_email, presence: true
   validates :changed_at, presence: true
+
+  searchable admin_index: {
+    "old_email": "A",
+    "new_email": "A"
+  }
 
   # Create a history record for an email change
   def self.record_change(old_email, new_email)
