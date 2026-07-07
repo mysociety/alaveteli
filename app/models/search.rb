@@ -53,6 +53,13 @@ module Search
     backend.search(query, models: models, **options)
   end
 
+  # Request search - returns a searchable object whose results are the matching
+  # InfoRequests, one per request. The backend chooses which models hold the
+  # request content it searches.
+  def self.request_search(query, **options)
+    backend.request_search(query, **options)
+  end
+
   # Search scoped to a relation - returns a chainable ActiveRecord::Relation
   def self.search_scope(query, relation, **options)
     backend.search_scope(query, relation, **options)

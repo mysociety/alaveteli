@@ -360,29 +360,29 @@ RSpec.describe User, 'when saving' do
     expect(@user).to be_valid
   end
 
-  it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is set to false' do
+  it 'should mark the model for reindexing in xapian if the skip_search_reindex flag is set to false' do
     @user.name = 'Mr. First'
     @user.password = 'insecurepassword'
     @user.email = 'reasonable@localhost'
-    @user.no_xapian_reindex = false
+    @user.skip_search_reindex = false
     expect(@user).to receive(:xapian_mark_needs_index)
     @user.save!
   end
 
-  it 'should mark the model for reindexing in xapian if the no_xapian_reindex flag is not set' do
+  it 'should mark the model for reindexing in xapian if the skip_search_reindex flag is not set' do
     @user.name = 'Mr. Second'
     @user.password = 'insecurepassword'
     @user.email = 'reasonable@localhost'
-    @user.no_xapian_reindex = nil
+    @user.skip_search_reindex = nil
     expect(@user).to receive(:xapian_mark_needs_index)
     @user.save!
   end
 
-  it 'should not mark the model for reindexing in xapian if the no_xapian_reindex flag is set' do
+  it 'should not mark the model for reindexing in xapian if the skip_search_reindex flag is set' do
     @user.name = 'Mr. Third'
     @user.password = 'insecurepassword'
     @user.email = 'reasonable@localhost'
-    @user.no_xapian_reindex = true
+    @user.skip_search_reindex = true
     expect(@user).not_to receive(:xapian_mark_needs_index)
     @user.save!
   end
@@ -422,9 +422,9 @@ RSpec.describe User, "when reindexing referencing models" do
     expect(ActsAsXapian::ActsAsXapianJob.where(query).exists?).to eq(true)
   end
 
-  describe 'when no_xapian_reindex is set' do
+  describe 'when skip_search_reindex is set' do
     before do
-      user.no_xapian_reindex = true
+      user.skip_search_reindex = true
     end
 
     it 'should not reindex events associated with that user\'s comments when URL changes' do

@@ -87,7 +87,7 @@ class User < ApplicationRecord
                           :otp_secret_key, :otp_counter, :otp_backup_codes,
                           :url_name]
 
-  attr_accessor :no_xapian_reindex
+  attr_accessor :skip_search_reindex
 
   has_many :info_requests,
            -> { order(created_at: :desc) },
@@ -223,7 +223,7 @@ class User < ApplicationRecord
 
   after_update :update_pro_account
   after_update :reindex_referencing_models, :invalidate_cached_pages,
-               unless: :no_xapian_reindex
+               unless: :skip_search_reindex
 
   # leave index empty as we don't want users being able to search for
   # other users

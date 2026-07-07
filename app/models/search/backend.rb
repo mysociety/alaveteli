@@ -10,6 +10,13 @@ module Search
       raise NotImplementedError, 'Subclasses must implement #search'
     end
 
+    # Required: full-text search over a request's indexed content, returning a
+    # searchable object whose results are the matching InfoRequests (one per
+    # request). Each backend decides which models carry that content.
+    def request_search(query, **options)
+      raise NotImplementedError, 'Subclasses must implement #request_search'
+    end
+
     # Required: full-text search constrained to an ActiveRecord relation,
     # returning a chainable ActiveRecord::Relation
     def search_scope(query, relation, **options)

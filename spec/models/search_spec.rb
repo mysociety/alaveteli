@@ -84,6 +84,13 @@ RSpec.describe Search do
     end
   end
 
+  describe '.request_search' do
+    it 'delegates to the backend' do
+      expect(backend).to receive(:request_search).with('test')
+      Search.request_search('test')
+    end
+  end
+
   describe '.search_scope' do
     it 'delegates to the backend' do
       relation = User.all

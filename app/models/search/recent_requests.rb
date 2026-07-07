@@ -2,39 +2,32 @@ module Search
   ##
   # Finds recent successful and sent requests for the front page.
   #
+  # This is a listing, not a keyword search: it filters InfoRequests by state
+  # directly rather than through the search index, so it does not depend on a
+  # backend's structured-query support and returns InfoRequests.
+  #
   class RecentRequests
     MAX_COUNT = 5
 
-    include EventSearch
+    SUCCESSFUL_STATES = %w[successful partially_successful].freeze
 
     def call
-      request_events = []
-      request_events_all_successful = false
+      successful = recent(SUCCESSFUL_STATES)
+      return [successful, true] if successful.size >= MAX_COUNT
 
-      begin
-        query = 'variety:response ' \
-                '(status:successful OR status:partially_successful)'
+      requests = (successful + recent).uniq.first(MAX_COUNT)
+      [requests, false]
+    rescue StandardError
+      [[], false]
+    end
 
-        results = search_events(query,
-                                limit: MAX_COUNT,
-                                collapse_by: 'request_title_collapse')
-        request_events = results.results.map { |r| r[:model] }
+    private
 
-        if request_events.count < MAX_COUNT
-          query = 'variety:sent'
-          more = search_events(query,
-                               limit: MAX_COUNT - request_events.count,
-                               collapse_by: 'request_title_collapse')
-          request_events += more.results.map { |r| r[:model] }
-          request_events.sort! { |e1, e2| e2.created_at <=> e1.created_at }
-        else
-          request_events_all_successful = true
-        end
-      rescue StandardError
-        request_events = []
-      end
-
-      [request_events, request_events_all_successful]
+    # The most recent searchable requests, optionally limited to given states.
+    def recent(states = nil)
+      scope = InfoRequest.is_searchable.order(created_at: :desc)
+      scope = scope.where(described_state: states) if states
+      scope.limit(MAX_COUNT).to_a
     end
   end
 end

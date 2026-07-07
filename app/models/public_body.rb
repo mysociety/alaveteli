@@ -48,7 +48,7 @@ class PublicBody < ApplicationRecord
     'Authority'
   end
 
-  attr_accessor :no_xapian_reindex
+  attr_accessor :skip_search_reindex
 
   # Set to 0 to prevent application of the not_many_requests tag
   cattr_accessor :not_many_public_requests_size,
@@ -117,7 +117,7 @@ class PublicBody < ApplicationRecord
   after_save :update_auto_applied_tags
 
   after_update :reindex_requested_from, :invalidate_cached_pages,
-               unless: :no_xapian_reindex
+               unless: :skip_search_reindex
 
   # Every public body except for the internal admin one is visible
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }

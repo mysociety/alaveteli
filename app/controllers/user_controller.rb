@@ -90,9 +90,8 @@ class UserController < ApplicationController
       requests_query = 'requested_by:' + @display_user.url_name
       comments_query = 'commented_by:' + @display_user.url_name
       # TODO: combine these as OR query
-      @request_results = perform_search(
-        [InfoRequestEvent], requests_query,
-        'newest', 'request_collapse'
+      @request_results = perform_request_search(
+        requests_query, 'newest'
       )
       @comment_results = perform_search(
         [InfoRequestEvent], comments_query, 'newest', nil
@@ -312,7 +311,7 @@ class UserController < ApplicationController
     else
       @user.
         track_things.
-        collect { |thing| perform_search([InfoRequestEvent], thing.track_query, thing.params[:feed_sortby], nil).results }.
+        collect { |thing| perform_request_search(thing.track_query, thing.params[:feed_sortby]).results }.
         flatten.
         sort { |a,b| b[:model].created_at <=> a[:model].created_at }.
         first(20)
@@ -576,9 +575,8 @@ class UserController < ApplicationController
     end
 
     begin
-      @request_results = perform_search(
-        [InfoRequestEvent], requests_query,
-        'newest', 'request_collapse'
+      @request_results = perform_request_search(
+        requests_query, 'newest'
       )
       @comment_results = perform_search(
         [InfoRequestEvent], comments_query, 'newest', nil

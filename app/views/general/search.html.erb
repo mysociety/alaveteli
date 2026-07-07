@@ -208,7 +208,7 @@
 
       <div class="results_block">
         <% for result in @request_results.results %>
-          <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
+          <%= render :partial => 'request/request_listing_single', :locals => { :info_request => result[:model] } %>
         <% end %>
       </div>
 
