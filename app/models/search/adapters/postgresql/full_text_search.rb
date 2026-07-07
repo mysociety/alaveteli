@@ -107,8 +107,9 @@ module Search
 
         def request_id_for(record)
           return record.id if record.is_a?(InfoRequest)
+          return record.info_request_id if record.respond_to?(:info_request_id)
 
-          record.info_request_id if record.respond_to?(:info_request_id)
+          record.info_request&.id if record.respond_to?(:info_request)
         end
       end
     end

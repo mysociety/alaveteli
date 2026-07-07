@@ -62,6 +62,18 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
     end
   end
 
+  describe '#request_search' do
+    it 'finds requests by their content and returns InfoRequests' do
+      request = FactoryBot.create(:info_request, title: 'Zorptastic Records')
+      request.reindex
+
+      results = adapter.request_search('Zorptastic').
+                results(page: 1, per_page: 25)
+
+      expect(results.results.map { |r| r[:model] }).to eq([request])
+    end
+  end
+
   describe '#typeahead' do
     it 'matches public bodies by prefix' do
       body = public_bodies(:geraldine_public_body)

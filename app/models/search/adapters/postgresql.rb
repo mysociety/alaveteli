@@ -13,11 +13,19 @@ module Search
       # is a SearchDocument upsert done inline via the record's #reindex.
       #
       class Adapter < Search::Backend
-        # Full-text search over the request's own indexed content, returning
-        # one InfoRequest per match. Searching the messages and attachments
-        # behind a request is follow-on work.
+        # The models whose indexed content belongs to a request. A request
+        # search matches these and collapses to the InfoRequest behind each.
+        REQUEST_MODELS = [
+          InfoRequest, IncomingMessage, OutgoingMessage, FoiAttachment
+        ].freeze
+
+        # Search a request's content and return one InfoRequest per match.
         def request_search(query, **)
-          FullTextSearch.new(query, models: [InfoRequest])
+          FullTextSearch.new(
+            query,
+            models: REQUEST_MODELS,
+            collapse_by: 'request_collapse'
+          )
         end
 
         # Full-text search returning a paginated, relevance-ordered
