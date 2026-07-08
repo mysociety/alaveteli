@@ -233,19 +233,6 @@ class User < ApplicationRecord
     "about_me": "A"
   }
 
-  def self.search(query)
-    sql = <<~SQL
-      users.name ILIKE '%'||:query||'%' OR
-      users.email ILIKE '%'||:query||'%' OR
-      users.about_me ILIKE '%'||:query||'%' OR
-      has_tag_string_tags.name ILIKE :query
-    SQL
-
-    left_outer_joins(:tags).
-      where(sql, query: query).
-      distinct
-  end
-
   def self.pro
     with_role(:pro)
   end
