@@ -77,6 +77,14 @@ RSpec.describe Search do
       )
       Search.search('test', models: [PublicBody], page: 1)
     end
+
+    it 'delegates to the named backend without the backend option' do
+      other = instance_double(Search::Backend)
+      allow(Search).to receive(:backend_for).with(:postgresql).
+        and_return(other)
+      expect(other).to receive(:search).with('test', models: [PublicBody])
+      Search.search('test', models: [PublicBody], backend: :postgresql)
+    end
   end
 
   describe '.search_scope' do
@@ -84,6 +92,23 @@ RSpec.describe Search do
       relation = User.all
       expect(backend).to receive(:search_scope).with('test', relation)
       Search.search_scope('test', relation)
+    end
+
+    it 'delegates to the named backend without the backend option' do
+      relation = User.all
+      other = instance_double(Search::Backend)
+      allow(Search).to receive(:backend_for).with(:postgresql).
+        and_return(other)
+      expect(other).to receive(:search_scope).
+        with('test', relation, admin_mode: true)
+      Search.search_scope(
+        'test', relation, backend: :postgresql, admin_mode: true
+      )
+    end
+
+    it 'raises for an unknown backend name' do
+      expect { Search.search_scope('test', User.all, backend: :bogus) }.
+        to raise_error(ArgumentError, /Unknown search backend/)
     end
   end
 
@@ -94,6 +119,14 @@ RSpec.describe Search do
       )
       Search.typeahead('test', model: PublicBody, page: 1)
     end
+
+    it 'delegates to the named backend without the backend option' do
+      other = instance_double(Search::Backend)
+      allow(Search).to receive(:backend_for).with(:postgresql).
+        and_return(other)
+      expect(other).to receive(:typeahead).with('test', model: PublicBody)
+      Search.typeahead('test', model: PublicBody, backend: :postgresql)
+    end
   end
 
   describe '.similar' do
@@ -101,6 +134,15 @@ RSpec.describe Search do
       record = double
       expect(backend).to receive(:similar).with(record)
       Search.similar(record)
+    end
+
+    it 'delegates to the named backend' do
+      record = double
+      other = instance_double(Search::Backend)
+      allow(Search).to receive(:backend_for).with(:postgresql).
+        and_return(other)
+      expect(other).to receive(:similar).with(record)
+      Search.similar(record, backend: :postgresql)
     end
   end
 

@@ -30,6 +30,13 @@ RSpec.describe Searchable, :xapian do
         with('bob', kind_of(ActiveRecord::Relation), admin_mode: true)
       User.search_scope('bob', admin_mode: true)
     end
+
+    it 'forwards the backend option for the facade to resolve' do
+      expect(Search).to receive(:search_scope).
+        with('bob', kind_of(ActiveRecord::Relation),
+             backend: :postgresql, admin_mode: true)
+      User.search_scope('bob', backend: :postgresql, admin_mode: true)
+    end
   end
 end
 

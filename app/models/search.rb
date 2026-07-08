@@ -47,24 +47,29 @@ module Search
     Search::Context::InfoRequest.new(info_request) if info_request
   end
 
+  # Every query method takes an optional +backend+ naming a registered
+  # backend to use for that call, overriding the configured SEARCH_BACKEND.
+  # This suits callers tied to one backend's features, e.g. admin search
+  # relying on the PostgreSQL-only admin index.
+
   # Direct search - returns a searchable object
-  def self.search(query, models:, **options)
-    backend.search(query, models: models, **options)
+  def self.search(query, models:, backend: nil, **options)
+    query_backend(backend).search(query, models: models, **options)
   end
 
   # Search scoped to a relation - returns a chainable ActiveRecord::Relation
-  def self.search_scope(query, relation, **options)
-    backend.search_scope(query, relation, **options)
+  def self.search_scope(query, relation, backend: nil, **options)
+    query_backend(backend).search_scope(query, relation, **options)
   end
 
   # Typeahead search - returns a searchable object
-  def self.typeahead(query, model:, **options)
-    backend.typeahead(query, model: model, **options)
+  def self.typeahead(query, model:, backend: nil, **options)
+    query_backend(backend).typeahead(query, model: model, **options)
   end
 
   # Find records similar to the given one - returns a searchable object
-  def self.similar(record)
-    backend.similar(record)
+  def self.similar(record, backend: nil)
+    query_backend(backend).similar(record)
   end
 
   # Queue a record for a later search index update across every backend
@@ -76,4 +81,11 @@ module Search
   def self.queued_jobs_count
     backends.keys.map { backend_for(_1) }.sum(&:queued_jobs_count)
   end
+
+  # The backend a query method should use: the named one when given,
+  # otherwise the configured query backend.
+  def self.query_backend(name)
+    name ? backend_for(name) : backend
+  end
+  private_class_method :query_backend
 end
