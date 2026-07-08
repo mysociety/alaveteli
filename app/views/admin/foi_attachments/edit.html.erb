@@ -4,6 +4,19 @@
   foi_attachment: @foi_attachment
 } %>
 
+
+<% if @foi_attachment.erased? %>
+  <p>
+    <%= button_to 'Download', '', class: 'btn', disabled: true %>
+    <span class="muted">Erased attachments cannot be downloaded.</span>
+  </p>
+<% else %>
+  <p>
+    <%= link_to 'Download', attachment_path(@foi_attachment), class: 'btn' %>
+    <span class="muted">Downloads the public version.</span>
+  </p>
+<% end %>
+
 <table class="table table-striped table-condensed">
   <tbody>
     <% @foi_attachment.for_admin_column do |name, value| %>
