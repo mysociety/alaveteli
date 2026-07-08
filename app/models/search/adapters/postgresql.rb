@@ -18,12 +18,13 @@ module Search
         # ActiveRecord::Relation directly so callers can compose further
         # conditions and ordering.
         def search_scope(query, relation, admin_mode: false, exact_mode: false,
-                         language: nil, limit: 1000, **)
+                         case_sensitive: true, language: nil, limit: 1000, **)
           SearchDocument.hybrid_search(
             query,
             relation: relation,
             admin_mode: admin_mode,
             exact_mode: exact_mode,
+            case_sensitive: case_sensitive,
             language: language,
             limit: limit
           )

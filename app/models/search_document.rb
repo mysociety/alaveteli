@@ -38,6 +38,7 @@ class SearchDocument < ApplicationRecord
     limit:,
     admin_mode:,
     exact_mode:,
+    case_sensitive:,
     limit_ratio:
   )
     # coerce values that are interpolated into the SQL rather than bound,
@@ -91,8 +92,9 @@ class SearchDocument < ApplicationRecord
     if exact_mode
       # escape LIKE wildcards so the query text is matched literally
       query_values[:like_query] = "%#{sanitize_sql_like(sanitized_query)}%"
+      like_op = case_sensitive ? "LIKE" : "ILIKE"
       if admin_mode
-        adm_q = "OR raw_admin_content LIKE :like_query"
+        adm_q = "OR raw_admin_content #{like_op} :like_query"
       else
         adm_q = ""
       end
@@ -102,7 +104,7 @@ class SearchDocument < ApplicationRecord
           rank() OVER (ORDER BY sd_id DESC) AS rank
         FROM search_documents
         WHERE
-          (raw_content LIKE :like_query
+          (raw_content #{like_op} :like_query
           #{adm_q})
           #{doc_type_q}
         LIMIT #{limit * limit_ratio}
@@ -147,6 +149,9 @@ class SearchDocument < ApplicationRecord
   # +model+ the model class to search; inferred from +relation+ when omitted.
   #         When both are nil the search spans every model and returns a
   #         SearchDocument relation.
+  # +case_sensitive+ only affects exact_mode's substring matching; when false
+  #                  it matches regardless of case (ILIKE). Full-text matching
+  #                  is always case-insensitive via tsvector normalisation.
   def self.hybrid_search(query,
                          relation: nil,
                          model: nil,
@@ -154,6 +159,7 @@ class SearchDocument < ApplicationRecord
                          limit: 10,
                          admin_mode: false,
                          exact_mode: false,
+                         case_sensitive: true,
                          limit_ratio: 3)
     # validate all inputs before any SQL is built from them. This must
     # run in every environment as it is part of keeping the query
@@ -191,6 +197,7 @@ class SearchDocument < ApplicationRecord
       limit: limit,
       admin_mode: admin_mode,
       exact_mode: exact_mode,
+      case_sensitive: case_sensitive,
       limit_ratio: limit_ratio
     )
 
