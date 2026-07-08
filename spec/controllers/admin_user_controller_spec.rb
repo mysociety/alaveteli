@@ -102,6 +102,13 @@ RSpec.describe AdminUserController do
       expect(assigns[:admin_users]).to include(user)
     end
 
+    it 'finds users by a partial email fragment' do
+      user = FactoryBot.create(:user, email: 'julie@example.com')
+      user.reindex
+      get :index, params: { query: '@example.com' }
+      expect(assigns[:admin_users]).to include(user)
+    end
+
     it 'will search the about me text' do
       # PostgreSQL tokenises a URL by host, so the about me link is found by
       # its domain rather than an arbitrary substring.

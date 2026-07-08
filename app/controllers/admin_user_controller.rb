@@ -33,7 +33,18 @@ class AdminUserController < AdminController
     @roles = params[:roles] || []
 
     users = @base_scope || User
-    users = users.search(@query) if @query.present?
+    if @query.present?
+      # Admin search relies on the PostgreSQL-only admin index, so force
+      # that backend whatever SEARCH_BACKEND configures. Exact mode keeps
+      # fragment searches like partial email addresses working.
+      users = users.search_scope(
+        @query,
+        backend: :postgresql,
+        admin_mode: true,
+        exact_mode: true,
+        case_sensitive: false
+      )
+    end
 
     # with_all_roles returns an array as it takes multiple queries
     # so we need to requery in order to paginate
