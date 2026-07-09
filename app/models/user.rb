@@ -219,6 +219,9 @@ class User < ApplicationRecord
             uniqueness: { case_sensitive: false,
                           message: _('This email is already in use') }
 
+  validates :send_daily_summary, inclusion: { in: [true, false] }
+  validates :send_immediate_request_alerts, inclusion: { in: [true, false] }
+
   validate :email_and_name_are_valid
 
   after_update :update_pro_account

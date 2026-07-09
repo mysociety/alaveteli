@@ -2693,4 +2693,36 @@ RSpec.describe User do
       end
     end
   end
+
+  describe 'notification preferences' do
+    let(:user) { FactoryBot.build(:user) }
+
+    it 'has send_daily_summary set to true by default' do
+      expect(user.send_daily_summary).to be(true)
+    end
+
+    it 'has send_immediate_request_alerts set to true by default' do
+      expect(user.send_immediate_request_alerts).to be(true)
+    end
+
+    it 'allows toggling send_daily_summary' do
+      user.send_daily_summary = false
+      expect(user.send_daily_summary).to be(false)
+    end
+
+    it 'allows toggling send_immediate_request_alerts' do
+      user.send_immediate_request_alerts = false
+      expect(user.send_immediate_request_alerts).to be(false)
+    end
+
+    it 'validates inclusion of send_daily_summary in [true, false]' do
+      user.send_daily_summary = nil
+      expect(user).not_to be_valid
+    end
+
+    it 'validates inclusion of send_immediate_request_alerts in [true, false]' do
+      user.send_immediate_request_alerts = nil
+      expect(user).not_to be_valid
+    end
+  end
 end
