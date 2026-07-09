@@ -2,7 +2,7 @@
 
 ## Phase 1: Baseline and Harness Setup
 
-- [~] Task: Register issue-led delivery and benchmark harness
+- [x] Task: Register issue-led delivery and benchmark harness [1f7a04a]
     - [x] Create or update the fork-local parent issue and small subissue map
     - [x] Add a benchmark command for bulk export allocations, query count, and latency
     - [x] Document the baseline command, expected inputs, and CI/local execution limits
