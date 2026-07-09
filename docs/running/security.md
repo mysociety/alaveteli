@@ -5,6 +5,16 @@ title: Security & Maintenance
 
 # Security & Maintenance
 
+<div class="attention-box danger">
+  <p>
+    <strong>Do not submit security vulnerability reports via public platforms (GitHub, mailing lists, etc).</strong>
+  </p>
+
+  <p>
+    Instead, email security [at] mysociety [dot] org.
+  </p>
+</div>
+
 <p class="lead">
   Support of Alaveteli is divided into four groups: New features, bug fixes, security issues, and severe security issues. They are handled as follows:
 </p>
