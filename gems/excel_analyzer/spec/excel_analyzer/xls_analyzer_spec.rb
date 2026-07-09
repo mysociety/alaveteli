@@ -89,8 +89,10 @@ RSpec.describe ExcelAnalyzer::XlsAnalyzer do
 
   describe "#convert" do
     it "passes conversion paths as process arguments" do
-      analyzer = described_class.new(double)
       io = double(path: "/tmp/input;touch pwned.xls")
+      analyzer = described_class.new(
+        fake_blob(io: io, content_type: ExcelAnalyzer::XlsAnalyzer::CONTENT_TYPE)
+      )
       status = instance_double(Process::Status, success?: true)
 
       allow(analyzer).to receive(:soffice_installed?).and_return(true)
