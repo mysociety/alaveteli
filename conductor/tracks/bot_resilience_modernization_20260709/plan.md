@@ -33,18 +33,18 @@
 
 ## Phase 2: Runtime and Profiling Modernization
 
-- [~] Task: Ruby Version and JIT Compatibility
-    - [ ] Write tests or CI checks proving the selected Ruby version source is honored by local scripts and GitHub Actions
-    - [ ] Add an explicit Ruby version source or repository-approved equivalent and align generated deployment defaults with the supported Ruby 3.4 patch lane
-    - [ ] Add a non-blocking Ruby 4.0 compatibility CI lane
-    - [ ] Benchmark YJIT and ZJIT modes against the bot-traffic baseline and document production readiness
-- [ ] Task: Vernier Profiling Harness
-    - [ ] Add Vernier as a development/test profiling dependency if compatibility checks pass
-    - [ ] Add profiling scripts for representative request, search, bulk export, rate-limit, and queue workloads
-    - [ ] Document how operators capture, store, and compare profiles during bot traffic incidents
-- [ ] Task: Runtime Rollback and Operations Notes
-    - [ ] Document environment variables and deployment settings for enabling or disabling JIT modes
-    - [ ] Add rollback notes for reverting Ruby or profiling changes without touching application data
+- [x] Task: Ruby Version and JIT Compatibility [88fc964]
+    - [x] Write tests or CI checks proving the selected Ruby version source is honored by local scripts and GitHub Actions
+    - [x] Add an explicit Ruby version source or repository-approved equivalent and align generated deployment defaults with the supported Ruby 3.4 patch lane
+    - [x] Add a non-blocking Ruby 4.0 compatibility CI lane
+    - [x] Benchmark YJIT and ZJIT modes against the bot-traffic baseline and document production readiness
+- [x] Task: Vernier Profiling Harness [b425ae4]
+    - [x] Add Vernier as a development/test profiling dependency if compatibility checks pass
+    - [x] Add profiling scripts for representative request, search, bulk export, rate-limit, and queue workloads
+    - [x] Document how operators capture, store, and compare profiles during bot traffic incidents
+- [x] Task: Runtime Rollback and Operations Notes [b425ae4]
+    - [x] Document environment variables and deployment settings for enabling or disabling JIT modes
+    - [x] Add rollback notes for reverting Ruby or profiling changes without touching application data
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Runtime and Profiling Modernization' (Protocol in workflow.md)
 
 ## Phase 3: CI Throughput and DevSecOps
