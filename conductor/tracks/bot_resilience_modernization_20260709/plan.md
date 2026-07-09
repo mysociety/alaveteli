@@ -49,21 +49,21 @@
 
 ## Phase 3: CI Throughput and DevSecOps
 
-- [~] Task: Faster CI Execution
-    - [ ] Add workflow assertions or CI dry-run checks for expected job structure and Ruby version alignment
-    - [ ] Keep `ruby/setup-ruby` Bundler caching and add explicit Bundler job/retry settings where useful
-    - [ ] Split core specs, nested gem specs, lint, and security checks into separately visible jobs
-    - [ ] Add `parallel_tests` or matrix sharding for RSpec with deterministic database setup and coverage merge behavior
-- [ ] Task: Security Scanning and Dependency Gates
-    - [ ] Add Brakeman as a resolvable CI dependency and make Brakeman warnings visible in GitHub Actions
-    - [ ] Add Bearer scanning with SARIF upload and least-privilege `security-events: write` permissions where supported
-    - [ ] Add bundler-audit and GitHub dependency-review-action for Ruby dependency vulnerability checks
-    - [ ] Evaluate Dawnscanner in advisory mode and document whether it is compatible enough to keep
-    - [ ] Review action versioning and workflow permissions for supply-chain hardening
-    - [ ] Fail or block on all untriaged findings, including low-severity scanner findings, until fixed, mitigated, or converted into blocking Conductor follow-up
-- [ ] Task: CI Developer Documentation
-    - [ ] Document local commands matching each CI job
-    - [ ] Document expected triage flow for Brakeman, Bearer, bundler-audit, dependency-review, and parallel test failures
+- [x] Task: Faster CI Execution [ac4734e]
+    - [x] Add workflow assertions or CI dry-run checks for expected job structure and Ruby version alignment
+    - [x] Keep `ruby/setup-ruby` Bundler caching and add explicit Bundler job/retry settings where useful
+    - [x] Split core specs, nested gem specs, lint, and security checks into separately visible jobs
+    - [x] Add `parallel_tests` or matrix sharding for RSpec with deterministic database setup and coverage merge behavior
+- [x] Task: Security Scanning and Dependency Gates [ac4734e]
+    - [x] Add Brakeman as a resolvable CI dependency and make Brakeman warnings visible in GitHub Actions
+    - [x] Add Bearer scanning with SARIF upload and least-privilege `security-events: write` permissions where supported
+    - [x] Add bundler-audit and GitHub dependency-review-action for Ruby dependency vulnerability checks
+    - [x] Evaluate Dawnscanner in advisory mode and document whether it is compatible enough to keep
+    - [x] Review action versioning and workflow permissions for supply-chain hardening
+    - [x] Fail or block on all untriaged findings, including low-severity scanner findings, until fixed, mitigated, or converted into blocking Conductor follow-up
+- [x] Task: CI Developer Documentation [ac4734e]
+    - [x] Document local commands matching each CI job
+    - [x] Document expected triage flow for Brakeman, Bearer, bundler-audit, dependency-review, and parallel test failures
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: CI Throughput and DevSecOps' (Protocol in workflow.md)
 
 ## Phase 4: Bot Challenge and Contract Boundaries
