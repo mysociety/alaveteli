@@ -33,7 +33,7 @@
 
 ## Phase 2: Runtime and Profiling Modernization
 
-- [ ] Task: Ruby Version and JIT Compatibility
+- [~] Task: Ruby Version and JIT Compatibility
     - [ ] Write tests or CI checks proving the selected Ruby version source is honored by local scripts and GitHub Actions
     - [ ] Add an explicit Ruby version source or repository-approved equivalent and align generated deployment defaults with the supported Ruby 3.4 patch lane
     - [ ] Add a non-blocking Ruby 4.0 compatibility CI lane
