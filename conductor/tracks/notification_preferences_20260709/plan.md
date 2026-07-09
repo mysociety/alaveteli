@@ -18,7 +18,7 @@
 
 ## Phase 3: User Interface
 
-- [ ] Task: Settings Dashboard View
+- [~] Task: Settings Dashboard View
     - [ ] Write integration and view tests for the notification settings interface
     - [ ] Implement settings form in ERB template with toggles for notification flags
     - [ ] Add basic styling and responsive layout for mobile compatibility
