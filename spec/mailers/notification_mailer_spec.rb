@@ -895,6 +895,18 @@ RSpec.describe NotificationMailer do
       NotificationMailer.send_daily_notifications
     end
 
+    it "does not call #daily_summary if the user has disabled daily summaries" do
+      notification_1.user.update!(send_daily_summary: false)
+      expect(NotificationMailer).
+        not_to receive(:daily_summary).
+          with(notification_1.user, [notification_1])
+      expect(NotificationMailer).
+        to receive(:daily_summary).
+          with(notification_2.user, [notification_2]).
+            and_call_original
+      NotificationMailer.send_daily_notifications
+    end
+
     it "sends a mail for each expected user" do
       ActionMailer::Base.deliveries.clear
 
@@ -1076,6 +1088,16 @@ RSpec.describe NotificationMailer do
 
       second_mail = ActionMailer::Base.deliveries.second
       expect(second_mail.to).to eq([notification_2.user.email])
+    end
+
+    it "does not send mail if the user has disabled immediate alerts" do
+      notification_1.user.update!(send_immediate_request_alerts: false)
+      ActionMailer::Base.deliveries.clear
+
+      NotificationMailer.send_instant_notifications
+
+      expect(ActionMailer::Base.deliveries.size).to eq 1
+      expect(ActionMailer::Base.deliveries.first.to).to eq([notification_2.user.email])
     end
 
     it 'sets seen_at on the notifications' do

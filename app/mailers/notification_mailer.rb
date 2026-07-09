@@ -26,7 +26,9 @@ class NotificationMailer < ApplicationMailer
               where(expired: false).
                 order(created_at: :desc)
       notifications = Notification.reject_and_mark_expired(notifications)
-      NotificationMailer.daily_summary(user, notifications).deliver_now
+      if user.send_daily_summary
+        NotificationMailer.daily_summary(user, notifications).deliver_now
+      end
       Notification.
         where(id: notifications.map(&:id)).
         update_all(seen_at: Time.zone.now)
@@ -44,7 +46,9 @@ class NotificationMailer < ApplicationMailer
             order(:created_at)
     notifications = Notification.reject_and_mark_expired(notifications)
     notifications.each do |notification|
-      NotificationMailer.instant_notification(notification).deliver_now
+      if notification.user.send_immediate_request_alerts
+        NotificationMailer.instant_notification(notification).deliver_now
+      end
       notification.seen_at = Time.zone.now
       notification.save!
       done_something = true
