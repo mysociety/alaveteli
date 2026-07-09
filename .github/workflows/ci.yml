@@ -46,6 +46,7 @@ jobs:
 
     needs: check
     if: needs.check.outputs.skip_rspec == 'false'
+    continue-on-error: ${{ matrix.experimental || false }}
 
     permissions:
       contents: read
@@ -55,7 +56,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - { ruby: '3.4', postgres: 13.5 }
+        - { ruby: '3.4', postgres: 13.5, experimental: false }
+        - { ruby: '4.0.0-preview1', postgres: 13.5, experimental: true }
 
     services:
       postgres:
