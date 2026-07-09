@@ -16,3 +16,8 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 - [x] **Track: Modernize runtime, DevSecOps, deployment, and verification for bot traffic resilience**
   *Link: [./archive/bot_resilience_modernization_20260709/](./archive/bot_resilience_modernization_20260709/)*
+
+---
+
+- [~] **Track: Optimize bulk exports for large datasets and low memory footprint**
+  *Link: [./tracks/export_optimization_20260710/](./tracks/export_optimization_20260710/)*
