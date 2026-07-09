@@ -47,7 +47,7 @@
     - [x] Add rollback notes for reverting Ruby or profiling changes without touching application data
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Runtime and Profiling Modernization' (Protocol in workflow.md) [f888ff1]
 
-## Phase 3: CI Throughput and DevSecOps
+## Phase 3: CI Throughput and DevSecOps [checkpoint: 56fcde4]
 
 - [x] Task: Faster CI Execution [ac4734e]
     - [x] Add workflow assertions or CI dry-run checks for expected job structure and Ruby version alignment
@@ -64,7 +64,7 @@
 - [x] Task: CI Developer Documentation [ac4734e]
     - [x] Document local commands matching each CI job
     - [x] Document expected triage flow for Brakeman, Bearer, bundler-audit, dependency-review, and parallel test failures
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: CI Throughput and DevSecOps' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: CI Throughput and DevSecOps' (Protocol in workflow.md) [56fcde4]
 
 ## Phase 4: Bot Challenge and Contract Boundaries
 
