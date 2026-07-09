@@ -21,6 +21,10 @@
 - Remaining dependency advisories for `bootstrap-sass`, `jquery-ui-rails`, and
   `webrick` are not accepted as low risk. They are blocking closeout in
   fork-local GitHub issue `#18`.
+- Brakeman now runs in warning-fail mode and emits plain text to CI logs. It
+  reports 37 warnings after the existing ignore file is applied, including
+  high-confidence unsafe reflection and SQL injection findings. These are not
+  accepted as low risk and block closeout in fork-local GitHub issue `#19`.
 
 ## Closeout Rule
 

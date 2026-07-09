@@ -32,6 +32,14 @@ expected small-PR delivery sequence.
     surfaces.
   - Status: Open
   - Blocks: `#17`
+- `#19` Remediate Brakeman security findings
+  - Scope: eliminate or prove false-positive all Brakeman warnings exposed by
+    the Security & DevSecOps workflow.
+  - Harness priority: deterministic static-analysis gate with plain-text CI
+    findings, focused regression tests, and justified ignore entries only when
+    paired with proof.
+  - Status: Open
+  - Blocks: `#17`
 
 ## PR Standard
 
