@@ -8,13 +8,13 @@
     - [x] Implement attribute defaults and validations in `User` model
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Database and Model Layer' (Protocol in workflow.md) [7357f07]
 
-## Phase 2: Routing and Controller
+## Phase 2: Routing and Controller [checkpoint: 20b24b8]
 
-- [~] Task: Settings Controller and Actions
-    - [ ] Write controller tests verifying update authorization and strong parameter parsing
-    - [ ] Create or extend controller actions to update notification preferences
-    - [ ] Configure routes for the preferences update endpoint
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Routing and Controller' (Protocol in workflow.md)
+- [x] Task: Settings Controller and Actions [40d4fe1]
+    - [x] Write controller tests verifying update authorization and strong parameter parsing
+    - [x] Create or extend controller actions to update notification preferences
+    - [x] Configure routes for the preferences update endpoint
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Routing and Controller' (Protocol in workflow.md) [20b24b8]
 
 ## Phase 3: User Interface
 
