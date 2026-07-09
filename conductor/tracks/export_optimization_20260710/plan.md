@@ -1,6 +1,6 @@
 # Plan: Optimize Bulk Export API
 
-## Phase 1: Baseline and Harness Setup
+## Phase 1: Baseline and Harness Setup [checkpoint: 5a69b07]
 
 - [x] Task: Register issue-led delivery and benchmark harness [1f7a04a]
     - [x] Create or update the fork-local parent issue and small subissue map
