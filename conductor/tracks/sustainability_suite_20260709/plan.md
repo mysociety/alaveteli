@@ -2,7 +2,7 @@
 
 ## Phase 1: Rack::Attack Middleware
 
-- [ ] Task: Rack::Attack Initializer Configuration
+- [~] Task: Rack::Attack Initializer Configuration
     - [ ] Write tests verifying verified bot header bypass and anonymous IP rate limiting
     - [ ] Create `config/initializers/rack_attack.rb` and configure Redis store
     - [ ] Implement rate-limit thresholds (10rpm for anonymous, 100rpm for verified bots)
