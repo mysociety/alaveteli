@@ -22,8 +22,8 @@
     - [x] Add a query-count or allocation guard where practical
     - [x] Add no-SQL-interpolation review evidence for user-controlled values
     - [x] Update metrics or runbooks if export telemetry changes
-- [ ] Task: Conductor - User Manual Verification 'Phase 2'
-    - [ ] Streaming Export Implementation protocol in `workflow.md`
+- [x] Task: Conductor - User Manual Verification 'Phase 2' [e674cb0]
+    - [x] Streaming Export Implementation protocol in `workflow.md`
 
 ## Phase 3: Verification and Closeout
 
