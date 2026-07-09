@@ -18,10 +18,10 @@
     - [x] Preserve verified bot enforcement, `limit`, `since`, NDJSON shape, and response headers
     - [x] Add controller or service specs for authorization, validation, filtering,
       ordering, and row shape
-- [~] Task: Add performance and security sensors
-    - [ ] Add a query-count or allocation guard where practical
-    - [ ] Add no-SQL-interpolation review evidence for user-controlled values
-    - [ ] Update metrics or runbooks if export telemetry changes
+- [x] Task: Add performance and security sensors [aba1f38]
+    - [x] Add a query-count or allocation guard where practical
+    - [x] Add no-SQL-interpolation review evidence for user-controlled values
+    - [x] Update metrics or runbooks if export telemetry changes
 - [ ] Task: Conductor - User Manual Verification 'Phase 2'
     - [ ] Streaming Export Implementation protocol in `workflow.md`
 
