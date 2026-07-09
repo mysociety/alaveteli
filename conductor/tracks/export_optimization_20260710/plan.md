@@ -9,7 +9,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1' [680171b]
     - [x] Baseline and Harness Setup protocol in `workflow.md`
 
-## Phase 2: Streaming Export Implementation
+## Phase 2: Streaming Export Implementation [checkpoint: 9fc4ac3]
 
 - [x] Task: Add contract-preserving streaming export query [0e3cb94]
     - [x] Refactor `SustainabilityController#bulk_export` to stream selected columns
