@@ -5,9 +5,10 @@
 1. **The Plan is the Source of Truth:** All work must be tracked in `plan.md`
 2. **The Tech Stack is Deliberate:** Changes to the tech stack must be documented in `tech-stack.md` *before* implementation
 3. **Test-Driven Development:** Write unit tests before implementing functionality
-4. **High Code Coverage:** Aim for >80% code coverage for all modules
+4. **High Code Coverage:** Aim for >90% code coverage for all modules. Zero tolerance for untested business logic.
 5. **User Experience First:** Every decision should prioritize user experience
 6. **Non-Interactive & CI-Aware:** Prefer non-interactive commands. Use `CI=true` for watch-mode tools (tests, linters) to ensure single execution.
+7. **Strict Security & Linting:** Run RuboCop and Brakeman on every task completion. No offences/warnings are allowed.
 
 ## Task Workflow
 
@@ -32,13 +33,17 @@ All tasks follow a strict lifecycle:
    - With the safety of passing tests, refactor the implementation code and the test code to improve clarity, remove duplication, and enhance performance without changing the external behavior.
    - Rerun tests to ensure they still pass after refactoring.
 
-6. **Verify Coverage:** Run coverage reports using the project's chosen tools. For example, in a Python project, this might look like:
-   ```bash
-   pytest --cov=app --cov-report=html
-   ```
-   Target: >80% coverage for new code. The specific tools and commands will vary by language and framework.
+6. **Verify Coverage:** Run coverage reports using the project's chosen tools.
+   Target: >90% coverage for new code. The specific tools and commands will vary by language and framework.
 
-7. **Document Deviations:** If implementation differs from tech stack:
+7. **Run Static Checks:** Run RuboCop and Brakeman to verify code quality and security.
+   ```bash
+   bundle exec rubocop
+   bundle exec brakeman
+   ```
+   All checks must pass with zero offenses/warnings.
+
+8. **Document Deviations:** If implementation differs from tech stack:
    - **STOP** implementation
    - Update `tech-stack.md` with new design
    - Add dated note explaining the change
@@ -139,8 +144,10 @@ All tasks follow a strict lifecycle:
 Before marking any task complete, verify:
 
 - [ ] All tests pass
-- [ ] Code coverage meets requirements (>80%)
+- [ ] Code coverage meets requirements (>90%)
 - [ ] Code follows project's code style guidelines (as defined in `code_styleguides/`)
+- [ ] RuboCop reports zero style offenses
+- [ ] Brakeman reports zero security vulnerabilities
 - [ ] All public functions/methods are documented (e.g., docstrings, JSDoc, GoDoc)
 - [ ] Type safety is enforced (e.g., type hints, TypeScript types, Go types)
 - [ ] No linting or static analysis errors (using the project's configured tools)
@@ -168,9 +175,10 @@ Before marking any task complete, verify:
 
 ### Before Committing
 ```bash
-# Example: Commands to run all pre-commit checks (e.g., format, lint, type check, run tests)
-# e.g., for a Node.js project: npm run check
-# e.g., for a Go project: make check (if a Makefile exists)
+# Run the test suite and static code quality/security analysis
+bundle exec rspec
+bundle exec rubocop
+bundle exec brakeman
 ```
 
 ## Testing Requirements
@@ -302,8 +310,8 @@ A task is complete when:
 
 ### Pre-Deployment Checklist
 - [ ] All tests passing
-- [ ] Coverage >80%
-- [ ] No linting errors
+- [ ] Coverage >90%
+- [ ] No linting or security scanner (RuboCop, Brakeman) errors
 - [ ] Mobile testing complete
 - [ ] Environment variables configured
 - [ ] Database migrations ready
