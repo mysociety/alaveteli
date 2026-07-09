@@ -2,7 +2,7 @@
 
 ## Phase 1: Database and Model Layer
 
-- [ ] Task: Database Migration for Notification Preferences
+- [~] Task: Database Migration for Notification Preferences
     - [ ] Write model and migration tests to verify new attributes and defaults
     - [ ] Create and run migration adding `send_daily_summary` and `send_immediate_request_alerts` to users table
     - [ ] Implement attribute defaults and validations in `User` model
