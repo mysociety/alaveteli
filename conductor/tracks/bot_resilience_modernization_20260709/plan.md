@@ -8,27 +8,27 @@
     - [x] Update the PR template so every PR records linked issue, scope boundary, no-risk evidence, harness feedforward guide, harness feedback sensor, tests/scanners, and rollback path
     - [x] Add issue templates for parent modernization issues and small implementation subissues
     - [x] Maintain a track issue map that records GitHub issue numbers, expected PR size, and current status
-- [ ] Task: Repository Risk and Harness Policy
-    - [ ] Add no-accepted-known-risk language to Conductor workflow, product guidelines, Definition of Done, deployment checklist, and review checklist
-    - [ ] Add harness-engineering guidance that distinguishes feedforward guides, computational feedback sensors, inferential feedback sensors, and sensor timing
-    - [ ] Verify the policy blocks low-severity security and quality findings unless they are fixed, mitigated, feature-flagged off, or tracked as blocking follow-up
-- [ ] Task: Runtime, CI, Security, and Deployment Audit
-    - [ ] Write an audit spec or validation script that captures current Ruby, Rails, Bundler, CI, deployment, security, and bot-control tooling state
-    - [ ] Document current repository evidence, including Rails 8.0.x, Ruby 3.4.x, Rack::Attack, Sidekiq, Redis, Memcached, existing GitHub Actions, and Brakeman configuration
-    - [ ] Verify current upstream Ruby and Rails release targets during implementation and record production versus experimental lanes
-- [ ] Task: Tool Recommendation Decision Record
-    - [ ] Create a decision record classifying each proposed tool as adopt, pilot, defer, or reject
-    - [ ] Include explicit reasoning for Ruby latest, Vernier, ZJIT/YJIT, GitHub Actions DevSecOps, Kamal, optimized Bundler caching, parallel tests, Bearer, Brakeman, Dawnscanner, dependency auditing, Rails Solid components, Syntax Tree, Herb, RBS/Steep, Sorbet, rbs-inline, dry-validation, PBT, Mutant, Cuprite/Playwright, Rack::Attack, and Turnstile
-    - [ ] Update `conductor/tech-stack.md` only for tools accepted for implementation
-- [ ] Task: Harness Map and Sensor Coverage Baseline
-    - [ ] Create a harness map covering maintainability, architecture fitness, and behaviour controls across the repository
-    - [ ] Classify each guide or sensor as feedforward, computational feedback, inferential feedback, or runtime feedback
-    - [ ] Record when each sensor runs: local task loop, pre-commit, pull request, scheduled drift scan, release gate, or runtime monitoring
-    - [ ] Identify gaps where repeated mistakes or high-impact risks lack both a guide and a sensor
-- [ ] Task: Bot-Traffic Benchmark Baseline
-    - [ ] Add repeatable benchmark fixtures for public request pages, public body directory/search, `/api/v1/rate_limit`, `/api/v1/bulk_export`, Rack::Attack, and Sidekiq bulk queue paths
-    - [ ] Capture baseline latency, allocation, memory, queue-depth, cache-hit, and rate-limit overhead metrics
-    - [ ] Store baseline output in a documented, reproducible location
+- [x] Task: Repository Risk and Harness Policy [0ef2bd6]
+    - [x] Add no-accepted-known-risk language to Conductor workflow, product guidelines, Definition of Done, deployment checklist, and review checklist
+    - [x] Add harness-engineering guidance that distinguishes feedforward guides, computational feedback sensors, inferential feedback sensors, and sensor timing
+    - [x] Verify the policy blocks low-severity security and quality findings unless they are fixed, mitigated, feature-flagged off, or tracked as blocking follow-up
+- [x] Task: Runtime, CI, Security, and Deployment Audit [0ef2bd6]
+    - [x] Write an audit spec or validation script that captures current Ruby, Rails, Bundler, CI, deployment, security, and bot-control tooling state
+    - [x] Document current repository evidence, including Rails 8.0.x, Ruby 3.4.x, Rack::Attack, Sidekiq, Redis, Memcached, existing GitHub Actions, and Brakeman configuration
+    - [x] Verify current upstream Ruby and Rails release targets during implementation and record production versus experimental lanes
+- [x] Task: Tool Recommendation Decision Record [0ef2bd6]
+    - [x] Create a decision record classifying each proposed tool as adopt, pilot, defer, or reject
+    - [x] Include explicit reasoning for Ruby latest, Vernier, ZJIT/YJIT, GitHub Actions DevSecOps, Kamal, optimized Bundler caching, parallel tests, Bearer, Brakeman, Dawnscanner, dependency auditing, Rails Solid components, Syntax Tree, Herb, RBS/Steep, Sorbet, rbs-inline, dry-validation, PBT, Mutant, Cuprite/Playwright, Rack::Attack, and Turnstile
+    - [x] Update `conductor/tech-stack.md` only for tools accepted for implementation
+- [x] Task: Harness Map and Sensor Coverage Baseline [0ef2bd6]
+    - [x] Create a harness map covering maintainability, architecture fitness, and behaviour controls across the repository
+    - [x] Classify each guide or sensor as feedforward, computational feedback, inferential feedback, or runtime feedback
+    - [x] Record when each sensor runs: local task loop, pre-commit, pull request, scheduled drift scan, release gate, or runtime monitoring
+    - [x] Identify gaps where repeated mistakes or high-impact risks lack both a guide and a sensor
+- [x] Task: Bot-Traffic Benchmark Baseline [0ef2bd6]
+    - [x] Add repeatable benchmark fixtures for public request pages, public body directory/search, `/api/v1/rate_limit`, `/api/v1/bulk_export`, Rack::Attack, and Sidekiq bulk queue paths
+    - [x] Capture baseline latency, allocation, memory, queue-depth, cache-hit, and rate-limit overhead metrics
+    - [x] Store baseline output in a documented, reproducible location
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Baseline and Tool Decision Matrix' (Protocol in workflow.md)
 
 ## Phase 2: Runtime and Profiling Modernization
