@@ -7,3 +7,7 @@ Specifically:
 * [Translation](http://alaveteli.org/docs/customising/translation/)
 * [Email](http://alaveteli.org/docs/installing/email/)
 * [Deployment](http://alaveteli.org/docs/installing/deploy/)
+
+In-repo developer notes:
+
+* [Request states and statutory-clock extension hooks](REQUEST-STATES.md)

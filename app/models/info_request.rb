@@ -988,6 +988,22 @@ class InfoRequest < ApplicationRecord
     'waiting_response'
   end
 
+  # Optional jurisdiction / statutory-clock metadata for external tooling.
+  #
+  # Core always returns {}. Themes may define
+  # +theme_process_clock_metadata+ (typically in InfoRequestCustomStates) to
+  # expose a free-form Hash. When non-empty, the value is included in
+  # +json_for_api+ as :process_clock_metadata.
+  #
+  # See doc/REQUEST-STATES.md and https://github.com/mysociety/alaveteli/issues/9355
+  def process_clock_metadata
+    if respond_to?(:theme_process_clock_metadata)
+      theme_process_clock_metadata || {}
+    else
+      {}
+    end
+  end
+
   # 'described_state' can be populated on any info_request_event but is only
   # ever used in the process populating calculated_state on the
   # info_request_event (if it represents a response, outgoing message, edit
@@ -1511,6 +1527,9 @@ class InfoRequest < ApplicationRecord
       # allow_new_responses_from
       # handle_rejected_responses
     }
+
+    metadata = process_clock_metadata
+    ret[:process_clock_metadata] = metadata if metadata.present?
 
     if deep
       if user

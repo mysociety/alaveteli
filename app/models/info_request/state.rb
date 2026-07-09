@@ -96,5 +96,40 @@ class InfoRequest
     def self.phase_params
       Hash[phases.map { |atts| [ atts[:scope], atts[:param] ] }]
     end
+
+    # Role classification for consumers that map UX states onto statutory or
+    # process-lifecycle tooling. Does not affect Alaveteli behaviour.
+    #
+    # :process    — user- or authority-facing FOI process observation
+    # :platform   — Alaveteli operator / delivery workflow (not a legal outcome)
+    # :admin      — administrator-only classification
+    # :calculated — derived by calculate_status; not stored as described_state
+    #
+    # See doc/REQUEST-STATES.md and https://github.com/mysociety/alaveteli/issues/9355
+    def self.roles
+      {
+        'waiting_response' => :process,
+        'waiting_clarification' => :process,
+        'gone_postal' => :process,
+        'not_held' => :process,
+        'rejected' => :process,
+        'successful' => :process,
+        'partially_successful' => :process,
+        'internal_review' => :process,
+        'user_withdrawn' => :process,
+        'error_message' => :platform,
+        'requires_admin' => :platform,
+        'attention_requested' => :platform,
+        'vexatious' => :admin,
+        'not_foi' => :admin,
+        'waiting_classification' => :calculated,
+        'waiting_response_overdue' => :calculated,
+        'waiting_response_very_overdue' => :calculated
+      }
+    end
+
+    def self.role_for(state)
+      roles[state]
+    end
   end
 end

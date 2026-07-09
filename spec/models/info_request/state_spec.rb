@@ -85,4 +85,23 @@ RSpec.describe InfoRequest::State do
                  other: "other" })
     end
   end
+
+  describe '.roles' do
+    it 'classifies core described states' do
+      expect(InfoRequest::State.role_for('waiting_response')).to eq(:process)
+      expect(InfoRequest::State.role_for('error_message')).to eq(:platform)
+      expect(InfoRequest::State.role_for('vexatious')).to eq(:admin)
+    end
+
+    it 'classifies calculated-only statuses' do
+      expect(InfoRequest::State.role_for('waiting_response_overdue'))
+        .to eq(:calculated)
+      expect(InfoRequest::State.role_for('waiting_classification'))
+        .to eq(:calculated)
+    end
+
+    it 'returns nil for unknown states' do
+      expect(InfoRequest::State.role_for('not_a_real_state')).to be_nil
+    end
+  end
 end
