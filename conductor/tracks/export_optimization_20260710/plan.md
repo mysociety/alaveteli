@@ -29,8 +29,9 @@
 
 - [~] Task: Run regression and security gate
     - [~] Run scoped RSpec, RuboCop, Brakeman, and benchmark command where available
-    - [ ] Document unavailable local gates and CI follow-up without accepting risk
+    - [~] Document unavailable local gates and CI follow-up without accepting risk
     - [ ] Confirm no known security, quality, correctness, availability, or operator risk remains
+    - [ ] Blocking follow-up: remediate dependency audit advisories tracked in `#18`
 - [ ] Task: Archive track and synchronize docs
     - [ ] Update Conductor track status and issue map
     - [ ] Archive only after implementation commits, plan updates, and notes are complete

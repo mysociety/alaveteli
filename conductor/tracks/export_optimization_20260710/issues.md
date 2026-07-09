@@ -14,15 +14,24 @@ expected small-PR delivery sequence.
 - `#15` Add bulk export benchmark harness
   - Scope: benchmark command and baseline documentation only.
   - Harness priority: computational feedback sensor.
-  - Status: Open
+  - Status: Closed
 - `#16` Implement contract-preserving streaming bulk export
   - Scope: streaming query implementation and output compatibility specs.
   - Harness priority: behaviour and performance sensors.
-  - Status: Open
+  - Status: Closed
 - `#17` Verify and close bulk export optimization
   - Scope: regression and security gates, issue-map closure, and archive.
   - Harness priority: release-gate sensors.
   - Status: Open
+- `#18` Remediate remaining dependency audit advisories
+  - Scope: eliminate the remaining `bundle-audit` findings for
+    `bootstrap-sass`, `jquery-ui-rails`, and `webrick` without accepting
+    low-severity risk.
+  - Harness priority: dependency security gate, asset compilation sensor,
+    and focused UI verification for datepicker, tabs, sortable, and Bootstrap
+    surfaces.
+  - Status: Open
+  - Blocks: `#17`
 
 ## PR Standard
 
