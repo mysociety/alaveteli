@@ -25,15 +25,15 @@
     - [x] Implement ETag caching for public requests/directories returning 304 Not Modified
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Traffic Control Concern' (Protocol in workflow.md) [18e0f55]
 
-## Phase 3: Rate Limit & Bulk Export API
+## Phase 3: Rate Limit & Bulk Export API [checkpoint: 90842d9]
 
-- [~] Task: Rate Limit API Endpoint
-    - [ ] Write routing and API controller tests verifying rate limit JSON output
-    - [ ] Implement `/api/v1/rate_limit` endpoint and configure its routes
-- [ ] Task: Bulk Export API Endpoint
-    - [ ] Write specs verifying NDJSON formatted output for bulk extraction
-    - [ ] Implement `/api/v1/bulk_export` endpoint to support bulk extraction
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Rate Limit & Bulk Export API' (Protocol in workflow.md)
+- [x] Task: Rate Limit API Endpoint [36ea5af]
+    - [x] Write routing and API controller tests verifying rate limit JSON output
+    - [x] Implement `/api/v1/rate_limit` endpoint and configure its routes
+- [x] Task: Bulk Export API Endpoint [36ea5af]
+    - [x] Write specs verifying NDJSON formatted output for bulk extraction
+    - [x] Implement `/api/v1/bulk_export` endpoint to support bulk extraction
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Rate Limit & Bulk Export API' (Protocol in workflow.md) [90842d9]
 
 ## Phase 4: Sidekiq Traffic Prioritization
 
