@@ -44,7 +44,8 @@ module ExcelAnalyzer
 
       Dir.mktmpdir do |tmpdir|
         _stdout, _stderr, status = Open3.capture3(
-          "soffice --headless --convert-to xlsx --outdir #{tmpdir} #{io.path}"
+          "soffice", "--headless", "--convert-to", "xlsx",
+          "--outdir", tmpdir, io.path
         )
 
         path = File.join(tmpdir, File.basename(io.path, ".*") + ".xlsx")

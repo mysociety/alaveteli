@@ -86,4 +86,25 @@ RSpec.describe ExcelAnalyzer::XlsAnalyzer do
       end
     end
   end
+
+  describe "#convert" do
+    it "passes conversion paths as process arguments" do
+      analyzer = described_class.new(double)
+      io = double(path: "/tmp/input;touch pwned.xls")
+      status = instance_double(Process::Status, success?: true)
+
+      allow(analyzer).to receive(:soffice_installed?).and_return(true)
+      allow(Dir).to receive(:mktmpdir).and_yield("/tmp/output directory")
+      allow(Open3).to receive(:capture3).and_return(["", "", status])
+      allow(File).to receive(:exist?).and_return(true)
+      allow(File).to receive(:read).and_return("xlsx data")
+
+      expect(Open3).to receive(:capture3).with(
+        "soffice", "--headless", "--convert-to", "xlsx",
+        "--outdir", "/tmp/output directory", "/tmp/input;touch pwned.xls"
+      ).and_return(["", "", status])
+
+      analyzer.send(:convert, io)
+    end
+  end
 end

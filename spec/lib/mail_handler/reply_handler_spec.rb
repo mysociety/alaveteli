@@ -9,7 +9,7 @@ RSpec.describe MailHandler::ReplyHandler do
       it 'forwards the mail to sendmail' do
         expect(IO).
           to receive(:popen).
-          with('/usr/sbin/sendmail -i "user-support@localhost"', 'wb')
+          with(['/usr/sbin/sendmail', '-i', 'user-support@localhost'], 'wb')
         MailHandler::ReplyHandler.forward_on(mail.raw_source, mail)
       end
     end

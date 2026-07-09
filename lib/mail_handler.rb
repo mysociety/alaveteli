@@ -17,7 +17,7 @@ module MailHandler
   def tnef_attachments(content)
     attachments = []
     Dir.mktmpdir do |dir|
-      IO.popen("tnef -K -C #{dir} 2> /dev/null", "wb") do |f|
+      IO.popen(["tnef", "-K", "-C", dir], "wb", err: File::NULL) do |f|
         f.write(content)
         f.close
         raise IOError, "tnef exited with signal #{$CHILD_STATUS.termsig}" if $CHILD_STATUS.signaled?
