@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_gettext_locale, :store_gettext_locale
   before_action :redirect_gettext_locale, :collect_locales
+  before_action :set_request_context
 
   protect_from_forgery if: :authenticated?, with: :exception
   skip_before_action :verify_authenticity_token, unless: :authenticated?
@@ -263,6 +264,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_request_context
+    token = request.env['HTTP_X_FYI_BOT_TOKEN']
+    is_bot = (token.present? && token == ENV['FYI_BOT_TOKEN']) || request.user_agent.to_s =~ /bot|scraper|spider|crawl/i
+    Current.bot_request = !!is_bot
+  end
 
   # Override the Rails method to only set the CSRF form token if there is a
   # logged in user
