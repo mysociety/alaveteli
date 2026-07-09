@@ -1,0 +1,8 @@
+{
+  "track_id": "bot_resilience_modernization_20260709",
+  "type": "chore",
+  "status": "new",
+  "created_at": "2026-07-09T14:03:00Z",
+  "updated_at": "2026-07-09T14:03:00Z",
+  "description": "Modernize runtime, DevSecOps, deployment, and verification for bot traffic resilience"
+}

@@ -11,3 +11,8 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 - [ ] **Track: Implement Sustainability Suite for Scraper Traffic**
   *Link: [./tracks/sustainability_suite_20260709/](./tracks/sustainability_suite_20260709/)*
+
+---
+
+- [ ] **Track: Modernize runtime, DevSecOps, deployment, and verification for bot traffic resilience**
+  *Link: [./tracks/bot_resilience_modernization_20260709/](./tracks/bot_resilience_modernization_20260709/)*
