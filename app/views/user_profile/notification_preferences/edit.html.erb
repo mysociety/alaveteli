@@ -1,0 +1,30 @@
+<%= foi_error_messages_for :user %>
+
+<%= form_for @user, :url => profile_notification_preferences_path do |f| %>
+  <div class="form_note">
+    <h1><%= _('Edit notification preferences') %></h1>
+
+    <p>
+      <%= _('Choose how you want to be notified of updates on {{site_name}}.',
+            :site_name => site_name) %>
+    </p>
+  </div>
+
+  <p>
+    <label class="form_checkbox_label" for="user_send_daily_summary">
+      <%= f.check_box :send_daily_summary %>
+      <%= _('Receive daily email summaries of tracked request updates') %>
+    </label>
+  </p>
+
+  <p>
+    <label class="form_checkbox_label" for="user_send_immediate_request_alerts">
+      <%= f.check_box :send_immediate_request_alerts %>
+      <%= _('Receive instant email alerts for individual request updates') %>
+    </label>
+  </p>
+
+  <div class="form_button">
+    <%= f.submit _('Save') %>
+  </div>
+<% end %>
