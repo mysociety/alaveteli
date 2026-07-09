@@ -16,13 +16,13 @@
     - [x] Configure routes for the preferences update endpoint
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Routing and Controller' (Protocol in workflow.md) [20b24b8]
 
-## Phase 3: User Interface
+## Phase 3: User Interface [checkpoint: fd0365a]
 
-- [~] Task: Settings Dashboard View
-    - [ ] Write integration and view tests for the notification settings interface
-    - [ ] Implement settings form in ERB template with toggles for notification flags
-    - [ ] Add basic styling and responsive layout for mobile compatibility
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: User Interface' (Protocol in workflow.md)
+- [x] Task: Settings Dashboard View [e67ed1c]
+    - [x] Write integration and view tests for the notification settings interface
+    - [x] Implement settings form in ERB template with toggles for notification flags
+    - [x] Add basic styling and responsive layout for mobile compatibility
+- [x] Task: Conductor - User Manual Verification 'Phase 3: User Interface' (Protocol in workflow.md) [fd0365a]
 
 ## Phase 4: Integration and Mailers
 
