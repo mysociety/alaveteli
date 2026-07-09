@@ -27,8 +27,8 @@
 
 ## Phase 3: Verification and Closeout
 
-- [ ] Task: Run regression and security gate
-    - [ ] Run scoped RSpec, RuboCop, Brakeman, and benchmark command where available
+- [~] Task: Run regression and security gate
+    - [~] Run scoped RSpec, RuboCop, Brakeman, and benchmark command where available
     - [ ] Document unavailable local gates and CI follow-up without accepting risk
     - [ ] Confirm no known security, quality, correctness, availability, or operator risk remains
 - [ ] Task: Archive track and synchronize docs
