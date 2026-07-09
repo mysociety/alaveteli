@@ -27,7 +27,7 @@
 
 ## Phase 3: Rate Limit & Bulk Export API
 
-- [ ] Task: Rate Limit API Endpoint
+- [~] Task: Rate Limit API Endpoint
     - [ ] Write routing and API controller tests verifying rate limit JSON output
     - [ ] Implement `/api/v1/rate_limit` endpoint and configure its routes
 - [ ] Task: Bulk Export API Endpoint
