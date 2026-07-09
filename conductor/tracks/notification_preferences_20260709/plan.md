@@ -1,12 +1,12 @@
 # Implementation Plan - User Notification Preferences Dashboard
 
-## Phase 1: Database and Model Layer
+## Phase 1: Database and Model Layer [checkpoint: 7357f07]
 
-- [~] Task: Database Migration for Notification Preferences
-    - [ ] Write model and migration tests to verify new attributes and defaults
-    - [ ] Create and run migration adding `send_daily_summary` and `send_immediate_request_alerts` to users table
-    - [ ] Implement attribute defaults and validations in `User` model
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Database and Model Layer' (Protocol in workflow.md)
+- [x] Task: Database Migration for Notification Preferences [5a16d4b]
+    - [x] Write model and migration tests to verify new attributes and defaults
+    - [x] Create and run migration adding `send_daily_summary` and `send_immediate_request_alerts` to users table
+    - [x] Implement attribute defaults and validations in `User` model
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Database and Model Layer' (Protocol in workflow.md) [7357f07]
 
 ## Phase 2: Routing and Controller
 
