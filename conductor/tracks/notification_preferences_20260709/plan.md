@@ -24,9 +24,9 @@
     - [x] Add basic styling and responsive layout for mobile compatibility
 - [x] Task: Conductor - User Manual Verification 'Phase 3: User Interface' (Protocol in workflow.md) [fd0365a]
 
-## Phase 4: Integration and Mailers
+## Phase 4: Integration and Mailers [checkpoint: e185cb2]
 
-- [~] Task: Integrate Preferences with Mailers and Jobs
-    - [ ] Write mailer and job tests verifying email suppression based on preferences
-    - [ ] Update notification jobs and mailers to honor preference flags
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Integration and Mailers' (Protocol in workflow.md)
+- [x] Task: Integrate Preferences with Mailers and Jobs [76cea72]
+    - [x] Write mailer and job tests verifying email suppression based on preferences
+    - [x] Update notification jobs and mailers to honor preference flags
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Integration and Mailers' (Protocol in workflow.md) [e185cb2]
