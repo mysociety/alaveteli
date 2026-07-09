@@ -101,7 +101,7 @@
 
 ## Phase 6: Typed, Property-Based, Mutation, and E2E Assurance
 
-- [ ] Task: Gradual Type Checking Pilot
+- [~] Task: Gradual Type Checking Pilot
     - [ ] Add Steep, RBS, and rbs-inline configuration for selected new service objects, contracts, and serializers
     - [ ] Generate or write initial signatures for bot-control and bulk-export boundaries
     - [ ] Evaluate Sorbet as an alternative and document why it is adopted, deferred, or rejected
