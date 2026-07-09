@@ -118,7 +118,7 @@
     - [x] Document formatting or template issues without mass-changing unrelated files
 - [x] Task: Conductor - User Manual Verification 'Phase 6: Typed, Property-Based, Mutation, and E2E Assurance' (Protocol in workflow.md) [f423e3f]
 
-## Phase 7: Rollout, Monitoring, and Closeout
+## Phase 7: Rollout, Monitoring, and Closeout [checkpoint: dea4011]
 
 - [x] Task: Metrics and Operator Runbooks [78eb514]
     - [x] Extend health or metrics output for rate-limit decisions, challenge outcomes, cache hits, bulk export usage, queue latency, and profiling baseline comparisons
@@ -133,4 +133,4 @@
     - [x] Record deferred tools and revisit triggers in the final track notes
     - [x] Confirm the final track state has no accepted low-risk security or quality findings and an updated harness map
     - [x] Confirm all child issues are closed by small, independently reviewable PRs or explicitly carried forward as blocking follow-up
-- [ ] Task: Conductor - User Manual Verification 'Phase 7: Rollout, Monitoring, and Closeout' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 7: Rollout, Monitoring, and Closeout' (Protocol in workflow.md) [dea4011]
