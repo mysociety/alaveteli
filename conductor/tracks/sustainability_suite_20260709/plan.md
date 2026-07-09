@@ -37,7 +37,7 @@
 
 ## Phase 4: Sidekiq Traffic Prioritization
 
-- [ ] Task: Route Expensive Requests to Bulk Queue
+- [~] Task: Route Expensive Requests to Bulk Queue
     - [ ] Write worker/request tests verifying queue redirection for unverified bot requests
     - [ ] Implement Sidekiq queue routing logic redirecting expensive operations to the `bulk_processor` queue
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Sidekiq Traffic Prioritization' (Protocol in workflow.md)
