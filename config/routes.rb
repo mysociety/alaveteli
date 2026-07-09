@@ -878,6 +878,14 @@ Rails.application.routes.draw do
   ####
 
   #### Api controller
+  match '/api/v1/rate_limit' => 'api/v1/sustainability#rate_limit',
+        :as => :api_v1_rate_limit,
+        :via => :get
+
+  match '/api/v1/bulk_export' => 'api/v1/sustainability#bulk_export',
+        :as => :api_v1_bulk_export,
+        :via => :get
+
   match '/api/v2/request.json' => 'api#create_request',
         :as => :api_create_request,
         :via => :post
