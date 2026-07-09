@@ -101,21 +101,21 @@
 
 ## Phase 6: Typed, Property-Based, Mutation, and E2E Assurance
 
-- [~] Task: Gradual Type Checking Pilot
-    - [ ] Add Steep, RBS, and rbs-inline configuration for selected new service objects, contracts, and serializers
-    - [ ] Generate or write initial signatures for bot-control and bulk-export boundaries
-    - [ ] Evaluate Sorbet as an alternative and document why it is adopted, deferred, or rejected
-- [ ] Task: Property-Based and Mutation Testing
-    - [ ] Add property-based tests for rate-limit windows, retry/back-off parsing, ETag handling, bulk export ordering, and challenge state transitions
-    - [ ] Add Mutant coverage for pure critical components where runtime stays acceptable
-    - [ ] Document mutation score, surviving mutants, and follow-up work
-- [ ] Task: E2E Browser Coverage
-    - [ ] Add Cuprite as the default Capybara-compatible E2E driver unless Playwright Ruby client is justified by cross-browser requirements
-    - [ ] Add E2E tests for challenge flow, public archive access, verified bot bypass, and bulk export discoverability
-    - [ ] Ensure E2E tests run headlessly in CI without making the normal suite fragile
-- [ ] Task: Syntax and Template Tooling Pilot
-    - [ ] Add Syntax Tree and Herb in check-only mode for selected Ruby and ERB paths
-    - [ ] Document formatting or template issues without mass-changing unrelated files
+- [x] Task: Gradual Type Checking Pilot [2f9d213]
+    - [x] Add Steep, RBS, and rbs-inline configuration for selected new service objects, contracts, and serializers
+    - [x] Generate or write initial signatures for bot-control and bulk-export boundaries
+    - [x] Evaluate Sorbet as an alternative and document why it is adopted, deferred, or rejected
+- [x] Task: Property-Based and Mutation Testing [2f9d213]
+    - [x] Add property-based tests for rate-limit windows, retry/back-off parsing, ETag handling, bulk export ordering, and challenge state transitions
+    - [x] Add Mutant coverage for pure critical components where runtime stays acceptable
+    - [x] Document mutation score, surviving mutants, and follow-up work
+- [x] Task: E2E Browser Coverage [2f9d213]
+    - [x] Add Cuprite as the default Capybara-compatible E2E driver unless Playwright Ruby client is justified by cross-browser requirements
+    - [x] Add E2E tests for challenge flow, public archive access, verified bot bypass, and bulk export discoverability
+    - [x] Ensure E2E tests run headlessly in CI without making the normal suite fragile
+- [x] Task: Syntax and Template Tooling Pilot [2f9d213]
+    - [x] Add Syntax Tree and Herb in check-only mode for selected Ruby and ERB paths
+    - [x] Document formatting or template issues without mass-changing unrelated files
 - [ ] Task: Conductor - User Manual Verification 'Phase 6: Typed, Property-Based, Mutation, and E2E Assurance' (Protocol in workflow.md)
 
 ## Phase 7: Rollout, Monitoring, and Closeout
