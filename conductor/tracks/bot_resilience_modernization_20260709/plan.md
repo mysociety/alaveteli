@@ -99,7 +99,7 @@
     - [x] Add rollback and incident notes for queue, cache, and deploy failures
 - [x] Task: Conductor - User Manual Verification 'Phase 5: Rails 8 Infrastructure Simplification and Deployment' (Protocol in workflow.md) [1b7dfe9]
 
-## Phase 6: Typed, Property-Based, Mutation, and E2E Assurance
+## Phase 6: Typed, Property-Based, Mutation, and E2E Assurance [checkpoint: f423e3f]
 
 - [x] Task: Gradual Type Checking Pilot [2f9d213]
     - [x] Add Steep, RBS, and rbs-inline configuration for selected new service objects, contracts, and serializers
@@ -116,7 +116,7 @@
 - [x] Task: Syntax and Template Tooling Pilot [2f9d213]
     - [x] Add Syntax Tree and Herb in check-only mode for selected Ruby and ERB paths
     - [x] Document formatting or template issues without mass-changing unrelated files
-- [ ] Task: Conductor - User Manual Verification 'Phase 6: Typed, Property-Based, Mutation, and E2E Assurance' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 6: Typed, Property-Based, Mutation, and E2E Assurance' (Protocol in workflow.md) [f423e3f]
 
 ## Phase 7: Rollout, Monitoring, and Closeout
 
