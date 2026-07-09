@@ -57,7 +57,8 @@ class Admin::TagsController < AdminController
 
   helper_method :current_klass
   def current_klass
-    params.fetch(:model_type, 'PublicBody').safe_constantize
+    model_type = params.fetch(:model_type, 'PublicBody')
+    Taggable.models.find { |model| model.name == model_type }
   end
 
   def check_klass

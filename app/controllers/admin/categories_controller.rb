@@ -96,11 +96,15 @@ class Admin::CategoriesController < AdminController
 
   helper_method :current_klass
   def current_klass
-    @klass ||= @category.root.title.safe_constantize if @category&.root
-    @klass ||= params.fetch(:model_type, 'PublicBody').safe_constantize
+    @klass ||= category_model(@category.root.title) if @category&.root
+    @klass ||= category_model(params.fetch(:model_type, 'PublicBody'))
   end
 
   def check_klass
     raise RouteNotFound unless Categorisable.models.include?(current_klass)
+  end
+
+  def category_model(model_type)
+    Categorisable.models.find { |model| model.name == model_type }
   end
 end
