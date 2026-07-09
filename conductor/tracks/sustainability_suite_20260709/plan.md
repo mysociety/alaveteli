@@ -56,7 +56,7 @@
 
 ## Phase 6: Orchestration Updates
 
-- [ ] Task: Conductor Scripts and Task Simulation
+- [~] Task: Conductor Scripts and Task Simulation
     - [ ] Add Redis service health-check script in Docker Compose startup sequence
     - [ ] Add `simulate-attack` script task to `conductor.json`
 - [ ] Task: Conductor - User Manual Verification 'Phase 6: Orchestration Updates' (Protocol in workflow.md)
