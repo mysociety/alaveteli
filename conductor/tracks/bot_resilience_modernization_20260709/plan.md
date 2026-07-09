@@ -31,7 +31,7 @@
     - [x] Store baseline output in a documented, reproducible location
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Baseline and Tool Decision Matrix' (Protocol in workflow.md) [89e4331]
 
-## Phase 2: Runtime and Profiling Modernization
+## Phase 2: Runtime and Profiling Modernization [checkpoint: f888ff1]
 
 - [x] Task: Ruby Version and JIT Compatibility [88fc964]
     - [x] Write tests or CI checks proving the selected Ruby version source is honored by local scripts and GitHub Actions
@@ -45,7 +45,7 @@
 - [x] Task: Runtime Rollback and Operations Notes [b425ae4]
     - [x] Document environment variables and deployment settings for enabling or disabling JIT modes
     - [x] Add rollback notes for reverting Ruby or profiling changes without touching application data
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Runtime and Profiling Modernization' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Runtime and Profiling Modernization' (Protocol in workflow.md) [f888ff1]
 
 ## Phase 3: CI Throughput and DevSecOps
 
