@@ -1,18 +1,18 @@
 # Implementation Plan - Sustainability Suite for Scraper Traffic
 
-## Phase 1: Rack::Attack Middleware
+## Phase 1: Rack::Attack Middleware [checkpoint: c744ef9]
 
-- [~] Task: Rack::Attack Initializer Configuration
-    - [ ] Write tests verifying verified bot header bypass and anonymous IP rate limiting
-    - [ ] Create `config/initializers/rack_attack.rb` and configure Redis store
-    - [ ] Implement rate-limit thresholds (10rpm for anonymous, 100rpm for verified bots)
-- [ ] Task: Fail2Ban Setup
-    - [ ] Write tests for blocking IPs triggering multiple 429 status codes
-    - [ ] Configure Fail2Ban in Rack::Attack to block IPs for 10 minutes after 5 limit violations in 60 seconds
-- [ ] Task: Resiliency and Dynamic Limits
-    - [ ] Implement Redis circuit-breaker fallback to local memory in the initializer
-    - [ ] Implement dynamic load monitoring to decrease limits to 2rpm under high server load
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Rack::Attack Middleware' (Protocol in workflow.md)
+- [x] Task: Rack::Attack Initializer Configuration [5116ea3]
+    - [x] Write tests verifying verified bot header bypass and anonymous IP rate limiting
+    - [x] Create `config/initializers/rack_attack.rb` and configure Redis store
+    - [x] Implement rate-limit thresholds (10rpm for anonymous, 100rpm for verified bots)
+- [x] Task: Fail2Ban Setup [5116ea3]
+    - [x] Write tests for blocking IPs triggering multiple 429 status codes
+    - [x] Configure Fail2Ban in Rack::Attack to block IPs for 10 minutes after 5 limit violations in 60 seconds
+- [x] Task: Resiliency and Dynamic Limits [5116ea3]
+    - [x] Implement Redis circuit-breaker fallback to local memory in the initializer
+    - [x] Implement dynamic load monitoring to decrease limits to 2rpm under high server load
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Rack::Attack Middleware' (Protocol in workflow.md) [c744ef9]
 
 ## Phase 2: Traffic Control Concern
 
