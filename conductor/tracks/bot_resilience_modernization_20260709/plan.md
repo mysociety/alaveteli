@@ -1,6 +1,6 @@
 # Implementation Plan - Bot Traffic Resilience Modernization
 
-## Phase 1: Baseline and Tool Decision Matrix
+## Phase 1: Baseline and Tool Decision Matrix [checkpoint: 89e4331]
 
 - [x] Task: GitHub Issue Decomposition and PR Standards [bfd1962]
     - [x] Create a parent GitHub issue for the bot resilience modernization program linked to this Conductor track
@@ -29,7 +29,7 @@
     - [x] Add repeatable benchmark fixtures for public request pages, public body directory/search, `/api/v1/rate_limit`, `/api/v1/bulk_export`, Rack::Attack, and Sidekiq bulk queue paths
     - [x] Capture baseline latency, allocation, memory, queue-depth, cache-hit, and rate-limit overhead metrics
     - [x] Store baseline output in a documented, reproducible location
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Baseline and Tool Decision Matrix' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Baseline and Tool Decision Matrix' (Protocol in workflow.md) [89e4331]
 
 ## Phase 2: Runtime and Profiling Modernization
 
