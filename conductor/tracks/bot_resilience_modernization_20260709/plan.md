@@ -66,7 +66,7 @@
     - [x] Document expected triage flow for Brakeman, Bearer, bundler-audit, dependency-review, and parallel test failures
 - [x] Task: Conductor - User Manual Verification 'Phase 3: CI Throughput and DevSecOps' (Protocol in workflow.md) [56fcde4]
 
-## Phase 4: Bot Challenge and Contract Boundaries
+## Phase 4: Bot Challenge and Contract Boundaries [checkpoint: 8a2ed40]
 
 - [x] Task: Feature-Flagged Turnstile Challenge [de2ea46]
     - [x] Write request and system specs for challenge escalation on suspicious interactive traffic
@@ -81,7 +81,7 @@
     - [x] Document how to disable challenges and contract enforcement if false positives affect legitimate FOI users
     - [x] Add metrics for challenge issued, challenge passed, challenge failed, and challenge bypassed events
     - [x] Confirm challenge false-positive risks are not accepted as low risk and have tested disablement, bypass, and rollback controls
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Bot Challenge and Contract Boundaries' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Bot Challenge and Contract Boundaries' (Protocol in workflow.md) [8a2ed40]
 
 ## Phase 5: Rails 8 Infrastructure Simplification and Deployment
 
