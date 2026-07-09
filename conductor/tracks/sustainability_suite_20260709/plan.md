@@ -44,15 +44,15 @@
 
 ## Phase 5: fyi-cli Integration (Client-Side Updates)
 
-- [~] Task: Client-Side Rate-Limit Awareness
-    - [ ] Add rate-limit header parsing and dynamic back-off in the `fyi-cli` request client
-    - [ ] Add support for honoring `Retry-After` and `X-Advisory-Status`
-- [ ] Task: Client-Side Caching (ETag Support)
-    - [ ] Implement local database cache in `fyi-cli` to store resource ETags
-    - [ ] Send `If-None-Match` headers on subsequent runs and handle 304 responses
-- [ ] Task: Client-Side Bulk Mode
-    - [ ] Update `fyi-cli` synchronization logic to use the new `/api/v1/bulk_export` endpoint
-- [ ] Task: Conductor - User Manual Verification 'Phase 5: fyi-cli Integration (Client-Side Updates)' (Protocol in workflow.md)
+- [x] Task: Client-Side Rate-Limit Awareness [e35c682]
+    - [x] Add rate-limit header parsing and dynamic back-off in the `fyi-cli` request client
+    - [x] Add support for honoring `Retry-After` and `X-Advisory-Status`
+- [x] Task: Client-Side Caching (ETag Support) [e35c682]
+    - [x] Implement local database cache in `fyi-cli` to store resource ETags
+    - [x] Send `If-None-Match` headers on subsequent runs and handle 304 responses
+- [x] Task: Client-Side Bulk Mode [e35c682]
+    - [x] Update `fyi-cli` synchronization logic to use the new `/api/v1/bulk_export` endpoint
+- [x] Task: Conductor - User Manual Verification 'Phase 5: fyi-cli Integration (Client-Side Updates)' (Protocol in workflow.md) [e35c682]
 
 ## Phase 6: Orchestration Updates
 
