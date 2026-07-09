@@ -216,4 +216,5 @@ group :development do
   gem 'rubocop', '~> 1.88.1', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
+  gem 'vernier', '~> 0.6.0'
 end
