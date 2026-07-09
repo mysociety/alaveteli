@@ -2,6 +2,12 @@
 
 ## Phase 1: Baseline and Tool Decision Matrix
 
+- [ ] Task: GitHub Issue Decomposition and PR Standards
+    - [ ] Create a parent GitHub issue for the bot resilience modernization program linked to this Conductor track
+    - [ ] Create PR-sized subissues for risk policy, harness map, audit, decision record, benchmark baseline, runtime profiling, DevSecOps, challenge escalation, contracts, infrastructure pilots, advanced testing, and rollout documentation
+    - [ ] Update the PR template so every PR records linked issue, scope boundary, no-risk evidence, harness feedforward guide, harness feedback sensor, tests/scanners, and rollback path
+    - [ ] Add issue templates for parent modernization issues and small implementation subissues
+    - [ ] Maintain a track issue map that records GitHub issue numbers, expected PR size, and current status
 - [ ] Task: Repository Risk and Harness Policy
     - [ ] Add no-accepted-known-risk language to Conductor workflow, product guidelines, Definition of Done, deployment checklist, and review checklist
     - [ ] Add harness-engineering guidance that distinguishes feedforward guides, computational feedback sensors, inferential feedback sensors, and sensor timing
@@ -126,4 +132,5 @@
     - [ ] Update `conductor/tech-stack.md`, `conductor/workflow.md`, and operator-facing docs for accepted tools only
     - [ ] Record deferred tools and revisit triggers in the final track notes
     - [ ] Confirm the final track state has no accepted low-risk security or quality findings and an updated harness map
+    - [ ] Confirm all child issues are closed by small, independently reviewable PRs or explicitly carried forward as blocking follow-up
 - [ ] Task: Conductor - User Manual Verification 'Phase 7: Rollout, Monitoring, and Closeout' (Protocol in workflow.md)
