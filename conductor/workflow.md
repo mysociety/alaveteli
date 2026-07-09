@@ -9,6 +9,9 @@
 5. **User Experience First:** Every decision should prioritize user experience
 6. **Non-Interactive & CI-Aware:** Prefer non-interactive commands. Use `CI=true` for watch-mode tools (tests, linters) to ensure single execution.
 7. **Strict Security & Linting:** Run RuboCop and Brakeman on every task completion. No offences/warnings are allowed.
+8. **No Accepted Known Risk:** No known security, privacy, accessibility, data-integrity, availability, correctness, or quality risk may be accepted as "low risk" and carried forward. Every identified risk must be eliminated, mitigated with a verified control, converted into a blocking task, or explicitly deferred only behind a disabled-by-default feature flag plus a dated Conductor follow-up.
+9. **Harness Engineering First:** Treat the repo as an agent- and human-operable harness. Every meaningful change must improve or preserve feedforward guides and feedback sensors: specifications, plans, style guides, architecture rules, tests, linters, type checks, security scanners, benchmark scripts, observability, and runbooks. Prefer deterministic computational controls for every-change enforcement, with inferential review used as an additional sensor rather than a substitute.
+10. **Keep Quality Left:** Put fast, deterministic checks as early as possible in local development, task verification, and CI. Expensive sensors such as mutation testing, broad architecture review, profiling, and full E2E suites still need defined execution points and cannot be skipped silently.
 
 ## Task Workflow
 
@@ -43,18 +46,24 @@ All tasks follow a strict lifecycle:
    ```
    All checks must pass with zero offenses/warnings.
 
-8. **Document Deviations:** If implementation differs from tech stack:
+8. **Run Risk and Harness Review:**
+   - Identify any security, privacy, accessibility, data-integrity, availability, correctness, performance, maintainability, or operator-risk introduced or exposed by the task.
+   - Confirm every identified risk has a passing deterministic sensor where practical, such as a regression test, lint rule, type check, scanner, contract, benchmark threshold, or runbook verification.
+   - If any known risk remains without a verified mitigation, **STOP** and add or update a blocking Conductor task before proceeding.
+   - Update feedforward guides or feedback sensors when the task reveals a repeated failure mode, missing rule, or missing verification surface.
+
+9. **Document Deviations:** If implementation differs from tech stack:
    - **STOP** implementation
    - Update `tech-stack.md` with new design
    - Add dated note explaining the change
    - Resume implementation
 
-8. **Commit Code Changes:**
+10. **Commit Code Changes:**
    - Stage all code changes related to the task.
    - Propose a clear, concise commit message e.g, `feat(ui): Create basic HTML structure for calculator`.
    - Perform the commit.
 
-9. **Attach Task Summary with Git Notes:**
+11. **Attach Task Summary with Git Notes:**
    - **Step 9.1: Get Commit Hash:** Obtain the hash of the *just-completed commit* (`git log -1 --format="%H"`).
    - **Step 9.2: Draft Note Content:** Create a detailed summary for the completed task. This should include the task name, a summary of changes, a list of all created/modified files, and the core "why" for the change.
    - **Step 9.3: Attach Note:** Use the `git notes` command to attach the summary to the commit.
@@ -63,11 +72,11 @@ All tasks follow a strict lifecycle:
      git notes add -m "<note content>" <commit_hash>
      ```
 
-10. **Get and Record Task Commit SHA:**
+12. **Get and Record Task Commit SHA:**
     - **Step 10.1: Update Plan:** Read `plan.md`, find the line for the completed task, update its status from `[~]` to `[x]`, and append the first 7 characters of the *just-completed commit's* commit hash.
     - **Step 10.2: Write Plan:** Write the updated content back to `plan.md`.
 
-11. **Commit Plan Update:**
+13. **Commit Plan Update:**
     - **Action:** Stage the modified `plan.md` file.
     - **Action:** Commit this change with a descriptive message (e.g., `conductor(plan): Mark task 'Create user model' as complete`).
 
@@ -148,12 +157,15 @@ Before marking any task complete, verify:
 - [ ] Code follows project's code style guidelines (as defined in `code_styleguides/`)
 - [ ] RuboCop reports zero style offenses
 - [ ] Brakeman reports zero security vulnerabilities
+- [ ] All dependency and modern security scanners configured for the task report zero untriaged findings
 - [ ] All public functions/methods are documented (e.g., docstrings, JSDoc, GoDoc)
 - [ ] Type safety is enforced (e.g., type hints, TypeScript types, Go types)
 - [ ] No linting or static analysis errors (using the project's configured tools)
 - [ ] Works correctly on mobile (if applicable)
 - [ ] Documentation updated if needed
 - [ ] No security vulnerabilities introduced
+- [ ] No known quality, security, privacy, accessibility, data-integrity, availability, correctness, or operational risk remains unmitigated
+- [ ] Feedforward guides and feedback sensors were updated when the task exposed a missing rule, missing test, missing scanner, or repeated failure mode
 
 ## Development Commands
 
@@ -228,6 +240,7 @@ Before requesting review:
    - Input validation present
    - SQL injection prevented
    - XSS protection in place
+   - No known security finding is accepted as low risk without a verified mitigation and Conductor follow-up
 
 5. **Performance**
    - Database queries optimized
@@ -239,6 +252,11 @@ Before requesting review:
    - Text readable without zooming
    - Performance acceptable on mobile
    - Interactions feel native
+
+7. **Harness Quality**
+   - The change has clear feedforward guidance in specs, plans, style guides, or runbooks
+   - The change has feedback sensors in tests, linters, type checks, scanners, benchmarks, logs, or CI
+   - Fast deterministic sensors run locally or in pre-merge CI; expensive sensors have documented scheduled or release-gate execution
 
 ## Commit Guidelines
 
@@ -278,9 +296,11 @@ A task is complete when:
 4. Documentation complete (if applicable)
 5. Code passes all configured linting and static analysis checks
 6. Works beautifully on mobile (if applicable)
-7. Implementation notes added to `plan.md`
-8. Changes committed with proper message
-9. Git note with task summary attached to the commit
+7. No known security, privacy, accessibility, data-integrity, availability, correctness, quality, or operational risk remains unmitigated
+8. Required harness guides and sensors are present and documented
+9. Implementation notes added to `plan.md`
+10. Changes committed with proper message
+11. Git note with task summary attached to the commit
 
 ## Emergency Procedures
 
@@ -312,6 +332,8 @@ A task is complete when:
 - [ ] All tests passing
 - [ ] Coverage >90%
 - [ ] No linting or security scanner (RuboCop, Brakeman) errors
+- [ ] No known unresolved risk remains, including findings classified by scanners as low severity
+- [ ] Harness sensors for the deployment path have run or have an explicit blocking reason recorded in Conductor
 - [ ] Mobile testing complete
 - [ ] Environment variables configured
 - [ ] Database migrations ready
@@ -339,3 +361,5 @@ A task is complete when:
 - Document lessons learned
 - Optimize for user happiness
 - Keep things simple and maintainable
+- When a defect, risk, review comment, or agent failure mode repeats, improve at least one feedforward guide and one feedback sensor so the repo becomes easier to govern next time
+- Review harness coverage regularly across maintainability, architecture fitness, and behaviour: deterministic checks first, inferential review where semantic judgment is required

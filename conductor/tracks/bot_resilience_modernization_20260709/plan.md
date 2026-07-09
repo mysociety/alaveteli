@@ -2,6 +2,10 @@
 
 ## Phase 1: Baseline and Tool Decision Matrix
 
+- [ ] Task: Repository Risk and Harness Policy
+    - [ ] Add no-accepted-known-risk language to Conductor workflow, product guidelines, Definition of Done, deployment checklist, and review checklist
+    - [ ] Add harness-engineering guidance that distinguishes feedforward guides, computational feedback sensors, inferential feedback sensors, and sensor timing
+    - [ ] Verify the policy blocks low-severity security and quality findings unless they are fixed, mitigated, feature-flagged off, or tracked as blocking follow-up
 - [ ] Task: Runtime, CI, Security, and Deployment Audit
     - [ ] Write an audit spec or validation script that captures current Ruby, Rails, Bundler, CI, deployment, security, and bot-control tooling state
     - [ ] Document current repository evidence, including Rails 8.0.x, Ruby 3.4.x, Rack::Attack, Sidekiq, Redis, Memcached, existing GitHub Actions, and Brakeman configuration
@@ -10,6 +14,11 @@
     - [ ] Create a decision record classifying each proposed tool as adopt, pilot, defer, or reject
     - [ ] Include explicit reasoning for Ruby latest, Vernier, ZJIT/YJIT, GitHub Actions DevSecOps, Kamal, optimized Bundler caching, parallel tests, Bearer, Brakeman, Dawnscanner, dependency auditing, Rails Solid components, Syntax Tree, Herb, RBS/Steep, Sorbet, rbs-inline, dry-validation, PBT, Mutant, Cuprite/Playwright, Rack::Attack, and Turnstile
     - [ ] Update `conductor/tech-stack.md` only for tools accepted for implementation
+- [ ] Task: Harness Map and Sensor Coverage Baseline
+    - [ ] Create a harness map covering maintainability, architecture fitness, and behaviour controls across the repository
+    - [ ] Classify each guide or sensor as feedforward, computational feedback, inferential feedback, or runtime feedback
+    - [ ] Record when each sensor runs: local task loop, pre-commit, pull request, scheduled drift scan, release gate, or runtime monitoring
+    - [ ] Identify gaps where repeated mistakes or high-impact risks lack both a guide and a sensor
 - [ ] Task: Bot-Traffic Benchmark Baseline
     - [ ] Add repeatable benchmark fixtures for public request pages, public body directory/search, `/api/v1/rate_limit`, `/api/v1/bulk_export`, Rack::Attack, and Sidekiq bulk queue paths
     - [ ] Capture baseline latency, allocation, memory, queue-depth, cache-hit, and rate-limit overhead metrics
@@ -45,6 +54,7 @@
     - [ ] Add bundler-audit and GitHub dependency-review-action for Ruby dependency vulnerability checks
     - [ ] Evaluate Dawnscanner in advisory mode and document whether it is compatible enough to keep
     - [ ] Review action versioning and workflow permissions for supply-chain hardening
+    - [ ] Fail or block on all untriaged findings, including low-severity scanner findings, until fixed, mitigated, or converted into blocking Conductor follow-up
 - [ ] Task: CI Developer Documentation
     - [ ] Document local commands matching each CI job
     - [ ] Document expected triage flow for Brakeman, Bearer, bundler-audit, dependency-review, and parallel test failures
@@ -64,6 +74,7 @@
 - [ ] Task: Challenge and Contract Rollback
     - [ ] Document how to disable challenges and contract enforcement if false positives affect legitimate FOI users
     - [ ] Add metrics for challenge issued, challenge passed, challenge failed, and challenge bypassed events
+    - [ ] Confirm challenge false-positive risks are not accepted as low risk and have tested disablement, bypass, and rollback controls
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Bot Challenge and Contract Boundaries' (Protocol in workflow.md)
 
 ## Phase 5: Rails 8 Infrastructure Simplification and Deployment
@@ -109,9 +120,10 @@
     - [ ] Document privacy and accessibility considerations for bot challenge telemetry
 - [ ] Task: Full Regression and Security Gate
     - [ ] Run full RSpec, nested gem specs, RuboCop, Brakeman, Bearer, bundler-audit, dependency-review, type checks, PBT, mutation targets, E2E tests, and benchmark comparison as applicable
-    - [ ] Document skipped or advisory gates with explicit reasons
+    - [ ] Document skipped or advisory gates with explicit reasons and blocking follow-up for any remaining known risk
     - [ ] Define go/no-go thresholds for enabling runtime, challenge, deployment, or infrastructure changes in production
 - [ ] Task: Final Documentation and Tech Stack Synchronization
     - [ ] Update `conductor/tech-stack.md`, `conductor/workflow.md`, and operator-facing docs for accepted tools only
     - [ ] Record deferred tools and revisit triggers in the final track notes
+    - [ ] Confirm the final track state has no accepted low-risk security or quality findings and an updated harness map
 - [ ] Task: Conductor - User Manual Verification 'Phase 7: Rollout, Monitoring, and Closeout' (Protocol in workflow.md)

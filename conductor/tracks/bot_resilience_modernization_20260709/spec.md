@@ -5,9 +5,13 @@ This track extends the immediate Sustainability Suite controls with a deliberate
 
 The current Sustainability Suite already covers Rack::Attack throttling, rate-limit headers, HTTP caching headers, bulk export, Sidekiq queue offloading, and client-side `fyi-cli` coordination. This track focuses on the next layer: measured runtime upgrades, advanced profiling, DevSecOps CI, deployment simplification, bot challenge escalation, stronger contracts, type-aware boundaries, and higher-value testing.
 
+This track also makes harness engineering a repo-level operating model. Following the approach described by Birgitta Bockeler on martinfowler.com, Alaveteli should combine feedforward guides that steer work before it happens with feedback sensors that let humans and coding agents self-correct after each change. The repo must prefer fast deterministic sensors for every-change checks and reserve inferential review for semantic judgment. No known risk, including low-severity quality or security findings, is acceptable without verified mitigation or a blocking Conductor follow-up.
+
 ## 2. Recommendation Summary
 
 ### 2.1 Adopt First
+*   Add a no-accepted-known-risk policy to Conductor workflow, product guidelines, CI gates, and track completion criteria.
+*   Establish harness engineering as the default repo setup: explicit feedforward guides plus computational and inferential feedback sensors across maintainability, architecture fitness, and behaviour.
 *   Add a measured Ruby runtime upgrade ladder: keep a supported Ruby 3.4 production lane, update to the latest safe 3.4 patch level, and add a non-blocking Ruby 4.0 compatibility lane.
 *   Add Vernier profiling for representative public archive, search, bulk export, and throttling workloads.
 *   Add GitHub Actions DevSecOps jobs for Brakeman, Bearer SARIF upload, bundler-audit, and dependency review.
@@ -44,6 +48,13 @@ The current Sustainability Suite already covers Rack::Attack throttling, rate-li
     *   `/api/v1/bulk_export`,
     *   Rack::Attack request paths,
     *   Sidekiq bulk queue processing.
+
+### 3.1.1 Harness Engineering Operating Model
+*   Maintain feedforward guides for agent and human work: `conductor/product.md`, `conductor/product-guidelines.md`, `conductor/tech-stack.md`, `conductor/workflow.md`, code style guides, track specs, track plans, decision records, and runbooks.
+*   Maintain computational feedback sensors: RSpec, RuboCop, Brakeman, Bearer, bundler-audit, dependency review, type checks, property-based tests, mutation tests, E2E tests, benchmarks, and architecture checks.
+*   Maintain inferential feedback sensors for semantic review, architecture review, and risk review where deterministic tooling cannot fully evaluate intent.
+*   Define execution timing for each sensor: local/task-level, pull-request CI, post-merge scheduled drift detection, release gate, or runtime monitoring.
+*   When a repeated issue is found, update both the relevant guide and at least one sensor so future work is steered and checked.
 
 ### 3.2 CI Throughput and DevSecOps
 *   Improve GitHub Actions runtime by using optimized Bundler settings, existing `ruby/setup-ruby` caching, and parallel test execution.
@@ -84,6 +95,8 @@ The current Sustainability Suite already covers Rack::Attack throttling, rate-li
 
 ## 4. Non-Functional Requirements
 *   **Measured Change:** Runtime and infrastructure changes must be backed by benchmark, profile, compatibility, and rollback evidence.
+*   **No Accepted Known Risk:** Known risks, including findings classified as low severity, must be eliminated, mitigated with verified controls, converted into blocking work, or kept behind disabled-by-default feature flags with dated follow-up.
+*   **Harnessability:** The repository must become more legible, navigable, and governable for humans and coding agents through explicit guides, scripts, checks, metrics, and runbooks.
 *   **Availability:** Bot defenses must protect service availability without making legitimate FOI access fragile.
 *   **Accessibility:** Challenge flows must remain compatible with accessibility requirements and translated user-facing strings.
 *   **Security:** DevSecOps jobs must use least-privilege GitHub token permissions and publish SARIF only where safe.
@@ -91,6 +104,8 @@ The current Sustainability Suite already covers Rack::Attack throttling, rate-li
 *   **Performance:** New middleware, validation, and challenge checks must not exceed the Sustainability Suite latency budget without explicit justification.
 
 ## 5. Acceptance Criteria
+*   Conductor workflow and product guidelines encode no-accepted-known-risk and harness-engineering principles for the whole repository.
+*   A harness map identifies feedforward guides and feedback sensors for maintainability, architecture fitness, and behaviour, including when each sensor runs.
 *   A documented tool decision matrix classifies Ruby latest, Vernier, ZJIT/YJIT, DevSecOps workflows, Kamal, Bundler/test parallelization, Brakeman, Bearer, Dawnscanner, bundler-audit, Solid Queue/Cache/Cable, Syntax Tree, Herb, RBS/Steep, Sorbet, rbs-inline, dry-validation, PBT, Mutant, Cuprite/Playwright, Rack::Attack, and Turnstile-style bot challenges as adopted, piloted, deferred, or rejected.
 *   CI includes visible jobs for parallelized RSpec, RuboCop, Brakeman, dependency audit, and at least one SARIF-capable security scanner.
 *   Ruby production and experimental lanes are documented, with a compatibility report for the current latest Ruby series.
@@ -100,6 +115,7 @@ The current Sustainability Suite already covers Rack::Attack throttling, rate-li
 *   At least one critical bot-control component has property-based tests and mutation testing evidence.
 *   The Rails 8 Solid Trifecta and Kamal are evaluated through decision records before any migration is accepted.
 *   Operator documentation explains new commands, CI gates, profiling workflow, and emergency disablement.
+*   No scanner, test, benchmark, type-check, architecture, accessibility, or manual-review finding remains accepted as low risk without verified mitigation and tracked follow-up.
 
 ## 6. Out of Scope
 *   Replacing the existing Sustainability Suite track.

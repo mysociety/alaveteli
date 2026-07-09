@@ -19,3 +19,6 @@
 *   **Test-Driven Development:** Write unit tests for models and feature/system tests for critical user journeys (request writing, response parsing).
 *   **Semantic HTML:** Use native elements (`<main>`, `<nav>`, `<article>`, `<header>`) to preserve structural hierarchy.
 *   **Clean Upgrade Path:** Avoid modifying core Rails classes directly. Follow clean rails patterns and utilize the plugin extension system for country-specific overrides.
+*   **No Accepted Known Risk:** Do not accept known security, privacy, accessibility, data-integrity, availability, correctness, or quality risks as "low risk." If a risk is found, remove it, add a verified mitigation, block the track, or keep the risky path disabled by default with a dated Conductor follow-up.
+*   **Harness Engineering:** Design the repository so humans and coding agents are steered by explicit guides and corrected by fast sensors. Every new feature or operational control should have feedforward guidance in specs, style guides, contracts, or runbooks and feedback sensors in tests, linters, scanners, type checks, benchmarks, logs, or CI.
+*   **Quality Left:** Put cheap deterministic checks close to the change: local commands, task verification, and pre-merge CI. Use slower semantic review, mutation testing, profiling, and E2E suites as additional gates, not replacements for fast computational checks.
