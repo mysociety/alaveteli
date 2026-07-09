@@ -83,7 +83,7 @@
     - [x] Confirm challenge false-positive risks are not accepted as low risk and have tested disablement, bypass, and rollback controls
 - [x] Task: Conductor - User Manual Verification 'Phase 4: Bot Challenge and Contract Boundaries' (Protocol in workflow.md) [8a2ed40]
 
-## Phase 5: Rails 8 Infrastructure Simplification and Deployment
+## Phase 5: Rails 8 Infrastructure Simplification and Deployment [checkpoint: 1b7dfe9]
 
 - [x] Task: Solid Trifecta Evaluation [f2bf75d]
     - [x] Create a decision record comparing Sidekiq, Redis, and Memcached with Solid Queue, Solid Cache, and Solid Cable
@@ -97,7 +97,7 @@
 - [x] Task: Infrastructure Runbook Updates [f2bf75d]
     - [x] Document when operators should choose legacy deployment, Kamal, Sidekiq, Solid Queue, Redis, Memcached, or Solid Cache
     - [x] Add rollback and incident notes for queue, cache, and deploy failures
-- [ ] Task: Conductor - User Manual Verification 'Phase 5: Rails 8 Infrastructure Simplification and Deployment' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 5: Rails 8 Infrastructure Simplification and Deployment' (Protocol in workflow.md) [1b7dfe9]
 
 ## Phase 6: Typed, Property-Based, Mutation, and E2E Assurance
 
