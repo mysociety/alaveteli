@@ -68,7 +68,7 @@
 
 ## Phase 4: Bot Challenge and Contract Boundaries
 
-- [ ] Task: Feature-Flagged Turnstile Challenge
+- [~] Task: Feature-Flagged Turnstile Challenge
     - [ ] Write request and system specs for challenge escalation on suspicious interactive traffic
     - [ ] Verify normal browsing, request creation, verified bot access, and accessibility-compatible fallback behavior
     - [ ] Integrate server-side challenge token validation through a Rails-compatible Turnstile adapter or minimal internal adapter
