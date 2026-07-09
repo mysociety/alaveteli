@@ -11,8 +11,8 @@
 
 ## Phase 2: Streaming Export Implementation
 
-- [ ] Task: Add contract-preserving streaming export query
-    - [ ] Refactor `SustainabilityController#bulk_export` to stream selected columns
+- [~] Task: Add contract-preserving streaming export query
+    - [~] Refactor `SustainabilityController#bulk_export` to stream selected columns
       in deterministic pages
     - [ ] Resolve public body fields with a join instead of per-row association access
     - [ ] Preserve verified bot enforcement, `limit`, `since`, NDJSON shape, and response headers
