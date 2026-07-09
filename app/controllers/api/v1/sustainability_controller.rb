@@ -73,19 +73,20 @@ class Api::V1::SustainabilityController < ApplicationController
     response.headers['Last-Modified'] = Time.zone.now.ctime
 
     self.response_body = Enumerator.new do |y|
-      InfoRequest.find_each(batch_size: 100) do |info_request|
-        data = {
-          id: info_request.id,
-          title: info_request.title,
-          url_title: info_request.url_title,
-          created_at: info_request.created_at,
-          updated_at: info_request.updated_at,
-          status: info_request.calculate_status,
-          public_body_name: info_request.public_body&.name,
-          public_body_url_name: info_request.public_body&.url_name
-        }
-        y << data.to_json + "\n"
+      BulkExportStreamer.new(
+        limit: contract.to_h[:limit],
+        since: parsed_since(contract.to_h[:since])
+      ).each do |row|
+        y << "#{row.to_json}\n"
       end
     end
+  end
+
+  private
+
+  def parsed_since(value)
+    return if value.blank?
+
+    Time.zone.parse(value)
   end
 end

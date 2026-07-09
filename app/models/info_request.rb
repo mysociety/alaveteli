@@ -973,7 +973,12 @@ class InfoRequest < ApplicationRecord
       return @cached_calculated_status
     end
 
-    @cached_calculated_status = @@custom_states_loaded ? theme_calculate_status : base_calculate_status
+    @cached_calculated_status =
+      @@custom_states_loaded ? theme_calculate_status : base_calculate_status
+  end
+
+  def self.custom_states_loaded?
+    @@custom_states_loaded
   end
 
   def base_calculate_status

@@ -14,6 +14,7 @@ Optional inputs:
 - `BULK_EXPORT_BENCHMARK_LIMIT`: maximum rows to serialize. Default: `1000`.
 - `BULK_EXPORT_BENCHMARK_SINCE`: optional timestamp parsed by `Time.zone`.
 - `BULK_EXPORT_BENCHMARK_MODE`: benchmark mode. Default: `active_record`.
+  Use `streamer` to measure the optimized implementation.
 
 ## Metrics
 

@@ -31,13 +31,36 @@ RSpec.describe Api::V1::SustainabilityController, type: :controller do
       end
 
       it 'returns 200 and streams NDJSON data' do
-        get :bulk_export
+        get :bulk_export, params: { limit: 1 }
+
         expect(response.status).to eq(200)
         expect(response.headers['Content-Type']).to eq('application/x-ndjson')
         lines = response.body.split("\n")
-        expect(lines.size).to be >= 1
+        expect(lines.size).to eq(1)
         json = JSON.parse(lines.first)
         expect(json['title']).to eq(info_request.title)
+        expect(json.keys).to contain_exactly(
+          'id',
+          'title',
+          'url_title',
+          'created_at',
+          'updated_at',
+          'status',
+          'public_body_name',
+          'public_body_url_name'
+        )
+      end
+
+      it 'rejects invalid limit values' do
+        get :bulk_export, params: { limit: 0 }
+
+        expect(response.status).to eq(422)
+      end
+
+      it 'rejects invalid since values' do
+        get :bulk_export, params: { since: 'not-a-date' }
+
+        expect(response.status).to eq(422)
       end
     end
   end

@@ -49,6 +49,12 @@ elapsed = ActiveSupport::Notifications.subscribed(
         rows += 1
         bytes += line.bytesize + 1
       end
+    when 'streamer'
+      BulkExportStreamer.new(limit: limit, since: since).each do |row|
+        line = row.to_json
+        rows += 1
+        bytes += line.bytesize + 1
+      end
     else
       raise ArgumentError, "Unknown benchmark mode: #{mode}"
     end
