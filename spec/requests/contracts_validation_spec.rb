@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe "API Parameter Contracts Validation", type: :request do
   it "rejects invalid parameters for rate_limit endpoint" do

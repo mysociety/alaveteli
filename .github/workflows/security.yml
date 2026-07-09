@@ -26,7 +26,8 @@ jobs:
 
     - name: Run Brakeman
       run: |
-        bundle exec brakeman --fail-on-warn
+        gem install brakeman
+        brakeman --fail-on-warn
 
   bundler-audit:
     name: Dependency Vulnerability Audit
