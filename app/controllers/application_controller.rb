@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
   include AlaveteliPro::PostRedirectHandler
   include ReadOnly
   include RobotsHeaders
+  include TrafficControl
 
   # NOTE: a filter stops the chain if it redirects or renders something
   before_action :html_response
