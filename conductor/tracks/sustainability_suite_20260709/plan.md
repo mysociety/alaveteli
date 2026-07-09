@@ -14,16 +14,16 @@
     - [x] Implement dynamic load monitoring to decrease limits to 2rpm under high server load
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Rack::Attack Middleware' (Protocol in workflow.md) [c744ef9]
 
-## Phase 2: Traffic Control Concern
+## Phase 2: Traffic Control Concern [checkpoint: 18e0f55]
 
-- [~] Task: Traffic Control Controller Concern
-    - [ ] Write controller specs verifying injection of RFC rate limit headers
-    - [ ] Implement `app/controllers/concerns/traffic_control.rb` with header injection and advisory degradation headers
-    - [ ] Include concern in ApplicationController
-- [ ] Task: HTTP Caching Headers
-    - [ ] Write specs verifying ETag and Last-Modified header responses
-    - [ ] Implement ETag caching for public requests/directories returning 304 Not Modified
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Traffic Control Concern' (Protocol in workflow.md)
+- [x] Task: Traffic Control Controller Concern [2200cf5]
+    - [x] Write controller specs verifying injection of RFC rate limit headers
+    - [x] Implement `app/controllers/concerns/traffic_control.rb` with header injection and advisory degradation headers
+    - [x] Include concern in ApplicationController
+- [x] Task: HTTP Caching Headers [2200cf5]
+    - [x] Write specs verifying ETag and Last-Modified header responses
+    - [x] Implement ETag caching for public requests/directories returning 304 Not Modified
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Traffic Control Concern' (Protocol in workflow.md) [18e0f55]
 
 ## Phase 3: Rate Limit & Bulk Export API
 
