@@ -1,17 +1,26 @@
-# Site-specific deployment configuration lives in this file
-production:
-  repository: git://github.com/mysociety/alaveteli.git
-  branch: master
-  server: www.example.com
-  user: deploy
-  rails_env: production
-  deploy_to: /srv/www/alaveteli_production
-  daemon_name: alaveteli
-staging:
-  repository: git://github.com/mysociety/alaveteli.git
-  branch: develop
-  server: test.example.com
-  user: deploy
-  rails_env: production
-  deploy_to: /srv/www/alaveteli_staging
-  daemon_name: alaveteli_staging
+# Example Kamal configuration for Alaveteli installations
+service: alaveteli
+image: edithatogo/alaveteli
+
+servers:
+  web:
+    - 192.168.1.100
+  job:
+    hosts:
+      - 192.168.1.101
+    cmd: bundle exec sidekiq
+
+registry:
+  server: ghcr.io
+  username: edithatogo
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  clear:
+    DB_HOST: 192.168.1.102
+    REDIS_URL: redis://192.168.1.103:6379/0
+  secret:
+    - RAILS_MASTER_KEY
+    - FYI_BOT_TOKEN
+    - TURNSTILE_SECRET_KEY
