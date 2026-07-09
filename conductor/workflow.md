@@ -17,6 +17,16 @@
 
 All tasks follow a strict lifecycle:
 
+### Issue-Led Delivery
+
+1. **Parent Issue for Strategic Work:** Each strategic improvement area must have a GitHub parent issue that describes the outcome, risk posture, harness model, rollout constraints, and links back to the relevant Conductor track.
+2. **Subissues for Reviewable Units:** Parent issues must be decomposed into small subissues that can be implemented, reviewed, and reverted independently. A subissue should normally map to one focused PR.
+3. **Small PR Standard:** Each PR must address one narrow aspect of one subissue. If a reviewer cannot understand the intent, risk, tests, rollback path, and harness impact quickly, the PR is too large.
+4. **PRs Attach to Issues:** Every implementation PR must link a subissue, name the parent issue or Conductor track, and include verification evidence. Work without a linked issue is limited to emergency fixes or trivial documentation corrections.
+5. **No Risk Carry-Forward:** A subissue cannot be closed while it has unresolved known security, privacy, accessibility, data-integrity, availability, correctness, quality, or operator risk. Low severity still counts as unresolved risk unless fixed, verified false positive, mitigated, or converted into a blocking follow-up.
+6. **Harness Evidence:** Every issue and PR should identify the relevant feedforward guide and feedback sensor. If no sensor exists, the first PR should add or document one before changing production behavior.
+7. **Progressive Rollout:** Prefer documentation, advisory checks, benchmarks, profiling, and feature-flagged pilots before mandatory enforcement or user-visible behavior changes.
+
 ### Standard Task Workflow
 
 1. **Select Task:** Choose the next available task from `plan.md` in sequential order
@@ -301,6 +311,23 @@ A task is complete when:
 9. Implementation notes added to `plan.md`
 10. Changes committed with proper message
 11. Git note with task summary attached to the commit
+
+## 1,000-Point PR Health Audit
+
+To achieve the highest standards of production-readiness, security, and SRE resilience, every completed track must undergo a comprehensive 1,000-point PR Health Audit. The audit targets a minimum passing score of **995 / 1,000** and evaluates 10 key technical dimensions (each worth 100 points):
+
+1. **Throttling & Limit Policies (100 pts):** Correct initialization of verified bot tiers, anonymous IP ceilings, and rate limit rules.
+2. **Fail2Ban Security Controls (100 pts):** Auto-banning triggers, ban windows, and downstream subscriber tracking.
+3. **High-Availability Redis Circuit-Breakers (100 pts):** Connection failure handling, resilient caching wrapper, and graceful fail-open logic.
+4. **Dynamic Load-Based Rate Limits (100 pts):** Active Sidekiq/server load checks and dynamic anonymous rate reductions during traffic spikes.
+5. **Traffic Control Headers (100 pts):** Auto-injection of standard RFC back-pressure headers (`RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`) with O(1) request env lookups.
+6. **HTTP Caching & ETag Coordination (100 pts):** Server-side `ETag`/`Last-Modified` headers, 304 response checks, and client-side database ETag cache tables to minimize database reads and page rendering.
+7. **JSON Streaming & Bulk Export APIs (100 pts):** NDJSON-formatted export streaming in batches (flat memory usage) with authenticated bot token verification.
+8. **Sidekiq Queue Prioritization (100 pts):** Global request attributes carried over thread boundaries, routing expensive bot tasks to `bulk_processor` queues.
+9. **Docker & Orchestration Updates (100 pts):** Compose service healthchecks, startup constraints, and local load/attack simulation test suites.
+10. **Test Coverage & Conventional Commit Standards (100 pts):** comprehensive unit/integration test suites in both Ruby/Python, Conventional Commits messages, and `git notes` summaries.
+
+Every PR must document its audit score and explanation in the PR description and Conductor final report.
 
 ## Emergency Procedures
 
