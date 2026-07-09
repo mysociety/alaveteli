@@ -49,7 +49,7 @@
 
 ## Phase 3: CI Throughput and DevSecOps
 
-- [ ] Task: Faster CI Execution
+- [~] Task: Faster CI Execution
     - [ ] Add workflow assertions or CI dry-run checks for expected job structure and Ruby version alignment
     - [ ] Keep `ruby/setup-ruby` Bundler caching and add explicit Bundler job/retry settings where useful
     - [ ] Split core specs, nested gem specs, lint, and security checks into separately visible jobs
