@@ -21,12 +21,15 @@ module TurnstileChallenge
     if request.post? && params[:cf_turnstile_response].present?
       if TurnstileValidator.validate(params[:cf_turnstile_response], request.remote_ip)
         session[:turnstile_verified] = true
+        BotTrafficMetrics.increment(:challenge_passed)
         return
       else
+        BotTrafficMetrics.increment(:challenge_failed)
         flash[:error] = "Verification failed. Please try again."
       end
     end
 
+    BotTrafficMetrics.increment(:challenge_issued)
     render html: challenge_html, layout: false
   end
 
@@ -44,10 +47,33 @@ module TurnstileChallenge
         <title>Security Verification</title>
         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
         <style>
-          body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f7f9fa; margin: 0; }
-          .container { text-align: center; padding: 40px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+          body {
+            align-items: center;
+            background-color: #f7f9fa;
+            display: flex;
+            font-family: sans-serif;
+            height: 100vh;
+            justify-content: center;
+            margin: 0;
+          }
+          .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 40px;
+            text-align: center;
+          }
           h1 { font-size: 24px; color: #1a1a1a; margin-bottom: 10px; }
           p { color: #666; margin-bottom: 24px; }
+          button {
+            background: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px 20px;
+          }
         </style>
       </head>
       <body>
@@ -55,14 +81,20 @@ module TurnstileChallenge
           <h1>Security Verification</h1>
           <p>Please complete this quick challenge to access the site.</p>
           <form method="POST">
-            <input type="hidden" name="authenticity_token" value="#{form_authenticity_token rescue ''}">
+            <input type="hidden" name="authenticity_token" value="#{challenge_authenticity_token}">
             <div class="cf-turnstile" data-sitekey="#{site_key}"></div>
             <br/>
-            <button type="submit" style="padding: 10px 20px; font-size: 16px; border: none; background: #007bff; color: white; border-radius: 4px; cursor: pointer;">Verify</button>
+            <button type="submit">Verify</button>
           </form>
         </div>
       </body>
       </html>
     HTML
+  end
+
+  def challenge_authenticity_token
+    form_authenticity_token
+  rescue StandardError
+    ''
   end
 end

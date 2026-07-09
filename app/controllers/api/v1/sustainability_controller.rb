@@ -3,9 +3,14 @@ class Api::V1::SustainabilityController < ApplicationController
   skip_before_action :html_response, raise: false
 
   def rate_limit
+    BotTrafficMetrics.increment(:rate_limit_requests)
+
     contract = RateLimitContract.new.call(params.permit(:ip).to_h)
     if contract.failure?
-      render json: { error: 'Invalid parameters', details: contract.errors.to_h }, status: :unprocessable_entity
+      render(
+        json: { error: 'Invalid parameters', details: contract.errors.to_h },
+        status: :unprocessable_entity
+      )
       return
     end
 
@@ -39,7 +44,10 @@ class Api::V1::SustainabilityController < ApplicationController
   def bulk_export
     contract = BulkExportContract.new.call(params.permit(:limit, :since).to_h)
     if contract.failure?
-      render json: { error: 'Invalid parameters', details: contract.errors.to_h }, status: :unprocessable_entity
+      render(
+        json: { error: 'Invalid parameters', details: contract.errors.to_h },
+        status: :unprocessable_entity
+      )
       return
     end
 
@@ -48,9 +56,17 @@ class Api::V1::SustainabilityController < ApplicationController
     is_verified = token.present? && token == ENV['FYI_BOT_TOKEN']
 
     unless is_verified
-      render json: { error: 'Unauthorized. Bulk export requires a valid verified bot token.' }, status: :unauthorized
+      BotTrafficMetrics.increment(:bulk_export_unauthorized)
+      render(
+        json: {
+          error: 'Unauthorized. Bulk export requires a valid verified bot token.'
+        },
+        status: :unauthorized
+      )
       return
     end
+
+    BotTrafficMetrics.increment(:bulk_export_requests)
 
     response.headers['Content-Type'] = 'application/x-ndjson'
     response.headers['Content-Disposition'] = 'attachment; filename="requests_export.ndjson"'

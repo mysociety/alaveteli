@@ -10,6 +10,10 @@ sidekiq_busy_workers <%= @sidekiq_stats.workers_size %>
 # TYPE sidekiq_enqueued_jobs gauge
 sidekiq_enqueued_jobs <%= @sidekiq_stats.enqueued %>
 
+# HELP sidekiq_default_queue_latency_seconds Oldest default queue job age.
+# TYPE sidekiq_default_queue_latency_seconds gauge
+sidekiq_default_queue_latency_seconds <%= @sidekiq_default_queue_latency %>
+
 # HELP sidekiq_retry_jobs The number of failed jobs scheduled for a retry.
 # TYPE sidekiq_retry_jobs gauge
 sidekiq_retry_jobs <%= @sidekiq_stats.retry_size %>
@@ -29,3 +33,47 @@ sidekiq_dead_jobs <%= @sidekiq_stats.dead_size %>
 # HELP xapian_queued_jobs The number of jobs in the Xapian queue
 # TYPE xapian_queued_jobs gauge
 xapian_queued_jobs <%= @queued_index_jobs %>
+
+# HELP bot_traffic_turnstile_enabled Whether Turnstile challenge enforcement is enabled.
+# TYPE bot_traffic_turnstile_enabled gauge
+bot_traffic_turnstile_enabled <%= @turnstile_enabled ? 1 : 0 %>
+
+# HELP bot_traffic_turnstile_configured Whether Turnstile site and secret keys are configured.
+# TYPE bot_traffic_turnstile_configured gauge
+bot_traffic_turnstile_configured <%= @turnstile_configured ? 1 : 0 %>
+
+# HELP bot_traffic_verified_bot_token_configured Whether a verified bot token is configured.
+# TYPE bot_traffic_verified_bot_token_configured gauge
+bot_traffic_verified_bot_token_configured <%= @verified_bot_token_configured ? 1 : 0 %>
+
+# HELP bot_traffic_rate_limit_requests_total Number of rate limit status API requests.
+# TYPE bot_traffic_rate_limit_requests_total counter
+bot_traffic_rate_limit_requests_total <%= @bot_traffic_metrics[:rate_limit_requests] %>
+
+# HELP bot_traffic_bulk_export_requests_total Number of authorized bulk export requests.
+# TYPE bot_traffic_bulk_export_requests_total counter
+bot_traffic_bulk_export_requests_total <%= @bot_traffic_metrics[:bulk_export_requests] %>
+
+# HELP bot_traffic_bulk_export_unauthorized_total Number of unauthorized bulk export attempts.
+# TYPE bot_traffic_bulk_export_unauthorized_total counter
+bot_traffic_bulk_export_unauthorized_total <%= @bot_traffic_metrics[:bulk_export_unauthorized] %>
+
+# HELP bot_traffic_cache_hits_total Number of conditional GET cache hits.
+# TYPE bot_traffic_cache_hits_total counter
+bot_traffic_cache_hits_total <%= @bot_traffic_metrics[:cache_hits] %>
+
+# HELP bot_traffic_cache_misses_total Number of cache-controlled full responses.
+# TYPE bot_traffic_cache_misses_total counter
+bot_traffic_cache_misses_total <%= @bot_traffic_metrics[:cache_misses] %>
+
+# HELP bot_traffic_challenge_issued_total Number of Turnstile challenges issued.
+# TYPE bot_traffic_challenge_issued_total counter
+bot_traffic_challenge_issued_total <%= @bot_traffic_metrics[:challenge_issued] %>
+
+# HELP bot_traffic_challenge_passed_total Number of Turnstile challenges passed.
+# TYPE bot_traffic_challenge_passed_total counter
+bot_traffic_challenge_passed_total <%= @bot_traffic_metrics[:challenge_passed] %>
+
+# HELP bot_traffic_challenge_failed_total Number of Turnstile challenges failed.
+# TYPE bot_traffic_challenge_failed_total counter
+bot_traffic_challenge_failed_total <%= @bot_traffic_metrics[:challenge_failed] %>

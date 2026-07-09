@@ -3,10 +3,13 @@ module TrafficControl
 
   included do
     after_action :inject_rate_limit_headers
+    after_action :record_cache_metric
   end
 
   def public_cache_control(record_or_etag, last_modified: nil)
     return unless request.get?
+
+    request.env['bot_traffic.cache_controlled'] = true
     fresh_when(etag: record_or_etag, last_modified: last_modified, public: true)
   end
 
@@ -35,5 +38,12 @@ module TrafficControl
       response.headers['X-Advisory-Status'] = 'degraded'
       response.headers['Retry-After'] = '60'
     end
+  end
+
+  def record_cache_metric
+    return unless request.env['bot_traffic.cache_controlled']
+
+    event = response.status == 304 ? :cache_hits : :cache_misses
+    BotTrafficMetrics.increment(event)
   end
 end

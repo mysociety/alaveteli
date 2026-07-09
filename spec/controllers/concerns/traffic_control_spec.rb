@@ -69,16 +69,26 @@ RSpec.describe TrafficControl, type: :controller do
     end
 
     it 'sets etag headers and returns 200 on first request' do
+      allow(BotTrafficMetrics).to receive(:increment)
+
       get :show
+
       expect(response.status).to eq(200)
       expect(response.headers['ETag']).to be_present
+      expect(BotTrafficMetrics).to have_received(:increment).
+        with(:cache_misses)
     end
 
     it 'returns 304 if etag matches' do
-      request.headers['If-None-Match'] = '"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"' # hash for dummy_etag
+      allow(BotTrafficMetrics).to receive(:increment)
+
+      request.headers['If-None-Match'] =
+        '"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"'
       get :show
       # Rails ETag caching returns 304 if ETag is fresh
       # Depending on ActiveSupport setup in tests we verify the status or rendering
+      expect(BotTrafficMetrics).to have_received(:increment).
+        with(response.status == 304 ? :cache_hits : :cache_misses)
     end
   end
 end
