@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Implement user notification preferences dashboard**
+- [~] **Track: Implement user notification preferences dashboard**
   *Link: [./tracks/notification_preferences_20260709/](./tracks/notification_preferences_20260709/)*
