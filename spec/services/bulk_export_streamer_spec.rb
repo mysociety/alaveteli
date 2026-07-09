@@ -29,6 +29,15 @@ RSpec.describe BulkExportStreamer do
     )
   end
 
+  it 'builds the optimized path with a public body join' do
+    allow(InfoRequest).to receive(:custom_states_loaded?).and_return(false)
+    allow(InfoRequest).to receive(:joins).and_call_original
+
+    described_class.new(limit: 1).each.to_a
+
+    expect(InfoRequest).to have_received(:joins).with(:public_body)
+  end
+
   it 'enforces the limit without reading past the requested row count' do
     rows = described_class.new(limit: 1, batch_size: 1).each.to_a
 
