@@ -44,7 +44,7 @@
 
 ## Phase 5: fyi-cli Integration (Client-Side Updates)
 
-- [ ] Task: Client-Side Rate-Limit Awareness
+- [~] Task: Client-Side Rate-Limit Awareness
     - [ ] Add rate-limit header parsing and dynamic back-off in the `fyi-cli` request client
     - [ ] Add support for honoring `Retry-After` and `X-Advisory-Status`
 - [ ] Task: Client-Side Caching (ETag Support)
