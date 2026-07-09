@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
   include ReadOnly
   include RobotsHeaders
   include TrafficControl
+  include TurnstileChallenge
 
   # NOTE: a filter stops the chain if it redirects or renders something
   before_action :html_response

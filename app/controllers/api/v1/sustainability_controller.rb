@@ -3,6 +3,12 @@ class Api::V1::SustainabilityController < ApplicationController
   skip_before_action :html_response, raise: false
 
   def rate_limit
+    contract = RateLimitContract.new.call(params.permit(:ip).to_h)
+    if contract.failure?
+      render json: { error: 'Invalid parameters', details: contract.errors.to_h }, status: :unprocessable_entity
+      return
+    end
+
     throttle_data = request.env['rack.attack.throttle_data'] || {}
     name, data = throttle_data.find { |k, v| k.start_with?('req/') }
 
@@ -31,6 +37,12 @@ class Api::V1::SustainabilityController < ApplicationController
   end
 
   def bulk_export
+    contract = BulkExportContract.new.call(params.permit(:limit, :since).to_h)
+    if contract.failure?
+      render json: { error: 'Invalid parameters', details: contract.errors.to_h }, status: :unprocessable_entity
+      return
+    end
+
     # Only allow verified bots to access bulk export
     token = request.env['HTTP_X_FYI_BOT_TOKEN']
     is_verified = token.present? && token == ENV['FYI_BOT_TOKEN']
