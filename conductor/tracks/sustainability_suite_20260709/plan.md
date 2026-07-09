@@ -54,9 +54,9 @@
     - [x] Update `fyi-cli` synchronization logic to use the new `/api/v1/bulk_export` endpoint
 - [x] Task: Conductor - User Manual Verification 'Phase 5: fyi-cli Integration (Client-Side Updates)' (Protocol in workflow.md) [e35c682]
 
-## Phase 6: Orchestration Updates
+## Phase 6: Orchestration Updates [checkpoint: b97b9f3]
 
-- [~] Task: Conductor Scripts and Task Simulation
-    - [ ] Add Redis service health-check script in Docker Compose startup sequence
-    - [ ] Add `simulate-attack` script task to `conductor.json`
-- [ ] Task: Conductor - User Manual Verification 'Phase 6: Orchestration Updates' (Protocol in workflow.md)
+- [x] Task: Conductor Scripts and Task Simulation [62e0ba5]
+    - [x] Add Redis service health-check script in Docker Compose startup sequence
+    - [x] Add `simulate-attack` script task to `conductor.json`
+- [x] Task: Conductor - User Manual Verification 'Phase 6: Orchestration Updates' (Protocol in workflow.md) [b97b9f3]
