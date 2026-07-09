@@ -40,8 +40,8 @@ jobs:
         fi
         echo "skip_rspec=false" >> $GITHUB_OUTPUT
 
-  rspec:
-    name: Ruby ${{ matrix.ruby }} / PostgreSQL ${{ matrix.postgres }}
+  rspec-core:
+    name: Core Specs / Ruby ${{ matrix.ruby }} / PostgreSQL ${{ matrix.postgres }}
     runs-on: ubuntu-latest
 
     needs: check
@@ -128,6 +128,99 @@ jobs:
       run: |
         bundle exec rspec --format Fivemat
 
+    - name: Coveralls Parallel
+      uses: coverallsapp/github-action@v2
+      continue-on-error: true
+      with:
+        github-token: ${{ secrets.github_token }}
+        flag-name: run-core-${{ matrix.ruby }}
+        parallel: true
+        fail-on-error: false
+
+  rspec-gems:
+    name: Gem Specs / Ruby ${{ matrix.ruby }} / PostgreSQL ${{ matrix.postgres }}
+    runs-on: ubuntu-latest
+
+    needs: check
+    if: needs.check.outputs.skip_rspec == 'false'
+    continue-on-error: ${{ matrix.experimental || false }}
+
+    permissions:
+      contents: read
+      checks: write # for coverallsapp/github-action to create new checks
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - { ruby: '3.4', postgres: 13.5, experimental: false }
+        - { ruby: '4.0.0-preview1', postgres: 13.5, experimental: true }
+
+    services:
+      postgres:
+        image: fixmystreet/postgres:${{ matrix.postgres }}
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+        - '5432:5432'
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/alaveteli_test
+      RAILS_ENV: test
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: true
+
+    - name: Cache apt packages
+      uses: actions/cache@v4
+      with:
+        path: /var/cache/apt/archives
+        key: apt-${{ runner.os }}-${{ hashFiles('config/packages') }}
+
+    - name: Install packages
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo apt-get -y update
+        sudo apt-get -y install --no-install-recommends \
+          exim4-daemon-light \
+          $(cut -d ' ' -f 1 config/packages | grep -Ev '(^#|wkhtml|bundler|^ruby|^rake)')
+
+    - name: Install Ruby ${{ matrix.ruby }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
+
+    - name: Setup database
+      run: |
+        psql postgres://postgres:postgres@localhost:5432 <<-EOSQL
+          CREATE DATABASE template_utf8 TEMPLATE template0 ENCODING "UTF-8";
+          UPDATE pg_database SET datistemplate=true WHERE datname='template_utf8';
+          CREATE DATABASE alaveteli_test TEMPLATE template_utf8;
+        EOSQL
+
+    - name: Configure application and storage
+      run: |
+        cp config/general.yml-example config/general.yml
+        cp config/storage.yml-example config/storage.yml
+
+    - name: Install theme
+      run: |
+        bundle exec rake themes:install
+
+    - name: Migrate database
+      run: |
+        bundle exec rails db:migrate
+
     - name: Run nested gems tests
       run: |
         bundle exec rspec gems/*/spec --format Fivemat
@@ -137,7 +230,7 @@ jobs:
       continue-on-error: true
       with:
         github-token: ${{ secrets.github_token }}
-        flag-name: run-${{ matrix.ruby }}-${{ matrix.gemfile || 'Gemfile' }}
+        flag-name: run-gems-${{ matrix.ruby }}
         parallel: true
         fail-on-error: false
 
@@ -145,7 +238,7 @@ jobs:
     name: Coveralls
     runs-on: ubuntu-latest
 
-    needs: rspec
+    needs: [rspec-core, rspec-gems]
 
     permissions:
       contents: read

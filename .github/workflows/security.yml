@@ -1,0 +1,70 @@
+name: Security & DevSecOps
+
+on:
+  push:
+    branches: [master, develop]
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  brakeman:
+    name: Brakeman Security Scan
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.4'
+        bundler-cache: true
+
+    - name: Run Brakeman
+      run: |
+        bundle exec brakeman --fail-on-warn
+
+  bundler-audit:
+    name: Dependency Vulnerability Audit
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.4'
+        bundler-cache: true
+
+    - name: Run bundler-audit
+      run: |
+        gem install bundler-audit
+        bundle-audit check --update
+
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Dependency Review
+      uses: actions/dependency-review-action@v4
+
+  bearer:
+    name: Bearer Static Analysis
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Run Bearer Scan
+      uses: bearer/bearer-action@v2
+      with:
+        format: sarif
+        output: results.sarif
+      continue-on-error: true
