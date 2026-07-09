@@ -6,3 +6,8 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 - [x] **Track: Implement user notification preferences dashboard**
   *Link: [./tracks/notification_preferences_20260709/](./tracks/notification_preferences_20260709/)*
+
+---
+
+- [ ] **Track: Implement Sustainability Suite for Scraper Traffic**
+  *Link: [./tracks/sustainability_suite_20260709/](./tracks/sustainability_suite_20260709/)*
