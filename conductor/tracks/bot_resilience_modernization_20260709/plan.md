@@ -120,17 +120,17 @@
 
 ## Phase 7: Rollout, Monitoring, and Closeout
 
-- [~] Task: Metrics and Operator Runbooks
-    - [ ] Extend health or metrics output for rate-limit decisions, challenge outcomes, cache hits, bulk export usage, queue latency, and profiling baseline comparisons
-    - [ ] Add a bot traffic incident runbook covering throttle tuning, challenge enablement, profiling capture, security scan triage, and rollback
-    - [ ] Document privacy and accessibility considerations for bot challenge telemetry
-- [ ] Task: Full Regression and Security Gate
-    - [ ] Run full RSpec, nested gem specs, RuboCop, Brakeman, Bearer, bundler-audit, dependency-review, type checks, PBT, mutation targets, E2E tests, and benchmark comparison as applicable
-    - [ ] Document skipped or advisory gates with explicit reasons and blocking follow-up for any remaining known risk
-    - [ ] Define go/no-go thresholds for enabling runtime, challenge, deployment, or infrastructure changes in production
-- [ ] Task: Final Documentation and Tech Stack Synchronization
-    - [ ] Update `conductor/tech-stack.md`, `conductor/workflow.md`, and operator-facing docs for accepted tools only
-    - [ ] Record deferred tools and revisit triggers in the final track notes
-    - [ ] Confirm the final track state has no accepted low-risk security or quality findings and an updated harness map
-    - [ ] Confirm all child issues are closed by small, independently reviewable PRs or explicitly carried forward as blocking follow-up
+- [x] Task: Metrics and Operator Runbooks [78eb514]
+    - [x] Extend health or metrics output for rate-limit decisions, challenge outcomes, cache hits, bulk export usage, queue latency, and profiling baseline comparisons
+    - [x] Add a bot traffic incident runbook covering throttle tuning, challenge enablement, profiling capture, security scan triage, and rollback
+    - [x] Document privacy and accessibility considerations for bot challenge telemetry
+- [x] Task: Full Regression and Security Gate [78eb514]
+    - [x] Run full RSpec, nested gem specs, RuboCop, Brakeman, Bearer, bundler-audit, dependency-review, type checks, PBT, mutation targets, E2E tests, and benchmark comparison as applicable
+    - [x] Document skipped or advisory gates with explicit reasons and blocking follow-up for any remaining known risk
+    - [x] Define go/no-go thresholds for enabling runtime, challenge, deployment, or infrastructure changes in production
+- [x] Task: Final Documentation and Tech Stack Synchronization [78eb514]
+    - [x] Update `conductor/tech-stack.md`, `conductor/workflow.md`, and operator-facing docs for accepted tools only
+    - [x] Record deferred tools and revisit triggers in the final track notes
+    - [x] Confirm the final track state has no accepted low-risk security or quality findings and an updated harness map
+    - [x] Confirm all child issues are closed by small, independently reviewable PRs or explicitly carried forward as blocking follow-up
 - [ ] Task: Conductor - User Manual Verification 'Phase 7: Rollout, Monitoring, and Closeout' (Protocol in workflow.md)
