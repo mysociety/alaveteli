@@ -35,12 +35,12 @@
     - [x] Implement `/api/v1/bulk_export` endpoint to support bulk extraction
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Rate Limit & Bulk Export API' (Protocol in workflow.md) [90842d9]
 
-## Phase 4: Sidekiq Traffic Prioritization
+## Phase 4: Sidekiq Traffic Prioritization [checkpoint: ef15f49]
 
-- [~] Task: Route Expensive Requests to Bulk Queue
-    - [ ] Write worker/request tests verifying queue redirection for unverified bot requests
-    - [ ] Implement Sidekiq queue routing logic redirecting expensive operations to the `bulk_processor` queue
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Sidekiq Traffic Prioritization' (Protocol in workflow.md)
+- [x] Task: Route Expensive Requests to Bulk Queue [e6c8d46]
+    - [x] Write worker/request tests verifying queue redirection for unverified bot requests
+    - [x] Implement Sidekiq queue routing logic redirecting expensive operations to the `bulk_processor` queue
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Sidekiq Traffic Prioritization' (Protocol in workflow.md) [ef15f49]
 
 ## Phase 5: fyi-cli Integration (Client-Side Updates)
 
