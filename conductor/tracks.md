@@ -14,5 +14,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Modernize runtime, DevSecOps, deployment, and verification for bot traffic resilience**
-  *Link: [./tracks/bot_resilience_modernization_20260709/](./tracks/bot_resilience_modernization_20260709/)*
+- [x] **Track: Modernize runtime, DevSecOps, deployment, and verification for bot traffic resilience**
+  *Link: [./archive/bot_resilience_modernization_20260709/](./archive/bot_resilience_modernization_20260709/)*
