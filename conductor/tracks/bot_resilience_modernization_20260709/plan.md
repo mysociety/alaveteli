@@ -85,18 +85,18 @@
 
 ## Phase 5: Rails 8 Infrastructure Simplification and Deployment
 
-- [~] Task: Solid Trifecta Evaluation
-    - [ ] Create a decision record comparing Sidekiq, Redis, and Memcached with Solid Queue, Solid Cache, and Solid Cable
-    - [ ] Prototype Solid Queue or Solid Cache in isolated configuration if dependency compatibility permits
-    - [ ] Run load, queue-latency, cache-hit, and operational rollback tests before recommending adoption
-    - [ ] Update `conductor/tech-stack.md` only if a Solid component is accepted
-- [ ] Task: Kamal Deployment Pilot
-    - [ ] Add a Kamal-compatible example deployment configuration for an Alaveteli install
-    - [ ] Document registry, secrets, volumes, background jobs, migrations, and rollback behavior
-    - [ ] Verify the Kamal pilot against a staging-like environment without invalidating existing systemd or legacy deployment examples
-- [ ] Task: Infrastructure Runbook Updates
-    - [ ] Document when operators should choose legacy deployment, Kamal, Sidekiq, Solid Queue, Redis, Memcached, or Solid Cache
-    - [ ] Add rollback and incident notes for queue, cache, and deploy failures
+- [x] Task: Solid Trifecta Evaluation [f2bf75d]
+    - [x] Create a decision record comparing Sidekiq, Redis, and Memcached with Solid Queue, Solid Cache, and Solid Cable
+    - [x] Prototype Solid Queue or Solid Cache in isolated configuration if dependency compatibility permits
+    - [x] Run load, queue-latency, cache-hit, and operational rollback tests before recommending adoption
+    - [x] Update `conductor/tech-stack.md` only if a Solid component is accepted
+- [x] Task: Kamal Deployment Pilot [f2bf75d]
+    - [x] Add a Kamal-compatible example deployment configuration for an Alaveteli install
+    - [x] Document registry, secrets, volumes, background jobs, migrations, and rollback behavior
+    - [x] Verify the Kamal pilot against a staging-like environment without invalidating existing systemd or legacy deployment examples
+- [x] Task: Infrastructure Runbook Updates [f2bf75d]
+    - [x] Document when operators should choose legacy deployment, Kamal, Sidekiq, Solid Queue, Redis, Memcached, or Solid Cache
+    - [x] Add rollback and incident notes for queue, cache, and deploy failures
 - [ ] Task: Conductor - User Manual Verification 'Phase 5: Rails 8 Infrastructure Simplification and Deployment' (Protocol in workflow.md)
 
 ## Phase 6: Typed, Property-Based, Mutation, and E2E Assurance
