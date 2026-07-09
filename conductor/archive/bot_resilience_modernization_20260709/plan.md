@@ -120,7 +120,7 @@
 
 ## Phase 7: Rollout, Monitoring, and Closeout [checkpoint: dea4011]
 
-- [x] Task: Metrics and Operator Runbooks [78eb514]
+- [x] Task: Metrics and Operator Runbooks [78eb514, 441c5a9]
     - [x] Extend health or metrics output for rate-limit decisions, challenge outcomes, cache hits, bulk export usage, queue latency, and profiling baseline comparisons
     - [x] Add a bot traffic incident runbook covering throttle tuning, challenge enablement, profiling capture, security scan triage, and rollback
     - [x] Document privacy and accessibility considerations for bot challenge telemetry
