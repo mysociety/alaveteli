@@ -10,7 +10,7 @@
 
 ## Phase 2: Routing and Controller
 
-- [ ] Task: Settings Controller and Actions
+- [~] Task: Settings Controller and Actions
     - [ ] Write controller tests verifying update authorization and strong parameter parsing
     - [ ] Create or extend controller actions to update notification preferences
     - [ ] Configure routes for the preferences update endpoint
