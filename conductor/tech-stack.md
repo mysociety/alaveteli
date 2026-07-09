@@ -19,7 +19,17 @@
 
 ## Testing & Quality Assurance
 *   **Test Runner:** RSpec (`rspec-rails`)
-*   **Browser/Integration Testing:** Capybara
+*   **Browser/Integration Testing:** Capybara (Cuprite piloted for headless Chrome)
 *   **Mocking/Stubbing:** WebMock
 *   **Code Coverage:** SimpleCov
-*   **Linting:** RuboCop (including `rubocop-performance` and `rubocop-rails`)
+*   **Linting & Style:** RuboCop (including `rubocop-performance` and `rubocop-rails`), Syntax Tree (piloted)
+*   **Profiling:** Vernier (Adopted for workload capture)
+*   **Type Checking:** RBS + Steep / rbs-inline (piloted)
+*   **Property-Based Testing:** Rantly / PBT (piloted)
+
+## Security & Resilience
+*   **Rate Limiter:** Rack::Attack (IP throttling, Fail2Ban protection)
+*   **Static Analysis:** Brakeman (blocking CI gate), Bearer (piloted)
+*   **Dependency Scanning:** bundler-audit (Adopted), GitHub Dependency Review (Adopted)
+*   **Boundary Validation:** dry-validation (piloted)
+*   **Interactive Challenges:** Cloudflare Turnstile (piloted, feature-flagged)
