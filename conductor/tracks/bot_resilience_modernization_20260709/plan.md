@@ -85,7 +85,7 @@
 
 ## Phase 5: Rails 8 Infrastructure Simplification and Deployment
 
-- [ ] Task: Solid Trifecta Evaluation
+- [~] Task: Solid Trifecta Evaluation
     - [ ] Create a decision record comparing Sidekiq, Redis, and Memcached with Solid Queue, Solid Cache, and Solid Cable
     - [ ] Prototype Solid Queue or Solid Cache in isolated configuration if dependency compatibility permits
     - [ ] Run load, queue-latency, cache-hit, and operational rollback tests before recommending adoption
