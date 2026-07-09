@@ -18,7 +18,7 @@
     - [x] Preserve verified bot enforcement, `limit`, `since`, NDJSON shape, and response headers
     - [x] Add controller or service specs for authorization, validation, filtering,
       ordering, and row shape
-- [ ] Task: Add performance and security sensors
+- [~] Task: Add performance and security sensors
     - [ ] Add a query-count or allocation guard where practical
     - [ ] Add no-SQL-interpolation review evidence for user-controlled values
     - [ ] Update metrics or runbooks if export telemetry changes
