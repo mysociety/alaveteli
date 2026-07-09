@@ -68,19 +68,19 @@
 
 ## Phase 4: Bot Challenge and Contract Boundaries
 
-- [~] Task: Feature-Flagged Turnstile Challenge
-    - [ ] Write request and system specs for challenge escalation on suspicious interactive traffic
-    - [ ] Verify normal browsing, request creation, verified bot access, and accessibility-compatible fallback behavior
-    - [ ] Integrate server-side challenge token validation through a Rails-compatible Turnstile adapter or minimal internal adapter
-    - [ ] Add feature flags, provider outage handling, bypass rules, and translated user-facing strings
-- [ ] Task: Contract Validation for External Inputs
-    - [ ] Add dry-validation contracts for rate-limit API params, bulk export params, bot-token metadata, and challenge validation payloads
-    - [ ] Keep ActiveRecord and database validations responsible for persistence invariants
-    - [ ] Add tests proving invalid inputs fail with stable, non-leaky error responses
-- [ ] Task: Challenge and Contract Rollback
-    - [ ] Document how to disable challenges and contract enforcement if false positives affect legitimate FOI users
-    - [ ] Add metrics for challenge issued, challenge passed, challenge failed, and challenge bypassed events
-    - [ ] Confirm challenge false-positive risks are not accepted as low risk and have tested disablement, bypass, and rollback controls
+- [x] Task: Feature-Flagged Turnstile Challenge [de2ea46]
+    - [x] Write request and system specs for challenge escalation on suspicious interactive traffic
+    - [x] Verify normal browsing, request creation, verified bot access, and accessibility-compatible fallback behavior
+    - [x] Integrate server-side challenge token validation through a Rails-compatible Turnstile adapter or minimal internal adapter
+    - [x] Add feature flags, provider outage handling, bypass rules, and translated user-facing strings
+- [x] Task: Contract Validation for External Inputs [de2ea46]
+    - [x] Add dry-validation contracts for rate-limit API params, bulk export params, bot-token metadata, and challenge validation payloads
+    - [x] Keep ActiveRecord and database validations responsible for persistence invariants
+    - [x] Add tests proving invalid inputs fail with stable, non-leaky error responses
+- [x] Task: Challenge and Contract Rollback [de2ea46]
+    - [x] Document how to disable challenges and contract enforcement if false positives affect legitimate FOI users
+    - [x] Add metrics for challenge issued, challenge passed, challenge failed, and challenge bypassed events
+    - [x] Confirm challenge false-positive risks are not accepted as low risk and have tested disablement, bypass, and rollback controls
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Bot Challenge and Contract Boundaries' (Protocol in workflow.md)
 
 ## Phase 5: Rails 8 Infrastructure Simplification and Deployment
