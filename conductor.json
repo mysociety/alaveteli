@@ -1,0 +1,6 @@
+{
+  "name": "alaveteli-fork",
+  "tasks": {
+    "simulate-attack": "docker-compose exec -T app bash scripts/simulate_attack.sh"
+  }
+}
