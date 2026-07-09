@@ -6,8 +6,8 @@
     - [x] Create or update the fork-local parent issue and small subissue map
     - [x] Add a benchmark command for bulk export allocations, query count, and latency
     - [x] Document the baseline command, expected inputs, and CI/local execution limits
-- [ ] Task: Conductor - User Manual Verification 'Phase 1'
-    - [ ] Baseline and Harness Setup protocol in `workflow.md`
+- [x] Task: Conductor - User Manual Verification 'Phase 1' [680171b]
+    - [x] Baseline and Harness Setup protocol in `workflow.md`
 
 ## Phase 2: Streaming Export Implementation
 
