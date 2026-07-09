@@ -16,7 +16,7 @@
 
 ## Phase 2: Traffic Control Concern
 
-- [ ] Task: Traffic Control Controller Concern
+- [~] Task: Traffic Control Controller Concern
     - [ ] Write controller specs verifying injection of RFC rate limit headers
     - [ ] Implement `app/controllers/concerns/traffic_control.rb` with header injection and advisory degradation headers
     - [ ] Include concern in ApplicationController
