@@ -26,7 +26,7 @@
 
 ## Phase 4: Integration and Mailers
 
-- [ ] Task: Integrate Preferences with Mailers and Jobs
+- [~] Task: Integrate Preferences with Mailers and Jobs
     - [ ] Write mailer and job tests verifying email suppression based on preferences
     - [ ] Update notification jobs and mailers to honor preference flags
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Integration and Mailers' (Protocol in workflow.md)
