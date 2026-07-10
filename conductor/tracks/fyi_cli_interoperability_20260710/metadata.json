@@ -1,0 +1,14 @@
+{
+  "track_id": "fyi_cli_interoperability_20260710",
+  "type": "cross-repo",
+  "status": "active",
+  "created_at": "2026-07-10T00:00:00Z",
+  "updated_at": "2026-07-10T00:00:00Z",
+  "description": "Verify and harden the fork-local Alaveteli contract consumed by fyi-cli under bot and archival load.",
+  "github_parent_issue": 23,
+  "paired_repository": "edithatogo/fyi-cli",
+  "paired_github_parent_issue": 140,
+  "risk_policy": "no-known-risk-accepted",
+  "delivery_model": "one-child-issue-one-focused-pr",
+  "depends_on": ["sustainability_suite_20260709"]
+}

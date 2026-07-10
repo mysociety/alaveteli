@@ -44,6 +44,8 @@
 
 ## Phase 5: fyi-cli Integration (Client-Side Updates)
 
+> Historical note: the client-side tasks below were recorded against commit `e35c682`, which is not present in this repository. Their independent implementation and verification now belong to the paired fyi-cli track `fyi_cli_interoperability_20260710` and GitHub parent issue [#23](https://github.com/edithatogo/alaveteli/issues/23), paired with fyi-cli issue [#140](https://github.com/edithatogo/fyi-cli/issues/140). This track remains the server-side implementation record; the cross-repo track must close the evidence gap before client interoperability is claimed.
+
 - [x] Task: Client-Side Rate-Limit Awareness [e35c682]
     - [x] Add rate-limit header parsing and dynamic back-off in the `fyi-cli` request client
     - [x] Add support for honoring `Retry-After` and `X-Advisory-Status`
