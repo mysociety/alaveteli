@@ -7,12 +7,17 @@
 #
 class FoiAttachment::MaskJob < ApplicationJob
   queue_as :default
-  unique :until_and_while_executing, on_conflict: :log
+  unique :until_executed, on_conflict: :log
 
   attr_reader :attachment
 
   delegate :incoming_message, to: :attachment
   delegate :info_request, to: :incoming_message
+
+  # use the IncomingMessage.id as uniqueness key when queuing up jobs
+  def lock_key_arguments
+    arguments.first.incoming_message.id
+  end
 
   def perform(attachment)
     @attachment = attachment
