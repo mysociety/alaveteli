@@ -33,13 +33,13 @@
 
 ## Phase 5: Upstream Readiness
 
-- [~] Task: Build an isolated upstream-based candidate
-    - [ ] Reconcile the feature with current `mysociety/develop`
-    - [ ] Preserve only notification-preference implementation and tests
-    - [ ] Publish a fork-local draft PR against a fork-local upstream baseline
-- [ ] Task: Run upstream-shaped verification and risk review
-    - [ ] Pass supported Ruby, focused specs, lint, and security checks
-    - [ ] Verify migration defaults, authorization, strong parameters, UI behavior,
+- [x] Task: Build an isolated upstream-based candidate [bcacb9e]
+    - [x] Reconcile the feature with current `mysociety/develop`
+    - [x] Preserve only notification-preference implementation and tests
+    - [x] Publish fork-local draft PR `#22` against fork-local upstream baseline
+- [~] Task: Run upstream-shaped verification and risk review
+    - [~] Pass supported Ruby, focused specs, lint, and security checks
+    - [x] Verify migration defaults, authorization, strong parameters, UI behavior,
       and mail suppression contracts
     - [ ] Confirm no known security, privacy, accessibility, data-integrity,
       availability, correctness, quality, or operator risk remains

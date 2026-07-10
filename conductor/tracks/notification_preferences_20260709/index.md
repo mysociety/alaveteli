@@ -3,3 +3,4 @@
 - [Specification](./spec.md)
 - [Implementation Plan](./plan.md)
 - [Metadata](./metadata.json)
+- [Upstream Readiness Evidence](./upstream_readiness.md)
