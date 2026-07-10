@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Prevent duplicate attachments from being saved to db (Laurent Savaete)
 * Move admin attachment erasure into background job (Graeme Porteous)
 * Add Search module providing a backend-agnostic search interface, decoupling
   controllers, models and mailers from Xapian (Graeme Porteous)
