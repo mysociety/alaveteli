@@ -98,8 +98,14 @@ RSpec.describe ExcelAnalyzer::XlsAnalyzer do
       allow(analyzer).to receive(:soffice_installed?).and_return(true)
       allow(Dir).to receive(:mktmpdir).and_yield("/tmp/output directory")
       allow(Open3).to receive(:capture3).and_return(["", "", status])
-      allow(File).to receive(:exist?).and_return(true)
-      allow(File).to receive(:read).and_return("xlsx data")
+      allow(File).to receive(:exist?).and_call_original
+      allow(File).to receive(:exist?).with(
+        "/tmp/output directory/input;touch pwned.xlsx"
+      ).and_return(true)
+      allow(File).to receive(:read).and_call_original
+      allow(File).to receive(:read).
+        with("/tmp/output directory/input;touch pwned.xlsx").
+        and_return("xlsx data")
 
       expect(Open3).to receive(:capture3).with(
         "soffice", "--headless", "--convert-to", "xlsx",
