@@ -30,3 +30,18 @@
     - [x] Write mailer and job tests verifying email suppression based on preferences
     - [x] Update notification jobs and mailers to honor preference flags
 - [x] Task: Conductor - User Manual Verification 'Phase 4: Integration and Mailers' (Protocol in workflow.md) [e185cb2]
+
+## Phase 5: Upstream Readiness
+
+- [~] Task: Build an isolated upstream-based candidate
+    - [ ] Reconcile the feature with current `mysociety/develop`
+    - [ ] Preserve only notification-preference implementation and tests
+    - [ ] Publish a fork-local draft PR against a fork-local upstream baseline
+- [ ] Task: Run upstream-shaped verification and risk review
+    - [ ] Pass supported Ruby, focused specs, lint, and security checks
+    - [ ] Verify migration defaults, authorization, strong parameters, UI behavior,
+      and mail suppression contracts
+    - [ ] Confirm no known security, privacy, accessibility, data-integrity,
+      availability, correctness, quality, or operator risk remains
+- [ ] Task: Conductor - User Manual Verification 'Phase 5: Upstream Readiness'
+    - [ ] Upstream Readiness protocol in `workflow.md`
