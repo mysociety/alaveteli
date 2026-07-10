@@ -29,3 +29,11 @@ This file tracks all major tracks for the project. Each track has its own detail
   *Paired fyi-cli parent: [#140](https://github.com/edithatogo/fyi-cli/issues/140)*
   *Link: [./tracks/fyi_cli_interoperability_20260710/](./tracks/fyi_cli_interoperability_20260710/)*
   *Description: Reconcile the server contract and independently verify fyi-cli identity, back-pressure, caching, and bounded bulk-mode interoperability.*
+
+---
+
+- [ ] **Track: Prepare an endorsed, opt-in fyi-cli/MCP route**
+  *GitHub issue: [#28](https://github.com/edithatogo/alaveteli/issues/28)*
+  *Paired fyi-cli issue: [#148](https://github.com/edithatogo/fyi-cli/issues/148)*
+  *Link: [./tracks/endorsed_client_route_20260710/](./tracks/endorsed_client_route_20260710/)*
+  *Description: Plan sysadmin-controlled enablement, bounded access, observability, and kill-switch semantics before any upstream Alaveteli engagement.*
