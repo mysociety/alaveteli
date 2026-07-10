@@ -14,6 +14,7 @@
 - Paired fyi-cli draft PR: https://github.com/edithatogo/fyi-cli/pull/150
 - [ ] Test absent, malformed, degraded, throttled, conditional, and bounded cases.
 - Paired fyi-cli cache/bulk issue: https://github.com/edithatogo/fyi-cli/issues/143
+- Paired fyi-cli bounded bulk draft PR: https://github.com/edithatogo/fyi-cli/pull/152
 - [ ] Run RuboCop, Brakeman, dependency audit, and focused tests with zero untriaged findings.
 
 ## Phase 3: Identity and operations
