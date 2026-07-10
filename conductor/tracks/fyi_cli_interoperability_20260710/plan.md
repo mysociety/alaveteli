@@ -10,6 +10,8 @@
 ## Phase 2: Server conformance fixtures
 
 - [ ] Issue #25: Add focused fixtures/specs for back-pressure, 304, and bulk export.
+- Paired fyi-cli issue: https://github.com/edithatogo/fyi-cli/issues/142
+- Paired fyi-cli draft PR: https://github.com/edithatogo/fyi-cli/pull/150
 - [ ] Test absent, malformed, degraded, throttled, conditional, and bounded cases.
 - [ ] Run RuboCop, Brakeman, dependency audit, and focused tests with zero untriaged findings.
 
