@@ -59,6 +59,31 @@ RSpec.describe Api::V1::SustainabilityController, type: :controller do
       expect(response.headers['RateLimit-Reset']).to eq('2400')
     end
 
+    it 'reports zero remaining while preserving the oldest active reset' do
+      now = Time.current
+      allow(Time).to receive(:current).and_return(now)
+      allow(limiter).to receive(:records).with('127.0.0.1').
+        and_return([now - 20.minutes, now - 10.minutes, now - 5.minutes, now - 1.minute])
+
+      get :rate_limit
+
+      body = JSON.parse(response.body)
+      expect(body).to include('limit' => 3, 'remaining' => 0, 'reset_in_seconds' => 2400)
+      expect(response.headers['RateLimit-Remaining']).to eq('0')
+      expect(response.headers['RateLimit-Reset']).to eq('2400')
+    end
+
+    it 'rejects an invalid client address without querying the limiter' do
+      allow(request).to receive(:remote_ip).and_return('not-an-ip')
+      expect(limiter).not_to receive(:records)
+
+      get :rate_limit
+
+      expect(response).to have_http_status(:bad_request)
+      expect(response.headers['Cache-Control']).to eq('no-store')
+      expect(response.body).to eq({ error: 'invalid_client_address' }.to_json)
+    end
+
     it 'fails closed without exposing limiter details' do
       allow(limiter).to receive(:records).and_raise(StandardError, 'backend detail')
 

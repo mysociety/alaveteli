@@ -5,7 +5,13 @@ module Api
 
       def rate_limit
         rule = limiter.rule
-        records = limiter.records(request.remote_ip)
+        client_ip = normalized_client_ip
+        unless client_ip
+          response.headers['Cache-Control'] = 'no-store'
+          return render json: { error: 'invalid_client_address' }, status: :bad_request
+        end
+
+        records = limiter.records(client_ip)
         active_records = rule.records_in_window(records)
         remaining = [rule.count - active_records.count, 0].max
         reset = reset_in_seconds(rule, active_records)
@@ -32,6 +38,12 @@ module Api
 
       def limiter
         @limiter ||= AlaveteliRateLimiter::IPRateLimiter.new(:request)
+      end
+
+      def normalized_client_ip
+        IPAddr.new(request.remote_ip.to_s).to_s
+      rescue IPAddr::InvalidAddressError, ActionDispatch::RemoteIp::IpSpoofAttackError
+        nil
       end
 
       def reset_in_seconds(rule, records)
