@@ -24,6 +24,7 @@ module Api
         }
       rescue StandardError => exception
         Rails.logger.warn("Sustainability rate-limit endpoint unavailable: #{exception.class}")
+        response.headers['Cache-Control'] = 'no-store'
         render json: { error: 'rate_limit_unavailable' }, status: :service_unavailable
       end
 

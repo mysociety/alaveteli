@@ -39,9 +39,11 @@ RSpec.describe Api::V1::SustainabilityController, type: :controller do
     end
 
     it 'reports active records without exposing them' do
-      recorded_at = 10.minutes.ago
+      now = Time.current
+      allow(Time).to receive(:current).and_return(now)
+      recorded_at = now - 10.minutes
       allow(limiter).to receive(:records).with('127.0.0.1').
-        and_return([recorded_at, 20.minutes.ago])
+        and_return([recorded_at, now - 20.minutes])
 
       get :rate_limit
 
@@ -54,7 +56,7 @@ RSpec.describe Api::V1::SustainabilityController, type: :controller do
       )
       expect(body).not_to have_key('records')
       expect(response.headers['RateLimit-Remaining']).to eq('1')
-      expect(response.headers['RateLimit-Reset'].to_i).to be_between(2390, 2400)
+      expect(response.headers['RateLimit-Reset']).to eq('2400')
     end
 
     it 'fails closed without exposing limiter details' do
@@ -63,6 +65,7 @@ RSpec.describe Api::V1::SustainabilityController, type: :controller do
       get :rate_limit
 
       expect(response).to have_http_status(:service_unavailable)
+      expect(response.headers['Cache-Control']).to eq('no-store')
       expect(response.body).to eq({ error: 'rate_limit_unavailable' }.to_json)
       expect(response.body).not_to include('backend detail')
     end
