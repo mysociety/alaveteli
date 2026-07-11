@@ -4,13 +4,13 @@ module Api
       skip_before_action :html_response
 
       def rate_limit
-        rule = limiter.rule
         client_ip = normalized_client_ip
         unless client_ip
           response.headers['Cache-Control'] = 'no-store'
           return render json: { error: 'invalid_client_address' }, status: :bad_request
         end
 
+        rule = limiter.rule
         records = limiter.records(client_ip)
         active_records = rule.records_in_window(records)
         remaining = [rule.count - active_records.count, 0].max
