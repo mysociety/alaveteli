@@ -41,7 +41,15 @@ module Api
       end
 
       def normalized_client_ip
-        IPAddr.new(request.remote_ip.to_s).to_s
+        raw_ip = request.remote_ip.to_s
+        valid_ip = [
+          IPAddr::RE_IPV4ADDRLIKE,
+          IPAddr::RE_IPV6ADDRLIKE_FULL,
+          IPAddr::RE_IPV6ADDRLIKE_COMPRESSED
+        ].any? { |pattern| pattern.match?(raw_ip) }
+        return unless valid_ip
+
+        IPAddr.new(raw_ip).to_s
       rescue IPAddr::InvalidAddressError, ActionDispatch::RemoteIp::IpSpoofAttackError
         nil
       end
