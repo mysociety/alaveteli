@@ -74,14 +74,22 @@ RSpec.describe Api::V1::SustainabilityController, type: :controller do
     end
 
     it 'rejects an invalid client address without querying the limiter' do
-      allow(controller.request).to receive(:remote_ip).and_return('not-an-ip')
-      expect(AlaveteliRateLimiter::IPRateLimiter).not_to receive(:new)
+      allow(controller).to receive(:normalized_client_ip).and_return(nil)
+      expect(limiter).not_to receive(:rule)
+      expect(limiter).not_to receive(:records)
 
       get :rate_limit
 
       expect(response).to have_http_status(:bad_request)
       expect(response.headers['Cache-Control']).to eq('no-store')
       expect(response.body).to eq({ error: 'invalid_client_address' }.to_json)
+    end
+
+    it 'rejects non-literal addresses during normalization' do
+      request_double = instance_double(ActionDispatch::Request, remote_ip: 'not-an-ip')
+      allow(controller).to receive(:request).and_return(request_double)
+
+      expect(controller.send(:normalized_client_ip)).to be_nil
     end
 
     it 'fails closed without exposing limiter details' do
