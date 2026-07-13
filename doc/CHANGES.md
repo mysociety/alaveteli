@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Update the default Note style to "blue". The "original" style is deprecated
+  (Gareth Rees)
 * Add PostgreSQL full-text search indexing, initially enabled for users only
   (Laurent Savaete, Graeme Porteous)
 * Fix reCAPTCHA blocked by Content Security Policy (Graeme Porteous)

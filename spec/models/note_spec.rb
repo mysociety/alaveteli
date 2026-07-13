@@ -8,7 +8,7 @@
 #  notable_tag  :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  style        :string           default("original"), not null
+#  style        :string           default("blue"), not null
 #  body         :text
 #
 
