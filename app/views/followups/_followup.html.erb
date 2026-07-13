@@ -132,7 +132,6 @@
       <p>
         <%= o.text_area :body, rows: 15, cols: 55 %>
       </p>
-      <%= render_theme_partial 'followups/below_followup_message' %>
 
       <% if @internal_review %>
         <%= hidden_field_tag 'outgoing_message[what_doing]',

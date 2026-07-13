@@ -41,8 +41,6 @@
       <%= password_field 'user_signup', 'password_confirmation', { :size => 15, :tabindex => 40, :autocomplete => "off" } %>
     </p>
 
-    <%= render_theme_partial 'user/signup/before_submit', last_tabindex: 40 %>
-
     <% if @request_from_foreign_country %>
       <%= recaptcha_tags %>
     <% end %>

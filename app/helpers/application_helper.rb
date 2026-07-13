@@ -120,12 +120,6 @@ module ApplicationHelper
     File.exist?(file_path)
   end
 
-  def render_theme_partial(partial, locals = {})
-    return unless lookup_context.template_exists?(partial, [], true)
-
-    render partial: partial, locals: locals
-  end
-
   # Note that if the admin interface is proxied via another server, we can't
   # rely on a session being shared between the front end and admin interface,
   # so need to check the status of the user.
