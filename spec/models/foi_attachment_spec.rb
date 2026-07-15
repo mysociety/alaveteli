@@ -2116,6 +2116,27 @@ RSpec.describe FoiAttachment do
       it { is_expected.to eq(false) }
     end
 
+    context 'when the attachment has been replaced' do
+      before do
+        foi_attachment.replace!(
+          editor: editor,
+          reason: 'Replacing content',
+          replacement_body: 'replacement body'
+        )
+      end
+
+      it 'erases the attachment' do
+        expect { subject }.to change { foi_attachment.reload.erased? }.
+          from(false).to(true)
+      end
+
+      it 'retains the replacement details' do
+        subject
+        expect(foi_attachment.reload.replaced_reason).to eq('Replacing content')
+        expect(foi_attachment.replaced_at).to be_present
+      end
+    end
+
     context 'when a sibling attachment is unmasked' do
       let!(:sibling) do
         FactoryBot.create(

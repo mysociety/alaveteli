@@ -8,7 +8,8 @@ module FoiAttachment::Replaceable
     attribute :replaced_filename, :string
 
     validates :replaced_filename, absence: true, unless: :replacing_or_replaced?
-    validates :replaced_reason, absence: true, unless: :replacing_or_replaced?
+    validates :replaced_reason, absence: true,
+                                unless: -> { replacing_or_replaced? || erased? }
     validates :replaced_reason, presence: true, if: :replacing_or_replaced?
 
     before_save :handle_replacements
