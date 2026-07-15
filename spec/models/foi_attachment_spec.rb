@@ -2032,6 +2032,15 @@ RSpec.describe FoiAttachment do
         expect(foi_attachment.reload).not_to be_erased
       end
 
+      it 'logs the reason for the failure' do
+        allow(Rails.logger).to receive(:error)
+        subject
+        expect(Rails.logger).to have_received(:error).with(
+          "FoiAttachment#erase failed (ID=#{foi_attachment.id}): " \
+          'ActiveRecord::Rollback: could not log erase_attachment event'
+        )
+      end
+
       it { is_expected.to eq(false) }
     end
 
@@ -2091,6 +2100,17 @@ RSpec.describe FoiAttachment do
       it 'does not erase the attachment' do
         subject
         expect(foi_attachment.reload).not_to be_erased
+      end
+
+      it 'logs the reason for the failure' do
+        allow(Rails.logger).to receive(:error)
+        subject
+        expect(Rails.logger).to have_received(:error).with(
+          a_string_including(
+            "FoiAttachment#erase failed (ID=#{foi_attachment.id})",
+            'RawEmail::UnmaskedAttachmentsError'
+          )
+        )
       end
 
       it { is_expected.to eq(false) }
