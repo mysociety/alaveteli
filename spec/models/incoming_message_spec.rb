@@ -102,6 +102,51 @@ RSpec.describe IncomingMessage do
         expect { subject }.to raise_error(RawEmail::ErasedError)
       end
     end
+
+    context 'when another process parses the message concurrently' do
+      # Threads need their own connections and to see committed data
+      self.use_transactional_tests = false
+
+      let(:message) do
+        FactoryBot.create(:incoming_message, :with_html_attachment)
+      end
+
+      before do
+        # Remove the existing attachments so both parse_raw_email calls insert
+        # them from scratch
+        message.foi_attachments.delete_all
+      end
+
+      after do
+        # Without a wrapping transaction the committed records leak into other
+        # examples unless destroyed
+        [message.info_request, message.info_request.user,
+         message.info_request.public_body].each(&:destroy)
+      end
+
+      it 'does not store duplicate attachments' do
+        concurrent_parse = nil
+
+        # Start a second parse after this one has checked for existing
+        # attachments but before it saves the rebuilt ones
+        allow(message).to receive(:extract_attachments).
+          and_wrap_original do |original_method|
+            result = original_method.call
+            concurrent_parse = Thread.new do
+              ActiveRecord::Base.connection_pool.with_connection do
+                IncomingMessage.find(message.id).parse_raw_email!
+              end
+            end
+            sleep 0.5
+            result
+          end
+
+        message.parse_raw_email!
+        concurrent_parse.join
+
+        expect(message.foi_attachments.reload.count).to eq(2)
+      end
+    end
   end
 
   describe '#extract_attachments!' do

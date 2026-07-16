@@ -7,7 +7,7 @@
 #
 class FoiAttachment::MaskJob < ApplicationJob
   queue_as :default
-  unique :until_and_while_executing, on_conflict: :log
+  unique :until_executed, on_conflict: :log
 
   attr_reader :attachment
 

@@ -11,6 +11,28 @@ RSpec.describe FoiAttachment::MaskJob, type: :job do
 
   before { rebuild_raw_emails(info_request) }
 
+  describe 'uniqueness' do
+    let(:attachment_1) { incoming_message.foi_attachments.first }
+    let(:attachment_2) { incoming_message.foi_attachments.last }
+
+    before { described_class.unlock! }
+    after { described_class.unlock! }
+
+    it 'does not enqueue duplicate jobs for the same attachment' do
+      expect {
+        described_class.perform_later(attachment_1)
+        described_class.perform_later(attachment_1)
+      }.to have_enqueued_job(described_class).exactly(:once)
+    end
+
+    it 'enqueues jobs for sibling attachments of the same message' do
+      expect {
+        described_class.perform_later(attachment_1)
+        described_class.perform_later(attachment_2)
+      }.to have_enqueued_job(described_class).twice
+    end
+  end
+
   context 'after rescuing from FoiAttachment::MissingError' do
     before do
       # first call to #unmasked_body should raise MissingError exception

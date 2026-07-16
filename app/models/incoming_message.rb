@@ -100,6 +100,11 @@ class IncomingMessage < ApplicationRecord
     raw_email_ensure_not_erased!
 
     ActiveRecord::Base.transaction do
+      # Lock the row to serialize concurrent re-parsing, otherwise two
+      # processes can each insert a full set of attachments. Locking a
+      # fresh copy avoids reloading self mid-parse.
+      self.class.lock.find(id) if persisted?
+
       extract_attachments
       self.sent_at = raw_email.date || created_at
       self.subject = raw_email.subject
