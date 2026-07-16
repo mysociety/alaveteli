@@ -4,8 +4,16 @@
 # Copyright (c) 2015 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 class OneTimePasswordsController < ApplicationController
+  include OtpRateLimit
+
   before_action :check_two_factor_config, :authenticate
+  before_action :prevent_reenrolment, only: [:new, :create]
+  before_action :require_hotp, only: :update
   before_action :require_pending_otp_secret, only: :create
+
+  limit_otp_attempts only: :destroy, by: -> { @user.id },
+                     if: -> { @user.totp? && !params[:otp_code].nil? },
+                     template: :destroy_confirmation
 
   def new
     session[:pending_otp_secret_key] ||= ROTP::Base32.random
@@ -72,6 +80,28 @@ class OneTimePasswordsController < ApplicationController
 
   def enrolment_params
     params.fetch(:otp_enrolment, {}).permit(:otp_code)
+  end
+
+  # Block enrolment for users who already have an authenticator app. HOTP users
+  # are allowed through so they can upgrade to an authenticator app.
+  def prevent_reenrolment
+    return unless @user.totp?
+
+    flash[:error] =
+      _('Two factor authentication is already set up. To use a different ' \
+        'authenticator app, disable two factor authentication first, then ' \
+        'set it up again.')
+    redirect_to one_time_password_path
+  end
+
+  # Prevent TOTP users from being downgraded to HOTP by restricting to HOTP
+  # users only.
+  def require_hotp
+    return if @user.hotp?
+
+    flash[:error] =
+      _('Your account does not have a two factor one time passcode to update')
+    redirect_to one_time_password_path
   end
 
   def require_pending_otp_secret

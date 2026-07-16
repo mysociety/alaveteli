@@ -1,6 +1,10 @@
 # View and regenerate two factor backup codes
 class OneTimePasswords::BackupCodesController < ApplicationController
+  include OtpRateLimit
+
   before_action :check_two_factor_config, :authenticate, :require_totp
+
+  limit_otp_attempts only: :create, by: -> { @user.id }, template: :show
 
   def show
   end
