@@ -211,43 +211,4 @@ sql[:values])
       ).distinct
     end
   end
-
-  # temp code to remove before merging. Throw variations of inputs
-  # at the search function to make sure there is no weird crash
-  # happening in the various SQL building parts.
-  # TODO: do the same thing for the indexing part
-  def self.fuzz_search
-    models = [nil, PublicBody, Note, MailServerLog, FoiAttachment]
-    languages = ['simple', nil, 'french', 'english']
-    limits = [0, -1, 30]
-    admin_modes = [true, false, nil]
-    exact_modes = [true, false, nil]
-    semantic_thresholds = [0.6]
-    limit_ratios = [1, 3, 0]
-
-    # one query string per line. https://gitlab.com/akihe/radamsa
-    # provides an easy way to generate nasty test strings
-    queries = IO.readlines('search_unique.txt')
-
-    models.each do |model|
-      languages.each do |language|
-        limits.each do |limit|
-          admin_modes.each do |admin_mode|
-            exact_modes.each do |exact_mode|
-              queries.each do |query|
-                puts SearchDocument.hybrid_search(query,
-                  model: model,
-                  language: language,
-                  limit: limit,
-                  admin_mode: admin_mode,
-                  exact_mode: exact_mode,
-                  semantic_threshold: semantic_thresholds[0],
-                  limit_ratio: limit_ratios[1]).count
-              end
-            end
-          end
-        end
-      end
-    end
-  end
 end
