@@ -51,4 +51,17 @@ RSpec.describe Searchable, 'index lifecycle' do
     body = FactoryBot.create(:public_body)
     expect(body.search_documents.count).to eq(0)
   end
+
+  describe '.reindex_all' do
+    it 'indexes every indexable record' do
+      FactoryBot.create_list(:user, 2)
+      SearchDocument.delete_all
+
+      User.reindex_all
+
+      expect(
+        SearchDocument.where(searchable_type: 'User').count
+      ).to eq(User.count)
+    end
+  end
 end

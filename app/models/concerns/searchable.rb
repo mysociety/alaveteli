@@ -110,8 +110,6 @@ module Searchable
 
   # upsert the search content
   def upsert_content(language, section_ref)
-    search_cfg = @@searchable_models[self.class.to_s]
-
     content_from_db = search_content_from_db(
       :index,
       language
@@ -256,10 +254,14 @@ module Searchable
     # This would normally not be run beyond the initial indexing of a
     # pre-existing database.
     def reindex_all(batch_size: 1000)
-      start = Time.now
-      indexable.find_each(batch_size: batch_size).map(&:reindex)
-      t = Time.now - start
-      Rails.logger.info("Reindexed #{indexable.count} #{name} in #{t} seconds")
+      start = Time.zone.now
+      count = 0
+      indexable.find_each(batch_size: batch_size) do |record|
+        record.reindex
+        count += 1
+      end
+      elapsed = Time.zone.now - start
+      Rails.logger.info("Reindexed #{count} #{name} in #{elapsed} seconds")
     end
   end
 
@@ -272,7 +274,7 @@ module Searchable
       after_commit :reindex, on: [:create, :update]
       # Override this scope to help filter out records which don't need
       # reindexing in `reindex_all`.
-      scope :indexable, -> {}
+      scope :indexable, -> { all }
     end
     base.extend(SearchableMethods)
   end
