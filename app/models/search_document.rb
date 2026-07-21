@@ -40,6 +40,11 @@ class SearchDocument < ApplicationRecord
     exact_mode:,
     limit_ratio:
   )
+    # coerce values that are interpolated into the SQL rather than bound,
+    # so a non-numeric value raises instead of reaching the query.
+    limit = Integer(limit)
+    limit_ratio = Integer(limit_ratio)
+
     sanitized_language = if language.nil? || language == ''
                            Searchable.
                              lang_from_locale(
@@ -56,7 +61,8 @@ class SearchDocument < ApplicationRecord
     if model.nil?
       doc_type_q = ""
     else
-      doc_type_q = "AND searchable_type = '#{model}'"
+      doc_type_q = "AND searchable_type = :model"
+      query_values[:model] = model.to_s
     end
 
     # conditionally build a query for each search type (exact, FTS)
@@ -84,8 +90,10 @@ class SearchDocument < ApplicationRecord
     # exact_mode search is potentially costly as it is not backed by an index.
     # This should probably not be exposed to non-admins.
     if exact_mode
+      # escape LIKE wildcards so the query text is matched literally
+      query_values[:like_query] = "%#{sanitize_sql_like(sanitized_query)}%"
       if admin_mode
-        adm_q = "OR raw_admin_content LIKE concat('%', :query::text, '%')"
+        adm_q = "OR raw_admin_content LIKE :like_query"
       else
         adm_q = ""
       end
@@ -95,7 +103,7 @@ class SearchDocument < ApplicationRecord
           rank() OVER (ORDER BY sd_id DESC) AS rank
         FROM search_documents
         WHERE
-          (raw_content LIKE concat('%', :query::text, '%')
+          (raw_content LIKE :like_query
           #{adm_q})
           #{doc_type_q}
         LIMIT #{limit * limit_ratio}
@@ -139,28 +147,30 @@ class SearchDocument < ApplicationRecord
                          admin_mode: false,
                          exact_mode: false,
                          limit_ratio: 3)
-    # try to provide some guidance during development
-    unless Rails.env == 'production'
-      if model.is_a? String
-        raise(
-          ArgumentError,
-          "model should be a class, not its string representation"
-        )
-      end
-      supported_langs = Searchable.
-        class_variable_get(:@@locale_to_language_map).
-        values.
-        concat(
-          [
-            "simple",
-            nil
-          ]
-        )
-      unless supported_langs.include?(language)
-        raise(ArgumentError, "#{language} is not yet supported for search")
-      end
+    # validate all inputs before any SQL is built from them. This must
+    # run in every environment as it is part of keeping the query
+    # injection-safe.
+    if !model.nil? && !model.is_a?(Class)
+      raise(
+        ArgumentError,
+        "model should be a class, not its string representation"
+      )
     end
 
+    supported_langs = Searchable.
+      class_variable_get(:@@locale_to_language_map).
+      values.
+      concat(
+        [
+          "simple",
+          nil
+        ]
+      )
+    unless supported_langs.include?(language)
+      raise(ArgumentError, "#{language} is not yet supported for search")
+    end
+
+    limit = Integer(limit)
     return SearchDocument.none if limit < 1
 
     sql = hybrid_search_internal(

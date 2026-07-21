@@ -51,4 +51,45 @@ RSpec.describe SearchDocument do
         to raise_error(NotImplementedError)
     end
   end
+
+  context 'input validation' do
+    it 'rejects a model given as a string' do
+      expect { SearchDocument.hybrid_search('anything', model: 'User') }.
+        to raise_error(ArgumentError)
+    end
+
+    it 'rejects a non-numeric limit' do
+      expect {
+        User.newsearch('anything', admin_mode: true,
+                                   limit: '10; DROP TABLE users')
+      }.to raise_error(ArgumentError)
+    end
+
+    it 'rejects a non-numeric limit_ratio' do
+      expect {
+        SearchDocument.hybrid_search('anything', model: User,
+                                                 limit_ratio: '3--')
+      }.to raise_error(ArgumentError)
+    end
+
+    it 'rejects unsupported languages' do
+      expect { User.newsearch('anything', language: 'klingon') }.
+        to raise_error(ArgumentError)
+    end
+  end
+
+  context 'exact mode' do
+    it 'treats LIKE wildcards in the query as literal characters' do
+      legit = FactoryBot.create(:user, name: 'Legitimate 100% Prospect')
+      other = FactoryBot.create(:user, name: 'Someone Else')
+      [legit, other].each(&:reindex)
+
+      expect(
+        User.newsearch('100%', admin_mode: true, exact_mode: true)
+      ).to match_array([legit])
+      expect(
+        User.newsearch('%', admin_mode: true, exact_mode: true)
+      ).to match_array([legit])
+    end
+  end
 end
