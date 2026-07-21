@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add PostgreSQL full-text search indexing, initially enabled for users only
+  (Laurent Savaete, Graeme Porteous)
 * Fix duplicate attachments from concurrent incoming message masking (Laurent
   Savaete, Graeme Porteous)
 * Move admin attachment erasure into background job (Graeme Porteous)
