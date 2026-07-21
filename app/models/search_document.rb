@@ -38,7 +38,6 @@ class SearchDocument < ApplicationRecord
     limit:,
     admin_mode:,
     exact_mode:,
-    semantic_threshold:,
     limit_ratio:
   )
     sanitized_language = if language.nil? || language == ''
@@ -60,28 +59,9 @@ class SearchDocument < ApplicationRecord
       doc_type_q = "AND searchable_type = '#{model}'"
     end
 
-    # TODO: loading the model is slow (10+s) and memory hungry (10+GB),
-    # so it needs to be locked away behind some kind of config flag.
-    q_embedding = nil
-
-    # conditionally build a query for each search type (exact, FTS, semantic)
+    # conditionally build a query for each search type (exact, FTS)
     # and UNION them
     search_queries = []
-    unless q_embedding.nil?
-      #   semantic_query = "(1=1)"
-      # else
-      search_queries << <<-SQL
-        SELECT
-            sd_id,
-            rank() OVER (ORDER BY '#{q_embedding}'::vector <=> embedding) AS rank
-        FROM search_documents
-        WHERE embedding IS NOT NULL
-            #{doc_type_q}
-            AND ('#{q_embedding}'::vector <=> embedding) < #{semantic_threshold}
-        ORDER BY '#{q_embedding}'::vector <=> embedding
-        LIMIT #{limit * limit_ratio}
-        SQL
-    end
 
     if admin_mode
       # keep the same language for tokenization in admin mode, if the (admin)
@@ -158,7 +138,6 @@ class SearchDocument < ApplicationRecord
                          limit: 10,
                          admin_mode: false,
                          exact_mode: false,
-                         semantic_threshold: 0.6,
                          limit_ratio: 3)
     # try to provide some guidance during development
     unless Rails.env == 'production'
@@ -191,7 +170,6 @@ class SearchDocument < ApplicationRecord
       limit: limit,
       admin_mode: admin_mode,
       exact_mode: exact_mode,
-      semantic_threshold: semantic_threshold,
       limit_ratio: limit_ratio
     )
 
