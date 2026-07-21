@@ -18,21 +18,20 @@
 require 'spec_helper'
 
 RSpec.describe SearchDocument do
-  let(:user) do
+  # created eagerly so the after_commit indexes it before the search runs
+  let!(:user) do
     FactoryBot.create(:user, name: 'Florence Nightingale',
                              about_me: 'I enjoy data visualisation')
   end
 
   context 'model search' do
     it 'returns a chainable ActiveRecord::Relation' do
-      user.reindex
       results = User.newsearch('Florence', admin_mode: true)
       expect(results).to be_an(ActiveRecord::Relation)
       expect(results.where(email_confirmed: true).count).to eq(1)
     end
 
     it 'finds users by admin indexed fields' do
-      user.reindex
       expect(
         User.newsearch(user.email, admin_mode: true)
       ).to match_array([user])
@@ -42,7 +41,6 @@ RSpec.describe SearchDocument do
     end
 
     it 'does not match admin indexed fields without admin_mode' do
-      user.reindex
       expect(User.newsearch('Florence')).to match_array([])
     end
 
@@ -81,8 +79,7 @@ RSpec.describe SearchDocument do
   context 'exact mode' do
     it 'treats LIKE wildcards in the query as literal characters' do
       legit = FactoryBot.create(:user, name: 'Legitimate 100% Prospect')
-      other = FactoryBot.create(:user, name: 'Someone Else')
-      [legit, other].each(&:reindex)
+      FactoryBot.create(:user, name: 'Someone Else')
 
       expect(
         User.newsearch('100%', admin_mode: true, exact_mode: true)

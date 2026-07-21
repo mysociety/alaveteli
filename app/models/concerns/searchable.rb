@@ -155,6 +155,7 @@ module Searchable
   # embedding generation, etc...
   # TODO: produce more than 1 section for attachments
   def reindex
+    return unless @@searchable_models.key?(self.class.to_s)
     return unless is_indexable?
 
     if respond_to?(:translated_versions)
@@ -265,6 +266,10 @@ module Searchable
   def self.included(base)
     base.class_eval do
       has_many :search_documents, as: :searchable, dependent: :destroy
+      # keep the search index in sync with the record, so edits (including
+      # anonymisation of personal data) are reflected in the indexed and
+      # raw copies of the content.
+      after_commit :reindex, on: [:create, :update]
       # Override this scope to help filter out records which don't need
       # reindexing in `reindex_all`.
       scope :indexable, -> {}
