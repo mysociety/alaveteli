@@ -1,25 +1,25 @@
 class AddSearchDocument < ActiveRecord::Migration[8.0]
-  def change
-    # make sure all models (OutgoingMessage in particular) are loaded
-    # so we don't miss any partition.
-    Rails.application.eager_load!
+  # model names are hardcoded rather than referencing the classes so the
+  # migration keeps working even if application models are later renamed
+  # or removed.
+  MODELS_FOR_SEARCH_DOCUMENT_PARTITIONS = %w[
+    CensorRule
+    Citation
+    Comment
+    User::EmailHistory
+    FoiAttachment
+    IncomingMessage
+    InfoRequest
+    InfoRequestEvent
+    OutgoingMessage
+    MailServerLog
+    Note
+    PublicBody
+    PublicBodyChangeRequest
+    User
+  ].freeze
 
-    models_for_search_document_partitions = [
-      CensorRule,
-      Citation,
-      Comment,
-      User::EmailHistory,
-      FoiAttachment,
-      IncomingMessage,
-      InfoRequest,
-      InfoRequestEvent,
-      OutgoingMessage,
-      MailServerLog,
-      Note,
-      PublicBody,
-      PublicBodyChangeRequest,
-      User
-    ]
+  def change
     # partition the search table by doctype/model. For bigger deployments,
     # this should result in faster search for public bodies (which is likely to be
     # very common) because the index for that table can stay in memory. Searches for
@@ -72,10 +72,10 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
         execute("create extension if not exists unaccent")
 
         # create a table partition for each model.
-        models_for_search_document_partitions.each do |model|
+        MODELS_FOR_SEARCH_DOCUMENT_PARTITIONS.each do |model|
           execute(
             <<-SQL
-              CREATE TABLE IF NOT EXISTS search_documents_#{model.name.downcase.gsub("::", "_")}
+              CREATE TABLE IF NOT EXISTS #{partition_table_name(model)}
                 PARTITION OF search_documents
                 FOR VALUES IN ('#{model}');
             SQL
@@ -124,12 +124,13 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
           SQL
         )
 
-        # when undoing the migration, we need to remove all partitions, or
-        # the main table won't be dropped.
-        Searchable.class_variable_get(:@@searchable_models).keys.each do |model|
+        # drop the same partitions that were created on the way up, so the
+        # rollback does not depend on which models are currently registered
+        # as searchable in the application.
+        MODELS_FOR_SEARCH_DOCUMENT_PARTITIONS.each do |model|
           execute(
             <<-SQL
-              DROP TABLE IF EXISTS search_documents_#{model.downcase.gsub("::", "_")};
+              DROP TABLE IF EXISTS #{partition_table_name(model)};
             SQL
           )
         end
@@ -143,5 +144,11 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
     # supports FTS
     add_index(:search_documents, :content_tsv, using: :gin)
     add_index(:search_documents, :admin_content_tsv, using: :gin)
+  end
+
+  private
+
+  def partition_table_name(model)
+    "search_documents_#{model.downcase.gsub('::', '_')}"
   end
 end
