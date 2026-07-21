@@ -28,7 +28,7 @@
 #
 class SearchDocument < ApplicationRecord
   belongs_to :searchable, polymorphic: true
-  self.primary_key = [:sd_id, :searchable_type]
+  self.primary_key = [:searchable_type, :sd_id]
 
   # build the sql query for the search. This should be injection-safe.
   def self.hybrid_search_internal(
