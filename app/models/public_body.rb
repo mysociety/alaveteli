@@ -36,7 +36,6 @@ class PublicBody < ApplicationRecord
   include Searchable
   include Taggable
   include Notable
-  include Searchable
 
   include PublicBody::CalculatedHomePage
   include PublicBody::CsvImport
@@ -123,22 +122,6 @@ class PublicBody < ApplicationRecord
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
-
-  searchable index: {
-               ".name": "A",
-               ".short_name": "A",
-               "home_page": "B",
-               ".notes_as_string": "C",
-               ".tag_string": "D"
-             },
-             admin_index: {
-               # TODO: replace this with ALL edit comments
-               "last_edit_editor": "A",
-               "last_edit_comment": "A",
-               ".request_email": "A"
-             },
-             filterable: [],
-             sortable: []
 
   strip_attributes allow_empty: false, except: %i[request_email]
   strip_attributes allow_empty: true, only: %i[request_email]
@@ -438,7 +421,7 @@ class PublicBody < ApplicationRecord
                     home_page: nil,
                     publication_scheme: nil,
                     last_edit_editor: "internal_admin",
-                    last_edit_comment: "Made by PublicBody.internal_admin_body")
+                    last_edit_comment:                       "Made by PublicBody.internal_admin_body")
         end
       end
     elsif matching_pbs.length == 1

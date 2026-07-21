@@ -56,7 +56,7 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
       # similar tsvector but for data that is only admin-visible.
       # The fields in `admin_index` are used to populate this column.
       # This is mainly used for GDPR-type search where an admin needs
-      # to find all occurences of a name, email, etc...
+      # to find all occurrences of a name, email, etc...
       t.column(:admin_content_tsv, :tsvector)
 
       # we don't really need these, include them while developing to help

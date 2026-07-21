@@ -29,7 +29,6 @@ class OutgoingMessage < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
   include Taggable
-  include Searchable
 
   include OutgoingMessage::DeliveryStatus
 
@@ -83,18 +82,6 @@ class OutgoingMessage < ApplicationRecord
 
   scope :followup, -> { where(message_type: 'followup') }
   scope :is_searchable, -> { where(prominence: 'normal') }
-
-  searchable(
-    index: {
-      prominence_reason: "D",
-      ".get_text_for_indexing": "A",
-      safe_from_name: "D"
-    },
-    admin_index: {
-      body: "A",
-      from_name: "D"
-    }
-  )
 
   def self.default_salutation(public_body)
     _("Dear {{public_body_name}},", public_body_name: public_body.name)

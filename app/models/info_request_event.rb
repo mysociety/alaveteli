@@ -25,7 +25,6 @@ class InfoRequestEvent < ApplicationRecord
   include Searchable
 
   extend XapianQueries
-  include Searchable
 
   EVENT_TYPES = [
     'sent',
@@ -109,12 +108,6 @@ class InfoRequestEvent < ApplicationRecord
   end
 
   attr_accessor :no_xapian_reindex
-
-  # we don't want users to find events, they search through requests
-  # and messages directly
-  searchable admin_index: {
-    "cleanup_jsonb_for_search(params)": "A"
-  }
 
   def self.count_of_hides_by_week
     where(event_type: "hide").group("date(date_trunc('week', created_at))").count.sort

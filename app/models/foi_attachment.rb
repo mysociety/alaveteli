@@ -43,7 +43,6 @@ class FoiAttachment < ApplicationRecord
   include Lockable
   include Maskable
   include Replaceable
-  include Searchable
 
   MissingError = Class.new(StandardError)
 
@@ -68,75 +67,12 @@ class FoiAttachment < ApplicationRecord
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
                 include: %i[redacted_filename display_filename metadata]
 
-  searchable index: {
-               ".body_to_text": "A"
-             },
-             admin_index: {
-               "filename": "A",
-               ".unredacted_diff_for_admin_indexing": "A",
-               "prominence_reason": "A",
-               "replaced_reason": "A"
-             }
-
-  # skip image/video files when reindexing all attachments
-  scope :indexable, -> {
-    where("content_type not like 'image/%' and content_type not like 'video/%'")
-  }
-
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
 
   def delete_cached_file!
     @cached_body = nil
     file.purge_later if file.attached?
-  end
-
-  def is_indexable?
-    true
-  end
-
-  def unredacted_content_for_indexing
-    AttachmentToText.
-      from_string(unmasked_body, content_type: content_type).
-      to_text
-  end
-
-  # diffs the unredacted and redacted versions of the attachment text
-  # and returns a string of parts that were redacted. Storing this diff
-  # in the admin_index is a lot more efficient than keeping the entire
-  # text both in index and admin_index (plus corresponding GIN indexes
-  # in postgresql).
-  # For binary content (such as PDFs), emails are masked such that
-  # someone@domain.com becomes xxxxxxx@xxxxxx.xxx. The diff then produces
-  # 3 distinct strings: someone, domain and com, instead of a single email
-  # address. This makes it hard to use for search.
-  # It is possible to modify AlaveteliTextMasker.apply_binary_masks to get
-  # rid of @ and periods, but this in turn breaks certains features at
-  # display time.
-  def unredacted_diff_for_admin_indexing
-    sdiff = Diff::LCS.sdiff(
-      unredacted_content_for_indexing,
-      body_to_text
-    )
-    out = sdiff.reduce(['', nil]) do |acc, current|
-      prev = acc[1]
-      el = if current.action == '!'
-             current.old_element
-           elsif prev &&
-                 prev.action == '!' &&
-                 current.action == '='
-             if ['@', '.'].include?(current.old_element)
-               current.old_element
-             else
-               # add a space after each hunk
-               ' '
-             end
-           else
-             ''
-           end
-      [acc[0] + el, current]
-    end
-    out[0]
   end
 
   def body=(d)
@@ -359,4 +295,5 @@ class FoiAttachment < ApplicationRecord
     raise MissingError, "attachment couldn't be reloaded using " \
       "url_part_number and display_filename attributes"
   end
+
 end

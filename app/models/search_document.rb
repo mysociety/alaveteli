@@ -64,7 +64,7 @@ class SearchDocument < ApplicationRecord
     # so it needs to be locked away behind some kind of config flag.
     q_embedding = nil
 
-    # conditionnally build a query for each search type (exact, FTS, semantic)
+    # conditionally build a query for each search type (exact, FTS, semantic)
     # and UNION them
     search_queries = []
     unless q_embedding.nil?

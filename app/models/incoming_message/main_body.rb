@@ -34,21 +34,6 @@ module IncomingMessage::MainBody
     ''
   end
 
-  # fetches the raw email and extracts text without applying masks nor
-  # censor rules.
-  def get_main_body_text_uncensored_for_indexing
-    parse_raw_email
-    main_part = get_main_body_text_part
-    AttachmentToText.
-      from_part(main_part, main_part.unmasked_body).
-      to_text.
-      squeeze(' ')
-  rescue FoiAttachment::MissingError
-    retry
-  rescue FoiAttachment::ErasedError
-    ''
-  end
-
   # Returns part which contains main body text, or nil if there isn't one,
   # from a set of foi_attachments. If the leaves parameter is empty or not
   # supplied, uses its own foi_attachments.

@@ -14,7 +14,6 @@
 
 class Note < ApplicationRecord
   include AdminColumn
-  include Searchable
 
   translates :body
   translates :rich_body, touch: true
@@ -46,10 +45,6 @@ class Note < ApplicationRecord
   validates :style, presence: true
   validates :notable_or_notable_tag, presence: true
 
-  searchable admin_index: {
-    ".to_plain_text": "A"
-  }
-
   def self.sort(notes)
     notes.sort_by! { Note.style_labels.values.index(_1.style) }
   end
@@ -67,15 +62,5 @@ class Note < ApplicationRecord
 
   class Translation # :nodoc:
     has_rich_text :rich_body
-  end
-
-  # override the same method in the globalize gem which is not cached, and
-  # runs this query over and over, although it always returns the same result
-  Translation.class_eval do
-    def self.translated_locales
-      Rails.cache.fetch("notable_translation_locales", expires_in: 24.hours) do
-        select('DISTINCT locale').order(:locale).map(&:locale)
-      end
-    end
   end
 end
