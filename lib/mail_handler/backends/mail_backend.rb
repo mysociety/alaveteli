@@ -260,6 +260,15 @@ module MailHandler
 
           # Use standard content types for Word documents etc.
           part.content_type = normalise_content_type(get_content_type(part))
+
+          # Reassigning content_type above discards any `name` parameter.
+          # Restore it so the attachment keeps its original name instead of
+          # falling back to `attachment.<ext>`.
+          if part_filename.present? && get_part_file_name(part).nil?
+            type, subtype = get_content_type(part).split('/', 2)
+            part.content_type = [type, subtype, { 'name' => part_filename }]
+          end
+
           decode_attached_part(part, parent_mail)
           part.charset = original_charset if original_charset
         end
