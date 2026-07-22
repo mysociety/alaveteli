@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix reCAPTCHA blocked by Content Security Policy (Graeme Porteous)
 * Recognise macro-enabled Office files (Graeme Porteous)
 * Preserve attachment filenames supplied only in the Content-Type name
   parameter (Graeme Porteous)

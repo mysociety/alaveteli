@@ -57,7 +57,7 @@
 
       <% if @render_recaptcha %>
       <p>
-        <%= recaptcha_tags %>
+        <%= recaptcha_tags(nonce: content_security_policy_nonce) %>
       </p>
       <% end %>
 

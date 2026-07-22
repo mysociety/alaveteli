@@ -63,7 +63,7 @@
   </p>
 
   <% if @render_recaptcha %>
-    <%= recaptcha_tags %>
+    <%= recaptcha_tags(nonce: content_security_policy_nonce) %>
   <% end %>
 
   <p style="display:none;">
