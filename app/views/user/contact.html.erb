@@ -37,7 +37,7 @@
   </p>
 
   <% if @recaptcha_required %>
-    <%= recaptcha_tags %><br />
+    <%= recaptcha_tags(nonce: content_security_policy_nonce) %><br />
   <% end %>
 
   <div class="form_button">

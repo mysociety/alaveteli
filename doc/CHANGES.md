@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix reCAPTCHA blocked by Content Security Policy (Graeme Porteous)
 * Fix duplicate attachments from concurrent incoming message masking (Laurent
   Savaete, Graeme Porteous)
 * Move admin attachment erasure into background job (Graeme Porteous)
