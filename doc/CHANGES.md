@@ -2,6 +2,9 @@
 
 ## Highlighted Features
 
+* Recognise macro-enabled Office files (Graeme Porteous)
+* Preserve attachment filenames supplied only in the Content-Type name
+  parameter (Graeme Porteous)
 * Fix duplicate attachments from concurrent incoming message masking (Laurent
   Savaete, Graeme Porteous)
 * Move admin attachment erasure into background job (Graeme Porteous)
