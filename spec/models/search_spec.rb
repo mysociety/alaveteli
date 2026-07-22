@@ -3,14 +3,11 @@ require 'spec_helper'
 RSpec.describe Search do
   before do
     @original_backend = Search.backend
-    @original_index_backends = Search.index_backends
     Search.backend = instance_double(Search::Backend)
-    Search.index_backends = [Search.backend]
   end
 
   after do
     Search.backend = @original_backend
-    Search.index_backends = @original_index_backends
   end
 
   let(:backend) { Search.backend }
@@ -18,24 +15,6 @@ RSpec.describe Search do
   describe '.backend' do
     it 'returns the configured backend' do
       expect(Search.backend).to eq(backend)
-    end
-  end
-
-  describe '.index_backends' do
-    it 'defaults to the query backend' do
-      Search.instance_variable_set(:@index_backends, nil)
-      expect(Search.index_backends).to eq([Search.backend])
-    end
-
-    it 'can be assigned a list of backends' do
-      other = instance_double(Search::Backend)
-      Search.index_backends = [backend, other]
-      expect(Search.index_backends).to eq([backend, other])
-    end
-
-    it 'wraps a single backend in an array' do
-      Search.index_backends = backend
-      expect(Search.index_backends).to eq([backend])
     end
   end
 
@@ -50,6 +29,11 @@ RSpec.describe Search do
         to be_a(Search::Adapters::Xapian::Adapter)
     end
 
+    it 'builds the Postgresql adapter for postgresql' do
+      expect(Search.backend_for('postgresql')).
+        to be_a(Search::Adapters::Postgresql::Adapter)
+    end
+
     it 'raises for an unknown backend' do
       expect { Search.backend_for('bogus') }.
         to raise_error(ArgumentError, /Unknown search backend/)
@@ -59,6 +43,17 @@ RSpec.describe Search do
   describe 'default configuration' do
     it 'defaults SEARCH_BACKEND to xapian' do
       expect(AlaveteliConfiguration.search_backend).to eq('xapian')
+    end
+  end
+
+  describe '.use_configured_backend!' do
+    it 'sets the query backend from configuration' do
+      allow(AlaveteliConfiguration).to receive(:search_backend).
+        and_return('xapian')
+
+      Search.use_configured_backend!
+
+      expect(Search.backend).to be_a(Search::Adapters::Xapian::Adapter)
     end
   end
 
@@ -82,6 +77,14 @@ RSpec.describe Search do
       )
       Search.search('test', models: [PublicBody], page: 1)
     end
+
+    it 'delegates to the named backend without the backend option' do
+      other = instance_double(Search::Backend)
+      allow(Search).to receive(:backend_for).with(:postgresql).
+        and_return(other)
+      expect(other).to receive(:search).with('test', models: [PublicBody])
+      Search.search('test', models: [PublicBody], backend: :postgresql)
+    end
   end
 
   describe '.search_scope' do
@@ -89,6 +92,23 @@ RSpec.describe Search do
       relation = User.all
       expect(backend).to receive(:search_scope).with('test', relation)
       Search.search_scope('test', relation)
+    end
+
+    it 'delegates to the named backend without the backend option' do
+      relation = User.all
+      other = instance_double(Search::Backend)
+      allow(Search).to receive(:backend_for).with(:postgresql).
+        and_return(other)
+      expect(other).to receive(:search_scope).
+        with('test', relation, admin_mode: true)
+      Search.search_scope(
+        'test', relation, backend: :postgresql, admin_mode: true
+      )
+    end
+
+    it 'raises for an unknown backend name' do
+      expect { Search.search_scope('test', User.all, backend: :bogus) }.
+        to raise_error(ArgumentError, /Unknown search backend/)
     end
   end
 
@@ -99,6 +119,14 @@ RSpec.describe Search do
       )
       Search.typeahead('test', model: PublicBody, page: 1)
     end
+
+    it 'delegates to the named backend without the backend option' do
+      other = instance_double(Search::Backend)
+      allow(Search).to receive(:backend_for).with(:postgresql).
+        and_return(other)
+      expect(other).to receive(:typeahead).with('test', model: PublicBody)
+      Search.typeahead('test', model: PublicBody, backend: :postgresql)
+    end
   end
 
   describe '.similar' do
@@ -107,25 +135,40 @@ RSpec.describe Search do
       expect(backend).to receive(:similar).with(record)
       Search.similar(record)
     end
+
+    it 'delegates to the named backend' do
+      record = double
+      other = instance_double(Search::Backend)
+      allow(Search).to receive(:backend_for).with(:postgresql).
+        and_return(other)
+      expect(other).to receive(:similar).with(record)
+      Search.similar(record, backend: :postgresql)
+    end
   end
 
   describe '.reindex_later' do
-    it 'indexes every backend' do
-      other = instance_double(Search::Backend)
-      Search.index_backends = [backend, other]
+    it 'indexes every registered backend' do
+      xapian = instance_double(Search::Backend)
+      postgresql = instance_double(Search::Backend)
+      allow(Search).to receive(:backend_for).with(:xapian).and_return(xapian)
+      allow(Search).to receive(:backend_for).
+        with(:postgresql).and_return(postgresql)
       record = double
-      expect(backend).to receive(:reindex_later).with(record)
-      expect(other).to receive(:reindex_later).with(record)
+      expect(xapian).to receive(:reindex_later).with(record)
+      expect(postgresql).to receive(:reindex_later).with(record)
       Search.reindex_later(record)
     end
   end
 
   describe '.queued_jobs_count' do
-    it 'sums the count across every index backend' do
-      other = instance_double(Search::Backend)
-      Search.index_backends = [backend, other]
-      allow(backend).to receive(:queued_jobs_count).and_return(5)
-      allow(other).to receive(:queued_jobs_count).and_return(3)
+    it 'sums the count across every registered backend' do
+      xapian = instance_double(Search::Backend)
+      postgresql = instance_double(Search::Backend)
+      allow(Search).to receive(:backend_for).with(:xapian).and_return(xapian)
+      allow(Search).to receive(:backend_for).
+        with(:postgresql).and_return(postgresql)
+      allow(xapian).to receive(:queued_jobs_count).and_return(5)
+      allow(postgresql).to receive(:queued_jobs_count).and_return(3)
       expect(Search.queued_jobs_count).to eq(8)
     end
   end

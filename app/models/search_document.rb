@@ -38,6 +38,7 @@ class SearchDocument < ApplicationRecord
     limit:,
     admin_mode:,
     exact_mode:,
+    case_sensitive:,
     limit_ratio:
   )
     # coerce values that are interpolated into the SQL rather than bound,
@@ -65,7 +66,6 @@ class SearchDocument < ApplicationRecord
       query_values[:model] = model.to_s
     end
 
-    # conditionally build a query for each search type (exact, FTS)
     # and UNION them
     search_queries = []
 
@@ -92,8 +92,9 @@ class SearchDocument < ApplicationRecord
     if exact_mode
       # escape LIKE wildcards so the query text is matched literally
       query_values[:like_query] = "%#{sanitize_sql_like(sanitized_query)}%"
+      like_op = case_sensitive ? "LIKE" : "ILIKE"
       if admin_mode
-        adm_q = "OR raw_admin_content LIKE :like_query"
+        adm_q = "OR raw_admin_content #{like_op} :like_query"
       else
         adm_q = ""
       end
@@ -103,7 +104,7 @@ class SearchDocument < ApplicationRecord
           rank() OVER (ORDER BY sd_id DESC) AS rank
         FROM search_documents
         WHERE
-          (raw_content LIKE :like_query
+          (raw_content #{like_op} :like_query
           #{adm_q})
           #{doc_type_q}
         LIMIT #{limit * limit_ratio}
@@ -140,12 +141,25 @@ class SearchDocument < ApplicationRecord
     { query: sql, values: query_values }
   end
 
+  # Run the hybrid full-text search and return a chainable relation.
+  #
+  # +relation+ an optional base ActiveRecord::Relation to search within;
+  #            defaults to +model.all+. Lets callers pre-filter the search
+  #            perimeter and chain further conditions onto the result.
+  # +model+ the model class to search; inferred from +relation+ when omitted.
+  #         When both are nil the search spans every model and returns a
+  #         SearchDocument relation.
+  # +case_sensitive+ only affects exact_mode's substring matching; when false
+  #                  it matches regardless of case (ILIKE). Full-text matching
+  #                  is always case-insensitive via tsvector normalisation.
   def self.hybrid_search(query,
+                         relation: nil,
                          model: nil,
                          language: nil,
                          limit: 10,
                          admin_mode: false,
                          exact_mode: false,
+                         case_sensitive: true,
                          limit_ratio: 3)
     # validate all inputs before any SQL is built from them. This must
     # run in every environment as it is part of keeping the query
@@ -156,6 +170,9 @@ class SearchDocument < ApplicationRecord
         "model should be a class, not its string representation"
       )
     end
+
+    relation ||= model&.all
+    model ||= relation&.klass
 
     supported_langs = Searchable.
       class_variable_get(:@@locale_to_language_map).
@@ -171,7 +188,7 @@ class SearchDocument < ApplicationRecord
     end
 
     limit = Integer(limit)
-    return SearchDocument.none if limit < 1
+    return (relation || SearchDocument.all).none if limit < 1
 
     sql = hybrid_search_internal(
       query,
@@ -180,6 +197,7 @@ class SearchDocument < ApplicationRecord
       limit: limit,
       admin_mode: admin_mode,
       exact_mode: exact_mode,
+      case_sensitive: case_sensitive,
       limit_ratio: limit_ratio
     )
 
@@ -187,16 +205,20 @@ class SearchDocument < ApplicationRecord
       SearchDocument.where("sd_id IN (SELECT s.sd_id FROM (#{sql[:query]}) s)",
 sql[:values])
     else
-      sr = Arel.sql(sql[:query], **sql[:values])
-      model.with(search_results: sr).joins(:search_documents).joins(
-        "JOIN search_results " \
-        "ON search_results.sd_id = search_documents.sd_id"
-        # postgresql has a DISTINCT ON (id) construct, but it's not sql standard
-        # so is not supported directly by rails ORM. It should be faster than
-        # the .distinct ORM construct that compares all columns of each record.
-        # This prevents duplicate models in cases where multiple translations
-        # match the query.
-      ).distinct
+      scoped = relation.
+        with(search_results: Arel.sql(sql[:query], **sql[:values])).
+        joins(:search_documents).
+        joins(
+          "JOIN search_results " \
+          "ON search_results.sd_id = search_documents.sd_id"
+        )
+
+      # De-duplicate records that match through several translations or
+      # sections (the join yields one row per matching search_document).
+      # DISTINCT keeps the relation chainable, countable and paginatable;
+      # a faster DISTINCT ON (id) is not expressible through the ORM without
+      # losing those properties.
+      scoped.distinct
     end
   end
 end

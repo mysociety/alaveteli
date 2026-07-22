@@ -3,5 +3,5 @@
 # zeitwerk initializer) and the adapter classes are loaded. See doc/SEARCH.md
 # for the backend-authoring contract.
 Rails.application.config.after_initialize do
-  Search.backend = Search.backend_for(AlaveteliConfiguration.search_backend)
+  Search.use_configured_backend!
 end

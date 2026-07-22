@@ -89,4 +89,84 @@ RSpec.describe SearchDocument do
       ).to match_array([legit])
     end
   end
+
+  context 'de-duplicating records matched via several sections' do
+    it 'returns the record once and counts it once' do
+      user = FactoryBot.create(:user, name: "Danny Dedupe")
+      # the record is indexed on create; add a second section to simulate
+      # the multi-part content produced by attachments and similar.
+      user.upsert_content('english', 2)
+      expect(SearchDocument.where(searchable: user).count).to eq(2)
+
+      results = User.newsearch(
+        "Dedupe", admin_mode: true, exact_mode: true, language: 'english'
+      )
+
+      expect(results).to match_array([user])
+      expect(results.count).to eq(1)
+    end
+  end
+
+  context 'exact mode case sensitivity' do
+    # A partial token ("ASE" inside "Charlotte Case") can only match through
+    # exact mode's substring search, never through the tsvector matching.
+    # The query is upper-case so it does not match the lower-cased url_name
+    # either, isolating the case_sensitive behaviour.
+    it 'matches substrings case-sensitively by default' do
+      user = FactoryBot.create(:user, name: "Charlotte Case")
+
+      results = SearchDocument.hybrid_search(
+        "ASE", model: User, admin_mode: true, exact_mode: true,
+               language: 'english'
+      )
+
+      expect(results).to be_empty
+    end
+
+    it 'matches substrings of any case when case_sensitive is false' do
+      user = FactoryBot.create(:user, name: "Charlotte Case")
+
+      results = SearchDocument.hybrid_search(
+        "ASE",
+        model: User,
+        admin_mode: true,
+        exact_mode: true,
+        case_sensitive: false,
+        language: 'english'
+      )
+
+      expect(results).to match_array([user])
+    end
+  end
+
+  context 'searching within a provided base relation' do
+    it 'restricts the search to the given relation' do
+      with_default_locale(:en) do
+        keep = FactoryBot.create(:user, name: "Ria Relation")
+        drop = FactoryBot.create(:user, name: "Rory Relation")
+
+        results = SearchDocument.hybrid_search(
+          "Relation",
+          relation: User.where.not(id: drop.id),
+          admin_mode: true,
+          language: 'english'
+        )
+
+        expect(results).to match_array([keep])
+      end
+    end
+
+    it 'composes with conditions chained after the search' do
+      with_default_locale(:en) do
+        a = FactoryBot.create(:user, name: "Charlie Chain")
+        b = FactoryBot.create(:user, name: "Chloe Chain")
+
+        results = User.
+                  newsearch("Chain", admin_mode: true, language: 'english').
+                  where.not(id: b.id)
+
+        expect(results).to match_array([a])
+      end
+    end
+  end
 end
