@@ -1,0 +1,92 @@
+# == Schema Information
+#
+# Table name: search_documents
+#
+#  sd_id             :bigint           not null, primary key
+#  searchable_type   :string           not null, primary key
+#  searchable_id     :bigint
+#  raw_content       :text
+#  raw_admin_content :text
+#  section_ref       :text
+#  language          :text
+#  content_tsv       :tsvector
+#  admin_content_tsv :tsvector
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
+require 'spec_helper'
+
+RSpec.describe SearchDocument do
+  # created eagerly so the after_commit indexes it before the search runs
+  let!(:user) do
+    FactoryBot.create(:user, name: 'Florence Nightingale',
+                             about_me: 'I enjoy data visualisation')
+  end
+
+  context 'model search' do
+    it 'returns a chainable ActiveRecord::Relation' do
+      results = User.newsearch('Florence', admin_mode: true)
+      expect(results).to be_an(ActiveRecord::Relation)
+      expect(results.where(email_confirmed: true).count).to eq(1)
+    end
+
+    it 'finds users by admin indexed fields' do
+      expect(
+        User.newsearch(user.email, admin_mode: true)
+      ).to match_array([user])
+      expect(
+        User.newsearch('data visualisation', admin_mode: true)
+      ).to match_array([user])
+    end
+
+    it 'does not match admin indexed fields without admin_mode' do
+      expect(User.newsearch('Florence')).to match_array([])
+    end
+
+    it 'raises for models that have not been made searchable' do
+      expect { Comment.newsearch('anything') }.
+        to raise_error(NotImplementedError)
+    end
+  end
+
+  context 'input validation' do
+    it 'rejects a model given as a string' do
+      expect { SearchDocument.hybrid_search('anything', model: 'User') }.
+        to raise_error(ArgumentError)
+    end
+
+    it 'rejects a non-numeric limit' do
+      expect {
+        User.newsearch('anything', admin_mode: true,
+                                   limit: '10; DROP TABLE users')
+      }.to raise_error(ArgumentError)
+    end
+
+    it 'rejects a non-numeric limit_ratio' do
+      expect {
+        SearchDocument.hybrid_search('anything', model: User,
+                                                 limit_ratio: '3--')
+      }.to raise_error(ArgumentError)
+    end
+
+    it 'rejects unsupported languages' do
+      expect { User.newsearch('anything', language: 'klingon') }.
+        to raise_error(ArgumentError)
+    end
+  end
+
+  context 'exact mode' do
+    it 'treats LIKE wildcards in the query as literal characters' do
+      legit = FactoryBot.create(:user, name: 'Legitimate 100% Prospect')
+      FactoryBot.create(:user, name: 'Someone Else')
+
+      expect(
+        User.newsearch('100%', admin_mode: true, exact_mode: true)
+      ).to match_array([legit])
+      expect(
+        User.newsearch('%', admin_mode: true, exact_mode: true)
+      ).to match_array([legit])
+    end
+  end
+end

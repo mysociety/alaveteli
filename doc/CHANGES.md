@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add PostgreSQL full-text search indexing, initially enabled for users only
+  (Laurent Savaete, Graeme Porteous)
 * Fix reCAPTCHA blocked by Content Security Policy (Graeme Porteous)
 * Recognise macro-enabled Office files (Graeme Porteous)
 * Preserve attachment filenames supplied only in the Content-Type name

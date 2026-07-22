@@ -225,6 +225,14 @@ class User < ApplicationRecord
   after_update :reindex_referencing_models, :invalidate_cached_pages,
                unless: :no_xapian_reindex
 
+  searchable admin_index: {
+    "email": "A",
+    "name": "A",
+    "url_name": "A",
+    "ban_text": "A",
+    "about_me": "A"
+  }
+
   def self.search(query)
     sql = <<~SQL
       users.name ILIKE '%'||:query||'%' OR

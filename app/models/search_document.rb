@@ -1,0 +1,202 @@
+# the smallest "thing" we can search for (in info requests,
+# incoming/outgoing messages, attachments, public bodies,
+# comments...)
+# Can be a paragraph, a page, a sheet in a spreadsheet, or
+# an entire file depending on how each class defines its
+# search capabilities
+#
+# The search_documents table is partitioned in postgresql for
+# better search performance. This is why `id` is called `sd_id`,
+# because Rails makes assumptions about the primary key that do
+# not work with this setup.
+#
+# == Schema Information
+#
+# Table name: search_documents
+#
+#  sd_id             :bigint           not null, primary key
+#  searchable_type   :string           not null, primary key
+#  searchable_id     :bigint
+#  raw_content       :text
+#  raw_admin_content :text
+#  section_ref       :text
+#  language          :text
+#  content_tsv       :tsvector
+#  admin_content_tsv :tsvector
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+class SearchDocument < ApplicationRecord
+  belongs_to :searchable, polymorphic: true
+  self.primary_key = [:searchable_type, :sd_id]
+
+  # build the sql query for the search. This should be injection-safe.
+  def self.hybrid_search_internal(
+    query,
+    model:,
+    language:,
+    limit:,
+    admin_mode:,
+    exact_mode:,
+    limit_ratio:
+  )
+    # coerce values that are interpolated into the SQL rather than bound,
+    # so a non-numeric value raises instead of reaching the query.
+    limit = Integer(limit)
+    limit_ratio = Integer(limit_ratio)
+
+    sanitized_language = if language.nil? || language == ''
+                           Searchable.
+                             lang_from_locale(
+                               AlaveteliLocalization.default_locale
+                             )
+                         else
+                           language
+                         end
+    # remove some characters that postgresql is allergic to. These should never
+    # reach this far though.
+    sanitized_query = query.scrub("").delete("\u0000")
+    query_values = { query: sanitized_query, language: sanitized_language }
+
+    if model.nil?
+      doc_type_q = ""
+    else
+      doc_type_q = "AND searchable_type = :model"
+      query_values[:model] = model.to_s
+    end
+
+    # conditionally build a query for each search type (exact, FTS)
+    # and UNION them
+    search_queries = []
+
+    if admin_mode
+      # keep the same language for tokenization in admin mode, if the (admin)
+      # user wants exact text match, they should use `exact_mode`.
+      search_queries << <<~SQL.chomp
+          SELECT
+              sd_id,
+              rank() OVER (
+                ORDER BY ts_rank_cd(admin_content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
+              ) AS rank
+          FROM search_documents
+          WHERE
+              websearch_to_tsquery(:language, unaccent(:query)) @@ admin_content_tsv
+              #{doc_type_q}
+          ORDER BY rank
+          LIMIT #{limit * limit_ratio}
+        SQL
+    end
+
+    # exact_mode search is potentially costly as it is not backed by an index.
+    # This should probably not be exposed to non-admins.
+    if exact_mode
+      # escape LIKE wildcards so the query text is matched literally
+      query_values[:like_query] = "%#{sanitize_sql_like(sanitized_query)}%"
+      if admin_mode
+        adm_q = "OR raw_admin_content LIKE :like_query"
+      else
+        adm_q = ""
+      end
+      search_queries << <<~SQL.chomp
+        SELECT
+          sd_id,
+          rank() OVER (ORDER BY sd_id DESC) AS rank
+        FROM search_documents
+        WHERE
+          (raw_content LIKE :like_query
+          #{adm_q})
+          #{doc_type_q}
+        LIMIT #{limit * limit_ratio}
+      SQL
+    end
+
+    # all searches use the FTS ts_vectors
+    search_queries << <<~SQL.chomp
+        SELECT
+            sd_id,
+            rank() OVER (
+              ORDER BY ts_rank_cd(content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
+            ) AS rank
+        FROM search_documents
+        WHERE
+            websearch_to_tsquery(:language, unaccent(:query)) @@ content_tsv
+            AND language = :language
+            #{doc_type_q}
+        ORDER BY rank
+        LIMIT #{limit * limit_ratio}
+      SQL
+
+    sql = <<~SQL.chomp.squeeze(' ')
+      SELECT
+        searches.sd_id,
+        sum(searches.rank) AS rank_sum,
+        sum(rrf_score(searches.rank)) AS score
+      FROM ((#{search_queries.join(") UNION ALL (")})) searches
+      GROUP BY searches.sd_id
+      ORDER BY score DESC
+      LIMIT #{limit}
+    SQL
+
+    { query: sql, values: query_values }
+  end
+
+  def self.hybrid_search(query,
+                         model: nil,
+                         language: nil,
+                         limit: 10,
+                         admin_mode: false,
+                         exact_mode: false,
+                         limit_ratio: 3)
+    # validate all inputs before any SQL is built from them. This must
+    # run in every environment as it is part of keeping the query
+    # injection-safe.
+    if !model.nil? && !model.is_a?(Class)
+      raise(
+        ArgumentError,
+        "model should be a class, not its string representation"
+      )
+    end
+
+    supported_langs = Searchable.
+      class_variable_get(:@@locale_to_language_map).
+      values.
+      concat(
+        [
+          "simple",
+          nil
+        ]
+      )
+    unless supported_langs.include?(language)
+      raise(ArgumentError, "#{language} is not yet supported for search")
+    end
+
+    limit = Integer(limit)
+    return SearchDocument.none if limit < 1
+
+    sql = hybrid_search_internal(
+      query,
+      model: model,
+      language: language,
+      limit: limit,
+      admin_mode: admin_mode,
+      exact_mode: exact_mode,
+      limit_ratio: limit_ratio
+    )
+
+    if model.nil?
+      SearchDocument.where("sd_id IN (SELECT s.sd_id FROM (#{sql[:query]}) s)",
+sql[:values])
+    else
+      sr = Arel.sql(sql[:query], **sql[:values])
+      model.with(search_results: sr).joins(:search_documents).joins(
+        "JOIN search_results " \
+        "ON search_results.sd_id = search_documents.sd_id"
+        # postgresql has a DISTINCT ON (id) construct, but it's not sql standard
+        # so is not supported directly by rails ORM. It should be faster than
+        # the .distinct ORM construct that compares all columns of each record.
+        # This prevents duplicate models in cases where multiple translations
+        # match the query.
+      ).distinct
+    end
+  end
+end
