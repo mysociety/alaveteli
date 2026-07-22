@@ -224,6 +224,14 @@ when it really should be application/pdf.\n
     end
   end
 
+  describe :get_attachment_attributes do
+    it 'keeps a filename supplied only in the Content-Type name parameter' do
+      mail = get_fixture_mail('content-type-name-only-attachment.eml')
+      filenames = get_attachment_attributes(mail).map { |a| a[:filename] }
+      expect(filenames).to include('report.xlsm')
+    end
+  end
+
   describe :address_from_name_and_email do
     it 'returns an address string' do
       expected = 'Test User <test@example.com>'

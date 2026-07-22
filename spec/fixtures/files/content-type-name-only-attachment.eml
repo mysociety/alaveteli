@@ -1,0 +1,27 @@
+From authority@example.org  Tue Jul 21 16:31:02 2026
+Return-path: <authority@example.org>
+Envelope-to: requester@example.org
+Delivery-date: Tue, 21 Jul 2026 16:31:00 +0100
+From: Test Authority <authority@example.org>
+To: requester@example.org
+Subject: attachment with a name only in the Content-Type
+Date: Tue, 21 Jul 2026 16:31:45 +0100
+Message-ID: <name-only-in-content-type@example.org>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=-=-="
+
+--=-=-=
+Content-Type: text/plain
+
+The attachment below supplies its filename only in the Content-Type
+`name` parameter, with a bare `Content-Disposition: attachment`.
+
+--=-=-=
+Content-Type: application/octet-stream;
+	name="report.xlsm"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment
+
+SGVsbG8gd29ybGQK
+
+--=-=-=--
