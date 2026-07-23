@@ -30,14 +30,13 @@ module FoiAttachment::Erasable
     transaction do |t|
       t.after_rollback { return false }
 
-      raise ActiveRecord::Rollback unless
-        log_event(
-          'erase_attachment',
-          editor: editor,
-          reason: reason,
-          attachment: self,
-          storage_key: storage_key
-        )
+      log_event(
+        'erase_attachment',
+        editor: editor,
+        reason: reason,
+        attachment: self,
+        storage_key: storage_key
+      ) || raise(ActiveRecord::Rollback, 'could not log erase_attachment event')
 
       self.filename = nil
       ensure_filename!
@@ -52,6 +51,11 @@ module FoiAttachment::Erasable
       expire
 
       true
+    rescue StandardError => ex
+      Rails.logger.error(
+        "FoiAttachment#erase failed (ID=#{id}): #{ex.class}: #{ex.message}"
+      )
+      raise
     end
   end
 end

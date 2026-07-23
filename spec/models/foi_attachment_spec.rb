@@ -2032,6 +2032,15 @@ RSpec.describe FoiAttachment do
         expect(foi_attachment.reload).not_to be_erased
       end
 
+      it 'logs the reason for the failure' do
+        allow(Rails.logger).to receive(:error)
+        subject
+        expect(Rails.logger).to have_received(:error).with(
+          "FoiAttachment#erase failed (ID=#{foi_attachment.id}): " \
+          'ActiveRecord::Rollback: could not log erase_attachment event'
+        )
+      end
+
       it { is_expected.to eq(false) }
     end
 
@@ -2093,7 +2102,39 @@ RSpec.describe FoiAttachment do
         expect(foi_attachment.reload).not_to be_erased
       end
 
+      it 'logs the reason for the failure' do
+        allow(Rails.logger).to receive(:error)
+        subject
+        expect(Rails.logger).to have_received(:error).with(
+          a_string_including(
+            "FoiAttachment#erase failed (ID=#{foi_attachment.id})",
+            'RawEmail::UnmaskedAttachmentsError'
+          )
+        )
+      end
+
       it { is_expected.to eq(false) }
+    end
+
+    context 'when the attachment has been replaced' do
+      before do
+        foi_attachment.replace!(
+          editor: editor,
+          reason: 'Replacing content',
+          replacement_body: 'replacement body'
+        )
+      end
+
+      it 'erases the attachment' do
+        expect { subject }.to change { foi_attachment.reload.erased? }.
+          from(false).to(true)
+      end
+
+      it 'retains the replacement details' do
+        subject
+        expect(foi_attachment.reload.replaced_reason).to eq('Replacing content')
+        expect(foi_attachment.replaced_at).to be_present
+      end
     end
 
     context 'when a sibling attachment is unmasked' do
