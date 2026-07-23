@@ -50,6 +50,22 @@ RSpec.describe SearchDocument do
     end
   end
 
+  context 'bounce text indexing' do
+    let!(:bounced) do
+      FactoryBot.create(:user).tap do |u|
+        u.record_bounce('mail delivery failed: mailbox full')
+      end
+    end
+
+    it 'finds users by bounce text in admin mode' do
+      expect(User.newsearch('mailbox full', admin_mode: true)).to include(bounced)
+    end
+
+    it 'does not expose bounce text to non-admin search' do
+      expect(User.newsearch('mailbox full')).to match_array([])
+    end
+  end
+
   context 'input validation' do
     it 'rejects a model given as a string' do
       expect { SearchDocument.hybrid_search('anything', model: 'User') }.
