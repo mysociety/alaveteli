@@ -30,6 +30,10 @@ class SearchDocument < ApplicationRecord
   belongs_to :searchable, polymorphic: true
   self.primary_key = [:searchable_type, :sd_id]
 
+  DEFAULT_RANK_WEIGHTS = {
+    'A' => 1.0, 'B' => 0.4, 'C' => 0.2, 'D' => 0.1
+  }.freeze
+
   # build the sql query for the search. This should be injection-safe.
   def self.hybrid_search_internal(
     query,
@@ -39,12 +43,14 @@ class SearchDocument < ApplicationRecord
     admin_mode:,
     exact_mode:,
     case_sensitive:,
-    limit_ratio:
+    limit_ratio:,
+    weights: nil
   )
     # coerce values that are interpolated into the SQL rather than bound,
     # so a non-numeric value raises instead of reaching the query.
     limit = Integer(limit)
     limit_ratio = Integer(limit_ratio)
+    weights_literal = rank_weights_literal(weights)
 
     sanitized_language = if language.nil? || language == ''
                            Searchable.
@@ -76,7 +82,7 @@ class SearchDocument < ApplicationRecord
           SELECT
               sd_id,
               rank() OVER (
-                ORDER BY ts_rank_cd(admin_content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
+                ORDER BY ts_rank_cd(#{weights_literal}, admin_content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
               ) AS rank
           FROM search_documents
           WHERE
@@ -116,7 +122,7 @@ class SearchDocument < ApplicationRecord
         SELECT
             sd_id,
             rank() OVER (
-              ORDER BY ts_rank_cd(content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
+              ORDER BY ts_rank_cd(#{weights_literal}, content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
             ) AS rank
         FROM search_documents
         WHERE
@@ -152,6 +158,9 @@ class SearchDocument < ApplicationRecord
   # +case_sensitive+ only affects exact_mode's substring matching; when false
   #                  it matches regardless of case (ILIKE). Full-text matching
   #                  is always case-insensitive via tsvector normalisation.
+  # +weights+ an optional label => weight hash overriding the numeric weight
+  #           each tsvector label (A/B/C/D) contributes to relevance ranking.
+  #           Missing labels fall back to DEFAULT_RANK_WEIGHTS.
   def self.hybrid_search(query,
                          relation: nil,
                          model: nil,
@@ -160,7 +169,8 @@ class SearchDocument < ApplicationRecord
                          admin_mode: false,
                          exact_mode: false,
                          case_sensitive: true,
-                         limit_ratio: 3)
+                         limit_ratio: 3,
+                         weights: nil)
     # validate all inputs before any SQL is built from them. This must
     # run in every environment as it is part of keeping the query
     # injection-safe.
@@ -198,7 +208,8 @@ class SearchDocument < ApplicationRecord
       admin_mode: admin_mode,
       exact_mode: exact_mode,
       case_sensitive: case_sensitive,
-      limit_ratio: limit_ratio
+      limit_ratio: limit_ratio,
+      weights: weights
     )
 
     if model.nil?
@@ -221,4 +232,21 @@ sql[:values])
       scoped.distinct
     end
   end
+
+  # Build an injection-safe '{D,C,B,A}'::float4[] literal for ts_rank_cd
+  def self.rank_weights_literal(weights)
+    weights = (weights || {}).transform_keys(&:to_s)
+    unknown = weights.keys - DEFAULT_RANK_WEIGHTS.keys
+    unless unknown.empty?
+      raise(
+        ArgumentError,
+        "unknown tsvector label(s) in weights: #{unknown.join(', ')}"
+      )
+    end
+
+    merged = DEFAULT_RANK_WEIGHTS.merge(weights)
+    ordered = %w[D C B A].map { |label| Float(merged.fetch(label)) }
+    "'{#{ordered.join(',')}}'::float4[]"
+  end
+  private_class_method :rank_weights_literal
 end

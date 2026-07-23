@@ -21,6 +21,16 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
 
       expect(scope).to include(user)
     end
+
+    it 'forwards custom rank weights to the query' do
+      expect(SearchDocument).to receive(:hybrid_search).
+        with('bob', hash_including(weights: { 'C' => 0.05 })).
+        and_return(User.none)
+
+      adapter.search_scope(
+        'bob', User.all, admin_mode: true, weights: { 'C' => 0.05 }
+      )
+    end
   end
 
   describe '#reindex_later' do

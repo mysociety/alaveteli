@@ -76,6 +76,48 @@ RSpec.describe SearchDocument do
     end
   end
 
+  context 'rank weights' do
+    def query_for(weights: nil)
+      SearchDocument.hybrid_search_internal(
+        'anything',
+        model: User, language: nil, limit: 10, admin_mode: true,
+        exact_mode: false, case_sensitive: true, limit_ratio: 3,
+        weights: weights
+      )[:query]
+    end
+
+    it 'ranks with PostgreSQL default weights when none are given' do
+      expect(query_for).to include("'{0.1,0.2,0.4,1.0}'::float4[]")
+    end
+
+    it 'applies a full weight override in {D,C,B,A} order' do
+      sql = query_for(
+        weights: { 'A' => 2.0, 'B' => 0.5, 'C' => 0.3, 'D' => 0.05 }
+      )
+      expect(sql).to include("'{0.05,0.3,0.5,2.0}'::float4[]")
+    end
+
+    it 'merges a partial override over the defaults' do
+      expect(query_for(weights: { 'C' => 0.05 })).
+        to include("'{0.1,0.05,0.4,1.0}'::float4[]")
+    end
+
+    it 'rejects a non-numeric weight' do
+      expect { query_for(weights: { 'A' => '1); DROP TABLE users' }) }.
+        to raise_error(ArgumentError)
+    end
+
+    it 'rejects an unrecognised label rather than ignoring it' do
+      expect { query_for(weights: { 'E' => 0.5 }) }.
+        to raise_error(ArgumentError, /unknown tsvector label/)
+    end
+
+    it 'accepts labels given as symbols' do
+      expect(query_for(weights: { C: 0.05 })).
+        to include("'{0.1,0.05,0.4,1.0}'::float4[]")
+    end
+  end
+
   context 'exact mode' do
     it 'treats LIKE wildcards in the query as literal characters' do
       legit = FactoryBot.create(:user, name: 'Legitimate 100% Prospect')
