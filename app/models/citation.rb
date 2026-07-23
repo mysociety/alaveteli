@@ -70,12 +70,6 @@ class Citation < ApplicationRecord
     "source_url": "A"
   }
 
-  def self.search(query)
-    where(<<~SQL, query: query)
-      lower(citations.source_url) LIKE lower('%'||:query||'%')
-    SQL
-  end
-
   def applies_to_batch_request?
     citable.is_a?(InfoRequestBatch)
   end
