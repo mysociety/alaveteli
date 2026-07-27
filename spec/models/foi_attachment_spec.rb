@@ -887,14 +887,35 @@ RSpec.describe FoiAttachment do
         FactoryBot.create(:info_request_with_deeply_nested_html_attachment)
       end
 
-      it 'preserves content from deeply nested elements' do
+      it 'collapses redundant nesting and preserves the content as HTML' do
         subject
-        expect(attachment.body).to include('Deeply nested content')
+        expect(attachment.body).to eq(
+          "<!DOCTYPE html><html><head></head><body>" \
+          "<div>Deeply nested content</div>\n</body></html>"
+        )
       end
 
       it 'sanitises the attachments' do
         subject
         expect(attachment.body).not_to include('<script>')
+      end
+
+      context 'when the parser rejects the nesting as too deep' do
+        before do
+          allow(Loofah).to receive(:html5_document).
+            and_raise(ArgumentError, 'Document tree depth limit exceeded')
+        end
+
+        it 'falls back to escaped plain text' do
+          subject
+          expect(attachment.body).
+            to eq('Deeply nested content alert(&#39;x&#39;)')
+        end
+
+        it 'sanitises the attachments' do
+          subject
+          expect(attachment.body).not_to include('<script>')
+        end
       end
     end
 
