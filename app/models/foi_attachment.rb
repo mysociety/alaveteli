@@ -46,6 +46,7 @@ class FoiAttachment < ApplicationRecord
   include Replaceable
 
   MissingError = Class.new(StandardError)
+  MaskingError = Class.new(StandardError)
 
   belongs_to :incoming_message, inverse_of: :foi_attachments, optional: true
   has_one :raw_email, through: :incoming_message, source: :raw_email
@@ -107,6 +108,10 @@ class FoiAttachment < ApplicationRecord
       # file isn't in storage and has gone missing, rescue to allow the masking
       # job to run and rebuild the stored file or even the whole attachment.
       raise ex if locked? || erased?
+    end
+
+    if masking_failed?
+      raise MaskingError, "masking previously failed (ID=#{id})"
     end
 
     if persisted?

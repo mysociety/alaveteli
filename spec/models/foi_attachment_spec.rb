@@ -252,6 +252,20 @@ RSpec.describe FoiAttachment do
       end
     end
 
+    context 'when masking has previously failed' do
+      let(:foi_attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked, masking_failed_at: Time.zone.now
+        )
+      end
+
+      it 'raises MaskingError without re-running the mask job' do
+        expect(FoiAttachment::MaskJob).to_not receive(:perform_now)
+        expect { foi_attachment.body }.
+          to raise_error(FoiAttachment::MaskingError)
+      end
+    end
+
     context 'when masked' do
       let(:foi_attachment) { FactoryBot.create(:body_text) }
 
@@ -937,6 +951,28 @@ RSpec.describe FoiAttachment do
       subject
       expect(attachment.body).to_not include 'dull'
       expect(attachment.body).to include 'Horse'
+    end
+
+    context 'when masking times out' do
+      let(:attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+      before do
+        allow(attachment).to receive(:unmasked_body).and_return('body')
+        allow(attachment).to receive(:apply_masks).
+          and_raise(Regexp::TimeoutError)
+      end
+
+      it 'records the failure without masking' do
+        expect { subject }.
+          to change { attachment.masking_failed_at }.from(nil).to(be_present)
+        expect(attachment.masked_at).to be_nil
+      end
+
+      it 'does not attempt masking again once failed' do
+        subject
+        expect(attachment).to_not receive(:apply_masks)
+        attachment.mask
+      end
     end
   end
 
