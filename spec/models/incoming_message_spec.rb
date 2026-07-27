@@ -828,6 +828,25 @@ RSpec.describe IncomingMessage do
         expect(message.get_attachment_text_full).to include('hide_me')
       end
     end
+
+    context 'when an attachment cannot be masked' do
+      let(:message) do
+        FactoryBot.create(:incoming_message, :with_text_attachment)
+      end
+
+      it 'skips flagged attachments without reading their body' do
+        allow(message.foi_attachments.last).to receive(:masking_failed?).
+          and_return(true)
+        expect(message.foi_attachments.last).to_not receive(:body_to_text)
+        expect { message.get_attachment_text_full }.to_not raise_error
+      end
+
+      it 'rescues MaskingError raised while masking' do
+        allow(message.foi_attachments.last).to receive(:body_to_text).
+          and_raise(FoiAttachment::MaskingError)
+        expect { message.get_attachment_text_full }.to_not raise_error
+      end
+    end
   end
 
   describe '#get_attachment_text_clipped' do
