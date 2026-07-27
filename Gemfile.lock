@@ -182,7 +182,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    csv (3.3.5)
+    csv (3.3.6)
     dalli (5.0.5)
       logger
     dante (0.2.0)
@@ -658,7 +658,7 @@ DEPENDENCIES
   capybara (~> 3.40.0)
   charlock_holmes (~> 0.7.9)
   compare-xml (~> 1.0)
-  csv (~> 3.3.5)
+  csv (~> 3.3.6)
   dalli (~> 5.0.5)
   drb (~> 2.2.3)
   excel_analyzer!
