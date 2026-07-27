@@ -13,14 +13,7 @@ module FoiAttachment::Maskable
 
   def mask
     body = apply_masks(unmasked_body, content_type)
-
-    if content_type == 'text/html'
-      body =
-        Loofah.html5_document(body) { |c| c[:max_tree_depth] = 800 }.
-        scrub!(:prune).
-        to_html(encoding: 'UTF-8')
-    end
-
+    body = sanitise_html(body) if content_type == 'text/html'
     update(body: body, masked_at: Time.zone.now)
   end
 
@@ -35,5 +28,27 @@ module FoiAttachment::Maskable
 
       sibling.mask
     end
+  end
+
+  private
+
+  def sanitise_html(html)
+    html = collapse_redundant_nesting(html)
+    Loofah.html5_document(html) { |config| config[:max_tree_depth] = 800 }.
+      scrub!(:prune).
+      to_html(encoding: 'UTF-8')
+
+  rescue ArgumentError
+    sanitise_html_as_text(html)
+  end
+
+  def collapse_redundant_nesting(html)
+    html.
+      gsub(%r{(?:<div>\s*){30,}}i, '<div>').
+      gsub(%r{(?:</div>\s*){30,}}i, '</div>')
+  end
+
+  def sanitise_html_as_text(html)
+    CGI.escapeHTML(html.gsub(/<[^>]+>/, ' ').squeeze(' ').strip)
   end
 end
