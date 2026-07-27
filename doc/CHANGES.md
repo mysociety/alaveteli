@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Safely recover from attachment masking timeouts (Graeme Porteous)
 * Add PostgreSQL full-text search indexing, initially enabled for users only
   (Laurent Savaete, Graeme Porteous)
 * Fix reCAPTCHA blocked by Content Security Policy (Graeme Porteous)
