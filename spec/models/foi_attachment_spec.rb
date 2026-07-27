@@ -20,6 +20,7 @@
 #  replaced_at           :datetime
 #  replaced_reason       :string
 #  erased_at             :datetime
+#  masking_failed_at     :datetime
 #
 
 require 'spec_helper'
