@@ -2194,6 +2194,23 @@ RSpec.describe FoiAttachment do
         expect(foi_attachment.replacement_body.is_utf8?).to eq(true)
       end
     end
+
+    context 'when masking has previously failed' do
+      let(:foi_attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked, masking_failed_at: Time.zone.now
+        )
+      end
+
+      before do
+        allow(foi_attachment).to receive(:body).and_call_original
+        allow(foi_attachment).to receive(:unmasked_body).and_return('raw'.b)
+      end
+
+      it 'returns the unmasked body' do
+        expect(foi_attachment.replacement_body).to eq('raw')
+      end
+    end
   end
 
   describe '#replacement_body=' do
