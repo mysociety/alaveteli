@@ -18,6 +18,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class MailServerLog < ApplicationRecord
+  include Searchable
   # `serialize` needs to be called before all other ActiveRecord code.
   # See http://stackoverflow.com/a/15610692/387558
   serialize :delivery_status, coder: DeliveryStatusSerializer
@@ -30,6 +31,19 @@ class MailServerLog < ApplicationRecord
              optional: true
 
   before_create :calculate_delivery_status
+
+  scope :not_embargoed, -> {
+    joins('LEFT OUTER JOIN embargoes
+           ON embargoes.info_request_id = mail_server_logs.info_request_id').
+      where('embargoes.id IS NULL').
+      references(:embargoes)
+  }
+
+  # regular users should never be able to search email logs
+  searchable admin_index: {
+               line: 'A'
+             },
+             root: :info_request
 
   # Load in exim or postfix log file from disk, or update if we already have it
   # Assumes files are named with date, rather than cyclically.
