@@ -47,7 +47,7 @@ RSpec.describe SearchDocument do
     end
 
     it 'raises for models that have not been made searchable' do
-      expect { Comment.newsearch('anything') }.
+      expect { RawEmail.newsearch('anything') }.
         to raise_error(NotImplementedError)
     end
   end
