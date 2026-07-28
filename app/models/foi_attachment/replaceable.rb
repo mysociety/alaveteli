@@ -114,6 +114,7 @@ module FoiAttachment::Replaceable
     if replacing?
       self.replaced_at = Time.zone.now
       self.masked_at = Time.zone.now
+      self.masking_failed_at = nil
       self.locked = true
 
       if replacement_file_changed?

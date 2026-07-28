@@ -1590,6 +1590,32 @@ RSpec.describe FoiAttachment do
       it { is_expected.to eq(true) }
     end
 
+    context 'when masking has previously failed' do
+      subject do
+        foi_attachment.replace!(
+          editor: editor,
+          reason: reason,
+          replacement_file: fixture_file_upload('parrot.png', 'image/png')
+        )
+      end
+
+      let(:foi_attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked, masking_failed_at: Time.zone.now
+        )
+      end
+
+      it 'clears the masking failure' do
+        subject
+        expect(foi_attachment.reload.masking_failed_at).to be_nil
+      end
+
+      it 'no longer reports the attachment as failed' do
+        subject
+        expect(foi_attachment.reload).to_not be_masking_failed
+      end
+    end
+
     context 'when logging the event' do
       subject do
         foi_attachment.replace!(
