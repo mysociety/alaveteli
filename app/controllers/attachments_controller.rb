@@ -132,15 +132,22 @@ class AttachmentsController < ApplicationController
   def ensure_masked
     if @attachment.masked?
       yield
+    elsif @attachment.masking_failed?
+      render_attachment_masking_failed
     else
       @attachment.mask_later
 
       Timeout.timeout(5) do
-        until @attachment.masked?
+        until @attachment.masked? || @attachment.masking_failed?
           sleep 0.5
           @attachment.reload
         end
-        redirect_to(request.fullpath)
+
+        if @attachment.masking_failed?
+          render_attachment_masking_failed
+        else
+          redirect_to(request.fullpath)
+        end
       end
     end
 
@@ -149,6 +156,11 @@ class AttachmentsController < ApplicationController
       @attachment.to_signed_global_id,
       referer: verifier.generate(request.fullpath)
     )
+  end
+
+  def render_attachment_masking_failed
+    request.format = :html
+    render template: 'attachments/masking_failed', status: 422
   end
 
   def set_cors
