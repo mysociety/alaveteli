@@ -64,6 +64,22 @@ RSpec.describe SearchDocument do
     it 'does not expose bounce text to non-admin search' do
       expect(User.newsearch('mailbox full')).to match_array([])
     end
+
+    it 'excludes bounce text from an admin search on request' do
+      expect(
+        User.search_scope('zzqxunique', backend: :postgresql,
+                                        admin_mode: true,
+                                        except: [:email_bounce_message])
+      ).to match_array([])
+    end
+
+    it 'keeps the other admin fields searchable when bounce text is excluded' do
+      expect(
+        User.search_scope('Florence', backend: :postgresql,
+                                      admin_mode: true,
+                                      except: [:email_bounce_message])
+      ).to match_array([user])
+    end
   end
 
   context 'input validation' do
