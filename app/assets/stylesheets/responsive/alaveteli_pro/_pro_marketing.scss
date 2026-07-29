@@ -217,11 +217,20 @@ label.input-account-request-button {
   }
 }
 
-.marketing__roles__columns div {
-  @include grid-column($columns: 12);
+.marketing__roles__columns {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
   @include respond-min($main_menu-mobile_menu_cutoff) {
-    @include grid-column($columns: 4);
+    flex-direction: row;
   }
+
+  div {
+    max-width: 22rem;
+    margin: 0 auto;
+  }
+
   img {
     max-height: 160px;
   }
