@@ -329,3 +329,24 @@ label.input-account-request-button {
 .image-credits {
   @include grid-column($columns: 12);
 }
+
+.alaveteli-quote {
+  text-align: var(--alaveteli-quote-text-align, center);
+  // // Center is the default, but to make it reusable I think a variable is better, for example you could put two quotes side by side, aligning the first one -> left and the second one -> right.
+  max-width: var(--alaveteli-quote-max-width, 50rem);
+  margin: 0 auto;
+
+  q {
+    display: block;
+    // Using a CSS variable so it can be overridden in the same template and the actual quote. Because the quotes can be very variable in the numbers of characters, you might want to use bigger font sizes for shorter quotes while using smaller sizes for longer quotes. Finally using clamp to make it responsive.
+    font-size: var(--alaveteli-quote-font-size, clamp(1.3rem, 3vw, 2rem));
+    font-style: italic;
+    font-weight: 700;
+    line-height: 130%;
+    margin-bottom: 0.25em;
+  }
+
+  cite {
+    font-size: 1.2rem;
+  }
+}

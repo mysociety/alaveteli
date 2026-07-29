@@ -212,6 +212,7 @@ to update overrides in your theme to match the new templates.
 ## Highlighted Features
 
 * Check `PostRedirect#circumstance` when changing password (Gareth Rees)
+* Added optional quotes section to Pro page. Uses a new CSS class(`alaveteli-quote`) that allows you to set different font-sizes to each quote.
 
 # 0.46.4.0
 
