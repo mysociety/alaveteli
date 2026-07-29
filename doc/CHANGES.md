@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add a nicer tagging widget for admin users (Laurent Savaete)
 * Add PostgreSQL full-text search indexing, initially enabled for users only
   (Laurent Savaete, Graeme Porteous)
 * Fix reCAPTCHA blocked by Content Security Policy (Graeme Porteous)
