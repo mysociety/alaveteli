@@ -13,4 +13,5 @@
 //= require admin/censor-rules
 //= require admin/holidays
 //= require admin/notes
+//= require admin/tagging-widget
 //= require jquery_ujs
