@@ -1677,4 +1677,22 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
       expect(incoming_message.get_main_body_text_internal).to eq ''
     end
   end
+
+  context 'when main body attachment cannot be masked' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+
+    before do
+      allow(incoming_message.get_main_body_text_part).to receive(:body_as_text).
+        and_raise(FoiAttachment::MaskingError)
+    end
+
+    it 'returns a note in place of the body text' do
+      expect(incoming_message.get_main_body_text_internal).
+        to include('We were not able to process this message')
+    end
+
+    it 'does not raise when detecting refusals' do
+      expect { incoming_message.refusals? }.to_not raise_error
+    end
+  end
 end
