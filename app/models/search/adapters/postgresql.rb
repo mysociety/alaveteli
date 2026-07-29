@@ -19,7 +19,7 @@ module Search
         # conditions and ordering.
         def search_scope(query, relation, admin_mode: false, exact_mode: false,
                          case_sensitive: true, language: nil, limit: 1000,
-                         weights: nil, **)
+                         weights: nil, except: nil, **)
           SearchDocument.hybrid_search(
             query,
             relation: relation,
@@ -28,7 +28,8 @@ module Search
             case_sensitive: case_sensitive,
             language: language,
             limit: limit,
-            weights: weights
+            weights: weights,
+            except: except
           )
         end
 

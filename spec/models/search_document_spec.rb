@@ -134,6 +134,86 @@ RSpec.describe SearchDocument do
     end
   end
 
+  context 'excluding tsvector labels' do
+    def query_for(labels, admin_mode: true)
+      SearchDocument.hybrid_search_internal(
+        'anything',
+        model: User, language: nil, limit: 10, admin_mode: admin_mode,
+        exact_mode: false, case_sensitive: true, limit_ratio: 3,
+        except: labels
+      )[:query]
+    end
+
+    it 'leaves the query untouched when nothing is excluded' do
+      expect(query_for(nil)).to_not include('ts_filter')
+    end
+
+    it 'filters the excluded label out of the admin index in admin mode' do
+      sql = query_for(['C'])
+      expect(sql).to include("ts_filter(admin_content_tsv, '{a,b,d}')")
+      expect(sql).to_not include('ts_filter(content_tsv')
+    end
+
+    # admin_mode is what says which index the labels belong to, so the same
+    # list lands on the other tsvector for a public search.
+    it 'filters the excluded label out of the public index otherwise' do
+      sql = query_for(['C'], admin_mode: false)
+      expect(sql).to include("ts_filter(content_tsv, '{a,b,d}')")
+      expect(sql).to_not include('ts_filter(admin_content_tsv')
+    end
+
+    it 'keeps the indexable predicate alongside the ts_filter recheck' do
+      sql = query_for(['C'])
+      expect(sql).to include('@@ admin_content_tsv')
+      expect(sql).to include("@@ ts_filter(admin_content_tsv, '{a,b,d}')")
+    end
+
+    it 'rejects an unrecognised label' do
+      expect { query_for(['E']) }.
+        to raise_error(ArgumentError, /unknown tsvector label/)
+    end
+
+    it 'rejects excluding every label' do
+      expect { query_for(%w[A B C D]) }.
+        to raise_error(ArgumentError, /cannot exclude every/)
+    end
+
+    it 'accepts a single label given on its own' do
+      expect(query_for('C')).
+        to include("ts_filter(admin_content_tsv, '{a,b,d}')")
+    end
+
+    context 'against indexed records' do
+      let!(:bounced) do
+        FactoryBot.create(:user, name: 'Bertha Bounce').tap do |u|
+          u.record_bounce('mail delivery failed: mailbox zzqxunique full')
+        end
+      end
+
+      it 'drops records matching only through the excluded label' do
+        expect(
+          User.newsearch('zzqxunique', admin_mode: true)
+        ).to include(bounced)
+
+        expect(
+          SearchDocument.hybrid_search(
+            'zzqxunique', model: User, admin_mode: true,
+                          except: ['C']
+          )
+        ).to match_array([])
+      end
+
+      it 'still matches the record through a label that is kept' do
+        expect(
+          SearchDocument.hybrid_search(
+            'Bertha', model: User, admin_mode: true,
+                      except: ['C']
+          )
+        ).to match_array([bounced])
+      end
+    end
+  end
+
   context 'exact mode' do
     it 'treats LIKE wildcards in the query as literal characters' do
       legit = FactoryBot.create(:user, name: 'Legitimate 100% Prospect')

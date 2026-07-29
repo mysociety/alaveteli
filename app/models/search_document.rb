@@ -34,6 +34,10 @@ class SearchDocument < ApplicationRecord
     'A' => 1.0, 'B' => 0.4, 'C' => 0.2, 'D' => 0.1
   }.freeze
 
+  INDEX_TSV_COLUMNS = {
+    index: 'content_tsv', admin_index: 'admin_content_tsv'
+  }.freeze
+
   # build the sql query for the search. This should be injection-safe.
   def self.hybrid_search_internal(
     query,
@@ -44,13 +48,27 @@ class SearchDocument < ApplicationRecord
     exact_mode:,
     case_sensitive:,
     limit_ratio:,
-    weights: nil
+    weights: nil,
+    except: nil
   )
     # coerce values that are interpolated into the SQL rather than bound,
     # so a non-numeric value raises instead of reaching the query.
     limit = Integer(limit)
     limit_ratio = Integer(limit_ratio)
     weights_literal = rank_weights_literal(weights)
+
+    # A search matches against one index, and +admin_mode+ says which:
+    # admin_content_tsv for an admin search, content_tsv otherwise. The index
+    # an excluded label belongs to is therefore this flag rather than
+    # something the caller has to key by hand.
+    except = Array(except)
+    admin_except = admin_mode ? except : []
+    content_except = admin_mode ? [] : except
+
+    admin_tsv = tsv_expression(:admin_index, admin_except)
+    content_tsv = tsv_expression(:index, content_except)
+    admin_recheck_q = label_recheck_q(:admin_index, admin_tsv)
+    content_recheck_q = label_recheck_q(:index, content_tsv)
 
     sanitized_language = if language.nil? || language == ''
                            Searchable.
@@ -82,11 +100,12 @@ class SearchDocument < ApplicationRecord
           SELECT
               sd_id,
               rank() OVER (
-                ORDER BY ts_rank_cd(#{weights_literal}, admin_content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
+                ORDER BY ts_rank_cd(#{weights_literal}, #{admin_tsv}, websearch_to_tsquery(:language, unaccent(:query))) DESC
               ) AS rank
           FROM search_documents
           WHERE
               websearch_to_tsquery(:language, unaccent(:query)) @@ admin_content_tsv
+              #{admin_recheck_q}
               #{doc_type_q}
           ORDER BY rank
           LIMIT #{limit * limit_ratio}
@@ -122,11 +141,12 @@ class SearchDocument < ApplicationRecord
         SELECT
             sd_id,
             rank() OVER (
-              ORDER BY ts_rank_cd(#{weights_literal}, content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
+              ORDER BY ts_rank_cd(#{weights_literal}, #{content_tsv}, websearch_to_tsquery(:language, unaccent(:query))) DESC
             ) AS rank
         FROM search_documents
         WHERE
             websearch_to_tsquery(:language, unaccent(:query)) @@ content_tsv
+            #{content_recheck_q}
             AND language = :language
             #{doc_type_q}
         ORDER BY rank
@@ -161,6 +181,17 @@ class SearchDocument < ApplicationRecord
   # +weights+ an optional label => weight hash overriding the numeric weight
   #           each tsvector label (A/B/C/D) contributes to relevance ranking.
   #           Missing labels fall back to DEFAULT_RANK_WEIGHTS.
+  # +except+ an optional list of tsvector labels to remove from the index this
+  #          search matches against, so they contribute to neither matching nor
+  #          ranking. Which index that is follows +admin_mode+, as a label
+  #          means different things in each. Searchable's +except+ takes the
+  #          indexed field names instead and resolves them to labels against
+  #          the same index, which is what callers outside this class want.
+  #
+  #                 This only covers the tsvector matching. +exact_mode+
+  #                 searches raw_content/raw_admin_content, which are plain
+  #                 concatenations carrying no label information, so an
+  #                 excluded label can still match there.
   def self.hybrid_search(query,
                          relation: nil,
                          model: nil,
@@ -170,7 +201,8 @@ class SearchDocument < ApplicationRecord
                          exact_mode: false,
                          case_sensitive: true,
                          limit_ratio: 3,
-                         weights: nil)
+                         weights: nil,
+                         except: nil)
     # validate all inputs before any SQL is built from them. This must
     # run in every environment as it is part of keeping the query
     # injection-safe.
@@ -209,7 +241,8 @@ class SearchDocument < ApplicationRecord
       exact_mode: exact_mode,
       case_sensitive: case_sensitive,
       limit_ratio: limit_ratio,
-      weights: weights
+      weights: weights,
+      except: except
     )
 
     if model.nil?
@@ -249,4 +282,40 @@ sql[:values])
     "'{#{ordered.join(',')}}'::float4[]"
   end
   private_class_method :rank_weights_literal
+
+  # The tsvector expression to match and rank against for +index+, with any
+  # excluded labels removed by ts_filter
+  def self.tsv_expression(index, except_labels)
+    column = INDEX_TSV_COLUMNS.fetch(index)
+    excluded = Array(except_labels).map { |label| label.to_s.upcase }
+    unknown = excluded - DEFAULT_RANK_WEIGHTS.keys
+    unless unknown.empty?
+      raise(
+        ArgumentError,
+        "unknown tsvector label(s) to exclude: #{unknown.join(', ')}"
+      )
+    end
+
+    return column if excluded.empty?
+
+    kept = DEFAULT_RANK_WEIGHTS.keys - excluded
+    if kept.empty?
+      raise(
+        ArgumentError,
+        "cannot exclude every tsvector label from the #{index} search"
+      )
+    end
+
+    # ts_filter takes lowercase labels
+    "ts_filter(#{column}, '{#{kept.map(&:downcase).join(',')}}')"
+  end
+  private_class_method :tsv_expression
+
+  # An extra narrowing of matches to the labels that aren't exclude
+  def self.label_recheck_q(index, tsv_expr)
+    return '' if tsv_expr == INDEX_TSV_COLUMNS.fetch(index)
+
+    "AND websearch_to_tsquery(:language, unaccent(:query)) @@ #{tsv_expr}"
+  end
+  private_class_method :label_recheck_q
 end

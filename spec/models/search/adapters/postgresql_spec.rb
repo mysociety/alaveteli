@@ -31,6 +31,16 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
         'bob', User.all, admin_mode: true, weights: { 'C' => 0.05 }
       )
     end
+
+    it 'forwards excluded labels to the query' do
+      expect(SearchDocument).to receive(:hybrid_search).
+        with('bob', hash_including(except: ['C'])).
+        and_return(User.none)
+
+      adapter.search_scope(
+        'bob', User.all, admin_mode: true, except: ['C']
+      )
+    end
   end
 
   describe '#reindex_later' do
