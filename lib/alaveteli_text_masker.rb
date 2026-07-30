@@ -50,6 +50,8 @@ module AlaveteliTextMasker
     # images may get broken if we try to. We err on the side of masking too
     # much, as many unknown types will really be text.
 
+    return text if text.nil?
+
     # Special cases for some content types
     case content_type
     when 'application/pdf'
