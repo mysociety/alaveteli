@@ -129,6 +129,20 @@ class PublicBody < ApplicationRecord
   translates :name, :short_name, :request_email, :url_name, :first_letter,
              :publication_scheme, :disclosure_log
 
+  searchable index: {
+               ".name": "A",
+               ".short_name": "A",
+               "home_page": "B",
+               ".notes_for_search": "C",
+               ".disclosure_log": "D",
+               ".publication_scheme": "D",
+             },
+             admin_index: {
+               ".request_email": "A",
+               "last_edit_editor": "D",
+               "last_edit_comment": "D",
+             }
+
   # Cannot be grouped at top as it depends on the `translates` macro
   include Translatable
 
@@ -215,6 +229,13 @@ class PublicBody < ApplicationRecord
     def editor
       User.find_by(url_name: last_edit_editor)
     end
+  end
+
+  # return only the notes attached to the body itself, excluding
+  # notes brought it by tags, as they pollute search results because
+  # they tend to be non-specific.
+  def notes_for_search
+    concrete_notes.map(&:body).join(' ')
   end
 
   # Public: Search for Public Bodies whose name, short_name, request_email or
