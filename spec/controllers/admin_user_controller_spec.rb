@@ -109,6 +109,22 @@ RSpec.describe AdminUserController do
       expect(assigns[:admin_users]).to include(user)
     end
 
+    it 'does not find users by their email bounce message' do
+      user = FactoryBot.create(:user)
+      user.record_bounce('mail delivery failed: mailbox full')
+      user.reindex
+      get :index, params: { query: 'mailbox full' }
+      expect(assigns[:admin_users]).to_not include(user)
+    end
+
+    it 'still finds a fragment of a field that is not excluded' do
+      user = FactoryBot.create(:user, email: 'julie@example.com')
+      user.record_bounce('mail delivery failed: mailbox full')
+      user.reindex
+      get :index, params: { query: '@example.com' }
+      expect(assigns[:admin_users]).to include(user)
+    end
+
     it 'will search the about me text' do
       # PostgreSQL tokenises a URL by host, so the about me link is found by
       # its domain rather than an arbitrary substring.
