@@ -60,12 +60,12 @@ module Searchable
     Rails.logger.info("Searching through instance #{self.class}.#{id}")
   end
 
-  # We can't just use the raw_content here, because it has lost the
-  # weight from various columns.
+  # We can't build the tsvector from the raw content, because that keeps the
+  # weight each field was indexed under but not the tokenisation.
   def search_content_from_db_query(idx_name, language)
     opts = @@searchable_models[self.class.to_s]
 
-    raw_content_bits = []
+    raw_content_bits = Hash.new { |bits, label| bits[label] = [] }
     content_tsv_bits = []
     opts[idx_name].each do |col, w|
       if col.start_with?(".")
@@ -74,15 +74,20 @@ module Searchable
         c = "(SELECT concat(#{col}, ' ') FROM #{self.class.table_name} WHERE id=$1)"
       end
 
-      raw_content_bits.push(c)
+      raw_content_bits[w.to_s.upcase].push(c)
       content_tsv_bits.push(
         "setweight(to_tsvector('#{language}'::regconfig, unaccent(coalesce(#{c}, ''))), '#{w}')"
       )
     end
 
+    raw_object_bits = raw_content_bits.map do |label, bits|
+      quoted = ActiveRecord::Base.connection.quote(label)
+      "#{quoted}, concat(#{bits.join(',')})"
+    end
+
     query = <<-SQL
       SELECT
-        concat(#{raw_content_bits.join(',')}) as raw,
+        jsonb_build_object(#{raw_object_bits.join(',')}) as raw,
         #{content_tsv_bits.join("||")} AS tsv
       FROM #{self.class.table_name}
       WHERE id=$1
@@ -99,7 +104,7 @@ module Searchable
     if search_cfg[idx_name].nil? || search_cfg[idx_name].empty?
       {}
     else
-      ActiveRecord::Base.
+      row = ActiveRecord::Base.
         connection.
         exec_query(
           search_content_from_db_query(idx_name, language),
@@ -110,6 +115,8 @@ module Searchable
             ActiveRecord::Type::Integer.new
           )]
         ).to_a.first
+
+      row.merge('raw' => ActiveSupport::JSON.decode(row['raw']))
     end
   end
 

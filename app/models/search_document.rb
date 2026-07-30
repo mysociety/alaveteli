@@ -17,14 +17,14 @@
 #  sd_id             :bigint           not null, primary key
 #  searchable_type   :string           not null, primary key
 #  searchable_id     :bigint
-#  raw_content       :text
-#  raw_admin_content :text
 #  section_ref       :text
 #  language          :text
 #  content_tsv       :tsvector
 #  admin_content_tsv :tsvector
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  raw_content       :jsonb
+#  raw_admin_content :jsonb
 #
 class SearchDocument < ApplicationRecord
   belongs_to :searchable, polymorphic: true
@@ -36,6 +36,10 @@ class SearchDocument < ApplicationRecord
 
   INDEX_TSV_COLUMNS = {
     index: 'content_tsv', admin_index: 'admin_content_tsv'
+  }.freeze
+
+  INDEX_RAW_COLUMNS = {
+    index: 'raw_content', admin_index: 'raw_admin_content'
   }.freeze
 
   # build the sql query for the search. This should be injection-safe.
@@ -118,19 +122,24 @@ class SearchDocument < ApplicationRecord
       # escape LIKE wildcards so the query text is matched literally
       query_values[:like_query] = "%#{sanitize_sql_like(sanitized_query)}%"
       like_op = case_sensitive ? "LIKE" : "ILIKE"
+
+      # The raw_* columns store the indexed text keyed by the tsvector label it
+      # was weighted with, so the substring search skips the labels the caller
+      # excluded rather than skipping the whole column.
+      like_conditions = raw_label_predicates(:index, content_except, like_op)
       if admin_mode
-        adm_q = "OR raw_admin_content #{like_op} :like_query"
-      else
-        adm_q = ""
+        like_conditions += raw_label_predicates(
+          :admin_index, admin_except, like_op
+        )
       end
+
       search_queries << <<~SQL.chomp
         SELECT
           sd_id,
           rank() OVER (ORDER BY sd_id DESC) AS rank
         FROM search_documents
         WHERE
-          (raw_content #{like_op} :like_query
-          #{adm_q})
+          (#{like_conditions.join(' OR ')})
           #{doc_type_q}
         LIMIT #{limit * limit_ratio}
       SQL
@@ -188,10 +197,10 @@ class SearchDocument < ApplicationRecord
   #          indexed field names instead and resolves them to labels against
   #          the same index, which is what callers outside this class want.
   #
-  #                 This only covers the tsvector matching. +exact_mode+
-  #                 searches raw_content/raw_admin_content, which are plain
-  #                 concatenations carrying no label information, so an
-  #                 excluded label can still match there.
+  #          Excluding labels also narrows +exact_mode+'s substring search
+  #          rather than disabling it: the raw column it reads is keyed by the
+  #          same labels, so the excluded text is skipped there too while the
+  #          rest of the column stays searchable.
   def self.hybrid_search(query,
                          relation: nil,
                          model: nil,
@@ -318,4 +327,15 @@ sql[:values])
     "AND websearch_to_tsquery(:language, unaccent(:query)) @@ #{tsv_expr}"
   end
   private_class_method :label_recheck_q
+
+  # A substring predicate for each label of +index+'s raw column that aren't
+  # excluded.
+  def self.raw_label_predicates(index, except_labels, like_op)
+    column = INDEX_RAW_COLUMNS.fetch(index)
+    excluded = Array(except_labels).map { |label| label.to_s.upcase }
+    kept = DEFAULT_RANK_WEIGHTS.keys - excluded
+
+    kept.map { |label| "#{column} ->> '#{label}' #{like_op} :like_query" }
+  end
+  private_class_method :raw_label_predicates
 end

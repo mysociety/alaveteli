@@ -5,14 +5,14 @@
 #  sd_id             :bigint           not null, primary key
 #  searchable_type   :string           not null, primary key
 #  searchable_id     :bigint
-#  raw_content       :text
-#  raw_admin_content :text
 #  section_ref       :text
 #  language          :text
 #  content_tsv       :tsvector
 #  admin_content_tsv :tsvector
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  raw_content       :jsonb
+#  raw_admin_content :jsonb
 #
 
 require 'spec_helper'
@@ -197,6 +197,76 @@ RSpec.describe SearchDocument do
     it 'accepts a single label given on its own' do
       expect(query_for('C')).
         to include("ts_filter(admin_content_tsv, '{a,b,d}')")
+    end
+
+    context 'alongside exact mode' do
+      def exact_query_for(labels, admin_mode: true)
+        SearchDocument.hybrid_search_internal(
+          'anything',
+          model: User, language: nil, limit: 10, admin_mode: admin_mode,
+          exact_mode: true, case_sensitive: false, limit_ratio: 3,
+          except: labels
+        )[:query]
+      end
+
+      it 'searches every label of both raw columns by default' do
+        sql = exact_query_for(nil)
+        expect(sql).to include("raw_content ->> 'A' ILIKE")
+        expect(sql).to include("raw_admin_content ->> 'A' ILIKE")
+        expect(sql).to include("raw_admin_content ->> 'C' ILIKE")
+      end
+
+      it 'skips only the excluded label of the searched raw column' do
+        sql = exact_query_for(['C'])
+        expect(sql).to_not include("raw_admin_content ->> 'C'")
+        expect(sql).to include("raw_admin_content ->> 'A' ILIKE")
+        # the public index carries no exclusion, so it keeps every label
+        expect(sql).to include("raw_content ->> 'C' ILIKE")
+      end
+
+      it 'keeps searching the public raw column without its label' do
+        sql = exact_query_for(['C'], admin_mode: false)
+        expect(sql).to_not include('raw_admin_content')
+        expect(sql).to_not include("raw_content ->> 'C'")
+        expect(sql).to include("raw_content ->> 'A' ILIKE")
+      end
+
+      # tsv_expression raises before the exact mode branch is built, so the
+      # predicate list can never come out empty.
+      it 'rejects excluding every label before exact mode is built' do
+        expect { exact_query_for(%w[A B C D]) }.
+          to raise_error(ArgumentError, /cannot exclude every/)
+      end
+
+      # a fragment like this is not a token, so it can only ever match through
+      # the substring search. It is what the old column-dropping broke.
+      it 'still matches a substring of a kept label when excluding' do
+        user = FactoryBot.create(:user, email: 'zqx@example.com')
+
+        expect(
+          User.search_scope('@example.com', backend: :postgresql,
+                                            admin_mode: true,
+                                            exact_mode: true,
+                                            case_sensitive: false,
+                                            except: [:email_bounce_message])
+        ).to include(user)
+      end
+
+      it 'does not leak an excluded label through a substring fragment' do
+        bounced = FactoryBot.create(:user, name: 'Bertha Bounce')
+        bounced.record_bounce('mail delivery failed: mailbox zzqxunique full')
+
+        expect(
+          User.search_scope('zqxuniq', backend: :postgresql, admin_mode: true,
+                                       exact_mode: true, case_sensitive: false)
+        ).to include(bounced)
+
+        expect(
+          User.search_scope('zqxuniq', backend: :postgresql, admin_mode: true,
+                                       exact_mode: true, case_sensitive: false,
+                                       except: [:email_bounce_message])
+        ).to match_array([])
+      end
     end
 
     context 'against indexed records' do

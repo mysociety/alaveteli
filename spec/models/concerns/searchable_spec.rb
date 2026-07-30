@@ -163,8 +163,20 @@ RSpec.describe Searchable, 'index lifecycle' do
     user.update!(name: 'Updated Name')
 
     content = user.search_documents.reload.first.raw_admin_content
-    expect(content).to include('Updated Name')
-    expect(content).not_to include('Original Name')
+    expect(content['A']).to include('Updated Name')
+    expect(content['A']).not_to include('Original Name')
+  end
+
+  # a string handed to a jsonb column is stored as a JSON string rather than
+  # an object, which would leave every ->> lookup NULL, so assert the shape.
+  it 'keys the indexed content by tsvector label' do
+    user = FactoryBot.create(:user, name: 'Rita Raw')
+    user.record_bounce('mail delivery failed: mailbox full')
+
+    content = user.search_documents.reload.first.raw_admin_content
+    expect(content).to be_a(Hash)
+    expect(content['A']).to include('Rita Raw')
+    expect(content['C']).to include('mailbox full')
   end
 
   it 'removes search documents when the record is destroyed' do
