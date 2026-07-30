@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow searches to weight and exclude indexed fields (Graeme Porteous)
 * Add PostgreSQL full-text search indexing, initially enabled for users only
   (Laurent Savaete, Graeme Porteous)
 * Fix reCAPTCHA blocked by Content Security Policy (Graeme Porteous)
