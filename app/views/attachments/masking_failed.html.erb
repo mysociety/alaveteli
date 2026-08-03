@@ -1,0 +1,12 @@
+<% @title = _('Attachment could not be processed') %>
+
+<h1><%= @title %></h1>
+
+<p>
+  <%= _('We were not able to process this attachment, so it cannot be ' \
+        'viewed or downloaded.') %>
+</p>
+
+<p>
+  <%= link_to _('Return to request'), request_path(@info_request) %>
+</p>

@@ -35,11 +35,27 @@ class FoiAttachment::MaskJob < ApplicationJob
   def mask
     attachment.mask
 
+    # Masking hit a Regexp::TimeoutError. Notify once (on the first failure) so
+    # it can be investigated, then stop.
+    if attachment.masking_failed?
+      notify_masking_failure if attachment.masking_failed_at_previously_changed?
+      return
+    end
+
     # ensure the after_commit callback runs which uploads the blob, without this
     # the callback might not execute in time and the job exits resulting in the
     # lost of the masked attachment body.
     return if attachment.file_blob.service.exist?(attachment.file_blob.key)
 
     attachment.run_callbacks(:commit)
+  end
+
+  def notify_masking_failure
+    return unless send_exception_notifications?
+
+    ExceptionNotifier.notify_exception(
+      Regexp::TimeoutError.new("masking timed out (ID=#{attachment.id})"),
+      data: { foi_attachment: attachment.id }
+    )
   end
 end

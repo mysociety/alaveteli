@@ -11,10 +11,19 @@ module FoiAttachment::Maskable
     file.attached? && masked_at.present? && masked_at < Time.zone.now
   end
 
+  def masking_failed?
+    masking_failed_at.present?
+  end
+
   def mask
+    return if masking_failed?
+
     body = apply_masks(unmasked_body, content_type)
     body = sanitise_html(body) if content_type == 'text/html'
     update(body: body, masked_at: Time.zone.now)
+
+  rescue Regexp::TimeoutError
+    update(masking_failed_at: Time.zone.now) if persisted?
   end
 
   def mask_later

@@ -168,10 +168,13 @@ module IncomingMessage::Attachments
     # Extract text from each attachment
     get_attachments_for_display.reduce('') do |memo, attachment|
       return memo if Ability.guest.cannot?(:read, attachment)
+      next memo if attachment.masking_failed?
 
       text = attachment.body_to_text
       text = apply_masks(text, 'text/html') unless attachment.locked?
       memo += text
+    rescue FoiAttachment::MaskingError
+      memo
     end
   end
 

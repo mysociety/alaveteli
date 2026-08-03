@@ -33,6 +33,31 @@ RSpec.describe FoiAttachment::MaskJob, type: :job do
     end
   end
 
+  context 'when masking times out' do
+    before do
+      allow(attachment).to receive(:apply_masks).and_raise(Regexp::TimeoutError)
+      allow_any_instance_of(described_class).
+        to receive(:send_exception_notifications?).and_return(true)
+      allow(ExceptionNotifier).to receive(:notify_exception)
+    end
+
+    it 'records the failure without raising' do
+      expect { perform }.to_not raise_error
+      expect(attachment.masking_failed_at).to be_present
+    end
+
+    it 'notifies once on the first failure' do
+      expect(ExceptionNotifier).to receive(:notify_exception).once
+      perform
+    end
+
+    it 'does not notify when the attachment already failed' do
+      attachment.update_column(:masking_failed_at, Time.zone.now)
+      expect(ExceptionNotifier).to_not receive(:notify_exception)
+      perform
+    end
+  end
+
   context 'after rescuing from FoiAttachment::MissingError' do
     before do
       # first call to #unmasked_body should raise MissingError exception

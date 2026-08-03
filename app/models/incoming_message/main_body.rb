@@ -32,6 +32,10 @@ module IncomingMessage::MainBody
 
   rescue FoiAttachment::ErasedError
     ''
+
+  rescue FoiAttachment::MaskingError
+    _('[ {{site_name}} note: We were not able to process this message. ]',
+      site_name: site_name)
   end
 
   # Returns part which contains main body text, or nil if there isn't one,
