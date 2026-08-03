@@ -355,7 +355,7 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    money (7.0.2)
+    money (7.1.0)
       bigdecimal
       i18n (~> 1.9)
     multi_json (1.21.1)
@@ -692,7 +692,7 @@ DEPENDENCIES
   maxmind-db (~> 1.4.0)
   mime-types (< 4.0.0)
   mini_magick (~> 5.3)
-  money (~> 7.0.2)
+  money (~> 7.1.0)
   net-protocol (~> 0.1.3)
   nokogiri (~> 1.19.4)
   ollama-ai (~> 1.3.0)
