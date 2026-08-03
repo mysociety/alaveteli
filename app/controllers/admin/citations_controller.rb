@@ -6,7 +6,12 @@ class Admin::CitationsController < AdminController
 
     citations = (
       if @query
-        Citation.search(@query)
+        Citation.search_scope(
+          @query,
+          backend: :postgresql,
+          exact_mode: true,
+          case_sensitive: false
+        )
       else
         Citation
       end

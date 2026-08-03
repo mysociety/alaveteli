@@ -20,6 +20,7 @@
 class Citation < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
+  include Searchable
 
   self.inheritance_column = nil
 
@@ -65,11 +66,9 @@ class Citation < ApplicationRecord
       or(where(citable: info_request_batch.info_requests))
   end
 
-  def self.search(query)
-    where(<<~SQL, query: query)
-      lower(citations.source_url) LIKE lower('%'||:query||'%')
-    SQL
-  end
+  searchable index: {
+    "source_url": "A"
+  }
 
   def applies_to_batch_request?
     citable.is_a?(InfoRequestBatch)
