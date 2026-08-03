@@ -192,7 +192,7 @@ GEM
     digest-crc (0.7.0)
       rake (>= 12.0.0, < 14.0.0)
     drb (2.2.3)
-    erb (6.0.4)
+    erb (6.0.6)
     erubi (1.13.1)
     ethon (0.16.0)
       ffi (>= 1.15.0)
@@ -307,7 +307,7 @@ GEM
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
     io-console (0.8.2)
-    irb (1.17.0)
+    irb (1.18.0)
       pp (>= 0.6.0)
       prism (>= 1.3.0)
       rdoc (>= 4.0.0)
@@ -361,7 +361,7 @@ GEM
     multi_json (1.21.1)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.6.4.1)
+    net-imap (0.6.6)
       date
       net-protocol
     net-pop (0.1.2)
@@ -398,7 +398,7 @@ GEM
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x86_64-darwin)
     pg (1.6.3-x86_64-linux)
-    pp (0.6.3)
+    pp (0.6.4)
       prettyprint
     prettyprint (0.2.0)
     prime (0.1.4)
@@ -463,7 +463,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.4.2)
-    rbs (4.0.3)
+    rbs (4.1.2)
       logger
       prism (>= 1.6.0)
       tsort
@@ -632,7 +632,7 @@ GEM
       rexml
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.5)
+    zeitwerk (2.8.3)
     zip_tricks (5.6.0)
 
 PLATFORMS
