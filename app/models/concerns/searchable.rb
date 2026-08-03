@@ -13,7 +13,12 @@ module Searchable
   extend ActiveSupport::Concern
 
   class_methods do
-    def search_scope(query, **options)
+    def search_scope(query, except: nil, **options)
+      if except
+        options[:except] = except_labels_for(
+          except, admin_mode: options.fetch(:admin_mode, false)
+        )
+      end
       Search.search_scope(query, all, **options)
     end
   end
@@ -55,12 +60,12 @@ module Searchable
     Rails.logger.info("Searching through instance #{self.class}.#{id}")
   end
 
-  # We can't just use the raw_content here, because it has lost the
-  # weight from various columns.
+  # We can't build the tsvector from the raw content, because that keeps the
+  # weight each field was indexed under but not the tokenisation.
   def search_content_from_db_query(idx_name, language)
     opts = @@searchable_models[self.class.to_s]
 
-    raw_content_bits = []
+    raw_content_bits = Hash.new { |bits, label| bits[label] = [] }
     content_tsv_bits = []
     opts[idx_name].each do |col, w|
       if col.start_with?(".")
@@ -69,15 +74,20 @@ module Searchable
         c = "(SELECT concat(#{col}, ' ') FROM #{self.class.table_name} WHERE id=$1)"
       end
 
-      raw_content_bits.push(c)
+      raw_content_bits[w.to_s.upcase].push(c)
       content_tsv_bits.push(
         "setweight(to_tsvector('#{language}'::regconfig, unaccent(coalesce(#{c}, ''))), '#{w}')"
       )
     end
 
+    raw_object_bits = raw_content_bits.map do |label, bits|
+      quoted = ActiveRecord::Base.connection.quote(label)
+      "#{quoted}, concat(#{bits.join(',')})"
+    end
+
     query = <<-SQL
       SELECT
-        concat(#{raw_content_bits.join(',')}) as raw,
+        jsonb_build_object(#{raw_object_bits.join(',')}) as raw,
         #{content_tsv_bits.join("||")} AS tsv
       FROM #{self.class.table_name}
       WHERE id=$1
@@ -94,7 +104,7 @@ module Searchable
     if search_cfg[idx_name].nil? || search_cfg[idx_name].empty?
       {}
     else
-      ActiveRecord::Base.
+      row = ActiveRecord::Base.
         connection.
         exec_query(
           search_content_from_db_query(idx_name, language),
@@ -105,6 +115,8 @@ module Searchable
             ActiveRecord::Type::Integer.new
           )]
         ).to_a.first
+
+      row.merge('raw' => ActiveSupport::JSON.decode(row['raw']))
     end
   end
 
@@ -209,6 +221,40 @@ module Searchable
       Searchable.class_variable_get(:@@searchable_models)[name] = options
     end
 
+    # The +searchable+ options for this model, raising when it was never made
+    # searchable.
+    def searchable_config
+      Searchable.class_variable_get(:@@searchable_models).fetch(name) do
+        raise(
+          NotImplementedError,
+          "Call #{self}.searchable to make the model searchable"
+        )
+      end
+    end
+
+    # Resolve indexed field names to tsvector labels, for SearchDocument's
+    # +except+ option.
+    def except_labels_for(fields, admin_mode: false)
+      fields = Array(fields).map(&:to_s)
+      return [] if fields.empty?
+
+      index = admin_mode ? :admin_index : :index
+      indexes_fields = searchable_config[index] || {}
+
+      unknown = fields - indexes_fields.keys.map(&:to_s)
+      raise(
+        ArgumentError,
+        "#{name} does not index #{unknown.join(', ')} in #{index}"
+      ) unless unknown.empty?
+
+      excluded, kept = indexes_fields.partition do |f, _|
+        fields.include?(f.to_s)
+      end
+
+      ensure_labels_unshared(excluded, kept)
+      excluded.map(&:last).uniq
+    end
+
     # TODO: rename this to `search`
     # The main entry point to the search API. All search calls should go through
     # this method.
@@ -262,6 +308,26 @@ module Searchable
       end
       elapsed = Time.zone.now - start
       Rails.logger.info("Reindexed #{count} #{name} in #{elapsed} seconds")
+    end
+
+    private
+
+    # Refuse to exclude a field whose weight also carries a field being kept,
+    # as removing the label would silently remove that one from the search too.
+    def ensure_labels_unshared(excluded, kept)
+      conflicts = excluded.filter_map do |field, label|
+        neighbours = kept.select { |_, l| l == label }.map(&:first)
+        next if neighbours.empty?
+
+        "#{field} (weight #{label} also carries #{neighbours.join(', ')})"
+      end
+      return if conflicts.empty?
+
+      raise(
+        ArgumentError,
+        "cannot exclude #{conflicts.join('; ')}. Exclusion works per weight, " \
+        'so these fields need distinct weights to be excluded separately'
+      )
     end
   end
 

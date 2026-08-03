@@ -230,7 +230,8 @@ class User < ApplicationRecord
     "name": "A",
     "url_name": "A",
     "ban_text": "A",
-    "about_me": "A"
+    "about_me": "A",
+    "email_bounce_message": "C"
   }
 
   def self.pro

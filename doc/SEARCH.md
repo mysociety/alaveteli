@@ -488,11 +488,13 @@ For each set, there are 2 columns:
 
 #### raw_content
 
-`raw_content` (respectively `raw_admin_content`) stores plain text for a model instance, typically a concatenation of the various fields we want to be able to search. This field can be expensive to rebuild (eg. it can contain multiple ruby method calls, or even require pulling a file from S3).
+`raw_content` (respectively `raw_admin_content`) stores plain text for a model instance as a `jsonb` object keyed by the tsvector weight label (`A` to `D`) each field was indexed under, with the fields sharing a label concatenated together. This field can be expensive to rebuild (eg. it can contain multiple ruby method calls, or even require pulling a file from S3).
+
+Keying by label is what lets the "exact" search honour the same `except` exclusions the tsvector search does: it can skip the excluded labels and still search the rest. A single concatenation would leave a `LIKE` match unable to tell excluded text from kept text.
 
 It is kept in the database to back the "exact" search (using SQL `LIKE`, or `ILIKE` when `case_sensitive: false` is passed). A use case for this is finding all users whose email address uses `@somedomain.com`. It would be possible to get rid of this column, and implement an "exact" search using a SQL query for each model. This would not work for models that do not store all their content in the database (`FoiAttachment` for instance).
 
-There is no index to back this search type at the moment (it would use the built-in `pg_trgm` index type, which is quite heavy to build and maintain), but it can be added if it becomes apparent that it is needed. This would allow typo-tolerant search, on top of speeding up "exact" searches.
+There is no index to back this search type at the moment (it would use the built-in `pg_trgm` index type, which is quite heavy to build and maintain), but it can be added if it becomes apparent that it is needed. As the column is keyed by label, such an index would have to be per expression, eg. `USING gin ((raw_content->>'A') gin_trgm_ops)`. This would allow typo-tolerant search, on top of speeding up "exact" searches.
 
 #### content_tsv
 
@@ -539,7 +541,7 @@ The letter that follows `A|B|C|D` defines the weights assigned to the field for 
 
 When you run `object.reindex`, the following happens:
 - the `raw_content` is built from the model's `searchable` definition,
-- the `content_tsv` is built from the same definition, pulling data directly from the model's fields (it cannot be built from `raw_content` because there is no weight information in it)
+- the `content_tsv` is built from the same definition, pulling data directly from the model's fields (it cannot be built from `raw_content` because that text has not been stemmed or tokenised)
 - the same process is done for the `admin_index` elements.
 - all fields are upserted in `search_documents`. postgresql automatically updates its indices to reflect the data in the table.
 

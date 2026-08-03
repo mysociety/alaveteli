@@ -5,14 +5,14 @@
 #  sd_id             :bigint           not null, primary key
 #  searchable_type   :string           not null, primary key
 #  searchable_id     :bigint
-#  raw_content       :text
-#  raw_admin_content :text
 #  section_ref       :text
 #  language          :text
 #  content_tsv       :tsvector
 #  admin_content_tsv :tsvector
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  raw_content       :jsonb
+#  raw_admin_content :jsonb
 #
 
 require 'spec_helper'
@@ -50,6 +50,38 @@ RSpec.describe SearchDocument do
     end
   end
 
+  context 'bounce text indexing' do
+    let!(:bounced) do
+      FactoryBot.create(:user).tap do |u|
+        u.record_bounce('mail delivery failed: mailbox full')
+      end
+    end
+
+    it 'finds users by bounce text in admin mode' do
+      expect(User.newsearch('mailbox full', admin_mode: true)).to include(bounced)
+    end
+
+    it 'does not expose bounce text to non-admin search' do
+      expect(User.newsearch('mailbox full')).to match_array([])
+    end
+
+    it 'excludes bounce text from an admin search on request' do
+      expect(
+        User.search_scope('zzqxunique', backend: :postgresql,
+                                        admin_mode: true,
+                                        except: [:email_bounce_message])
+      ).to match_array([])
+    end
+
+    it 'keeps the other admin fields searchable when bounce text is excluded' do
+      expect(
+        User.search_scope('Florence', backend: :postgresql,
+                                      admin_mode: true,
+                                      except: [:email_bounce_message])
+      ).to match_array([user])
+    end
+  end
+
   context 'input validation' do
     it 'rejects a model given as a string' do
       expect { SearchDocument.hybrid_search('anything', model: 'User') }.
@@ -73,6 +105,198 @@ RSpec.describe SearchDocument do
     it 'rejects unsupported languages' do
       expect { User.newsearch('anything', language: 'klingon') }.
         to raise_error(ArgumentError)
+    end
+  end
+
+  context 'rank weights' do
+    def query_for(weights: nil)
+      SearchDocument.hybrid_search_internal(
+        'anything',
+        model: User, language: nil, limit: 10, admin_mode: true,
+        exact_mode: false, case_sensitive: true, limit_ratio: 3,
+        weights: weights
+      )[:query]
+    end
+
+    it 'ranks with PostgreSQL default weights when none are given' do
+      expect(query_for).to include("'{0.1,0.2,0.4,1.0}'::float4[]")
+    end
+
+    it 'applies a full weight override in {D,C,B,A} order' do
+      sql = query_for(
+        weights: { 'A' => 2.0, 'B' => 0.5, 'C' => 0.3, 'D' => 0.05 }
+      )
+      expect(sql).to include("'{0.05,0.3,0.5,2.0}'::float4[]")
+    end
+
+    it 'merges a partial override over the defaults' do
+      expect(query_for(weights: { 'C' => 0.05 })).
+        to include("'{0.1,0.05,0.4,1.0}'::float4[]")
+    end
+
+    it 'rejects a non-numeric weight' do
+      expect { query_for(weights: { 'A' => '1); DROP TABLE users' }) }.
+        to raise_error(ArgumentError)
+    end
+
+    it 'rejects an unrecognised label rather than ignoring it' do
+      expect { query_for(weights: { 'E' => 0.5 }) }.
+        to raise_error(ArgumentError, /unknown tsvector label/)
+    end
+
+    it 'accepts labels given as symbols' do
+      expect(query_for(weights: { C: 0.05 })).
+        to include("'{0.1,0.05,0.4,1.0}'::float4[]")
+    end
+  end
+
+  context 'excluding tsvector labels' do
+    def query_for(labels, admin_mode: true)
+      SearchDocument.hybrid_search_internal(
+        'anything',
+        model: User, language: nil, limit: 10, admin_mode: admin_mode,
+        exact_mode: false, case_sensitive: true, limit_ratio: 3,
+        except: labels
+      )[:query]
+    end
+
+    it 'leaves the query untouched when nothing is excluded' do
+      expect(query_for(nil)).to_not include('ts_filter')
+    end
+
+    it 'filters the excluded label out of the admin index in admin mode' do
+      sql = query_for(['C'])
+      expect(sql).to include("ts_filter(admin_content_tsv, '{a,b,d}')")
+      expect(sql).to_not include('ts_filter(content_tsv')
+    end
+
+    # admin_mode is what says which index the labels belong to, so the same
+    # list lands on the other tsvector for a public search.
+    it 'filters the excluded label out of the public index otherwise' do
+      sql = query_for(['C'], admin_mode: false)
+      expect(sql).to include("ts_filter(content_tsv, '{a,b,d}')")
+      expect(sql).to_not include('ts_filter(admin_content_tsv')
+    end
+
+    it 'keeps the indexable predicate alongside the ts_filter recheck' do
+      sql = query_for(['C'])
+      expect(sql).to include('@@ admin_content_tsv')
+      expect(sql).to include("@@ ts_filter(admin_content_tsv, '{a,b,d}')")
+    end
+
+    it 'rejects an unrecognised label' do
+      expect { query_for(['E']) }.
+        to raise_error(ArgumentError, /unknown tsvector label/)
+    end
+
+    it 'rejects excluding every label' do
+      expect { query_for(%w[A B C D]) }.
+        to raise_error(ArgumentError, /cannot exclude every/)
+    end
+
+    it 'accepts a single label given on its own' do
+      expect(query_for('C')).
+        to include("ts_filter(admin_content_tsv, '{a,b,d}')")
+    end
+
+    context 'alongside exact mode' do
+      def exact_query_for(labels, admin_mode: true)
+        SearchDocument.hybrid_search_internal(
+          'anything',
+          model: User, language: nil, limit: 10, admin_mode: admin_mode,
+          exact_mode: true, case_sensitive: false, limit_ratio: 3,
+          except: labels
+        )[:query]
+      end
+
+      it 'searches every label of both raw columns by default' do
+        sql = exact_query_for(nil)
+        expect(sql).to include("raw_content ->> 'A' ILIKE")
+        expect(sql).to include("raw_admin_content ->> 'A' ILIKE")
+        expect(sql).to include("raw_admin_content ->> 'C' ILIKE")
+      end
+
+      it 'skips only the excluded label of the searched raw column' do
+        sql = exact_query_for(['C'])
+        expect(sql).to_not include("raw_admin_content ->> 'C'")
+        expect(sql).to include("raw_admin_content ->> 'A' ILIKE")
+        # the public index carries no exclusion, so it keeps every label
+        expect(sql).to include("raw_content ->> 'C' ILIKE")
+      end
+
+      it 'keeps searching the public raw column without its label' do
+        sql = exact_query_for(['C'], admin_mode: false)
+        expect(sql).to_not include('raw_admin_content')
+        expect(sql).to_not include("raw_content ->> 'C'")
+        expect(sql).to include("raw_content ->> 'A' ILIKE")
+      end
+
+      # tsv_expression raises before the exact mode branch is built, so the
+      # predicate list can never come out empty.
+      it 'rejects excluding every label before exact mode is built' do
+        expect { exact_query_for(%w[A B C D]) }.
+          to raise_error(ArgumentError, /cannot exclude every/)
+      end
+
+      # a fragment like this is not a token, so it can only ever match through
+      # the substring search. It is what the old column-dropping broke.
+      it 'still matches a substring of a kept label when excluding' do
+        user = FactoryBot.create(:user, email: 'zqx@example.com')
+
+        expect(
+          User.search_scope('@example.com', backend: :postgresql,
+                                            admin_mode: true,
+                                            exact_mode: true,
+                                            case_sensitive: false,
+                                            except: [:email_bounce_message])
+        ).to include(user)
+      end
+
+      it 'does not leak an excluded label through a substring fragment' do
+        bounced = FactoryBot.create(:user, name: 'Bertha Bounce')
+        bounced.record_bounce('mail delivery failed: mailbox zzqxunique full')
+
+        expect(
+          User.search_scope('zqxuniq', backend: :postgresql, admin_mode: true,
+                                       exact_mode: true, case_sensitive: false)
+        ).to include(bounced)
+
+        expect(
+          User.search_scope('zqxuniq', backend: :postgresql, admin_mode: true,
+                                       exact_mode: true, case_sensitive: false,
+                                       except: [:email_bounce_message])
+        ).to match_array([])
+      end
+    end
+
+    context 'against indexed records' do
+      let!(:bounced) do
+        FactoryBot.create(:user, name: 'Bertha Bounce').tap do |u|
+          u.record_bounce('mail delivery failed: mailbox zzqxunique full')
+        end
+      end
+
+      it 'drops records matching only through the excluded label' do
+        expect(
+          User.newsearch('zzqxunique', admin_mode: true)
+        ).to include(bounced)
+
+        expect(
+          SearchDocument.hybrid_search(
+            'zzqxunique', model: User, admin_mode: true,
+                          except: ['C']
+          )
+        ).to match_array([])
+      end
+
+      it 'still matches the record through a label that is kept' do
+        expect(
+          SearchDocument.hybrid_search(
+            'Bertha', model: User, admin_mode: true,
+                      except: ['C']
+          )
+        ).to match_array([bounced])
+      end
     end
   end
 

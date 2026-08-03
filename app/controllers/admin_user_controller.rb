@@ -42,7 +42,8 @@ class AdminUserController < AdminController
         backend: :postgresql,
         admin_mode: true,
         exact_mode: true,
-        case_sensitive: false
+        case_sensitive: false,
+        except: [:email_bounce_message]
       )
     end
 
