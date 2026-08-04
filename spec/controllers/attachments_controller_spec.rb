@@ -483,6 +483,27 @@ RSpec.describe AttachmentsController, type: :controller do
         expect(response).to render_template('request/erased_attachment')
       end
     end
+
+    context 'when an erased attachment has a retained replacement' do
+      let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+      let(:message) { info_request.incoming_messages.first }
+      let(:attachment) do
+        FactoryBot.create(:body_text, incoming_message: message).tap do |a|
+          a.replace!(
+            editor: FactoryBot.create(:admin_user),
+            reason: 'Replacing content',
+            replacement_body: 'replacement body'
+          )
+          a.update_column(:erased_at, Time.zone.now)
+        end
+      end
+
+      it 'downloads the replacement' do
+        show
+        expect(response).to be_successful
+        expect(response.body).to eq('replacement body')
+      end
+    end
   end
 
   describe 'GET show_as_html' do
