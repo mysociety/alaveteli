@@ -14,8 +14,14 @@ module FoiAttachment::Erasable
     erased_at.present?
   end
 
+  def content_erased?
+    erased? && !replacement_retained?
+  end
+
   def ensure_not_erased!
-    raise ErasedError, "attachment has been erased (ID=#{id})" if erased?
+    return unless content_erased?
+
+    raise ErasedError, "attachment has been erased (ID=#{id})"
   end
 
   def erase_later(editor:, reason:)
@@ -35,16 +41,18 @@ module FoiAttachment::Erasable
         editor: editor,
         reason: reason,
         attachment: self,
-        storage_key: storage_key
+        storage_key: (storage_key unless replacement_retained?)
       ) || raise(ActiveRecord::Rollback, 'could not log erase_attachment event')
 
-      self.filename = nil
-      ensure_filename!
+      unless replacement_retained?
+        self.filename = nil
+        ensure_filename!
+      end
 
       self.erased_at = Time.zone.now
       save!
 
-      delete_cached_file!
+      delete_cached_file! unless replacement_retained?
 
       raw_email.erase(editor: editor, reason: 'FoiAttachment#erase')
 

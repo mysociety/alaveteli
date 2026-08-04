@@ -5,7 +5,7 @@
 } %>
 
 
-<% if @foi_attachment.erased? %>
+<% if @foi_attachment.content_erased? %>
   <p>
     <%= button_to 'Download', '', class: 'btn', disabled: true %>
     <span class="muted">Erased attachments cannot be downloaded.</span>

@@ -100,7 +100,7 @@ class AttachmentsController < ApplicationController
 
     if @attachment
       # Check for erased attachment
-      if @attachment.erased?
+      if @attachment.content_erased?
         request.format = :html
         return render_hidden('request/erased_attachment')
       end

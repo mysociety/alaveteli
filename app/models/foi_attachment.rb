@@ -225,7 +225,7 @@ class FoiAttachment < ApplicationRecord
 
   # Whether this type has a "View as HTML"
   def html_viewer?
-    return false if erased?
+    return false if content_erased?
 
     AttachmentToHTML.extractable?(self)
   end
