@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Accept a two factor code briefly after it expires (Graeme Porteous)
 * Safely recover from attachment masking timeouts (Graeme Porteous)
 * Add PostgreSQL full-text search indexing, initially enabled for users only
   (Laurent Savaete, Graeme Porteous)

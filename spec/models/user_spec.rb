@@ -1112,6 +1112,46 @@ RSpec.describe User do
     end
   end
 
+  describe 'TOTP drift tolerance' do
+    let(:user) { FactoryBot.create(:user, :enable_totp) }
+    let(:period_start) { Time.utc(2026, 8, 5, 10, 0, 0) }
+    let(:period_end) { period_start + 30.seconds }
+    let(:window_closes) { period_end + User::OneTimePassword::DRIFT }
+
+    # Read at the end of a step, submitted after it has ended
+    def expiring_code
+      travel_to(period_end - 1.second) { user.otp_code }
+    end
+
+    it 'accepts it until the drift window closes' do
+      code = expiring_code
+
+      travel_to(window_closes - 1.second) do
+        expect(user.authenticate_otp(code)).to eq(true)
+      end
+    end
+
+    it 'rejects a code once the drift window has closed' do
+      code = expiring_code
+
+      travel_to(window_closes) do
+        expect(user.authenticate_otp(code)).to eq(false)
+      end
+    end
+
+    it 'refuses to replay a code accepted inside the drift window' do
+      code = expiring_code
+
+      travel_to(window_closes - 2.seconds) do
+        expect(user.authenticate_otp(code)).to eq(true)
+      end
+
+      travel_to(window_closes - 1.second) do
+        expect(user.authenticate_otp(code)).to eq(false)
+      end
+    end
+  end
+
   describe '#disable_otp' do
     it 'sets otp_enabled to false' do
       user = User.new(otp_enabled: true)
