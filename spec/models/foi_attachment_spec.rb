@@ -828,6 +828,31 @@ RSpec.describe FoiAttachment do
       expect(last_event.params[:replaced_reason]).to eq('GDPR case')
     end
 
+    it 'logs the storage key holding the original when replacing a body' do
+      old_storage_key = foi_attachment.storage_key
+      foi_attachment.update_and_log_event!(
+        replacement_body: 'new body', replaced_reason: 'GDPR case'
+      )
+      expect(last_event.params[:old_storage_key]).to eq(old_storage_key)
+    end
+
+    it 'logs the storage key holding the original when replacing a file' do
+      old_storage_key = foi_attachment.storage_key
+      foi_attachment.update_and_log_event!(
+        replacement_file: Rack::Test::UploadedFile.new(
+          file_fixture_name('interesting.pdf'), 'application/pdf'
+        ),
+        replaced_reason: 'GDPR case'
+      )
+      expect(last_event.params[:old_storage_key]).to eq(old_storage_key)
+      expect(foi_attachment.storage_key).to_not eq(old_storage_key)
+    end
+
+    it 'does not log a storage key when nothing is replaced' do
+      foi_attachment.update_and_log_event!(prominence: 'hidden')
+      expect(last_event.params[:old_storage_key]).to be_nil
+    end
+
     it 'logs additional event data' do
       foi_attachment.update_and_log_event!(
         prominence: 'hidden', event: { editor: 'me' }
@@ -1533,6 +1558,12 @@ RSpec.describe FoiAttachment do
         expect(last_event.event_type).to eq('edit_attachment')
       end
 
+      it 'logs the storage key holding the original' do
+        old_storage_key = foi_attachment.storage_key
+        subject
+        expect(last_event.params[:old_storage_key]).to eq(old_storage_key)
+      end
+
       it { is_expected.to eq(true) }
     end
 
@@ -1568,6 +1599,13 @@ RSpec.describe FoiAttachment do
       it 'sets the replaced reason' do
         subject
         expect(foi_attachment.reload.replaced_reason).to eq('GDPR case')
+      end
+
+      it 'logs the storage key holding the original' do
+        old_storage_key = foi_attachment.storage_key
+        subject
+        expect(last_event.params[:old_storage_key]).to eq(old_storage_key)
+        expect(foi_attachment.reload.storage_key).to_not eq(old_storage_key)
       end
 
       it { is_expected.to eq(true) }
