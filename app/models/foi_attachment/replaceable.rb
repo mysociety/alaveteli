@@ -70,7 +70,7 @@ module FoiAttachment::Replaceable
   end
 
   def replacing?
-    !erased? && !unlocking? &&
+    !content_erased? && !unlocking? &&
       (replacement_file_changed? || replacement_body_changed?)
   end
 
@@ -83,7 +83,7 @@ module FoiAttachment::Replaceable
   end
 
   def replacing_or_replaced?
-    !erased? && (replacing? || replaced?)
+    !content_erased? && (replacing? || replaced?)
   end
 
   def replaced_filename

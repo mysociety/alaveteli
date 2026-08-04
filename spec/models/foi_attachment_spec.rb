@@ -1473,6 +1473,19 @@ RSpec.describe FoiAttachment do
 
       it { is_expected.to eq false }
     end
+
+    context 'when erased with a retained replacement' do
+      subject { foi_attachment.replacing? }
+
+      let(:foi_attachment) do
+        FactoryBot.create(:body_text, :erased, replaced_at: 12.hours.ago,
+                                               replaced_reason: 'GDPR case')
+      end
+
+      before { foi_attachment.replacement_body = 'foo' }
+
+      it { is_expected.to eq true }
+    end
   end
 
   describe '#replace' do
@@ -1606,6 +1619,39 @@ RSpec.describe FoiAttachment do
         subject
         expect(last_event.params[:old_storage_key]).to eq(old_storage_key)
         expect(foi_attachment.reload.storage_key).to_not eq(old_storage_key)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the attachment has been erased' do
+      subject do
+        foi_attachment.replace!(
+          editor: editor, reason: reason, replacement_body: 'second body'
+        )
+      end
+
+      let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+
+      let(:foi_attachment) do
+        attachment = FactoryBot.create(
+          :body_text, incoming_message: info_request.incoming_messages.first
+        )
+        attachment.replace!(
+          editor: editor, reason: reason, replacement_body: 'first body'
+        )
+        attachment.erase(editor: editor, reason: reason)
+        attachment.reload
+      end
+
+      it 'replaces the retained replacement' do
+        subject
+        expect(foi_attachment.reload.body).to eq('second body')
+      end
+
+      it 'leaves the attachment erased' do
+        subject
+        expect(foi_attachment.reload).to be_erased
       end
 
       it { is_expected.to eq(true) }
@@ -1944,6 +1990,19 @@ RSpec.describe FoiAttachment do
       end
 
       it { is_expected.to eq false }
+    end
+
+    context 'when erased with a retained replacement' do
+      subject { foi_attachment.replacing_or_replaced? }
+
+      let(:foi_attachment) do
+        FactoryBot.create(:body_text, :erased, replaced_at: 12.hours.ago,
+                                               replaced_reason: 'GDPR case')
+      end
+
+      before { allow(foi_attachment).to receive(:replacing?).and_return(true) }
+
+      it { is_expected.to eq true }
     end
   end
 
