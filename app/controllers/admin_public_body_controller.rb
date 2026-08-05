@@ -244,34 +244,55 @@ class AdminPublicBodyController < AdminController
       @query = nil if @query == ""
       @page = params[:page]
       @page = nil if @page == ""
+      @search_engine = params[:search_engine] || 'new'
 
-      query = if @query
-        query_str = <<-EOF.strip_heredoc
-        (lower(public_body_translations.name)
-         LIKE lower('%'||?||'%')
-         OR lower(public_body_translations.short_name)
-         LIKE lower('%'||?||'%')
-         OR lower(public_body_translations.request_email)
-         LIKE lower('%'||?||'%' ))
-         AND (public_body_translations.locale = '#{@locale}')
-        EOF
+      if @search_engine == 'legacy' then
+        query = if @query
+          query_str = <<-EOF.strip_heredoc
+          (lower(public_body_translations.name)
+           LIKE lower('%'||?||'%')
+           OR lower(public_body_translations.short_name)
+           LIKE lower('%'||?||'%')
+           OR lower(public_body_translations.request_email)
+           LIKE lower('%'||?||'%' ))
+           AND (public_body_translations.locale = '#{@locale}')
+          EOF
 
-        [query_str, @query, @query, @query]
+          [query_str, @query, @query, @query]
+        else
+          <<-EOF.strip_heredoc
+          public_body_translations.locale = '#{@locale}'
+          EOF
+        end
+
+        @public_bodies =
+          PublicBody.
+            joins(:translations).
+              where(query).
+                merge(PublicBody::Translation.order(:name)).
+                  paginate(page: @page, per_page: 100)
       else
-        <<-EOF.strip_heredoc
-        public_body_translations.locale = '#{@locale}'
-        EOF
+        if @query
+          @public_bodies =
+            PublicBody.
+              search_scope(@query,
+                           backend: :postgresql,
+                           admin_mode: true).
+                joins(:translations).
+                  paginate(page: @page, per_page: 100)
+        else
+          @public_bodies =
+            PublicBody.
+              joins(:translations).
+                references(:translations).
+                  where(public_body_translations: { locale: @locale }).
+                    merge(PublicBody::Translation.order(:name)).
+                      paginate(page: @page, per_page: 100)
+        end
       end
 
-      @public_bodies =
-        PublicBody.
-          joins(:translations).
-            where(query).
-              merge(PublicBody::Translation.order(:name)).
-                paginate(page: @page, per_page: 100)
+      @public_bodies_by_tag = PublicBody.find_by_tag(@query)
     end
-
-    @public_bodies_by_tag = PublicBody.find_by_tag(@query)
   end
 
   def public_body_params

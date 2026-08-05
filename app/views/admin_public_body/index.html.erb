@@ -21,15 +21,31 @@
 <div class="row">
   <%= form_tag nil, method: :get, class: 'form form-search span12' do %>
     <div class="input-append">
-      <%= text_field_tag 'query', params[:query], size: 30, class: 'input-large search-query' %>
-      <%= submit_tag 'Search', class: 'btn' %>
+      <%= text_field_tag "query",
+      params[:query],
+      size: 30,
+      class: "input-large search-query" %>
+      <%= submit_tag "Search", class: "btn" %>
+    </div>
+
+    <div>
+      <%= radio_button_tag "search_engine", "legacy", checked: "legacy" == @search_engine %>
+      <%= label_tag "search_engine_legacy",
+      "legacy engine: substring search in names and emails; exact match of tags",
+      class: "help-inline" %>
+      <br>
+      <%= radio_button_tag "search_engine",
+      "new",
+      checked: "new" == @search_engine %>
+      <%= label_tag "search_engine_new",
+      "new engine: whole word search in names, emails and notes; please report poor search results!",
+      class: "help-inline" %>
     </div>
 
     <% if @query %>
       <%= link_to 'Show all', admin_bodies_path, class: 'btn' %>
     <% end %>
 
-    <span class="help-inline">(substring search in names and emails; exact match of tags)</span>
   <% end %>
 </div>
 
@@ -42,7 +58,13 @@
   <% if @query.nil? %>
     <h2>All authorities</h2>
   <% else %>
-    <h2>Substring search matches (<%= @public_bodies.total_entries %> total)</h2>
+    <% if @search_engine == "new" %>
+      <h2>Search engine matches (<%= @public_bodies.total_entries %>
+        total)</h2>
+    <% else %>
+      <h2>Substring search matches (<%= @public_bodies.total_entries %>
+        total)</h2>
+    <% end %>
   <% end %>
   <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies, :table_name => 'substring' } %>
 <% end %>

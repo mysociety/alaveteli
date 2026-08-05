@@ -7,15 +7,28 @@ RSpec.describe AdminPublicBodyController do
       expect(response).to be_successful
     end
 
-    it "searches for 'humpa'" do
-      get :index, params: { query: "humpa" }
+    it "searches for 'humpa' with the legacy search" do
+      get :index, params: { query: "humpa", search_engine: "legacy" }
       expect(assigns[:public_bodies]).
         to eq([public_bodies(:humpadink_public_body)])
     end
 
-    it "searches for 'humpa' in another locale" do
+    it "searches for 'humpa' in another locale  with the legacy search" do
       cookies[:locale] = 'es'
-      get :index, params: { query: "humpa" }
+      get :index, params: { query: "humpa", search_engine: "legacy" }
+      expect(assigns[:public_bodies]).
+        to eq([public_bodies(:humpadink_public_body)])
+    end
+
+    it "lists all authorities in name order" do
+      get :index
+      names = assigns[:public_bodies].map(&:name)
+      expect(names).to eq(names.sort_by(&:downcase))
+    end
+
+    it "searches for a request email with the new search", :postgresql do
+      get :index, params: { query: "humpadink-requests@localhost",
+                            search_engine: "new" }
       expect(assigns[:public_bodies]).
         to eq([public_bodies(:humpadink_public_body)])
     end
