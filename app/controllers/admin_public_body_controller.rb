@@ -278,12 +278,12 @@ class AdminPublicBodyController < AdminController
               search_scope(@query,
                            backend: :postgresql,
                            admin_mode: true).
-                joins(:translations).
+                includes(:tags, :translations).
                   paginate(page: @page, per_page: 100)
         else
           @public_bodies =
             PublicBody.
-              joins(:translations).
+              includes(:tags, :translations).
                 references(:translations).
                   where(public_body_translations: { locale: @locale }).
                     merge(PublicBody::Translation.order(:name)).
@@ -291,7 +291,9 @@ class AdminPublicBodyController < AdminController
         end
       end
 
-      @public_bodies_by_tag = PublicBody.find_by_tag(@query)
+      @public_bodies_by_tag = PublicBody.
+          find_by_tag(@query).
+            includes(:tags, :translations)
     end
   end
 
