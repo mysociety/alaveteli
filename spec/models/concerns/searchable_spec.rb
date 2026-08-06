@@ -61,8 +61,8 @@ RSpec.describe Searchable, 'index lifecycle' do
   end
 
   it 'does not index models that are not registered as searchable' do
-    body = FactoryBot.create(:initial_request)
-    expect(SearchDocument.where(searchable_type: "InfoRequest").count).to eq(0)
+    n = FactoryBot.create(:notification)
+    expect(SearchDocument.where(searchable_type: "Notification").count).to eq(0)
   end
 
   describe '.reindex_all' do

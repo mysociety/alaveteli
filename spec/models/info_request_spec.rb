@@ -5056,3 +5056,34 @@ RSpec.describe InfoRequest do
     end
   end
 end
+
+RSpec.describe InfoRequest, "when indexing for postgres search" do
+  it 'updates the search index after updating the request' do
+    request = FactoryBot.create(:info_request, title: 'Council of things')
+    expect(InfoRequest.newsearch('Council of things')).to eq([request])
+
+    request.update!(title: 'Ministry of Stuff')
+
+    expect(InfoRequest.newsearch('Council of things')).to eq([])
+    expect(InfoRequest.newsearch('Ministry of Stuff')).to eq([request])
+  end
+
+  it 'finds a request by the name of its external user in admin mode' do
+    request = FactoryBot.create(:external_request,
+                                external_user_name: 'Winston Smith')
+
+    expect(InfoRequest.newsearch('Winston Smith')).to eq([])
+    expect(InfoRequest.newsearch('Winston Smith', admin_mode: true)).
+      to eq([request])
+  end
+
+  it 'keeps the reason a request was hidden out of the public index' do
+    request = FactoryBot.create(:info_request)
+    request.update!(prominence: 'hidden',
+                    prominence_reason: 'Names a living person')
+
+    expect(InfoRequest.newsearch('living person')).to eq([])
+    expect(InfoRequest.newsearch('living person', admin_mode: true)).
+      to eq([request])
+  end
+end
