@@ -20,6 +20,7 @@
 #  replaced_at           :datetime
 #  replaced_reason       :string
 #  erased_at             :datetime
+#  masking_failed_at     :datetime
 #
 
 require 'spec_helper'
@@ -248,6 +249,20 @@ RSpec.describe FoiAttachment do
         expect(FoiAttachment::MaskJob).to_not receive(:perform_now)
         expect { foi_attachment.body }.
           to raise_error(ActiveStorage::FileNotFoundError)
+      end
+    end
+
+    context 'when masking has previously failed' do
+      let(:foi_attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked, masking_failed_at: Time.zone.now
+        )
+      end
+
+      it 'raises MaskingError without re-running the mask job' do
+        expect(FoiAttachment::MaskJob).to_not receive(:perform_now)
+        expect { foi_attachment.body }.
+          to raise_error(FoiAttachment::MaskingError)
       end
     end
 
@@ -958,6 +973,28 @@ RSpec.describe FoiAttachment do
       expect(attachment.body).to_not include 'dull'
       expect(attachment.body).to include 'Horse'
     end
+
+    context 'when masking times out' do
+      let(:attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+      before do
+        allow(attachment).to receive(:unmasked_body).and_return('body')
+        allow(attachment).to receive(:apply_masks).
+          and_raise(Regexp::TimeoutError)
+      end
+
+      it 'records the failure without masking' do
+        expect { subject }.
+          to change { attachment.masking_failed_at }.from(nil).to(be_present)
+        expect(attachment.masked_at).to be_nil
+      end
+
+      it 'does not attempt masking again once failed' do
+        subject
+        expect(attachment).to_not receive(:apply_masks)
+        attachment.mask
+      end
+    end
   end
 
   describe '#mask_later' do
@@ -1574,6 +1611,32 @@ RSpec.describe FoiAttachment do
       it { is_expected.to eq(true) }
     end
 
+    context 'when masking has previously failed' do
+      subject do
+        foi_attachment.replace!(
+          editor: editor,
+          reason: reason,
+          replacement_file: fixture_file_upload('parrot.png', 'image/png')
+        )
+      end
+
+      let(:foi_attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked, masking_failed_at: Time.zone.now
+        )
+      end
+
+      it 'clears the masking failure' do
+        subject
+        expect(foi_attachment.reload.masking_failed_at).to be_nil
+      end
+
+      it 'no longer reports the attachment as failed' do
+        subject
+        expect(foi_attachment.reload).to_not be_masking_failed
+      end
+    end
+
     context 'when logging the event' do
       subject do
         foi_attachment.replace!(
@@ -2176,6 +2239,23 @@ RSpec.describe FoiAttachment do
 
       it 'returns a UTF-8 string of the original body' do
         expect(foi_attachment.replacement_body.is_utf8?).to eq(true)
+      end
+    end
+
+    context 'when masking has previously failed' do
+      let(:foi_attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked, masking_failed_at: Time.zone.now
+        )
+      end
+
+      before do
+        allow(foi_attachment).to receive(:body).and_call_original
+        allow(foi_attachment).to receive(:unmasked_body).and_return('raw'.b)
+      end
+
+      it 'returns the unmasked body' do
+        expect(foi_attachment.replacement_body).to eq('raw')
       end
     end
   end

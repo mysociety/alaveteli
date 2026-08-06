@@ -134,6 +134,47 @@ RSpec.describe AttachmentsController, type: :controller do
         end
       end
 
+      context 'when the attachment has already failed masking' do
+        let(:attachment) do
+          FactoryBot.create(
+            :body_text, :unmasked,
+            incoming_message: message,
+            prominence: attachment_prominence,
+            masking_failed_at: Time.zone.now
+          )
+        end
+
+        before do
+          allow(IncomingMessage).to receive(
+            :get_attachment_by_url_part_number_and_filename!
+          ).and_return(attachment)
+        end
+
+        it 'renders the masking failed page without masking again' do
+          expect(attachment).to_not receive(:mask_later)
+          show
+          expect(response).to render_template('attachments/masking_failed')
+          expect(response.code).to eq('422')
+        end
+      end
+
+      context 'when masking fails while waiting' do
+        before do
+          allow(IncomingMessage).to receive(
+            :get_attachment_by_url_part_number_and_filename!
+          ).and_return(attachment)
+          allow(attachment).to receive(:masked?).and_return(false)
+          allow(attachment).to receive(:masking_failed?).
+            and_return(false, true)
+        end
+
+        it 'renders the masking failed page' do
+          show
+          expect(response).to render_template('attachments/masking_failed')
+          expect(response.code).to eq('422')
+        end
+      end
+
       shared_examples 'redirects to attachment mask route' do
         it 'masks the attachment' do
           expect_any_instance_of(FoiAttachment).to receive(:mask_later)

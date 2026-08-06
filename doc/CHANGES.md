@@ -3,6 +3,7 @@
 ## Highlighted Features
 
 * Add a nicer tagging widget for admin users (Laurent Savaete)
+* Safely recover from attachment masking timeouts (Graeme Porteous)
 * Add PostgreSQL full-text search indexing, initially enabled for users only
   (Laurent Savaete, Graeme Porteous)
 * Fix reCAPTCHA blocked by Content Security Policy (Graeme Porteous)

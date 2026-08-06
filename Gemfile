@@ -106,7 +106,7 @@ gem 'mini_magick', '~> 5.3'
 gem 'jquery-rails', '~> 4.6.1'
 gem 'jquery-ui-rails', '~> 6.0.0'
 gem 'json', '~> 2.21.1'
-gem 'holidays', '~> 11.1.0'
+gem 'holidays', '~> 11.2.0'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', '~> 2.8.1'
 gem 'maxmind-db', '~> 1.4.0'
@@ -142,7 +142,7 @@ gem 'zip_tricks', '~> 5.6.0'
 # Gems that are part of Ruby's standard library but need version constraints as
 # they are required by other Gem dependencies
 gem 'benchmark', '~> 0.5.0'
-gem 'csv', '~> 3.3.5'
+gem 'csv', '~> 3.3.6'
 gem 'drb', '~> 2.2.3'
 gem 'pstore', '~> 0.2.1'
 gem 'rdoc', '~> 8.0.0'
@@ -161,7 +161,7 @@ gem 'globalize', '~> 7.1.3'
 gem 'locale', '~> 2.1.5'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
-gem 'money', '~> 7.0.2'
+gem 'money', '~> 7.1.0'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
 gem 'mime-types', '< 4.0.0', require: false
@@ -191,7 +191,7 @@ gem "ollama-ai", "~> 1.3.0"
 group :test do
   gem 'fivemat', '~> 1.3.7'
   gem 'webmock', '~> 3.26.2'
-  gem 'simplecov', '~> 1.0.2'
+  gem 'simplecov', '~> 1.0.3'
   gem 'simplecov-lcov', '~> 0.9.0'
   gem 'capybara', '~> 3.40.0'
   gem 'stripe-ruby-mock', '~> 5.0.0'

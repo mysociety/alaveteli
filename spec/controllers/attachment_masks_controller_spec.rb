@@ -59,6 +59,20 @@ RSpec.describe AttachmentMasksController, type: :controller do
       end
     end
 
+    context 'when the attachment has failed masking' do
+      let(:attachment) do
+        FactoryBot.build(
+          :body_text, :unmasked, id: 1, masking_failed_at: Time.zone.now
+        )
+      end
+
+      it 'redirects to the referer without masking again' do
+        expect(attachment).to_not receive(:mask_later)
+        wait
+        expect(response).to redirect_to('/referer')
+      end
+    end
+
     context "when attachment can't be found" do
       it 'redirects to referer' do
         allow(GlobalID::Locator).to receive(:locate_signed).with('ABC').
