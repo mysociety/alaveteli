@@ -47,7 +47,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
       end
     end
 
-    context 'when passed a query' do
+    context 'when passed a query with the legacy search engine' do
       let!(:dog_request) { FactoryBot.create(:info_request,
                                             title: 'A dog request') }
       let!(:cat_request) { FactoryBot.create(:info_request,
@@ -55,7 +55,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
 
       it 'assigns info requests with titles matching the query to the view
           case insensitively' do
-        get :index, params: { query: 'Cat' }
+        get :index, params: { query: 'Cat', search_engine: 'legacy' }
         expect(assigns[:info_requests].include?(dog_request)).to be false
         expect(assigns[:info_requests].include?(cat_request)).to be true
       end
@@ -63,7 +63,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
       it 'does not include embargoed requests if the current user is an
           admin user' do
         cat_request.create_embargo
-        get :index, params: { query: 'cat' }
+        get :index, params: { query: 'cat', search_engine: 'legacy' }
         expect(assigns[:info_requests].include?(cat_request)).to be false
       end
 
@@ -72,7 +72,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
             admin user' do
           with_feature_enabled(:alaveteli_pro) do
             cat_request.create_embargo
-            get :index, params: { query: 'cat' }
+            get :index, params: { query: 'cat', search_engine: 'legacy' }
             expect(assigns[:info_requests].include?(cat_request)).to be false
           end
         end
@@ -82,10 +82,45 @@ RSpec.describe AdminRequestController, "when administering requests" do
           with_feature_enabled(:alaveteli_pro) do
             cat_request.create_embargo
             sign_in pro_admin_user
-            get :index, params: { query: 'cat' }
+            get :index, params: { query: 'cat', search_engine: 'legacy' }
             expect(assigns[:info_requests].include?(cat_request)).to be true
           end
         end
+      end
+    end
+
+    context 'when passed a query with the new search engine', :postgresql do
+      let!(:dog_request) do
+        FactoryBot.create(:info_request, title: 'A dog request')
+      end
+
+      let!(:cat_request) do
+        FactoryBot.create(:info_request, title: 'A cat request')
+      end
+
+      it 'assigns info requests with titles matching the query to the view' do
+        get :index, params: { query: 'Cat' }
+        expect(assigns[:info_requests]).to include(cat_request)
+        expect(assigns[:info_requests]).not_to include(dog_request)
+      end
+
+      it 'searches fields only admins can see' do
+        external = FactoryBot.create(:external_request,
+                                     external_user_name: 'Winston Smith')
+        get :index, params: { query: 'Winston Smith' }
+        expect(assigns[:info_requests]).to include(external)
+      end
+
+      it 'assigns all info requests to the view when the query is blank' do
+        get :index, params: { query: '' }
+        expect(assigns[:info_requests]).to match_array(InfoRequest.all)
+      end
+
+      it 'does not include embargoed requests if the current user is an
+          admin user' do
+        cat_request.create_embargo
+        get :index, params: { query: 'cat' }
+        expect(assigns[:info_requests]).not_to include(cat_request)
       end
     end
   end
