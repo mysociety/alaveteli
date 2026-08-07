@@ -76,5 +76,54 @@ RSpec.describe Searchable, 'index lifecycle' do
         SearchDocument.where(searchable_type: 'User').count
       ).to eq(User.count)
     end
+
+    it 'reads models with ruby attributes one record at a time' do
+      expect(PublicBody).not_to receive(:reindex_all_inside_db)
+      PublicBody.reindex_all
+    end
+
+    it 'builds the documents inside the database for column only models' do
+      FactoryBot.create(:user)
+      SearchDocument.delete_all
+
+      expect(User).to receive(:reindex_all_inside_db).and_call_original
+      User.reindex_all
+
+      expect(SearchDocument.where(searchable_type: 'User')).to be_any
+    end
+
+    it 'leaves the other partitions alone' do
+      FactoryBot.create(:public_body)
+      body_documents = SearchDocument.where(searchable_type: 'PublicBody').count
+
+      User.reindex_all
+
+      expect(
+        SearchDocument.where(searchable_type: 'PublicBody').count
+      ).to eq(body_documents)
+    end
+
+    it 'skips records the indexable scope filters out' do
+      banned = FactoryBot.create(:user, ban_text: 'Spammer')
+      allow(User).to receive(:indexable).
+        and_return(User.where.not(id: banned.id))
+
+      User.reindex_all
+
+      expect(
+        SearchDocument.where(searchable_type: 'User', searchable_id: banned.id)
+      ).to be_empty
+    end
+
+    it 'copies the indexed columns into the raw content' do
+      user = FactoryBot.create(:user, name: 'Winston Smith')
+
+      User.reindex_all
+
+      document = SearchDocument.find_by(searchable_type: 'User',
+                                        searchable_id: user.id)
+      expect(document.raw_admin_content).to include('Winston Smith')
+      expect(User.newsearch('Winston Smith', admin_mode: true)).to eq([user])
+    end
   end
 end
