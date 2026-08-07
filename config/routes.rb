@@ -572,6 +572,9 @@ Rails.application.routes.draw do
   ####
 
   #### AdminTag controller
+  match '/admin/tags/list_for_widget.json' => 'admin/tags#list_for_widget',
+    :via => :get
+
   namespace :admin do
     resources :tags, param: :tag, only: [:index, :show],
       constraints: { tag: /.+/ }

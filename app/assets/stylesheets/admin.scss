@@ -457,3 +457,39 @@ pre.error {
 .classification_icon--rejected {
   background-position: -112px 0;
 }
+/* tagging widget */
+.tagging-tags {
+  margin: 3px 2px;
+  display: inline-block;
+  align-content: center;
+  justify-content: center;
+  min-width: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.84615385;
+  text-decoration: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.tagging-add-tags {
+  width: 170px;
+  background-color: transparent;
+  border: none;
+  font-size: 12px;
+  padding: 5px 3px;
+}
+.tagging-tag-remove {
+  padding-left: 4px;
+  font-size: smaller;
+}
+.tagging-icon-close {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC42/Ixj3wAAAKVJREFUOE+VkAEKhDAQA/3/t4QDXyByj+ll2m3t2VR0INhms4G6pJQGOVwOedPgcsibBpdDVwPW2BlgViJdQY+MnakYSvDKKGd8AUQAWgnnYqU97vMCICjBJwR5GXS+LwAND6lyhJ3R/VHBJlW2sDO63xdoUN/8DUH/T+YFBCXo3/z3Y/U9C/qLNCxX8MooZ9pOO4RgWK4wK5F5wWtZ842s+Vxp+QHxxC/F3JqzBgAAAABJRU5ErkJggg==");
+  background-color: #555;
+}

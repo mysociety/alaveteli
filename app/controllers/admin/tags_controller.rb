@@ -3,6 +3,8 @@ class Admin::TagsController < AdminController
 
   before_action :check_klass
 
+  skip_before_action :html_response, only: :list_for_widget
+
   # GET /admin/tags
   def index
     scope = HasTagString::HasTagStringTag.distinct.
@@ -30,6 +32,21 @@ class Admin::TagsController < AdminController
         apply_filters(HasTagString::HasTagStringTag.all)
       ).
       paginate(page: params[:page], per_page: 50)
+  end
+
+  # list available tags with their usage count for use in js widget
+  def list_for_widget
+    query = <<-SQL
+    SELECT
+      concat_ws(':',  name, value) AS t,
+      COUNT(*) AS c
+    FROM has_tag_string_tags
+    GROUP BY (name, value)
+    HAVING COUNT(*) > 1
+    ORDER BY c DESC;
+    SQL
+
+    render json: ActiveRecord::Base.connection.execute(query)
   end
 
   private
