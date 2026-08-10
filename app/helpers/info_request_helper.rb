@@ -17,6 +17,14 @@ module InfoRequestHelper
     end
   end
 
+  def all_successful_requests?(events)
+    events.any? && events.all? do |event|
+      %w[successful partially_successful].include?(
+        event.info_request.calculate_status
+      )
+    end
+  end
+
   def js_correspondence_navigation
     css_class = 'js-request-navigation request-navigation'
 
