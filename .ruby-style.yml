@@ -488,6 +488,9 @@ Lint/DeprecatedConstants:
 Lint/DeprecatedOpenSSLConstant:
   Enabled: false
 
+Lint/DeprecatedReference:
+  Enabled: false
+
 Lint/DisjunctiveAssignmentInConstructor:
   Enabled: false
 
@@ -633,6 +636,9 @@ Lint/MixedRegexpCaptureTypes:
   Enabled: false
 
 Lint/MultipleComparison:
+  Enabled: false
+
+Lint/NameTypo:
   Enabled: false
 
 Lint/NestedMethodDefinition:
@@ -835,6 +841,9 @@ Lint/UnusedBlockArgument:
 
 Lint/UnusedMethodArgument:
   Enabled: true
+
+Lint/UnusedPrivateMethod:
+  Enabled: false
 
 Lint/UriEscapeUnescape:
   Enabled: false
