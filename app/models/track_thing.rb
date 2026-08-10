@@ -25,6 +25,8 @@ require 'set'
 # TODO: TrackThing looks like a good candidate for single table inheritance
 
 class TrackThing < ApplicationRecord
+  include Search::EventSearch
+
   TRACK_MEDIUMS = %w(email_daily feed)
 
   belongs_to :info_request,
@@ -123,6 +125,13 @@ class TrackThing < ApplicationRecord
 
   def track_type_description
     TrackThing.track_type_description(track_type)
+  end
+
+  # Newest first, from the sort_ascending default in search_events, which
+  # the backend reads as a reverse flag rather than as an ascending one.
+  def matches(sort_by:, limit:, offset: 0)
+    search_events(track_query,
+                  sort_by: sort_by, limit: limit, offset: offset)
   end
 
   def track_query_description

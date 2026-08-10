@@ -73,7 +73,9 @@ RSpec.describe TrackMailer do
         before do
           @track_things_sent_emails_array = []
           allow(@track_things_sent_emails_array).to receive(:where).and_return([]) # this is for the date range find (created in last 14 days)
-          @track_thing = mock_model(TrackThing, track_query: 'test query',
+          @search_results = double('search results', results: [])
+          @track_thing = mock_model(TrackThing,
+                                    matches: @search_results,
                                     track_things_sent_emails: @track_things_sent_emails_array,
                                     created_at: Time.utc(2007, 11, 9, 23, 59))
           allow(TrackThing).to receive(:where).and_return([@track_thing])
@@ -81,23 +83,14 @@ RSpec.describe TrackMailer do
                                                 :track_thing_id= => true,
                                                 :info_request_event_id= => true)
           allow(TrackThingsSentEmail).to receive(:new).and_return(@track_things_sent_email)
-          @search_results = double('search results', results: [])
           @found_event = mock_model(InfoRequestEvent, described_at: @track_thing.created_at + 1.day)
           @search_result = { model: @found_event }
-          @searcher = double('searcher', results: @search_results)
-          allow(Search).to receive(:search).and_return(@searcher)
         end
 
-        it 'should ask for the events returned by the tracking query' do
-          expect(Search).to receive(:search).with(
-            'test query',
-            models: [InfoRequestEvent],
-            sort_by: 'described_at',
-            sort_ascending: true
-          ).and_return(@searcher)
-          expect(@searcher).to receive(:results).with(
-            page: 1, per_page: 100
-          ).and_return(@search_results)
+        it 'should ask the track for the events it matches' do
+          expect(@track_thing).to receive(:matches).
+            with(sort_by: 'described_at', limit: 100).
+            and_return(@search_results)
           TrackMailer.alert_tracks
         end
 

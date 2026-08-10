@@ -163,6 +163,22 @@ RSpec.describe TrackThing, "generating track queries" do
   end
 end
 
+RSpec.describe TrackThing, "#matches" do
+  let(:track_thing) { FactoryBot.create(:search_track) }
+
+  it "searches events for the track query, newest first" do
+    expect(Search).to receive(:search).
+      with(track_thing.track_query,
+           hash_including(models: [InfoRequestEvent],
+                          sort_by: 'described_at',
+                          sort_ascending: true)).
+      and_return(double(results: :search_results))
+
+    expect(track_thing.matches(sort_by: 'described_at', limit: 100)).
+      to eq(:search_results)
+  end
+end
+
 RSpec.describe TrackThing, "destroy" do
   let(:track_thing) { FactoryBot.create(:search_track) }
 

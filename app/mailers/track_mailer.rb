@@ -73,11 +73,8 @@ class TrackMailer < ApplicationMailer
         # Query for things in this track. We use described_at for the
         # ordering, so we catch anything new (before described), or
         # anything whose new status has been described.
-        search_results = Search.search(track_thing.track_query,
-                                       models: [InfoRequestEvent],
-                                       sort_by: 'described_at',
-                                       sort_ascending: true).
-                           results(page: 1, per_page: 100)
+        search_results = track_thing.matches(sort_by: 'described_at',
+                                             limit: 100)
         # Go through looking for unalerted things
         alert_results = []
         search_results.results.each do |result|
