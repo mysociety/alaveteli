@@ -2,6 +2,8 @@
 module User::OneTimePassword
   extend ActiveSupport::Concern
 
+  DRIFT = 15.seconds
+
   included do
     has_one_time_password after_column_name: :otp_last_used_at
 
@@ -31,7 +33,7 @@ module User::OneTimePassword
       otp_counter.present?
     end
 
-    # Override the gem's `authenticate_otp` for two reasons:
+    # Override the gem's `authenticate_otp` for three reasons:
     #
     # 1. The gem checks backup codes before the primary factor. Try the primary
     #    factor first so a valid authenticator code never spends one of the
@@ -47,6 +49,9 @@ module User::OneTimePassword
     #    in-progress authentication so the re-entrant validation skips
     #    re-verifying.
     #
+    # 3. The gem defaults to no drift, rejecting a code the moment its step
+    #    ends. Apply DRIFT as the default, still letting a caller override it.
+    #
     # The override must live here (on the class) rather than in the module
     # body so `super` reaches the gem's method, which is included into the
     # class by `has_one_time_password` above.
@@ -54,7 +59,8 @@ module User::OneTimePassword
       return false if code.blank?
 
       @authenticating_otp = true
-      super || authenticate_backup_code(code)
+      super(code, { drift: DRIFT }.merge(options)) ||
+        authenticate_backup_code(code)
     ensure
       @authenticating_otp = false
     end
