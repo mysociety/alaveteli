@@ -593,6 +593,35 @@ RSpec.describe InfoRequestHelper do
     end
   end
 
+  describe '#all_successful_requests?' do
+    subject { all_successful_requests?(events) }
+
+    def event_for(state)
+      FactoryBot.build(
+        :info_request_event,
+        info_request: FactoryBot.build(:info_request, described_state: state)
+      )
+    end
+
+    context 'when every request was successful' do
+      let(:events) do
+        [event_for('successful'), event_for('partially_successful')]
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when a request was not successful' do
+      let(:events) { [event_for('successful'), event_for('rejected')] }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when there are no events' do
+      let(:events) { [] }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#js_correspondence_navigation' do
     subject { js_correspondence_navigation }
 

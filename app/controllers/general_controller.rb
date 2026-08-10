@@ -17,7 +17,7 @@ class GeneralController < ApplicationController
     medium_cache
     @locale = AlaveteliLocalization.locale
     successful_query = InfoRequestEvent.make_query_from_params( latest_status: ['successful'] )
-    @request_events, @request_events_all_successful = InfoRequest.recent_requests
+    @request_events = InfoRequest.recent_requests
     @track_thing = TrackThing.create_track_for_search_query(successful_query)
     @number_of_requests = Rails.cache.fetch(
       'frontpage/info_request_count', expires_in: 1.hour

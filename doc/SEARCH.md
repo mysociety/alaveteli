@@ -150,7 +150,7 @@ facade itself stays model-agnostic.
 
 ```ruby
 # Front page recent requests
-events, all_successful = InfoRequest.recent_requests
+events = InfoRequest.recent_requests
 
 # Paginated request list (used by RequestController#list)
 results = InfoRequest.request_list(filters, page, per_page, max_results)

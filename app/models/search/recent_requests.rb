@@ -9,7 +9,6 @@ module Search
 
     def call
       request_events = []
-      request_events_all_successful = false
 
       begin
         query = 'variety:response ' \
@@ -27,14 +26,12 @@ module Search
                                collapse_by: 'request_title_collapse')
           request_events += more.results.map { |r| r[:model] }
           request_events.sort! { |e1, e2| e2.created_at <=> e1.created_at }
-        else
-          request_events_all_successful = true
         end
       rescue StandardError
         request_events = []
       end
 
-      [request_events, request_events_all_successful]
+      request_events
     end
   end
 end
