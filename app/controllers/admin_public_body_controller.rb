@@ -246,55 +246,67 @@ class AdminPublicBodyController < AdminController
       @page = nil if @page == ""
       @search_engine = params[:search_engine] || 'new'
 
-      if @search_engine == 'legacy' then
-        query = if @query
-          query_str = <<-EOF.strip_heredoc
-          (lower(public_body_translations.name)
-           LIKE lower('%'||?||'%')
-           OR lower(public_body_translations.short_name)
-           LIKE lower('%'||?||'%')
-           OR lower(public_body_translations.request_email)
-           LIKE lower('%'||?||'%' ))
-           AND (public_body_translations.locale = '#{@locale}')
-          EOF
-
-          [query_str, @query, @query, @query]
-        else
-          <<-EOF.strip_heredoc
-          public_body_translations.locale = '#{@locale}'
-          EOF
-        end
-
-        @public_bodies =
-          PublicBody.
-            joins(:translations).
-              where(query).
-                merge(PublicBody::Translation.order(:name)).
-                  paginate(page: @page, per_page: 100)
+      if @search_engine == 'legacy'
+        lookup_query_legacy
       else
-        if @query
-          @public_bodies =
-            PublicBody.
-              search_scope(@query,
-                           backend: :postgresql,
-                           admin_mode: true).
-                includes(:tags, :translations).
-                  paginate(page: @page, per_page: 100)
-        else
-          @public_bodies =
-            PublicBody.
-              includes(:tags, :translations).
-                references(:translations).
-                  where(public_body_translations: { locale: @locale }).
-                    merge(PublicBody::Translation.order(:name)).
-                      paginate(page: @page, per_page: 100)
-        end
+        lookup_query_new
+      end
+    end
+  end
+
+  def lookup_query_legacy
+    begin # increase nested to minimise the whitespace changes in diff
+      query = if @query
+        query_str = <<-EOF.strip_heredoc
+        (lower(public_body_translations.name)
+         LIKE lower('%'||?||'%')
+         OR lower(public_body_translations.short_name)
+         LIKE lower('%'||?||'%')
+         OR lower(public_body_translations.request_email)
+         LIKE lower('%'||?||'%' ))
+         AND (public_body_translations.locale = '#{@locale}')
+        EOF
+
+        [query_str, @query, @query, @query]
+      else
+        <<-EOF.strip_heredoc
+        public_body_translations.locale = '#{@locale}'
+        EOF
       end
 
-      @public_bodies_by_tag = PublicBody.
-          find_by_tag(@query).
-            includes(:tags, :translations)
+      @public_bodies =
+        PublicBody.
+          joins(:translations).
+            where(query).
+              merge(PublicBody::Translation.order(:name)).
+                paginate(page: @page, per_page: 100)
     end
+
+    @public_bodies_by_tag = PublicBody.find_by_tag(@query)
+  end
+
+  def lookup_query_new
+    if @query
+      @public_bodies =
+        PublicBody.
+          search_scope(@query,
+                       backend: :postgresql,
+                       admin_mode: true).
+            includes(:tags, :translations).
+              paginate(page: @page, per_page: 100)
+    else
+      @public_bodies =
+        PublicBody.
+          includes(:tags, :translations).
+            references(:translations).
+              where(public_body_translations: { locale: @locale }).
+                merge(PublicBody::Translation.order(:name)).
+                  paginate(page: @page, per_page: 100)
+    end
+
+    @public_bodies_by_tag = PublicBody.
+      find_by_tag(@query).
+        includes(:tags, :translations)
   end
 
   def public_body_params
