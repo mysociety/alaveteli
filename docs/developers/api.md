@@ -77,6 +77,10 @@ as follows:
     * attachments to the correspondence.  Attachments can only be attached to messages in the `response` direction
 * `/api/v2/request/<id>/update.json` - POST a new state for the request:
   * as form variable `state` - the user's assessment of the `state` of a request that has received a response from the authority. Allowable values: `waiting_response`, `rejected`, `successful` and `partially_successful`. Should only be used for the user's feedback, an authority wishing to update the request `state` should use `/api/v2/request/<id>.json` instead
+* `/api/v2/body/<id>/request_events.<feed_type>` - GET a feed of the events (the messages sent) for requests made to the authority with the given `<id>`. This is only permitted for the authority that owns the API key `k`, so `<id>` must match that authority. `<feed_type>` is either `atom` or `json`. Optional query parameters:
+  * `since_date` - only include events on or after this date (format `yyyy-mm-dd`)
+  * `since_event_id` - only include events after the event with this id
+  The JSON feed returns an array of events, each with `request_id`, `event_id`, `created_at`, `event_type`, `request_url`, `request_email`, `title`, `body`, `user_name` and (where the request has an associated user) `user_url`
 
 
 
