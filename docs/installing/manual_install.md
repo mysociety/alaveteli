@@ -27,13 +27,13 @@ Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/in
 
 ### Target operating system
 
-These instructions assume a 64-bit version of Debian 7 (Wheezy)
-or 14.04 LTS (Trusty). Debian is the best supported deployment platform. We also
+These instructions assume a 64-bit version of Debian (bullseye, bookworm or
+trixie) or Ubuntu (focal or jammy). Debian is the best supported deployment platform. We also
 have instructions for [installing on MacOS]({{ page.baseurl }}/docs/installing/macos/).
 
 ### Set the locale
 
-**Debian Wheezy**
+**Debian**
 
 Follow the [Debian guide](https://wiki.debian.org/Locale#Standard) for configuring the locale of the operating system.
 
@@ -43,7 +43,7 @@ Generate the locales you wish to make available. When the interactive screen ask
 
 Start a new SSH session to use your SSH locale.
 
-**Ubuntu Trusty**
+**Ubuntu**
 
 Unset the default locale, as the SSH session should provide the locale required.
 
@@ -74,82 +74,8 @@ These are packages that the software depends on: third-party software used to
 parse documents, host the site, and so on. There are also packages that contain
 headers necessary to compile some of the gem dependencies in the next step.
 
-#### Using other repositories to get more recent packages
-
-Add the following repositories to `/etc/apt/sources.list`:
-
-**Debian Wheezy**
-
-    cat > /etc/apt/sources.list.d/debian-extra.list <<EOF
-    # Debian mirror to use, including contrib and non-free:
-    deb http://the.earth.li/debian/ wheezy main contrib non-free
-    deb-src http://the.earth.li/debian/ wheezy main contrib non-free
-
-    # Security Updates:
-    deb http://security.debian.org/ wheezy/updates main non-free
-    deb-src http://security.debian.org/ wheezy/updates main non-free
-    EOF
-
-
-#### Packages customised by mySociety
-
-If you're using Debian or Ubuntu, you should add the mySociety Debian archive to your
-apt sources. Note that mySociety packages are currently only built for 64-bit Debian.
-
-**Debian Wheezy**
-
-    cat > /etc/apt/sources.list.d/mysociety-debian.list <<EOF
-    deb http://debian.mysociety.org squeeze main
-    EOF
-
-The repository above lets you install `wkhtmltopdf-static` using `apt`.
-
-Add the GPG key from the
-[mySociety Debian Package Repository](http://debian.mysociety.org/).
-
-    wget -O - https://debian.mysociety.org/debian.mysociety.org.gpg.key | apt-key add -
-
-You should also configure package-pinning to reduce the priority of the
-mysociety Debian repository - we only want to pull wkhtmltopdf-static
-from mysociety.
-
-    cat >> /etc/apt/preferences <<EOF
-
-    Package: *
-    Pin: origin debian.mysociety.org
-    Pin-Priority: 50
-    EOF
-
-#### Other platforms
-If you're using some other linux platform, you can optionally install these
-dependencies manually, as follows:
-
-1. If you would like users to be able to get pretty PDFs as part of the
-downloadable zipfile of their request history, install
-[wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/downloads/list). We
-recommend downloading the latest, statically compiled version from the project
-website, as this allows running headless (that is, without a graphical interface
-running) on Linux. If you do install `wkhtmltopdf`, you need to edit a setting
-in the config file to point to it (see below). If you don't install it,
-everything will still work, but users will get ugly, plain text versions of
-their requests when they download them.
-
-2. Version 1.44 of `pdftk` contains a bug which makes it loop forever in
-certain edge conditions. This is fixed in the standard 1.44.7 package which is available in wheezy (Debian) and raring (Ubuntu).
-
-If you can't get an official release for your OS with the fix, you can
-either hope you don't encounter the bug (it ties up a rails process
-until you kill it), patch it yourself, or use the
-[Debian](http://debian.mysociety.org/dists/squeeze/main/binary-amd64/)
-or
-[Ubuntu](https://launchpad.net/~mysociety/+archive/ubuntu/alaveteli/+packages)
-packages compiled by mySociety.
-
-#### Refresh sources
-
-Refresh the sources after adding the extra repositories:
-
-    apt-get -y update
+All the packages needed are available from the standard repositories of the
+supported Debian and Ubuntu releases, so no extra apt sources are required.
 
 ### Create Alaveteli User
 
@@ -185,26 +111,21 @@ The `--recursive` option installs mySociety's common libraries which are require
 
 Now install the packages relevant to your system:
 
-    # Debian Wheezy
-    apt-get -y install $(cat /var/www/alaveteli/config/packages.debian-wheezy)
-
-Some of the files also have a version number listed in config/packages - check
-that you have appropriate versions installed. Some also list "`|`" and offer a
-choice of packages.
+    xargs -a /var/www/alaveteli/config/packages.generic apt-get -y install
 
 <div class="attention-box">
 <strong>Note:</strong> To install Alaveteli's Ruby dependencies, you need to install bundler. In
 Debian and Ubuntu, this is provided as a package (installed as part of the
 package install process above). For other OSes, you could also install it as a gem:
 
-   <pre><code>sudo -u alaveteli gem install --user-install bundler --no-rdoc --no-ri</code></pre>
+   <pre><code>sudo -u alaveteli gem install --user-install bundler --no-document</code></pre>
 
 You should see a warning telling you that gem executables will not run as the application
 user doesn't have their local gem bin path in their path. Add it, making sure you use the ruby version
 directory you see in the warning message:
 
 <pre><code>cat >> /home/alaveteli/.bashrc <<EOF
-export PATH="\$HOME/.gem/ruby/1.9.1/bin:\$PATH"
+export PATH="\$HOME/.gem/ruby/3.4.0/bin:\$PATH"
 EOF
 exec $SHELL</code></pre>
 
@@ -244,7 +165,8 @@ send and receive emails.
 Full configuration for an MTA is beyond the scope of this document -- see the guide for [configuring the Exim4 or Postfix MTAs]({{ page.baseurl }}/docs/installing/email/).
 
 Note that in development mode mail is handled by [`mailcatcher`](http://mailcatcher.me/) by default so
-that you can see the mails in a browser. Start mailcatcher by running `bundle exec mailcatcher` in the application directory.
+that you can see the mails in a browser. Mailcatcher is not part of the application bundle, so install it
+with `gem install mailcatcher`, then start it by running `mailcatcher` in the application directory.
 
 ## Configure Alaveteli
 
@@ -321,7 +243,7 @@ compile native dependencies for `xapian-full`.
 Create the index for the search engine (Xapian):
 
     sudo -u alaveteli RAILS_ENV=production \
-      /var/www/alaveteli/script/rebuild-xapian-index
+      /var/www/alaveteli/script/destroy-and-rebuild-xapian-index
 
 If this fails, the site should still mostly run, but it's a core component so
 you should really try to get this working.
@@ -336,7 +258,7 @@ you should really try to get this working.
 
 Alaveteli can run under many popular application servers. mySociety recommends
 the use of [Phusion Passenger](https://www.phusionpassenger.com) (AKA
-mod_rails) or [thin](http://code.macournoyer.com/thin).
+mod_rails) or [Puma](https://puma.io).
 
 ### Using Phusion Passenger
 
@@ -348,31 +270,25 @@ run independently.
 
 See later in the guide for configuring the Apache web server with Passenger.
 
-### Using Thin
+### Using Puma
 
-Thin is a lighter-weight application server which can be run independently of
-a web server. Thin will be installed in the application bundle and used to run Alaveteli by default.
+Puma is a lighter-weight application server which can be run independently of
+a web server. Puma is installed in the application bundle and used to run Alaveteli by default.
 
 Run the following to get the server running:
 
     cd /var/www/alaveteli
-    bundle exec thin \
-      --environment=production \
-      --user=alaveteli \
-      --group=alaveteli \
-      --servers=1 \
-      start
+    sudo -u alaveteli RAILS_ENV=production \
+      bundle exec puma -C config/puma.rb
 
-By default the server listens on all interfaces. You can restrict it to the
-localhost interface by adding `--address=127.0.0.1`
+By default the server listens on all interfaces on port 3000. You can restrict
+it to the localhost interface by adding `-b tcp://127.0.0.1:3000`
 
 The server should have told you the URL to access in your browser to see the
 site in action.
 
-You can daemonize the process by starting it with the `--daemonize` option.
-
-Next we'll actually create a SysVinit daemon to run the application, so stop any
-thin processes you've started here.
+Next we'll actually create a systemd service to run the application, so stop any
+puma processes you've started here.
 
 ## Cron jobs and Daemons
 
@@ -389,9 +305,9 @@ going through the Rails stack, which improves performance.
 We recommend two main combinations of application and web server:
 
 - Apache &amp; Passenger
-- Nginx &amp; Thin
+- Nginx &amp; Puma
 
-There are ways to run Passenger with Nginx, and indeed Thin with Apache, but
+There are ways to run Passenger with Nginx, and indeed Puma with Apache, but
 that's out of scope for this guide. If you want to do something that isn't
 documented here, get in touch on [alaveteli-dev](https://groups.google.com/forum/#!forum/alaveteli-dev) and we'll
 be more than happy to help you get set up.
@@ -404,7 +320,7 @@ this guide, so pick the appropriate web server to configure.
 Install Apache with the Suexec wrapper:
 
     apt-get install -y apache2
-    apt-get install -y apache2-suexec
+    apt-get install -y apache2-suexec-pristine
 
 Enable the required modules
 
@@ -424,24 +340,10 @@ Create a directory for optional Alaveteli configuration
 Copy the example VirtualHost configuration file. You will need to change all
 occurrences of `www.example.com` to your URL
 
-**Debian Wheezy**
-
-    cp /var/www/alaveteli/config/httpd.conf-example \
-      /etc/apache2/sites-available/alaveteli
-
-**Ubuntu Trusty**
-
     cp /var/www/alaveteli/config/httpd.conf-example \
       /etc/apache2/sites-available/alaveteli.conf
 
 Disable the default site and enable the `alaveteli` VirtualHost
-
-**Debian Wheezy**
-
-    a2dissite default
-    a2ensite alaveteli
-
-**Ubuntu Trusty**
 
     a2dissite 000-default.conf
     a2ensite alaveteli.conf
@@ -463,14 +365,6 @@ Enable the SSL apache mod
 
 Copy the SSL configuration – again changing `www.example.com` to your domain –
 and enable the VirtualHost
-
-**Debian Wheezy**
-
-    cp /var/www/alaveteli/config/httpd-ssl.conf.example \
-      /etc/apache2/sites-available/alaveteli_https
-    a2ensite alaveteli_https
-
-**Ubuntu Trusty**
 
     cp /var/www/alaveteli/config/httpd-ssl.conf.example \
       /etc/apache2/sites-available/alaveteli_https.conf
@@ -504,7 +398,7 @@ Passenger (the application server).
 
     service apache2 graceful
 
-### Nginx (with Thin)
+### Nginx (with Puma)
 
 Install nginx
 
@@ -542,20 +436,16 @@ production server**. Replace `www.example.com` with your domain name.
       -subj /CN=www.example.com
     chmod 640 /etc/ssl/certs/www.example.com.cert
 
-If you have configured thin to use more than one server, you will need to edit the Alaveteli upstream
-directive in your <code>/etc/nginx/sites-enabled/alaveteli_https</code> file so
-that it has a `server` line for each instance you are running (otherwise nginx
-will only know how to send requests to the first server process). Each address
-line needs to have a unique port number - start at `3000` and add `1` for each
-new process. For example if you started your cluster with 4 servers, the
-upstream directive should look like this:
+Puma serves the site on port `3000` by default, which matches the Alaveteli
+upstream directive in your <code>/etc/nginx/sites-enabled/alaveteli_https</code> file:
 
     upstream alaveteli {
         server 127.0.0.1:3000;
-        server 127.0.0.1:3001;
-        server 127.0.0.1:3002;
-        server 127.0.0.1:3003;
     }
+
+If you run Puma on a different port, update the `server` line to match. To
+increase capacity, configure Puma to run more workers or threads (see
+`config/puma.rb`) rather than adding more `server` lines.
 
 Check the configuration and fix any issues
 
@@ -564,7 +454,7 @@ Check the configuration and fix any issues
 Reload the new nginx configuration and restart the application
 
     service nginx reload
-    service alaveteli restart
+    systemctl restart alaveteli-puma.service
 
 #### Running without SSL
 
@@ -584,28 +474,24 @@ Disable the default site and enable the `alaveteli` server
     ln -s /etc/nginx/sites-available/alaveteli \
       /etc/nginx/sites-enabled/alaveteli
 
-If you have configured thin to use more than one server, you will need to edit the Alaveteli upstream
-directive in your <code>/etc/nginx/sites-enabled/alaveteli</code> file so
-that it has a `server` line for each instance you are running (otherwise nginx
-will only know how to send requests to the first server process). Each address
-line needs to have a unique port number - start at `3000` and add `1` for each
-new process. For example if you started your cluster with 4 servers, the
-upstream directive should look like this:
+Puma serves the site on port `3000` by default, which matches the Alaveteli
+upstream directive in your <code>/etc/nginx/sites-enabled/alaveteli</code> file:
 
     upstream alaveteli {
         server 127.0.0.1:3000;
-        server 127.0.0.1:3001;
-        server 127.0.0.1:3002;
-        server 127.0.0.1:3003;
     }
+
+If you run Puma on a different port, update the `server` line to match. To
+increase capacity, configure Puma to run more workers or threads (see
+`config/puma.rb`) rather than adding more `server` lines.
 
 Check the configuration and fix any issues
 
     service nginx configtest
 
-Start the rails application with thin (if you haven't already).
+Start the rails application with Puma (if you haven't already).
 
-    service alaveteli start
+    systemctl start alaveteli-puma.service
 
 Reload the nginx configuration
 
@@ -618,7 +504,7 @@ Reload the nginx configuration
 
 Under all but light loads, it is strongly recommended to run the server behind
 an http accelerator like Varnish. A sample varnish VCL is supplied in
-`conf/varnish-alaveteli.vcl`.
+`config/varnish-alaveteli.vcl`.
 
 If you are using SSL you will need to configure an SSL terminator to sit in
 front of Varnish. If you're already using Apache as a web server you could
