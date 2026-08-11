@@ -317,7 +317,7 @@ class UserController < ApplicationController
     else
       @user.
         track_things.
-        collect { |thing| perform_search([InfoRequestEvent], thing.track_query, thing.params[:feed_sortby], nil).results }.
+        collect { |thing| perform_track_search(thing).results }.
         flatten.
         sort { |a,b| b[:model].created_at <=> a[:model].created_at }.
         first(20)

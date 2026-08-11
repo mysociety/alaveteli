@@ -1403,6 +1403,37 @@ RSpec.describe UserController, "when showing JSON version for API" do
   end
 end
 
+RSpec.describe UserController, "when viewing the river" do
+  let(:user) { FactoryBot.create(:user) }
+
+  it 'gathers the events matching every track the user has' do
+    request_track = FactoryBot.create(:request_update_track,
+                                      tracking_user: user)
+    search_track = FactoryBot.create(:search_track, tracking_user: user)
+    older = { model: mock_model(InfoRequestEvent, created_at: 2.hours.ago) }
+    newer = { model: mock_model(InfoRequestEvent, created_at: 1.hour.ago) }
+
+    stub_search_results(items: [])
+    allow(Search).to receive(:search).
+      with(request_track.track_query, any_args).
+      and_return(double(results: build_search_results(items: [older])))
+    allow(Search).to receive(:search).
+      with(search_track.track_query, any_args).
+      and_return(double(results: build_search_results(items: [newer])))
+
+    sign_in user
+    get :river
+
+    expect(assigns[:results]).to eq([newer, older])
+  end
+
+  it 'has no results for a visitor who is not logged in' do
+    get :river
+
+    expect(assigns[:results]).to be_empty
+  end
+end
+
 RSpec.describe UserController, "when viewing the wall" do
   it 'orders feed results by created_at descending' do
     user = FactoryBot.create(:user)
