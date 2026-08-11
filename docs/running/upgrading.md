@@ -17,7 +17,7 @@ Upgrading Alaveteli
 
 * Set the repo and branch in `deploy.yml` to be the
   version you want. We recommend you set this to the explicit tag name (for example,
-  `0.18`, and not `master`) so there's no risk of you accidentally deploying
+  `0.46.5.0`, and not `master`) so there's no risk of you accidentally deploying
   a new version before you're aware it's been released. The code will be updated
   and any post-deploy procedures will automatically run.
 
@@ -49,12 +49,12 @@ Alaveteli uses a &ldquo;shifted&rdquo; version of [semver](http://semver.org)
 (just as [Rails version numbering](http://guides.rubyonrails.org/maintenance_policy.html)
 does). This means that version numbers are of the form: `SERIES.MAJOR.MINOR.PATCH`.
 
-At the time of writing, the current release is `0.19.0.6`:
+At the time of writing, the current release is `0.46.5.0`:
 
 - Series `0`
-- Major `19`
-- Minor `0`
-- Patch `6`
+- Major `46`
+- Minor `5`
+- Patch `0`
 
 We'll use the [semver](http://semver.org) specification for Alaveteli's
 version numbering when it reaches `1.0.0`.
