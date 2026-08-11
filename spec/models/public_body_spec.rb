@@ -2074,6 +2074,116 @@ RSpec.describe PublicBody, " when override all public body request emails set" d
   end
 end
 
+RSpec.describe PublicBody, "when indexing for postgres search" do
+  it 'updates the search index after updating the public body' do
+    pb = FactoryBot.create(:public_body, name: 'Council of things')
+    expect(PublicBody.newsearch('Council of things')).to eq([pb])
+    pb.update(name: 'Ministry of Stuff')
+    pb.save
+    expect(PublicBody.newsearch('Council of things')).to eq([])
+    expect(PublicBody.newsearch('Ministry of Stuff')).to eq([pb])
+  end
+
+  it 'PublicBody has one SearchDocument per translation' do
+    name_en = "Some public authority ABCD"
+    name_fr = "Une administration ABCD"
+    body = FactoryBot.create(:public_body, name: name_en)
+    body.translations.create(locale: 'fr',
+                             name: name_fr)
+    expect(body.translations.size).to eq(2)
+    expect(body.name(:fr)).to eq(name_fr)
+
+    body.reindex
+
+    expect(SearchDocument.count).to eq(2)
+    expect(PublicBody.newsearch("ABCD", language: 'french')).to eq([body])
+    expect(PublicBody.newsearch("ABCD")).to eq([body])
+    expect(PublicBody.newsearch(
+             "authority",
+             language: 'french'
+           )).to match_array([])
+    expect(PublicBody.newsearch(
+             "administration",
+             language: 'english'
+           )).to match_array([])
+  end
+
+  context 'handles known problematic searches from various sites' do
+    # from https://github.com/mysociety/alaveteli/issues/1179
+    it 'finds UK public bodies' do
+      with_default_locale(:en) do
+        nhs = FactoryBot.create(:public_body, name: "NHS England")
+        bodies = [
+          nhs,
+          FactoryBot.create(:public_body, name: "NHS Improving Quality"),
+          FactoryBot.create(:public_body, name: "NHSX"),
+          FactoryBot.create(
+            :public_body,
+            name: "Northern England NHS fictitious center"
+          )
+        ]
+        bodies.each(&:reindex)
+        expect(PublicBody.newsearch("NHS England").first).to eq(nhs)
+      end
+    end
+
+    it 'finds French public bodies' do
+      with_default_locale(:fr_FR) do
+        AlaveteliLocalization.with_locale(:fr_FR) do
+          body = FactoryBot.create(
+            :public_body,
+            name: "Ministère de l'Intérieur"
+          )
+          body.reindex
+          expect(PublicBody.newsearch(
+                   "ministere intérieur",
+            language: 'french'
+                 )).to match_array([body])
+          expect(
+            PublicBody.newsearch("ministere interieur")
+          ).to match_array([body])
+          expect(
+            PublicBody.newsearch("ministere de l'intérieur")
+          ).to match_array([body])
+        end
+      end
+    end
+
+    it 'finds the Australian attorney general' do
+      # from https://github.com/mysociety/alaveteli/issues/1179#issuecomment-304157132
+      with_default_locale(:en) do
+        ag = FactoryBot.create(:public_body,
+name: "WA Department of the Attorney General")
+        ag.reindex
+        expect(PublicBody.newsearch("WA Attorney General")).to match_array([ag])
+        expect(PublicBody.newsearch("Attorney General")).to match_array([ag])
+      end
+    end
+
+    it 'finds the Swedish name of a public body in either locale' do
+      with_default_locale(:sv) do
+        st = FactoryBot.create(:public_body, name: "Skånetrafiken")
+        st.translations.create(locale: "sv",
+                               name: "Skånetrafiken")
+        st.reindex
+        s = SearchDocument.first
+        AlaveteliLocalization.with_locale(:sv) do
+          expect(PublicBody.newsearch(
+                   "Skånetrafiken",
+               language: 'swedish'
+                 )).to match_array([st])
+        end
+        AlaveteliLocalization.with_locale(:en) do
+          expect(PublicBody.newsearch(
+                   "Skånetrafiken",
+               language: 'english'
+                 )).to match_array([st])
+        end
+      end
+    end
+  end
+end
+
 RSpec.describe PublicBody, "when calculating statistics" do
   it "should not include hidden requests in totals" do
     with_hidden_and_successful_requests do

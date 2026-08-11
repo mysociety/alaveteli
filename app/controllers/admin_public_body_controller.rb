@@ -244,7 +244,18 @@ class AdminPublicBodyController < AdminController
       @query = nil if @query == ""
       @page = params[:page]
       @page = nil if @page == ""
+      @search_engine = params[:search_engine] || 'new'
 
+      if @search_engine == 'legacy'
+        lookup_query_legacy
+      else
+        lookup_query_new
+      end
+    end
+  end
+
+  def lookup_query_legacy
+    begin # increase nested to minimise the whitespace changes in diff
       query = if @query
         query_str = <<-EOF.strip_heredoc
         (lower(public_body_translations.name)
@@ -272,6 +283,30 @@ class AdminPublicBodyController < AdminController
     end
 
     @public_bodies_by_tag = PublicBody.find_by_tag(@query)
+  end
+
+  def lookup_query_new
+    if @query
+      @public_bodies =
+        PublicBody.
+          search_scope(@query,
+                       backend: :postgresql,
+                       admin_mode: true).
+            includes(:tags, :translations).
+              paginate(page: @page, per_page: 100)
+    else
+      @public_bodies =
+        PublicBody.
+          includes(:tags, :translations).
+            references(:translations).
+              where(public_body_translations: { locale: @locale }).
+                merge(PublicBody::Translation.order(:name)).
+                  paginate(page: @page, per_page: 100)
+    end
+
+    @public_bodies_by_tag = PublicBody.
+      find_by_tag(@query).
+        includes(:tags, :translations)
   end
 
   def public_body_params
