@@ -755,35 +755,29 @@ the checkbox **No rate limit**, and click the **Save** button.
 
 ### Batch requests
 
-Sometimes a user may want to send the same request to more than one authority, which we call a batch request. By default, Alaveteli does not allow users to make batch requests.
+Sometimes a user may want to send the same request to more than one authority, which we call a batch request. Batch requests are a feature of <a href="{{ page.baseurl }}/docs/pro/">Alaveteli Professional</a> &mdash; the older batch request interface for regular users was removed in Alaveteli 0.41.1.0.
 
 <div class="attention-box info">
 <p>We believe that batch requests can be abused &mdash; users can send poorly thought-out or vexatious requests, which will annoy authorities and damage the reputation of your site. However, well thought-out batch requests can be an extremely useful tool in collecting comparative data sets across types of authority, for example, all police forces.</p>
 <p>
-We recommend that you enable batch requesting for users who you notice making the same good request to multiple authorities.
-</p>
-<p>
-Users can choose which authorities to include in a batch requests. They  can even send a request to <em>every single authority</em> on your site. Only give this power to users that you trust.
+Users can choose which authorities to include in a batch request. Bear this in mind when deciding which users you give Pro accounts to.
 </p>
 </div>
 
-To enable batch requests on your site, first you must set
-<code><a href="{{ page.baseurl }}/docs/customising/config/#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
-to <code>true</code> in <code>general.yml</code>.
+Users with a Pro account can start a batch request from the make-request
+page in the Pro interface by clicking the "start a batch request" link.
+When the request is sent, Alaveteli will make a request page for this
+request for each authority, as if the user had made individual requests.
 
-This does not allow anyone to make batch requests yet. You must still
-enable this for each user on an individual basis. To do this, go to the
-<a href="{{ page.baseurl }}/docs/glossary/#admin_interface"
-class="glossary__link">admin interface</a>, click on **Users**, then
-click on the name of the user who wants to make batch requests. Click
-the **Edit** button. Tick the checkbox **Can make batch requests**, and
-click the **Save** button.
+The maximum number of authorities that can be included in a single batch
+request is controlled by the
+<code><a href="{{ page.baseurl }}/docs/pro/#pro_batch_authority_limit">PRO_BATCH_AUTHORITY_LIMIT</a></code>
+config setting (500 by default).
 
-If you've enabled batch requests for a user, when they start to make a
-request, in addition to the box where they can select an authority, they
-will see a link to "make a batch request". When the request is sent,
-Alaveteli will make a request page for this request for each authority,
-as if the user had made individual requests.
+The **Can make batch requests** checkbox on a user's edit page in the
+admin interface is a legacy of the old interface: it no longer enables
+batch requests, but users with it ticked are exempt from the daily
+request limit.
 
 ### Resending a request or sending it to a different authority
 
