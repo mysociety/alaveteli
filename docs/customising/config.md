@@ -44,7 +44,6 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#frontpage_publicbody_examples">FRONTPAGE_PUBLICBODY_EXAMPLES</a></code>
 <br> <code><a href="#public_body_statistics_page">PUBLIC_BODY_STATISTICS_PAGE</a></code>
 <br> <code><a href="#minimum_requests_for_statistics">MINIMUM_REQUESTS_FOR_STATISTICS</a></code>
-<br> <code><a href="#responsive_styling">RESPONSIVE_STYLING</a></code>
 
 ### Site status:
 
@@ -58,7 +57,6 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#available_locales">AVAILABLE_LOCALES</a></code>
 <br> <code><a href="#default_locale">DEFAULT_LOCALE</a></code>
 <br> <code><a href="#use_default_browser_language">USE_DEFAULT_BROWSER_LANGUAGE</a></code>
-<br> <code><a href="#include_default_locale_in_urls">INCLUDE_DEFAULT_LOCALE_IN_URLS</a></code>
 
 ### Definition of "late":
 
@@ -110,11 +108,11 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 
 ### General admin (keys, paths, back-end services):
 
-<code><a href="#cookie_store_session_secret">COOKIE_STORE_SESSION_SECRET</a></code>
+<code><a href="#secret_key_base">SECRET_KEY_BASE</a></code>
 <br> <code><a href="#recaptcha_site_key">RECAPTCHA_SITE_KEY</a></code>
 <br> <code><a href="#recaptcha_secret_key">RECAPTCHA_SECRET_KEY</a></code>
 <br> <code><a href="#geoip_database">GEOIP_DATABASE</a></code>
-<br> <code><a href="#gaze_url">GAZE_URL</a></code>
+<br> <code><a href="#maxmind_license_key">MAXMIND_LICENSE_KEY</a></code>
 <br> <code><a href="#ga_code">GA_CODE</a></code> (GA=Google Analytics)
 <br> <code><a href="#utility_search_path">UTILITY_SEARCH_PATH</a></code>
 <br> <code><a href="#shared_files_path">SHARED_FILES_PATH</a></code>
@@ -127,7 +125,6 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#authority_must_respond">AUTHORITY_MUST_RESPOND</a></code>
 <br> <code><a href="#max_requests_per_user_per_day">MAX_REQUESTS_PER_USER_PER_DAY</a></code>
 <br> <code><a href="#override_all_public_body_request_emails">OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS</a></code>
-<br> <code><a href="#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
 <br> <code><a href="#public_body_list_fallback_to_default_locale">PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</a></code>
 <br> <code><a href="#enable_widgets">ENABLE_WIDGETS</a></code>
 <br> <code><a href="#enable_two_factor_auth">ENABLE_TWO_FACTOR_AUTH</a></code>
@@ -144,10 +141,9 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 ### Development work or special cases:
 
 <code><a href="#debug_record_memory">DEBUG_RECORD_MEMORY</a></code>
-<br> <code><a href="#varnish_host">VARNISH_HOST</a></code>
+<br> <code><a href="#varnish_hosts">VARNISH_HOSTS</a></code>
 <br> <code><a href="#use_mailcatcher_in_development">USE_MAILCATCHER_IN_DEVELOPMENT</a></code>
 <br> <code><a href="#use_ghostscript_compression">USE_GHOSTSCRIPT_COMPRESSION</a></code>
-<br> <code><a href="#html_to_pdf_command">HTML_TO_PDF_COMMAND</a></code>
 <br> <code><a href="#cache_fragments">CACHE_FRAGMENTS</a></code>
 
 
@@ -260,7 +256,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
         <li>
             <pre>
 THEME_URLS:
- - 'git://github.com/mysociety/alavetelitheme.git'
+ - 'https://github.com/mysociety/alavetelitheme.git'
 </pre>
         </li>
       </ul>
@@ -272,17 +268,21 @@ THEME_URLS:
   </dt>
   <dd>
     When <code>rails-post-deploy</code> installs the <a href="{{ page.baseurl }}/docs/customising/themes/">themes</a>,
-    it will try the theme branch first, but only if you've set <code>THEME_BRANCH</code>
-    to be true. If the branch doesn't exist it will fall back to using a tagged version
+    it will first try the branch specified by <code>THEME_BRANCH</code>, if you've
+    set it to a branch name. If the branch doesn't exist (or <code>THEME_BRANCH</code>
+    is false, the default) it will fall back to using a tagged version
     specific to your installed Alaveteli version, and if that doesn't exist it will
-    back to <code>master</code>.
+    fall back to <code>master</code>.
     <p>
         The default theme is the "Alaveteli" theme. This gets installed automatically when
         <code>rails-post-deploy</code> runs.
     </p>
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul class="examples">
+        <li>
+            <code>THEME_BRANCH: 'develop'</code>
+        </li>
         <li>
             <code>THEME_BRANCH: false</code>
         </li>
@@ -335,29 +335,7 @@ THEME_URLS:
             <code>PUBLIC_BODY_STATISTICS_PAGE: false</code>
         </li>
         <li>
-            <code>MINIMUM_REQUESTS_FOR_STATISTICS: 50</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="responsive_styling"><code>RESPONSIVE_STYLING</code></a>
-  </dt>
-  <dd>
-
-     Use the responsive base stylesheets and templates, rather than
-     those that only render the site at a fixed width. These
-     stylesheets are currently experimental but will become the default
-     in the future. They allow the site to render nicely on mobile
-     devices as well as larger screens. Currently the fixed width
-     stylesheets are used by default.
-
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>RESPONSIVE_STYLING: true</code>
+            <code>MINIMUM_REQUESTS_FOR_STATISTICS: 100</code>
         </li>
       </ul>
     </div>
@@ -485,24 +463,6 @@ THEME_URLS:
       <ul class="examples">
         <li>
             <code>USE_DEFAULT_BROWSER_LANGUAGE: true</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="include_default_locale_in_urls"><code>INCLUDE_DEFAULT_LOCALE_IN_URLS</code></a>
-  </dt>
-  <dd>
-    Normally, Alaveteli will put the locale into its URLs, like this
-    <code>www.example.com/en/body/list/all</code>. If you don't want this
-    behaviour whenever the locale is the default one, set
-    <strong>INCLUDE_DEFAULT_LOCALE_IN_URLS</strong> to false.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>INCLUDE_DEFAULT_LOCALE_IN_URLS: true</code>
         </li>
       </ul>
     </div>
@@ -993,9 +953,11 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
       <p>What retrieval method is being used for incoming emails in production?</p>
       <p>
       The default value is <code>passive</code> - incoming emails must be piped into the
-      application via the <code>mailin</code> script. There is
-      experimental support for polling a <code>POP3</code> server for messages,
-      if <code>PRODUCTION_MAILER_RETRIEVER_METHOD</code> is set to <code>pop</code>.
+      application via the <code>mailin</code> script. Other supported values are
+      <code>pop</code> (poll a <code>POP3</code> server for messages),
+      <code>postfix</code>, <code>exim</code> and <code>qmail</code> (local MTA pipe), and
+      <code>sendgrid</code>, <code>mailgun</code>, <code>mandrill</code> and
+      <code>postmark</code> (third-party services).
       </p>
       <p>For some guidance on considerations and setup for running a POP
       service, see <a href="{{ page.baseurl }}/docs/installing/email#how-alaveteli-handles-email">
@@ -1160,15 +1122,24 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
   </dd>
 
   <dt>
-    <a name="cookie_store_session_secret"><code>COOKIE_STORE_SESSION_SECRET</code></a>
+    <a name="secret_key_base"><code>SECRET_KEY_BASE</code></a>
   </dt>
   <dd>
-     Secret key for signing cookie_store sessions. Make it long and random.
+     Secret key used as a base to generate and verify signed cookies (among
+     other things). Make it long and random; you can generate one with
+     <code>rake secret</code>.
+     <p>
+       <strong>Deprecated:</strong> <code>secret_key_base</code> is now read
+       from the Rails encrypted credentials
+       (<code>config/credentials.yml.enc</code>) when present; this setting is
+       only a fallback for deployments not yet migrated and will be removed in
+       a future release.
+     </p>
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>COOKIE_STORE_SESSION_SECRET: 'uIngVC238Jn9NsaQizMNf89pliYmDBFugPjHS2JJmzOp8'</code>
+            <code>SECRET_KEY_BASE: 'uIngVC238Jn9NsaQizMNf89pliYmDBFugPjHS2JJmzOp8'</code>
         </li>
       </ul>
     </div>
@@ -1180,7 +1151,8 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
   </dt>
   <dd>
      Recaptcha, for detecting humans. Get keys here:
-     <a href="https://www.google.com/recaptcha">https://www.google.com/recaptcha</a>
+     <a href="https://www.google.com/recaptcha">https://www.google.com/recaptcha</a>.
+     Currently Alaveteli requires a reCAPTCHA v2 Checkbox key.
 
     <div class="more-info">
       <p>Examples:</p>
@@ -1205,29 +1177,32 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
       of an HTTP request to the site (this lets us suggest an Alaveteli in the user's
       country if one exists). You shouldn't need to change this if you have the
       <code>geoip-database</code> package installed as specified in the
-      <code>config/packages</code> files.
+      <code>config/packages</code> files. You <strong>must</strong> set
+      <code><a href="#maxmind_license_key">MAXMIND_LICENSE_KEY</a></code> with
+      this setting.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>GEOIP_DATABASE: /usr/share/GeoIP/GeoIP.dat</code>
+            <code>GEOIP_DATABASE: vendor/data/GeoLite2-Country.mmdb</code>
         </li>
       </ul>
     </div>
   </dd>
 
   <dt>
-    <a name="gaze_url"><code>GAZE_URL</code></a>
+    <a name="maxmind_license_key"><code>MAXMIND_LICENSE_KEY</code></a>
   </dt>
-  <dd> In the absence of a <a href="#geoip_database">GeoIP database</a>, Alaveteli can use
-       <a href="{{ page.baseurl }}/docs/glossary/#gaze" class="glossary__link">Gaze</a>,
-       mySociety's gazeteer, to determine the country from the IP address of an HTTP request
-       to the site. You shouldn't normally need to change this.
+  <dd>
+      MaxMind requires a free license key to download the GeoLite2 databases
+      used by <code><a href="#geoip_database">GEOIP_DATABASE</a></code>. See
+      <a href="https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/">MaxMind's
+      announcement</a> for details.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>GAZE_URL: http://gaze.mysociety.org</code>
+            <code>MAXMIND_LICENSE_KEY: ''</code>
         </li>
       </ul>
     </div>
@@ -1255,7 +1230,7 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
     <a name="utility_search_path"><code>UTILITY_SEARCH_PATH</code></a>
   </dt>
   <dd>
-      Search path for external command-line utilities (such as pdftohtml, pdftk, unrtf).
+      Search path for external command-line utilities (such as pdftk, unrtf).
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
@@ -1303,6 +1278,8 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
 SHARED_FILES:
  - config/database.yml
  - config/general.yml
+ - config/sidekiq.yml
+ - config/storage.yml
  - config/rails_env.rb
  - config/httpd.conf
  - public/foi-live-creation.png
@@ -1316,6 +1293,9 @@ SHARED_DIRECTORIES:
  - files/
  - cache/
  - lib/acts_as_xapian/xapiandbs/
+ - log/
+ - storage/
+ - tmp/pids
  - vendor/bundle
  - public/assets
             </pre>
@@ -1391,26 +1371,6 @@ SHARED_DIRECTORIES:
             If you don't want this behaviour, comment the setting out
             <br>
             <code># OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS:</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="allow_batch_requests"><code>ALLOW_BATCH_REQUESTS</code></a>
-  </dt>
-  <dd>
-    Allow some users to make batch requests to multiple authorities. Once
-    this is set to true, you can enable batch requests for an individual
-    user via the user admin page. The admin manual has
-    <a href="{{ page.baseurl }}/docs/running/admin_manual/#batch-requests">more
-    about batch requests</a> including why you should be cautious about enabling
-    this feature.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-          <code>ALLOW_BATCH_REQUESTS: false</code>
         </li>
       </ul>
     </div>
@@ -1588,7 +1548,7 @@ SHARED_DIRECTORIES:
   </dd>
 
   <dt>
-    <a name="varnish_host"><code>VARNISH_HOST</code></a>
+    <a name="varnish_hosts"><code>VARNISH_HOSTS</code></a>
   </dt>
   <dd>
       If you're running behind Varnish, it might help to set this to
@@ -1598,10 +1558,14 @@ SHARED_DIRECTORIES:
       <p>Examples:</p>
       <ul class="examples">
         <li>
-            <code>VARNISH_HOST: null</code>
+            <code>VARNISH_HOSTS: null</code>
         </li>
         <li>
-            <code>VARNISH_HOST: localhost</code>
+            <pre>
+VARNISH_HOSTS:
+ - host1
+ - host2
+</pre>
         </li>
       </ul>
     </div>
@@ -1639,25 +1603,6 @@ SHARED_DIRECTORIES:
       <ul class="examples">
         <li>
             <code>USE_GHOSTSCRIPT_COMPRESSION: true</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="html_to_pdf_command"><code>HTML_TO_PDF_COMMAND</code></a>
-  </dt>
-  <dd>
-    Path to a program that converts an HTML page in a file to PDF.  It
-    should take two arguments: the URL, and a path to an output file.
-    A static binary of <a href="http://wkhtmltopdf.org">wkhtmltopdf</a> is recommended.
-    If the command is not present, a text-only version will be rendered
-    instead.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64</code>
         </li>
       </ul>
     </div>
