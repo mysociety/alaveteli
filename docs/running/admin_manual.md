@@ -409,12 +409,12 @@ its *url_title*.
 <div class="attention-box info">
   <p><strong>How to find a request's <em>id</em> or <em>url_title</em></strong></p>
   <p>
-    A request's <em>id</em> is the number after <code>/show/</code> in the
-    admin interface's URL when you are looking at that request.
-    For example, if the URL is <code>/admin/request/show/118</code>, then the
+    A request's <em>id</em> is the number after <code>/admin/requests/</code>
+    in the admin interface's URL when you are looking at that request.
+    For example, if the URL is <code>/admin/requests/118</code>, then the
     <em>id</em> is <code>118</code>. Similarly, if you know that you want to see the
     admin interface's page for the request with id <code>118</code>, you know it will
-    be <code>/admin/request/show/118</code>.
+    be <code>/admin/requests/118</code>.
   </p>
   <p>
     A request's <em>url_title</em> is the part after <code>/request/</code>
