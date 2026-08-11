@@ -127,13 +127,8 @@ class UserController < ApplicationController
               track_medium: 'email_daily').
           order(created_at: :desc)
       @track_things.each do |track_thing|
-        # TODO: factor out of track_mailer.rb
-        results = Search.search(
-          track_thing.track_query,
-          models: [InfoRequestEvent],
-          sort_by: 'described_at',
-          sort_ascending: true
-        ).results(page: 1, per_page: 20)
+        results = track_thing.matches(sort_by: 'described_at',
+                                      limit: 20)
         feed_results += results.results.map { |x| x[:model] }
       end
     end

@@ -1416,6 +1416,26 @@ RSpec.describe UserController, "when viewing the wall" do
     expect(assigns[:feed_results]).to eq([new_event, old_event])
   end
 
+  it 'includes events matching the tracks the user owns' do
+    user = FactoryBot.create(:user)
+    track_thing = FactoryBot.create(:search_track, tracking_user: user)
+    tracked_event = mock_model(InfoRequestEvent, created_at: 1.hour.ago)
+
+    searcher = double
+    stub_search_results(items: [])
+    allow(Search).to receive(:search).
+      with(track_thing.track_query, hash_including(sort_by: 'described_at')).
+      and_return(searcher)
+    expect(searcher).to receive(:results).
+      with(page: 1, per_page: 20).
+      and_return(build_search_results(items: [tracked_event]))
+
+    sign_in user
+    get :wall, params: { url_name: user.url_name }
+
+    expect(assigns[:feed_results]).to eq([tracked_event])
+  end
+
   it 'does not return feed results for closed users' do
     user = FactoryBot.create(:user, :closed)
 
