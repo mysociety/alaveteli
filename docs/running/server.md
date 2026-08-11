@@ -134,6 +134,9 @@ something like:
 
 ## Deployments
 
-We strongly recommend you use a
-<a href="{{ page.baseurl }}/docs/installing/deploy/">deployment mechanism</a>
-to make changes to your production site.
+We strongly recommend you make changes to your production site with a
+repeatable, automated process rather than by editing it directly. Deploy
+from a specific release tag and run the post-deploy script after each
+deployment &mdash; see
+<a href="{{ page.baseurl }}/docs/running/upgrading/">upgrading</a>
+for details.
