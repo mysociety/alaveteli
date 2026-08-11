@@ -128,7 +128,7 @@ class TrackThing < ApplicationRecord
   # Newest first, from the sort_ascending default in search_events, which
   # the backend reads as a reverse flag rather than as an ascending one.
   def matches(sort_by:, limit:, offset: 0)
-    Search::TrackEvents.new(self, sort_by: sort_by, limit: limit,
+    Search::TrackEvents.for(self, sort_by: sort_by, limit: limit,
                                   offset: offset)
   end
 
