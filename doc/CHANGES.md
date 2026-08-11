@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Allow admins to hide a request without notifying the user (Laurent Savaete)
 * Cache recent request events on the front page for 10 minutes (Chris Mytton)
 * Cache total requests count on the front page for 1 hour (Chris Mytton)
 * Accept a two factor code briefly after it expires (Graeme Porteous)
@@ -205,7 +206,7 @@
 The following templates have been changed. Please use `script/reconcile-theme`
 to update overrides in your theme to match the new templates.
 
-    None yet
+    app/views/admin_request/show.html.erb
 
 # 0.46.5.0
 

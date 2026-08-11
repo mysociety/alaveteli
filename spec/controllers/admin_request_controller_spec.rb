@@ -297,7 +297,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
       post :hide, params: {
                     id: info_request.id,
                     explanation: "Foo",
-                    reason: "vexatious"
+                    reason: "vexatious",
+                    commit: "Hide request and notify user"
                   }
       info_request.reload
       expect(info_request.prominence).to eq("requester_only")
@@ -306,6 +307,20 @@ RSpec.describe AdminRequestController, "when administering requests" do
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
       expect(mail.body).to match(/Foo/)
+    end
+
+    it "hides requests without a notification email" do
+      post :hide, params: {
+                    id: info_request.id,
+                    explanation: "Foo",
+                    reason: "vexatious",
+                    commit: "Hide request"
+                  }
+      info_request.reload
+      expect(info_request.prominence).to eq("requester_only")
+      expect(info_request.described_state).to eq("vexatious")
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(0)
     end
 
     it 'expires the file cache for the request' do
