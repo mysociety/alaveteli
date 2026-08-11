@@ -31,7 +31,7 @@ Don't forget to set up the cron jobs as outlined in the
 
 We recommend running your site behind
 [Apache](https://httpd.apache.org) +
-[Passenger](https://www.phusionpassenger.com) or [Nginx](http://wiki.nginx.org/Main) + [Thin](http://code.macournoyer.com/thin/).
+[Passenger](https://www.phusionpassenger.com), or behind [Nginx](https://nginx.org) as a reverse proxy in front of [Puma](https://puma.io) (the application server Alaveteli bundles).
 
 If you're using Passenger, refer to the
 [installation instructions]({{ page.baseurl }}/docs/installing/manual_install/)
