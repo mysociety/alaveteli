@@ -41,11 +41,11 @@ Alaveteli uses a &ldquo;shifted&rdquo; version of [semver](http://semver.org)
 (just as [Rails version numbering](http://guides.rubyonrails.org/maintenance_policy.html)
 does). This means that version numbers are of the form: `SERIES.MAJOR.MINOR.PATCH`.
 
-At the time of writing, the current release is `0.46.5.0`:
+At the time of writing, the current release is `0.46.7.0`:
 
 - Series `0`
 - Major `46`
-- Minor `5`
+- Minor `7`
 - Patch `0`
 
 We'll use the [semver](http://semver.org) specification for Alaveteli's
