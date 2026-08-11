@@ -377,14 +377,14 @@ your attention. Click on any one of them to see the details.
 
 <div class="attention-box helpful-hint">
   If the message does not belong to any request, you can delete it instead.
-  Simply click on the <strong>Destroy Message</strong> button instead of
+  Simply click on the <strong>Destroy message</strong> button instead of
   redelivering it.
 </div>
 
 When you inspect a message, you may see a guess made by Alaveteli as to which
 request the message belongs to. Check this request. If the guess is right
 &mdash; the incoming email really is a response to that request &mdash;
-the request's *title_url* will already be in the input box: click the
+the request's *url_title* will already be in the input box: click the
 **Redeliver to another request** button.
 
 If there is not a guess, or Alaveteli's guess is wrong, look at the  `To:`
@@ -464,7 +464,7 @@ effectively dead.
 To add an email address to the spam address list you need to copy it from an
 incoming message and paste it into the spam addresss list. The easiest way to
 do this is to click on **Summary** at the top of any admin page, and then click
-on **Put misdelivered responses with the right requests** to see the contents
+on **Put misdelivered responses with the right request** to see the contents
 of the holding pen.
 
 <div class="attention-box info">
@@ -497,7 +497,7 @@ running in your
 There are three ways to change public authority data on your site:
 
    * *Create* &mdash;
-     You can create a new public authority in the admin interface. Go to **Authorities**, and click the **New Public Authority** button.
+     You can create a new public authority in the admin interface. Go to **Authorities**, and click the **New public authority** button.
 
    * *Edit* &mdash;
      Once an authority is created, you can update its email address or other
@@ -508,7 +508,7 @@ There are three ways to change public authority data on your site:
      You can also create or edit more than one authority at the same time by
      uploading a file containing the data in comma-separated values (CSV)
      format. This works for new authorities as well as those that already exist
-     on your site. Go to **Authorities** and click the **Import from CSV** button. See the rest of this section for more about uploading.
+     on your site. Go to **Authorities** and click the **Import from CSV file** button. See the rest of this section for more about uploading.
 
 The upload feature is useful &mdash; especially when an Alaveteli site is first
 set up &mdash; because it's common to collect data such as the contact details
@@ -562,11 +562,6 @@ unrecognised column name, the import will fail.
     <td><code>short_name</code></td>
     <td><em>yes</em></td>
     <td>Some authorities are known by a shorter name</td>
-  </tr>
-  <tr>
-    <td><code>notes</code></td>
-    <td><em>yes</em></td>
-    <td>Notes, displayed publicly (may contain HTML)</td>
   </tr>
   <tr>
     <td><code>publication_scheme</code></td>
@@ -626,10 +621,10 @@ For example, here's data for three authorities in CSV format ready for upload.
 The first line defines the column names, then the next three lines contain the
 data (one line for each authority):
 
-    #name,short_name,short_name.es,request_email,notes
+    #name,short_name,short_name.es,request_email,home_page
     XYZ Library Inc.,XYZ Library,XYX Biblioteca,info@xyz.example.com,
-    Ejemplo Town Council,,Ayuntamiento de Ejemplo,etc@example.com,Lorem ipsum.
-    "Comma, Inc.",Comma,,comma@example.com,"e.g. <a href=""x"">link</a>"
+    Ejemplo Town Council,,Ayuntamiento de Ejemplo,etc@example.com,http://example.com
+    "Comma, Inc.",Comma,,comma@example.com,
 
 Note that, if Ejemplo Town Council already exists on the site, the blank entry
 for `short_name` will leave the existing value for that column unchanged.
@@ -913,7 +908,7 @@ hanging the application altogether), so please:
 
 <strong>To attach a censor rule to a request</strong>, go to the admin page for the
 request, scroll to the bottom of the page, and click the "New censor
-rule (for this request only)" button. On the following page, enter the
+rule" button. On the following page, enter the
 text that you want to replace e.g. 'some private info', the text you
 wish to replace it with e.g. '[private info has been hidden]', and a
 comment letting other admins know why you have hidden the information.
