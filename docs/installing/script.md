@@ -11,6 +11,11 @@ title: Installation script
 
 Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/installing/).
 
+For a local development site we recommend the
+[Docker installation]({{ page.baseurl }}/docs/installing/docker/) instead, which
+takes care of the dependencies for you. The installation script described here
+is for setting up Alaveteli on your own server.
+
 ## Installing with the installation script
 
 If you have a clean installation of 64-bit Debian (bullseye, bookworm or
@@ -75,6 +80,19 @@ When the script has finished, you should have a working copy of the website,
 accessible via the hostname you supplied to the script. So, for this example, you could access the site in a browser at `http://alaveteli.10.10.10.30.nip.io`. The site runs using the Puma application server, behind the nginx webserver. By default, Alaveteli will be installed into `/var/www/[HOST]` on the server.
 
 The server will also be configured to accept replies to information request emails (as long as the MX record for the domain is pointing at the server). Incoming mail handling is set up using Postfix as the MTA.
+
+Behind the scenes, the commonlib `install-site.sh` script runs two scripts that
+live in the Alaveteli repository. You don't run these yourself; `install-site.sh`
+calls them for you:
+
+* `script/site-specific-install.sh` does the server-level setup as root:
+  installing system packages, nginx and Postfix, creating the PostgreSQL
+  user and database template, and installing the required Ruby version
+  (using rbenv and ruby-build) if the system Ruby is too old.
+* `script/install-as-user` then runs as the Unix user you specified to do the
+  user-level setup: installing the gems with Bundler, writing the
+  `config/general.yml` and `config/database.yml` files, creating the
+  databases, and loading the sample data.
 
 ## What next?
 
