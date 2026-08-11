@@ -76,7 +76,7 @@ that the request has been closed because it is old, with a suggestion that the
 sender can email your site's administrators directly.
 
 You can can stop this behaviour by changing the **Allow new responses from...**
-setting back to `normal` at any time. Alternatively, you can change the way
+setting back to `anybody` at any time. Alternatively, you can change the way
 rejected messages are handled (for example, sending such responses to the
 holding pen instead of bouncing them) with the request's **Handle rejected
 responses** setting.
