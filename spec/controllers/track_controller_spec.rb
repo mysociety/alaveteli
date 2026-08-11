@@ -96,6 +96,36 @@ RSpec.describe TrackController do
         expect(assigns[:search_results]).to be_present
       end
 
+      it 'sorts by the order the track asks for' do
+        track_thing = FactoryBot.create(:request_update_track)
+        stub_search_results(items: [])
+
+        expect(Search).to receive(:search).
+          with(track_thing.track_query, hash_including(sort_by: 'created_at')).
+          and_return(double(results: build_search_results(items: [])))
+
+        get :track_request, params: {
+          feed: 'feed',
+          url_title: track_thing.info_request.url_title
+        }
+      end
+
+      it 'pages through the events' do
+        track_thing = FactoryBot.create(:request_update_track)
+        searcher = double
+        allow(Search).to receive(:search).and_return(searcher)
+
+        expect(searcher).to receive(:results).
+          with(page: 2, per_page: 25).
+          and_return(build_search_results(items: []))
+
+        get :track_request, params: {
+          feed: 'feed',
+          page: 2,
+          url_title: track_thing.info_request.url_title
+        }
+      end
+
       it 'should return atom/xml for a feed url without format specified, even if the requester prefers json' do
         request.env['HTTP_ACCEPT'] = 'application/json,text/xml'
         track_thing = FactoryBot.create(:request_update_track)
