@@ -76,6 +76,9 @@ headers necessary to compile some of the gem dependencies in the next step.
 
 All the packages needed are available from the standard repositories of the
 supported Debian and Ubuntu releases, so no extra apt sources are required.
+The packages themselves are listed in `config/packages.generic` and are
+installed in the [Install the dependencies](#install-the-dependencies) step
+below, once you have a copy of the Alaveteli source code.
 
 ### Create Alaveteli User
 
@@ -125,11 +128,48 @@ user doesn't have their local gem bin path in their path. Add it, making sure yo
 directory you see in the warning message:
 
 <pre><code>cat >> /home/alaveteli/.bashrc <<EOF
-export PATH="\$HOME/.gem/ruby/3.4.0/bin:\$PATH"
+export PATH="\$HOME/.gem/ruby/3.2.0/bin:\$PATH"
 EOF
 exec $SHELL</code></pre>
 
 </div>
+
+## Install Ruby
+
+Alaveteli requires Ruby 3.2.6 (see `.ruby-version.example` in the source).
+Most of the supported Debian and Ubuntu releases package an older version of
+Ruby, so unless your distribution's `ruby` package is at least this version,
+install the required version with [rbenv](https://github.com/rbenv/rbenv) and
+the [ruby-build](https://github.com/rbenv/ruby-build) plugin rather than using
+the system `ruby` package. (This is what the installation script does too.)
+
+First install the packages needed to build Ruby. These are listed in
+`config/packages.ruby-build`:
+
+    xargs -a /var/www/alaveteli/config/packages.ruby-build apt-get -y install
+
+Next, as the `alaveteli` user, install rbenv and the ruby-build plugin into
+that user's home directory:
+
+    su - alaveteli
+    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+    cd ~/.rbenv && src/configure && make -C src
+    git clone https://github.com/rbenv/ruby-build.git \
+      ~/.rbenv/plugins/ruby-build
+
+Add rbenv to the user's `PATH` and initialise it on login:
+
+    cat >> ~/.bashrc <<'EOF'
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+    EOF
+    exec $SHELL
+
+Install Ruby 3.2.6, set it as the default for this user, and install bundler:
+
+    rbenv install 3.2.6
+    rbenv global 3.2.6
+    gem install bundler
 
 ## Configure Database
 
@@ -167,6 +207,8 @@ Full configuration for an MTA is beyond the scope of this document -- see the gu
 Note that in development mode mail is handled by [`mailcatcher`](http://mailcatcher.me/) by default so
 that you can see the mails in a browser. Mailcatcher is not part of the application bundle, so install it
 with `gem install mailcatcher`, then start it by running `mailcatcher` in the application directory.
+This behaviour is controlled by the `USE_MAILCATCHER_IN_DEVELOPMENT` setting
+(default `true`) in `config/general.yml`.
 
 ## Configure Alaveteli
 
@@ -287,8 +329,9 @@ it to the localhost interface by adding `-b tcp://127.0.0.1:3000`
 The server should have told you the URL to access in your browser to see the
 site in action.
 
-Next we'll actually create a systemd service to run the application, so stop any
-puma processes you've started here.
+Next we'll actually create a systemd service to run the application (generated
+from `config/puma.service.example` in the cron jobs and daemons step below), so
+stop any puma processes you've started here.
 
 ## Cron jobs and Daemons
 
@@ -449,7 +492,7 @@ increase capacity, configure Puma to run more workers or threads (see
 
 Check the configuration and fix any issues
 
-    service nginx configtest
+    nginx -t
 
 Reload the new nginx configuration and restart the application
 
@@ -487,7 +530,7 @@ increase capacity, configure Puma to run more workers or threads (see
 
 Check the configuration and fix any issues
 
-    service nginx configtest
+    nginx -t
 
 Start the rails application with Puma (if you haven't already).
 
@@ -552,15 +595,6 @@ You should then be able to run the tests. Don't forget to restore <code>config/r
 
     See the [general email troubleshooting guide]({{ page.baseurl }}/docs/installing/email#general-email-troubleshooting).
 
-*   **Various tests fail with "Your PostgreSQL connection does not support
-    unescape_bytea. Try upgrading to pg 0.9.0 or later."**
-
-    You have an old version of `pg`, the ruby postgres driver.  In
-    Ubuntu, for example, this is provided by the package `libdbd-pg-ruby`.
-
-    Try upgrading your system's `pg` installation, or installing the pg
-    gem with `gem install pg`
-
 *   **Some of the tests relating to mail are failing, with messages like
     "when using TMail should load an email with funny MIME settings'
     FAILED"**
@@ -587,13 +621,12 @@ You should then be able to run the tests. Don't forget to restore <code>config/r
 
 *   **I'm seeing `rake: command not found` when running the post install script**
 
-    The script uses `rake`.
-
-    It may be that the binaries installed by bundler are not put in the
-    system `PATH`; therefore, in order to run `rake` (needed for
-    deployments), you may need to do something like:
-
-        ln -s /usr/lib/ruby/gems/1.8/bin/rake /usr/local/bin/
+    The script uses `rake`, which is installed by bundler. This usually means
+    the gem executables installed by bundler are not on your `PATH`. If you
+    installed Ruby with rbenv (see [Install Ruby](#install-ruby)), make sure
+    rbenv is initialised in your shell (`eval "$(rbenv init -)"`) and run
+    `rbenv rehash`. Otherwise, prefix the command with `bundle exec`, for
+    example `bundle exec rake`.
 
 
 
