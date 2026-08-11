@@ -27,8 +27,8 @@ not really getting lots of traffic).
 A **production** site is different: you want your production site to run as
 efficiently as possible, so things like caching are switched on, and debug
 messages switched off. It's also important to be able to deploy changes to a
-production site quickly and efficiently, so we recommend you use a
-[deployment mechanism]({{ page.baseurl }}/docs/installing/deploy/) too.
+production site quickly and efficiently, so we recommend you adopt a
+repeatable [deployment process]({{ page.baseurl }}/docs/installing/deploy/) too.
 
 ## The installation path
 
@@ -97,7 +97,8 @@ The other install methods will do this for you.
 
 ## Deployment
 
-When you set up your production server, we **strongly recommend** you
-use the Capistrano [deployment mechanism]({{ page.baseurl }}/docs/installing/deploy/)
-that's included with Alaveteli. Set this up and you never have to edit files on
-those servers, because Capistrano takes care of that for you.
+When you set up your production server, we recommend you adopt a repeatable,
+automated [deployment process]({{ page.baseurl }}/docs/installing/deploy/).
+Set this up and you never have to edit files on those servers by hand. Note
+that the Capistrano deployment mechanism that used to ship with Alaveteli is
+deprecated and is being removed.
