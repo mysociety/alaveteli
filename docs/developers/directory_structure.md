@@ -65,9 +65,9 @@ website](http://guides.rubyonrails.org/getting_started.html).
       <dt>
         jobs
       </dt>
-      <dt>
-        mailboxes
-      </dt>
+      <dd>
+          <em>background jobs run via Active Job.</em>
+      </dd>
       <dt>
         mailers
       </dt>
@@ -154,7 +154,12 @@ website](http://guides.rubyonrails.org/getting_started.html).
     docker
   </dt>
   <dd>
-    <p><em>a <a href="{{ page.baseurl }}/docs/installing/docker/">Docker environment</a> for running Alaveteli in development</em></p>
+    <p><em>files for running Alaveteli in Docker containers</em></p>
+    <p>
+      Includes the <code>Dockerfile</code>, entrypoint and bootstrap scripts,
+      and environment defaults used by the
+      <a href="{{ page.baseurl }}/docs/installing/docker/">Docker installation</a>.
+    </p>
   </dd>
   <dt>
     gems
@@ -240,10 +245,18 @@ website](http://guides.rubyonrails.org/getting_started.html).
   <dd class="last">
     <p><em>third-party software</em></p>
     <dl>
-      <dt class="last">bundle</dt>
+      <dt>assets</dt>
+      <dt class="last">javascript</dt>
       <dd class="last">
           <p>
-              <em>the bundle of gems needed to run Alaveteli</em>
+              <em>vendored third-party front-end assets and JavaScript.</em>
+          </p>
+          <p>
+              The gems needed to run Alaveteli are installed by
+              <a href="https://bundler.io/">Bundler</a> (into
+              <code>vendor/bundle</code> unless you configure a different path);
+              that directory is created at install time and is not part of the
+              git repository.
           </p>
       </dd>
     </dl>
