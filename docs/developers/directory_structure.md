@@ -39,9 +39,6 @@ website](http://guides.rubyonrails.org/getting_started.html).
           <em>static assets that require precompilation before being served</em>
           <dl>
               <dt>
-                  fonts
-              </dt>
-              <dt>
                   images
               </dt>
               <dt>
@@ -63,15 +60,36 @@ website](http://guides.rubyonrails.org/getting_started.html).
         helpers
       </dt>
       <dt>
+        javascript
+      </dt>
+      <dt>
+        jobs
+      </dt>
+      <dt>
+        mailboxes
+      </dt>
+      <dt>
         mailers
       </dt>
       <dt>
         models
       </dt>
+      <dt>
+        services
+      </dt>
+      <dt>
+        validators
+      </dt>
       <dt class="last">
         views
       </dt>
     </dl>
+  </dd>
+  <dt>
+    bin
+  </dt>
+  <dd>
+    <p><em>executable wrapper scripts ("binstubs") for commands provided by the application and its gems, such as <code>rails</code> and <code>rake</code></em></p>
   </dd>
   <dt>cache
   </dt>
@@ -133,6 +151,18 @@ website](http://guides.rubyonrails.org/getting_started.html).
     </p>
   </dd>
   <dt>
+    docker
+  </dt>
+  <dd>
+    <p><em>a <a href="{{ page.baseurl }}/docs/installing/docker/">Docker environment</a> for running Alaveteli in development</em></p>
+  </dd>
+  <dt>
+    gems
+  </dt>
+  <dd>
+    <p><em>internal gems containing parts of Alaveteli's functionality</em></p>
+  </dd>
+  <dt>
     lib
   </dt>
   <dd>
@@ -159,6 +189,12 @@ website](http://guides.rubyonrails.org/getting_started.html).
       The translation strings are stored in <code>.po</code> files in directories specific to
       the locale and encoding. For example, <code>es/</code> contains the translations for the Spanish site.
     </p>
+  </dd>
+  <dt>
+    locale_alaveteli_pro
+  </dt>
+  <dd>
+    <p><em>translations for Alaveteli Pro</em></p>
   </dd>
   <dt>
     log
