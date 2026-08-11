@@ -60,7 +60,7 @@ All requests must include an API key as a variable `k`. This key can be viewed
 on each authority's page in the admin interface. Other variables should be sent
 as follows:
 
-* `/api/v2/request` - POST the following json data as a form variable `json` to create a new request:
+* `/api/v2/request.json` - POST the following json data as a form variable `request_json` to create a new request:
   * `title` - title for the request
   * `body` - body of the request
   * `external_user_name` - name of the person who originated the request
@@ -68,16 +68,15 @@ as follows:
   Returns JSON containing a `url` for the new request, and its `id`
 * `/api/v2/request/<id>.json` - GET full information about a request
 * `/api/v2/request/<id>.json` - POST additional correspondence regarding a request:
-  * as form variable `json`:
+  * as form variable `correspondence_json`:
     * `direction` - either `request` (from the user - might be a followup, reminder, etc) or `response` (from the authority)
     * `body` - the message itself
-    * `state` - optional, allows the authority to include an updated request `state` value when sending an update. Allowable values: `waiting_response`, `rejected`, `successful` and `partially_successful`. Only used in the `response` direction
     * `sent_at` - ISO-8601 formatted time that the correspondence was sent
+  * (optionally) the form variable `state` - allows the authority to include an updated request `state` value when sending an update. Allowable values: `waiting_response`, `rejected`, `successful` and `partially_successful`. Only used in the `response` direction
   * (optionally) the variable `attachments` as `multipart/form-data`:
     * attachments to the correspondence.  Attachments can only be attached to messages in the `response` direction
 * `/api/v2/request/<id>/update.json` - POST a new state for the request:
-  * as form variable `json`:
-    * `state` - the user's assessment of the `state` of a request that has received a response from the authority. Allowable values: `waiting_response`, `rejected`, `successful` and `partially_successful`. Should only be used for the user's feedback, an authority wishing to update the request `state` should use `/api/v2/request/<id>.json` instead
+  * as form variable `state` - the user's assessment of the `state` of a request that has received a response from the authority. Allowable values: `waiting_response`, `rejected`, `successful` and `partially_successful`. Should only be used for the user's feedback, an authority wishing to update the request `state` should use `/api/v2/request/<id>.json` instead
 
 
 
