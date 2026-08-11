@@ -58,9 +58,9 @@ these settings:
 * [`INCOMING_EMAIL_SECRET`]({{ page.baseurl }}/docs/customising/config/#incoming_email_secret)
 * [`ADMIN_USERNAME`]({{ page.baseurl }}/docs/customising/config/#admin_username)
 * [`ADMIN_PASSWORD`]({{ page.baseurl }}/docs/customising/config/#admin_password)
-* [`COOKIE_STORE_SESSION_SECRET`]({{ page.baseurl }}/docs/customising/config/#cookie_store_session_secret)
-* [`RECAPTCHA_PUBLIC_KEY`]({{ page.baseurl }}/docs/customising/config/#recaptcha_public_key)
-* [`RECAPTCHA_PRIVATE_KEY`]({{ page.baseurl }}/docs/customising/config/#recaptcha_private_key)
+* [`SECRET_KEY_BASE`]({{ page.baseurl }}/docs/customising/config/#secret_key_base)
+* [`RECAPTCHA_SITE_KEY`]({{ page.baseurl }}/docs/customising/config/#recaptcha_site_key)
+* [`RECAPTCHA_SECRET_KEY`]({{ page.baseurl }}/docs/customising/config/#recaptcha_secret_key)
 
 You should consider running the admin part of the site over HTTPS. This can be
 achieved with rewrite rules that redirect URLs beginning with `/admin`.
@@ -104,7 +104,7 @@ in the setting
 setting in `config/general.yml`.
 
 Refer to the [Postgres
-documentation](http://www.postgresql.org/docs/8.4/static/backup.html) for
+documentation](https://www.postgresql.org/docs/current/backup.html) for
 database backup strategies. The most common method is to use `pg_dump` to
 create a SQL dump of the database, and backup a zipped copy of this.
 
