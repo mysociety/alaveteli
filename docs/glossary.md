@@ -33,7 +33,6 @@ Definitions
   <li><a href="#disclosure-log">disclosure log</a></li>
   <li><a href="#emergency">emergency user</a></li>
   <li><a href="#foi">freedom of information</a></li>
-  <li><a href="#gaze">gaze</a></li>
   <li><a href="#geoip-database">GeoIP database</a></li>
   <li><a href="#git">git</a></li>
   <li><a href="#holding_pen">holding pen</a></li>
@@ -146,7 +145,7 @@ Definitions
     Alaveteli's <strong>advanced search</strong> lets users search using
     more complex criteria than just words. This includes Boolean operators,
     date ranges, and specific indexes such as <code>status:</code>,
-    <code>requested_by:</code>, <code>status:</code> and so on.
+    <code>requested_by:</code>, <code>variety:</code> and so on.
     <div class="more-info">
       <p>More information:</p>
       <ul>
@@ -252,9 +251,9 @@ Definitions
     href="#authority" class="glossary__link">authority</a>. A <strong>batch
     request</strong> is when a user submits a single request that is then sent
     to <em>multiple</em> authorities. By default, this capability is not
-    enabled, but Alaveteli does support it. To allow batch requests to be sent,
-    you need to both enable the feature and then grant permission to use it
-    on a user-by-user basis.
+    enabled, but Alaveteli does support it as part of
+    <a href="{{ page.baseurl }}/docs/pro/">Alaveteli Professional</a>: Pro
+    users can make batch requests through the Pro interface.
     <div class="more-info">
       <p>More information:</p>
       <ul>
@@ -264,7 +263,10 @@ Definitions
         </li>
         <li>
           The config variable that enables the feature is
-          <code><a href="{{ page.baseurl }}/docs/customising/config/#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>.
+          <code><a href="{{ page.baseurl }}/docs/pro/#enable_alaveteli_pro">ENABLE_ALAVETELI_PRO</a></code>.
+          The maximum number of authorities that can be included in a single
+          batch is set with
+          <code><a href="{{ page.baseurl }}/docs/pro/#pro_batch_authority_limit">PRO_BATCH_AUTHORITY_LIMIT</a></code>.
         </li>
         <li>
           Alaveteli <a href="#publish" class="glossary__link">publishes</a> the
@@ -492,34 +494,6 @@ Definitions
   </dd>
 
   <dt>
-    <a name="gaze">gaze</a>
-  </dt>
-  <dd>
-    <p>
-      In the absence of a <a href="#geoip-database">GeoIP database</a>, Alaveteli uses
-      mySociety's gazetteer service, called Gaze, to determine each user's country from
-      their incoming IP address. This lets the site suggest an Alaveteli site in their
-      country, if one exists.
-    </p>
-    <div class="more-info">
-      <p>More information:</p>
-      <ul>
-        <li>The config variable
-          <code><a href="{{ page.baseurl }}/docs/customising/config/#gaze_url">GAZE_URL</a></code>
-          should usually point at...
-        </li>
-        <li>...the <a
-          href="http://gaze.mysociety.org/">Gaze service</a>.
-        </li>
-        <li>
-          See <a href="https://github.com/mysociety/gaze">Gaze source on
-          github</a>.
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
     <a name="geoip-database">GeoIP database</a>
   </dt>
   <dd>
@@ -532,7 +506,7 @@ Definitions
     <div class="more-info">
       <p>More information:</p>
       <ul>
-        <li>More about the free <a href="http://dev.maxmind.com/geoip/legacy/geolite/">GeoLite databases</a> from MaxMind.
+        <li>More about the free <a href="https://dev.maxmind.com/geoip/geolite2-free-geolocation-data">GeoLite2 databases</a> from MaxMind.
         </li>
       </ul>
     </div>
@@ -808,9 +782,9 @@ Definitions
       <ul>
         <li>
           use the config settings
-          <code><a href="{{ page.baseurl }}/docs/customising/config/#recaptcha_public_key">RECAPTCHA_PUBLIC_KEY</a></code>
+          <code><a href="{{ page.baseurl }}/docs/customising/config/#recaptcha_site_key">RECAPTCHA_SITE_KEY</a></code>
           and
-          <code><a href="{{ page.baseurl }}/docs/customising/config/#recaptcha_private_key">RECAPTCHA_PRIVATE_KEY</a></code>
+          <code><a href="{{ page.baseurl }}/docs/customising/config/#recaptcha_secret_key">RECAPTCHA_SECRET_KEY</a></code>
           to set this up.
         </li>
         <li>
