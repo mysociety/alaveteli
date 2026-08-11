@@ -73,7 +73,8 @@ RSpec.describe TrackMailer do
         before do
           @track_things_sent_emails_array = []
           allow(@track_things_sent_emails_array).to receive(:where).and_return([]) # this is for the date range find (created in last 14 days)
-          @search_results = double('search results', results: [])
+          @search_results = double('search results', results: [],
+                                                     words_to_highlight: [])
           @track_thing = mock_model(TrackThing,
                                     matches: @search_results,
                                     track_things_sent_emails: @track_things_sent_emails_array,
@@ -123,13 +124,18 @@ RSpec.describe TrackMailer do
           TrackMailer.alert_tracks
         end
 
-        it 'should raise an error if a non-event class is returned' do
+        it 'passes the words to highlight to the digest' do
+          allow(@found_event).to receive(:described_at).
+            and_return(@track_thing.created_at + 1.day)
           allow(@search_results).to receive(:results).
-            and_return([{ model: 'string class' }])
-          expect { TrackMailer.alert_tracks }.to raise_error(
-            'need to add other types to ' \
-            'TrackMailer.alert_tracks (unalerted)'
-          )
+            and_return([@search_result])
+          allow(@search_results).to receive(:words_to_highlight).
+            and_return(%w[fancy dog])
+
+          expect(TrackMailer).to receive(:event_digest).
+            with(user, [[@track_thing, [@found_event], %w[fancy dog]]])
+
+          TrackMailer.alert_tracks
         end
 
         it 'should record sent tracking email for each included event' do

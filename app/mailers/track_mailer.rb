@@ -76,28 +76,26 @@ class TrackMailer < ApplicationMailer
         search_results = track_thing.matches(sort_by: 'described_at',
                                              limit: 100)
         # Go through looking for unalerted things
-        alert_results = []
+        alert_events = []
         search_results.results.each do |result|
-          if result[:model].class.to_s != "InfoRequestEvent"
-            raise "need to add other types to TrackMailer.alert_tracks (unalerted)"
-          end
+          event = result[:model]
 
-          if track_thing.created_at >= result[:model].described_at  # made before the track was created
-            next
-          end
-          if result[:model].described_at < one_week_ago  # older than 1 week (see 14 days / 7 days in comment above)
-            next
-          end
-          if done_info_request_events.include?(result[:model].id)  # definitely already done
-            next
-          end
+          # made before the track was created
+          next if track_thing.created_at >= event.described_at
+
+          # older than 1 week (see 14 days / 7 days in comment above)
+          next if event.described_at < one_week_ago
+
+          # definitely already done
+          next if done_info_request_events.include?(event.id)
 
           # OK alert this one
-          alert_results.push(result)
+          alert_events.push(event)
         end
         # If there were more alerts for this track, then store them
-        unless alert_results.empty?
-          email_about_things.push([track_thing, alert_results, search_results])
+        unless alert_events.empty?
+          highlight_words = search_results.words_to_highlight(regex: true)
+          email_about_things.push([track_thing, alert_events, highlight_words])
         end
       end
 
@@ -111,15 +109,11 @@ class TrackMailer < ApplicationMailer
       end
 
       # Record that we've now sent those alerts to that user
-      email_about_things.each do |track_thing, alert_results|
-        alert_results.each do |result|
+      email_about_things.each do |track_thing, alert_events, _highlight_words|
+        alert_events.each do |event|
           track_things_sent_email = TrackThingsSentEmail.new
           track_things_sent_email.track_thing_id = track_thing.id
-          if result[:model].class.to_s == "InfoRequestEvent"
-            track_things_sent_email.info_request_event_id = result[:model].id
-          else
-            raise "need to add other types to TrackMailer.alert_tracks (mark alerted)"
-          end
+          track_things_sent_email.info_request_event_id = event.id
           track_things_sent_email.save!
         end
       end
