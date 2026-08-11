@@ -13,6 +13,15 @@ title: Deploying
   Alaveteli provides a deployment mechanism using Capistrano.
 </p>
 
+<div class="attention-box danger">
+  <p>
+    The Capistrano deployment mechanism has not been actively maintained for
+    some years and has been removed from Alaveteli's <code>develop</code>
+    branch, so it will not be included in releases after the 0.46.5 series.
+    We do not recommend setting up new deployments with it.
+  </p>
+</div>
+
 ## Why deploy?
 
 Although you can [install Alaveteli]({{ page.baseurl }}/docs/installing/) in a number
@@ -81,7 +90,7 @@ Next, on your local machine:
 
 * install Capistrano:
    * Capistrano requires Ruby 1.9 or more, and can be installed using rubygems
-   * do: `gem install capistrano -v 2.15.9`
+   * do: `gem install capistrano -v 2.15.11`
 * install Bundler if you don't have it already -- do: `gem install bundler`
 * checkout the [Alaveteli repo](https://github.com/mysociety/alaveteli/) (you
   need some of the files available locally even though you might not be running
