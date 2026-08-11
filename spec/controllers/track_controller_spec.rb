@@ -93,7 +93,7 @@ RSpec.describe TrackController do
                               feed: 'feed',
                               url_title: track_thing.info_request.url_title
                             }
-        expect(assigns[:search_results]).to be_present
+        expect(assigns[:events]).to eq([event])
       end
 
       it 'sorts by the order the track asks for' do

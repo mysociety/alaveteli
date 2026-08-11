@@ -4,15 +4,10 @@
   <link type="text/html" rel="alternate" href="<%= request.protocol + request.host_with_port %>"/>
   <link type="application/atom+xml" rel="self" href="<%= request.url %>"/>
   <title><%= @track_thing.params[:title_in_rss] %></title>
-  <% @search_results.results.each do |result| %>
+  <% @events.each do |event| %>
     <%
       # Get the HTML content from the same partial template as website search does
-      content = ''
-      if result[:model].class.to_s == 'InfoRequestEvent'
-        content += render :partial => 'request/request_listing_via_event', :formats => [:html], :locals => { :event => result[:model] }
-      else
-        content = "<p><strong>Unknown search result type " + result[:model].class.to_s + "</strong></p>"
-      end
+      content = render :partial => 'request/request_listing_via_event', :formats => [:html], :locals => { :event => event }
       # Pull out the heading as separate item, from the partial template
       content.match(/(<span class="head">\s+<a href="[^>]*">(.*)<\/a>\s+<\/span>)/)
       heading = $1
@@ -20,9 +15,9 @@
       content.sub!(heading, "")
     %>
     <entry>
-      <id>tag:<%= request.host %>,2005:<%= result[:model].class %>/<%= result[:model].id %></id>
-      <published><%= result[:model].created_at.xmlschema %></published>
-      <link type="text/html" rel="alternate" href="<%= polymorphic_url(result[:model]) %>"/>
+      <id>tag:<%= request.host %>,2005:<%= event.class %>/<%= event.id %></id>
+      <published><%= event.created_at.xmlschema %></published>
+      <link type="text/html" rel="alternate" href="<%= polymorphic_url(event) %>"/>
       <title type="html"><%= heading_text %></title>
       <content type="html"><%= content %></content>
     </entry>

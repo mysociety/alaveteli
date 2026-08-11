@@ -317,9 +317,9 @@ class UserController < ApplicationController
     else
       @user.
         track_things.
-        collect { |thing| perform_track_search(thing).results }.
-        flatten.
-        sort { |a,b| b[:model].created_at <=> a[:model].created_at }.
+        flat_map { |thing| perform_track_search(thing).results }.
+        map { |result| result[:model] }.
+        sort { |a, b| b.created_at <=> a.created_at }.
         first(20)
     end
   end

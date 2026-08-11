@@ -1410,16 +1410,20 @@ RSpec.describe UserController, "when viewing the river" do
     request_track = FactoryBot.create(:request_update_track,
                                       tracking_user: user)
     search_track = FactoryBot.create(:search_track, tracking_user: user)
-    older = { model: mock_model(InfoRequestEvent, created_at: 2.hours.ago) }
-    newer = { model: mock_model(InfoRequestEvent, created_at: 1.hour.ago) }
+    older = mock_model(InfoRequestEvent, created_at: 2.hours.ago)
+    newer = mock_model(InfoRequestEvent, created_at: 1.hour.ago)
 
     stub_search_results(items: [])
     allow(Search).to receive(:search).
       with(request_track.track_query, any_args).
-      and_return(double(results: build_search_results(items: [older])))
+      and_return(double(results: build_search_results(
+        items: [{ model: older }]
+      )))
     allow(Search).to receive(:search).
       with(search_track.track_query, any_args).
-      and_return(double(results: build_search_results(items: [newer])))
+      and_return(double(results: build_search_results(
+        items: [{ model: newer }]
+      )))
 
     sign_in user
     get :river
