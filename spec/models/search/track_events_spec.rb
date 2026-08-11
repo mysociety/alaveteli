@@ -12,6 +12,29 @@ RSpec.describe Search::TrackEvents do
       end
     end
 
+    context 'when a type has a database finder' do
+      before do
+        stub_const('Search::TrackEvents::SearchQuery', database_finder)
+      end
+
+      let(:database_finder) { Class.new(Search::TrackEvents) }
+      let(:track_thing) { FactoryBot.build(:search_track) }
+
+      subject do
+        described_class.for(track_thing, sort_by: 'created_at', limit: 25)
+      end
+
+      it 'uses the search index while the feature is off' do
+        is_expected.to be_a(Search::TrackEvents::Index)
+      end
+
+      it 'uses the database once the feature is on' do
+        with_feature_enabled(:database_backed_alerts) do
+          is_expected.to be_a(database_finder)
+        end
+      end
+    end
+
     it 'raises for a track type with no strategy' do
       track_thing = FactoryBot.build(:track_thing)
       allow(track_thing).to receive(:track_type).and_return('nonsense')

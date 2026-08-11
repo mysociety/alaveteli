@@ -6,8 +6,12 @@ module Search
   # own. TrackEvents.for picks the right one.
   #
   class TrackEvents
+    extend AlaveteliFeatures::Helpers
+
     def self.for(track_thing, **options)
-      strategy_for(track_thing.track_type).new(track_thing, **options)
+      klass = strategy_for(track_thing.track_type)
+      klass = Index unless live?(klass)
+      klass.new(track_thing, **options)
     end
 
     def self.strategy_for(track_type)
@@ -15,6 +19,15 @@ module Search
     rescue NameError
       raise ArgumentError, "no strategy for track type #{track_type.inspect}"
     end
+
+    # A strategy that has left the search index only goes live behind the
+    # flag. Types still on the index subclass Index, which ignores the flag,
+    # so it does nothing until a type has somewhere else to go.
+    def self.live?(klass)
+      klass <= Index ||
+        feature_enabled?(:database_backed_alerts)
+    end
+    private_class_method :live?
 
     def initialize(track_thing, sort_by:, limit:, offset: 0)
       @track_thing = track_thing
