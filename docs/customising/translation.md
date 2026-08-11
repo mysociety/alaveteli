@@ -54,7 +54,7 @@ need to do a little extra work to get those translations back into Alaveteli
 when they are ready.
 
 The Transifex project is at
-[https://www.transifex.com/projects/p/alaveteli](https://www.transifex.com/projects/p/alaveteli)
+[https://app.transifex.com/mysociety/alaveteli/](https://app.transifex.com/mysociety/alaveteli/)
 -- you'll probably want an account there (ask on the mailing list). It has a
 fairly easy-to-use interface for contributing translations.
 
