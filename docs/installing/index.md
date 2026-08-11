@@ -61,7 +61,7 @@ Depending on the resources you have available, it might be that your staging ser
 
 <div class="attention-box info">
     Although we recommend Docker for development, there are of course other ways
-    to install Alaveteli. Our Dockerdile is not suitable for production (but
+    to install Alaveteli. Our Dockerfile is not suitable for production (but
     remember that you won't need a production site until you've done a
     development deployment). For your own server, there's an installation script
     which does most of the work for you, or you can follow the manual
