@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix user emails sent in the wrong locale (Graeme Porteous)
 * Exclude `foi_no` bodies from Batch (Gareth Rees)
 * Allow admins to download zips of batch requests, and only show batch download
   links to users who can use them (Ben Fairless)

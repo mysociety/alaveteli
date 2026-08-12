@@ -1,6 +1,41 @@
 require 'spec_helper'
 
 RSpec.describe ApplicationMailer do
+  describe '#mail_user' do
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+
+    let!(:incoming_message) do
+      FactoryBot.create(:incoming_message, info_request: info_request)
+    end
+
+    def deliver
+      RequestMailer.new_response(info_request, incoming_message).deliver_now
+      ActionMailer::Base.deliveries.last
+    end
+
+    context 'when the recipient does not use the default locale' do
+      let(:user) { FactoryBot.create(:user, locale: 'es') }
+
+      it 'renders the subject and body in the recipient locale' do
+        mail = deliver
+        expect(mail.subject).to start_with('Nueva respuesta')
+        expect(mail.body).
+          to include('Para ver la respuesta, usa el siguiente enlace.')
+      end
+    end
+
+    context 'when another locale is in use as the mail is sent' do
+      let(:user) { FactoryBot.create(:user, locale: 'en') }
+
+      it 'ignores it and uses the recipient locale' do
+        mail = AlaveteliLocalization.with_locale('es') { deliver }
+        expect(mail.subject).to start_with('New response')
+        expect(mail.body).
+          to include('To view the response, click on the link below.')
+      end
+    end
+  end
+
   context 'when using plugins' do
     def set_base_views
       ApplicationMailer.class_eval do

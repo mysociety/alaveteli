@@ -10,10 +10,11 @@ class UserMailer < ApplicationMailer
     @name = user.name
     @url = url
 
-    subject = reasons[:email_subject] || _(
-      'Confirm your account on {{site_name}}', site_name: site_name
-    )
-    mail_user(user, subject: -> { subject })
+    mail_user(user, subject: -> {
+      reasons[:email_subject] || _(
+        'Confirm your account on {{site_name}}', site_name: site_name
+      )
+    })
   end
 
   def already_registered(user, reasons, url)
@@ -21,10 +22,11 @@ class UserMailer < ApplicationMailer
     @name = user.name
     @url = url
 
-    subject = reasons[:email_subject] || _(
-      'Your account on {{site_name}}', site_name: site_name
-    )
-    mail_user(user, subject: -> { subject })
+    mail_user(user, subject: -> {
+      reasons[:email_subject] || _(
+        'Your account on {{site_name}}', site_name: site_name
+      )
+    })
   end
 
   def changeemail_confirm(user, new_email, url)
@@ -34,12 +36,10 @@ class UserMailer < ApplicationMailer
     @new_email = new_email
 
     # Cannot send the user to mail_user - that would send to old_email.
-    # No problem if the current locale is the user's.
-    subject = _(
-      "Confirm your new email address on {{site_name}}",
-      site_name: site_name
-    )
-    mail_user(user, subject: -> { subject })
+    mail_user(user, subject: -> {
+      _("Confirm your new email address on {{site_name}}",
+        site_name: site_name)
+    })
   end
 
   def changeemail_already_used(old_email, new_email)
@@ -48,11 +48,9 @@ class UserMailer < ApplicationMailer
     user = User.find_by_email(@old_email)
 
     # Cannot send the user to mail_user - that would send to old_email.
-    # No problem if the current locale is the user's.
-    subject = _(
-      "Unable to change email address on {{site_name}}",
-      site_name: site_name
-    )
-    mail_user(new_email, subject: -> { subject })
+    mail_user(new_email, subject: -> {
+      _("Unable to change email address on {{site_name}}",
+        site_name: site_name)
+    })
   end
 end

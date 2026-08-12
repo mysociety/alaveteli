@@ -26,30 +26,27 @@ class ApplicationMailer < ActionMailer::Base
 
   # The subject: arg must be a proc, it is localized with the user's locale.
   def mail_user(user, subject:, **opts)
-    if user.is_a?(User)
-      locale = user.locale
-      opts[:to] = user.name_and_email
-    else
-      opts[:to] = user
+    locale = user.is_a?(User) ? user.locale : AlaveteliLocalization.locale
+
+    AlaveteliLocalization.with_locale(locale) do
+      opts[:to] = user.is_a?(User) ? user.name_and_email : user
+
+      if opts[:from].is_a?(User)
+        set_reply_to_headers('Reply-To' => opts[:from].name_and_email)
+        opts[:from] = MailHandler.address_from_name_and_email(
+          opts[:from].name, blackhole_email
+        )
+      else
+        set_reply_to_headers
+        opts[:from] ||= blackhole_email
+      end
+
+      set_auto_generated_headers
+
+      default_opts = { subject: subject.call }
+      default_opts.merge!(opts)
+      mail(default_opts)
     end
-
-    if opts[:from].is_a?(User)
-      set_reply_to_headers('Reply-To' => opts[:from].name_and_email)
-      opts[:from] = MailHandler.address_from_name_and_email(
-        opts[:from].name, blackhole_email
-      )
-    else
-      set_reply_to_headers
-      opts[:from] ||= blackhole_email
-    end
-
-    set_auto_generated_headers
-
-    default_opts = {
-      subject: AlaveteliLocalization.with_locale(locale) { subject.call }
-    }
-    default_opts.merge!(opts)
-    mail(default_opts)
   end
 
   def contact_for_user(user = nil)

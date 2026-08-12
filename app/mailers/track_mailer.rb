@@ -106,11 +106,7 @@ class TrackMailer < ApplicationMailer
 
       # If we have anything to send, then send everything for the user in one mail
       if !email_about_things.empty?
-        # Send the email
-
-        AlaveteliLocalization.with_locale(user.locale) do
-          TrackMailer.event_digest(user, email_about_things).deliver_now
-        end
+        TrackMailer.event_digest(user, email_about_things).deliver_now
       end
 
       # Record that we've now sent those alerts to that user
