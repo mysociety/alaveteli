@@ -426,5 +426,23 @@ RSpec.describe RequestMailbox do
       expect(raw_email[:message_id]).to be_present
       expect(raw_email[:message_checksum]).to be_present
     end
+
+    it 'records the holding pen reason in the default locale' do
+      mail = get_fixture_mail('incoming-request-plain.eml',
+                              to: 'unknown@localhost',
+                              from: 'geraldinequango@localhost')
+
+      AlaveteliLocalization.with_locale('es') do
+        ActionMailbox::InboundEmail.create_and_extract_message_id!(
+          mail.raw_source
+        )
+      end
+
+      perform_enqueued_jobs
+
+      last_event = InfoRequest.holding_pen_request.info_request_events.last
+      expect(last_event.params[:rejected_reason]).
+        to eq('Could not identify the request from the email address')
+    end
   end
 end
