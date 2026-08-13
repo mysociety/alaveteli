@@ -69,48 +69,7 @@
 
 <h2>History</h2>
 
-<% @versions.each_with_index do |version, i| %>
-  <div class="row">
-    <div class="span2">
-      <b>
-        <%= "Version #{ version.version }" %>
-      </b>
-    </div>
-
-    <div class="span4">
-      <%= version.updated_at.to_fs(:db) %>
-      (<%= time_ago_in_words(version.updated_at) %> ago)
-    </div>
-
-    <div class="span6">
-      <p>
-        “<%= h(version.last_edit_comment) %>”
-
-        <% if version.editor %>
-          – <%= link_to version.editor.name, admin_user_path(version.editor) %>
-        <% else %>
-          – <%= version.last_edit_editor %>
-        <% end %>
-      </p>
-
-      <% if i == @versions.length - 1 %>
-        <ul>
-          <li>This is the first version.</li>
-        </ul>
-      <% else %>
-        <ul>
-          <% version.compare(@versions[i+1]) do |change| %>
-            <li>
-              <%= change[:name] %> was changed from
-              <code><%= change.fetch(:from, '-') %></code> to
-              <code><%= change.fetch(:to, '-') %></code>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
-  </div>
-<% end %>
+<%= render partial: 'edit_history', locals: {versions: @public_body.versions.order(version: :desc)} %>
 
 <hr>
 
