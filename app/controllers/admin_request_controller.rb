@@ -190,16 +190,21 @@ class AdminRequestController < AdminController
       @info_request.save!
 
       if ! @info_request.is_external?
-        ContactMailer.from_admin_message(
-          @info_request.user.name,
-          @info_request.user.email,
-          subject,
-          params[:explanation].strip.html_safe
-        ).deliver_now
-        flash[:notice] = _("Your message to {{recipient_user_name}} has " \
-                           "been sent",
-                           recipient_user_name: @info_request.user.
-                                                     name.html_safe)
+        if params[:commit] == 'Hide request and notify user'
+          ContactMailer.from_admin_message(
+            @info_request.user.name,
+            @info_request.user.email,
+            subject,
+            params[:explanation].strip.html_safe
+          ).deliver_now
+          flash[:notice] = _("Your message to {{recipient_user_name}} has " \
+                             "been sent",
+                             recipient_user_name: @info_request.user.
+                                                       name.html_safe)
+        else
+          flash[notice] = _("The request has been hidden without messaging " \
+                            "the user")
+        end
       else
         flash[:notice] = _("This external request has been hidden")
       end
