@@ -377,14 +377,14 @@ your attention. Click on any one of them to see the details.
 
 <div class="attention-box helpful-hint">
   If the message does not belong to any request, you can delete it instead.
-  Simply click on the <strong>Destroy Message</strong> button instead of
+  Simply click on the <strong>Destroy message</strong> button instead of
   redelivering it.
 </div>
 
 When you inspect a message, you may see a guess made by Alaveteli as to which
 request the message belongs to. Check this request. If the guess is right
 &mdash; the incoming email really is a response to that request &mdash;
-the request's *title_url* will already be in the input box: click the
+the request's *url_title* will already be in the input box: click the
 **Redeliver to another request** button.
 
 If there is not a guess, or Alaveteli's guess is wrong, look at the  `To:`
@@ -409,12 +409,12 @@ its *url_title*.
 <div class="attention-box info">
   <p><strong>How to find a request's <em>id</em> or <em>url_title</em></strong></p>
   <p>
-    A request's <em>id</em> is the number after <code>/show/</code> in the
-    admin interface's URL when you are looking at that request.
-    For example, if the URL is <code>/admin/request/show/118</code>, then the
+    A request's <em>id</em> is the number after <code>/admin/requests/</code>
+    in the admin interface's URL when you are looking at that request.
+    For example, if the URL is <code>/admin/requests/118</code>, then the
     <em>id</em> is <code>118</code>. Similarly, if you know that you want to see the
     admin interface's page for the request with id <code>118</code>, you know it will
-    be <code>/admin/request/show/118</code>.
+    be <code>/admin/requests/118</code>.
   </p>
   <p>
     A request's <em>url_title</em> is the part after <code>/request/</code>
@@ -464,7 +464,7 @@ effectively dead.
 To add an email address to the spam address list you need to copy it from an
 incoming message and paste it into the spam addresss list. The easiest way to
 do this is to click on **Summary** at the top of any admin page, and then click
-on **Put misdelivered responses with the right requests** to see the contents
+on **Put misdelivered responses with the right request** to see the contents
 of the holding pen.
 
 <div class="attention-box info">
@@ -497,7 +497,7 @@ running in your
 There are three ways to change public authority data on your site:
 
    * *Create* &mdash;
-     You can create a new public authority in the admin interface. Go to **Authorities**, and click the **New Public Authority** button.
+     You can create a new public authority in the admin interface. Go to **Authorities**, and click the **New public authority** button.
 
    * *Edit* &mdash;
      Once an authority is created, you can update its email address or other
@@ -508,7 +508,7 @@ There are three ways to change public authority data on your site:
      You can also create or edit more than one authority at the same time by
      uploading a file containing the data in comma-separated values (CSV)
      format. This works for new authorities as well as those that already exist
-     on your site. Go to **Authorities** and click the **Import from CSV** button. See the rest of this section for more about uploading.
+     on your site. Go to **Authorities** and click the **Import from CSV file** button. See the rest of this section for more about uploading.
 
 The upload feature is useful &mdash; especially when an Alaveteli site is first
 set up &mdash; because it's common to collect data such as the contact details
@@ -562,11 +562,6 @@ unrecognised column name, the import will fail.
     <td><code>short_name</code></td>
     <td><em>yes</em></td>
     <td>Some authorities are known by a shorter name</td>
-  </tr>
-  <tr>
-    <td><code>notes</code></td>
-    <td><em>yes</em></td>
-    <td>Notes, displayed publicly (may contain HTML)</td>
   </tr>
   <tr>
     <td><code>publication_scheme</code></td>
@@ -626,10 +621,10 @@ For example, here's data for three authorities in CSV format ready for upload.
 The first line defines the column names, then the next three lines contain the
 data (one line for each authority):
 
-    #name,short_name,short_name.es,request_email,notes
+    #name,short_name,short_name.es,request_email,home_page
     XYZ Library Inc.,XYZ Library,XYX Biblioteca,info@xyz.example.com,
-    Ejemplo Town Council,,Ayuntamiento de Ejemplo,etc@example.com,Lorem ipsum.
-    "Comma, Inc.",Comma,,comma@example.com,"e.g. <a href=""x"">link</a>"
+    Ejemplo Town Council,,Ayuntamiento de Ejemplo,etc@example.com,http://example.com
+    "Comma, Inc.",Comma,,comma@example.com,
 
 Note that, if Ejemplo Town Council already exists on the site, the blank entry
 for `short_name` will leave the existing value for that column unchanged.
@@ -760,35 +755,29 @@ the checkbox **No rate limit**, and click the **Save** button.
 
 ### Batch requests
 
-Sometimes a user may want to send the same request to more than one authority, which we call a batch request. By default, Alaveteli does not allow users to make batch requests.
+Sometimes a user may want to send the same request to more than one authority, which we call a batch request. Batch requests are a feature of <a href="{{ page.baseurl }}/docs/pro/">Alaveteli Professional</a> &mdash; the older batch request interface for regular users was removed in Alaveteli 0.41.1.0.
 
 <div class="attention-box info">
 <p>We believe that batch requests can be abused &mdash; users can send poorly thought-out or vexatious requests, which will annoy authorities and damage the reputation of your site. However, well thought-out batch requests can be an extremely useful tool in collecting comparative data sets across types of authority, for example, all police forces.</p>
 <p>
-We recommend that you enable batch requesting for users who you notice making the same good request to multiple authorities.
-</p>
-<p>
-Users can choose which authorities to include in a batch requests. They  can even send a request to <em>every single authority</em> on your site. Only give this power to users that you trust.
+Users can choose which authorities to include in a batch request. Bear this in mind when deciding which users you give Pro accounts to.
 </p>
 </div>
 
-To enable batch requests on your site, first you must set
-<code><a href="{{ page.baseurl }}/docs/customising/config/#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
-to <code>true</code> in <code>general.yml</code>.
+Users with a Pro account can start a batch request from the make-request
+page in the Pro interface by clicking the "start a batch request" link.
+When the request is sent, Alaveteli will make a request page for this
+request for each authority, as if the user had made individual requests.
 
-This does not allow anyone to make batch requests yet. You must still
-enable this for each user on an individual basis. To do this, go to the
-<a href="{{ page.baseurl }}/docs/glossary/#admin_interface"
-class="glossary__link">admin interface</a>, click on **Users**, then
-click on the name of the user who wants to make batch requests. Click
-the **Edit** button. Tick the checkbox **Can make batch requests**, and
-click the **Save** button.
+The maximum number of authorities that can be included in a single batch
+request is controlled by the
+<code><a href="{{ page.baseurl }}/docs/pro/#pro_batch_authority_limit">PRO_BATCH_AUTHORITY_LIMIT</a></code>
+config setting (500 by default).
 
-If you've enabled batch requests for a user, when they start to make a
-request, in addition to the box where they can select an authority, they
-will see a link to "make a batch request". When the request is sent,
-Alaveteli will make a request page for this request for each authority,
-as if the user had made individual requests.
+The **Can make batch requests** checkbox on a user's edit page in the
+admin interface is a legacy of the old interface: it no longer enables
+batch requests, but users with it ticked are exempt from the daily
+request limit.
 
 ### Resending a request or sending it to a different authority
 
@@ -913,7 +902,7 @@ hanging the application altogether), so please:
 
 <strong>To attach a censor rule to a request</strong>, go to the admin page for the
 request, scroll to the bottom of the page, and click the "New censor
-rule (for this request only)" button. On the following page, enter the
+rule" button. On the following page, enter the
 text that you want to replace e.g. 'some private info', the text you
 wish to replace it with e.g. '[private info has been hidden]', and a
 comment letting other admins know why you have hidden the information.

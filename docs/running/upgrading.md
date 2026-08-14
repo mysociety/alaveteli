@@ -13,25 +13,17 @@ Upgrading Alaveteli
 </p>
 
 
-## Using Capistrano (recommended)
-
-* Set the repo and branch in `deploy.yml` to be the
-  version you want. We recommend you set this to the explicit tag name (for example,
-  `0.18`, and not `master`) so there's no risk of you accidentally deploying
-  a new version before you're aware it's been released. The code will be updated
-  and any post-deploy procedures will automatically run.
-
-
-## Manual upgrade
-
-If you are not able to use Capistrano to update your site, you will need to
-perform a manual upgrade.
+## How to upgrade
 
 ### Update the code
 
 * Navigate to your site directory (likely to be `/var/www/YOUR-SITE/alaveteli/`)
-* Run git pull as the alaveteli user to avoid access permission errors for site
-  files with the command `sudo -u alaveteli git pull`
+* Check out the version you want. We recommend you use the explicit tag name
+  (for example, `0.46.7.0`, and not `master`) so there's no risk of you
+  accidentally deploying a new version before you're aware it's been released.
+  Run git as the alaveteli user to avoid access permission errors for site
+  files, for example `sudo -u alaveteli git fetch --tags && sudo -u alaveteli
+  git checkout 0.46.7.0`
 
 ### Run the post-deploy script
 
@@ -39,7 +31,7 @@ perform a manual upgrade.
   post-deploy script as the alaveteli user by issuing
   `sudo -u alaveteli script/rails-post-deploy`
 
-Do this after each manual deployment as runs any database migrations for you,
+Do this after each deployment as it runs any database migrations for you,
 plus various other things that can be automated for deployment.
 
 
@@ -49,12 +41,12 @@ Alaveteli uses a &ldquo;shifted&rdquo; version of [semver](http://semver.org)
 (just as [Rails version numbering](http://guides.rubyonrails.org/maintenance_policy.html)
 does). This means that version numbers are of the form: `SERIES.MAJOR.MINOR.PATCH`.
 
-At the time of writing, the current release is `0.19.0.6`:
+At the time of writing, the current release is `0.46.7.0`:
 
 - Series `0`
-- Major `19`
-- Minor `0`
-- Patch `6`
+- Major `46`
+- Minor `7`
+- Patch `0`
 
 We'll use the [semver](http://semver.org) specification for Alaveteli's
 version numbering when it reaches `1.0.0`.
