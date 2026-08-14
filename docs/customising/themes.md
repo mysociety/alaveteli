@@ -81,7 +81,7 @@ The easiest way to create a new theme is to
   This happens because the WhatDoTheyKnow server has this setting in <code>config/general.yml</code>:
   </p>
   <pre><code>THEME_URLS:
-  - 'git://github.com/mysociety/whatdotheyknow-theme.git'</code></pre>
+  - 'https://github.com/mysociety/whatdotheyknow-theme.git'</code></pre>
 </div>
 
 ## What you might want to change
@@ -133,7 +133,7 @@ By default, Alaveteli ships with the sample theme (`alavetelitheme`), so your
 `config/general.yml` contains this:
 
     THEME_URLS:
-      - 'git://github.com/mysociety/alavetelitheme.git'
+      - 'https://github.com/mysociety/alavetelitheme.git'
 
 You can also install the theme by hand, by running:
 

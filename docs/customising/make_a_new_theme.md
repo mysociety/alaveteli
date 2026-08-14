@@ -78,7 +78,7 @@ Set it to the URL of your uniquely named repo, for example:
 
 ## 4. Tell Alaveteli to get its theme
 
-Next, tell Alaveteli to pull the repo down from the URL in `THEMES_URL`, and
+Next, tell Alaveteli to pull the repo down from the URL in `THEME_URLS`, and
 install it as the theme your installation will use.
 
 Do this by issuing this command:
@@ -132,7 +132,7 @@ directory, find your theme and edit
 `/assets/stylesheets/responsive/custom.scss`. Find the Sass variable
 `$color_primary` and change the colour value. For example:
 
-    $color_primary = #ff0000;
+    $color_primary: #ff0000;
 
 This sets the primary colour to red (`#ff0000` in that example can be any CSS
 colour value). Of course, this is just to show that you _can_ change it: really, you can change anything in this theme — that's the whole point.
