@@ -1023,6 +1023,30 @@ BLOCK_SPAM_SIGNINS: false
 # ---
 BLOCK_SPAM_REQUESTS: false
 
+# API key for UserCheck (https://www.usercheck.com), used to detect email
+# domains that are disposable, are relay/forwarding services, or have invalid
+# MX records. When set, the user spam scorer gains three extra checks with
+# live lookups against the UserCheck API; when blank, the checks are disabled
+# and only the static domain lists apply.
+#
+# Only the email domain is ever sent to the API, never the full address.
+# Results are cached for 28 days per domain, so a domain that has already
+# been checked generates no further requests. API failures are logged and
+# score nothing, so an outage degrades to the static list behaviour.
+#
+# The default scores (email_domain_is_disposable: 20, email_domain_is_relay:
+# 10, email_domain_invalid_mx: 5) can be tuned via score_mappings in
+# config/user_spam_scorer.yml.
+#
+# USERCHECK_API_KEY - String (default: '')
+#
+# Example:
+#
+#   USERCHECK_API_KEY: 'xxxxxxxxxxxxxxxxxxxxxxxx'
+#
+# ---
+USERCHECK_API_KEY: ''
+
 # Restrict IP addresses from some countries from performing some actions.
 # If set, requests from IP addresses in the countries specified will be
 # prevented from making new requests on the site.

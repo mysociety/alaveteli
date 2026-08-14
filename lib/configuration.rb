@@ -19,7 +19,7 @@ module AlaveteliConfiguration
   # Ensure any sensitive values match this pattern, or add to the pattern if
   # adding a new value that doesn't fit.
   mattr_accessor :sensitive_key_patterns,
-                 default: /SECRET|PASSWORD|LICENSE_KEY/
+                 default: /SECRET|PASSWORD|LICENSE_KEY|API_KEY/
 
   unless const_defined?(:DEFAULTS)
 
@@ -136,6 +136,7 @@ module AlaveteliConfiguration
       TWITTER_USERNAME: '',
       TWITTER_WIDGET_ID: false,
       USER_CONTACT_FORM_RECAPTCHA: false,
+      USERCHECK_API_KEY: '',
       USE_BULLET_IN_DEVELOPMENT: false,
       USE_DEFAULT_BROWSER_LANGUAGE: true,
       USE_GHOSTSCRIPT_COMPRESSION: false,
