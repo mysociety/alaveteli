@@ -40,6 +40,13 @@
           <% if @is_you %>
             <%= _('You have made no Freedom of Information requests using ' \
                   'this site.') %>
+          </p>
+          <% if @has_recent_requests %>
+            <p>
+              <%= _('(If you sent a request in the last few minutes, it might ' \
+                      'not appear here yet. Please check again in a few minutes.)') %>
+            </p>
+          <% end %>
           <% else %>
             <%= _('This person has made no Freedom of Information requests ' \
                   'using this site.') %>
@@ -68,6 +75,13 @@
         <%= @match_phrase %>
         <%= @page_desc %>
       </h2>
+
+      <% if @has_recent_requests %>
+        <p>
+          <%= _('(If you sent a request in the last few minutes, it might ' \
+                  'not appear here yet. Please check again in a few minutes.)') %>
+        </p>
+      <% end %>
 
       <% @request_results.results.each do |result| %>
         <%= render partial: 'request/request_listing_via_event',

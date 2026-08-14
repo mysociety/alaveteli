@@ -43,6 +43,7 @@ class UserController < ApplicationController
     set_show_requests if @show_requests
 
     @private_requests = []
+    @has_recent_requests = false
 
     if @is_you
       private_requests =
@@ -71,6 +72,15 @@ class UserController < ApplicationController
       @track_things_grouped = @track_things.group_by(&:track_type)
       # Requests you need to describe
       @undescribed_requests = @display_user.get_undescribed_requests
+
+      # very recent requests might not show up immediately on a user's page
+      # leading to unneeded actions like resends, or support emails. Warn them.
+      @has_recent_requests = 
+        @display_user.
+          info_requests.
+          visible_to_requester.
+          where(created_at: ..1.hour.ago).
+          exists?
     end
 
     respond_to do |format|
