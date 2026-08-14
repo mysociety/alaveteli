@@ -490,7 +490,7 @@ RSpec.describe IncomingMessage do
       message = FactoryBot.create(:incoming_message)
       message.raw_email.data = inbound_email
       message.parse_raw_email!
-      expect(message.from_email).to eq('authority@mail.example.com')
+      expect(message.unredacted.from_email).to eq('authority@mail.example.com')
     end
 
     it 'returns an empty string if there is no From header' do

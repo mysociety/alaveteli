@@ -208,7 +208,7 @@ module IncomingMessage::Attachments
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
     if main_part
       c = _mail.count_first_uudecode_count
-      attachments += _uudecode_attachments(main_part.body, c)
+      attachments += _uudecode_attachments(main_part.unredacted.body, c)
     end
 
     # Purge old public attachments that will be rebuilt with a new hexdigest

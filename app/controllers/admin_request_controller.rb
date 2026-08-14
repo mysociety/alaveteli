@@ -126,7 +126,9 @@ class AdminRequestController < AdminController
 
   def generate_upload_url
     if params[:incoming_message_id]
-      incoming_message = IncomingMessage.find(params[:incoming_message_id])
+      incoming_message =
+        IncomingMessage.find(params[:incoming_message_id]).unredacted
+
       email = incoming_message.from_email
       name = incoming_message.safe_from_name || @info_request.public_body.name
     else
