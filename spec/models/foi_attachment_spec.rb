@@ -2310,7 +2310,7 @@ RSpec.describe FoiAttachment do
         FactoryBot.create(
           :censor_rule,
           censorable: info_request,
-          text: foi_attachment.filename,
+          text: foi_attachment.unredacted.filename,
           replacement: 'redacted.txt'
         )
       end
