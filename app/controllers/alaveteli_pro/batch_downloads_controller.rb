@@ -6,6 +6,8 @@ class AlaveteliPro::BatchDownloadsController < AlaveteliPro::BaseController
   include ActionController::Live
 
   skip_before_action :html_response
+  skip_before_action :pro_user_authenticated?
+  before_action :user_authenticated?
 
   def show
     authorize! :download, info_request_batch
@@ -21,8 +23,17 @@ class AlaveteliPro::BatchDownloadsController < AlaveteliPro::BaseController
 
   private
 
+  def user_authenticated?
+    return if authenticated?
+
+    ask_to_login(
+      web: _('To download batch requests'),
+      email: _('Then you can download batch requests')
+    )
+  end
+
   def info_request_batch
-    @info_request_batch ||= current_user.info_request_batches.
+    @info_request_batch ||= InfoRequestBatch.
       find(params[:info_request_batch_id])
   end
 

@@ -17,17 +17,22 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
 
     context 'with a signed-in non-pro user' do
       let(:user) { FactoryBot.create(:user) }
-      before { sign_in user }
+      let(:batch) { FactoryBot.create(:info_request_batch, user: user) }
 
-      it 'redirects to site root' do
-        show
-        expect(response).to redirect_to(root_path)
+      before do
+        sign_in user
+        allow(controller).to receive(:current_user).and_return(user)
+      end
+
+      it { is_expected.to_not be_able_to(:download, batch) }
+
+      it 'denies access to their own batch' do
+        expect { show(id: batch.id) }.to raise_error(CanCan::AccessDenied)
       end
     end
 
     context 'with a signed-in pro user' do
       let(:pro_user) { FactoryBot.create(:pro_user) }
-      let(:ability) { Ability.new(pro_user) }
 
       before do
         sign_in pro_user
@@ -48,10 +53,8 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
 
         it { is_expected.to_not be_able_to(:download, batch) }
 
-        it 'raise 404' do
-          expect { show(id: batch.id) }.to raise_error(
-            ActiveRecord::RecordNotFound
-          )
+        it 'denies access' do
+          expect { show(id: batch.id) }.to raise_error(CanCan::AccessDenied)
         end
       end
 
@@ -60,10 +63,7 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
 
         before do
           # stub database calls
-          allow(pro_user).to(
-            receive_message_chain(:info_request_batches, :find).
-              and_return(batch)
-          )
+          allow(InfoRequestBatch).to receive(:find).and_return(batch)
         end
 
         it { is_expected.to be_able_to(:download, batch) }
@@ -133,6 +133,80 @@ RSpec.describe AlaveteliPro::BatchDownloadsController, type: :controller do
             expect(response.header['Content-Type']).to include 'text/csv'
           end
         end
+      end
+    end
+
+    context 'with a signed-in admin user' do
+      let(:admin_user) { FactoryBot.create(:admin_user) }
+
+      before do
+        sign_in admin_user
+        allow(controller).to receive(:current_user).and_return(admin_user)
+      end
+
+      context 'when info_request_batch owned by someone else' do
+        let(:batch) { FactoryBot.create(:info_request_batch) }
+
+        before do
+          # stub database calls
+          allow(InfoRequestBatch).to receive(:find).and_return(batch)
+        end
+
+        it { is_expected.to be_able_to(:download, batch) }
+
+        context 'when ZIP format' do
+          before do
+            # stub service calls - testing stream content is hard :(
+            allow(InfoRequestBatchZip).to receive(:new).
+              with(batch, ability: controller.current_ability).
+              and_return(double(:zip, name: 'NAME', stream: []))
+
+            show(format: 'zip')
+          end
+
+          it 'is a successful request' do
+            expect(response).to be_successful
+          end
+        end
+
+        context 'when CSV format' do
+          before do
+            # stub service calls
+            allow(InfoRequestBatchMetrics).to receive(:new).with(batch).
+              and_return(double(:metrics, to_csv: 'CSV_DATA', name: 'NAME'))
+
+            show(format: 'csv')
+          end
+
+          it 'is a successful request' do
+            expect(response).to be_successful
+          end
+        end
+      end
+
+      context 'when info_request_batch is embargoed' do
+        let(:batch) { FactoryBot.create(:info_request_batch, :embargoed) }
+
+        it { is_expected.to_not be_able_to(:download, batch) }
+
+        it 'denies access' do
+          expect { show(id: batch.id) }.to raise_error(CanCan::AccessDenied)
+        end
+      end
+    end
+
+    context 'with a signed-in pro admin user' do
+      let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
+
+      before do
+        sign_in pro_admin_user
+        allow(controller).to receive(:current_user).and_return(pro_admin_user)
+      end
+
+      context 'when info_request_batch is embargoed' do
+        let(:batch) { FactoryBot.create(:info_request_batch, :embargoed) }
+
+        it { is_expected.to be_able_to(:download, batch) }
       end
     end
   end

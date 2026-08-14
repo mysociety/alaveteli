@@ -60,7 +60,7 @@
                locals: { info_request_batch: @info_request_batch } %>
   <% end %>
 
-  <% if @info_request_batch.is_owning_user?(current_user) %>
+  <% if can? :download, @info_request_batch %>
     <%= render partial: 'downloads',
                locals: { info_request_batch: @info_request_batch } %>
   <% end %>
