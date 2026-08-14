@@ -48,8 +48,10 @@ class OutgoingMailer < ApplicationMailer
       info_request.recipient_name_and_email
     else
       # calling safe_from_name from so censor rules are run
-      MailHandler.address_from_name_and_email(incoming_message_followup.safe_from_name,
-                                                     incoming_message_followup.from_email)
+      MailHandler.address_from_name_and_email(
+        incoming_message_followup.safe_from_name,
+        incoming_message_followup.unredacted.from_email
+      )
     end
   end
 
@@ -68,7 +70,7 @@ class OutgoingMailer < ApplicationMailer
     if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
       info_request.recipient_email
     else
-      incoming_message_followup.from_email
+      incoming_message_followup.unredacted.from_email
     end
   end
 

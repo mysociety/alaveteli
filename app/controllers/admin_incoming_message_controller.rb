@@ -91,7 +91,7 @@ class AdminIncomingMessageController < AdminController
   end
 
   def set_incoming_message
-    @incoming_message = IncomingMessage.find(params[:id])
+    @incoming_message = IncomingMessage.find(params[:id]).unredacted
   end
 
   def set_info_request

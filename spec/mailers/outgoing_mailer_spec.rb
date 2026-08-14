@@ -9,6 +9,10 @@ RSpec.describe OutgoingMailer, " when working out follow up names and addresses"
     @incoming_message = mock_model(IncomingMessage,
                                    from_email: 'specific@example.com',
                                    safe_from_name: 'Specific Person')
+
+    allow(@incoming_message).
+      to receive(:unredacted).
+      and_return(@incoming_message)
   end
 
   describe 'if there is no incoming message being replied to' do

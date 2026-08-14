@@ -190,8 +190,13 @@ module IncomingMessage::MainBody
     if part.nil?
       text = "[ Email has no body, please see attachments ]"
     else
-      # whatever kind of attachment it is, get the UTF-8 encoded text
-      text = part.body_as_text.string
+      # whatever kind of attachment it is, get the UTF-8 encoded text.
+      # Convert from the unredacted body: masks are applied to the
+      # assembled main body text below, and applying them here first would
+      # feed already-masked HTML into the text conversion, which can shift
+      # its layout (e.g. table cells re-wrapping around a placeholder of a
+      # different length than the original text).
+      text = part.unredacted.body_as_text.string
 
       if part.content_type == 'text/html'
         # e.g. http://www.whatdotheyknow.com/request/35/response/177
@@ -203,7 +208,7 @@ module IncomingMessage::MainBody
     end
 
     # Add an annotation if the text had to be scrubbed
-    if part && part.body_as_text.scrubbed?
+    if part && part.unredacted.body_as_text.scrubbed?
       text += _("\n\n[ {{site_name}} note: The above text was badly " \
                 "encoded, and has had strange characters removed. ]",
                 site_name: site_name)
