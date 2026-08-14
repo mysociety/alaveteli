@@ -282,6 +282,28 @@ RSpec.describe UserSpamScorer do
 
       described_class.reset
     end
+
+    it 'prefers a configured score over a registered default score' do
+      described_class.register_custom_scoring_method(
+        :custom_method, 5, proc { |_u| true }
+      )
+
+      scorer = described_class.new(score_mappings: { custom_method: 30 })
+      expect(scorer.score_mappings[:custom_method]).to eq(30)
+
+      described_class.reset
+    end
+
+    it 'symbolizes String score_mappings keys as loaded from YAML config' do
+      described_class.register_custom_scoring_method(
+        :custom_method, 5, proc { |_u| true }
+      )
+
+      scorer = described_class.new(score_mappings: { 'custom_method' => 1 })
+      expect(scorer.score_mappings).to eq({ custom_method: 1 })
+
+      described_class.reset
+    end
   end
 
   describe '#spam?' do
@@ -324,11 +346,22 @@ RSpec.describe UserSpamScorer do
       expect(scorer.score(user)).to eq(5)
     end
 
-    it 'raises an error if a mapping is invalid' do
+    it 'skips a mapping which is neither registered nor an instance method' do
+      user_attrs = { name: 'Bob Smith' }
+      user = mock_model(User, user_attrs)
+      scorer = described_class.new(
+        score_mappings: { name_is_one_word?: 1, invalid_method: 5 }
+      )
+      expect(scorer.score(user)).to eq(0)
+    end
+
+    it 'warns when skipping an unknown mapping' do
       user_attrs = { name: 'Bob Smith' }
       user = mock_model(User, user_attrs)
       scorer = described_class.new(score_mappings: { invalid_method: 1 })
-      expect { scorer.score(user) }.to raise_error(NoMethodError)
+      expect(Rails.logger).to receive(:warn).
+        with(/UserSpamScorer: unknown score mapping "invalid_method"/)
+      scorer.score(user)
     end
 
     it 'executes custom scoring methods' do
