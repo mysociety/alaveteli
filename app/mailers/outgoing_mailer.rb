@@ -20,7 +20,7 @@ class OutgoingMailer < ApplicationMailer
     @contact_email = AlaveteliConfiguration.contact_email
     headers["message-id"] = OutgoingMailer.id_for_message(@outgoing_message)
 
-    mail(from: @outgoing_message.from,
+    mail(from: @outgoing_message.unredacted.from,
          to: @outgoing_message.to,
          subject: @outgoing_message.subject)
   end
@@ -33,7 +33,7 @@ class OutgoingMailer < ApplicationMailer
     @contact_email = AlaveteliConfiguration.contact_email
     headers["message-id"] = OutgoingMailer.id_for_message(@outgoing_message)
 
-    mail(from: @outgoing_message.from,
+    mail(from: @outgoing_message.unredacted.from,
          to: @outgoing_message.to,
          subject: @outgoing_message.subject)
   end
