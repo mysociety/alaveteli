@@ -639,8 +639,8 @@ valid "To" address for a request in your system.  You can do this
 through your site's admin interface, or from the command line,
 like so:
 
-    $ ./script/console
-    Loading development environment (Rails 2.3.14)
+    $ bin/rails console
+    Loading development environment
     >> InfoRequest.find_by_url_title("why_do_you_have_such_a_fancy_dog").incoming_email
     => "request-101-50929748@localhost"
 
@@ -658,7 +658,7 @@ means there was a problem.  For example:
 The `mailin` script emails the details of any errors to
 `CONTACT_EMAIL` (from your `general.yml` file). A common problem is
 for the user that the MTA runs as not to have write access to
-`files/raw_emails/`.
+the `storage/` directory, where raw emails are stored.
 
 If everything seems fine locally, you should also check from another
 computer connected to the Internet that the DNS for your chosen
