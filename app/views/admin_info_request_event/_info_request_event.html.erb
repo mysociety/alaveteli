@@ -1,0 +1,25 @@
+<div id="info_request_event_<%=info_request_event.id%>" class="row">
+
+  <div class="myheading">
+    <span class="item-title">
+      <%= "Event #{info_request_event.id}" %>:
+      <strong>
+        <%= h info_request_event.event_type.humanize %><% if !info_request_event.calculated_state.nil? %>; state:
+          <%= info_request_event.calculated_state %><% end %>
+      </strong>
+      <em>
+        <%= info_request_event.created_at %>
+      </em>
+    </span>
+  </div>
+  <div id="event_<%=info_request_event.id%>" class="details">
+    <div><b>Params:</b></div>
+    <div class="event-params">
+      <%= render partial: "admin_request/params",
+      locals: {
+        params: info_request_event.params_diff,
+      } %>
+    </div>
+  </div>
+
+</div>
