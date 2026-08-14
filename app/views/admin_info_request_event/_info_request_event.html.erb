@@ -2,7 +2,12 @@
 
   <div class="myheading">
     <span class="item-title">
-      <%= "Event #{info_request_event.id}" %>:
+      <%= link_to(
+        "Event #{info_request_event.id}:",
+        edit_admin_info_request_event_path(info_request_event),
+        title: "Edit event #{info_request_event.id}",
+      ) %>
+
       <strong>
         <%= h info_request_event.event_type.humanize %><% if !info_request_event.calculated_state.nil? %>; state:
           <%= info_request_event.calculated_state %><% end %>
