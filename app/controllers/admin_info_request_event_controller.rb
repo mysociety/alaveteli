@@ -7,6 +7,21 @@
 class AdminInfoRequestEventController < AdminController
   before_action :set_info_request_event, only: [:update]
 
+  def index
+    @page = params[:page] || 1
+    @query = params[:query] || ""
+    @info_request_events = InfoRequestEvent.
+      order(id: :desc).
+        paginate(page: @page, per_page: 100)
+
+    if @query != ""
+      @info_request_events =@info_request_events.
+        search_scope(@query,
+                     backend: :postgresql,
+                     admin_mode: true)
+    end
+  end
+
   # used so due dates get fixed
   def update
     if @info_request_event.event_type != 'response'
