@@ -98,15 +98,16 @@ $(function() {
           filteredTags = tags.searchByText(searchString);
 
           filteredTags.forEach(function(tag) {
-            suggestedTagsList.append(`<option value="${tag.t}" />`);
+            var opt = document.createElement("option");
+            opt.value = tag.t;
+            suggestedTagsList.append(opt);
           });
         }
       });
 
       // remove the tag when clicking the cross icon
       $(document).on("click", ".tagging-tag-remove", function() {
-        var tag = $(this).attr("tag");
-        $(`[tag-title='${tag}']`).remove();
+        $(this).parent().remove();
         copyTags(originalInput);
         $(".tagging-tags-wrapper").focus();
       });
@@ -119,16 +120,33 @@ $(function() {
     },
   };
 
+  // escape toxic characters
+  function sanitizeTag(name) {
+    return name.
+          replace(">", '&gt;').
+          replace("<", '&lt;').
+          replace("'", '&apos;').
+          replace('"', '&quot;');
+  }
+
   // new tags are added as span elements under the div
   function addTag(tagName, tagBgColor, tagColor, tagBorderColor, tagInput) {
-    if ($(`[tag-title='${tagName}']`).length === 0) {
-      var tagHTML = `<code style="background-color: ${tagBgColor}; color: ${tagColor}; border-color: ${tagBorderColor}" class="tagging-tags" tag-title="${tagName}">
-        ${tagName}
-        <a title="Remove tag" class="tagging-tag-remove" tag="${tagName}">
-            <span class="tagging-icon-close"></span>
-        </a>
-        </code>`;
-      $(".tagging-tags-wrapper").append(tagHTML);
+    if (document.querySelector(`code[tag-title="${sanitizeTag(tagName)}"]`) === null) {
+      var closeBtn = document.createElement("span");
+      closeBtn.className = "tagging-icon-close";
+      var link = document.createElement("a");
+      link.className = "tagging-tag-remove";
+      link.setAttribute("title", "Remove tag");
+      link.appendChild(closeBtn);
+      var tagItem = document.createElement("code");
+      tagItem.className = "tagging-tags";
+      tagItem.setAttribute("tag-title", sanitizeTag(tagName));
+      tagItem.style.backgroundColor = tagBgColor;
+      tagItem.style.color = tagColor;
+      tagItem.style.borderColor = tagBorderColor;
+      tagItem.appendChild(document.createTextNode(tagName));
+      tagItem.appendChild(link);
+      $(".tagging-tags-wrapper").append(tagItem);
       copyTags(tagInput);
     }
   }
