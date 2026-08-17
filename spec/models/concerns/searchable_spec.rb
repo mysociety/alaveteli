@@ -126,4 +126,30 @@ RSpec.describe Searchable, 'index lifecycle' do
       expect(User.newsearch('Winston Smith', admin_mode: true)).to eq([user])
     end
   end
+
+  describe 'diffing search content' do
+    describe '#diff_of_body_redactions' do
+      subject { message.diff_of_body_redactions }
+
+      let(:message) { FactoryBot.build(:initial_request, body: body) }
+
+      context 'when an email address is masked for indexing' do
+        let(:body) { 'Write to bob@example.com please.' }
+        it { is_expected.to eq(body) }
+      end
+
+      context 'when a censor rule is applied' do
+        let(:body) { 'Write some text to redact please.' }
+        it 'indexes the unredacted body' do
+          cr = FactoryBot.create(:global_censor_rule)
+          is_expected.to eq(body) 
+        end
+      end
+
+      context 'when nothing is redacted' do
+        let(:body) { 'Write to us please.' }
+        it { is_expected.to eq("") }
+      end
+    end
+  end
 end

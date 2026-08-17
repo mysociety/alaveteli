@@ -152,6 +152,23 @@ module Searchable
     true
   end
 
+  # "diffs" the unredacted and redacted versions of a text
+  # and returns either an empty string if both are the same, or the
+  # unredacted_text if they differ.
+  # Storing this "diff" in the admin_index is a more efficient
+  # than keeping the entire text both in index and admin_index (plus
+  # corresponding GIN indexes in postgresql), as it prevents full
+  # duplicate content for text that has no redaction.
+  # TODO: actually diff the strings with a reliable algorithm.
+  # DO NOT USE THIS DIRECTLY, instead implement a method specific to your
+  # class that calls this with the appropriate strings.
+  # The output of this method is never safe for public display, so it
+  # should never be used in the public `index` part of the searchable call.
+  def diff_unredacted_and_redacted_content(unredacted_text, redacted_text)
+    return "" if unredacted_text == redacted_text
+    unredacted_text
+  end
+
   # Refresh the search index data about a model.
   # This would be the right place to queue up jobs like content extraction,
   # embedding generation, etc...
@@ -278,7 +295,6 @@ module Searchable
         items_to_index = indexable.where(id: start_id..(start_id + batch_count))
       end
       items_to_index.find_each() do |record|
-        puts(record.id)
         record.reindex
         count += 1
       end
