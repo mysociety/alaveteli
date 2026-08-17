@@ -130,7 +130,7 @@ class OutgoingMessage < ApplicationRecord
   def safe_from_name
     return info_request.external_user_name if info_request.is_external?
 
-    info_request.apply_censor_rules_to_text(from_name)
+    info_request.apply_censor_rules_to_text(unredacted.from_name)
   end
 
   # Public: The value to be used in the From: header of an OutgoingMailer

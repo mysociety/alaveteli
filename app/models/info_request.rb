@@ -719,7 +719,8 @@ class InfoRequest < ApplicationRecord
   def safe_from_name
     return external_user_name if is_external?
 
-    apply_censor_rules_to_text(from_name)
+    name = outgoing_messages.first&.unredacted&.from_name || user_name
+    apply_censor_rules_to_text(name)
   end
 
   def user_name_slug

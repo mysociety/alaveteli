@@ -680,8 +680,10 @@ RSpec.describe OutgoingMessage do
     end
 
     it 'applies censor rules to from_name' do
-      FactoryBot.create(:global_censor_rule, text: 'Bob', replacement: 'Robert')
-      is_expected.to eq('Robert')
+      FactoryBot.create(:global_censor_rule,
+                        text: 'Bob',
+                        replacement: 'Bob [hidden]')
+      is_expected.to eq('Bob [hidden]')
     end
 
     context 'when request is external' do
