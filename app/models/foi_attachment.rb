@@ -182,10 +182,9 @@ class FoiAttachment < ApplicationRecord
 
   def redacted_filename
     return replaced_filename if replaced_filename.present?
-    return filename unless info_request
-    return filename if locked? && !locking?
+    return unredacted.filename if locked? && !locking?
 
-    info_request.apply_censor_rules_to_text(filename)
+    filename
   end
 
   # TODO: changing this will break existing URLs, so have a care - maybe
