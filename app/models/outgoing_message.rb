@@ -99,11 +99,21 @@ class OutgoingMessage < ApplicationRecord
       ".safe_from_name": "D"
     },
     admin_index: {
+      ".diff_of_body_redactions": "A",
       from_name: "B",
       prominence_reason: "D",
     },
     root: :info_request
   )
+
+  # prevent storing duplicated values for messages that have no
+  # redactions at all
+  def diff_of_body_redactions
+    diff_unredacted_and_redacted_content(
+      raw_body,
+      get_text_for_indexing
+    )
+  end
 
   def self.default_salutation(public_body)
     _("Dear {{public_body_name}},", public_body_name: public_body.name)
