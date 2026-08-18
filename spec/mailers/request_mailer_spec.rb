@@ -133,8 +133,10 @@ RSpec.describe RequestMailer do
       @request_user = mock_model(User)
       @public_body = mock_model(PublicBody, name: 'Test public body')
       @info_request = mock_model(InfoRequest, user: @request_user,
-                                 email_subject_followup: 'Re: Freedom of Information - Test request',
-                                 incoming_name_and_email: 'Someone <someone@example.org>')
+                                              title: 'Test request',
+                                              legislation: Legislation.default,
+                                              incoming_name_and_email:
+                                                'Someone <someone@example.org>')
     end
 
     it 'should should generate a "fake response" email with a reasonable subject line' do
@@ -143,7 +145,8 @@ RSpec.describe RequestMailer do
                                                "The body of the email...",
                                                "blah.txt",
                                                "The content of blah.txt")
-      expect(fake_email.subject).to eq("Re: Freedom of Information - Test request")
+      expect(fake_email.subject).
+        to eq("Re: Freedom of Information request - Test request")
     end
   end
 
