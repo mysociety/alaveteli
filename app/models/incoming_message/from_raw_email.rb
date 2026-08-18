@@ -35,6 +35,8 @@ module IncomingMessage::FromRawEmail
     parse_raw_email! if last_parsed.nil?
   end
 
+  # refreshes the incoming message metadata from the raw email
+  # Does NOT refresh the body of the message (use clear_in_database_caches!)
   def parse_raw_email!
     # The following fields may be absent; we treat them as cached
     # values in case we want to regenerate them (due to mail
