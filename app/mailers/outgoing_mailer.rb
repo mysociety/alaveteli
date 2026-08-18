@@ -22,7 +22,7 @@ class OutgoingMailer < ApplicationMailer
 
     mail(from: @outgoing_message.from,
          to: @outgoing_message.to,
-         subject: @outgoing_message.subject)
+         subject: @outgoing_message.subject(html: false))
   end
 
   # Later message to public body regarding existing request
@@ -35,7 +35,7 @@ class OutgoingMailer < ApplicationMailer
 
     mail(from: @outgoing_message.from,
          to: @outgoing_message.to,
-         subject: @outgoing_message.subject)
+         subject: @outgoing_message.subject(html: false))
   end
 
   # TODO: the condition checking valid_to_reply_to? also appears in views/request/_followup.html.erb,
