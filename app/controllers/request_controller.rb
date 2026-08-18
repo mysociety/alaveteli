@@ -252,7 +252,7 @@ class RequestController < ApplicationController
 
     @info_request.user = request_user
 
-    if spam_subject?(@outgoing_message.subject, @user)
+    if spam_subject?(@outgoing_message.subject(html: false), @user)
       handle_spam_subject(@info_request.user) && return
     end
 
