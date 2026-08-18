@@ -26,7 +26,7 @@
         <p class="preview_subject">
           <strong><%= _('To:') %></strong> <%=h OutgoingMailer.name_for_followup(@info_request, @incoming_message) %>
           <br>
-          <strong><%= _('Subject:') %></strong> <%= OutgoingMailer.subject_for_followup(@info_request, @outgoing_message, :html => true) %>
+          <strong><%= _('Subject:') %></strong> <%= @outgoing_message.subject(html: true) %>
         </p>
 
         <div class="correspondence_text">
