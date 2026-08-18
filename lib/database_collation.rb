@@ -3,8 +3,6 @@
 # a given language. Prefer the class method .supports? rather than creating a
 # new instance.
 class DatabaseCollation
-  MINIMUM_POSTGRESQL_VERSION = 90112 # rubocop:disable Style/NumericLiterals
-
   attr_reader :connection
 
   # Public: Does the connected database support collation in the given locale?
@@ -35,21 +33,13 @@ class DatabaseCollation
   #
   # Returns a Boolean
   def supports?(locale)
-    exist? && supported_collations.include?(locale)
+    postgresql? && supported_collations.include?(locale)
   end
 
   private
 
-  def exist?
-    postgresql? && postgresql_version >= MINIMUM_POSTGRESQL_VERSION
-  end
-
   def postgresql?
     adapter_name == 'PostgreSQL'
-  end
-
-  def postgresql_version
-    @postgresql_version ||= connection.send(:postgresql_version) if postgresql?
   end
 
   def supported_collations
