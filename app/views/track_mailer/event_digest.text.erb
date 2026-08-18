@@ -6,64 +6,62 @@
     main_text += ("=" * track_thing.params[:title_in_email].size) + "\n\n"
     @highlight_words = words
     for event in alert_events.reverse
-      begin
-        # Request title - only add title if we're not tracking a request.
-        # e.g. -- Address and opening times of Post Office branches --
-        if track_thing.info_request.nil?
-          main_text += "-- " + highlight_words(event.info_request.title, @highlight_words, false) + " --\n"
-        end
-
-        # e.g. Julian Burgess sent a request to Royal Mail Group (15 May 2008)
-        if event.event_type == 'response'
-          if event.info_request.is_external?
-            user_name = _('An anonymous user')
-          else
-            user_name = event.info_request.user_name
-          end
-          url = incoming_message_url(event.incoming_message, :cachebust => true)
-          main_text += _("{{public_body}} sent a response to {{user_name}}",
-            :public_body => event.info_request.public_body.name.html_safe,
-            :user_name => user_name.html_safe)
-        elsif event.event_type == 'followup_sent'
-          url = outgoing_message_url(event.outgoing_message, :cachebust => true)
-          main_text += _("{{user_name}} sent a follow up message to " \
-                         "{{public_body}}",
-                         :user_name => event.info_request.user_name.html_safe,
-                         :public_body => event.info_request.public_body.name.
-                                           html_safe)
-        elsif event.event_type == 'sent'
-          # this is unlikely to happen in real life, but happens in the test code
-          url = outgoing_message_url(event.outgoing_message, :cachebust => true)
-          main_text += _("{{user_name}} sent a request to {{public_body}}",
-                         :user_name => event.info_request.user_name.html_safe,
-                         :public_body => event.info_request.public_body.name.
-                                           html_safe)
-        elsif event.event_type == 'comment'
-          url = comment_url(event.comment)
-          main_text += _("{{user_name}} added an annotation",
-                         :user_name => event.comment.user.name.html_safe)
-        else
-          raise "unknown type in event_digest " + event.event_type
-        end
-        main_text += " (" + simple_date(event.created_at, :format => :text) + ")\n"
-
-        # Main text, wrapped, words highlighted with * and indented.
-        if event.is_outgoing_message?
-          extract = highlight_and_excerpt(event.outgoing_message.get_text_for_indexing, @highlight_words, 150, false)
-        elsif event.is_incoming_message?
-          extract = highlight_and_excerpt(event.incoming_message.get_text_for_indexing_clipped, @highlight_words, 150, false)
-        elsif event.is_comment?
-          extract = highlight_and_excerpt(event.comment.body, @highlight_words, 150, false)
-        else
-          extract = highlight_and_excerpt(info_request.initial_request_text, @highlight_words, 150, false)
-        end
-        extract = extract.gsub(/\s+/, ' ')
-        main_text += ('"' + extract + '"').gsub(/\n+$/, "") + "\n"
-
-        # Link to the request/response
-        main_text += url + "\n"
-        main_text += "\n"
+      # Request title - only add title if we're not tracking a request.
+      # e.g. -- Address and opening times of Post Office branches --
+      if track_thing.info_request.nil?
+        main_text += "-- " + highlight_words(event.info_request.title, @highlight_words, false) + " --\n"
       end
+
+      # e.g. Julian Burgess sent a request to Royal Mail Group (15 May 2008)
+      if event.event_type == 'response'
+        if event.info_request.is_external?
+          user_name = _('An anonymous user')
+        else
+          user_name = event.info_request.user_name
+        end
+        url = incoming_message_url(event.incoming_message, :cachebust => true)
+        main_text += _("{{public_body}} sent a response to {{user_name}}",
+          :public_body => event.info_request.public_body.name.html_safe,
+          :user_name => user_name.html_safe)
+      elsif event.event_type == 'followup_sent'
+        url = outgoing_message_url(event.outgoing_message, :cachebust => true)
+        main_text += _("{{user_name}} sent a follow up message to " \
+                       "{{public_body}}",
+                       :user_name => event.info_request.user_name.html_safe,
+                       :public_body => event.info_request.public_body.name.
+                                         html_safe)
+      elsif event.event_type == 'sent'
+        # this is unlikely to happen in real life, but happens in the test code
+        url = outgoing_message_url(event.outgoing_message, :cachebust => true)
+        main_text += _("{{user_name}} sent a request to {{public_body}}",
+                       :user_name => event.info_request.user_name.html_safe,
+                       :public_body => event.info_request.public_body.name.
+                                         html_safe)
+      elsif event.event_type == 'comment'
+        url = comment_url(event.comment)
+        main_text += _("{{user_name}} added an annotation",
+                       :user_name => event.comment.user.name.html_safe)
+      else
+        raise "unknown type in event_digest " + event.event_type
+      end
+      main_text += " (" + simple_date(event.created_at, :format => :text) + ")\n"
+
+      # Main text, wrapped, words highlighted with * and indented.
+      if event.is_outgoing_message?
+        extract = highlight_and_excerpt(event.outgoing_message.get_text_for_indexing, @highlight_words, 150, false)
+      elsif event.is_incoming_message?
+        extract = highlight_and_excerpt(event.incoming_message.get_text_for_indexing_clipped, @highlight_words, 150, false)
+      elsif event.is_comment?
+        extract = highlight_and_excerpt(event.comment.body, @highlight_words, 150, false)
+      else
+        extract = highlight_and_excerpt(info_request.initial_request_text, @highlight_words, 150, false)
+      end
+      extract = extract.gsub(/\s+/, ' ')
+      main_text += ('"' + extract + '"').gsub(/\n+$/, "") + "\n"
+
+      # Link to the request/response
+      main_text += url + "\n"
+      main_text += "\n"
     end
     main_text
   end
