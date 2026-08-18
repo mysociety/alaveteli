@@ -2335,6 +2335,8 @@ RSpec.describe FoiAttachment do
 
       allow(foi_attachment).to receive(:incoming_message).
         and_return(double(raw_email_erased?: false))
+      allow(foi_attachment).to receive(:is_indexable?).
+        and_return(false)
     end
 
     context 'when locking an unmasked attachment' do
