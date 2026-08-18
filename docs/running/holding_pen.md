@@ -94,7 +94,7 @@ For instructions, see
 
 If the `To:` address does not belong to a valid request and the message is
 clearly spam you can add that email address to Alaveteli's
-<a href="{{ page.baseurl }}/#spam-address-list" class="glossary__link">spam address list</a>.
+<a href="{{ page.baseurl }}/docs/glossary/#spam-address-list" class="glossary__link">spam address list</a>.
 Subsequent messages to that address will be automatically rejected &mdash; for
 instructions see
 [rejecting spam that arrives in the holding pen]({{ page.baseurl }}/docs/running/admin_manual/#rejecting-spam-that-arrives-in-the-holding-pen).

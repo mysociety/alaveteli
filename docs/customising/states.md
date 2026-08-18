@@ -43,6 +43,9 @@ Kosovo's instance uses slightly different states: see
   <li><a href="#error_message">error_message</a></li>
   <li><a href="#requires_admin">requires_admin</a></li>
   <li><a href="#user_withdrawn">user_withdrawn</a></li>
+  <li><a href="#attention_requested">attention_requested</a></li>
+  <li><a href="#vexatious">vexatious</a></li>
+  <li><a href="#not_foi">not_foi</a></li>
   <li><a href="#awaiting_description">awaiting_description</a></li>
 </ul>
 
@@ -203,6 +206,37 @@ Kosovo's instance uses slightly different states: see
     The requester has abandoned this request for some reason.
     <ul>
       <li>Prompt user to write message to tell authority</li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a name="attention_requested">attention_requested</a>
+  </dt>
+  <dd>
+    The request has been reported as needing administrator attention
+    <ul>
+      <li>Set when a user reports the request (for example, as vexatious or containing personal information)</li>
+      <li>Mark as needs admin attention</li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a name="vexatious">vexatious</a>
+  </dt>
+  <dd>
+    An administrator has reviewed the request and considers it to be vexatious
+    <ul>
+      <li>Set by an administrator</li>
+    </ul>
+  </dd>
+
+  <dt>
+    <a name="not_foi">not_foi</a>
+  </dt>
+  <dd>
+    An administrator has reviewed the request and considers it not to be an FOI request
+    <ul>
+      <li>Set by an administrator</li>
     </ul>
   </dd>
 

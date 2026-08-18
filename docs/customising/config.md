@@ -40,25 +40,26 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#force_ssl">FORCE_SSL</a></code>
 <br> <code><a href="#force_registration_on_new_request">FORCE_REGISTRATION_ON_NEW_REQUEST</a></code>
 <br> <code><a href="#theme_urls">THEME_URLS</a></code>
+<br> <code><a href="#theme_url">THEME_URL</a></code>
 <br> <code><a href="#theme_branch">THEME_BRANCH</a></code>
 <br> <code><a href="#frontpage_publicbody_examples">FRONTPAGE_PUBLICBODY_EXAMPLES</a></code>
 <br> <code><a href="#public_body_statistics_page">PUBLIC_BODY_STATISTICS_PAGE</a></code>
 <br> <code><a href="#minimum_requests_for_statistics">MINIMUM_REQUESTS_FOR_STATISTICS</a></code>
-<br> <code><a href="#responsive_styling">RESPONSIVE_STYLING</a></code>
 
 ### Site status:
 
 <code><a href="#read_only">READ_ONLY</a></code>
+<br> <code><a href="#read_only_features">READ_ONLY_FEATURES</a></code>
 <br> <code><a href="#staging_site">STAGING_SITE</a></code>
 
 ### Locale and internationalisation:
 
 <code><a href="#iso_country_code">ISO_COUNTRY_CODE</a></code>
+<br> <code><a href="#iso_currency_code">ISO_CURRENCY_CODE</a></code>
 <br> <code><a href="#time_zone">TIME_ZONE</a></code>
 <br> <code><a href="#available_locales">AVAILABLE_LOCALES</a></code>
 <br> <code><a href="#default_locale">DEFAULT_LOCALE</a></code>
 <br> <code><a href="#use_default_browser_language">USE_DEFAULT_BROWSER_LANGUAGE</a></code>
-<br> <code><a href="#include_default_locale_in_urls">INCLUDE_DEFAULT_LOCALE_IN_URLS</a></code>
 
 ### Definition of "late":
 
@@ -110,17 +111,18 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 
 ### General admin (keys, paths, back-end services):
 
-<code><a href="#cookie_store_session_secret">COOKIE_STORE_SESSION_SECRET</a></code>
+<code><a href="#secret_key_base">SECRET_KEY_BASE</a></code>
 <br> <code><a href="#recaptcha_site_key">RECAPTCHA_SITE_KEY</a></code>
 <br> <code><a href="#recaptcha_secret_key">RECAPTCHA_SECRET_KEY</a></code>
 <br> <code><a href="#usercheck_api_key">USERCHECK_API_KEY</a></code>
 <br> <code><a href="#geoip_database">GEOIP_DATABASE</a></code>
-<br> <code><a href="#gaze_url">GAZE_URL</a></code>
+<br> <code><a href="#maxmind_license_key">MAXMIND_LICENSE_KEY</a></code>
 <br> <code><a href="#ga_code">GA_CODE</a></code> (GA=Google Analytics)
 <br> <code><a href="#utility_search_path">UTILITY_SEARCH_PATH</a></code>
 <br> <code><a href="#shared_files_path">SHARED_FILES_PATH</a></code>
 <br> <code><a href="#shared_files">SHARED_FILES</a></code>
 <br> <code><a href="#shared_directories">SHARED_DIRECTORIES</a></code>
+<br> <code><a href="#bundle_path">BUNDLE_PATH</a></code>
 
 ### Behaviour settings and switches:
 
@@ -128,15 +130,19 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#authority_must_respond">AUTHORITY_MUST_RESPOND</a></code>
 <br> <code><a href="#max_requests_per_user_per_day">MAX_REQUESTS_PER_USER_PER_DAY</a></code>
 <br> <code><a href="#override_all_public_body_request_emails">OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS</a></code>
-<br> <code><a href="#allow_batch_requests">ALLOW_BATCH_REQUESTS</a></code>
 <br> <code><a href="#public_body_list_fallback_to_default_locale">PUBLIC_BODY_LIST_FALLBACK_TO_DEFAULT_LOCALE</a></code>
 <br> <code><a href="#enable_widgets">ENABLE_WIDGETS</a></code>
 <br> <code><a href="#enable_two_factor_auth">ENABLE_TWO_FACTOR_AUTH</a></code>
 <br> <code><a href="#enable_annotations">ENABLE_ANNOTATIONS</a></code>
+<br> <code><a href="#enable_public_annotations">ENABLE_PUBLIC_ANNOTATIONS</a></code>
+<br> <code><a href="#enable_user_to_user_messaging">ENABLE_USER_TO_USER_MESSAGING</a></code>
+<br> <code><a href="#survey_url">SURVEY_URL</a></code>
+<br> <code><a href="#user_sign_in_activity_retention_days">USER_SIGN_IN_ACTIVITY_RETENTION_DAYS</a></code>
 
 ### External public services:
 
 <code><a href="#blog_feed">BLOG_FEED</a></code>
+<br> <code><a href="#blog_timeout">BLOG_TIMEOUT</a></code>
 <br> <code><a href="#facebook_username">FACEBOOK_USERNAME</a></code>
 <br> <code><a href="#twitter_username">TWITTER_USERNAME</a></code>
 <br> <code><a href="#twitter_widget_id">TWITTER_WIDGET_ID</a></code>
@@ -145,11 +151,47 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 ### Development work or special cases:
 
 <code><a href="#debug_record_memory">DEBUG_RECORD_MEMORY</a></code>
-<br> <code><a href="#varnish_host">VARNISH_HOST</a></code>
+<br> <code><a href="#varnish_hosts">VARNISH_HOSTS</a></code>
 <br> <code><a href="#use_mailcatcher_in_development">USE_MAILCATCHER_IN_DEVELOPMENT</a></code>
+<br> <code><a href="#use_bullet_in_development">USE_BULLET_IN_DEVELOPMENT</a></code>
 <br> <code><a href="#use_ghostscript_compression">USE_GHOSTSCRIPT_COMPRESSION</a></code>
-<br> <code><a href="#html_to_pdf_command">HTML_TO_PDF_COMMAND</a></code>
 <br> <code><a href="#cache_fragments">CACHE_FRAGMENTS</a></code>
+
+### Anti-spam and abuse:
+
+<code><a href="#enable_anti_spam">ENABLE_ANTI_SPAM</a></code>
+<br> <code><a href="#block_rate_limited_ips">BLOCK_RATE_LIMITED_IPS</a></code>
+<br> <code><a href="#block_restricted_country_ips">BLOCK_RESTRICTED_COUNTRY_IPS</a></code>
+<br> <code><a href="#block_spam_about_me_text">BLOCK_SPAM_ABOUT_ME_TEXT</a></code>
+<br> <code><a href="#block_spam_comments">BLOCK_SPAM_COMMENTS</a></code>
+<br> <code><a href="#block_spam_requests">BLOCK_SPAM_REQUESTS</a></code>
+<br> <code><a href="#block_spam_signins">BLOCK_SPAM_SIGNINS</a></code>
+<br> <code><a href="#block_spam_signups">BLOCK_SPAM_SIGNUPS</a></code>
+<br> <code><a href="#block_spam_user_messages">BLOCK_SPAM_USER_MESSAGES</a></code>
+<br> <code><a href="#restricted_countries">RESTRICTED_COUNTRIES</a></code>
+<br> <code><a href="#new_request_recaptcha">NEW_REQUEST_RECAPTCHA</a></code>
+<br> <code><a href="#contact_form_recaptcha">CONTACT_FORM_RECAPTCHA</a></code>
+<br> <code><a href="#user_contact_form_recaptcha">USER_CONTACT_FORM_RECAPTCHA</a></code>
+
+### Alaveteli Professional:
+
+<code><a href="#enable_alaveteli_pro">ENABLE_ALAVETELI_PRO</a></code>
+<br> <code><a href="#enable_pro_pricing">ENABLE_PRO_PRICING</a></code>
+<br> <code><a href="#enable_pro_self_serve">ENABLE_PRO_SELF_SERVE</a></code>
+<br> <code><a href="#enable_projects">ENABLE_PROJECTS</a></code>
+<br> <code><a href="#pro_contact_email">PRO_CONTACT_EMAIL</a></code>
+<br> <code><a href="#pro_contact_name">PRO_CONTACT_NAME</a></code>
+<br> <code><a href="#pro_site_name">PRO_SITE_NAME</a></code>
+<br> <code><a href="#pro_batch_authority_limit">PRO_BATCH_AUTHORITY_LIMIT</a></code>
+<br> <code><a href="#pro_referral_coupon">PRO_REFERRAL_COUPON</a></code>
+<br> <code><a href="#external_reviewers">EXTERNAL_REVIEWERS</a></code>
+<br> <code><a href="#forward_pro_nonbounce_responses_to">FORWARD_PRO_NONBOUNCE_RESPONSES_TO</a></code>
+<br> <code><a href="#stripe_publishable_key">STRIPE_PUBLISHABLE_KEY</a></code>
+<br> <code><a href="#stripe_secret_key">STRIPE_SECRET_KEY</a></code>
+<br> <code><a href="#stripe_namespace">STRIPE_NAMESPACE</a></code>
+<br> <code><a href="#stripe_prices">STRIPE_PRICES</a></code>
+<br> <code><a href="#stripe_webhook_secret">STRIPE_WEBHOOK_SECRET</a></code>
+<br> <code><a href="#stripe_tax_rate">STRIPE_TAX_RATE</a></code>
 
 
 ---
@@ -261,8 +303,28 @@ indentation correct. If in doubt, look at the examples already in the file, and 
         <li>
             <pre>
 THEME_URLS:
- - 'git://github.com/mysociety/alavetelitheme.git'
+ - 'https://github.com/mysociety/alavetelitheme.git'
 </pre>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="theme_url"><code>THEME_URL</code></a>
+  </dt>
+  <dd>
+    The URL of a single <a href="{{ page.baseurl }}/docs/customising/themes/">theme</a>
+    to download and use. This is the older, deprecated single-value form; new
+    installations should use
+    <a href="#theme_urls"><code>THEME_URLS</code></a> instead, which accepts a
+    prioritised list of themes. If set, a theme given here is installed after
+    those listed in <code>THEME_URLS</code>.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>THEME_URL: 'https://github.com/mysociety/alavetelitheme.git'</code>
         </li>
       </ul>
     </div>
@@ -273,17 +335,21 @@ THEME_URLS:
   </dt>
   <dd>
     When <code>rails-post-deploy</code> installs the <a href="{{ page.baseurl }}/docs/customising/themes/">themes</a>,
-    it will try the theme branch first, but only if you've set <code>THEME_BRANCH</code>
-    to be true. If the branch doesn't exist it will fall back to using a tagged version
+    it will first try the branch specified by <code>THEME_BRANCH</code>, if you've
+    set it to a branch name. If the branch doesn't exist (or <code>THEME_BRANCH</code>
+    is false, the default) it will fall back to using a tagged version
     specific to your installed Alaveteli version, and if that doesn't exist it will
-    back to <code>master</code>.
+    fall back to <code>master</code>.
     <p>
         The default theme is the "Alaveteli" theme. This gets installed automatically when
         <code>rails-post-deploy</code> runs.
     </p>
     <div class="more-info">
-      <p>Example:</p>
+      <p>Examples:</p>
       <ul class="examples">
+        <li>
+            <code>THEME_BRANCH: 'develop'</code>
+        </li>
         <li>
             <code>THEME_BRANCH: false</code>
         </li>
@@ -336,29 +402,7 @@ THEME_URLS:
             <code>PUBLIC_BODY_STATISTICS_PAGE: false</code>
         </li>
         <li>
-            <code>MINIMUM_REQUESTS_FOR_STATISTICS: 50</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="responsive_styling"><code>RESPONSIVE_STYLING</code></a>
-  </dt>
-  <dd>
-
-     Use the responsive base stylesheets and templates, rather than
-     those that only render the site at a fixed width. These
-     stylesheets are currently experimental but will become the default
-     in the future. They allow the site to render nicely on mobile
-     devices as well as larger screens. Currently the fixed width
-     stylesheets are used by default.
-
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>RESPONSIVE_STYLING: true</code>
+            <code>MINIMUM_REQUESTS_FOR_STATISTICS: 100</code>
         </li>
       </ul>
     </div>
@@ -387,6 +431,38 @@ THEME_URLS:
             <code>
                 READ_ONLY: 'The site is not currently accepting requests while we move the server.'
             </code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="read_only_features"><code>READ_ONLY_FEATURES</code></a>
+  </dt>
+  <dd>
+      Granular read-only control for specific features. This lets you disable
+      specific functionality without putting the entire site into read-only mode
+      with <a href="#read_only"><code>READ_ONLY</code></a>.
+      <p>The available features are:</p>
+      <ul>
+        <li><code>annotations</code> blocks annotations on requests</li>
+        <li><code>classifications</code> blocks request status classifications</li>
+        <li><code>followups</code> blocks followup messages on requests</li>
+        <li><code>requests</code> blocks new FOI requests</li>
+        <li><code>signups</code> blocks new user registration</li>
+      </ul>
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>
+            Block only new requests:
+            <br>
+            <code>READ_ONLY_FEATURES: ['requests']</code>
+        </li>
+        <li>
+            Block new requests and annotations:
+            <br>
+            <code>READ_ONLY_FEATURES: ['requests', 'annotations']</code>
         </li>
       </ul>
     </div>
@@ -433,6 +509,25 @@ THEME_URLS:
       <ul class="examples">
         <li>
             <code>ISO_COUNTRY_CODE: GB</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="iso_currency_code"><code>ISO_CURRENCY_CODE</code></a>
+  </dt>
+  <dd>
+    The <a href="https://en.wikipedia.org/wiki/ISO_4217#Active_codes">ISO currency code</a>
+    of the currency in which Alaveteli Professional subscription costs are
+    displayed. This does not affect the currency the plans are set up in, so it
+    should match what is configured at
+    <a href="https://stripe.com/docs/currencies">Stripe.com</a>.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ISO_CURRENCY_CODE: GBP</code>
         </li>
       </ul>
     </div>
@@ -486,24 +581,6 @@ THEME_URLS:
       <ul class="examples">
         <li>
             <code>USE_DEFAULT_BROWSER_LANGUAGE: true</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="include_default_locale_in_urls"><code>INCLUDE_DEFAULT_LOCALE_IN_URLS</code></a>
-  </dt>
-  <dd>
-    Normally, Alaveteli will put the locale into its URLs, like this
-    <code>www.example.com/en/body/list/all</code>. If you don't want this
-    behaviour whenever the locale is the default one, set
-    <strong>INCLUDE_DEFAULT_LOCALE_IN_URLS</strong> to false.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>INCLUDE_DEFAULT_LOCALE_IN_URLS: true</code>
         </li>
       </ul>
     </div>
@@ -1161,15 +1238,19 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
   </dd>
 
   <dt>
-    <a name="cookie_store_session_secret"><code>COOKIE_STORE_SESSION_SECRET</code></a>
+    <a name="secret_key_base"><code>SECRET_KEY_BASE</code></a>
   </dt>
   <dd>
-     Secret key for signing cookie_store sessions. Make it long and random.
+     Used as the base from which Rails generates and verifies signed cookies
+     (among other things). Make it long and random; you can generate a suitable
+     value with <code>rake secret</code>. The built-in default is insecure
+     because the code is open source, so you <strong>must</strong> override it
+     for live sites.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>COOKIE_STORE_SESSION_SECRET: 'uIngVC238Jn9NsaQizMNf89pliYmDBFugPjHS2JJmzOp8'</code>
+            <code>SECRET_KEY_BASE: 'uIngVC238Jn9NsaQizMNf89pliYmDBFugPjHS2JJmzOp8'</code>
         </li>
       </ul>
     </div>
@@ -1181,7 +1262,8 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
   </dt>
   <dd>
      Recaptcha, for detecting humans. Get keys here:
-     <a href="https://www.google.com/recaptcha">https://www.google.com/recaptcha</a>
+     <a href="https://www.google.com/recaptcha">https://www.google.com/recaptcha</a>.
+     Currently Alaveteli requires a reCAPTCHA v2 Checkbox key.
 
     <div class="more-info">
       <p>Examples:</p>
@@ -1226,6 +1308,237 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
   </dd>
 
   <dt>
+    <a name="enable_anti_spam"><code>ENABLE_ANTI_SPAM</code></a>
+  </dt>
+  <dd>
+    If set to true, Alaveteli enforces a set of extra restrictions to combat
+    spam requests, annotations and profile content. This includes the ability to
+    restrict IP addresses from some countries from performing some actions (see
+    <a href="#restricted_countries"><code>RESTRICTED_COUNTRIES</code></a>),
+    showing a reCAPTCHA on new request submission, and preventing the submission
+    of requests, annotations and profile text matching a set of spam content
+    patterns.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ENABLE_ANTI_SPAM: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="block_rate_limited_ips"><code>BLOCK_RATE_LIMITED_IPS</code></a>
+  </dt>
+  <dd>
+    Prevent user signups if several signup attempts from the same IP address are
+    made in quick succession.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>BLOCK_RATE_LIMITED_IPS: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="block_restricted_country_ips"><code>BLOCK_RESTRICTED_COUNTRY_IPS</code></a>
+  </dt>
+  <dd>
+    Prevent users signing up and making requests if their IP address originates
+    in one of the
+    <a href="#restricted_countries"><code>RESTRICTED_COUNTRIES</code></a>.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>BLOCK_RESTRICTED_COUNTRY_IPS: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="block_spam_about_me_text"><code>BLOCK_SPAM_ABOUT_ME_TEXT</code></a>
+  </dt>
+  <dd>
+    Prevent users submitting spam as their "About me" profile text.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>BLOCK_SPAM_ABOUT_ME_TEXT: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="block_spam_comments"><code>BLOCK_SPAM_COMMENTS</code></a>
+  </dt>
+  <dd>
+    Prevent users submitting comments that appear to be spam.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>BLOCK_SPAM_COMMENTS: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="block_spam_requests"><code>BLOCK_SPAM_REQUESTS</code></a>
+  </dt>
+  <dd>
+    Prevent users submitting requests that appear to be spam.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>BLOCK_SPAM_REQUESTS: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="block_spam_signins"><code>BLOCK_SPAM_SIGNINS</code></a>
+  </dt>
+  <dd>
+    Prevent user signins from spam email domains or names which appear to be spam.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>BLOCK_SPAM_SIGNINS: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="block_spam_signups"><code>BLOCK_SPAM_SIGNUPS</code></a>
+  </dt>
+  <dd>
+    Prevent user signups from spam email domains or names which appear to be spam.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>BLOCK_SPAM_SIGNUPS: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="block_spam_user_messages"><code>BLOCK_SPAM_USER_MESSAGES</code></a>
+  </dt>
+  <dd>
+    Prevent users submitting user to user messages that appear to be spam.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>BLOCK_SPAM_USER_MESSAGES: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="restricted_countries"><code>RESTRICTED_COUNTRIES</code></a>
+  </dt>
+  <dd>
+    Restrict IP addresses from some countries from performing some actions. If
+    set, requests from IP addresses in the countries specified are prevented from
+    making new requests on the site. Country codes can be prefixed with
+    <code>!</code> to invert the list from restricted to permitted (that is, to
+    allow requests only from the specified countries). Given as a string of
+    space-separated uppercase ISO Alpha-2 codes.
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>
+            Block GB and ES:
+            <br>
+            <code>RESTRICTED_COUNTRIES: 'GB ES'</code>
+        </li>
+        <li>
+            Only allow GB and ES:
+            <br>
+            <code>RESTRICTED_COUNTRIES: '!GB !ES'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="new_request_recaptcha"><code>NEW_REQUEST_RECAPTCHA</code></a>
+  </dt>
+  <dd>
+    Show a reCAPTCHA on the new request submission form if a user is not signed
+    in or not marked as confirmed not spam. Requires
+    <a href="#recaptcha_site_key"><code>RECAPTCHA_SITE_KEY</code></a> and
+    <a href="#recaptcha_secret_key"><code>RECAPTCHA_SECRET_KEY</code></a> to be set.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>NEW_REQUEST_RECAPTCHA: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="contact_form_recaptcha"><code>CONTACT_FORM_RECAPTCHA</code></a>
+  </dt>
+  <dd>
+    Show a reCAPTCHA on the contact form to discourage spammers. Requires
+    <a href="#recaptcha_site_key"><code>RECAPTCHA_SITE_KEY</code></a> and
+    <a href="#recaptcha_secret_key"><code>RECAPTCHA_SECRET_KEY</code></a> to be
+    set. You also need to add the reCAPTCHA tags to
+    <code>help/_contact_form.html.erb</code> in your theme (just above the submit
+    button works best):
+<pre>
+&lt;% if @recaptcha_required %&gt;
+  &lt;%= recaptcha_tags %&gt;&lt;br /&gt;
+&lt;% end %&gt;
+</pre>
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>CONTACT_FORM_RECAPTCHA: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="user_contact_form_recaptcha"><code>USER_CONTACT_FORM_RECAPTCHA</code></a>
+  </dt>
+  <dd>
+    Show a reCAPTCHA on the user to user contact form to discourage spammers.
+    Requires <a href="#recaptcha_site_key"><code>RECAPTCHA_SITE_KEY</code></a> and
+    <a href="#recaptcha_secret_key"><code>RECAPTCHA_SECRET_KEY</code></a> to be set.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>USER_CONTACT_FORM_RECAPTCHA: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
     <a name="geoip_database"><code>GEOIP_DATABASE</code></a>
   </dt>
   <dd>
@@ -1233,29 +1546,34 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
       of an HTTP request to the site (this lets us suggest an Alaveteli in the user's
       country if one exists). You shouldn't need to change this if you have the
       <code>geoip-database</code> package installed as specified in the
-      <code>config/packages</code> files.
+      <code>config/packages</code> files. You <strong>must</strong> set
+      <code><a href="#maxmind_license_key">MAXMIND_LICENSE_KEY</a></code> with
+      this setting.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>GEOIP_DATABASE: /usr/share/GeoIP/GeoIP.dat</code>
+            <code>GEOIP_DATABASE: vendor/data/GeoLite2-Country.mmdb</code>
         </li>
       </ul>
     </div>
   </dd>
 
   <dt>
-    <a name="gaze_url"><code>GAZE_URL</code></a>
+    <a name="maxmind_license_key"><code>MAXMIND_LICENSE_KEY</code></a>
   </dt>
-  <dd> In the absence of a <a href="#geoip_database">GeoIP database</a>, Alaveteli can use
-       <a href="{{ page.baseurl }}/docs/glossary/#gaze" class="glossary__link">Gaze</a>,
-       mySociety's gazeteer, to determine the country from the IP address of an HTTP request
-       to the site. You shouldn't normally need to change this.
+  <dd>
+      MaxMind requires a free licence key to download the GeoLite2 databases
+      used by <a href="#geoip_database"><code>GEOIP_DATABASE</code></a>. You
+      <strong>must</strong> set this if you want Alaveteli to download and update
+      the GeoIP database. See
+      <a href="https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/">MaxMind's
+      announcement</a> for details.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>GAZE_URL: http://gaze.mysociety.org</code>
+            <code>MAXMIND_LICENSE_KEY: ''</code>
         </li>
       </ul>
     </div>
@@ -1283,7 +1601,7 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
     <a name="utility_search_path"><code>UTILITY_SEARCH_PATH</code></a>
   </dt>
   <dd>
-      Search path for external command-line utilities (such as pdftohtml, pdftk, unrtf).
+      Search path for external command-line utilities (such as pdftk, unrtf).
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
@@ -1331,6 +1649,8 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
 SHARED_FILES:
  - config/database.yml
  - config/general.yml
+ - config/sidekiq.yml
+ - config/storage.yml
  - config/rails_env.rb
  - config/httpd.conf
  - public/foi-live-creation.png
@@ -1344,9 +1664,35 @@ SHARED_DIRECTORIES:
  - files/
  - cache/
  - lib/acts_as_xapian/xapiandbs/
+ - log/
+ - storage/
+ - tmp/pids
  - vendor/bundle
  - public/assets
             </pre>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="bundle_path"><code>BUNDLE_PATH</code></a>
+  </dt>
+  <dd>
+     The path that Bundler installs gems into. The deploy scripts read this
+     value (via <code>bin/config</code>) and run
+     <code>bundle config set --local path</code> with it, so gems are installed
+     there rather than system-wide. It is used by the deployment tooling, not
+     read by the running application. If it is not set, it defaults to
+     <code>vendor/bundle</code>.
+    <div class="more-info">
+      <p>Examples:</p>
+      <ul class="examples">
+        <li>
+            <code>BUNDLE_PATH: vendor/bundle</code>
+        </li>
+        <li>
+            <code>BUNDLE_PATH: /var/alaveteli/bundle</code>
         </li>
       </ul>
     </div>
@@ -1419,26 +1765,6 @@ SHARED_DIRECTORIES:
             If you don't want this behaviour, comment the setting out
             <br>
             <code># OVERRIDE_ALL_PUBLIC_BODY_REQUEST_EMAILS:</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-  <dt>
-    <a name="allow_batch_requests"><code>ALLOW_BATCH_REQUESTS</code></a>
-  </dt>
-  <dd>
-    Allow some users to make batch requests to multiple authorities. Once
-    this is set to true, you can enable batch requests for an individual
-    user via the user admin page. The admin manual has
-    <a href="{{ page.baseurl }}/docs/running/admin_manual/#batch-requests">more
-    about batch requests</a> including why you should be cautious about enabling
-    this feature.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-          <code>ALLOW_BATCH_REQUESTS: false</code>
         </li>
       </ul>
     </div>
@@ -1523,6 +1849,74 @@ SHARED_DIRECTORIES:
   </dd>
 
   <dt>
+    <a name="enable_public_annotations"><code>ENABLE_PUBLIC_ANNOTATIONS</code></a>
+  </dt>
+  <dd>
+    If set to true, comments (annotations) are allowed on all requests,
+    regardless of who made the request. If set to false, comments are only
+    allowed by the requester or admin users.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ENABLE_PUBLIC_ANNOTATIONS: true</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="enable_user_to_user_messaging"><code>ENABLE_USER_TO_USER_MESSAGING</code></a>
+  </dt>
+  <dd>
+    If set to true, Alaveteli allows users to send messages to each other
+    through the site. If set to false, user-to-user messaging is disabled.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ENABLE_USER_TO_USER_MESSAGING: true</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="survey_url"><code>SURVEY_URL</code></a>
+  </dt>
+  <dd>
+    If set, one month after a request has been made Alaveteli will email the
+    user with a link to a survey at this URL.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>SURVEY_URL: 'https://example.com/survey'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="user_sign_in_activity_retention_days"><code>USER_SIGN_IN_ACTIVITY_RETENTION_DAYS</code></a>
+  </dt>
+  <dd>
+    Retains records of the IP addresses used to sign in to user accounts for the
+    configured number of days. This value should be less than or equal to the
+    number of days of logs retained by your logrotate configuration, otherwise
+    you may hold data in a way that is inconsistent with your privacy policy.
+    When set to 0, no sign-in activity is recorded.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>USER_SIGN_IN_ACTIVITY_RETENTION_DAYS: 0</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
     <a name="blog_feed"><code>BLOG_FEED</code></a>
   </dt>
   <dd>
@@ -1538,6 +1932,22 @@ SHARED_DIRECTORIES:
       <ul class="examples">
         <li>
             <code>BLOG_FEED: 'https://www.mysociety.org/category/projects/whatdotheyknow/feed/'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="blog_timeout"><code>BLOG_TIMEOUT</code></a>
+  </dt>
+  <dd>
+    The number of seconds to wait when reading the
+    <a href="#blog_feed"><code>BLOG_FEED</code></a> before the request fails.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>BLOG_TIMEOUT: 60</code>
         </li>
       </ul>
     </div>
@@ -1616,20 +2026,21 @@ SHARED_DIRECTORIES:
   </dd>
 
   <dt>
-    <a name="varnish_host"><code>VARNISH_HOST</code></a>
+    <a name="varnish_hosts"><code>VARNISH_HOSTS</code></a>
   </dt>
   <dd>
-      If you're running behind Varnish, it might help to set this to
-      work out where to send purge requests.
-      Otherwise, don't set it.
+      If you're running behind Varnish, set this to work out where to send purge
+      requests to invalidate the Varnish cache. Otherwise, don't set it. Given as
+      a list of hosts.
     <div class="more-info">
-      <p>Examples:</p>
+      <p>Example:</p>
       <ul class="examples">
         <li>
-            <code>VARNISH_HOST: null</code>
-        </li>
-        <li>
-            <code>VARNISH_HOST: localhost</code>
+            <pre>
+VARNISH_HOSTS:
+ - host1
+ - host2
+</pre>
         </li>
       </ul>
     </div>
@@ -1647,6 +2058,23 @@ SHARED_DIRECTORIES:
       <ul class="examples">
         <li>
             <code>USE_MAILCATCHER_IN_DEVELOPMENT: true</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="use_bullet_in_development"><code>USE_BULLET_IN_DEVELOPMENT</code></a>
+  </dt>
+  <dd>
+    Enables <a href="https://github.com/flyerhzm/bullet">Bullet</a>, a tool that
+    helps to kill N+1 queries and unnecessary eager loading, while running in
+    development mode.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>USE_BULLET_IN_DEVELOPMENT: false</code>
         </li>
       </ul>
     </div>
@@ -1673,26 +2101,6 @@ SHARED_DIRECTORIES:
   </dd>
 
   <dt>
-    <a name="html_to_pdf_command"><code>HTML_TO_PDF_COMMAND</code></a>
-  </dt>
-  <dd>
-    Path to a program that converts an HTML page in a file to PDF.  It
-    should take two arguments: the URL, and a path to an output file.
-    A static binary of <a href="http://wkhtmltopdf.org">wkhtmltopdf</a> is recommended.
-    If the command is not present, a text-only version will be rendered
-    instead.
-    <div class="more-info">
-      <p>Example:</p>
-      <ul class="examples">
-        <li>
-            <code>HTML_TO_PDF_COMMAND: /usr/local/bin/wkhtmltopdf-amd64</code>
-        </li>
-      </ul>
-    </div>
-  </dd>
-
-
-  <dt>
     <a name="cache_fragments"><code>CACHE_FRAGMENTS</code></a>
   </dt>
   <dd>
@@ -1705,6 +2113,338 @@ SHARED_DIRECTORIES:
       <ul class="examples">
         <li>
             <code>CACHE_FRAGMENTS: true</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a>
+  </dt>
+  <dd>
+    If set to true, Alaveteli includes extra functionality and account levels
+    for professional FOI users, for example journalists. Professional users have
+    access to a dashboard, a more streamlined request process, and crucially the
+    ability to embargo their requests so that they remain private.
+    <p>
+      Enabling this is a large change, so you may want to contact the Alaveteli
+      team before doing so. See also
+      <a href="{{ page.baseurl }}/docs/pro/">Alaveteli Professional</a>.
+    </p>
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ENABLE_ALAVETELI_PRO: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="enable_pro_pricing"><code>ENABLE_PRO_PRICING</code></a>
+  </dt>
+  <dd>
+    If set to true, Alaveteli lets users enter their bank details and subscribe
+    to a Stripe subscription which grants them access to the pro role and all the
+    features of Alaveteli Professional. This only takes effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ENABLE_PRO_PRICING: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="enable_pro_self_serve"><code>ENABLE_PRO_SELF_SERVE</code></a>
+  </dt>
+  <dd>
+    This option is only used when
+    <a href="#enable_pro_pricing"><code>ENABLE_PRO_PRICING</code></a> is set to
+    false. If set to true, Alaveteli lets users upgrade their accounts to Pro
+    without needing to enter payment details. If set to false, admins receive an
+    account request email and have to assign the role in the Alaveteli admin
+    interface. This only takes effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ENABLE_PRO_SELF_SERVE: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="enable_projects"><code>ENABLE_PROJECTS</code></a>
+  </dt>
+  <dd>
+    <div class="attention-box">
+      <p>
+        <strong>Warning:</strong> Projects is not ready for re-use.
+      </p>
+    </div>
+    Enables the Projects feature. This only takes effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ENABLE_PROJECTS: false</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="pro_contact_email"><code>PRO_CONTACT_EMAIL</code></a>
+  </dt>
+  <dd>
+    Contact email address for Alaveteli Professional. Requests made through
+    Alaveteli Professional may be embargoed, meaning the user expects them to be
+    private, which can include being private from some of the site's
+    administration team. Even where this is not the case, you may wish to
+    redirect pro support email away from the usual address. If you want all
+    support mail to go to the same address, make this the same as
+    <a href="#contact_email"><code>CONTACT_EMAIL</code></a>. This only takes
+    effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>PRO_CONTACT_EMAIL: 'pro-contact@localhost'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="pro_contact_name"><code>PRO_CONTACT_NAME</code></a>
+  </dt>
+  <dd>
+    The name to address emails to when sending email to
+    <a href="#pro_contact_email"><code>PRO_CONTACT_EMAIL</code></a>. If you want
+    all support mail to go to the same address, make this the same as
+    <a href="#contact_name"><code>CONTACT_NAME</code></a>. This only takes effect
+    when <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>PRO_CONTACT_NAME: 'Alaveteli Professional'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="pro_site_name"><code>PRO_SITE_NAME</code></a>
+  </dt>
+  <dd>
+    The name to use when referring to the Alaveteli Professional parts of an
+    Alaveteli site. For example, in the UK the mySociety instance is called
+    "WhatDoTheyKnow" but the pro parts of the site are referred to as
+    "WhatDoTheyKnow Pro". If you don't want a different name for the pro pages,
+    make this the same as <a href="#site_name"><code>SITE_NAME</code></a>. This
+    only takes effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>PRO_SITE_NAME: 'Alaveteli Professional'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="pro_batch_authority_limit"><code>PRO_BATCH_AUTHORITY_LIMIT</code></a>
+  </dt>
+  <dd>
+    The total number of authorities that can be added to an Alaveteli
+    Professional batch request. This only takes effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>PRO_BATCH_AUTHORITY_LIMIT: 500</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="pro_referral_coupon"><code>PRO_REFERRAL_COUPON</code></a>
+  </dt>
+  <dd>
+    A Stripe coupon code, displayed to existing Pro users on their subscriptions
+    page, that they can share with friends so those friends receive a signup
+    discount. This should not include the
+    <a href="#stripe_namespace"><code>STRIPE_NAMESPACE</code></a>. You must set a
+    <code>humanized_terms</code> key in the coupon metadata to display the
+    discount that will be applied when using the coupon (for example, "50% off
+    for 1 month"). This only takes effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>PRO_REFERRAL_COUPON: 'PROREFERRAL'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="external_reviewers"><code>EXTERNAL_REVIEWERS</code></a>
+  </dt>
+  <dd>
+    Enable referral of requests to external reviewers. This is likely to be an
+    Information Commissioner or similar. This only takes effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>EXTERNAL_REVIEWERS: ico@example.net</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="forward_pro_nonbounce_responses_to"><code>FORWARD_PRO_NONBOUNCE_RESPONSES_TO</code></a>
+  </dt>
+  <dd>
+    The email address to which non-bounce responses to emails sent out to
+    Alaveteli Professional users should be forwarded. This only takes effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>FORWARD_PRO_NONBOUNCE_RESPONSES_TO: pro-user-support@example.com</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="stripe_publishable_key"><code>STRIPE_PUBLISHABLE_KEY</code></a>
+  </dt>
+  <dd>
+    <a href="https://stripe.com">Stripe.com</a> publishable key. This only takes
+    effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>STRIPE_PUBLISHABLE_KEY: pk_test_UD6BDsARFZIYb8273dbdl</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="stripe_secret_key"><code>STRIPE_SECRET_KEY</code></a>
+  </dt>
+  <dd>
+    <a href="https://stripe.com">Stripe.com</a> secret key. This only takes
+    effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>STRIPE_SECRET_KEY: sk_test_UD6BDsARFZIYb8273dbdl</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="stripe_namespace"><code>STRIPE_NAMESPACE</code></a>
+  </dt>
+  <dd>
+    An optional Stripe.com namespace which allows plans and coupons to be
+    separated from other resources within Stripe. If used, the Stripe resources
+    need IDs like <code>&lt;namespace&gt;-&lt;id&gt;</code>. Must be uppercase.
+    This only takes effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>STRIPE_NAMESPACE: 'ALAVETELI'</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="stripe_prices"><code>STRIPE_PRICES</code></a>
+  </dt>
+  <dd>
+    A list of Stripe Prices which, if a user signs up to, grant them access to
+    Alaveteli Pro. These are rendered on the pro pricing pages in the order
+    defined here. Given as a hash whose keys are the Stripe Price IDs and whose
+    values are a parameterised, short, human-readable string. Historical Stripe
+    Price IDs listed here should include the
+    <a href="#stripe_namespace"><code>STRIPE_NAMESPACE</code></a>. This only takes
+    effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <pre>
+STRIPE_PRICES:
+  pro: pro
+</pre>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="stripe_webhook_secret"><code>STRIPE_WEBHOOK_SECRET</code></a>
+  </dt>
+  <dd>
+    <a href="https://stripe.com">Stripe.com</a> webhook secret. This only takes
+    effect when
+    <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>STRIPE_WEBHOOK_SECRET: wh_test_UD6BDsARFZIYb8273dbdl</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="stripe_tax_rate"><code>STRIPE_TAX_RATE</code></a>
+  </dt>
+  <dd>
+    The rate of tax / VAT to add to Pro subscriptions. Note that the price per
+    unit of your Stripe product plan must be created without tax; Alaveteli
+    automatically calculates the gross amount to charge. This only takes effect
+    when <a href="#enable_alaveteli_pro"><code>ENABLE_ALAVETELI_PRO</code></a> is set to true.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>STRIPE_TAX_RATE: '0.20'</code>
         </li>
       </ul>
     </div>
