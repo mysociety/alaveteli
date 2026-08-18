@@ -114,6 +114,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <code><a href="#secret_key_base">SECRET_KEY_BASE</a></code>
 <br> <code><a href="#recaptcha_site_key">RECAPTCHA_SITE_KEY</a></code>
 <br> <code><a href="#recaptcha_secret_key">RECAPTCHA_SECRET_KEY</a></code>
+<br> <code><a href="#usercheck_api_key">USERCHECK_API_KEY</a></code>
 <br> <code><a href="#geoip_database">GEOIP_DATABASE</a></code>
 <br> <code><a href="#maxmind_license_key">MAXMIND_LICENSE_KEY</a></code>
 <br> <code><a href="#ga_code">GA_CODE</a></code> (GA=Google Analytics)
@@ -1274,6 +1275,33 @@ href="#smtp_mailer_enable_starttls_auto">SMTP_MAILER_ENABLE_STARTTLS_AUTO</a>.
         <li>
             <code>RECAPTCHA_SECRET_KEY: '7HjPjGBBBBBCBBBpuTy8a33sgnGG7A'</code><br>
             (Called <small><code>RECAPTCHA_PRIVATE_KEY</code></small> before release 0.32)
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="usercheck_api_key"><code>USERCHECK_API_KEY</code></a>
+  </dt>
+  <dd>
+      API key for <a href="https://www.usercheck.com">UserCheck.com</a>, used to
+      detect spammy sign-ups. If set, Alaveteli checks the email domain of each
+      new user account against the UserCheck API and adds to the account's spam
+      score if the domain is a disposable email domain (default score 20), a
+      relay or forwarding domain (10), or has invalid MX records (5). If the key
+      is not set, the checks don't run at all. Only the email
+      <strong>domain</strong> is sent to the API &mdash; never the full email
+      address &mdash; and results are cached for 28 days per domain, so a domain
+      that has already been seen generates no further requests. If the API is
+      unavailable, the checks silently score nothing and Alaveteli falls back to
+      its existing behaviour. The default scores can be changed via
+      <code>score_mappings</code> in
+      <a href="#other-config"><code>config/user_spam_scorer.yml</code></a>.
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>USERCHECK_API_KEY: 'xxxxxxxxxxxxxxxxxxxxxxxx'</code>
         </li>
       </ul>
     </div>
@@ -2456,5 +2484,18 @@ which you can copy into place.
   </dt>
   <dd>
     Apache and Nginx configuration suggestions
+  </dd>
+  <dt>
+    <strong>user_spam_scorer.yml</strong>
+  </dt>
+  <dd>
+    optional per-site tuning of the user spam scorer, which scores new user
+    accounts for spam signals. You can adjust the weight given to each check
+    via <code>score_mappings</code> &mdash; including the three
+    <a href="https://www.usercheck.com">UserCheck.com</a> email-domain checks
+    enabled by
+    <code><a href="#usercheck_api_key">USERCHECK_API_KEY</a></code> &mdash;
+    and override the lists of suspicious and spam email domains. Copy
+    <code>config/user_spam_scorer.yml-example</code> into place to use it
   </dd>
 </dl>
