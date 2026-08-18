@@ -1643,7 +1643,15 @@ class InfoRequest < ApplicationRecord
     end
 
     # for the "waiting_classification" index
+    # TODO: drop this once the waiting_classification index is based on
+    # postgresql queries instead of xapian
     reindex_request_events
+
+    # make sure the incoming_message is indexed for search now that
+    # it is fully received. Without this, it may not be findable until
+    # someone visits the request page.
+    incoming_message.parse_raw_email!
+    incoming_message.get_main_body_text_folded
 
     incoming_message
   end

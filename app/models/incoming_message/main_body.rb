@@ -38,6 +38,25 @@ module IncomingMessage::MainBody
       site_name: site_name)
   end
 
+  # fetches the raw email and extracts text without applying masks nor
+  # censor rules.
+  def get_main_body_text_uncensored_for_indexing
+    parse_raw_email
+    main_part = get_main_body_text_part
+    AttachmentToText.
+      from_part(main_part, main_part.unmasked_body).
+      to_text.
+      squeeze(' ')
+  rescue FoiAttachment::MissingError,
+         FoiAttachment::ErasedError,
+         RawEmail::Erasable::ErasedError
+    # TODO: is there still some content we can index?
+    ''
+  rescue ActiveStorage::FileNotFoundError
+    puts("File not found for #{self.class.name} #{id}")
+    ''
+  end
+
   # Returns part which contains main body text, or nil if there isn't one,
   # from a set of foi_attachments. If the leaves parameter is empty or not
   # supplied, uses its own foi_attachments.
@@ -138,6 +157,8 @@ module IncomingMessage::MainBody
     return '' if Ability.guest.cannot?(:read, get_main_body_text_part)
 
     get_body_for_quoting
+  rescue FoiAttachment::MaskingError
+    ''
   end
 
   # Returns text of email for using in quoted section when replying
