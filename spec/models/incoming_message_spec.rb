@@ -186,6 +186,9 @@ RSpec.describe IncomingMessage do
     let(:reason) { 'lock_all' }
 
     let!(:attachment_1) do
+      allow_any_instance_of(FoiAttachment).to receive(
+        :is_indexable?
+      ).and_return(false)
       FactoryBot.create(:pdf_attachment, :unlocked, incoming_message: message)
     end
 
@@ -791,6 +794,9 @@ RSpec.describe IncomingMessage do
   describe '#get_attachment_text_full' do
     it 'does not generate incompatible character encodings' do
       message = FactoryBot.create(:incoming_message)
+      allow_any_instance_of(FoiAttachment).to receive(
+        :is_indexable?
+      ).and_return(false)
       FactoryBot.create(:body_text,
                         body: 'hí',
                         incoming_message: message,
@@ -871,6 +877,9 @@ RSpec.describe IncomingMessage do
 
     it 'strips null bytes from the extracted clipped text' do
       message = FactoryBot.create(:incoming_message)
+      allow_any_instance_of(FoiAttachment).to receive(
+        :is_indexable?
+      ).and_return(false)
       FactoryBot.
         create(:body_text, body: "hi\u0000", incoming_message: message)
       message.reload
@@ -978,6 +987,9 @@ RSpec.describe IncomingMessage do
 
     context 'if there are locked attachments' do
       before do
+        allow_any_instance_of(FoiAttachment).to receive(
+          :is_indexable?
+        ).and_return(false)
         FactoryBot.create(:body_text, incoming_message: message, locked: true)
       end
 

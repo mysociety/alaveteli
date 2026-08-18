@@ -33,6 +33,10 @@ RSpec.describe FoiAttachment do
     subject { described_class.binary }
 
     before do
+      allow_any_instance_of(FoiAttachment).to receive(
+        :is_indexable?
+      ).and_return(false)
+
       FactoryBot.create(:body_text)
       FactoryBot.create(:html_attachment)
     end
@@ -405,7 +409,12 @@ RSpec.describe FoiAttachment do
     context 'when attachment has been destroy' do
       let(:foi_attachment) { FactoryBot.create(:foi_attachment) }
 
-      before { foi_attachment.destroy }
+      before {
+        allow_any_instance_of(FoiAttachment).to receive(
+          :is_indexable?
+        ).and_return(false)
+        foi_attachment.destroy
+      }
 
       it 'returns load_attachment_from_incoming_message.body' do
         allow(foi_attachment).to(
@@ -457,6 +466,12 @@ RSpec.describe FoiAttachment do
   end
 
   describe '#default_body' do
+    before :each do
+      allow_any_instance_of(FoiAttachment).to receive(
+        :is_indexable?
+      ).and_return(false)
+    end
+
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
 
@@ -722,6 +737,9 @@ RSpec.describe FoiAttachment do
 
     context 'with a delivery status notification' do
       let(:foi_attachment) do
+        allow_any_instance_of(FoiAttachment).to receive(
+          :is_indexable?
+        ).and_return(false)
         FactoryBot.create(:delivery_status_notification_attachment)
       end
 
@@ -940,6 +958,9 @@ RSpec.describe FoiAttachment do
 
     context 'with deeply nested HTML attachment' do
       let(:info_request) do
+        allow_any_instance_of(FoiAttachment).to receive(
+          :is_indexable?
+        ).and_return(false)
         FactoryBot.create(:info_request_with_deeply_nested_html_attachment)
       end
 
@@ -2570,6 +2591,12 @@ RSpec.describe FoiAttachment do
   describe '#storage_key' do
     let(:foi_attachment) { FactoryBot.create(:foi_attachment) }
 
+    before :each do
+      allow_any_instance_of(FoiAttachment).to receive(
+        :is_indexable?
+      ).and_return(false)
+    end
+
     context 'when file is attached' do
       it 'returns the blob key' do
         expect(foi_attachment.file).to be_attached
@@ -2594,6 +2621,30 @@ RSpec.describe FoiAttachment do
     it 'put the attachment in the raw email of its message' do
       foi_attachment = FactoryBot.create(:pdf_attachment)
       expect(foi_attachment.unmasked_body).to eq(foi_attachment.body)
+    end
+  end
+
+  describe 'search indexing', :postgresql do
+    it 'indexes the attachment content correctly' do
+      expect(
+        SearchDocument.where(searchable_type: 'FoiAttachment').count
+      ).to eq(0)
+      incoming_message = FactoryBot.create(
+        :incoming_message, :with_pdf_attachment
+      )
+      incoming_message.foi_attachments.map(&:body)
+      incoming_message.foi_attachments.map(&:reindex)
+      perform_enqueued_jobs
+      expect(
+        incoming_message.foi_attachments.second.search_documents.count
+      ).to eq(1)
+      expect(
+        FoiAttachment.search_scope(
+          'powered by',
+          exact_mode: true,
+          backend: :postgresql
+        )
+      ).to include(incoming_message.foi_attachments.second)
     end
   end
 end

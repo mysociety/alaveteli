@@ -97,6 +97,9 @@ FactoryBot.define do
       content_type { 'text/plain' }
       body { 'hereisthetext' }
       filename { 'attachment.txt' }
+      after(:build) do |attachment|
+        attachment.define_singleton_method(:is_indexable?) { false }
+      end
     end
 
     factory :doc_attachment do
@@ -115,6 +118,9 @@ FactoryBot.define do
       content_type { 'application/pdf' }
       filename { 'interesting.pdf' }
       body { load_file_fixture('interesting.pdf') }
+      after(:build) do |attachment|
+        attachment.define_singleton_method(:is_indexable?) { false }
+      end
     end
 
     factory :ppt_attachment do

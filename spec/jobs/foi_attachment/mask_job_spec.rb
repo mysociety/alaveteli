@@ -86,6 +86,9 @@ RSpec.describe FoiAttachment::MaskJob, type: :job do
     end
 
     it 'rebuilds the attachment and masks if the hexdigest does not match' do
+      allow_any_instance_of(FoiAttachment).to receive(
+        :is_indexable?
+      ).and_return(false)
       CensorRule.create!(
         text: 'dull', replacement: 'Banana',
         last_edit_editor: 'unknown', last_edit_comment: 'none'
