@@ -5,13 +5,17 @@ ENV DOCKER=1
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update -y && \
+    apt-get install -y postgresql-common && \
+    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+
+RUN apt-get update -y && \
     apt-get install -y \
     elinks \
     ghostscript \
     libmagic-dev \
     pdftk \
     poppler-utils \
-    postgresql-client \
+    postgresql-client-15 \
     sendmail \
     tnef \
     unrtf \
