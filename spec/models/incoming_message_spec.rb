@@ -722,6 +722,22 @@ RSpec.describe IncomingMessage do
     end
   end
 
+  describe 'search indexing', :postgresql do
+    it 'indexes the main body correctly' do
+      expect(
+        SearchDocument.where(searchable_type: 'IncomingMessage').count
+      ).to eq(0)
+      incoming_message = FactoryBot.create(:plain_incoming_message)
+      incoming_message.parse_raw_email!
+      incoming_message.get_main_body_text_folded
+      incoming_message.reindex
+      expect(incoming_message.search_documents.count).to eq(1)
+      expect(
+        IncomingMessage.search_scope('rubbish', backend: :postgresql)
+      ).to include(incoming_message)
+    end
+  end
+
   describe '#get_body_for_indexing' do
     subject { incoming_message.get_body_for_indexing }
 
@@ -1339,6 +1355,9 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
     mail = get_fixture_mail('inline-uuencode.eml')
     im = incoming_messages(:useless_incoming_message)
     allow(im.raw_email).to receive(:mail!).and_return(mail)
+    allow_any_instance_of(FoiAttachment).to receive(
+      :is_indexable?
+    ).and_return(false)
     im.parse_raw_email!
     attachments = im.foi_attachments
     expect(attachments.size).to eq(2)
