@@ -56,6 +56,7 @@ FactoryBot.define do
       incoming_message.raw_email.data =
         build_incoming_message_mail(incoming_message)
       incoming_message.save!
+      foi_attachment.association(:raw_email).reset
     end
 
     trait :unmasked do
