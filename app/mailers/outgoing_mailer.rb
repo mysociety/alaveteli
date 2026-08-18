@@ -72,16 +72,6 @@ class OutgoingMailer < ApplicationMailer
     end
   end
 
-  # Subject to use for followup
-  def self.subject_for_followup(info_request, outgoing_message, options = {})
-    if outgoing_message.what_doing == 'internal_review'
-      _("Internal review of {{email_subject}}", email_subject: info_request.email_subject_request(html: options[:html]))
-    else
-      info_request.email_subject_followup(incoming_message: outgoing_message.incoming_message_followup,
-                                                 html: options[:html])
-    end
-  end
-
   # Whether we have a valid email address for a followup
   def self.is_followupable?(info_request, incoming_message_followup)
     if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
