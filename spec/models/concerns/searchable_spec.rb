@@ -78,3 +78,49 @@ RSpec.describe Searchable, 'index lifecycle' do
     end
   end
 end
+
+RSpec.describe Searchable do
+  describe '.searchable_models' do
+    it 'returns the registered models as classes' do
+      expect(described_class.searchable_models).
+        to include(User)
+    end
+  end
+
+  describe '.not_indexed', :postgresql do
+    let(:user) { users(:bob_smith_user) }
+
+    it 'excludes records that already have a search document' do
+      # the :postgresql hook has already indexed every user
+      expect(User.not_indexed).not_to include(user)
+    end
+
+    it 'includes records without a search document' do
+      SearchDocument.delete_all
+      expect(User.not_indexed).to include(user)
+    end
+
+    it 'excludes a record once it has been reindexed' do
+      SearchDocument.delete_all
+      user.reindex
+      expect(User.not_indexed).not_to include(user)
+    end
+  end
+
+  describe '.reindex_record', :postgresql do
+    let(:user) { users(:bob_smith_user) }
+
+    it 'reindexes the record and returns true' do
+      SearchDocument.delete_all
+      expect(User.reindex_record(user)).to be(true)
+      expect(User.not_indexed).not_to include(user)
+    end
+
+    it 'logs and returns false when the record fails to reindex' do
+      allow(user).to receive(:reindex).and_raise(StandardError, 'boom')
+      expect(Rails.logger).to receive(:error).
+        with(/Failed to reindex User/)
+      expect(User.reindex_record(user)).to be(false)
+    end
+  end
+end
