@@ -5,6 +5,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminPublicBodyController < AdminController
+  include Admin::Searchable
   include Admin::Sortable
   include TranslatableParams
 
@@ -244,9 +245,8 @@ class AdminPublicBodyController < AdminController
       @query = nil if @query == ""
       @page = params[:page]
       @page = nil if @page == ""
-      @search_engine = params[:search_engine] || 'new'
 
-      if @search_engine == 'legacy'
+      if legacy_search?
         lookup_query_legacy
       else
         lookup_query_new
