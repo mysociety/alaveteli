@@ -1,4 +1,5 @@
 require 'ipaddr'
+require 'user_check'
 require 'user_spam_scorer'
 
 path = Rails.root.join('config/user_spam_scorer.yml')
@@ -12,3 +13,5 @@ if File.exist?(path)
     UserSpamScorer.public_send("#{key}=", value)
   end
 end
+
+UserCheck.register_scoring_methods!

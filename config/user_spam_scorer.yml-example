@@ -3,6 +3,19 @@
 #
 # Unfortunately at this time you can't override the regular expressions defined
 # for DEFAULT_SPAM_NAME_FORMAT or DEFAULT_SPAM_ABOUT_ME_FORMAT.
+#
+# score_mappings replaces the default set of checks and weights entirely, so
+# list every check you want to run. Scores registered by custom scoring
+# methods (for example the UserCheck email domain checks, enabled by setting
+# USERCHECK_API_KEY in general.yml) act as defaults which a score_mappings
+# entry here overrides:
+#
+#   score_mappings:
+#     name_is_all_lowercase?: 1
+#     name_is_one_word?: 1
+#     email_domain_is_disposable: 20
+#     email_domain_is_relay: 10
+#     email_domain_invalid_mx: 5
 
 user_spam_scorer:
   currency_symbols:

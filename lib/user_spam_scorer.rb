@@ -156,10 +156,12 @@ class UserSpamScorer
       instance_variable_set("@#{ key }", opts.fetch(key, self.class.send(key)))
     end
 
-    @score_mappings ||= []
-    self.class.custom_scoring_methods.each do |method_name, config|
-      @score_mappings = @score_mappings.merge(method_name => config[:score])
-    end
+    # Registered custom scoring methods provide default scores which a
+    # configured score_mappings (e.g. from config/user_spam_scorer.yml,
+    # where keys arrive as Strings) can override.
+    registered_scores =
+      self.class.custom_scoring_methods.transform_values { |c| c[:score] }
+    @score_mappings = registered_scores.merge(@score_mappings.symbolize_keys)
   end
 
   def spam?(user)
@@ -174,8 +176,14 @@ class UserSpamScorer
       result = if self.class.custom_scoring_methods.key?(method_name)
                  config = self.class.custom_scoring_methods[method_name]
                  config[:proc].call(user)
-               else
+               elsif respond_to?(method_name)
                  send(method_name, user)
+               else
+                 Rails.logger.warn(
+                   "UserSpamScorer: unknown score mapping " \
+                   "\"#{ method_name }\", skipping"
+                 )
+                 false
                end
 
       if result
