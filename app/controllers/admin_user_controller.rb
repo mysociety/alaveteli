@@ -5,6 +5,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminUserController < AdminController
+  include Admin::Searchable
   include Admin::Sortable
 
   layout 'admin/users'
@@ -32,19 +33,7 @@ class AdminUserController < AdminController
 
     @roles = params[:roles] || []
 
-    users = @base_scope || User
-    if @query.present?
-      # Admin search relies on the PostgreSQL-only admin index, so force
-      # that backend whatever SEARCH_BACKEND configures. Exact mode keeps
-      # fragment searches like partial email addresses working.
-      users = users.search_scope(
-        @query,
-        backend: :postgresql,
-        admin_mode: true,
-        exact_mode: true,
-        case_sensitive: false
-      )
-    end
+    users = legacy_search? ? index_legacy : index_new
 
     # with_all_roles returns an array as it takes multiple queries
     # so we need to requery in order to paginate
@@ -149,6 +138,29 @@ class AdminUserController < AdminController
   end
 
   private
+
+  def index_legacy
+    users = @base_scope || User
+    return users if @query.blank?
+
+    users.legacy_search(@query)
+  end
+
+  def index_new
+    users = @base_scope || User
+    return users if @query.blank?
+
+    # Admin search relies on the PostgreSQL-only admin index, so force
+    # that backend whatever SEARCH_BACKEND configures. Exact mode keeps
+    # fragment searches like partial email addresses working.
+    users.search_scope(
+      @query,
+      backend: :postgresql,
+      admin_mode: true,
+      exact_mode: true,
+      case_sensitive: false
+    )
+  end
 
   def user_params
     if params[:admin_user]
