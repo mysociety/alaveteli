@@ -45,6 +45,7 @@ class InfoRequest < ApplicationRecord
   include LinkToHelper
 
   include Categorisable
+  include Searchable
   include Taggable
   include Notable
   include RateLimited
@@ -211,6 +212,16 @@ class InfoRequest < ApplicationRecord
   after_update :reindex_request_events, if: :reindexable_attribute_changed?
   before_destroy :expire
   after_destroy :notify_associations, :update_counter_cache
+
+  searchable index: {
+               "title": "A",
+               "url_title": "B"
+             },
+             admin_index: {
+               "external_user_name": "A",
+               "external_url": "A",
+               "prominence_reason": "D"
+             }
 
   # Return info request corresponding to an incoming email address, or nil if
   # none found. Checks the hash to ensure the email came from the public body -

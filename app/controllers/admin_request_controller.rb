@@ -15,20 +15,14 @@ class AdminRequestController < AdminController
 
   def index
     @query = params[:query]
-    if @query
-      info_requests = InfoRequest.where(["lower(title) like lower('%'||?||'%')", @query])
+    @query = nil if @query == ''
+    @search_engine = params[:search_engine] || 'new'
+
+    if @search_engine == 'legacy'
+      index_legacy
     else
-      info_requests = InfoRequest
+      index_new
     end
-
-    if cannot? :admin, AlaveteliPro::Embargo
-      info_requests = info_requests.not_embargoed
-    end
-
-    @info_requests =
-      info_requests.
-      order(sort_query).
-      paginate(page: params[:page], per_page: 100)
   end
 
   def show
@@ -215,6 +209,44 @@ class AdminRequestController < AdminController
   end
 
   private
+
+  def index_legacy
+    if @query
+      info_requests = InfoRequest.where(["lower(title) like lower('%'||?||'%')", @query])
+    else
+      info_requests = InfoRequest
+    end
+
+    if cannot? :admin, AlaveteliPro::Embargo
+      info_requests = info_requests.not_embargoed
+    end
+
+    @info_requests =
+      info_requests.
+      order(sort_query).
+      paginate(page: params[:page], per_page: 100)
+  end
+
+  def index_new
+    info_requests =
+      if @query
+        InfoRequest.search_scope(@query,
+                                 backend: :postgresql,
+                                 admin_mode: true)
+      else
+        InfoRequest
+      end
+
+    if cannot? :admin, AlaveteliPro::Embargo
+      info_requests = info_requests.not_embargoed
+    end
+
+    @info_requests =
+      info_requests.
+      includes(:embargo, :user, public_body: :translations).
+      order(sort_query).
+      paginate(page: params[:page], per_page: 100)
+  end
 
   def info_request_params
     if params[:info_request]
