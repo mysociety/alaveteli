@@ -334,7 +334,9 @@ class InfoRequest < ApplicationRecord
     return [] unless subject_line
 
     # try to find a match on InfoRequest#title
-    reply_format = InfoRequest.new(title: '').email_subject_followup
+    reply_format = OutgoingMessage::Subject.new(
+      info_request: InfoRequest.new(title: ''), html: false
+    ).followup
     requests_by_title = InfoRequest.left_joins(:incoming_messages).
       where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
 
@@ -827,26 +829,6 @@ class InfoRequest < ApplicationRecord
 
   def incoming_name_and_email
     MailHandler.address_from_name_and_email(user_name, incoming_email)
-  end
-
-  # Subject lines for emails about the request
-  def email_subject_request(opts = {})
-    html = opts.fetch(:html, true)
-    _('{{law_used_full}} request - {{title}}',
-      law_used_full: legislation.to_s(:full),
-      title: (html ? title : title.html_safe))
-  end
-
-  def email_subject_followup(opts = {})
-    incoming_message = opts.fetch(:incoming_message, nil)
-    html = opts.fetch(:html, true)
-    if incoming_message.nil? || !incoming_message.valid_to_reply_to? || !incoming_message.subject
-      'Re: ' + email_subject_request(html: html)
-    elsif incoming_message.subject.match(/^Re:/i)
-      incoming_message.subject
-    else
-      'Re: ' + incoming_message.subject
-    end
   end
 
   def legislation

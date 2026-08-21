@@ -251,92 +251,86 @@ RSpec.describe OutgoingMessage do
     end
   end
 
+  # Advanced composition rules are covered by OutgoingMessage::Subject specs.
+  # These just check that we dispatch to the right OutgoingMessage::Subject
+  # method and pass through the options.
   describe '#subject' do
+    subject { message.subject(html: html, incoming_message: incoming_message) }
+
+    # Defaults
+    let(:html) { true }
+    let(:incoming_message) { nil }
+
+    let(:info_request) do
+      FactoryBot.create(:info_request, title: 'Example Request')
+    end
+
     context 'when sending an initial request' do
-      it 'uses the request title with the law prefixed' do
-        request = FactoryBot.create(:info_request, title: 'Example Request')
-        message = FactoryBot.build(:initial_request, info_request: request)
-        expected = 'Freedom of Information request - Example Request'
-        expect(message.subject).to eq(expected)
+      let(:message) do
+        FactoryBot.build(:initial_request, info_request: info_request)
+      end
+
+      it 'uses the request subject' do
+        is_expected.to eq('Freedom of Information request - Example Request')
       end
     end
 
-    context 'when sending a followup that is not a reply to an incoming message' do
-      it 'prefixes the initial request subject with Re:' do
-        request = FactoryBot.create(:info_request, title: 'Example Request')
-        message = FactoryBot.build(:new_information_followup,
-                                   info_request: request)
-        allow(message).to receive(:incoming_message_followup).and_return(nil)
-        expected = 'Re: Freedom of Information request - Example Request'
-        expect(message.subject).to eq(expected)
-      end
-    end
-
-    context 'when following up to an incoming message' do
-      it 'uses the request title prefixed with Re: if the incoming message does not have a valid reply address' do
-        request = FactoryBot.create(:info_request, title: 'Example Request')
-        message = FactoryBot.build(:new_information_followup,
-                                   info_request: request)
-
-        followup =
-          mock_model(IncomingMessage, valid_to_reply_to?: false)
-        allow(message).
-          to receive(:incoming_message_followup).and_return(followup)
-
-        expected = 'Re: Freedom of Information request - Example Request'
-        expect(message.subject).to eq(expected)
+    context 'when sending a followup' do
+      let(:message) do
+        FactoryBot.build(:new_information_followup, info_request: info_request)
       end
 
-      it 'uses the request title prefixed with Re: if the incoming message does not have a subject' do
-        request = FactoryBot.create(:info_request, title: 'Example Request')
-        message = FactoryBot.build(:new_information_followup,
-                                   info_request: request)
-
-        followup = mock_model(IncomingMessage, subject: nil,
-                                               valid_to_reply_to?: true)
-        allow(message).
-          to receive(:incoming_message_followup).and_return(followup)
-
-        expected = 'Re: Freedom of Information request - Example Request'
-        expect(message.subject).to eq(expected)
-      end
-
-      it 'uses the incoming message subject if it is already prefixed with Re:' do
-        request = FactoryBot.create(:info_request, title: 'Example Request')
-        message = FactoryBot.build(:new_information_followup,
-                                   info_request: request)
-
-        followup =
-          mock_model(IncomingMessage, valid_to_reply_to?: true,
-                                      subject: 'Re: FOI REF#123456789')
-        allow(message).
-          to receive(:incoming_message_followup).and_return(followup)
-
-        expect(message.subject).to eq('Re: FOI REF#123456789')
-      end
-
-      it 'prefixes the incoming message subject if it is not prefixed with Re:' do
-        request = FactoryBot.create(:info_request, title: 'Example Request')
-        message = FactoryBot.build(:new_information_followup,
-                                   info_request: request)
-
-        followup =
-          mock_model(IncomingMessage, valid_to_reply_to?: true,
-                                      subject: 'FOI REF#123456789')
-        allow(message).
-          to receive(:incoming_message_followup).and_return(followup)
-
-        expect(message.subject).to eq('Re: FOI REF#123456789')
+      it 'uses the followup subject' do
+        is_expected.
+          to eq('Re: Freedom of Information request - Example Request')
       end
     end
 
     context 'when requesting an internal review' do
-      it 'prefixes the request title with the internal review message' do
-        request = FactoryBot.create(:info_request, title: 'Example Request')
-        message = FactoryBot.build(:internal_review_request, info_request: request)
-        expected = 'Internal review of Freedom of Information request - Example Request'
-        expect(message.subject).to eq(expected)
+      let(:message) do
+        FactoryBot.build(:internal_review_request, info_request: info_request)
       end
+
+      it 'uses the internal review subject' do
+        is_expected.
+          to eq('Internal review of Freedom of Information request - ' \
+                'Example Request')
+      end
+    end
+
+    context 'with non-ASCII characters' do
+      let(:info_request) do
+        FactoryBot.create(:info_request, title: 'Fish & Chips')
+      end
+
+      let(:message) do
+        FactoryBot.build(:initial_request, info_request: info_request)
+      end
+
+      it 'defaults to html-escaped output' do
+        is_expected.to match(/Fish &amp; Chips/)
+      end
+
+      context 'when explicitly setting html: false' do
+        let(:html) { false }
+        it { is_expected.to match(/Fish & Chips/) }
+      end
+    end
+
+    context 'when passing an incoming_message' do
+      let(:message) do
+        FactoryBot.build(:new_information_followup, info_request: info_request)
+      end
+
+      let(:incoming_message) do
+        mock_model(
+          IncomingMessage,
+          valid_to_reply_to?: true,
+          subject: 'Custom Subject'
+        )
+      end
+
+      it { is_expected.to eq('Re: Custom Subject') }
     end
   end
 
@@ -1071,7 +1065,9 @@ RSpec.describe OutgoingMessage do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
-          request_subject = message.info_request.email_subject_request(html: false)
+          request_subject = OutgoingMessage::Subject.new(
+            info_request: message.info_request, html: false
+          ).initial_request
           smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
           load_mail_server_logs <<-EOF.strip_heredoc
@@ -1087,7 +1083,9 @@ RSpec.describe OutgoingMessage do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
-          request_subject = message.info_request.email_subject_request(html: false)
+          request_subject = OutgoingMessage::Subject.new(
+            info_request: message.info_request, html: false
+          ).initial_request
           smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
           load_mail_server_logs <<-EOF.strip_heredoc
@@ -1103,7 +1101,9 @@ RSpec.describe OutgoingMessage do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
-          request_subject = message.info_request.email_subject_request(html: false)
+          request_subject = OutgoingMessage::Subject.new(
+            info_request: message.info_request, html: false
+          ).initial_request
           smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
           load_mail_server_logs <<-EOF.strip_heredoc
@@ -1137,7 +1137,9 @@ RSpec.describe OutgoingMessage do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
-          request_subject = message.info_request.email_subject_request(html: false)
+          request_subject = OutgoingMessage::Subject.new(
+            info_request: message.info_request, html: false
+          ).initial_request
           smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
           load_mail_server_logs <<-EOF.strip_heredoc
@@ -1199,7 +1201,9 @@ RSpec.describe OutgoingMessage do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
-          request_subject = message.info_request.email_subject_request(html: false)
+          request_subject = OutgoingMessage::Subject.new(
+            info_request: message.info_request, html: false
+          ).initial_request
           smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
           load_mail_server_logs <<-EOF.strip_heredoc
@@ -1259,7 +1263,9 @@ RSpec.describe OutgoingMessage do
             message = FactoryBot.create(:initial_request)
             body_email = message.info_request.public_body.request_email
             request_email = message.info_request.incoming_email
-            request_subject = message.info_request.email_subject_request(html: false)
+            request_subject = OutgoingMessage::Subject.new(
+              info_request: message.info_request, html: false
+            ).initial_request
             smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
             load_mail_server_logs <<-EOF.strip_heredoc
@@ -1297,7 +1303,9 @@ RSpec.describe OutgoingMessage do
             message = FactoryBot.create(:initial_request)
             body_email = message.info_request.public_body.request_email
             request_email = message.info_request.incoming_email
-            request_subject = message.info_request.email_subject_request(html: false)
+            request_subject = OutgoingMessage::Subject.new(
+              info_request: message.info_request, html: false
+            ).initial_request
             smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
             load_mail_server_logs <<-EOF.strip_heredoc
@@ -1365,7 +1373,9 @@ RSpec.describe OutgoingMessage do
             message = FactoryBot.create(:initial_request)
             body_email = message.info_request.public_body.request_email
             request_email = message.info_request.incoming_email
-            request_subject = message.info_request.email_subject_request(html: false)
+            request_subject = OutgoingMessage::Subject.new(
+              info_request: message.info_request, html: false
+            ).initial_request
             smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
             load_mail_server_logs <<-EOF.strip_heredoc
@@ -1432,7 +1442,9 @@ RSpec.describe OutgoingMessage do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
-          request_subject = message.info_request.email_subject_request(html: false)
+          request_subject = OutgoingMessage::Subject.new(
+            info_request: message.info_request, html: false
+          ).initial_request
           smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
           load_mail_server_logs <<-EOF.strip_heredoc
@@ -1471,7 +1483,9 @@ RSpec.describe OutgoingMessage do
           message = FactoryBot.create(:internal_review_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
-          request_subject = message.info_request.email_subject_request(html: false)
+          request_subject = OutgoingMessage::Subject.new(
+            info_request: message.info_request, html: false
+          ).initial_request
           smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
           message.prepare_message_for_resend
@@ -1528,7 +1542,9 @@ RSpec.describe OutgoingMessage do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
-          request_subject = message.info_request.email_subject_request(html: false)
+          request_subject = OutgoingMessage::Subject.new(
+            info_request: message.info_request, html: false
+          ).initial_request
           smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
           load_mail_server_logs <<-EOF.strip_heredoc
@@ -1557,7 +1573,9 @@ RSpec.describe OutgoingMessage do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
-          request_subject = message.info_request.email_subject_request(html: false)
+          request_subject = OutgoingMessage::Subject.new(
+            info_request: message.info_request, html: false
+          ).initial_request
           smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
           load_mail_server_logs <<-EOF.strip_heredoc
@@ -1589,7 +1607,9 @@ RSpec.describe OutgoingMessage do
           message = FactoryBot.create(:initial_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
-          request_subject = message.info_request.email_subject_request(html: false)
+          request_subject = OutgoingMessage::Subject.new(
+            info_request: message.info_request, html: false
+          ).initial_request
           smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
           load_mail_server_logs <<-EOF.strip_heredoc
@@ -1631,7 +1651,9 @@ RSpec.describe OutgoingMessage do
           message = FactoryBot.create(:internal_review_request)
           body_email = message.info_request.public_body.request_email
           request_email = message.info_request.incoming_email
-          request_subject = message.info_request.email_subject_request(html: false)
+          request_subject = OutgoingMessage::Subject.new(
+            info_request: message.info_request, html: false
+          ).initial_request
           smtp_message_id = 'ogm-14+537f69734b97c-1ebd@localhost'
 
           message.prepare_message_for_resend

@@ -2315,7 +2315,10 @@ RSpec.describe InfoRequest do
     end
 
     context 'a direct reply to the original request email' do
-      let(:subject_line) { info_request.email_subject_followup }
+      let(:subject_line) do
+        OutgoingMessage::Subject.new(info_request: info_request, html: false).
+          followup
+      end
 
       let(:guess) { Guess.new(info_request, subject: subject_line) }
 
@@ -2324,7 +2327,8 @@ RSpec.describe InfoRequest do
 
     context '"Re" in the incoming subject has different capitalisation' do
       let(:subject_line) do
-        info_request.email_subject_followup.gsub('Re: ', 'RE: ')
+        OutgoingMessage::Subject.new(info_request: info_request, html: false).
+          followup.gsub('Re: ', 'RE: ')
       end
 
       let(:guess) { Guess.new(info_request, subject: subject_line) }
@@ -3357,25 +3361,6 @@ RSpec.describe InfoRequest do
                                                   name: 'Alaveteli User',
                                                   ban_text: '',
                                                   about_me: 'Hi' })
-    end
-  end
-
-  describe 'when working out a subject for request emails' do
-    it 'creates a standard request subject' do
-      info_request = FactoryBot.build(:info_request)
-      expected_text = "Freedom of Information request - #{info_request.title}"
-      expect(info_request.email_subject_request).to eq(expected_text)
-    end
-  end
-
-  describe 'when working out a subject for a followup emails' do
-    it "is not confused by an nil subject in the incoming message" do
-      ir = info_requests(:fancy_dog_request)
-      im = mock_model(IncomingMessage,
-                      subject: nil,
-                      valid_to_reply_to?: true)
-      subject = ir.email_subject_followup(incoming_message: im, html: false)
-      expect(subject).to match(/^Re: Freedom of Information request.*fancy dog/)
     end
 
     it "returns a hash with the user's name for an external request" do

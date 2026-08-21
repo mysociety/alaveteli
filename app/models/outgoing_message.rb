@@ -155,18 +155,21 @@ class OutgoingMessage < ApplicationRecord
   # message.
   #
   # Returns a String
-  def subject
+  def subject(html: true, incoming_message: incoming_message_followup)
+    subject = OutgoingMessage::Subject.new(
+      info_request: info_request,
+      incoming_message: incoming_message,
+      html: html
+    )
+
     if message_type == 'followup'
       if what_doing == 'internal_review'
-        _("Internal review of {{email_subject}}",
-          email_subject: info_request.email_subject_request(html: false))
+        subject.internal_review
       else
-        info_request.
-          email_subject_followup(incoming_message: incoming_message_followup,
-                                 html: false)
+        subject.followup
       end
     else
-      info_request.email_subject_request(html: false)
+      subject.initial_request
     end
   end
 

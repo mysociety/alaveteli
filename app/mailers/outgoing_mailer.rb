@@ -22,7 +22,7 @@ class OutgoingMailer < ApplicationMailer
 
     mail(from: @outgoing_message.from,
          to: @outgoing_message.to,
-         subject: @outgoing_message.subject)
+         subject: @outgoing_message.subject(html: false))
   end
 
   # Later message to public body regarding existing request
@@ -35,7 +35,7 @@ class OutgoingMailer < ApplicationMailer
 
     mail(from: @outgoing_message.from,
          to: @outgoing_message.to,
-         subject: @outgoing_message.subject)
+         subject: @outgoing_message.subject(html: false))
   end
 
   # TODO: the condition checking valid_to_reply_to? also appears in views/request/_followup.html.erb,
@@ -69,16 +69,6 @@ class OutgoingMailer < ApplicationMailer
       info_request.recipient_email
     else
       incoming_message_followup.from_email
-    end
-  end
-
-  # Subject to use for followup
-  def self.subject_for_followup(info_request, outgoing_message, options = {})
-    if outgoing_message.what_doing == 'internal_review'
-      _("Internal review of {{email_subject}}", email_subject: info_request.email_subject_request(html: options[:html]))
-    else
-      info_request.email_subject_followup(incoming_message: outgoing_message.incoming_message_followup,
-                                                 html: options[:html])
     end
   end
 
