@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Allow admins to download zips of batch requests, and only show batch download
+  links to users who can use them (Ben Fairless)
 * Allow admins to hide a request without notifying the user (Laurent Savaete)
 * Show public body change history while editing it (Laurent Savaete)
 * Warn users that their latest request may not be listed yet (Laurent Savaete)
