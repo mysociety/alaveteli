@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Consolidate outgoing message subject line generation to
+  `OutgoingMessage::Subject` (Gareth Rees)
 * Allow admins to hide a request without notifying the user (Laurent Savaete)
 * Show public body change history while editing it (Laurent Savaete)
 * Warn users that their latest request may not be listed yet (Laurent Savaete)
