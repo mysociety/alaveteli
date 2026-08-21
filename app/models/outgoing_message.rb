@@ -155,7 +155,7 @@ class OutgoingMessage < ApplicationRecord
   # message.
   #
   # Returns a String
-  def subject(html:, incoming_message: incoming_message_followup)
+  def subject(html: true, incoming_message: incoming_message_followup)
     subject = OutgoingMessage::Subject.new(
       info_request: info_request,
       incoming_message: incoming_message,
