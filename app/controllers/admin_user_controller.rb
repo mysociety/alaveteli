@@ -42,9 +42,10 @@ class AdminUserController < AdminController
       users = User.where(id: users.map(&:id))
     end
 
-    @admin_users =
+    @admin_users = measure_search(
       users.order(sort_query).
         paginate(page: params[:page], per_page: 100)
+    )
 
     render action: :index
   end

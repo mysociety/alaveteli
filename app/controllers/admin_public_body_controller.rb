@@ -246,10 +246,11 @@ class AdminPublicBodyController < AdminController
       @page = params[:page]
       @page = nil if @page == ""
 
-      @public_bodies =
+      @public_bodies = measure_search(
         public_body_scope.
           includes(:tags, :translations).
             paginate(page: @page, per_page: 100)
+      )
 
       @public_bodies_by_tag = PublicBody.
         find_by_tag(@query).
