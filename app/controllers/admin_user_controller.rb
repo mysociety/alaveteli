@@ -33,7 +33,7 @@ class AdminUserController < AdminController
 
     @roles = params[:roles] || []
 
-    users = legacy_search? ? index_legacy : index_new
+    users = user_scope
 
     # with_all_roles returns an array as it takes multiple queries
     # so we need to requery in order to paginate
@@ -139,21 +139,25 @@ class AdminUserController < AdminController
 
   private
 
-  def index_legacy
-    users = @base_scope || User
-    return users if @query.blank?
+  def user_scope
+    return base_scope if @query.blank?
 
-    users.legacy_search(@query)
+    legacy_search? ? legacy_user_scope : indexed_user_scope
   end
 
-  def index_new
-    users = @base_scope || User
-    return users if @query.blank?
+  def base_scope
+    @base_scope || User
+  end
 
+  def legacy_user_scope
+    base_scope.legacy_search(@query)
+  end
+
+  def indexed_user_scope
     # Admin search relies on the PostgreSQL-only admin index, so force
     # that backend whatever SEARCH_BACKEND configures. Exact mode keeps
     # fragment searches like partial email addresses working.
-    users.search_scope(
+    base_scope.search_scope(
       @query,
       backend: :postgresql,
       admin_mode: true,

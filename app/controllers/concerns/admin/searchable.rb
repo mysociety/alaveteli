@@ -7,7 +7,8 @@
 #     include Admin::Searchable
 #
 #     def index
-#       @admin_users = legacy_search? ? index_legacy : index_new
+#       users = legacy_search? ? legacy_user_scope : indexed_user_scope
+#       @admin_users = users.paginate(page: params[:page])
 #     end
 #   end
 #
