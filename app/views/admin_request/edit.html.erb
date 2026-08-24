@@ -90,6 +90,7 @@
   <p><label for="info_request_tag_string"><strong>Tags</strong> <small>(space separated, can use key:value)</small></label></p>
 
   <%= render 'admin/tag_field', object_name: 'info_request',
+                                model_type: 'InfoRequest',
                                 html: { size: 60 } %>
 
   <p><%= submit_tag 'Save changes', :accesskey => 's',

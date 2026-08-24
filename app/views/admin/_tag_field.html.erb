@@ -4,7 +4,10 @@
 
 <% suggestions_id = "#{object_name}_tag_string_suggestions" %>
 
-<div data-controller="tagging">
+<div data-controller="tagging"
+     data-tagging-url-value="<%= list_for_widget_admin_tags_path(
+                                   model_type: model_type, format: :json
+                                 ) %>">
   <%= text_field object_name, 'tag_string',
                  local_assigns.fetch(:html, {}).
                    merge(data: { tagging_target: 'field' }) %>

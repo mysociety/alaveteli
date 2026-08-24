@@ -37,6 +37,7 @@ class Admin::TagsController < AdminController
   # list available tags with their usage count for use in js widget
   def list_for_widget
     tags = HasTagString::HasTagStringTag.
+      where(model_type: current_klass.name).
       select("CONCAT_WS(':', name, value) AS t, COUNT(*) AS c").
       group(:name, :value).
       having('COUNT(*) > 1').

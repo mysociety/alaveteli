@@ -9,6 +9,7 @@
   <label for="public_body_tag_string" class="control-label">Tags</label>
   <div class="controls">
     <%= render 'admin/tag_field', object_name: 'public_body',
+                                  model_type: 'PublicBody',
                                   html: { class: 'span4' } %>
     <div class="help-block">
       <p>Space separated – see list of tags on the right.</p>

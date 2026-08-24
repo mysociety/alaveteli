@@ -127,6 +127,7 @@
   <label for="user_tag_string" class="control-label">Tags</label>
   <div class="controls">
     <%= render 'admin/tag_field', object_name: 'admin_user',
+                                  model_type: 'User',
                                   html: { class: 'span4' } %>
     <div class="help-block">
       space separated list of tags
