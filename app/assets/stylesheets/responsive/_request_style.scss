@@ -246,6 +246,10 @@ div.comment_in_request {
 
   .comment_content {
     padding: 1.2em 1.2em 0 1.2em;
+
+    .event_actions {
+      background-color: inherit;
+    }
   }
 }
 
