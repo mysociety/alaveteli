@@ -1,0 +1,31 @@
+<% content_for :javascript_head do %>
+  <%= javascript_importmap_tags("admin", importmap: Rails.application.admin_importmap) %>
+<% end %>
+
+<% suggestions_id = "#{object_name}_tag_string_suggestions" %>
+
+<div data-controller="tagging">
+  <%= text_field object_name, 'tag_string',
+                 local_assigns.fetch(:html, {}).
+                   merge(data: { tagging_target: 'field' }) %>
+
+  <div class="tagging-tag-container" data-action="click->tagging#focus">
+    <span class="tagging-tags-wrapper" data-tagging-target="tags"></span>
+
+    <input type="text" class="tagging-add-tags" placeholder="add tags..."
+           list="<%= suggestions_id %>"
+           data-tagging-target="input"
+           data-action="keydown->tagging#keydown
+                        keyup->tagging#keyup
+                        input->tagging#changed">
+
+    <datalist id="<%= suggestions_id %>" data-tagging-target="list"></datalist>
+  </div>
+
+  <template data-tagging-target="template"><code class="tagging-tags"><a
+    class="tagging-tag-remove"
+    title="Remove tag"
+    aria-label="Remove tag"
+    data-action="click->tagging#removeTag"
+  >&times;</a></code></template>
+</div>
