@@ -1,13 +1,13 @@
 import { Controller } from "@hotwired/stimulus"
 
-let tagList
+const tagLists = {}
 
 function fetchTagList(url) {
-  tagList ||= fetch(url).
+  tagLists[url] ||= fetch(url).
     then(response => response.ok ? response.json() : []).
     catch(() => [])
 
-  return tagList
+  return tagLists[url]
 }
 
 export default class extends Controller {

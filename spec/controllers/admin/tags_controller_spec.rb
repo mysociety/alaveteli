@@ -244,13 +244,28 @@ RSpec.describe Admin::TagsController do
       )
     end
 
-    it 'counts a tag across every model type' do
-      FactoryBot.create(:public_body, tag_string: 'spec_shared')
-      FactoryBot.create(:info_request, tag_string: 'spec_shared')
+    it 'only counts tags on the model being tagged' do
+      2.times { FactoryBot.create(:public_body, tag_string: 'spec_shared') }
+      2.times { FactoryBot.create(:info_request, tag_string: 'spec_shared') }
+
+      get :list_for_widget, params: { model_type: 'InfoRequest' },
+                            format: :json
+
+      expect(tags).to include('t' => 'spec_shared', 'c' => 2)
+    end
+
+    it 'defaults to public body tags' do
+      2.times { FactoryBot.create(:info_request, tag_string: 'spec_requests') }
 
       get :list_for_widget, format: :json
 
-      expect(tags).to include('t' => 'spec_shared', 'c' => 2)
+      expect(tags.map { |tag| tag['t'] }).to_not include('spec_requests')
+    end
+
+    it 'raise 404 for unknown types' do
+      expect {
+        get :list_for_widget, params: { model_type: 'unknown' }, format: :json
+      }.to raise_error ApplicationController::RouteNotFound
     end
   end
 end
