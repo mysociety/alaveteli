@@ -3,7 +3,7 @@ class Admin::TagsController < AdminController
 
   before_action :check_klass
 
-  skip_before_action :html_response, only: :list_for_widget
+  skip_before_action :html_response, only: :suggestions
 
   # GET /admin/tags
   def index
@@ -34,8 +34,7 @@ class Admin::TagsController < AdminController
       paginate(page: params[:page], per_page: 50)
   end
 
-  # list available tags with their usage count for use in js widget
-  def list_for_widget
+  def suggestions
     tags = HasTagString::HasTagStringTag.
       where(model_type: current_klass.name).
       select("CONCAT_WS(':', name, value) AS t, COUNT(*) AS c").
