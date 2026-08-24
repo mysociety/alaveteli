@@ -36,17 +36,13 @@ class Admin::TagsController < AdminController
 
   # list available tags with their usage count for use in js widget
   def list_for_widget
-    query = <<-SQL
-    SELECT
-      concat_ws(':',  name, value) AS t,
-      COUNT(*) AS c
-    FROM has_tag_string_tags
-    GROUP BY (name, value)
-    HAVING COUNT(*) > 1
-    ORDER BY c DESC;
-    SQL
+    tags = HasTagString::HasTagStringTag.
+      select("CONCAT_WS(':', name, value) AS t, COUNT(*) AS c").
+      group(:name, :value).
+      having('COUNT(*) > 1').
+      order(Arel.sql('COUNT(*) DESC'))
 
-    render json: ActiveRecord::Base.connection.execute(query)
+    render json: tags.map { |tag| { t: tag.t, c: tag.c } }
   end
 
   private

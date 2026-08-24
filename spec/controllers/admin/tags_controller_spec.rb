@@ -226,4 +226,31 @@ RSpec.describe Admin::TagsController do
       end
     end
   end
+
+  describe 'GET list_for_widget' do
+    def tags
+      JSON.parse(response.body)
+    end
+
+    it 'lists tags used more than once, most used first' do
+      2.times { FactoryBot.create(:public_body, tag_string: 'spec_pair') }
+      3.times { FactoryBot.create(:public_body, tag_string: 'spec_triple') }
+      FactoryBot.create(:public_body, tag_string: 'spec_once')
+
+      get :list_for_widget, format: :json
+
+      expect(tags.select { |tag| tag['t'].start_with?('spec_') }).to eq(
+        [{ 't' => 'spec_triple', 'c' => 3 }, { 't' => 'spec_pair', 'c' => 2 }]
+      )
+    end
+
+    it 'counts a tag across every model type' do
+      FactoryBot.create(:public_body, tag_string: 'spec_shared')
+      FactoryBot.create(:info_request, tag_string: 'spec_shared')
+
+      get :list_for_widget, format: :json
+
+      expect(tags).to include('t' => 'spec_shared', 'c' => 2)
+    end
+  end
 end
