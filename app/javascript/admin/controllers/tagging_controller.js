@@ -13,7 +13,7 @@ function fetchTagList(url) {
 export default class extends Controller {
   static targets = ["field", "tags", "input", "list", "template"]
   static values = {
-    url: { type: String, default: "/admin/tags/list_for_widget.json" }
+    url: { type: String, default: "/admin/tags/suggestions.json" }
   }
 
   connect() {

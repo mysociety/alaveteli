@@ -572,8 +572,8 @@ Rails.application.routes.draw do
   ####
 
   #### AdminTag controller
-  get '/admin/tags/list_for_widget' => 'admin/tags#list_for_widget',
-    as: :list_for_widget_admin_tags
+  get '/admin/tags/suggestions' => 'admin/tags#suggestions',
+      as: :suggestions_admin_tags
 
   namespace :admin do
     resources :tags, param: :tag, only: [:index, :show],
