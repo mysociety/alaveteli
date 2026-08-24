@@ -205,20 +205,22 @@ class SearchDocument < ApplicationRecord
       SearchDocument.where("sd_id IN (SELECT s.sd_id FROM (#{sql[:query]}) s)",
 sql[:values])
     else
-      scoped = relation.
-        with(search_results: Arel.sql(sql[:query], **sql[:values])).
-        joins(:search_documents).
+      # De-duplicate records that match through several translations or
+      # sections (the join yields one row per matching search_document).
+      # Matching on the ids keeps the relation chainable, countable and
+      # paginatable, and leaves PostgreSQL free to fetch just the rows
+      # that matched.
+      matching_ids = SearchDocument.
+        select(:searchable_id).
+        where(searchable_type: model.to_s).
         joins(
           "JOIN search_results " \
           "ON search_results.sd_id = search_documents.sd_id"
         )
 
-      # De-duplicate records that match through several translations or
-      # sections (the join yields one row per matching search_document).
-      # DISTINCT keeps the relation chainable, countable and paginatable;
-      # a faster DISTINCT ON (id) is not expressible through the ORM without
-      # losing those properties.
-      scoped.distinct
+      relation.
+        with(search_results: Arel.sql(sql[:query], **sql[:values])).
+        where(id: matching_ids)
     end
   end
 end
