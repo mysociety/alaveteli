@@ -67,6 +67,14 @@ RSpec.describe AdminRequestController, "when administering requests" do
         expect(assigns[:info_requests].include?(cat_request)).to be false
       end
 
+      it 'eager loads the associations the listing renders' do
+        get :index, params: { query: 'cat', search_engine: 'legacy' }
+        request = assigns[:info_requests].first
+        expect(request.association(:embargo)).to be_loaded
+        expect(request.association(:user)).to be_loaded
+        expect(request.association(:public_body)).to be_loaded
+      end
+
       context 'when pro is enabled' do
         it 'does not include embargoed requests if the current user is an
             admin user' do

@@ -223,6 +223,7 @@ class AdminRequestController < AdminController
 
     @info_requests =
       info_requests.
+      includes(:embargo, :user, public_body: :translations).
       order(sort_query).
       paginate(page: params[:page], per_page: 100)
   end

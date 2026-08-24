@@ -277,12 +277,15 @@ class AdminPublicBodyController < AdminController
       @public_bodies =
         PublicBody.
           joins(:translations).
-            where(query).
-              merge(PublicBody::Translation.order(:name)).
-                paginate(page: @page, per_page: 100)
+            includes(:tags, :translations).
+              where(query).
+                merge(PublicBody::Translation.order(:name)).
+                  paginate(page: @page, per_page: 100)
     end
 
-    @public_bodies_by_tag = PublicBody.find_by_tag(@query)
+    @public_bodies_by_tag = PublicBody.
+      find_by_tag(@query).
+        includes(:tags, :translations)
   end
 
   def lookup_query_new
