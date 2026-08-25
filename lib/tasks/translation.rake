@@ -141,15 +141,12 @@ namespace :translation do
                 output_file)
 
     # track mailer
-    xapian_object = ActsAsXapian::Search.new([InfoRequestEvent], track_thing.track_query,
-                                             sort_by_prefix: 'described_at',
-                                             sort_by_ascending: true,
-                                             collapse_by_prefix: nil,
-                                             limit: 100)
-    event_digest_email = TrackMailer.event_digest(info_request.user,
-                                                  [[track_thing,
-                                                    xapian_object.results,
-                                                    xapian_object]])
+    search_results = track_thing.matches(sort_by: 'described_at', limit: 100)
+    highlight_words = search_results.words_to_highlight(regex: true)
+    alert_events = search_results.results.map { |result| result[:model] }
+    event_digest_email = TrackMailer.event_digest(
+      info_request.user, [[track_thing, alert_events, highlight_words]]
+    )
     write_email(event_digest_email, 'Alerts on things the user is tracking', output_file)
 
     # user mailer

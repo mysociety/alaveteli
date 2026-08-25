@@ -73,6 +73,7 @@ class IncomingMessage < ApplicationRecord
 
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :unparsed, -> { where(last_parsed: nil) }
+  scope :is_searchable, -> { where(prominence: 'normal') }
 
   cache_from_raw_email :subject, :sent_at,
                        :from_name, :from_email, :from_email_domain,

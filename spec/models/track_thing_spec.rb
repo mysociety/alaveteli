@@ -77,6 +77,108 @@ RSpec.describe TrackThing, "when tracking changes" do
   end
 end
 
+RSpec.describe TrackThing, "generating track queries" do
+  describe ".create_track_for_request" do
+    it "matches the request by url title" do
+      info_request = FactoryBot.create(:info_request)
+      track_thing = TrackThing.create_track_for_request(info_request)
+      expect(track_thing.track_query).
+        to eq("request:#{ info_request.url_title }")
+    end
+  end
+
+  describe ".create_track_for_all_new_requests" do
+    it "matches sent events" do
+      track_thing = TrackThing.create_track_for_all_new_requests
+      expect(track_thing.track_query).to eq('variety:sent')
+    end
+  end
+
+  describe ".create_track_for_all_successful_requests" do
+    it "matches responses to requests recorded as successful" do
+      track_thing = TrackThing.create_track_for_all_successful_requests
+      expect(track_thing.track_query).
+        to eq('variety:response ' \
+              '(status:successful OR status:partially_successful)')
+    end
+  end
+
+  describe ".create_track_for_public_body" do
+    let(:public_body) { FactoryBot.create(:public_body) }
+
+    it "matches requests to the authority" do
+      track_thing = TrackThing.create_track_for_public_body(public_body)
+      expect(track_thing.track_query).
+        to eq("requested_from:#{ public_body.url_name }")
+    end
+
+    it "appends a known event type" do
+      track_thing =
+        TrackThing.create_track_for_public_body(public_body, 'response')
+      expect(track_thing.track_query).
+        to eq("requested_from:#{ public_body.url_name } variety:response")
+    end
+
+    it "ignores an unknown event type" do
+      track_thing =
+        TrackThing.create_track_for_public_body(public_body, 'nonsense')
+      expect(track_thing.track_query).
+        to eq("requested_from:#{ public_body.url_name }")
+    end
+  end
+
+  describe ".create_track_for_user" do
+    # The space after commented_by: is a bug, not a typo here. It detaches
+    # the term from the prefix, so the clause never matches a comment.
+    it "matches requests by the user, and comments by them in name only" do
+      user = FactoryBot.create(:user)
+      track_thing = TrackThing.create_track_for_user(user)
+      expect(track_thing.track_query).
+        to eq("requested_by:#{ user.url_name }" \
+              " OR commented_by: #{ user.url_name }")
+    end
+  end
+
+  describe ".create_track_for_search_query" do
+    it "keeps the query as given" do
+      track_thing = TrackThing.create_track_for_search_query('fancy dog')
+      expect(track_thing.track_query).to eq('fancy dog')
+    end
+
+    it "appends a variety for each postfix" do
+      { 'requests' => 'fancy dog variety:sent',
+        'users' => 'fancy dog variety:user',
+        'bodies' => 'fancy dog variety:authority' }.each do |postfix, expected|
+        track_thing =
+          TrackThing.create_track_for_search_query('fancy dog', postfix)
+        expect(track_thing.track_query).to eq(expected)
+      end
+    end
+
+    it "leaves a query which already sets a variety alone" do
+      track_thing = TrackThing.
+        create_track_for_search_query('fancy dog variety:comment', 'requests')
+      expect(track_thing.track_query).to eq('fancy dog variety:comment')
+    end
+  end
+end
+
+RSpec.describe TrackThing, "#matches" do
+  let(:track_thing) { FactoryBot.create(:search_track) }
+
+  it "searches events for the track query, newest first" do
+    expect(Search).to receive(:search).
+      with(track_thing.track_query,
+           hash_including(models: [InfoRequestEvent],
+                          sort_by: 'described_at',
+                          sort_ascending: true)).
+      and_return(double(results: :search_results))
+
+    expect(track_thing.matches(sort_by: 'described_at', limit: 100)).
+      to eq(:search_results)
+  end
+end
+
 RSpec.describe TrackThing, "destroy" do
   let(:track_thing) { FactoryBot.create(:search_track) }
 
