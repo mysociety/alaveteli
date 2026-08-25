@@ -37,6 +37,7 @@ require 'zip'
 
 class IncomingMessage < ApplicationRecord
   include MessageProminence
+  include Redactable
   include Taggable
 
   include IncomingMessage::Attachments
@@ -77,6 +78,8 @@ class IncomingMessage < ApplicationRecord
   cache_from_raw_email :subject, :sent_at,
                        :from_name, :from_email, :from_email_domain,
                        :valid_to_reply_to
+
+  redactable :from, :from_name, :from_email, :from_email_domain, :subject
 
   delegate :message_id, to: :raw_email
   delegate :multipart?, to: :raw_email
@@ -148,7 +151,8 @@ class IncomingMessage < ApplicationRecord
   #
   # Returns a String
   def safe_from_name
-    info_request.apply_censor_rules_to_text(from_name) if from_name
+    name = unredacted.from_name
+    info_request.apply_censor_rules_to_text(name) if name
   end
 
   def specific_from_name?

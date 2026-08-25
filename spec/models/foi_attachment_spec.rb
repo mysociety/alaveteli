@@ -375,6 +375,24 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#redacted_filename' do
+    let(:info_request) { FactoryBot.create(:info_request, :with_incoming) }
+    let(:foi_attachment) { info_request.foi_attachments.first }
+
+    it 'applies censor rules once' do
+      filename = foi_attachment.unredacted.filename
+      replacement = "#{filename} [hidden]"
+      FactoryBot.create(
+        :censor_rule,
+        censorable: info_request,
+        text: filename,
+        replacement: replacement
+      )
+
+      expect(foi_attachment.redacted_filename).to eq(replacement)
+    end
+  end
+
   describe '#body_as_text' do
     context 'when erased' do
       let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
@@ -2310,7 +2328,7 @@ RSpec.describe FoiAttachment do
         FactoryBot.create(
           :censor_rule,
           censorable: info_request,
-          text: foi_attachment.filename,
+          text: foi_attachment.unredacted.filename,
           replacement: 'redacted.txt'
         )
       end

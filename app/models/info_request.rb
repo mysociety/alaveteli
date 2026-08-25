@@ -59,7 +59,6 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
 
-
   admin_columns exclude: %i[title url_title],
                 include: %i[rejected_incoming_count]
 
@@ -731,7 +730,8 @@ class InfoRequest < ApplicationRecord
   def safe_from_name
     return external_user_name if is_external?
 
-    apply_censor_rules_to_text(from_name)
+    name = outgoing_messages.first&.unredacted&.from_name || user_name
+    apply_censor_rules_to_text(name)
   end
 
   def user_name_slug
@@ -1252,11 +1252,10 @@ class InfoRequest < ApplicationRecord
 
   # Text from the the initial request, for use in summary display
   def initial_request_text
-    return '' if outgoing_messages.empty?
-
-    body_opts = { censor_rules: applicable_censor_rules }
     first_message = outgoing_messages.first
-    first_message.is_public? ? first_message.get_text_for_indexing(true, body_opts) : ''
+    return '' unless first_message&.is_public?
+
+    first_message.get_text_for_indexing(true).strip
   end
 
   def last_event_id_needing_description
@@ -1479,11 +1478,14 @@ class InfoRequest < ApplicationRecord
              { to_replace: AlaveteliConfiguration.contact_email,
                replacement: _("[{{site_name}} contact email]",
                               site_name: site_name) }]
+
     if public_body.is_followupable?
       masks << { to_replace: public_body.request_email,
                  replacement: _("[{{public_body}} request email]",
                                    public_body: public_body.short_or_long_name) }
     end
+
+    masks
   end
 
   def is_owning_user?(user)
@@ -1719,6 +1721,12 @@ class InfoRequest < ApplicationRecord
       user_path(user),
       show_user_wall_path(url_name: user.url_name)
     ]
+  end
+
+  # Return this request. This is mainly for
+  # duck-typing with other censorable relationships.
+  def info_request
+    self
   end
 
   # Return only this request in a chainable relation. This is mainly for

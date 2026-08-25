@@ -111,8 +111,21 @@ RSpec.describe OutgoingMessage do
 
       message = FactoryBot.create(:outgoing_message, attrs)
 
-      expect_any_instance_of(OutgoingMessage).not_to receive(:body).and_call_original
+      # :body is defined on a module prepended by Redactable, which
+      # `expect_any_instance_of` can't stub, so spy on it with our own
+      # prepended module instead.
+      call_count = 0
+      spy = Module.new do
+        define_method(:body) do |*args, **kwargs|
+          call_count += 1
+          super(*args, **kwargs)
+        end
+      end
+
+      OutgoingMessage.prepend(spy)
       OutgoingMessage.find(message.id)
+
+      expect(call_count).to eq(0)
     end
   end
 
@@ -202,7 +215,7 @@ RSpec.describe OutgoingMessage do
       request = FactoryBot.create(:info_request, user: user)
       message = FactoryBot.build(:initial_request, info_request: request)
       expected = "Spec User 862 <request-#{ request.id }-#{ request.idhash }@localhost>"
-      expect(message.from).to eq(expected)
+      expect(message.unredacted.from).to eq(expected)
     end
   end
 
@@ -226,6 +239,7 @@ RSpec.describe OutgoingMessage do
           mock_model(IncomingMessage, from_email: 'specific@example.com',
                                       safe_from_name: 'Specific Person',
                                       valid_to_reply_to?: true)
+        allow(followup).to receive(:unredacted).and_return(followup)
         allow(message).to receive(:incoming_message_followup).and_return(followup)
 
         expected = 'Specific Person <specific@example.com>'
@@ -375,7 +389,8 @@ RSpec.describe OutgoingMessage do
       attrs = { status: 'ready',
                 message_type: 'initial_request',
                 body: 'This sensitive text contains secret info!',
-                what_doing: 'normal_sort' }
+                what_doing: 'normal_sort',
+                info_request: FactoryBot.create(:info_request) }
       message = FactoryBot.build(:outgoing_message, attrs)
 
       rules = [FactoryBot.build(:censor_rule, text: 'secret'),
@@ -390,7 +405,8 @@ RSpec.describe OutgoingMessage do
       attrs = { status: 'ready',
                 message_type: 'initial_request',
                 body: 'This sensitive text contains secret info!',
-                what_doing: 'normal_sort' }
+                what_doing: 'normal_sort',
+                info_request: FactoryBot.create(:info_request) }
       message = FactoryBot.build(:outgoing_message, attrs)
 
       request_rules = [FactoryBot.build(:censor_rule, text: 'secret'),
@@ -664,8 +680,10 @@ RSpec.describe OutgoingMessage do
     end
 
     it 'applies censor rules to from_name' do
-      FactoryBot.create(:global_censor_rule, text: 'Bob', replacement: 'Robert')
-      is_expected.to eq('Robert')
+      FactoryBot.create(:global_censor_rule,
+                        text: 'Bob',
+                        replacement: 'Bob [hidden]')
+      is_expected.to eq('Bob [hidden]')
     end
 
     context 'when request is external' do

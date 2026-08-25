@@ -28,6 +28,7 @@ class OutgoingMessage < ApplicationRecord
   include MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper
+  include Redactable
   include Taggable
 
   include OutgoingMessage::DeliveryStatus
@@ -75,6 +76,8 @@ class OutgoingMessage < ApplicationRecord
   after_update :xapian_reindex_after_update
 
   strip_attributes allow_empty: true
+
+  redactable :from, :from_name, :body
 
   admin_columns include: [:to, :from, :subject]
 
@@ -127,7 +130,7 @@ class OutgoingMessage < ApplicationRecord
   def safe_from_name
     return info_request.external_user_name if info_request.is_external?
 
-    info_request.apply_censor_rules_to_text(from_name)
+    info_request.apply_censor_rules_to_text(unredacted.from_name)
   end
 
   # Public: The value to be used in the From: header of an OutgoingMailer
@@ -144,8 +147,10 @@ class OutgoingMessage < ApplicationRecord
   def to
     if replying_to_incoming_message?
       # calling safe_from_name from so censor rules are run
-      MailHandler.address_from_name_and_email(incoming_message_followup.safe_from_name,
-                                              incoming_message_followup.from_email)
+      MailHandler.address_from_name_and_email(
+        incoming_message_followup.safe_from_name,
+        incoming_message_followup.unredacted.from_email
+      )
     else
       info_request.recipient_name_and_email
     end
@@ -179,16 +184,23 @@ class OutgoingMessage < ApplicationRecord
   #                           InfoRequest. (optional)
   #
   # Returns a String
-  def body(options = {})
+  def body(_options = {})
     text = raw_body.dup
     return text if text.nil?
 
-    text = clean_text(text)
+    clean_text(text)
+  end
+
+  # Dispatches redactable's #body accessor to apply the given (or the
+  # associated info_request's) censor rules to the text.
+  def apply_masks_to_body(options = {})
+    text = unredacted.body
+    return text if text.nil?
 
     # Use the given censor_rules; otherwise fetch them from the associated
     # info_request
     censor_rules = options.fetch(:censor_rules) do
-      info_request.try(:applicable_censor_rules) or []
+      info_request.try(:applicable_censor_rules) || []
     end
 
     censor_rules.reduce(text) { |t, rule| rule.apply_to_text(t) }
