@@ -58,7 +58,7 @@ class PublicBody < ApplicationRecord
   # batch authority search results or batch category UI
   cattr_accessor :batch_excluded_tags,
                  instance_accessor: false,
-                 default: %w[not_apply defunct]
+                 default: %w[defunct foi_no not_apply]
 
   has_many :info_requests,
            -> { order(created_at: :desc) },
