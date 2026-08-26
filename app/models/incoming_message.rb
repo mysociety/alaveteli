@@ -81,7 +81,7 @@ class IncomingMessage < ApplicationRecord
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :is_searchable, -> { where(prominence: 'normal') }
 
-  redactable :from, :from_name, :from_email, :from_email_domain, :subject
+  redactable :from_name, :from_email, :from_email_domain, :subject
 
   delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 
