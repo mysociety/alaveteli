@@ -397,6 +397,42 @@ RSpec.describe RawEmail do
       expect(raw_email.reload.file).not_to be_attached
     end
 
+    it 'deletes the file from storage' do
+      blob = raw_email.file.blob
+
+      perform_enqueued_jobs { subject }
+
+      expect(blob.service.exist?(blob.key)).to eq(false)
+    end
+
+    context 'when the purge runs in another process' do
+      self.use_transactional_tests = false
+
+      after do
+        [raw_email.info_request, raw_email.info_request.user,
+         raw_email.info_request.public_body].each(&:destroy)
+      end
+
+      it 'deletes the file from storage' do
+        blob = raw_email.file.blob
+
+        # Purge from another connection part way through the erase, once the
+        # file has been detached but before anything has been saved
+        allow(raw_email).to receive(:expire) do
+          Thread.new do
+            ActiveRecord::Base.connection_pool.with_connection do
+              perform_enqueued_jobs(only: ActiveStorage::PurgeJob)
+            end
+          end.join
+        end
+
+        subject
+        perform_enqueued_jobs(only: ActiveStorage::PurgeJob)
+
+        expect(blob.service.exist?(blob.key)).to eq(false)
+      end
+    end
+
     it 'touches erased_at' do
       expect { subject }.to change(raw_email, :erased_at).from(nil)
       expect(raw_email.erased_at).to be_a(Time)
@@ -519,6 +555,14 @@ RSpec.describe RawEmail do
       it 'does not erase the file' do
         subject
         expect(raw_email.reload).not_to be_erased
+      end
+
+      it 'does not delete the file from storage' do
+        blob = raw_email.file.blob
+
+        perform_enqueued_jobs { subject }
+
+        expect(blob.service.exist?(blob.key)).to eq(true)
       end
 
       it { is_expected.to eq(false) }

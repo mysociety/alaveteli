@@ -2065,6 +2065,42 @@ RSpec.describe FoiAttachment do
       expect(foi_attachment.reload.file).not_to be_attached
     end
 
+    it 'deletes the file from storage' do
+      blob = foi_attachment.file.blob
+
+      perform_enqueued_jobs { subject }
+
+      expect(blob.service.exist?(blob.key)).to eq(false)
+    end
+
+    context 'when the purge runs in another process' do
+      self.use_transactional_tests = false
+
+      after do
+        [info_request, info_request.user, info_request.public_body,
+         editor].each(&:destroy)
+      end
+
+      it 'deletes the file from storage' do
+        blob = foi_attachment.file.blob
+
+        # Purge from another connection part way through the erase, once the
+        # file has been detached but before anything has been saved
+        allow(foi_attachment).to receive(:expire) do
+          Thread.new do
+            ActiveRecord::Base.connection_pool.with_connection do
+              perform_enqueued_jobs(only: ActiveStorage::PurgeJob)
+            end
+          end.join
+        end
+
+        subject
+        perform_enqueued_jobs(only: ActiveStorage::PurgeJob)
+
+        expect(blob.service.exist?(blob.key)).to eq(false)
+      end
+    end
+
     it 'touches erased_at' do
       expect { subject }.to change(foi_attachment, :erased_at).from(nil)
       expect(foi_attachment.erased_at).to be_a(Time)
@@ -2156,6 +2192,14 @@ RSpec.describe FoiAttachment do
       it 'does not erase the file' do
         subject
         expect(foi_attachment.reload).not_to be_erased
+      end
+
+      it 'does not delete the file from storage' do
+        blob = foi_attachment.file.blob
+
+        perform_enqueued_jobs { subject }
+
+        expect(blob.service.exist?(blob.key)).to eq(true)
       end
 
       it { is_expected.to eq(false) }
