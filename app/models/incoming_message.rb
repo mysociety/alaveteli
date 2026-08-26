@@ -39,9 +39,19 @@ class IncomingMessage < ApplicationRecord
   include MessageProminence
   include Taggable
 
+  # An IncomingMessage is intrinsically linked to its RawEmail. RawEmail just
+  # holds the underlying plain text email and some basic methods for working
+  # with it, whereas IncomingMessage coordinates extracting the useful data to
+  # our domain records. This concern handles that basic relationship,
+  # coordination and caching.
+  include IncomingMessage::FromRawEmail
+
+  # These concerns handle the specifics of parsing and working with the main
+  # body and other attachments extracted from the RawEmail.
   include IncomingMessage::Attachments
-  include IncomingMessage::CacheAttributesFromRawEmail
   include IncomingMessage::MainBody
+
+  # Ancillary behaviour
   include IncomingMessage::QuoteHandling
   include IncomingMessage::Refusals
 
@@ -64,23 +74,11 @@ class IncomingMessage < ApplicationRecord
            dependent: :destroy,
            inverse_of: :incoming_message
 
-  belongs_to :raw_email,
-             inverse_of: :incoming_message,
-             dependent: :destroy
-
   after_destroy :update_request
   after_update :update_request
 
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
-  scope :unparsed, -> { where(last_parsed: nil) }
 
-  cache_from_raw_email :subject, :sent_at,
-                       :from_name, :from_email, :from_email_domain,
-                       :valid_to_reply_to
-
-  delegate :message_id, to: :raw_email
-  delegate :multipart?, to: :raw_email
-  delegate :parts, to: :raw_email
   delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 
   delegate :apply_masks, to: :info_request
@@ -89,38 +87,6 @@ class IncomingMessage < ApplicationRecord
   # method for getting the response event.
   def response_event
     info_request_events.where(event_type: 'response').first
-  end
-
-  def parse_raw_email!
-    # The following fields may be absent; we treat them as cached
-    # values in case we want to regenerate them (due to mail
-    # parsing bugs, etc).
-    raise "Incoming message id=#{id} has no raw_email" if raw_email.nil?
-
-    raw_email_ensure_not_erased!
-
-    ActiveRecord::Base.transaction do
-      # Lock the row to serialize concurrent re-parsing, otherwise two
-      # processes can each insert a full set of attachments. Locking a
-      # fresh copy avoids reloading self mid-parse.
-      self.class.lock.find(id) if persisted?
-
-      extract_attachments
-      self.sent_at = raw_email.date || created_at
-      self.subject = raw_email.subject
-      self.from_name = raw_email.from_name
-      self.from_email = raw_email.from_email || ''
-      self.from_email_domain = raw_email.from_email_domain || ''
-      self.valid_to_reply_to = raw_email.valid_to_reply_to?
-      self.last_parsed = Time.zone.now
-      save!
-    end
-  end
-
-  def parse_raw_email
-    raise "Incoming message id=#{id} has no raw_email" if raw_email.nil?
-
-    parse_raw_email! if last_parsed.nil?
   end
 
   alias valid_to_reply_to? valid_to_reply_to
