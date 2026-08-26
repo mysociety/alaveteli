@@ -54,7 +54,9 @@ class InfoRequest < ApplicationRecord
   include AlaveteliFeatures::Helpers
 
   include InfoRequest::BatchPagination
+  include InfoRequest::Guessable
   include InfoRequest::HoldingPen
+  include InfoRequest::MagicEmail
   include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
@@ -205,7 +207,6 @@ class InfoRequest < ApplicationRecord
 
   after_initialize :set_defaults
   before_create :set_use_notifications
-  before_validation :compute_idhash
   before_validation :set_law_used, on: :create
   after_create :notify_associations
   after_save :update_counter_cache
@@ -223,33 +224,6 @@ class InfoRequest < ApplicationRecord
                "prominence_reason": "D"
              }
 
-  # Return info request corresponding to an incoming email address, or nil if
-  # none found. Checks the hash to ensure the email came from the public body -
-  # only they are sent the email address with the has in it. (We don't check
-  # the prefix and domain, as sometimes those change, or might be elided by
-  # copying an email, and that doesn't matter)
-  def self.find_by_incoming_email(incoming_email)
-    id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
-    if hash_from_id(id) == hash
-      # Not using find(id) because we don't exception raised if nothing found
-      find_by_id(id)
-    end
-  end
-
-  # Public: Find by a list of incoming email addresses.
-  # TODO: It would be better to make this return a chainable
-  # ActiveRecord::Relation
-  #
-  # Examples:
-  #
-  #   InfoRequest.matching_incoming_email('request-1-ae63fb73@localhost')
-  #   InfoRequest.matching_incoming_email(@array_of_email_addresses)
-  #
-  # Returns an Array
-  def self.matching_incoming_email(emails)
-    Array(emails).map { |email| find_by_incoming_email(email) }.compact
-  end
-
   # Subset of states accepted via the API
   def self.allowed_incoming_states
     %w[
@@ -262,115 +236,6 @@ class InfoRequest < ApplicationRecord
 
   def self.custom_states_loaded
     @@custom_states_loaded
-  end
-
-  # Public: Attempt to find InfoRequests by matching against extracted `id` and
-  # `idhash` elements of an `incoming_email`.
-  #
-  # emails - A String email address or an Array of String email addresses.
-  #
-  # Returns an Array
-  def self.guess_by_incoming_email(*emails)
-    guesses = emails.flatten.reduce([]) do |memo, email|
-      id, idhash = _extract_id_hash_from_email(email)
-      id, idhash = _guess_idhash_from_email(email) if idhash.nil? || id.nil?
-
-      memo << Guess.new(
-        find_by_id(id), email: email, id: id, idhash: idhash
-      )
-      memo << Guess.new(
-        find_by_idhash(idhash), email: email, id: id, idhash: idhash
-      )
-    end
-
-    # Unique Guesses where we've found an `InfoRequest`
-    guesses.select(&:info_request).uniq(&:info_request)
-  end
-
-  # Internal function used by guess_by_incoming_email
-  def self._guess_idhash_from_email(incoming_email)
-    incoming_email = incoming_email.downcase
-    incoming_email =~ /request\-?(\w+)-?(\w{8})@/
-
-    id = _id_string_to_i(_clean_idhash($1))
-    id_hash = $2
-
-    if id_hash.nil? && incoming_email.include?('@')
-      # try to grab the last 8 chars of the local part of the address instead
-      local_part = incoming_email[0..incoming_email.index('@')-1]
-      id_hash =
-        (_clean_idhash(local_part[-8..-1]) if local_part.length >= 8)
-    end
-
-    [id, id_hash]
-  end
-
-  # Internal function - attempts to convert a guessed id String from incoming
-  # email addresses to an Integer. Returns nil if it fails to avoid accidentally
-  # stripping trailing letters e.g. '123ab' should not match 123
-  #
-  # Returns an Integer
-  def self._id_string_to_i(id_string)
-    Integer(id_string) if id_string
-  rescue ArgumentError
-    nil
-  end
-
-  # Internal function used to clean the id_hash from incoming email addresses.
-  # Converts l to 1, and o to 0. FOI officers quite often retype the email
-  # address and make this kind of error.
-  def self._clean_idhash(hash)
-    return unless hash
-
-    hash.gsub(/l/, "1").gsub(/o/, "0")
-  end
-
-  # Public: Attempt to find InfoRequests by matching against extracted `subject`
-  # element of an `incoming_email`.
-  #
-  # subject_line - A String an email subject line
-  # Returns an Array
-  def self.guess_by_incoming_subject(subject_line)
-    return [] unless subject_line
-
-    # try to find a match on InfoRequest#title
-    reply_format = InfoRequest.new(title: '').email_subject_followup
-    requests_by_title = InfoRequest.left_joins(:incoming_messages).
-      where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
-
-    # try to find a match on IncomingMessage#subject
-    requests_by_subject = InfoRequest.left_joins(:incoming_messages).
-      where(incoming_messages: {
-              subject: [subject_line.gsub(/^Re: /i, ''), subject_line].uniq
-            })
-
-    requests = requests_by_title.or(requests_by_subject).
-      distinct.
-      where.not(url_title: 'holding_pen').
-      limit(25)
-
-    guesses = requests.each.reduce([]) do |memo, request|
-      memo << Guess.new(request, subject: subject_line)
-    end
-
-    # Unique Guesses where we've found an `InfoRequest`
-    guesses.select(&:info_request).uniq(&:info_request)
-  end
-
-  # Internal function used by find_by_magic_email and guess_by_incoming_email
-  def self._extract_id_hash_from_email(incoming_email)
-    # Match case insensitively, FOI officers often write Request with capital R.
-    incoming_email = incoming_email.downcase
-
-    # The optional bounce- dates from when we used to have separate emails for the envelope from.
-    # (that was abandoned because councils would send hand written responses to them, not just
-    # bounce messages)
-    incoming_email =~ /request-(?:bounce-)?([a-z0-9]+)-([a-z0-9]+)/
-
-    id = _id_string_to_i($1)
-    hash = _clean_idhash($2)
-
-    [id, hash]
   end
 
   # When constructing a new request, use this to check user hasn't double submitted.
@@ -425,14 +290,6 @@ class InfoRequest < ApplicationRecord
     end
   end
 
-  def self.magic_email_for_id(prefix_part, id)
-    magic_email = AlaveteliConfiguration.incoming_email_prefix
-    magic_email += prefix_part + id.to_s
-    magic_email += "-" + InfoRequest.hash_from_id(id)
-    magic_email += "@" + AlaveteliConfiguration.incoming_email_domain
-    magic_email
-  end
-
   def self.build_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
     info_request = new(info_request_atts)
     default_message_params = {
@@ -470,10 +327,6 @@ class InfoRequest < ApplicationRecord
       )
     end
     info_request
-  end
-
-  def self.hash_from_id(id)
-    Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration.incoming_email_secret)[0,8]
   end
 
   # Used to find when event last changed
@@ -816,13 +669,6 @@ class InfoRequest < ApplicationRecord
     _title = read_attribute(:title)
     _title.strip! if _title
     _title
-  end
-
-  # Email which public body should use to respond to request. This is in
-  # the format PREFIXrequest-ID-HASH@DOMAIN. Here ID is the id of the
-  # FOI request, and HASH is a signature for that id.
-  def incoming_email
-    magic_email("request-")
   end
 
   def incoming_name_and_email
@@ -1301,18 +1147,6 @@ class InfoRequest < ApplicationRecord
 
   def display_status(cached_value_ok=false)
     InfoRequest.get_status_description(calculate_status(cached_value_ok))
-  end
-
-  # Called by incoming_email - and used to be called to generate separate
-  # envelope from address until we abandoned it.
-  def magic_email(prefix_part)
-    raise "id required to create a magic email" unless id
-
-    InfoRequest.magic_email_for_id(prefix_part, id)
-  end
-
-  def compute_idhash
-    self.idhash = InfoRequest.hash_from_id(id)
   end
 
   def foi_fragment_cache_directories
