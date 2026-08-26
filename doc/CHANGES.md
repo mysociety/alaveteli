@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Enqueue jobs once their transaction has committed, adopting the Rails 8.2
+  default early (Graeme Porteous)
 * Exclude `foi_no` bodies from Batch (Gareth Rees)
 * Allow admins to download zips of batch requests, and only show batch download
   links to users who can use them (Ben Fairless)
