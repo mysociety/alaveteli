@@ -498,7 +498,7 @@ There is no index to back this search type at the moment (it would use the built
 
 `content_tsv` (resp. `admin_content_tsv`) stores the searchable data stemmed and tokenised according to the language used by the platform (or the specific content where multiple languages are used). postgresql uses `ts_vector` format for this.
 
-The `ts_vector` search system only searches words by their start (ie. it can search for `the_user@somedomain.com` if it is the full email address, but it won't match the domain only without some further custom preprocessing). This is the part that will match `requester`, `requesting`, etc... when searching for `request`. But it will not find `reuqest` (typo).
+The `ts_vector` search system only searches words by their start (ie. it can search for `the_user@somedomain.com` if it is the full email address, but it won't match the domain only without some further custom preprocessing). This is the part that will match `requester`, `requesting`, etc... when searching for `request`. But it will not find `request` (typo).
 
 ## Semantic search
 
