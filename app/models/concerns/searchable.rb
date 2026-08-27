@@ -257,7 +257,7 @@ module Searchable
     # Reindex all instances of a model.
     # This would normally not be run beyond the initial indexing of a
     # pre-existing database.
-    def reindex_all(batch_size: 1000)
+    def reindex_all(start_id: nil, batch_count: nil)
       options = search_options
       return if options.nil?
 
@@ -272,7 +272,13 @@ module Searchable
 
       start = Time.zone.now
       count = 0
-      indexable.find_each(batch_size: batch_size) do |record|
+      if start_id.nil?
+        items_to_index = indexable
+      else
+        items_to_index = indexable.where(id: start_id..(start_id + batch_count))
+      end
+      items_to_index.find_each() do |record|
+        puts(record.id)
         record.reindex
         count += 1
       end
