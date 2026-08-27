@@ -48,6 +48,13 @@ module Searchable
   @@locale_to_language_map.default = 'simple'
   # rubocop:enable Style/ClassVars
 
+  # Every model registered by `searchable`. The app has to be eager loaded
+  # first (`Rails.application.eager_load!`) so every declaration has run,
+  # otherwise a model nothing has referenced yet will be missing.
+  def self.models
+    @@searchable_models.keys.map(&:constantize)
+  end
+
   def self.lang_from_locale(locale)
     @@locale_to_language_map[locale]
   end
