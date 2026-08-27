@@ -3,10 +3,6 @@
 module FoiAttachment::Maskable
   extend ActiveSupport::Concern
 
-  included do
-    delegate :apply_masks, to: :info_request
-  end
-
   def masked?
     file.attached? && masked_at.present? && masked_at < Time.zone.now
   end
@@ -18,7 +14,7 @@ module FoiAttachment::Maskable
   def mask
     return if masking_failed?
 
-    body = apply_masks(unmasked_body, content_type)
+    body = apply_masks(unmasked_body, content_type, redacted_attribute: :body)
     body = sanitise_html(body) if content_type == 'text/html'
     update(body: body, masked_at: Time.zone.now)
 
@@ -37,6 +33,13 @@ module FoiAttachment::Maskable
 
       sibling.mask
     end
+  end
+
+  def apply_masks(text, content_type = 'text/plain', redacted_attribute:)
+    info_request.apply_masks(
+      text, content_type,
+      redactable: self, redacted_attribute: redacted_attribute
+    )
   end
 
   private

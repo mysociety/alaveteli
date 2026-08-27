@@ -171,7 +171,15 @@ module IncomingMessage::Attachments
       next memo if attachment.masking_failed?
 
       text = attachment.body_to_text
-      text = attachment.apply_masks(text, 'text/html') unless attachment.locked?
+
+      unless attachment.locked?
+        text = attachment.apply_masks(
+          text,
+          'text/html',
+          redacted_attribute: :body
+        )
+      end
+
       memo += text
     rescue FoiAttachment::MaskingError
       memo

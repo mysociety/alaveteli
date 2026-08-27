@@ -49,6 +49,7 @@ class InfoRequest < ApplicationRecord
   include Taggable
   include Notable
   include RateLimited
+  include Redactable
 
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
@@ -584,7 +585,7 @@ class InfoRequest < ApplicationRecord
   def safe_from_name
     return external_user_name if is_external?
 
-    apply_masks(from_name)
+    apply_masks(from_name, redactable: self, redacted_attribute: :from_name)
   end
 
   def user_name_slug
@@ -1289,19 +1290,25 @@ class InfoRequest < ApplicationRecord
     applicable_rules.flatten
   end
 
-  def apply_censor_rules_to_text(text)
-    applicable_censor_rules.
-      reduce(text) { |t, rule| rule.apply_to_text(t) }
+  def apply_censor_rules_to_text(text, redactable: nil, redacted_attribute: nil)
+    applicable_censor_rules.reduce(text) do |t, rule|
+      rule.apply_to_text(t, redactable: redactable,
+                            redacted_attribute: redacted_attribute)
+    end
   end
 
-  def apply_censor_rules_to_binary(text)
-    applicable_censor_rules.
-      reduce(text) { |t, rule| rule.apply_to_binary(t) }
+  def apply_censor_rules_to_binary(text, redactable: nil, redacted_attribute: nil)
+    applicable_censor_rules.reduce(text) do |t, rule|
+      rule.apply_to_binary(t, redactable: redactable,
+                              redacted_attribute: redacted_attribute)
+    end
   end
 
-  def apply_masks(text, content_type = 'text/plain')
+  def apply_masks(text, content_type = 'text/plain', redactable: nil, redacted_attribute: nil)
     mask_options = { censor_rules: applicable_censor_rules,
-                     masks: masks }
+                     masks: masks,
+                     redactable: redactable,
+                     redacted_attribute: redacted_attribute }
     AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
   end
 
