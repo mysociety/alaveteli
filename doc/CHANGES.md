@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Track when CensorRules actually redact content from Redactable records (Gareth
+  Rees)
 * Drop support for PostgreSQL 13 (Graeme Porteous)
 * Speed up determination of applicable censor rules and guarantee order of
   application (Laurent Savaete)
