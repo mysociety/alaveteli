@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Track when CensorRules actually redact content from Redactable records (Gareth
+  Rees)
 * Fix an endless loop if there is issues masking attachment (Graeme Porteous)
 * Store the top-level record on each search document (Graeme Porteous)
 * Improved error handing on Pro card payment form (Graeme Porteous)

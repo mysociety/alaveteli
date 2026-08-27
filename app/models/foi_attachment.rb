@@ -43,6 +43,7 @@ class FoiAttachment < ApplicationRecord
   include Eventable
   include Lockable
   include Maskable
+  include Redactable
   include Replaceable
 
   MissingError = Class.new(StandardError)
@@ -174,7 +175,9 @@ class FoiAttachment < ApplicationRecord
 
     # FIXME: We should use `apply_masks` to use the full masking pipeline, but
     # this may break some attachment URLs.
-    info_request.apply_censor_rules_to_text(filename)
+    info_request.apply_censor_rules_to_text(
+      filename, redactable: self, redacted_attribute: :filename
+    )
   end
 
   # TODO: changing this will break existing URLs, so have a care - maybe

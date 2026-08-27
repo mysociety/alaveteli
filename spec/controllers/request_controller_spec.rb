@@ -1942,6 +1942,28 @@ end
 
 RSpec.describe RequestController do
   describe 'GET #download_entire_request' do
+    context 'when a censor rule redacts an attachment' do
+      let(:info_request) do
+        FactoryBot.create(:info_request_with_html_attachment)
+      end
+
+      let!(:censor_rule) do
+        info_request.censor_rules.create!(
+          text: 'dull', replacement: 'REDACTED',
+          last_edit_editor: 'unknown', last_edit_comment: 'none'
+        )
+      end
+
+      it 'records the redaction against the body written to the zip' do
+        sign_in info_request.user
+        get :download_entire_request,
+            params: { url_title: info_request.url_title }
+
+        expect(censor_rule.redactions.pluck(:redacted_attribute)).
+          to include('default_body')
+      end
+    end
+
     context 'when the request is embargoed' do
       let(:user) { FactoryBot.create(:user) }
       let(:pro_user) { FactoryBot.create(:pro_user) }
