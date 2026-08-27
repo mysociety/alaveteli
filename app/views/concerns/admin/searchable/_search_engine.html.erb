@@ -1,0 +1,11 @@
+<div class="search-engine-options">
+  <%= radio_button_tag 'search_engine', 'legacy', legacy_search? %>
+  <%= label_tag 'search_engine_legacy',
+                "legacy engine: #{legacy_label}",
+                class: 'help-inline' %>
+  <br>
+  <%= radio_button_tag 'search_engine', 'new', !legacy_search? %>
+  <%= label_tag 'search_engine_new',
+                "new engine: #{new_label}",
+                class: 'help-inline' %>
+</div>

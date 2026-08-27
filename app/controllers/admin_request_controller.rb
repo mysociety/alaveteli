@@ -5,6 +5,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminRequestController < AdminController
+  include Admin::Searchable
   include Admin::Sortable
 
   before_action :set_info_request, :check_info_request, only: %i[
@@ -16,9 +17,8 @@ class AdminRequestController < AdminController
   def index
     @query = params[:query]
     @query = nil if @query == ''
-    @search_engine = params[:search_engine] || 'new'
 
-    if @search_engine == 'legacy'
+    if legacy_search?
       index_legacy
     else
       index_new

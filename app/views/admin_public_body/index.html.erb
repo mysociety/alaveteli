@@ -28,19 +28,10 @@
       <%= submit_tag "Search", class: "btn" %>
     </div>
 
-    <div>
-      <%= radio_button_tag "search_engine", "legacy", checked: "legacy" == @search_engine %>
-      <%= label_tag "search_engine_legacy",
-      "legacy engine: substring search in names and emails; exact match of tags",
-      class: "help-inline" %>
-      <br>
-      <%= radio_button_tag "search_engine",
-      "new",
-      checked: "new" == @search_engine %>
-      <%= label_tag "search_engine_new",
-      "new engine: whole word search in names, emails and notes; please report poor search results!",
-      class: "help-inline" %>
-    </div>
+    <%= render partial: 'concerns/admin/searchable/search_engine', locals: {
+      legacy_label: 'substring search in names and emails; exact match of tags',
+      new_label: 'whole word search in names, emails and notes; please report poor search results!'
+    } %>
 
     <% if @query %>
       <%= link_to 'Show all', admin_bodies_path, class: 'btn' %>
@@ -58,11 +49,11 @@
   <% if @query.nil? %>
     <h2>All authorities</h2>
   <% else %>
-    <% if @search_engine == "new" %>
-      <h2>Search engine matches (<%= @public_bodies.total_entries %>
+    <% if legacy_search? %>
+      <h2>Substring search matches (<%= @public_bodies.total_entries %>
         total)</h2>
     <% else %>
-      <h2>Substring search matches (<%= @public_bodies.total_entries %>
+      <h2>Search engine matches (<%= @public_bodies.total_entries %>
         total)</h2>
     <% end %>
   <% end %>

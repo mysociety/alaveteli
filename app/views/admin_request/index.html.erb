@@ -14,19 +14,10 @@
     <%= submit_tag 'Search', class: 'btn' %>
   </div>
 
-  <div>
-    <%= radio_button_tag "search_engine", "legacy", checked: "legacy" == @search_engine %>
-    <%= label_tag "search_engine_legacy",
-    "legacy engine: substring search in titles only",
-    class: "help-inline" %>
-    <br>
-    <%= radio_button_tag "search_engine",
-    "new",
-    checked: "new" == @search_engine %>
-    <%= label_tag "search_engine_new",
-    "new engine: whole word search in titles; please report poor search results!",
-    class: "help-inline" %>
-  </div>
+  <%= render partial: 'concerns/admin/searchable/search_engine', locals: {
+    legacy_label: 'substring search in titles only',
+    new_label: 'whole word search in titles; please report poor search results!'
+  } %>
 <% end %>
 
 <%= render partial: 'some_requests', locals: { info_requests: @info_requests } %>
