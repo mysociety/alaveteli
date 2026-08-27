@@ -332,18 +332,9 @@ module Searchable
     # got to rather than starting the model again. Models built inside the
     # database are a single statement, so there is nothing to carry on from.
     def reindex_all(batch_size: 1000, start_id: nil, only_missing: false)
-      options = search_options
-      return if options.nil?
+      return 0 if search_options.nil?
 
-      columns = (options[:index] || {}).keys +
-                (options[:admin_index] || {}).keys
-
-      # if none of the index keys starts with a '.', we don't need to call ruby
-      # attributes so we can index within a DB query
-      if columns.none? { |column| column.start_with?('.') } &&
-         root_in_database? && public_split_in_database?
-        return reindex_all_inside_db
-      end
+      return reindex_all_inside_db if reindex_inside_db?
 
       scope = only_missing ? indexable.not_indexed : indexable
       scope = scope.where(arel_table[primary_key].gteq(start_id)) if start_id
@@ -362,11 +353,25 @@ module Searchable
       count
     end
 
+    # Whether this model's search documents are built by a single statement.
+    #
+    # None of the index keys may start with a '.', and the root and the public
+    # split must be worked out in the database too, so we never need to call
+    # ruby and the content does not have to travel from postgres to ruby and
+    # back. There is then nothing to chunk and nothing to resume.
+    def reindex_inside_db?
+      options = search_options
+      return false if options.nil?
+
+      columns = (options[:index] || {}).keys +
+                (options[:admin_index] || {}).keys
+      columns.none? { |column| column.start_with?('.') } &&
+        root_in_database? && public_split_in_database?
+    end
+
     # alternative implementation of reindex_all that works for models
-    # whose searchable.index and searchable.admin_index only contain
-    # SQL column names, and no ruby attributes. In that case, it is
-    # possible to send a single request to the db to generate the entire
-    # set of search_documents.
+    # `reindex_inside_db?` accepts. It sends a single request to the db to
+    # generate the entire set of search_documents.
     def reindex_all_inside_db
       language = Searchable.lang_from_locale(
         AlaveteliLocalization.default_locale
