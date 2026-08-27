@@ -325,7 +325,13 @@ module Searchable
     # Reindex all instances of a model.
     # This would normally not be run beyond the initial indexing of a
     # pre-existing database.
-    def reindex_all(start_id: nil, batch_count: nil)
+    #
+    # Models read through ruby are walked in id order, a batch at a time,
+    # and the last id of each batch is yielded. A run can be told the id to
+    # start from, so a backfill that stops part way picks up where it
+    # got to rather than starting the model again. Models built inside the
+    # database are a single statement, so there is nothing to carry on from.
+    def reindex_all(batch_size: 1000, start_id: nil)
       options = search_options
       return if options.nil?
 
@@ -339,19 +345,21 @@ module Searchable
         return reindex_all_inside_db
       end
 
+      scope = indexable
+      scope = scope.where(arel_table[primary_key].gteq(start_id)) if start_id
+
       start = Time.zone.now
       count = 0
-      if start_id.nil?
-        items_to_index = indexable
-      else
-        items_to_index = indexable.where(id: start_id..(start_id + batch_count))
-      end
-      items_to_index.find_each do |record|
-        record.reindex
-        count += 1
+      scope.find_in_batches(batch_size: batch_size) do |records|
+        records.each do |record|
+          record.reindex
+          count += 1
+        end
+        yield records.last.id if block_given?
       end
       elapsed = Time.zone.now - start
       Rails.logger.info("Reindexed #{count} #{name} in #{elapsed} seconds")
+      count
     end
 
     # alternative implementation of reindex_all that works for models
@@ -412,6 +420,7 @@ module Searchable
       Rails.logger.info(
         "Reindexed #{count} #{name} in #{elapsed} seconds (in database)"
       )
+      count
     end
 
     def search_options

@@ -208,6 +208,31 @@ RSpec.describe Searchable, 'index lifecycle', :reindex_inline do
         )
     end
 
+    it 'yields the last id of each batch' do
+      bodies = FactoryBot.create_list(:public_body, 3).sort_by(&:id)
+      allow(PublicBody).to receive(:indexable).
+        and_return(PublicBody.where(id: bodies))
+
+      yielded = []
+      PublicBody.reindex_all(batch_size: 1) { |id| yielded << id }
+
+      expect(yielded).to eq(bodies.map(&:id))
+    end
+
+    it 'starts from the given id' do
+      first, second = FactoryBot.create_list(:public_body, 2).sort_by(&:id)
+      allow(PublicBody).to receive(:indexable).
+        and_return(PublicBody.where(id: [first, second]))
+      SearchDocument.delete_all
+
+      PublicBody.reindex_all(start_id: second.id)
+
+      expect(
+        SearchDocument.where(searchable_type: 'PublicBody').
+          pluck(:searchable_id)
+      ).to eq([second.id])
+    end
+
     it 'copies the indexed columns into the raw content' do
       user = FactoryBot.create(:user, name: 'Winston Smith')
 
