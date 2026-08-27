@@ -112,6 +112,28 @@ RSpec.describe Searchable, 'index lifecycle', :reindex_inline do
     expect(SearchDocument.where(searchable_type: "Notification").count).to eq(0)
   end
 
+  describe '.not_indexed' do
+    it 'excludes records that are already indexed' do
+      user = FactoryBot.create(:user)
+      expect(User.not_indexed).not_to include(user)
+    end
+
+    it 'includes records with no document' do
+      user = FactoryBot.create(:user)
+      SearchDocument.delete_all
+
+      expect(User.not_indexed).to include(user)
+    end
+
+    it 'looks only at the documents of its own model' do
+      user = FactoryBot.create(:user)
+      SearchDocument.where(searchable_type: 'User').delete_all
+      FactoryBot.create(:public_body)
+
+      expect(User.not_indexed).to include(user)
+    end
+  end
+
   describe '.reindex_all' do
     it 'indexes every indexable record' do
       FactoryBot.create_list(:user, 2)
@@ -231,6 +253,16 @@ RSpec.describe Searchable, 'index lifecycle', :reindex_inline do
         SearchDocument.where(searchable_type: 'PublicBody').
           pluck(:searchable_id)
       ).to eq([second.id])
+    end
+
+    it 'indexes only the records without a document when asked' do
+      indexed, missing = FactoryBot.create_list(:public_body, 2)
+      allow(PublicBody).to receive(:indexable).
+        and_return(PublicBody.where(id: [indexed, missing]))
+      SearchDocument.where(searchable_type: 'PublicBody',
+                           searchable_id: missing.id).delete_all
+
+      expect(PublicBody.reindex_all(only_missing: true)).to eq(1)
     end
 
     it 'copies the indexed columns into the raw content' do
