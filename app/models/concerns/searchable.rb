@@ -328,16 +328,20 @@ module Searchable
     #
     # Models read through ruby are walked in id order, a batch at a time,
     # and the last id of each batch is yielded. A run can be told the id to
-    # start from, so a backfill that stops part way picks up where it
-    # got to rather than starting the model again. Models built inside the
-    # database are a single statement, so there is nothing to carry on from.
-    def reindex_all(batch_size: 1000, start_id: nil, only_missing: false)
+    # start from, and can be capped at +limit+ records so it gives up
+    # the process once it has done its share. Between them a backfill that
+    # stops part way picks up where it got to rather than starting the model
+    # again. Models built inside the database are a single statement, so
+    # there is nothing to cap and nothing to carry on from.
+    def reindex_all(batch_size: 1000, start_id: nil, only_missing: false,
+                    limit: nil)
       return 0 if search_options.nil?
 
       return reindex_all_inside_db if reindex_inside_db?
 
       scope = only_missing ? indexable.not_indexed : indexable
       scope = scope.where(arel_table[primary_key].gteq(start_id)) if start_id
+      scope = scope.limit(limit) if limit
 
       start = Time.zone.now
       count = 0
