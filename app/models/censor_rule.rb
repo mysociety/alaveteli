@@ -33,32 +33,30 @@ class CensorRule < ApplicationRecord
   validates_presence_of :text, :replacement,
                         :last_edit_comment, :last_edit_editor
 
-  def apply_to_text(text_to_censor, redactable: nil, redacted_attribute: nil)
-    return nil if text_to_censor.nil?
-
-    after = text_to_censor.gsub(to_replace('UTF-8'), replacement)
-
-    record_redaction(redactable, redacted_attribute,
-                     before: text_to_censor, after: after)
-
-    after
+  def apply_to_text(to_censor, redactable: nil, redacted_attribute: nil)
+    apply(to_censor, redactable, redacted_attribute) do |content|
+      content.gsub(to_replace('UTF-8'), replacement)
+    end
   end
 
-  def apply_to_binary(binary_to_censor, redactable: nil, redacted_attribute: nil)
-    return nil if binary_to_censor.nil?
-
-    after =
-      binary_to_censor.gsub(to_replace(binary_to_censor.encoding)) do |match|
+  def apply_to_binary(to_censor, redactable: nil, redacted_attribute: nil)
+    apply(to_censor, redactable, redacted_attribute) do |content|
+      content.gsub(to_replace(content.encoding)) do |match|
         match.gsub(single_char_regexp) { |m| 'x' * m.bytesize }
       end
-
-    record_redaction(redactable, redacted_attribute,
-                     before: binary_to_censor, after: after)
-
-    after
+    end
   end
 
   private
+
+  def apply(to_censor, redactable, redacted_attribute)
+    return nil if to_censor.nil?
+
+    after = yield to_censor
+    record_redaction(redactable, redacted_attribute,
+                     before: to_censor, after: after)
+    after
+  end
 
   def to_replace(encoding)
     if regexp? || !case_sensitive? || ignore_diacritics?
