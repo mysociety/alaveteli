@@ -283,6 +283,19 @@ RSpec.describe Searchable, 'index lifecycle', :reindex_inline do
       expect(Notification.reindex_all).to eq(0)
     end
 
+    it 'stops once it has indexed the records it was capped at' do
+      bodies = FactoryBot.create_list(:public_body, 3).sort_by(&:id)
+      allow(PublicBody).to receive(:indexable).
+        and_return(PublicBody.where(id: bodies))
+      SearchDocument.delete_all
+
+      expect(PublicBody.reindex_all(limit: 2)).to eq(2)
+      expect(
+        SearchDocument.where(searchable_type: 'PublicBody').
+          pluck(:searchable_id).uniq
+      ).to match_array(bodies.first(2).map(&:id))
+    end
+
     it 'copies the indexed columns into the raw content' do
       user = FactoryBot.create(:user, name: 'Winston Smith')
 
