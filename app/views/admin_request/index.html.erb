@@ -14,10 +14,14 @@
     <%= submit_tag 'Search', class: 'btn' %>
   </div>
 
-  <%= render partial: 'concerns/admin/searchable/search_engine', locals: {
-    legacy_label: 'substring search in titles only',
-    new_label: 'whole word search in titles; please report poor search results!'
-  } %>
+  <%= render partial: 'concerns/admin/searchable/search_engine',
+             locals: {
+               legacy_label: 'substring search in titles only',
+               new_label: 'whole word search in titles; please report ' \
+                          'poor search results!'
+             } %>
 <% end %>
 
 <%= render partial: 'some_requests', locals: { info_requests: @info_requests } %>
+
+<%= render 'concerns/admin/searchable/search_stats' %>

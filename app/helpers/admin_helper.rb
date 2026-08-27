@@ -5,6 +5,7 @@ module AdminHelper
   include Admin::ClassificationsHelper
   include Admin::LinkHelper
   include Admin::ProminenceHelper
+  include Admin::SearchHelper
 
   def icon(name)
     content_tag(:i, "", class: "icon-#{name}")

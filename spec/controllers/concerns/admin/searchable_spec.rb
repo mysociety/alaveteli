@@ -34,6 +34,20 @@ RSpec.describe Admin::Searchable do
     end
   end
 
+  describe '#measure_search' do
+    let(:search_engine) { nil }
+    let(:relation) { User.all.paginate(page: 1, per_page: 100) }
+
+    it 'gathers stats for the relation' do
+      controller.measure_search(relation)
+      expect(controller.search_stats.count).to eq(User.count)
+    end
+
+    it 'returns the relation' do
+      expect(controller.measure_search(relation)).to eq(relation)
+    end
+  end
+
   describe '#legacy_search?' do
     subject { controller.legacy_search? }
 

@@ -28,10 +28,13 @@
       <%= submit_tag "Search", class: "btn" %>
     </div>
 
-    <%= render partial: 'concerns/admin/searchable/search_engine', locals: {
-      legacy_label: 'substring search in names and emails; exact match of tags',
-      new_label: 'whole word search in names, emails and notes; please report poor search results!'
-    } %>
+    <%= render partial: 'concerns/admin/searchable/search_engine',
+               locals: {
+                 legacy_label: 'substring search in names and emails; ' \
+                               'exact match of tags',
+                 new_label: 'whole word search in names, emails and ' \
+                            'notes; please report poor search results!'
+               } %>
 
     <% if @query %>
       <%= link_to 'Show all', admin_bodies_path, class: 'btn' %>
@@ -61,3 +64,5 @@
 <% end %>
 
 <%= will_paginate(@public_bodies) %>
+
+<%= render 'concerns/admin/searchable/search_stats' %>

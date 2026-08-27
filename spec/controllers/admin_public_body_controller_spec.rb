@@ -20,6 +20,20 @@ RSpec.describe AdminPublicBodyController do
         to eq([public_bodies(:humpadink_public_body)])
     end
 
+    it "eager loads associations for the legacy search" do
+      get :index, params: { query: "humpa", search_engine: "legacy" }
+      body = assigns[:public_bodies].first
+      expect(body.association(:tags)).to be_loaded
+      expect(body.association(:translations)).to be_loaded
+    end
+
+    it "eager loads associations for the tag search" do
+      get :index, params: { query: "useless_agency", search_engine: "legacy" }
+      body = assigns[:public_bodies_by_tag].first
+      expect(body.association(:tags)).to be_loaded
+      expect(body.association(:translations)).to be_loaded
+    end
+
     it "lists all authorities in name order" do
       get :index
       names = assigns[:public_bodies].map(&:name)
