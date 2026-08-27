@@ -331,7 +331,7 @@ module Searchable
     # start from, so a backfill that stops part way picks up where it
     # got to rather than starting the model again. Models built inside the
     # database are a single statement, so there is nothing to carry on from.
-    def reindex_all(batch_size: 1000, start_id: nil)
+    def reindex_all(batch_size: 1000, start_id: nil, only_missing: false)
       options = search_options
       return if options.nil?
 
@@ -345,7 +345,7 @@ module Searchable
         return reindex_all_inside_db
       end
 
-      scope = indexable
+      scope = only_missing ? indexable.not_indexed : indexable
       scope = scope.where(arel_table[primary_key].gteq(start_id)) if start_id
 
       start = Time.zone.now
@@ -502,6 +502,8 @@ module Searchable
       # Override this scope to help filter out records which don't need
       # reindexing in `reindex_all`.
       scope :indexable, -> { all }
+      # Records with no search document at all
+      scope :not_indexed, -> { where.missing(:search_documents) }
     end
     base.extend(SearchableMethods)
   end
