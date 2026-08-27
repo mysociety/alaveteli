@@ -694,7 +694,11 @@ Rails.application.routes.draw do
       post 'hide', :on => :member
       resources :censor_rules,
         :controller => 'admin/censor_rules',
-        :only => [:new, :create]
+        :only => [:new, :create] do
+        resources :redactions,
+          :controller => 'admin/censor_rules/redactions',
+          :only => [:index]
+      end
     end
   end
   direct :admin_info_request do |ir|

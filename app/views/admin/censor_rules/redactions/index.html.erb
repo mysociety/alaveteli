@@ -1,0 +1,80 @@
+<% @title = "Redactions by CensorRule ##{@censor_rule.id}" %>
+
+<h1><%= @title %></h1>
+
+<ul class="breadcrumb">
+  <li>FOI request: <%= both_links(@info_request) %></li>
+</ul>
+
+<div class="row">
+  <div class="span12">
+    <dl class="dl-horizontal">
+      <dt>Text</dt>
+      <dd><code><%= @censor_rule.text %></code></dd>
+      <dt>Replacement</dt>
+      <dd><code><%= @censor_rule.replacement %></code></dd>
+
+      <br>
+
+      <dt>Regexp</dt>
+      <dd><code><%= @censor_rule.regexp? %></code></dd>
+      <dt>Case sensitive?</dt>
+      <dd><code><%= @censor_rule.case_sensitive? %></code></dd>
+      <dt>Ignore diacritics?</dt>
+      <dd><code><%= @censor_rule.ignore_diacritics? %></code></dd>
+
+      <br>
+
+      <dt>Last edit comment</dt>
+      <dd><%= @censor_rule.last_edit_comment %></dd>
+
+      <dt>Last edit editor</dt>
+      <dd><%= @censor_rule.last_edit_editor %></dd>
+    </dl>
+
+    <p>
+      <%= link_to 'Edit rule', edit_admin_censor_rule_path(@censor_rule), class: 'btn' %>
+    </p>
+  </div>
+</div>
+
+<% if @redactions.empty? %>
+  <div class="row">
+    <p class="span12">
+      No redactions recorded for this rule on this request yet.
+    </p>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <table class="table table-condensed table-hover">
+        <tr>
+          <th>Record</th>
+          <th>Redacted attribute</th>
+          <th>Type</th>
+          <th>Created at</th>
+        </tr>
+
+        <% @redactions.each do |redaction| %>
+          <tr>
+            <td>
+              <%= both_links(redaction.redactable) %>
+            </td>
+
+            <td>
+              <tt><%= redaction.redacted_attribute %></tt>
+            </td>
+
+            <td>
+              <tt><%= redaction.redactable_type %></tt>
+            </td>
+
+            <td>
+              <%= redaction.redactable.created_at %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+<% end %>
