@@ -112,6 +112,20 @@ RSpec.describe Searchable, 'index lifecycle', :reindex_inline do
     expect(SearchDocument.where(searchable_type: "Notification").count).to eq(0)
   end
 
+  describe '.reindex_inside_db?' do
+    it 'is true when every indexed field is a column' do
+      expect(User.reindex_inside_db?).to eq(true)
+    end
+
+    it 'is false when a field reads a ruby attribute' do
+      expect(PublicBody.reindex_inside_db?).to eq(false)
+    end
+
+    it 'is false for a model that never called searchable' do
+      expect(Notification.reindex_inside_db?).to eq(false)
+    end
+  end
+
   describe '.not_indexed' do
     it 'excludes records that are already indexed' do
       user = FactoryBot.create(:user)
@@ -263,6 +277,10 @@ RSpec.describe Searchable, 'index lifecycle', :reindex_inline do
                            searchable_id: missing.id).delete_all
 
       expect(PublicBody.reindex_all(only_missing: true)).to eq(1)
+    end
+
+    it 'indexes nothing for a model that never called searchable' do
+      expect(Notification.reindex_all).to eq(0)
     end
 
     it 'copies the indexed columns into the raw content' do
