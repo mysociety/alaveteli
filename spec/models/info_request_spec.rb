@@ -2987,6 +2987,60 @@ RSpec.describe InfoRequest do
     end
   end
 
+  describe '#applicable_censor_rules order' do
+    it 'returns censor rules in the expected order' do
+      global_rule_2 = FactoryBot.create(
+        :global_censor_rule,
+        created_at: '2023-01-03'
+      )
+      global_rule_1 = FactoryBot.create(
+        :global_censor_rule,
+        created_at: '2024-01-15'
+      )
+      req_rule_1 = FactoryBot.create(
+        :info_request_censor_rule,
+        text: '1',
+        created_at: '2024-01-12'
+      )
+      req_rule_2 = FactoryBot.create(
+        :info_request_censor_rule, 
+        text: '2',
+        created_at: '2024-01-11',
+        censorable: req_rule_1.censorable
+      )
+      info_request = req_rule_1.censorable
+      body_rule_2 = FactoryBot.create(
+        :public_body_censor_rule,
+        created_at: '2021-01-10'
+      )
+      body_rule_1 = FactoryBot.create(
+        :public_body_censor_rule,
+        created_at: '2025-01-10',
+        censorable: body_rule_2.censorable
+      )
+      info_request.public_body = body_rule_1.censorable
+      user_rule_1 = FactoryBot.create(
+        :user_censor_rule,
+        created_at: '2026-12-31'
+      )
+      user_rule_2 = FactoryBot.create(
+        :user_censor_rule,
+        created_at: '2023-12-31',
+        censorable: user_rule_1.censorable
+      )
+      info_request.user = user_rule_1.censorable
+
+      expected = [
+        req_rule_1.id, req_rule_2.id,
+        global_rule_1.id, global_rule_2.id,
+        body_rule_1.id, body_rule_2.id,
+        user_rule_1.id, user_rule_2.id,
+      ]
+
+      expect(info_request.applicable_censor_rules.map(&:id)).to eq(expected)
+    end
+  end
+
   describe '#apply_censor_rules_to_text' do
     it 'applies each censor rule to the text' do
       rule_1 = FactoryBot.build(:censor_rule, text: '1')

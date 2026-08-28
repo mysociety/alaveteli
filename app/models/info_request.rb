@@ -1283,10 +1283,34 @@ class InfoRequest < ApplicationRecord
 
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
-    applicable_rules = [censor_rules, CensorRule.global]
-    applicable_rules << public_body.censor_rules unless public_body.blank?
-    applicable_rules << user.censor_rules if user
-    applicable_rules.flatten
+    query= <<-SQL
+    SELECT cr.* FROM censor_rules cr
+      WHERE (
+          cr.censorable_type = 'InfoRequest'
+          AND cr.censorable_id = :info_request_id
+        OR cr.censorable_id IS NULL
+          AND cr.censorable_type IS NULL
+        OR cr.censorable_type = 'PublicBody'
+          AND cr.censorable_id = :public_body_id
+        OR cr.censorable_type = 'User'
+          AND cr.censorable_id = :user_id
+      )
+    ORDER BY 
+      (CASE WHEN cr.censorable_type = 'InfoRequest' THEN 0
+         WHEN cr.censorable_type IS NULL THEN 1
+         WHEN cr.censorable_type = 'PublicBody' THEN 2
+         ELSE 3
+       END) ASC,
+      cr.created_at DESC
+    SQL
+    CensorRule.find_by_sql [
+      query,
+      {
+        info_request_id: id,
+        public_body_id: public_body_id,
+        user_id: user_id
+      }
+    ]
   end
 
   def apply_censor_rules_to_text(text)
