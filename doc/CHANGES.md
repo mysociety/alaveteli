@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Speed up determination of applicable censor rules and guarantee order of
+  application (Laurent Savaete)
 * Enqueue jobs once their transaction has committed, adopting the Rails 8.2
   default early (Graeme Porteous)
 * Exclude `foi_no` bodies from Batch (Gareth Rees)
@@ -206,6 +208,10 @@
   it by running:
 
     bin/rails runner "AlaveteliFeatures.backend.enable(:censor_rule_ignore_diacritics)"
+
+* **Note:** Global censor rules are now applied in descending order of creation. Prior to this release,
+  global censor rules were applied in whatever order they were returned by the database. This could lead
+  to unpredictable data leaks. The order of application of other censor rules (non-global) is not modified.
 
 * **Note:** `FACEBOOK_USERNAME` and `TWITTER_USERNAME` configuration values are
   deprecated and will be removed after this release.
