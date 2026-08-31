@@ -440,6 +440,9 @@ Lint/AmbiguousRange:
 Lint/AmbiguousRegexpLiteral:
   Enabled: true
 
+Lint/ArgumentMismatch:
+  Enabled: false
+
 Lint/ArrayLiteralInRegexp:
   Enabled: false
 
@@ -783,6 +786,9 @@ Lint/SharedMutableDefault:
   Enabled: false
 
 Lint/StructNewOverride:
+  Enabled: false
+
+Lint/SuperArgumentMismatch:
   Enabled: false
 
 Lint/SuppressedException:
@@ -1749,6 +1755,9 @@ Style/Dir:
 Style/DirEmpty:
   Enabled: false
 
+Style/DirectiveScope:
+  Enabled: false
+
 Style/DisableCopsWithinSourceCodeDirective:
   Enabled: false
 
@@ -2441,6 +2450,9 @@ Style/TallyMethod:
   Enabled: false
 
 Style/TernaryParentheses:
+  Enabled: false
+
+Style/TimeNow:
   Enabled: false
 
 Style/TopLevelMethodDefinition:
