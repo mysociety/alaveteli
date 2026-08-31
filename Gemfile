@@ -190,7 +190,7 @@ gem "ollama-ai", "~> 1.3.0"
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
-  gem 'webmock', '~> 3.26.2'
+  gem 'webmock', '~> 3.26.3'
   gem 'simplecov', '~> 1.0.3'
   gem 'simplecov-lcov', '~> 0.9.0'
   gem 'capybara', '~> 3.40.0'
