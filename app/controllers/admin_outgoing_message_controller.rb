@@ -1,7 +1,22 @@
 class AdminOutgoingMessageController < AdminController
+  include Admin::Searchable
+
   before_action :set_outgoing_message, only: [:edit, :destroy, :update, :resend]
-  before_action :set_info_request, :check_info_request
+  before_action :set_info_request, :check_info_request,
+                only: [:edit, :destroy, :update, :resend]
   before_action :set_is_initial_message, only: [:edit, :destroy]
+
+  def index
+    @title ||= 'Listing outgoing messages'
+
+    @query = params[:query].try(:strip)
+
+    @outgoing_messages = measure_search(
+      outgoing_message_scope.
+        order(created_at: :desc).
+        paginate(page: params[:page], per_page: 100)
+    )
+  end
 
   def edit
   end
@@ -68,6 +83,17 @@ class AdminOutgoingMessageController < AdminController
   end
 
   private
+
+  def outgoing_message_scope
+    return base_scope if @query.blank?
+
+    base_scope.search_scope(@query, backend: :postgresql, admin_mode: true)
+  end
+
+  def base_scope
+    scope = OutgoingMessage
+    cannot?(:admin, AlaveteliPro::Embargo) ? scope.not_embargoed : scope
+  end
 
   def outgoing_message_params
     if params[:outgoing_message]

@@ -762,7 +762,7 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :outgoing_messages,
       :controller => 'admin_outgoing_message',
-    :only => [:edit, :update, :destroy] do
+    :only => [:index, :edit, :update, :destroy] do
       post 'resend', :on => :member
     end
   end
