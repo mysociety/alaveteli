@@ -98,7 +98,8 @@ module Searchable
     if search_cfg[idx_name].nil? || search_cfg[idx_name].empty?
       {}
     else
-      ActiveRecord::Base.
+      sql = search_content_from_db_query(idx_name, language)
+      r = ActiveRecord::Base.
         connection.
         exec_query(
           search_content_from_db_query(idx_name, language),
@@ -109,6 +110,16 @@ module Searchable
             ActiveRecord::Type::Integer.new
           )]
         ).to_a.first
+      if r.nil?
+        puts("Result is nil for #{sql} #{id}")
+        FoiAttachment.find_each do |fa|
+          # the test fails because it tries to reindex a non-existing
+          # FoiAttachment. The line below shows 2 attachments, a pdf
+          # and a rtf file, with a missing id in between them. why is that?
+          puts(fa.inspect)
+        end
+      end
+      r
     end
   end
 
