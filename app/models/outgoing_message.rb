@@ -84,6 +84,15 @@ class OutgoingMessage < ApplicationRecord
   scope :followup, -> { where(message_type: 'followup') }
   scope :is_searchable, -> { where(prominence: 'normal') }
 
+  scope :not_embargoed, -> {
+    joins(:info_request).
+      select('outgoing_messages.*').
+        joins('LEFT OUTER JOIN embargoes
+               ON embargoes.info_request_id = info_requests.id').
+          where('embargoes.id IS NULL').
+            references(:embargoes)
+  }
+
   searchable(
     index: {
       ".get_text_for_indexing": "A",
