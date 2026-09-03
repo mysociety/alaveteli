@@ -5,7 +5,7 @@
 } %>
 
 
-<% if @foi_attachment.erased? %>
+<% if @foi_attachment.content_erased? %>
   <p>
     <%= button_to 'Download', '', class: 'btn', disabled: true %>
     <span class="muted">Erased attachments cannot be downloaded.</span>
@@ -62,10 +62,16 @@
   <div class="row">
     <div class="span12">
       <div class="alert alert-warning">
-        <p>Cannot show the mask, lock or replacement options as this attachment has been erased.</p>
+        <% if @foi_attachment.content_erased? %>
+          <p>Cannot show the mask, lock or replacement options as this attachment has been erased.</p>
+        <% else %>
+          <p>Cannot show the mask or lock options as this attachment has been erased.</p>
+        <% end %>
       </div>
     </div>
   </div>
+
+  <%= render partial: 'replace' unless @foi_attachment.content_erased? %>
 <% else %>
   <%= render partial: 'mask' %>
   <%= render partial: 'lock' %>

@@ -501,6 +501,15 @@ RSpec.describe RawEmail do
         expect(raw_email.reload).not_to be_erased
       end
 
+      it 'logs the reason for the failure' do
+        allow(Rails.logger).to receive(:error)
+        subject
+        expect(Rails.logger).to have_received(:error).with(
+          "RawEmail#erase failed (ID=#{raw_email.id}): " \
+          'ActiveRecord::Rollback: could not lock all attachments'
+        )
+      end
+
       it { is_expected.to eq(false) }
     end
 
@@ -528,6 +537,17 @@ RSpec.describe RawEmail do
         subject
         perform_enqueued_jobs
         expect(raw_email.reload).not_to be_erased
+      end
+
+      it 'logs the reason for the failure' do
+        allow(Rails.logger).to receive(:error)
+        subject
+        expect(Rails.logger).to have_received(:error).with(
+          a_string_including(
+            "RawEmail#erase failed (ID=#{raw_email.id})",
+            'ActiveStorage::FileNotFoundError'
+          )
+        )
       end
 
       it { is_expected.to eq(false) }
