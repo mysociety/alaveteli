@@ -75,6 +75,8 @@ class SearchDocument < ApplicationRecord
       search_queries << <<~SQL.chomp
           SELECT
               sd_id,
+              searchable_type,
+              searchable_id,
               rank() OVER (
                 ORDER BY ts_rank_cd(admin_content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
               ) AS rank
@@ -101,6 +103,8 @@ class SearchDocument < ApplicationRecord
       search_queries << <<~SQL.chomp
         SELECT
           sd_id,
+          searchable_type,
+          searchable_id,
           rank() OVER (ORDER BY sd_id DESC) AS rank
         FROM search_documents
         WHERE
@@ -115,6 +119,8 @@ class SearchDocument < ApplicationRecord
     search_queries << <<~SQL.chomp
         SELECT
             sd_id,
+            searchable_type,
+            searchable_id,
             rank() OVER (
               ORDER BY ts_rank_cd(content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
             ) AS rank
@@ -130,10 +136,12 @@ class SearchDocument < ApplicationRecord
     sql = <<~SQL.chomp.squeeze(' ')
       SELECT
         searches.sd_id,
+        searches.searchable_type,
+        searches.searchable_id,
         sum(searches.rank) AS rank_sum,
         sum(rrf_score(searches.rank)) AS score
       FROM ((#{search_queries.join(") UNION ALL (")})) searches
-      GROUP BY searches.sd_id
+      GROUP BY searches.sd_id, searches.searchable_type, searches.searchable_id
       ORDER BY score DESC
       LIMIT #{limit}
     SQL
@@ -200,27 +208,34 @@ class SearchDocument < ApplicationRecord
       case_sensitive: case_sensitive,
       limit_ratio: limit_ratio
     )
+    # prevent postgresql from trying to optimise the CTE by inlining in the main query.
+    # materialized makes sure that the actual search query is only executed once.
+    # This is possible via the rails patch in config/initializers/materialized_cte.rb
+    search_results_cte = 
+      Arel::Nodes::Cte.new(
+        :search_results,
+        Arel.sql("(#{sql[:query]})", **sql[:values]),
+        materialized: true
+      )
 
     if model.nil?
-      SearchDocument.where("sd_id IN (SELECT s.sd_id FROM (#{sql[:query]}) s)",
-sql[:values])
-    else
-      # De-duplicate records that match through several translations or
-      # sections (the join yields one row per matching search_document).
-      # Matching on the ids keeps the relation chainable, countable and
-      # paginatable, and leaves PostgreSQL free to fetch just the rows
-      # that matched.
-      matching_ids = SearchDocument.
-        select(:searchable_id).
-        where(searchable_type: model.to_s).
+      SearchDocument.
+        with(search_results_cte).
         joins(
           "JOIN search_results " \
-          "ON search_results.sd_id = search_documents.sd_id"
-        )
-
+          "ON search_documents.sd_id = search_results.sd_id"
+        ).
+        order(Arel.sql("search_results.score DESC"))
+    else
       relation.
-        with(search_results: Arel.sql(sql[:query], **sql[:values])).
-        where(id: matching_ids)
+        with(search_results_cte).
+        joins(
+          "JOIN search_results " \
+          "ON search_results.searchable_type = '#{relation.name}' " \
+          "AND search_results.searchable_id = " \
+          "#{relation.quoted_table_name}.#{relation.quoted_primary_key}"
+        ).
+        order(Arel.sql("search_results.score DESC"))
     end
   end
 end
