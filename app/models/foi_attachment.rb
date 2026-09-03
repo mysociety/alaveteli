@@ -172,6 +172,8 @@ class FoiAttachment < ApplicationRecord
     return filename unless info_request
     return filename if locked? && !locking?
 
+    # FIXME: We should use `apply_masks` to use the full masking pipeline, but
+    # this may break some attachment URLs.
     info_request.apply_censor_rules_to_text(filename)
   end
 
