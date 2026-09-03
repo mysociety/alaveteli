@@ -40,6 +40,13 @@ RSpec.describe AdminPublicBodyController do
       expect(names).to eq(names.sort_by(&:downcase))
     end
 
+    it "lists the best match first with the new search", :postgresql do
+      weak = FactoryBot.create(:public_body, name: 'Otter Watch')
+      strong = FactoryBot.create(:public_body, name: 'Otter Otter Otter Watch')
+      get :index, params: { query: 'otter', search_engine: 'new' }
+      expect(assigns[:public_bodies].first).to eq(strong)
+    end
+
     it "searches for a request email with the new search", :postgresql do
       get :index, params: { query: "humpadink-requests@localhost",
                             search_engine: "new" }

@@ -12,7 +12,8 @@ class AdminRequestController < AdminController
     show edit update destroy move generate_upload_url hide
   ]
 
-  sortable default: :updated_at_desc, only: [:index]
+  sortable default: :updated_at_desc, relevance: :indexed_search?,
+           only: [:index]
 
   def index
     @query = params[:query]
@@ -25,10 +26,9 @@ class AdminRequestController < AdminController
     end
 
     @info_requests = measure_search(
-      info_requests.
-      includes(:embargo, :user, public_body: :translations).
-      order(sort_query).
-      paginate(page: params[:page], per_page: 100)
+      sorted(
+        info_requests.includes(:embargo, :user, public_body: :translations)
+      ).paginate(page: params[:page], per_page: 100)
     )
   end
 

@@ -130,6 +130,25 @@ RSpec.describe AdminRequestController, "when administering requests" do
         get :index, params: { query: 'cat' }
         expect(assigns[:info_requests]).not_to include(cat_request)
       end
+
+      it 'sorts by the chosen column rather than search relevance' do
+        best_match = FactoryBot.create(:info_request,
+                                       title: 'A cat cat cat request')
+        best_match.update_columns(updated_at: 2.days.ago)
+
+        get :index, params: { query: 'cat', sort_order: 'updated_at_desc' }
+        expect(assigns[:info_requests].first).to eq(cat_request)
+      end
+
+      it 'offers relevance as a sort option' do
+        get :index, params: { query: 'cat' }
+        expect(controller.sort_options.keys.first).to eq('relevance')
+      end
+
+      it 'does not offer relevance without a search' do
+        get :index
+        expect(controller.sort_options.keys).not_to include('relevance')
+      end
     end
   end
 

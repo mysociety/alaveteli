@@ -22,9 +22,15 @@ RSpec.describe AdminOutgoingMessageController do
 
     it 'finds outgoing messages matching a query' do
       outgoing.update!(body: 'A Very Distinctive Phrase')
-      outgoing.reindex
       get :index, params: { query: 'distinctive' }
       expect(assigns[:outgoing_messages]).to match_array([outgoing])
+    end
+
+    it "lists the best match first", :postgresql do
+      weak = FactoryBot.create(:initial_request, body: 'Need more data!')
+      strong = FactoryBot.create(:initial_request, body: 'Data Data Data')
+      get :index, params: { query: 'data' }
+      expect(assigns[:outgoing_messages].first).to eq(strong)
     end
 
     context 'when a request is embargoed' do

@@ -90,21 +90,18 @@ RSpec.describe AdminUserController do
 
     it "assigns users matching a case-insensitive query to the view" do
       user = FactoryBot.create(:user, name: 'Bob Smith')
-      user.reindex
       get :index, params: { query: 'bob' }
       expect(assigns[:admin_users].include?(user)).to be true
     end
 
     it 'strips the string when searching' do
       user = FactoryBot.create(:user, email: 'julie@example.com')
-      user.reindex
       get :index, params: { query: ' julie@example.com ' }
       expect(assigns[:admin_users]).to include(user)
     end
 
     it 'finds users by a partial email fragment' do
       user = FactoryBot.create(:user, email: 'julie@example.com')
-      user.reindex
       get :index, params: { query: '@example.com' }
       expect(assigns[:admin_users]).to include(user)
     end
@@ -113,7 +110,6 @@ RSpec.describe AdminUserController do
       # PostgreSQL tokenises a URL by host, so the about me link is found by
       # its domain rather than an arbitrary substring.
       user = FactoryBot.create(:user, about_me: 'http://example.com')
-      user.reindex
       get :index, params: { query: 'example.com' }
       expect(assigns[:admin_users]).to include(user)
     end
@@ -123,9 +119,24 @@ RSpec.describe AdminUserController do
       u1 = FactoryBot.create(:user, name: 'Alice Smith')
       u2 = FactoryBot.create(:user, name: 'Bob Smith')
       u3 = FactoryBot.create(:user, name: 'John Doe')
-      [u1, u2, u3].each(&:reindex)
       get :index, params: { query: 'smith', sort_order: 'name_desc' }
       expect(assigns[:admin_users]).to eq([u2, u1])
+    end
+
+    it 'sorts by relevance until another order is chosen' do
+      User.destroy_all
+      alice = FactoryBot.create(:user, name: 'Alice Smith')
+      bob = FactoryBot.create(:user, name: 'Bob Smith Smith Smith')
+      get :index, params: { query: 'smith' }
+      expect(assigns[:admin_users]).to eq([bob, alice])
+    end
+
+    it 'sorts by the chosen column rather than search relevance' do
+      User.destroy_all
+      alice = FactoryBot.create(:user, name: 'Alice Smith')
+      bob = FactoryBot.create(:user, name: 'Bob Smith Smith Smith')
+      get :index, params: { query: 'smith', sort_order: 'name_asc' }
+      expect(assigns[:admin_users]).to eq([alice, bob])
     end
 
     it 'filters the records by role' do
