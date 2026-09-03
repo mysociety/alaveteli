@@ -206,21 +206,28 @@ class SearchDocument < ApplicationRecord
 sql[:values])
     else
       # De-duplicate records that match through several translations or
-      # sections (the join yields one row per matching search_document).
-      # Matching on the ids keeps the relation chainable, countable and
-      # paginatable, and leaves PostgreSQL free to fetch just the rows
-      # that matched.
+      # sections (the join yields one row per matching search_document),
+      # keeping the relation chainable, countable and paginatable.
+      #
+      # Join the ids rather than matching them with IN. A semi-join lets
+      # PostgreSQL scan the whole table and re-run the search for every
+      # row it looks at.
       matching_ids = SearchDocument.
         select(:searchable_id).
         where(searchable_type: model.to_s).
         joins(
           "JOIN search_results " \
           "ON search_results.sd_id = search_documents.sd_id"
-        )
+        ).
+        distinct
 
       relation.
         with(search_results: Arel.sql(sql[:query], **sql[:values])).
-        where(id: matching_ids)
+        joins(
+          "JOIN (#{matching_ids.to_sql}) search_matches " \
+          "ON search_matches.searchable_id = " \
+          "#{relation.quoted_table_name}.#{relation.quoted_primary_key}"
+        )
     end
   end
 end
