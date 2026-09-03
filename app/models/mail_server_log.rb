@@ -18,6 +18,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class MailServerLog < ApplicationRecord
+  include Searchable
   # `serialize` needs to be called before all other ActiveRecord code.
   # See http://stackoverflow.com/a/15610692/387558
   serialize :delivery_status, coder: DeliveryStatusSerializer
@@ -30,6 +31,53 @@ class MailServerLog < ApplicationRecord
              optional: true
 
   before_create :calculate_delivery_status
+
+  # regular users should never be able to search email logs
+  searchable index: {},
+             admin_index: {
+               line: 'A'
+             },
+             filterable: [],
+             sortable: []
+
+  # Reindexing all logs in a single SQL query is more than 10x faster than
+  # the base model's reindex_all method (even more if database and app are
+  # on separate machines).
+  def self.reindex_all
+    start = Time.now
+
+    query = <<-SQL
+      INSERT INTO "search_documents" (
+        "searchable_type",
+        "searchable_id",
+        "language",
+        "section_ref",
+        "raw_content",
+        "raw_admin_content",
+        "content_tsv",
+        "admin_content_tsv",
+        "created_at",
+        "updated_at"
+      )
+      SELECT
+        'MailServerLog',
+        mail_server_logs.id,
+        'english',
+        '1',
+        NULL,
+        concat(mail_server_logs.line, ' '),
+        NULL,
+        setweight(to_tsvector('english'::regconfig, unaccent(coalesce(concat(line, ' '), ''))), 'A'),
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      FROM mail_server_logs
+    SQL
+
+    ActiveRecord::Base.connection.exec_query("TRUNCATE search_documents_mailserverlog")
+    ActiveRecord::Base.connection.exec_query(query)
+    t = Time.now - start
+    Rails.logger.info("Reindexed #{indexable.count} #{name} in #{t} seconds")
+  end
 
   # Load in exim or postfix log file from disk, or update if we already have it
   # Assumes files are named with date, rather than cyclically.
