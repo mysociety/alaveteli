@@ -584,7 +584,7 @@ class InfoRequest < ApplicationRecord
   def safe_from_name
     return external_user_name if is_external?
 
-    apply_censor_rules_to_text(from_name)
+    apply_masks(from_name)
   end
 
   def user_name_slug

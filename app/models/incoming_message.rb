@@ -114,7 +114,7 @@ class IncomingMessage < ApplicationRecord
   #
   # Returns a String
   def safe_from_name
-    info_request.apply_censor_rules_to_text(from_name) if from_name
+    apply_masks(from_name) if from_name
   end
 
   def specific_from_name?

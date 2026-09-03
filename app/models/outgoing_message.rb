@@ -139,7 +139,7 @@ class OutgoingMessage < ApplicationRecord
   def safe_from_name
     return info_request.external_user_name if info_request.is_external?
 
-    info_request.apply_censor_rules_to_text(from_name)
+    apply_masks(from_name)
   end
 
   # Public: The value to be used in the From: header of an OutgoingMailer
@@ -203,6 +203,7 @@ class OutgoingMessage < ApplicationRecord
       info_request.try(:applicable_censor_rules) or []
     end
 
+    # FIXME: We appear not to be applying text masks here
     censor_rules.reduce(text) { |t, rule| rule.apply_to_text(t) }
   end
 
