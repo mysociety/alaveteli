@@ -895,6 +895,9 @@ RSpec.describe InfoRequestEvent do
 
       it 'returns separate entries for each attachment type' do
         info_request = ire.info_request
+        # somehow the rtf attachment is created twice, and the first
+        # record in db is deleted and replaced by a new one. The id
+        # changes in the process.
         incoming = FactoryBot.create(
           :incoming_message,
           foi_attachments_factories: [[:pdf_attachment], [:rtf_attachment]],

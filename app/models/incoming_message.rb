@@ -38,6 +38,7 @@ require 'zip'
 class IncomingMessage < ApplicationRecord
   include MessageProminence
   include Taggable
+  include Searchable
 
   # An IncomingMessage is intrinsically linked to its RawEmail. RawEmail just
   # holds the underlying plain text email and some basic methods for working
@@ -82,6 +83,30 @@ class IncomingMessage < ApplicationRecord
   delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 
   delegate :apply_masks, to: :info_request
+
+  searchable(
+    index: {
+      subject: "A",
+      # get_body_for_indexing does not exactly match the censorship
+      # applied on the public view.
+      # We index the body of the email here instead of on FoiAttachment,
+      # as most people think of it as part of the message rather than as
+      # an attachment.
+      ".get_body_for_indexing": "A",
+      prominence_reason: "D"
+    },
+    admin_index: {
+      from_email: "D",
+      ".get_main_body_text_uncensored_for_indexing": "A"
+    }
+  )
+
+  # We don't want to index the message until its body is cached,
+  # as this forces caching the main body, which causes all sorts of
+  # annoying side effects.
+  def is_indexable?
+    cached_main_body_text_folded.present?
+  end
 
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.

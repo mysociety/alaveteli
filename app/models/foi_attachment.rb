@@ -44,6 +44,7 @@ class FoiAttachment < ApplicationRecord
   include Lockable
   include Maskable
   include Replaceable
+  include Searchable
 
   MissingError = Class.new(StandardError)
   MaskingError = Class.new(StandardError)
@@ -69,12 +70,72 @@ class FoiAttachment < ApplicationRecord
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
                 include: %i[redacted_filename display_filename metadata]
 
+  searchable(
+    index: {
+      ".body_for_indexing": "A"
+    },
+    admin_index: {
+      "filename": "A",
+      ".unredacted_diff_for_admin_indexing": "A",
+      "prominence_reason": "A",
+      "replaced_reason": "A"
+    }
+  )
+
+  def is_indexable?
+    # the main body is indexed with the incoming_message,
+    # avoid double indexing
+    !main_body_part?
+  end
+
+  # Get the text content of the attachment. As this is expensive,
+  # take shortcuts for files we can't process at the moment.
+  # This is assuming that we don't do OCR, review this method when
+  # this happens.
+  def body_for_indexing
+    if [
+      'application/x-empty',
+      'image/bmp',
+      'image/gif',
+      'image/jpeg',
+      'image/png',
+      'image/tiff',
+      'image/webp',
+      'image/x-png',
+      'message/disposition-notification',
+      'video/x-flv',
+    ].include?(content_type)
+      return ''
+    end
+    body_to_text
+  rescue FoiAttachment::Erasable::ErasedError
+    ''
+  end
+
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
 
   def delete_cached_file!
     @cached_body = nil
     file.purge_later if file.attached?
+  end
+
+  def unredacted_content_for_indexing
+    AttachmentToText.
+      from_string(unmasked_body, content_type: content_type).
+      to_text
+  rescue RawEmail::Erasable::ErasedError,
+         FoiAttachment::Erasable::ErasedError,
+         FoiAttachment::MissingError
+    ''
+  end
+
+  def unredacted_diff_for_admin_indexing
+    diff_unredacted_and_redacted_content(
+      unredacted_content_for_indexing,
+      body_for_indexing
+      # apply_masks(unredacted_content_for_indexing, content_type)
+    )
   end
 
   def body=(d)
