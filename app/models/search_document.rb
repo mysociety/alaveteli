@@ -205,29 +205,32 @@ class SearchDocument < ApplicationRecord
       SearchDocument.where("sd_id IN (SELECT s.sd_id FROM (#{sql[:query]}) s)",
 sql[:values])
     else
-      # De-duplicate records that match through several translations or
-      # sections (the join yields one row per matching search_document),
-      # keeping the relation chainable, countable and paginatable.
+      # A record can match through several translations or sections, so
+      # group the documents to one row per record, scored by the best of
+      # them. The relation stays chainable, countable and paginatable.
       #
       # Join the ids rather than matching them with IN. A semi-join lets
       # PostgreSQL scan the whole table and re-run the search for every
       # row it looks at.
       matching_ids = SearchDocument.
-        select(:searchable_id).
+        select(:searchable_id, "max(search_results.score) AS score").
         where(searchable_type: model.to_s).
         joins(
           "JOIN search_results " \
           "ON search_results.sd_id = search_documents.sd_id"
         ).
-        distinct
+        group(:searchable_id)
+
+      record_id = "#{relation.quoted_table_name}." \
+                  "#{relation.quoted_primary_key}"
 
       relation.
         with(search_results: Arel.sql(sql[:query], **sql[:values])).
         joins(
           "JOIN (#{matching_ids.to_sql}) search_matches " \
-          "ON search_matches.searchable_id = " \
-          "#{relation.quoted_table_name}.#{relation.quoted_primary_key}"
-        )
+          "ON search_matches.searchable_id = #{record_id}"
+        ).
+        order(Arel.sql("search_matches.score DESC, #{record_id}"))
     end
   end
 end

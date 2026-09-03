@@ -27,6 +27,13 @@ RSpec.describe AdminOutgoingMessageController do
       expect(assigns[:outgoing_messages]).to match_array([outgoing])
     end
 
+    it "lists the best match first", :postgresql do
+      weak = FactoryBot.create(:initial_request, body: 'Need more data!')
+      strong = FactoryBot.create(:initial_request, body: 'Data Data Data')
+      get :index, params: { query: 'data' }
+      expect(assigns[:outgoing_messages].first).to eq(strong)
+    end
+
     context 'when a request is embargoed' do
       before { info_request.create_embargo }
 
