@@ -393,7 +393,7 @@ RSpec.describe OutgoingMessage do
 
       rules = [FactoryBot.build(:censor_rule, text: 'secret'),
                FactoryBot.build(:censor_rule, text: 'sensitive')]
-      allow_any_instance_of(InfoRequest).to receive(:censor_rules).and_return(rules)
+      allow_any_instance_of(InfoRequest).to receive(:applicable_censor_rules).and_return(rules)
 
       expected = 'This [REDACTED] text contains [REDACTED] info!'
       expect(message.body).to eq(expected)
