@@ -21,7 +21,7 @@ class AdminUserController < AdminController
                 :check_role_authorisation,
                 :check_role_requirements, only: %i[update]
 
-  sortable :name, :created_at, :updated_at,
+  sortable :name, :created_at, :updated_at, relevance: :indexed_search?,
            only: [:index, :active, :banned, :closed]
 
   sortable default: :updated_at_desc, only: [:show]
@@ -43,7 +43,7 @@ class AdminUserController < AdminController
     end
 
     @admin_users = measure_search(
-      users.order(sort_query).
+      sorted(users).
         paginate(page: params[:page], per_page: 100)
     )
 

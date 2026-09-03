@@ -128,6 +128,22 @@ RSpec.describe AdminUserController do
       expect(assigns[:admin_users]).to eq([u2, u1])
     end
 
+    it 'sorts by relevance until another order is chosen' do
+      User.destroy_all
+      alice = FactoryBot.create(:user, name: 'Alice Smith')
+      bob = FactoryBot.create(:user, name: 'Bob Smith Smith Smith')
+      get :index, params: { query: 'smith' }
+      expect(assigns[:admin_users]).to eq([bob, alice])
+    end
+
+    it 'sorts by the chosen column rather than search relevance' do
+      User.destroy_all
+      alice = FactoryBot.create(:user, name: 'Alice Smith')
+      bob = FactoryBot.create(:user, name: 'Bob Smith Smith Smith')
+      get :index, params: { query: 'smith', sort_order: 'name_asc' }
+      expect(assigns[:admin_users]).to eq([alice, bob])
+    end
+
     it 'filters the records by role' do
       User.destroy_all
       admin_user = FactoryBot.create(:admin_user)

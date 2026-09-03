@@ -34,6 +34,35 @@ RSpec.describe Admin::Searchable do
     end
   end
 
+  describe '#indexed_search?' do
+    subject { controller.indexed_search? }
+
+    before do
+      allow(controller).to receive(:params).and_return(
+        ActionController::Parameters.new(search_engine: search_engine,
+                                         query: query)
+      )
+    end
+
+    context 'when the new engine is searching' do
+      let(:search_engine) { nil }
+      let(:query) { 'bob' }
+      it { is_expected.to be(true) }
+    end
+
+    context 'when nothing is being searched for' do
+      let(:search_engine) { nil }
+      let(:query) { '' }
+      it { is_expected.to be(false) }
+    end
+
+    context 'when the legacy engine is searching' do
+      let(:search_engine) { 'legacy' }
+      let(:query) { 'bob' }
+      it { is_expected.to be(false) }
+    end
+  end
+
   describe '#measure_search' do
     let(:search_engine) { nil }
     let(:relation) { User.all.paginate(page: 1, per_page: 100) }
