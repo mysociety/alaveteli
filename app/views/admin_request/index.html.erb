@@ -11,6 +11,7 @@
 <%= form_tag({}, method: 'get', class: 'form form-search') do %>
   <div class="input-append">
     <%= text_field_tag 'query', params[:query], size: 30, class: 'input-large search-query' %>
+    <%= hidden_field_tag 'sort_order', @sort_order %>
     <%= submit_tag 'Search', class: 'btn' %>
   </div>
 
