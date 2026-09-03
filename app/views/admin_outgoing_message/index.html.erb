@@ -1,0 +1,22 @@
+<% @title = 'Listing outgoing messages' %>
+
+<h1><%= @title %></h1>
+
+<%= form_tag nil, method: :get, class: 'form form-search' do %>
+  <div class="input-append">
+    <%= text_field_tag 'query', params[:query], size: 30, class: 'input-large search-query' %>
+    <%= submit_tag 'Search', class: 'btn' %>
+  </div>
+<% end %>
+
+<div class="accordion" id="outgoing_messages">
+  <% if @outgoing_messages.any? %>
+    <%= render partial: 'outgoing_message', collection: @outgoing_messages %>
+  <% else %>
+    <p>None yet.</p>
+  <% end %>
+</div>
+
+<%= will_paginate(@outgoing_messages) %>
+
+<%= render 'concerns/admin/searchable/search_stats' %>

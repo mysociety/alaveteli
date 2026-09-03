@@ -4,6 +4,45 @@ RSpec.describe AdminOutgoingMessageController do
   let(:admin_user) { FactoryBot.create(:admin_user) }
   let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
+  describe 'GET #index' do
+    before { sign_in(admin_user) }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:outgoing) { info_request.outgoing_messages.first }
+
+    it 'is successful' do
+      get :index
+      expect(response).to be_successful
+    end
+
+    it 'assigns all outgoing messages to the view' do
+      get :index
+      expect(assigns[:outgoing_messages]).to match_array(OutgoingMessage.all)
+    end
+
+    it 'finds outgoing messages matching a query' do
+      outgoing.update!(body: 'A Very Distinctive Phrase')
+      outgoing.reindex
+      get :index, params: { query: 'distinctive' }
+      expect(assigns[:outgoing_messages]).to match_array([outgoing])
+    end
+
+    context 'when a request is embargoed' do
+      before { info_request.create_embargo }
+
+      it 'does not include messages if the current user is not a pro admin user' do
+        get :index
+        expect(assigns[:outgoing_messages]).not_to include(outgoing)
+      end
+
+      it 'includes messages if the current user is a pro admin user' do
+        sign_in pro_admin_user
+        get :index
+        expect(assigns[:outgoing_messages]).to include(outgoing)
+      end
+    end
+  end
+
   describe 'GET #edit' do
     before { sign_in(admin_user) }
 
