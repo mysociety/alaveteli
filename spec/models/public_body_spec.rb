@@ -2095,7 +2095,7 @@ RSpec.describe PublicBody, "when indexing for postgres search" do
 
     body.reindex
 
-    expect(SearchDocument.count).to eq(2)
+    expect(body.search_documents.count).to eq(2)
     expect(PublicBody.newsearch("ABCD", language: 'french')).to eq([body])
     expect(PublicBody.newsearch("ABCD")).to eq([body])
     expect(PublicBody.newsearch(
