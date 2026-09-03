@@ -226,4 +226,46 @@ RSpec.describe Admin::TagsController do
       end
     end
   end
+
+  describe 'GET suggestions' do
+    def tags
+      JSON.parse(response.body)
+    end
+
+    it 'lists tags used more than once, most used first' do
+      2.times { FactoryBot.create(:public_body, tag_string: 'spec_pair') }
+      3.times { FactoryBot.create(:public_body, tag_string: 'spec_triple') }
+      FactoryBot.create(:public_body, tag_string: 'spec_once')
+
+      get :suggestions, format: :json
+
+      expect(tags.select { |tag| tag['t'].start_with?('spec_') }).to eq(
+        [{ 't' => 'spec_triple', 'c' => 3 }, { 't' => 'spec_pair', 'c' => 2 }]
+      )
+    end
+
+    it 'only counts tags on the model being tagged' do
+      2.times { FactoryBot.create(:public_body, tag_string: 'spec_shared') }
+      2.times { FactoryBot.create(:info_request, tag_string: 'spec_shared') }
+
+      get :suggestions, params: { model_type: 'InfoRequest' },
+                        format: :json
+
+      expect(tags).to include('t' => 'spec_shared', 'c' => 2)
+    end
+
+    it 'defaults to public body tags' do
+      2.times { FactoryBot.create(:info_request, tag_string: 'spec_requests') }
+
+      get :suggestions, format: :json
+
+      expect(tags.map { |tag| tag['t'] }).to_not include('spec_requests')
+    end
+
+    it 'raise 404 for unknown types' do
+      expect {
+        get :suggestions, params: { model_type: 'unknown' }, format: :json
+      }.to raise_error ApplicationController::RouteNotFound
+    end
+  end
 end
