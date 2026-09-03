@@ -275,6 +275,20 @@ body.admin {
   .edit-history .row:nth-child(even) {
     background-color: #f9f9f9;
   }
+
+  #info_request_events .row {
+    margin-bottom: 1em;
+  }
+  #info_request_events .row .details {
+    display: flex;
+    margin-left: 7em;
+  }
+  #info_request_events .row:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  #info_request_events .row .details .event-params {
+    margin-left: 1em;
+  }
 }
 
 /* Debug */

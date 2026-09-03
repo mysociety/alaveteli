@@ -37,6 +37,7 @@
               <li class="divider"></li>
 
               <li><%= link_to 'Comments', admin_comments_path %></li>
+              <li><%= link_to 'Request events', admin_info_request_events_path %></li>
               <% if feature_enabled?(:projects) && can?(:admin, Project) %>
                 <li><%= link_to 'Projects', admin_projects_path %></li>
               <% end %>
