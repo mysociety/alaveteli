@@ -277,8 +277,7 @@ module Searchable
       else
         items_to_index = indexable.where(id: start_id..(start_id + batch_count))
       end
-      items_to_index.find_each() do |record|
-        puts(record.id)
+      items_to_index.find_each do |record|
         record.reindex
         count += 1
       end
