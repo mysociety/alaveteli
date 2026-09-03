@@ -22,7 +22,6 @@ RSpec.describe AdminOutgoingMessageController do
 
     it 'finds outgoing messages matching a query' do
       outgoing.update!(body: 'A Very Distinctive Phrase')
-      outgoing.reindex
       get :index, params: { query: 'distinctive' }
       expect(assigns[:outgoing_messages]).to match_array([outgoing])
     end
