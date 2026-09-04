@@ -3032,7 +3032,7 @@ RSpec.describe InfoRequest do
                replacement: 'said' }.merge(@default_opts)
       CensorRule.create!(opts)
 
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
 
       expect(result).to eq(expected)
     end
@@ -3050,7 +3050,7 @@ RSpec.describe InfoRequest do
         @request.censor_rules << CensorRule.new(rule.merge(@default_opts))
       end
 
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
@@ -3067,21 +3067,21 @@ RSpec.describe InfoRequest do
         @request.user.censor_rules << CensorRule.new(rule.merge(@default_opts))
       end
 
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
     it 'replaces text with masks belonging to the info request' do
       data = "He emailed #{ @request.incoming_email }"
       expected = "He emailed [FOI ##{ @request.id } email]"
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
     it 'replaces text with global masks' do
       data = 'His email address was stilton@example.org'
       expected = 'His email address was [email address]'
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 

@@ -1299,7 +1299,7 @@ class InfoRequest < ApplicationRecord
       reduce(text) { |t, rule| rule.apply_to_binary(t) }
   end
 
-  def apply_masks(text, content_type)
+  def apply_masks(text, content_type = 'text/plain')
     mask_options = { censor_rules: applicable_censor_rules,
                      masks: masks }
     AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
