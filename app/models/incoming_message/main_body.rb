@@ -171,7 +171,7 @@ module IncomingMessage::MainBody
 
     # apply masks for this message
     unless get_main_body_text_part&.locked?
-      text = apply_masks(text, 'text/html')
+      text = apply_masks(text, 'text/html', redacted_attribute: :body)
     end
 
     # Remove existing quoted sections

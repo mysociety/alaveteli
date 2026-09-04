@@ -276,6 +276,7 @@ Layout/LineLength:
     - "^\\s*describe\\s+.*do$"
     - "^RSpec\\.describe(\\s+|\\().*do$"
     - "^\\s*class\\s+[A-Z].*<.*"
+    - "^\\s*def\\s"
   Exclude:
     - bin/setup
     - config/environments/development.rb

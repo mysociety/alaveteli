@@ -669,7 +669,7 @@ RSpec.describe IncomingMessage do
                replacement: 'said' }.merge(@default_opts)
       CensorRule.create!(opts)
 
-      result = @im.apply_masks(data, 'text/plain')
+      result = @im.apply_masks(data, 'text/plain', redacted_attribute: :body)
 
       expect(result).to eq(expected)
     end
@@ -687,7 +687,7 @@ RSpec.describe IncomingMessage do
         @im.info_request.censor_rules << CensorRule.new(rule.merge(@default_opts))
       end
 
-      result = @im.apply_masks(data, 'text/plain')
+      result = @im.apply_masks(data, 'text/plain', redacted_attribute: :body)
       expect(result).to eq(expected)
     end
 
@@ -704,28 +704,29 @@ RSpec.describe IncomingMessage do
         @im.info_request.user.censor_rules << CensorRule.new(rule.merge(@default_opts))
       end
 
-      result = @im.apply_masks(data, 'text/plain')
+      result = @im.apply_masks(data, 'text/plain', redacted_attribute: :body)
       expect(result).to eq(expected)
     end
 
     it 'replaces text with masks belonging to the info request' do
       data = "He emailed #{ @im.info_request.incoming_email }"
       expected = "He emailed [FOI ##{ @im.info_request.id } email]"
-      result = @im.apply_masks(data, 'text/plain')
+      result = @im.apply_masks(data, 'text/plain', redacted_attribute: :body)
       expect(result).to eq(expected)
     end
 
     it 'replaces text with global masks' do
       data = 'His email address was stilton@example.org'
       expected = 'His email address was [email address]'
-      result = @im.apply_masks(data, 'text/plain')
+      result = @im.apply_masks(data, 'text/plain', redacted_attribute: :body)
       expect(result).to eq(expected)
     end
 
     it 'replaces text in binary files' do
       data = 'His email address was stilton@example.org'
       expected = 'His email address was xxxxxxx@xxxxxxx.xxx'
-      result = @im.apply_masks(data, 'application/vnd.ms-word')
+      result = @im.apply_masks(data, 'application/vnd.ms-word',
+                               redacted_attribute: :body)
       expect(result).to eq(expected)
     end
   end
