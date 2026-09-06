@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Disallow crawling of the remaining expensive request, search and typeahead
+  paths, and drop robots.txt rules that match no URL (Ben Fairless)
 * Enqueue jobs once their transaction has committed, adopting the Rails 8.2
   default early (Graeme Porteous)
 * Exclude `foi_no` bodies from Batch (Gareth Rees)
