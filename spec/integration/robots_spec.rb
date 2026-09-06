@@ -33,6 +33,13 @@ RSpec.describe 'robots.txt', type: :request do
       to be < response.body.index(disallow_rule)
   end
 
+  # `*/tor*` blocked the /tor page but also every authority whose slug begins
+  # "tor" - Torfaen, Torbay, Torridge.
+  it 'blocks the tor page without blocking authorities named after it' do
+    expect(response.body).to include 'Disallow: */tor$'
+    expect(response.body).to_not include 'Disallow: */tor*'
+  end
+
   it 'renders without the site layout' do
     expect(response.body).to_not include '<html'
   end

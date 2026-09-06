@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Stop robots.txt blocking authorities whose name begins with "tor", such as
+  Torfaen and Torbay (Ben Fairless)
 * Render robots.txt from a template, so deployments and themes can customise
   it without forking the file (Ben Fairless)
 * Disallow crawling of the remaining expensive request, search and typeahead
