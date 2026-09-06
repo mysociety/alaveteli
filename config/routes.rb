@@ -76,6 +76,9 @@ Rails.application.routes.draw do
 
   #####
 
+  ##### Robots controller
+  get '/robots.txt' => 'robots#show', as: :robots, format: false
+
   ##### AtiNetwork controller
   match '/access-to-information-around-the-world' => 'ati_network#showcase',
         as: :ati_network_showcase,
