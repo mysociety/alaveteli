@@ -135,6 +135,7 @@ indentation correct. If in doubt, look at the examples already in the file, and 
 <br> <code><a href="#enable_annotations">ENABLE_ANNOTATIONS</a></code>
 <br> <code><a href="#enable_public_annotations">ENABLE_PUBLIC_ANNOTATIONS</a></code>
 <br> <code><a href="#enable_user_to_user_messaging">ENABLE_USER_TO_USER_MESSAGING</a></code>
+<br> <code><a href="#enable_sitemap">ENABLE_SITEMAP</a></code>
 <br> <code><a href="#survey_url">SURVEY_URL</a></code>
 <br> <code><a href="#user_sign_in_activity_retention_days">USER_SIGN_IN_ACTIVITY_RETENTION_DAYS</a></code>
 
@@ -1848,6 +1849,40 @@ SHARED_DIRECTORIES:
       <ul class="examples">
         <li>
             <code>ENABLE_USER_TO_USER_MESSAGING: true</code>
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="enable_sitemap"><code>ENABLE_SITEMAP</code></a>
+  </dt>
+  <dd>
+    Publishes an <a href="https://www.sitemaps.org/">XML sitemap</a> at
+    <code>/sitemap.xml</code>, listing every request and authority that search
+    engines should index. Without one, search engines can only reach the
+    requests linked from the first page of a listing, because Alaveteli marks
+    later pages <code>noindex</code>.
+
+    <p>
+      The sitemap lists only requests Alaveteli already considers searchable, so
+      requests which are hidden, requester-only, embargoed, or set to the
+      <a href="{{ page.baseurl }}/docs/running/hiding_information/">backpage
+      prominence</a> are left out of it.
+    </p>
+
+    <p>
+      The files are built by a cron job rather than when they are requested, so
+      you also need the <code>sitemap:generate</code> entry from
+      <code>config/crontab-example</code>. See
+      <a href="{{ page.baseurl }}/docs/running/server/#search-engines-and-crawling">search
+      engines and crawling</a>.
+    </p>
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li>
+            <code>ENABLE_SITEMAP: true</code>
         </li>
       </ul>
     </div>
