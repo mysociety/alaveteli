@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Render robots.txt from a template, so deployments and themes can customise
+  it without forking the file (Ben Fairless)
 * Disallow crawling of the remaining expensive request, search and typeahead
   paths, and drop robots.txt rules that match no URL (Ben Fairless)
 * Enqueue jobs once their transaction has committed, adopting the Rails 8.2
