@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Publish an XML sitemap, so search engines can index the requests and
+  authorities they cannot reach by following links (Ben Fairless)
 * Stop robots.txt blocking authorities whose name begins with "tor", such as
   Torfaen and Torbay (Ben Fairless)
 * Render robots.txt from a template, so deployments and themes can customise
@@ -102,6 +104,12 @@
 * Block various action links via robots.txt (Laurent Savaete)
 
 ## Upgrade Notes
+
+* _Required:_ Install the new `sitemap:generate` cron job from
+  `config/crontab-example`. The sitemap is built offline and served from the
+  `cache/` directory, so without the cron job `/sitemap.xml` will not exist.
+  Set `ENABLE_SITEMAP: false` in `general.yml` if you would rather your site
+  was not indexed.
 
 * _Required:_ This release now allows responses to be received from any source,
   1. Postfix/Exim `./script/mailin` pipe,

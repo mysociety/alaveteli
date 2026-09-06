@@ -56,6 +56,7 @@ module AlaveteliConfiguration
       ENABLE_PROJECTS: false,
       ENABLE_PRO_PRICING: false,
       ENABLE_PRO_SELF_SERVE: false,
+      ENABLE_SITEMAP: true,
       ENABLE_TWO_FACTOR_AUTH: false,
       ENABLE_USER_TO_USER_MESSAGING: true,
       ENABLE_WIDGETS: false,

@@ -49,6 +49,7 @@ RAILS_LOG_LEVEL=warn
 50 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/users-purge-limited.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails --quiet users:purge_limited" || echo "stalled?"
 53 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/users-destroy-unused.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails --quiet users:destroy_unused" || echo "stalled?"
 38 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/public-body-export.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails public_body:export" || echo "stalled?"
+33 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/sitemap-generate.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails sitemap:generate" || echo "stalled?"
 
 # Once a week (very early Monday morning)
 54 2 * * 1 <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/cleanup-holding-pen

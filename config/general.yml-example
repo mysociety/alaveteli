@@ -906,6 +906,19 @@ SHARED_DIRECTORIES:
 # ---
 PRODUCTION_MAILER_DELIVERY_METHOD: sendmail
 
+# Publish an XML sitemap at /sitemap.xml listing every request and authority
+# search engines should index. Without one they can only reach the handful of
+# requests linked from the first page of a listing, because later pages are
+# marked "noindex".
+#
+# The files are built by the sitemap:generate task, not on request, so this
+# needs the cron job from config/crontab-example to be installed as well.
+#
+# ENABLE_SITEMAP - Boolean (default: true)
+#
+# ---
+ENABLE_SITEMAP: true
+
 # If ENABLE_WIDGETS is set to true, Alaveteli will allow the embedding of a
 # 'widget' linking to a request on other sites. This widget will record
 # how many people click on an 'I also want to know' button.
