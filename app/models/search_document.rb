@@ -133,15 +133,22 @@ class SearchDocument < ApplicationRecord
         LIMIT #{limit * limit_ratio}
       SQL
 
+    # when the subqueries return multiple search_documents for a single
+    # searchable, we sum their scores under the assumption that if the
+    # record matched multiple times, it is probably more relevant.
+    # Keeping min(sd_id) allows us to group on the searchable to prevent
+    # duplicates, while keeping a valid sd_id if we need to join on it
+    # in a later query, without having to go through the search_documents
+    # table one more time.
     sql = <<~SQL.squish
       SELECT
-        searches.sd_id,
         searches.searchable_type,
         searches.searchable_id,
+        min(searches.sd_id) as sd_id,
         sum(searches.rank) AS rank_sum,
         sum(rrf_score(searches.rank)) AS score
       FROM ((#{search_queries.join(") UNION ALL (")})) searches
-      GROUP BY searches.sd_id, searches.searchable_type, searches.searchable_id
+      GROUP BY searches.searchable_type, searches.searchable_id
       ORDER BY score DESC
       LIMIT #{limit}
     SQL
@@ -228,23 +235,14 @@ class SearchDocument < ApplicationRecord
       record_id = "#{relation.quoted_table_name}." \
                   "#{relation.quoted_primary_key}"
 
-      # A record can match through several translations or sections, so
-      # roll the documents up to one row per record, scored by the best
-      # of them. The relation stays chainable, countable and paginatable.
-      search_records = materialized_cte(:search_records, <<~SQL.squish)
-        SELECT searchable_type, searchable_id, max(score) AS score
-        FROM search_results
-        GROUP BY searchable_type, searchable_id
-      SQL
-
       relation.
-        with(search_results: search_results, search_records: search_records).
+        with(search_results: search_results).
         joins(
-          "JOIN search_records " \
-          "ON search_records.searchable_type = '#{model}' " \
-          "AND search_records.searchable_id = #{record_id}"
+          "JOIN search_results " \
+          "ON search_results.searchable_type = '#{model}' " \
+          "AND search_results.searchable_id = #{record_id}"
         ).
-        order(Arel.sql("search_records.score DESC, #{record_id}"))
+        order(Arel.sql("search_results.score DESC"))
     end
   end
 
