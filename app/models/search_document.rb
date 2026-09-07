@@ -72,7 +72,7 @@ class SearchDocument < ApplicationRecord
     if admin_mode
       # keep the same language for tokenization in admin mode, if the (admin)
       # user wants exact text match, they should use `exact_mode`.
-      search_queries << <<~SQL.chomp
+      search_queries << <<~SQL.squish
           SELECT
               sd_id,
               searchable_type,
@@ -100,7 +100,7 @@ class SearchDocument < ApplicationRecord
       else
         adm_q = ""
       end
-      search_queries << <<~SQL.chomp
+      search_queries << <<~SQL.squish
         SELECT
           sd_id,
           searchable_type,
@@ -116,7 +116,7 @@ class SearchDocument < ApplicationRecord
     end
 
     # all searches use the FTS ts_vectors
-    search_queries << <<~SQL.chomp
+    search_queries << <<~SQL.squish
         SELECT
             sd_id,
             searchable_type,
@@ -133,7 +133,7 @@ class SearchDocument < ApplicationRecord
         LIMIT #{limit * limit_ratio}
       SQL
 
-    sql = <<~SQL.chomp.squeeze(' ')
+    sql = <<~SQL.squish
       SELECT
         searches.sd_id,
         searches.searchable_type,
