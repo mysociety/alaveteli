@@ -75,6 +75,8 @@ class SearchDocument < ApplicationRecord
       search_queries << <<~SQL.chomp
           SELECT
               sd_id,
+              searchable_type,
+              searchable_id,
               rank() OVER (
                 ORDER BY ts_rank_cd(admin_content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
               ) AS rank
@@ -101,6 +103,8 @@ class SearchDocument < ApplicationRecord
       search_queries << <<~SQL.chomp
         SELECT
           sd_id,
+          searchable_type,
+          searchable_id,
           rank() OVER (ORDER BY sd_id DESC) AS rank
         FROM search_documents
         WHERE
@@ -115,6 +119,8 @@ class SearchDocument < ApplicationRecord
     search_queries << <<~SQL.chomp
         SELECT
             sd_id,
+            searchable_type,
+            searchable_id,
             rank() OVER (
               ORDER BY ts_rank_cd(content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
             ) AS rank
@@ -130,10 +136,12 @@ class SearchDocument < ApplicationRecord
     sql = <<~SQL.chomp.squeeze(' ')
       SELECT
         searches.sd_id,
+        searches.searchable_type,
+        searches.searchable_id,
         sum(searches.rank) AS rank_sum,
         sum(rrf_score(searches.rank)) AS score
       FROM ((#{search_queries.join(") UNION ALL (")})) searches
-      GROUP BY searches.sd_id
+      GROUP BY searches.sd_id, searches.searchable_type, searches.searchable_id
       ORDER BY score DESC
       LIMIT #{limit}
     SQL
@@ -205,39 +213,38 @@ class SearchDocument < ApplicationRecord
       SearchDocument.where("sd_id IN (SELECT s.sd_id FROM (#{sql[:query]}) s)",
 sql[:values])
     else
-      # A record can match through several translations or sections, so
-      # group the documents to one row per record, scored by the best of
-      # them. The relation stays chainable, countable and paginatable.
-      #
-      # Join the ids rather than matching them with IN. A semi-join lets
-      # PostgreSQL scan the whole table and re-run the search for every
-      # row it looks at.
-      matching_ids = SearchDocument.
-        select(:searchable_id, "max(search_results.score) AS score").
-        where(searchable_type: model.to_s).
-        joins(
-          "JOIN search_results " \
-          "ON search_results.sd_id = search_documents.sd_id"
-        ).
-        group(:searchable_id)
-
       record_id = "#{relation.quoted_table_name}." \
                   "#{relation.quoted_primary_key}"
 
-      # Requires: lib/core_ext/active_record_materialized_cte.rb
-      search_results = Arel::Nodes::Cte.new(
-        :search_results,
-        Arel.sql("(#{sql[:query]})", **sql[:values]),
-        materialized: true
+      search_results = materialized_cte(
+        :search_results, sql[:query], sql[:values]
       )
 
+      # A record can match through several translations or sections, so
+      # roll the documents up to one row per record, scored by the best
+      # of them. The relation stays chainable, countable and paginatable.
+      search_records = materialized_cte(:search_records, <<~SQL.squish)
+        SELECT searchable_type, searchable_id, max(score) AS score
+        FROM search_results
+        GROUP BY searchable_type, searchable_id
+      SQL
+
       relation.
-        with(search_results: search_results).
+        with(search_results: search_results, search_records: search_records).
         joins(
-          "JOIN (#{matching_ids.to_sql}) search_matches " \
-          "ON search_matches.searchable_id = #{record_id}"
+          "JOIN search_records " \
+          "ON search_records.searchable_type = '#{model}' " \
+          "AND search_records.searchable_id = #{record_id}"
         ).
-        order(Arel.sql("search_matches.score DESC, #{record_id}"))
+        order(Arel.sql("search_records.score DESC, #{record_id}"))
     end
   end
+
+  # Requires: lib/core_ext/active_record_materialized_cte.rb
+  def self.materialized_cte(name, query, values = {})
+    Arel::Nodes::Cte.new(
+      name, Arel.sql("(#{query})", **values), materialized: true
+    )
+  end
+  private_class_method :materialized_cte
 end
