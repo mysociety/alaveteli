@@ -1,0 +1,5992 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: alaveteli\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-29 13:43+0000\n"
+"PO-Revision-Date: 2011-10-09 01:10+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid ""
+"\n"
+"\n"
+"[ {{site_name}} note: The above text was badly encoded, and has had strange characters removed. ]"
+msgstr ""
+"\n"
+"\n"
+"[ {{site_name}} 注記: 上記のテキストはエンコードが不適切であったため、異常な文字を削除しました。 ]"
+
+msgid ""
+" (<strong>no ranty</strong> politics, read our <a "
+"href=\"{{url}}\">moderation policy</a>)"
+msgstr ""
+" (<strong>過激な</strong>政治的発言は禁止です。当サイトの<a "
+"href=\"{{url}}\">モデレーションポリシー</a>をお読みください)"
+
+msgid ""
+" (<strong>patience</strong>, especially for large files, it may take a "
+"while!)"
+msgstr ""
+
+msgid " (you)"
+msgstr " (あなた)"
+
+msgid " - view and make Freedom of Information requests"
+msgstr " - 情報公開請求の閲覧および提出"
+
+msgid " < "
+msgstr " < "
+
+msgid " << "
+msgstr " << "
+
+msgid " <strong>Privacy note:</strong> Your email address will be given to"
+msgstr " <strong>プライバシーに関する注意点:</strong> あなたのメールアドレスは以下に提供されます"
+
+msgid " <strong>Summarise</strong> the content of any information returned. "
+msgstr " <strong>要約</strong>：返却された情報の内容を要約します。 "
+
+msgid " > "
+msgstr " > "
+
+msgid " >> "
+msgstr " >> "
+
+msgid " Advise on how to <strong>best clarify</strong> the request."
+msgstr ""
+
+msgid ""
+" Ideas on what <strong>other documents to request</strong> which the "
+"authority may hold. "
+msgstr ""
+
+msgid ""
+" Link to the information requested, if it is <strong>already "
+"available</strong> on the Internet. "
+msgstr ""
+
+msgid ""
+" Offer better ways of <strong>wording the request</strong> to get the "
+"information. "
+msgstr ""
+
+msgid ""
+" Say how you've <strong>used the information</strong>, with links if "
+"possible."
+msgstr ""
+
+msgid ""
+" Suggest <strong>where else</strong> the requester might find the "
+"information. "
+msgstr ""
+
+msgid " You are already being emailed updates about the request."
+msgstr " この請求に関する更新情報は、すでにメールで送信されています。"
+
+msgid " You will also be emailed updates about the request."
+msgstr " この請求に関する更新情報も、メールで送信されます。"
+
+msgid " filtered by status: '{{status}}'"
+msgstr " 状態「{{status}}」でフィルタリング済み"
+
+msgid " when you send this message."
+msgstr " このメッセージを送信するとき。"
+
+msgid "&#8592; Previous"
+msgstr "&#8592; 前へ"
+
+msgid "'Crime statistics by ward level for Wales'"
+msgstr "「ウェールズの行政区レベル別の犯罪統計」"
+
+msgid "'Pollution levels over time for the River Tyne'"
+msgstr "「タイン川の時間経過に伴う汚染レベル」"
+
+msgid "'{{authority_name}}' is defunct"
+msgstr "'{{authority_name}}' は現在存在しません"
+
+msgid "'{{link_to_authority}}', a public authority"
+msgstr "'{{link_to_authority}}'（行政機関）"
+
+msgid "'{{link_to_request}}', a request"
+msgstr "'{{link_to_request}}'（請求）"
+
+msgid "'{{link_to_user}}', a person"
+msgstr "'{{link_to_user}}'（個人）"
+
+msgid "(You will be asked to sign in as {{user_name}})"
+msgstr "({{user_name}} としてサインインを求められます)"
+
+msgid "(hide)"
+msgstr "（非表示）"
+
+msgid "(or <a href=\"{{url}}\">sign in</a>)"
+msgstr "（または <a href=\"{{url}}\">サインイン</a>）"
+
+msgid "(show)"
+msgstr "（表示）"
+
+msgid ""
+",\n"
+"\n"
+"\n"
+"\n"
+"Yours,\n"
+"\n"
+"{{user_name}}"
+msgstr ""
+",\n"
+"\n"
+"\n"
+"\n"
+"敬具\n"
+"\n"
+"{{user_name}}"
+
+msgid "12 characters minimum. 72 characters maximum."
+msgstr "12文字以上、72文字以内。"
+
+msgid "5 minutes+"
+msgstr "5分以上"
+
+msgid "60 minutes+"
+msgstr "60分以上"
+
+msgid ""
+"<a href=\"{{browse_url}}\">Browse all</a> or <a href=\"{{add_url}}\">ask us "
+"to add one</a>."
+msgstr "<a href=\"{{browse_url}}\">すべて表示</a> または <a href=\"{{add_url}}\">追加を依頼する</a>。"
+
+msgid ""
+"<a href=\"{{info_request_batch_url}}\">{{title}}</a> part of a batch sent to"
+" {{count}} authorities on {{date}}"
+msgstr ""
+"<a href=\"{{info_request_batch_url}}\">{{title}}</a> は {{date}} に {{count}} "
+"個の行政機関へ送信された一括請求の一部です。"
+
+msgid ""
+"<a href=\"{{info_request_url}}\">{{title}}</a> requested from <a "
+"href=\"{{public_body_url}}\">{{public_body_name}}</a> on {{date}}"
+msgstr ""
+"<a href=\"{{info_request_url}}\">{{title}}</a> は {{date}} に <a "
+"href=\"{{public_body_url}}\">{{public_body_name}}</a> へ請求されました。"
+
+msgid ""
+"<a href=\"{{sign_in_link}}\">Sign in</a> to get updates on things you follow"
+" or re-enable email alerts."
+msgstr ""
+"<a href=\"{{sign_in_link}}\">サインイン</a> "
+"して、フォローしている項目の更新を受け取るか、メール通知を再開してください。"
+
+msgid ""
+"<a href=\"{{url}}\">Do you want to request private information about "
+"yourself?</a>"
+msgstr "<a href=\"{{url}}\">自分自身の個人情報の開示を請求しますか？</a>"
+
+msgid ""
+"<a href=\"{{url}}\">Keep it <strong>focused</strong></a>, you'll be more "
+"likely to get what you want."
+msgstr ""
+
+msgid ""
+"<a href=\"{{url}}\">Sign in</a> to change password, subscriptions and more "
+"({{user_name}} only)"
+msgstr "パスワードや購読設定などを変更するには、<a href=\"{{url}}\">サインイン</a>してください（{{user_name}}のみ）"
+
+msgid "<a href=\"{{url}}\">Thinking of using a pseudonym?</a>"
+msgstr "<a href=\"{{url}}\">匿名での利用を検討していますか？</a>"
+
+msgid ""
+"<a href=\"{{wall_link}}\">Visit your Wall</a> to get updates on things you "
+"follow or re-enable email alerts."
+msgstr ""
+"フォローしている項目の更新を確認したり、メール通知を再開したりするには、<a "
+"href=\"{{wall_link}}\">ウォール（Wall）を表示する</a>。"
+
+msgid ""
+"<div class=\"alaveteli-widget__count\">{{count}}</div> person wants to know"
+msgid_plural ""
+"<div class=\"alaveteli-widget__count\">{{count}}</div> people want to know"
+msgstr[0] "<div class=\"alaveteli-widget__count\">{{count}}</div> 人が知りたいと考えています"
+
+msgid ""
+"<p>All done! Thank you very much for your help.</p><p>There are <a "
+"href=\"{{helpus_url}}\">more things you can do</a> to help "
+"{{site_name}}.</p>"
+msgstr ""
+
+msgid ""
+"<p>Thanks for changing the text about you on your "
+"profile.</p><p><strong>Next...</strong> You can upload a profile photograph "
+"too.</p>"
+msgstr ""
+
+msgid ""
+"<p>Thanks for updating your profile photo.</p><p><strong>Next...</strong> "
+"You can put some text about you and your research on your profile.</p>"
+msgstr ""
+"<p>プロフィール写真の更新ありがとうございます。</p><p><strong>次へ...</strong> "
+"プロフィールに、ご自身や研究に関する情報を入力できます。</p>"
+
+msgid ""
+"<p>We recommend that you edit your request and remove the email address. If "
+"you leave it, the email address will be sent to the authority, but will not "
+"be displayed on the site.</p>"
+msgstr ""
+"<p>請求内容を編集してメールアドレスを削除することをお勧めします。そのままにしておくと、メールアドレスは機関に送信されますが、サイト上には表示されません。</p>"
+
+msgid ""
+"<p>You do not need to include your email in the request in order to get a "
+"reply (<a href=\"{{url}}\">details</a>).</p>"
+msgstr "<p>回答を受け取るために、請求内容にメールアドレスを含める必要はありません（<a href=\"{{url}}\">詳細</a>）。</p>"
+
+msgid ""
+"<p>You do not need to include your email in the request in order to get a "
+"reply, as we will ask for it on the next screen (<a "
+"href=\"{{url}}\">details</a>).</p>"
+msgstr ""
+"<p>回答を受け取るために、請求内容にメールアドレスを含める必要はありません。次の画面で入力を求めるためです（<a "
+"href=\"{{url}}\">詳細</a>）。</p>"
+
+msgid ""
+"<p>Your request contains a <strong>postcode</strong>. Unless it directly "
+"relates to the subject of your request, please remove any address as it will"
+" <strong>appear publicly on the Internet</strong>.</p>"
+msgstr ""
+
+msgid ""
+"<strong class=\"marketing-highlight\">Get regular updates</strong> as the "
+"responses come in — without overwhelming your inbox"
+msgstr ""
+
+msgid ""
+"<strong class=\"marketing-highlight\">Make a request to multiple "
+"authorities</strong>: select authorities at the click of a button"
+msgstr ""
+"<strong class=\"marketing-"
+"highlight\">複数の行政機関に請求する</strong>：ボタン一つで複数の機関を選択できます"
+
+msgid ""
+"<strong class=\"marketing-highlight\">Manage large volumes of "
+"responses</strong>: easily keep track of the status of each request"
+msgstr ""
+"<strong class=\"marketing-highlight\">大量の回答を管理</strong>：各請求のステータスを簡単に追跡できます"
+
+msgid ""
+"<strong><code>commented_by:tony_bowden</code></strong> to search annotations"
+" made by Tony Bowden, typing the name as in the URL."
+msgstr ""
+"<strong><code>commented_by:tony_bowden</code></strong> Tony "
+"Bowdenによるコメントを検索するには、URLと同じ名前を入力してください。"
+
+msgid ""
+"<strong><code>filetype:pdf</code></strong> to find all responses with PDF "
+"attachments. Or try these: <code>{{list_of_file_extensions}}</code>"
+msgstr ""
+"<strong><code>filetype:pdf</code></strong> "
+"PDFの添付ファイルがあるすべての回答を検索します。または、以下も試してください： "
+"<code>{{list_of_file_extensions}}</code>"
+
+msgid ""
+"<strong><code>request:</code></strong> to restrict to a specific request, "
+"typing the title as in the URL."
+msgstr ""
+"<strong><code>request:</code></strong> 特定の請求に絞り込むには、URLと同じタイトルを入力してください。"
+
+msgid ""
+"<strong><code>request_public_body_tag:charity</code></strong> to find "
+"requests to public authorities with a given tag."
+msgstr ""
+"<strong><code>request_public_body_tag:charity</code></strong> "
+"特定のタグが付いた行政機関への請求を検索します。"
+
+msgid ""
+"<strong><code>requested_by:julian_todd</code></strong> to search requests "
+"made by Julian Todd, typing the name as in the URL."
+msgstr ""
+"<strong><code>requested_by:julian_todd</code></strong> Julian "
+"Toddによる請求を検索するには、URLと同じ名前を入力してください。"
+
+msgid ""
+"<strong><code>requested_from:home_office</code></strong> to search requests "
+"from the Home Office, typing the name as in the URL."
+msgstr ""
+"<strong><code>requested_from:home_office</code></strong> Home "
+"Officeからの請求を検索するには、URLと同じ名前を入力してください。"
+
+msgid ""
+"<strong><code>status:</code></strong> to select based on the status or "
+"historical status of the request, see the <a href=\"{{statuses_url}}\">table"
+" of statuses</a> below."
+msgstr ""
+"<strong><code>status:</code></strong> 請求の現在の状態または過去の状態に基づいて選択します。詳細は下の <a "
+"href=\"{{statuses_url}}\">ステータス一覧</a> を参照してください。"
+
+msgid ""
+"<strong><code>tag:charity</code></strong> to find all public authorities or "
+"requests with a given tag. You can include multiple tags, and tag values, "
+"e.g. <code>tag:openlylocal AND tag:financial_transaction:335633</code>. Note"
+" that by default any of the tags can be present, you have to put "
+"<code>AND</code> explicitly if you only want results them all present."
+msgstr ""
+"<strong><code>tag:charity</code></strong> "
+"特定のタグが付いたすべての行政機関または請求を検索します。複数のタグやタグの値を指定することも可能です（例： <code>tag:openlylocal"
+" AND "
+"tag:financial_transaction:335633</code>）。デフォルトでは、いずれかのタグが含まれていれば表示されます。すべてのタグを含む結果のみを表示したい場合は、明示的に"
+" <code>AND</code> を入力してください。"
+
+msgid ""
+"<strong><code>variety:</code></strong> to select type of thing to search "
+"for, see the <a href=\"{{varieties_url}}\">table of varieties</a> below."
+msgstr ""
+"<strong><code>variety:</code></strong> 検索する項目の種類を選択します。詳細は下の <a "
+"href=\"{{varieties_url}}\">種類一覧</a> をご覧ください。"
+
+msgid ""
+"<strong>Advice</strong> on how to get a response that will satisfy the "
+"requester."
+msgstr "請求者を満足させる回答を得るための<strong>アドバイス</strong>"
+
+msgid "<strong>All the information</strong> has been sent"
+msgstr "<strong>すべての情報</strong>を送信しました"
+
+msgid ""
+"<strong>Anything else</strong>, such as clarifying, prompting, thanking"
+msgstr "確認、督促、お礼など、<strong>その他の事項</strong>"
+
+msgid ""
+"<strong>Automatic anti-spam measures are in place</strong> for this older "
+"request. Please <a href=\"{{url}}\">let us know</a> if a further response is"
+" expected or if you are having trouble responding."
+msgstr ""
+"この古い請求には<strong>自動スパム対策が適用されています</strong>。追加の回答を予定している場合や、回答に問題がある場合は <a "
+"href=\"{{url}}\">こちらまでお知らせ</a> ください。"
+
+msgid ""
+"<strong>Be careful!</strong> To use this data in an honourable way, you will"
+" need a good internal knowledge of user behaviour on {{site_name}}. How, why"
+" and by whom requests are categorised is not straightforward, and there will"
+" be user error and ambiguity. You will also need to understand FOI law, and "
+"the way authorities use it. Plus you'll need to be an elite statistician.  "
+"Please <a href=\"{{contact_path}}\">contact us</a> with questions."
+msgstr ""
+"<strong>ご注意ください！</strong> このデータを正しく利用するには、{{site_name}} "
+"におけるユーザー行動に関する深い知識が必要です。請求がどのように、なぜ、誰によって分類されているかは単純な問題ではなく、ユーザーによる誤りや曖昧さが含まれる可能性があります。また、情報公開法と行政機関によるその運用についても理解する必要があります。さらに、高度な統計学の知識も必要です。ご質問がある場合は"
+" <a href=\"{{contact_path}}\">お問い合わせ</a> ください。"
+
+msgid ""
+"<strong>By law, they have to respond</strong> (<a "
+"href=\"{{url}}\">why?</a>)."
+msgstr "<strong>法律により、回答する義務があります</strong>（<a href=\"{{url}}\">理由は？</a>）。"
+
+msgid ""
+"<strong>Can I request information about myself?</strong> <a "
+"href=\"{{url}}\">No!</a>"
+msgstr "<strong>自分に関する情報を請求できますか？</strong> <a href=\"{{url}}\">いいえ！</a>"
+
+msgid ""
+"<strong>Challenging a refusal?</strong> Here are some snippets that may "
+"help:"
+msgstr "<strong>不開示への異議申し立てを検討されていますか？</strong> 以下に役立つ情報をまとめました："
+
+msgid "<strong>Clarification</strong> has been requested"
+msgstr "<strong>説明の依頼</strong>を送信しました"
+
+msgid "<strong>Donate</strong> to {{site_name}}"
+msgstr ""
+
+msgid ""
+"<strong>If you change your name, the name on your old requests won't "
+"change.</strong> When you send a request, we use the name you gave us. This "
+"makes it hard to stop your old and new names from being connected. This "
+"means your old name will still show up on requests that you've already sent "
+"and on your public profile page."
+msgstr ""
+"<strong>お名前を変更しても、過去の請求に表示される名前は変更されません。</strong> "
+"請求を送信する際、当サービスではご入力いただいた名前を使用します。そのため、旧名と新名の紐付けを完全に解除することは困難です。このため、すでに送信済みの請求や公開プロフィールページには、以前のお名前が表示され続けることがあります。"
+
+msgid ""
+"<strong>Keep this passcode safe.</strong> You will need it to confirm your "
+"account when changing your password. You can add it to a password manager or"
+" print it and store it in a safe place."
+msgstr ""
+"<strong>このパスコードを大切に保管してください。</strong> "
+"パスワード変更時にアカウントを確認する際に必要となります。パスワードマネージャーへの登録や、印刷して安全な場所に保管することをお勧めします。"
+
+msgid ""
+"<strong>No response</strong> has been received <small>(maybe there's just an"
+" acknowledgement)</small>"
+msgstr ""
+
+msgid ""
+"<strong>Note:</strong> Because we're testing, requests are being sent to "
+"{{email}} rather than to the actual authority."
+msgstr "<strong>注意：</strong> 現在テスト期間中のため、請求は実際の行政機関ではなく {{email}} 宛に送信されています。"
+
+msgid ""
+"<strong>Note:</strong> We will send an email to your old email address. "
+"Follow the instructions in it to confirm changing your email."
+msgstr ""
+
+msgid ""
+"<strong>Note:</strong> We will send you an email to confirm you are the "
+"owner of this account. Follow the instructions in it to change your "
+"password."
+msgstr ""
+"<strong>ご注意：</strong>アカウントの所有者であることを確認するため、メールを送信します。その中の指示に従ってパスワードを変更してください。"
+
+msgid ""
+"<strong>Note:</strong> You're sending a message to yourself, presumably to "
+"try out how it works."
+msgstr "<strong>ご注意：</strong>ご自身にメッセージを送信しようとしています。動作確認のためと思われます。"
+
+msgid ""
+"<strong>Privacy note:</strong> Your photo will be shown in public on the "
+"Internet, wherever you do something on {{site_name}}."
+msgstr ""
+"<strong>プライバシーに関する注意：</strong>{{site_name}}で操作を行う際、あなたの写真はインターネット上に公開されます。"
+
+msgid ""
+"<strong>Privacy warning:</strong> Your message, and any response to it, will"
+" be displayed publicly on this website."
+msgstr "<strong>プライバシーに関する警告：</strong>あなたのメッセージおよびそれに対する回答は、このウェブサイト上で公開されます。"
+
+msgid "<strong>Some of the information</strong> has been sent "
+msgstr "<strong>一部の情報が</strong>送信されました "
+
+msgid "<strong>Thank</strong> the public authority or the requester."
+msgstr "<strong>感謝を伝える</strong>（行政機関または請求者へ）"
+
+msgid "<strong>Thank</strong> the public authority or {{user_name}}."
+msgstr "<strong>感謝を伝える</strong>（行政機関または{{user_name}}へ）"
+
+msgid ""
+"<strong>Warning:</strong> This message has <strong>not yet been "
+"sent</strong> for an unknown reason."
+msgstr "<strong>警告：</strong>何らかの理由により、このメッセージはまだ<strong>送信されていません</strong>。"
+
+msgid ""
+"<strong>We will email you</strong> when there is a response, or after "
+"{{late_number_of_days}} working days if the authority still hasn't replied "
+"by then."
+msgstr ""
+"回答があり次第、または{{late_number_of_days}}営業日を過ぎても機関から回答がない場合に、<strong>メールでお知らせします</strong>。"
+
+msgid ""
+"<strong>We will email you</strong> when they have been sent. We will also "
+"email you when there is a response to any of them, or after "
+"{{late_number_of_days}} working days if the authorities still haven't "
+"replied by then."
+msgstr ""
+"送信が完了した際に、<strong>メールでお知らせします</strong>。また、それらに対する回答があった場合、あるいは{{late_number_of_days}}営業日を過ぎても機関から回答がない場合にも、メールでお知らせします。"
+
+msgid "?"
+msgstr "?"
+
+msgid ""
+"A <a href=\"{{request_url}}\">follow up</a> to <em>{{request_title}}</em> "
+"was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+"{{date}}に{{info_request_user}}によって、<em>{{request_title}}</em>に対する<a "
+"href=\"{{request_url}}\">追加の連絡</a>が{{public_body_name}}へ送信されました。"
+
+msgid ""
+"A <a href=\"{{request_url}}\">response</a> to <em>{{request_title}}</em> was"
+" sent by {{public_body_name}} to {{info_request_user}} on {{date}}.  The "
+"request status is: {{request_status}}."
+msgstr ""
+"{{date}}に{{public_body_name}}から{{info_request_user}}へ、<em>{{request_title}}</em>に対する<a"
+" href=\"{{request_url}}\">回答</a>が送信されました。請求のステータスは：{{request_status}}です。"
+
+msgid ""
+"A <strong>summary</strong> of the response if you have received it by postal"
+" mail. "
+msgstr ""
+
+msgid "A Freedom of Information request"
+msgstr "情報公開請求"
+
+msgid ""
+"A full history of my FOI request and all correspondence is available on the "
+"Internet at this address: {{url}}"
+msgstr "私の情報公開請求の全履歴およびすべてのやり取りは、以下のURLからインターネット上で確認できます：{{url}}"
+
+msgid ""
+"A new request, <em><a href=\"{{request_url}}\">{{request_title}}</a></em>, "
+"was sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr ""
+"{{date}}に、{{info_request_user}}によって新しい請求<em><a "
+"href=\"{{request_url}}\">{{request_title}}</a></em>が{{public_body_name}}へ送信されました。"
+
+msgid "A one line summary of the information you are requesting, e.g."
+msgstr "請求する情報の概要（1行）を記入してください。例："
+
+msgid "A powerful, fully-featured FOI toolkit for journalists"
+msgstr "ジャーナリスト向けの、高機能なFOIツールキット"
+
+msgid "A public authority"
+msgstr "行政機関"
+
+msgid "A response will be sent <strong>by postal mail</strong>"
+msgstr ""
+
+msgid "A strange response, required attention by the {{site_name}} team"
+msgstr "不審な回答。{{site_name}}チームによる対応が必要です"
+
+msgid "A survey about your recent Freedom of Information request"
+msgstr "最近の情報公開請求に関するアンケート"
+
+msgid "A {{site_name}} user"
+msgstr "{{site_name}}の利用者"
+
+msgid "API"
+msgstr "API"
+
+msgid "About you:"
+msgstr "利用者情報:"
+
+msgid "About {{count}} FOI requests found"
+msgstr "{{count}} 件の情報公開請求が見つかりました"
+
+msgid "Account closed at user request"
+msgstr "利用者の依頼によりアカウントを閉鎖しました"
+
+msgid "Account suspended – Please contact us"
+msgstr "アカウント停止 – お問い合わせください"
+
+msgid "Act on what you've learnt"
+msgstr "学んだことを行動に移す"
+
+msgid "Action needed"
+msgstr "必要なアクション"
+
+msgid "Actions"
+msgstr "アクション"
+
+msgid "Add a widget"
+msgstr "ウィジェットを追加"
+
+msgid "Add an annotation"
+msgstr "コメントを追加"
+
+msgid "Add an annotation to &ldquo;{{request_title}}&rdquo;"
+msgstr "&ldquo;{{request_title}}&rdquo;にコメントを追加する"
+
+msgid ""
+"Add an annotation to your request with choice quotes, or a <strong>summary "
+"of the response</strong>."
+msgstr "請求に、選択肢の引用、または<strong>回答の要約</strong>を添えてコメントを追加してください。"
+
+msgid "Add authority - {{public_body_name}}"
+msgstr "機関を追加 - {{public_body_name}}"
+
+msgid "Add description"
+msgstr "説明文を追加"
+
+msgid "Add description and make dataset public"
+msgstr "説明文を追加してデータセットを公開する"
+
+msgid "Add the authority:"
+msgstr "機関を追加："
+
+msgid "Admin"
+msgstr "管理者"
+
+msgid "Advanced search"
+msgstr "詳細検索"
+
+msgid "Advanced search tips"
+msgstr "詳細検索のヒント"
+
+msgid ""
+"Advise on whether the <strong>refusal is legal</strong>, and how to complain"
+" about it if not."
+msgstr "<strong>不開示が適法かどうか</strong>、および不適法な場合の苦情の申し立て方法について助言します。"
+
+msgid ""
+"Air, water, soil, land, flora and fauna (including how these effect human "
+"beings)"
+msgstr "空気、水、土壌、土地、動植物（これらが人間に与える影響を含む）"
+
+msgid "All of the information requested has been received"
+msgstr "請求したすべての情報を受領しました"
+
+msgid ""
+"All responses will be published when the privacy period expires. We depend "
+"on you, the original requester, to evaluate them."
+msgstr "すべての回答は公開保留期間の終了後に公開されます。元の請求者である皆様に、内容の評価をお願いいたします。"
+
+msgid ""
+"All the options below can use <strong>status</strong> or "
+"<strong>latest_status</strong> before the colon. For example, "
+"<strong>status:not_held</strong> will match requests which have "
+"<em>ever</em> been marked as not held; "
+"<strong>latest_status:not_held</strong> will match only requests that are "
+"<em>currently</em> marked as not held."
+msgstr ""
+
+msgid ""
+"All the options below can use <strong>variety</strong> or "
+"<strong>latest_variety</strong> before the colon. For example, "
+"<strong>variety:sent</strong> will match requests which have <em>ever</em> "
+"been sent; <strong>latest_variety:sent</strong> will match only requests "
+"that are <em>currently</em> marked as sent."
+msgstr ""
+
+msgid "All time"
+msgstr "全期間"
+
+msgid "All time best contributors"
+msgstr "歴代のトップ貢献者"
+
+msgid "All time best players"
+msgstr "歴代のトッププレイヤー"
+
+msgid "Also called {{other_name}}."
+msgstr "{{other_name}}とも呼ばれます。"
+
+msgid "Also send me alerts by email"
+msgstr "メールでアラートも送信する"
+
+msgid "Alter your subscription"
+msgstr "購読内容を変更する"
+
+msgid ""
+"Although all responses are automatically published, we depend on you, the "
+"original requester, to evaluate them."
+msgstr "すべての回答は自動的に公開されますが、それらの評価については、元の請求者である皆様の協力をお願いしております。"
+
+msgid ""
+"Although not legally required to do so, we would have expected "
+"{{public_body_link}} to have responded by "
+msgstr "法的義務ではありませんが、{{public_body_link}}は以下の日までに回答していたはずです： "
+
+msgid ""
+"Although not legally required to do so, we would have expected "
+"{{public_body_link}} to have responded by now"
+msgstr "法的義務はありませんが、{{public_body_link}} はすでに回答しているはずです。"
+
+msgid ""
+"Although the authority is not legally obliged to reply, you should get a "
+"response promptly, and normally before the end of "
+"<strong>{{date_response_required_by}}</strong>."
+msgstr ""
+"機関には回答の法的義務はありませんが、速やかに回答が得られるはずであり、通常は "
+"<strong>{{date_response_required_by}}</strong> の終了前までに届くはずです。"
+
+msgid ""
+"Although the authority is not legally obliged to reply, you should have got "
+"a response, normally before the end of "
+"<strong>{{date_response_required_by}}</strong>."
+msgstr ""
+"機関には回答の法的義務はありませんが、通常は <strong>{{date_response_required_by}}</strong> "
+"の終了前までに回答が得られているはずです。"
+
+msgid ""
+"An <a href=\"{{request_url}}\">annotation</a> to <em>{{request_title}}</em> "
+"was made by {{event_comment_user}} on {{date}}"
+msgstr ""
+"{{event_comment_user}} により、<em>{{request_title}}</em> に対する <a "
+"href=\"{{request_url}}\">コメント</a> が {{date}} に投稿されました。"
+
+msgid "An <strong>error message</strong> has been received"
+msgstr "<strong>エラーメッセージ</strong>を受信しました。"
+
+msgid "An Environmental Information request"
+msgstr "環境情報請求"
+
+msgid "An anonymous user"
+msgstr "匿名ユーザー"
+
+msgid ""
+"An error occurred while sending your request to {{authority_name}} but has "
+"been saved and flagged for administrator attention."
+msgstr ""
+"{{authority_name}}への請求の送信中にエラーが発生しましたが、データは保存され、管理者の確認用としてフラグが立てられました。"
+
+msgid "Annotation added to request"
+msgstr "請求にコメントを追加しました"
+
+msgid "Annotation contains defamatory material"
+msgstr "コメントに誹謗中傷が含まれています"
+
+msgid "Annotation contains personal information"
+msgstr "コメントに個人情報が含まれています"
+
+msgid "Annotations"
+msgstr "コメント"
+
+msgid ""
+"Annotations are so anyone, including you, can help the requester with their "
+"request. For example:"
+msgstr "コメント機能を利用することで、あなたを含む誰でも請求者をサポートできます。例："
+
+msgid ""
+"Annotations will be posted publicly here, and are <strong>not</strong> sent "
+"to {{public_body_name}}."
+msgstr ""
+
+msgid "Anonymous user"
+msgstr "匿名ユーザー"
+
+msgid "Any device"
+msgstr "すべてのデバイス"
+
+msgid "Anyone with the link will be able to view this request."
+msgstr "リンクを知っている人は誰でもこの請求を閲覧できます。"
+
+msgid "Are we missing a public authority?"
+msgstr "行政機関が不足していませんか？"
+
+msgid "Are you sure you want to disable two factor authentication?"
+msgstr "本当に二要素認証を無効にしますか？"
+
+msgid "Are you sure?"
+msgstr "本当によろしいですか？"
+
+msgid ""
+"Are you sure? If you regenerate your one time passcode you will need to "
+"update your password manager or re-print it."
+msgstr "本当によろしいですか？ワンタイムパスコードを再生成すると、パスワードマネージャーの更新または再印刷が必要になります。"
+
+msgid "Are you the owner of any commercial copyright on this page?"
+msgstr "このページの商用著作権をお持ちですか？"
+
+msgid "Article"
+msgstr "記事"
+
+msgid "Ask EU Authorities"
+msgstr "EU機関に請求する"
+
+msgid ""
+"Ask for <strong>specific</strong> documents or information, this site is not"
+" suitable for general enquiries."
+msgstr ""
+
+msgid "Ask us to add an authority"
+msgstr "機関の追加を依頼する"
+
+msgid "Ask us to update FOI email"
+msgstr "FOIメールアドレスの更新を依頼する"
+
+msgid "Ask us to update the email address for {{public_body_name}}"
+msgstr "{{public_body_name}}のメールアドレスの更新を依頼する"
+
+msgid ""
+"At the bottom of this page, write a reply to them trying to persuade them to"
+" scan it in (<a href=\"{{url}}\">more details</a>)."
+msgstr "このページの下部で、スキャンして送付するよう説得する返信を書いてください（<a href=\"{{url}}\">詳細はこちら</a>）。"
+
+msgid "Attachment (optional):"
+msgstr "添付ファイル（任意）："
+
+msgid "Attachment available for download."
+msgstr "ダウンロード可能な添付ファイルがあります。"
+
+msgid "Attachment has been removed"
+msgstr "添付ファイルは削除されました"
+
+msgid "Attachment processing..."
+msgstr "添付ファイルを処理中..."
+
+msgid "Attachment:"
+msgstr "添付ファイル:"
+
+msgid "Authority email:"
+msgstr "機関のメールアドレス:"
+
+msgid "Authority name"
+msgstr "行政機関名"
+
+msgid "Authority:"
+msgstr "機関:"
+
+msgid "Awaiting clarification"
+msgstr "説明待ち"
+
+msgid "Awaiting classification"
+msgstr "状態の分類待ち"
+
+msgid "Awaiting internal review"
+msgstr "内部審査待ち"
+
+msgid "Awaiting response"
+msgstr "回答待ち"
+
+msgid "Back to content"
+msgstr "コンテンツに戻る"
+
+msgid "Back to project"
+msgstr "プロジェクトに戻る"
+
+msgid "Banned for evading another ban"
+msgstr "別の禁止事項の回避により禁止"
+
+msgid "Banned for misuse in breach of house rules"
+msgstr "ハウスルールの違反による不適切利用で禁止"
+
+msgid "Banned for spamming"
+msgstr "スパム行為により禁止"
+
+msgid "Banned from this site"
+msgstr "このサイトへのアクセスを禁止"
+
+msgid "Batch FOI requests"
+msgstr "一括請求"
+
+msgid "Batch created by {{info_request_user}} on {{date}}."
+msgstr "{{info_request_user}} によって {{date}} に作成された一括請求です。"
+
+msgid "Batch requests allow multiple recipients of a single request"
+msgstr "一括請求では、単一の請求に対して複数の宛先を指定できます。"
+
+msgid "Batch requests are part of a new workflow"
+msgstr "一括請求は新しいワークフローの一部です。"
+
+msgid "Before you start"
+msgstr "開始する前に"
+
+msgid "Beginning with"
+msgstr "〜から開始"
+
+msgid ""
+"Browse <a href=\"{{requests_url}}\">{{number_of_requests}} requests</a> to "
+"<a href=\"{{authorities_url}}\">{{number_of_authorities}} authorities</a>"
+msgstr ""
+"<a href=\"{{requests_url}}\">{{number_of_requests}} 件の請求</a> を <a "
+"href=\"{{authorities_url}}\">{{number_of_authorities}} 機関</a> に対して確認する"
+
+msgid ""
+"Browse <a href='{{url}}'>other requests</a> for examples of how to word your"
+" request."
+msgstr "請求書の文言の例については、<a href='{{url}}'>他の請求</a> を参照してください。"
+
+msgid ""
+"Browse <a href='{{url}}'>other requests</a> to '{{public_body_name}}' for "
+"examples of how to word your request."
+msgstr ""
+"請求書の書き方の例として、'{{public_body_name}}'に対する<a "
+"href='{{url}}'>その他の請求</a>を閲覧してください。"
+
+msgid "Browse all authorities &rarr;"
+msgstr "すべての行政機関を表示 &rarr;"
+
+msgid "Browse all requests &rarr;"
+msgstr "すべての請求を表示 &rarr;"
+
+msgid "Browse by category"
+msgstr "カテゴリ別に閲覧"
+
+msgid "Browse latest requests"
+msgstr "最新の請求を閲覧"
+
+msgid "Browse latest responses"
+msgstr "最新の回答を閲覧"
+
+msgid "Browse requests by category"
+msgstr "カテゴリ別に請求を閲覧"
+
+msgid "By law, they have to respond."
+msgstr "法律により、機関は回答する義務があります。"
+
+msgid ""
+"By law, under all circumstances, {{public_body_link}} should have responded "
+"by now"
+msgstr "法律に基づき、いかなる状況においても、{{public_body_link}} はすでに回答しているはずです。"
+
+msgid ""
+"By law, you should get a response promptly, and normally before the end of "
+"<strong>{{date_response_required_by}}</strong>."
+msgstr ""
+"法律に基づき、あなたは速やかに回答を受ける権利があり、通常は "
+"<strong>{{date_response_required_by}}</strong> の終了前までに届くはずです。"
+
+msgid ""
+"By law, you should have got a response promptly, and normally before the end"
+" of <strong>{{date_response_required_by}}</strong>."
+msgstr ""
+"法律に基づき、あなたは速やかに回答を受ける権利があり、通常は "
+"<strong>{{date_response_required_by}}</strong> の終了前までに届いているはずです。"
+
+msgid ""
+"By law, {{public_body_link}} should normally have responded "
+"<strong>promptly</strong> and"
+msgstr "法律に基づき、{{public_body_link}} は通常 <strong>速やかに</strong> 回答しているはずですが、"
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "Campaigning"
+msgstr "キャンペーン"
+
+msgid "Campaigning and Advocacy"
+msgstr "キャンペーンとアドボカシー"
+
+msgid "Can't find the one you want?"
+msgstr "お探しのものが見つかりませんか？"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Cancel a {{site_name}} alert"
+msgstr "{{site_name}}の通知をキャンセルする"
+
+msgid "Cancel some {{site_name}} alerts"
+msgstr "{{site_name}}の通知をいくつかキャンセルする"
+
+msgid "Cancel, return to your profile page"
+msgstr "キャンセルしてプロフィールページに戻る"
+
+msgid "Cannot send messages"
+msgstr "メッセージを送信できません"
+
+msgid "Change email on {{site_name}}"
+msgstr "{{site_name}}のメールアドレスを変更する"
+
+msgid "Change profile photo"
+msgstr "プロフィール写真を変更する"
+
+msgid "Change the text about you on your profile at {{site_name}}"
+msgstr "{{site_name}}のプロフィールにある自己紹介文を変更する"
+
+msgid "Change your email"
+msgstr "メールアドレスの変更"
+
+msgid "Change your email address used on {{site_name}}"
+msgstr "{{site_name}}で使用するメールアドレスを変更します"
+
+msgid "Change your name"
+msgstr "名前の変更"
+
+msgid "Change your name used on {{site_name}}"
+msgstr "{{site_name}}で使用する名前を変更します"
+
+msgid "Change your password"
+msgstr "パスワードの変更"
+
+msgid "Change your password on {{site_name}}"
+msgstr "{{site_name}}のパスワードを変更します"
+
+msgid "Check for mistakes if you typed or copied the address."
+msgstr "アドレスを入力またはコピーした際に、間違いがないか確認してください。"
+
+msgid "Check you haven't included any <strong>personal information</strong>."
+msgstr "<strong>個人情報</strong>が含まれていないか確認してください。"
+
+msgid "Choose a reason"
+msgstr "理由を選択してください"
+
+msgid "Choose your profile photo"
+msgstr "プロフィール写真を選択してください"
+
+msgid "Citation successfully created."
+msgstr "引用の作成に成功しました。"
+
+msgid "Clarification"
+msgstr "内容の確認"
+
+msgid "Clarification needed"
+msgstr ""
+
+msgid ""
+"Clarification sent to {{public_body_name}} by {{info_request_user}} on "
+"{{date}}."
+msgstr ""
+
+msgid "Clarify your FOI request - {{request_title}}"
+msgstr "情報公開請求の内容確認 - {{request_title}}"
+
+msgid "Classification couldn't be saved."
+msgstr "状態の分類を保存できませんでした。"
+
+msgid "Classification couldn't be updated."
+msgstr "状態の分類を更新できませんでした。"
+
+msgid "Classification saved successfully!"
+msgstr "状態の分類を保存しました！"
+
+msgid "Classification updated successfully!"
+msgstr "状態の分類を更新しました！"
+
+msgid "Classify"
+msgstr "状態の分類"
+
+msgid "Classify an FOI response from {{authority_name}}"
+msgstr "{{authority_name}}からの情報公開請求への回答を分類する"
+
+msgid "Classify requests"
+msgstr "請求を分類する"
+
+msgid "Classify responses"
+msgstr "回答を分類する"
+
+msgid "Clear photo"
+msgstr "写真をクリア"
+
+msgid ""
+"Click on the link below to send a message to {{public_body_name}} telling "
+"them to reply to your request. You might like to ask for an internal review,"
+" asking them to find out why response to the request has been so slow."
+msgstr ""
+"以下のリンクをクリックして、{{public_body_name}}に請求への回答を求めるメッセージを送信してください。回答が遅れている理由の調査を依頼する「内部審査」の要求も検討できます。"
+
+msgid ""
+"Click on the link below to send a message to {{public_body_name}} telling "
+"them to reply to your request. You might like to ask for an internal review,"
+" asking them to find out why their response to the request has been so slow."
+msgstr ""
+"以下のリンクをクリックして、{{public_body_name}}に請求への回答を求めるメッセージを送信してください。回答が遅れている理由の調査を依頼する「内部審査」の要求も検討できます。"
+
+msgid ""
+"Click on the link below to send a message to {{public_body}} reminding them "
+"to reply to your request."
+msgstr "以下のリンクをクリックして、{{public_body}}に請求への回答を促すメッセージを送信してください。"
+
+msgid "Close"
+msgstr "閉じる"
+
+msgid "Close preview"
+msgstr "プレビューを閉じる"
+
+msgid "Close the request and respond:"
+msgstr "請求を終了し、回答する:"
+
+msgid "Collapse all correspondence"
+msgstr "すべてのやり取りを折りたたむ"
+
+msgid "Comments are not allowed on this request"
+msgstr "この請求にはコメントを付けることはできません"
+
+msgid "Complete"
+msgstr "完了"
+
+msgid "Confirm password:"
+msgstr "パスワードの確認:"
+
+msgid "Confirm you want to follow all successful FOI requests"
+msgstr "すべての開示された情報公開請求をフォローすることを確認しますか？"
+
+msgid "Confirm you want to follow new requests"
+msgstr "新しい請求をフォローすることを確認しますか？"
+
+msgid ""
+"Confirm you want to follow new requests or responses matching your search"
+msgstr "検索条件に一致する新しい請求または回答をフォローすることを確認しますか？"
+
+msgid "Confirm you want to follow requests by '{{user_name}}'"
+msgstr "'{{user_name}}' による請求をフォローすることを確認しますか？"
+
+msgid "Confirm you want to follow requests to '{{public_body_name}}'"
+msgstr "'{{public_body_name}}' に対する請求をフォローすることを確認しますか？"
+
+msgid "Confirm you want to follow the request '{{request_title}}'"
+msgstr "請求 '{{request_title}}' をフォローすることを確認しますか？"
+
+msgid "Confirm your FOI request to {{public_body_name}}"
+msgstr "{{public_body_name}}への情報公開請求を確認する"
+
+msgid "Confirm your account on {{site_name}}"
+msgstr "{{site_name}}のアカウントを認証する"
+
+msgid "Confirm your annotation to {{info_request_title}}"
+msgstr "{{info_request_title}}に対するコメントを確認する"
+
+msgid "Confirm your email address"
+msgstr "メールアドレスを確認する"
+
+msgid "Confirm your new email address on {{site_name}}"
+msgstr "{{site_name}}の新しいメールアドレスを確認する"
+
+msgid "Considered by administrators as not an FOI request"
+msgstr "管理者が情報公開請求ではないと判断しました"
+
+msgid "Considered by administrators as vexatious"
+msgstr "管理者が嫌がらせ目的であると判断しました"
+
+msgid "Contact us"
+msgstr "お問い合わせ"
+
+msgid "Contact {{recipient}}"
+msgstr "{{recipient}}に連絡する"
+
+msgid "Contains defamatory material"
+msgstr "誹謗中傷を含む"
+
+msgid "Contains personal information"
+msgstr "個人情報を含む"
+
+msgid "Contribute"
+msgstr "貢献する"
+
+msgid "Cookies not enabled"
+msgstr "Cookieが無効です"
+
+msgid "Copied!"
+msgstr "コピーしました！"
+
+msgid "Copy"
+msgstr "コピー"
+
+msgid "Could not identify the request from the email address"
+msgstr "メールアドレスから請求を特定できませんでした"
+
+msgid "Could not update your two factor one time passcode"
+msgstr "2要素認証のワンタイムパスコードを更新できませんでした。"
+
+msgid ""
+"Couldn't understand the image file that you uploaded. PNG, JPEG, GIF and "
+"many other common image file formats are supported."
+msgstr "アップロードされた画像ファイルを認識できませんでした。PNG、JPEG、GIFを含む主要な画像形式に対応しています。"
+
+msgid "Coupon code \"{{code}}\" applied"
+msgstr "クーポンコード「{{code}}」を適用しました。"
+
+msgid "Coupon code \"{{code}}\" revoked"
+msgstr "クーポンコード「{{code}}」は無効になりました。"
+
+msgid "Create a new account"
+msgstr "新規アカウント作成"
+
+msgid "Create a widget for this request"
+msgstr "この請求のウィジェットを作成する"
+
+msgid ""
+"Create questions to extract specific information from your requests. These "
+"questions will help you gather structured data consistently across all "
+"responses in your project."
+msgstr ""
+"請求から特定の情報を抽出するための質問を作成します。これらの質問を使用することで、プロジェクト内のすべての回答から一貫した構造化データを収集できるようになります。"
+
+msgid "Created by {{info_request_user}} on {{date}}."
+msgstr "{{date}}に{{info_request_user}}によって作成されました。"
+
+msgid "Crickets. No one is here. It’s time to get the word out."
+msgstr "静まり返っています。誰もいません。そろそろ声を届ける時です。"
+
+msgid "Crop your profile photo"
+msgstr "プロフィール写真をトリミングする"
+
+msgid ""
+"Cultural sites and built structures (as they may be affected by the "
+"environmental factors listed above)"
+msgstr "文化財および建造物（上記の環境要因による影響を受ける可能性があるもの）"
+
+msgid "Current Email:"
+msgstr "現在のメールアドレス:"
+
+msgid ""
+"Currently <strong>waiting for a response</strong> from {{public_body_link}},"
+" they should respond promptly and"
+msgstr "現在、{{public_body_link}} からの<strong>回答待ち</strong>です。速やかな回答を求めます。"
+
+msgid "Data interpretation"
+msgstr "データの解釈"
+
+msgid "Dataset was successfully updated."
+msgstr "データセットが正常に更新されました。"
+
+msgid "Date:"
+msgstr "日付:"
+
+msgid "Dear [Authority name],"
+msgstr "[機関名] 御中"
+
+msgid "Dear {{name}},"
+msgstr "{{name}} 様："
+
+msgid "Dear {{placeholder_body_name}},"
+msgstr "{{placeholder_body_name}} 御中："
+
+msgid "Dear {{public_body_name}},"
+msgstr "{{public_body_name}} 御中："
+
+msgid "Dear {{user_name}},"
+msgstr "{{user_name}} 様："
+
+msgid "Defunct."
+msgstr "廃止。"
+
+msgid "Delayed"
+msgstr "遅延"
+
+msgid "Delayed response to your FOI request - {{request_title}}"
+msgstr "情報公開請求に対する回答の遅延 - {{request_title}}"
+
+msgid "Delivery Status for Outgoing Message #{{id}}"
+msgstr "送信メッセージ #{{id}} の配信状況"
+
+msgid "Delivery error"
+msgstr "配信エラー"
+
+msgid "Description"
+msgstr "内容"
+
+msgid "Details of request &ldquo;{{request_title}}&rdquo;"
+msgstr ""
+
+msgid "Did you mean: {{correction}}"
+msgstr "こちらのことですか： {{correction}}"
+
+msgid "Disable"
+msgstr "無効にする"
+
+msgid "Disable two factor authentication"
+msgstr "二要素認証を無効にする"
+
+msgid ""
+"Disclaimer: This message and any reply that you make will be published on "
+"the internet. Our privacy and copyright policies:"
+msgstr "免責事項：このメッセージおよびお客様からの返信はインターネット上に公開されます。当サービスのプライバシーポリシーおよび著作権ポリシー："
+
+msgid "Disclosure log"
+msgstr "開示ログ"
+
+msgid "Do not fill in this field"
+msgstr "この項目を入力しないでください"
+
+msgid "Do not share this passcode."
+msgstr "このパスコードを他人に共有しないでください。"
+
+msgid "Don't have a superuser account yet?"
+msgstr "まだスーパーユーザーアカウントをお持ちでないですか？"
+
+msgid ""
+"Don't want to address your message to {{person_or_body}}?  You can also "
+"write to:"
+msgstr "メッセージの宛先を{{person_or_body}}にしたくない場合は、こちらにも送信できます："
+
+msgid "Done"
+msgstr "完了"
+
+msgid "Done &gt;&gt;"
+msgstr "完了 &gt;&gt;"
+
+msgid "Download"
+msgstr "ダウンロード"
+
+msgid "Download a zip file of all correspondence"
+msgstr "すべてのやり取りをzipファイルとしてダウンロード"
+
+msgid "Download attachment"
+msgstr "添付ファイルをダウンロード"
+
+msgid "Download leaderboard data"
+msgstr "リーダーボードのデータをダウンロード"
+
+msgid "Download original attachment"
+msgstr "元の添付ファイルをダウンロード"
+
+msgid "Downloads"
+msgstr "ダウンロード"
+
+msgid "EIR"
+msgstr "EIR"
+
+msgid ""
+"Edit and add <strong>more details</strong> to the message above, explaining "
+"why you are dissatisfied with their response."
+msgstr "上記のメッセージを編集し、回答に不満がある理由を説明する<strong>詳細を追加</strong>してください。"
+
+msgid "Edit description"
+msgstr "説明を編集"
+
+msgid "Edit description and make dataset public"
+msgstr "説明を編集してデータセットを公開する"
+
+msgid "Edit project"
+msgstr "プロジェクトを編集"
+
+msgid "Edit questions"
+msgstr "質問を編集"
+
+msgid "Edit requests"
+msgstr "請求を編集"
+
+msgid "Edit text about you"
+msgstr "自己紹介文を編集"
+
+msgid "Edit your dataset"
+msgstr "あなたのデータセットを編集"
+
+msgid "Edit your request"
+msgstr "あなたの請求を編集"
+
+msgid "Either the email or password was not recognised, please try again."
+msgstr "メールアドレスまたはパスワードが正しくありません。もう一度お試しください。"
+
+msgid ""
+"Either the email or password was not recognised, please try again. Or create"
+" a new account using the form on the left."
+msgstr "メールアドレスまたはパスワードが正しくありません。もう一度お試しください。または、左側のフォームから新しいアカウントを作成してください。"
+
+msgid "Email Alerts Disabled"
+msgstr "メール通知が無効です"
+
+msgid "Email alerts for things you follow have now been disabled."
+msgstr "フォローしている項目のメール通知を無効にしました。"
+
+msgid "Email doesn't look like a valid address"
+msgstr "有効なメールアドレスではありません"
+
+msgid "Email me future updates to this request"
+msgstr "この請求に関する今後の更新情報をメールで受け取る"
+
+msgid "Email:"
+msgstr "メールアドレス:"
+
+msgid "Enable"
+msgstr "有効にする"
+
+msgid "Enable two factor authentication"
+msgstr "2要素認証を有効にする"
+
+msgid ""
+"Enter words that you want to find separated by spaces, e.g. <strong>climbing"
+" lane</strong>"
+msgstr "スペースで区切って検索したい単語を入力してください。例：<strong>climbing lane</strong>"
+
+msgid ""
+"Enter your response below. You may attach one file (use email, or <a "
+"href=\"{{url}}\">contact us</a> if you need more)."
+msgstr ""
+"回答を以下に入力してください。ファイルは1つまで添付可能です（それ以上必要な場合は、メールまたは<a "
+"href=\"{{url}}\">お問い合わせ</a>をご利用ください）。"
+
+msgid "Environmental Information Regulations"
+msgstr "環境情報規則"
+
+msgid "Environmental Information Regulations requests made"
+msgstr "環境情報規則に基づく請求件数"
+
+msgid "Environmental Information Regulations requests made using this site"
+msgstr "本サイトから行われた環境情報規則に基づく請求件数"
+
+msgid "Event history"
+msgstr "イベント履歴"
+
+msgid ""
+"Every citizen has the right to access information held by public "
+"authorities."
+msgstr "すべての市民には、行政機関が保有する情報にアクセスする権利があります。"
+
+msgid ""
+"Everything that you enter on this page, including <strong>your name</strong>"
+" ({{user_name}}), will be <strong>displayed publicly</strong> on this "
+"website <a href=\"{{url}}\">forever</a>"
+msgstr ""
+
+msgid ""
+"Everything that you enter on this page, including <strong>your "
+"name</strong>, will be <strong>displayed publicly</strong> on this website "
+"<a href=\"{{url}}\">forever</a>"
+msgstr ""
+
+msgid "Expand all correspondence"
+msgstr "すべてのやり取りを展開する"
+
+msgid "Explore in Datasette"
+msgstr "Datasetteで探索する"
+
+msgid "Extract"
+msgstr "抽出"
+
+msgid "Extract data"
+msgstr "データを抽出"
+
+msgid ""
+"Extract relevant information from each successful freedom of information "
+"request and enter it into the provided fields. This will populate the data "
+"file for this project."
+msgstr ""
+"開示された各情報公開請求から関連情報を抽出し、指定のフィールドに入力してください。これにより、このプロジェクトのデータファイルが作成されます。"
+
+msgid "Extraction couldn't be saved."
+msgstr "抽出結果を保存できませんでした。"
+
+msgid "Extraction couldn't be updated."
+msgstr "抽出結果を更新できませんでした。"
+
+msgid "Extraction saved successfully!"
+msgstr "抽出を保存しました！"
+
+msgid "Extraction updated successfully!"
+msgstr "抽出を更新しました！"
+
+msgid "FOI"
+msgstr "情報公開請求（FOI）"
+
+msgid "FOI in Action"
+msgstr "情報公開請求の進捗"
+
+msgid "FOI law does not apply to this authority."
+msgstr "この機関には情報公開法が適用されません。"
+
+msgid "FOI requests"
+msgstr "情報公開請求"
+
+msgid "FOI requests by '{{user_name}}'"
+msgstr "'{{user_name}}' による情報公開請求"
+
+msgid "FOI requests {{start_count}} to {{end_count}} of about {{total_count}}"
+msgstr "約 {{total_count}} 件の情報公開請求のうち、{{start_count}} から {{end_count}} 件目"
+
+msgid "FOI response requires admin ({{reason}}) - {{request_title}}"
+msgstr "情報公開請求の回答に管理者の承認が必要です（{{reason}}） - {{request_title}}"
+
+msgid "Failed"
+msgstr "失敗"
+
+msgid "Failed to convert image to a PNG"
+msgstr "画像のPNGへの変換に失敗しました"
+
+msgid ""
+"Failed to convert image to the correct size: at {{cols}}x{{rows}}, need "
+"{{width}}x{{height}}"
+msgstr ""
+"画像を正しいサイズに変換できませんでした：現在 {{cols}}x{{rows}} ですが、{{width}}x{{height}} が必要です"
+
+msgid "Filter"
+msgstr "フィルター"
+
+msgid "Filter by Request Status (optional)"
+msgstr "請求のステータスで絞り込み（任意）"
+
+msgid "Filter by topic or area of interest"
+msgstr "トピックまたは関心のあるエリアで絞り込み"
+
+msgid "Filter these requests by keyword, date, or status"
+msgstr "キーワード、日付、またはステータスでこれらの請求を絞り込む"
+
+msgid "Find an authority"
+msgstr "行政機関を検索"
+
+msgid "Find the authorities"
+msgstr "行政機関を検索"
+
+msgid "Find the authorities to write to"
+msgstr "請求先の行政機関を検索"
+
+msgid "Find updated contact details"
+msgstr "最新の連絡先を検索"
+
+msgid "First, did your other requests succeed?"
+msgstr "まず、他の請求は開示されましたか？"
+
+msgid ""
+"First, type in the <strong>name of the public authority</strong> you'd like "
+"information from."
+msgstr "まず、情報の提供を求める<strong>行政機関の名称</strong>を入力してください。"
+
+msgid "Follow"
+msgstr "フォロー"
+
+msgid "Follow all new requests"
+msgstr "すべての新しい請求をフォロー"
+
+msgid "Follow new successful responses"
+msgstr "新しい開示済み回答をフォロー"
+
+msgid "Follow requests to {{public_body_name}}"
+msgstr "{{public_body_name}}への請求をフォロー"
+
+msgid "Follow these requests"
+msgstr "これらの請求をフォロー"
+
+msgid "Follow things matching this search"
+msgstr "この検索に一致する項目をフォロー"
+
+msgid "Follow this link to see the requests:"
+msgstr "こちらのリンクから請求を確認してください："
+
+msgid "Follow this person"
+msgstr "この人をフォロー"
+
+msgid "Follow this request"
+msgstr "この請求をフォロー"
+
+#. TRANSLATORS: "Follow up" in this context means a further
+#. message sent by the requester to the authority after
+#. the initial request
+msgid "Follow up"
+msgstr "追加の連絡"
+
+#. TRANSLATORS: "Follow up message" in this context means a
+#. further message sent by the requester to the authority after
+#. the initial request
+msgid "Follow up message sent by requester"
+msgstr "請求者からの追加の連絡"
+
+msgid ""
+"Follow up sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr "{{date}}に{{info_request_user}}から{{public_body_name}}へ追加の連絡を送信しました。"
+
+#. TRANSLATORS: "Follow ups" in this context means further
+#. messages sent by the requester to the authority after
+#. the initial request
+msgid ""
+"Follow ups and new responses to this request have been stopped to prevent "
+"spam. Please <a href=\"{{url}}\">contact us</a> if you are {{user_link}} and"
+" need to send a follow up."
+msgstr ""
+"スパム防止のため、この請求に対する追加の連絡および新しい回答は停止されています。{{user_link}}の方で追加の連絡が必要な場合は、<a "
+"href=\"{{url}}\">お問い合わせ</a>ください。"
+
+msgid "Follow us on Facebook"
+msgstr "Facebookでフォローする"
+
+msgid "Follow us on X"
+msgstr "Xでフォローする"
+
+msgid "Following"
+msgstr "フォロー中"
+
+msgid ""
+"Followups cannot be sent for this request, as it was made externally, and "
+"published here by {{public_body_name}} on the requester's behalf."
+msgstr ""
+"この請求は外部から行われ、請求者に代わって{{public_body_name}}によってここに公開されたものであるため、追加の連絡を送信することはできません。"
+
+msgid "Forgotten your password?"
+msgstr "パスワードをお忘れですか？"
+
+msgid "Found {{count}} public authority"
+msgid_plural "Found {{count}} public authorities"
+msgstr[0] "{{count}}件の行政機関が見つかりました"
+
+msgid "Found {{count}} public authority beginning with ‘{{first_letter}}’"
+msgid_plural ""
+"Found {{count}} public authorities beginning with ‘{{first_letter}}’"
+msgstr[0] "‘{{first_letter}}’で始まる行政機関が{{count}}件見つかりました"
+
+msgid "Found {{count}} public authority in the category ‘{{category}}’"
+msgid_plural ""
+"Found {{count}} public authorities in the category ‘{{category}}’"
+msgstr[0] "カテゴリ‘{{category}}’に属する行政機関が{{count}}件見つかりました"
+
+msgid "Found {{count}} public authority matching the tag ‘{{tag_name}}’"
+msgid_plural ""
+"Found {{count}} public authorities matching the tag ‘{{tag_name}}’"
+msgstr[0] "タグ‘{{tag_name}}’に一致する行政機関が{{count}}件見つかりました"
+
+msgid "Found {{count}} request tagged ‘{{tag_name}}’"
+msgid_plural "Found {{count}} requests tagged ‘{{tag_name}}’"
+msgstr[0] "タグ‘{{tag_name}}’が付与された請求が{{count}}件見つかりました"
+
+msgid ""
+"Four weeks ago you made a Freedom of Information request to "
+"{{public_body_name}} using {{site_name}}."
+msgstr "4週間前、あなたは{{site_name}}を使用して{{public_body_name}}に対して情報公開請求を行いました。"
+
+msgid "Freedom of Information"
+msgstr "情報公開"
+
+msgid "Freedom of Information Act"
+msgstr "情報公開法"
+
+msgid ""
+"Freedom of Information law does not apply to this authority, so you cannot "
+"make a request to it."
+msgstr "この機関には情報公開法が適用されないため、請求を行うことはできません。"
+
+msgid "Freedom of Information law no longer applies to {{public_body_name}}."
+msgstr "{{public_body_name}} には情報公開法が適用されなくなりました。"
+
+msgid "Freedom of Information requests made"
+msgstr "行われた情報公開請求"
+
+msgid "Freedom of Information requests made by this person"
+msgstr "この人物が行った情報公開請求"
+
+msgid "Freedom of Information requests made by you"
+msgstr "あなたが提出した情報公開請求"
+
+msgid "Freedom of Information requests made using this site"
+msgstr "このサイトを通じて行われた情報公開請求"
+
+msgid "From"
+msgstr "差出人"
+
+msgid ""
+"From the request page, try replying to a particular message, rather than "
+"sending a general followup. If you need to make a general followup, and know"
+" an email which will go to the right place, please <a href=\"{{url}}\">send "
+"it to us</a>."
+msgstr ""
+"請求ページから、一般的な追加の連絡を送るのではなく、特定のメッセージに返信を試みてください。一般的な追加の連絡が必要で、適切な宛先のメールアドレスがわかる場合は、<a"
+" href=\"{{url}}\">こちらまで送信してください</a>。"
+
+msgid ""
+"From time to time requests need to be hidden on {{site_name}}. This can "
+"happen for a number of reasons. For example, the request could be about "
+"someone’s personal information that shouldn’t be public or the contents "
+"could be abusive."
+msgstr ""
+"{{site_name}} "
+"では、時折請求を非公開にする必要があります。これにはいくつかの理由があります。例えば、公開すべきではない個人の個人情報に関する請求であったり、内容が不適切な場合などが挙げられます。"
+
+msgid "From:"
+msgstr "差出人："
+
+msgid "GIVE DETAILS ABOUT YOUR COMPLAINT HERE"
+msgstr "ここに苦情の詳細を入力してください"
+
+msgid "Get help to challenge it."
+msgstr "異議申し立ての方法についてヘルプを見る。"
+
+msgid "Getting long – remember to keep it focussed"
+msgstr "長くなりすぎないよう、要点を絞って記述してください"
+
+msgid "Go back to refusal advice questions"
+msgstr "不開示に関するアドバイスの質問に戻る"
+
+msgid "Got a {{site_name}} account?"
+msgstr "{{site_name}} のアカウントをお持ちですか？"
+
+msgid "Got an account?"
+msgstr "アカウントをお持ちですか？"
+
+msgid "Handled by postal mail"
+msgstr "郵便で対応"
+
+msgid ""
+"Has this batch request been referenced in journalism, campaigning, or "
+"research?"
+msgstr "この一括請求は、ジャーナリズム、キャンペーン、または研究において言及されましたか？"
+
+msgid ""
+"Has this request been referenced in journalism, campaigning, or research?"
+msgstr "この請求は、ジャーナリズム、キャンペーン、または研究において言及されましたか？"
+
+msgid ""
+"Hello! We have an  <a href=\"{{url}}\">important message</a> for visitors "
+"outside {{country_name}}"
+msgstr "こんにちは！{{country_name}} 以外の訪問者の皆様へ <a href=\"{{url}}\">重要なメッセージ</a> があります。"
+
+msgid ""
+"Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in "
+"other countries"
+msgstr "こんにちは！他国の訪問者の皆様へ <a href=\"{{url}}\">重要なメッセージ</a> があります。"
+
+msgid ""
+"Hello! We have an <a href=\"{{url}}\">important message</a> for visitors in "
+"other countries. You can also make Freedom of Information requests to EU "
+"institutions at {{link_to_asktheeu}}"
+msgstr ""
+"こんにちは！他国の訪問者の皆様へ <a href=\"{{url}}\">重要なメッセージ</a> "
+"があります。また、{{link_to_asktheeu}} からEU機関への情報公開請求を行うこともできます。"
+
+msgid ""
+"Hello! We have an <a href=\"{{url}}\">important message</a> for visitors "
+"outside {{country_name}}. You can also make Freedom of Information requests "
+"to EU institutions at {{link_to_asktheeu}}"
+msgstr ""
+"こんにちは！{{country_name}} 以外の訪問者の皆様へ <a href=\"{{url}}\">重要なメッセージ</a> "
+"があります。また、{{link_to_asktheeu}} からEU機関への情報公開請求を行うこともできます。"
+
+msgid ""
+"Hello! You can make Freedom of Information requests within {{country_name}} "
+"at {{link_to_website}}"
+msgstr "こんにちは！{{link_to_website}} で {{country_name}} 内の情報公開請求を行うことができます。"
+
+msgid ""
+"Hello! You can make Freedom of Information requests within {{country_name}} "
+"at {{link_to_website}} and to EU institutions at {{link_to_asktheeu}}"
+msgstr ""
+"こんにちは！{{country_name}}内での情報公開請求は{{link_to_website}}から、EU機関への請求は{{link_to_asktheeu}}から行うことができます。"
+
+msgid "Help"
+msgstr "ヘルプ"
+
+msgid "Help Out"
+msgstr "協力する"
+
+msgid "Help us classify requests that haven't been updated"
+msgstr "更新されていない請求の分類にご協力ください"
+
+msgid ""
+"Here <strong>described</strong> means when a user selected a status for the "
+"request, and the most recent event had its status updated to that value. "
+"<strong>calculated</strong> is then inferred by {{site_name}} for "
+"intermediate events, which weren't given an explicit description by a user. "
+"See the <a href=\"{{search_path}}\">search tips</a> for description of the "
+"states."
+msgstr ""
+
+msgid ""
+"Here are some snippets that may help you <strong>challenge a "
+"refusal</strong>:"
+msgstr ""
+
+msgid ""
+"Here is the message you wrote, in case you would like to copy the text and "
+"save it for later."
+msgstr "後でテキストをコピーして保存したい場合に備えて、あなたが書いたメッセージを表示します。"
+
+msgid ""
+"Here you can <a href=\"#public_bodies\">see how well public bodies have "
+"responded</a> to requests on {{site_name}} and <a href=\"#people\">meet the "
+"people most actively using it</a>. You can also find <a "
+"href=\"#requests\">statistics about requests</a> over time."
+msgstr ""
+"ここでは、{{site_name}}における行政機関の請求への<a href=\"#public_bodies\">回答状況</a>を確認したり、<a "
+"href=\"#people\">最も積極的に利用している人々</a>を紹介したりできます。また、時系列の<a "
+"href=\"#requests\">請求に関する統計</a>も確認できます。"
+
+msgid ""
+"Here you can see how often {{site_name}} administrators have hidden "
+"requests."
+msgstr "ここでは、{{site_name}}の管理者がどのくらいの頻度で請求を非公開にしているかを確認できます。"
+
+msgid "Here's your daily request summary from {{site_name}}:"
+msgstr "{{site_name}}からの今日の請求サマリーです："
+
+msgid ""
+"Hi! We need your help. The person who made the following request hasn't told"
+" us whether or not it was successful. Would you mind taking a moment to read"
+" it and help us keep the place tidy for everyone? Thanks."
+msgstr ""
+"こんにちは！お力添えをお願いします。以下の請求を行った方は、開示されたかどうかを報告していません。少しだけ時間を取って内容を確認し、みんなが使いやすい環境を保つために協力していただけませんか？ありがとうございます。"
+
+msgid "Hidden"
+msgstr "非公開"
+
+msgid ""
+"Hidden requests are not counted. Unclassified requests do not count towards "
+"the percentages."
+msgstr "非公開の請求はカウントされません。また、状態の分類が行われていない請求もパーセンテージには含まれません。"
+
+msgid "Home page of authority"
+msgstr "機関のホームページ"
+
+msgid "How it works"
+msgstr "仕組みについて"
+
+msgid ""
+"However, you have the right to request environmental information under a "
+"different law"
+msgstr "ただし、別の法律に基づいて環境情報の請求を行う権利があります。"
+
+msgid "Human health and safety"
+msgstr "人の健康と安全"
+
+msgid "I also want to know!"
+msgstr "私も知りたい！"
+
+msgid "I am asking for <strong>new information</strong>"
+msgstr "<strong>新しい情報</strong>を請求します"
+
+msgid "I am requesting an <strong>internal review</strong>"
+msgstr "<strong>内部審査</strong>を請求します"
+
+msgid ""
+"I am writing to request an internal review of {{public_body_name}}'s "
+"handling of my FOI request '{{info_request_title}}'."
+msgstr ""
+"{{public_body_name}}による私の情報公開請求「{{info_request_title}}」の取り扱いについて、内部審査を求めるために連絡しています。"
+
+msgid "I don't like these ones &mdash; give me some more!"
+msgstr "これらは好みません &mdash; 他をいくつか出してください！"
+
+msgid "I don't want to do any more tidying now!"
+msgstr "今はこれ以上整理したくありません！"
+
+msgid "I like this request"
+msgstr "この請求を「お気に入り」にする"
+
+msgid "I would like to <strong>withdraw this request</strong>"
+msgstr ""
+
+msgid ""
+"I'm still <strong>waiting</strong> for my information <small>(maybe you got "
+"an acknowledgement)</small>"
+msgstr ""
+
+msgid "I'm still <strong>waiting</strong> for the internal review"
+msgstr ""
+
+msgid "I'm waiting for an <strong>internal review</strong> response"
+msgstr ""
+
+msgid "I've been asked to <strong>clarify</strong> my request"
+msgstr ""
+
+msgid "I've received <strong>all the information</strong>"
+msgstr ""
+
+msgid "I've received <strong>some of the information</strong>"
+msgstr ""
+
+msgid "I've received an <strong>error message</strong>"
+msgstr ""
+
+msgid "I've received an error message"
+msgstr "エラーメッセージを受信しました"
+
+msgid ""
+"If the error was a delivery failure, and you can find an up to date FOI "
+"email address for the authority, please tell us using the form below."
+msgstr "エラーが配信失敗であった場合、かつ機関の最新の情報公開請求用メールアドレスがわかる場合は、以下のフォームからお知らせください。"
+
+msgid ""
+"If this is a recent message, check back tomorrow, as we check for new logs "
+"periodically."
+msgstr "最近送信されたメッセージの場合は、定期的にログを確認しているため、明日もう一度ご確認ください。"
+
+msgid ""
+"If this is incorrect, or you would like to send a late response to the "
+"request or an email on another subject to {{user}}, then please email "
+"{{contact_email}} to ask us to reopen the request. You can then resend the "
+"response."
+msgstr ""
+"この内容が正しくない場合、または{{user}}に対して請求への遅延回答や別の件のメールを送信したい場合は、{{contact_email}}までメールを送り、請求の再開を依頼してください。その後、回答を再送できます。"
+
+msgid ""
+"If you <strong>don't want your new name to be linked to your old "
+"one</strong>, it's a good idea to make a new account instead."
+msgstr "<strong>新しい名前を古い名前に紐付けたくない</strong>場合は、新しくアカウントを作成することをお勧めします。"
+
+msgid ""
+"If you are dissatisfied by the response you got from the public authority, "
+"you have the right to complain (<a href=\"{{url}}\">details</a>)."
+msgstr "行政機関からの回答に不満がある場合、苦情を申し立てる権利があります（<a href=\"{{url}}\">詳細</a>）。"
+
+msgid ""
+"If you are still having trouble, please <a href=\"{{url}}\">contact us</a>."
+msgstr "問題が解決しない場合は、<a href=\"{{url}}\">お問い合わせ</a>ください。"
+
+msgid ""
+"If you are the requester, then you may {{sign_in_link}} to view the "
+"attachment."
+msgstr "請求者の場合は、{{sign_in_link}} から添付ファイルを確認できます。"
+
+msgid ""
+"If you are the requester, then you may {{sign_in_link}} to view the message."
+msgstr "請求者の場合は、{{sign_in_link}} からメッセージを閲覧できます。"
+
+msgid ""
+"If you are the requester, then you may {{sign_in_link}} to view the request."
+msgstr "請求者の場合は、{{sign_in_link}} から請求内容を閲覧できます。"
+
+msgid ""
+"If you are trying to <strong>remove your name</strong>, please <a "
+"href=\"{{contact_us_url}}\">contact us</a>."
+msgstr ""
+"<strong>お名前の削除</strong>をご希望の場合は、<a "
+"href=\"{{contact_us_url}}\">お問い合わせ</a>ください。"
+
+msgid "If you are {{user_link}}, please"
+msgstr "{{user_link}} の場合は、"
+
+msgid ""
+"If you believe this request is not suitable, you can report it for attention"
+" by the site administrators using this form"
+msgstr "この請求が不適切であると思われる場合は、こちらのフォームからサイト管理者に報告することができます。"
+
+msgid ""
+"If you can spare a few minutes to complete our short survey, it will help us"
+" make the site better. Just follow the link below."
+msgstr "数分お時間をいただき、短いアンケートにご協力いただければ幸いです。サイトの改善に役立てさせていただきます。以下のリンクからご回答ください。"
+
+msgid ""
+"If you can't click on it in the email, you'll have to <strong>select and "
+"copy it</strong> from the email.  Then <strong>paste it into your "
+"browser</strong>, into the place you would type the address of any other "
+"webpage."
+msgstr ""
+
+msgid ""
+"If you can, scan in or photograph the response, and <strong>send us a copy "
+"to upload</strong>."
+msgstr ""
+
+msgid ""
+"If you find this service useful as an FOI officer, please ask your web "
+"manager to link to us from your organisation's FOI page."
+msgstr ""
+"情報公開担当者として本サービスが便利だと感じられた場合は、組織の情報公開ページから当サイトへのリンクを設置するようウェブ管理者にお願いください。"
+
+msgid ""
+"If you found {{site_name}} useful, <a href=\"{{donation_url}}\">make a "
+"donation</a> to the charity which runs it."
+msgstr ""
+"{{site_name}}が役に立った場合は、運営団体へ<a href=\"{{donation_url}}\">寄付をする</a>ことができます。"
+
+msgid ""
+"If you got the email <strong>more than two months ago</strong> or "
+"<strong>updated your user profile</strong>, then this login link won't work "
+"any more. Please try doing what you were doing from the beginning."
+msgstr ""
+
+msgid ""
+"If you have not done so already, please write a message below telling the "
+"authority that you have withdrawn your request. Otherwise they will not know"
+" it has been withdrawn."
+msgstr ""
+"まだ行っていない場合は、以下のメッセージ欄に請求を取り下げた旨を機関に伝えてください。そうしないと、機関側で取り下げられたことが分かりません。"
+
+msgid ""
+"If you reply to this message it will go directly to {{user_name}}, who will "
+"learn your email address. Only reply if that is okay."
+msgstr ""
+"このメッセージに返信すると{{user_name}}に直接届き、相手にメールアドレスが知られることになります。ご了承いただける場合のみ返信してください。"
+
+msgid ""
+"If you use web-based email or have \"junk mail\" filters, also check your "
+"bulk/spam mail folders. Sometimes, our messages are marked that way."
+msgstr ""
+"Webメールを使用している場合や「迷惑メール」フィルタを設定している場合は、一括送信用またはスパムフォルダも確認してください。当サイトからのメッセージがそこに分類されることがあります。"
+
+msgid ""
+"If you want to try and get the rest of the information, here's what to do "
+"now."
+msgstr "残りの情報の開示を試みたい場合は、以下の手順に従ってください。"
+
+msgid ""
+"If you would like to contest the authority's claim that they do not hold the"
+" information, here is <a href=\"{{complain_url}}\">how to complain</a>."
+msgstr ""
+"機関による「情報を持っていない」という主張に異議を申し立てたい場合は、<a "
+"href=\"{{complain_url}}\">苦情の申し立て方法</a>はこちらです。"
+
+msgid ""
+"If you would like us to lift this ban, then you may politely <a "
+"href=\"/help/contact\">contact us</a> giving reasons."
+msgstr "この禁止を解除してほしい場合は、理由を添えて<a href=\"/help/contact\">お問い合わせ</a>ください。"
+
+msgid ""
+"If you write about these requests (for example in a forum or a blog) please "
+"link to this page."
+msgstr "これらの請求について（例えばフォーラムやブログなどで）執筆される場合は、このページへのリンクを掲載してください。"
+
+msgid ""
+"If you write about this request (for example in a forum or a blog) please "
+"link to this page, and <a href=\"{{url}}\">add an annotation</a> below "
+"telling people about your writing."
+msgstr ""
+"この請求について（例えばフォーラムやブログなどで）執筆される場合は、このページへのリンクを掲載し、その下に<a "
+"href=\"{{url}}\">コメント</a>を追加して、執筆内容を公開してください。"
+
+msgid ""
+"If you write about this request (for example in a forum or a blog) please "
+"link to this page."
+msgstr "この請求について（例えばフォーラムやブログなどで）執筆される場合は、このページへのリンクを掲載してください。"
+
+msgid ""
+"If your browser is set to accept cookies and you are seeing this message, "
+"then there is probably a fault with our server."
+msgstr "ブラウザのCookie設定が有効であるにもかかわらずこのメッセージが表示される場合は、当サーバーに問題がある可能性があります。"
+
+msgid "Improve your account security"
+msgstr "アカウントのセキュリティを向上させる"
+
+msgid "In progress"
+msgstr "進行中"
+
+msgid ""
+"Include relevant links, such as to a campaign page, your blog or a twitter "
+"account. They will be made clickable. e.g."
+msgstr "キャンペーンページ、ブログ、Twitterアカウントなど、関連するリンクを含めてください。これらはクリック可能な形式になります。例："
+
+msgid ""
+"Incoming message has a spam score above the configured threshold "
+"({{spam_threshold}})."
+msgstr "受信メッセージのスパムスコアが設定されたしきい値（{{spam_threshold}}）を超えています。"
+
+msgid "Individual requests"
+msgstr "個別請求"
+
+msgid "Information not held"
+msgstr "情報の未保有"
+
+msgid ""
+"Information on emissions and discharges (e.g. noise, energy, radiation, "
+"waste materials)"
+msgstr "排出および放流に関する情報（例：騒音、エネルギー、放射線、廃棄物など）"
+
+msgid "Internal review"
+msgstr "内部審査"
+
+msgid "Internal review of {{email_subject}}"
+msgstr "{{email_subject}}の内部審査"
+
+msgid "Internal review request"
+msgstr "内部審査請求"
+
+msgid ""
+"Internal review request sent to {{public_body_name}} by "
+"{{info_request_user}} on {{date}}."
+msgstr "{{date}}に{{info_request_user}}によって{{public_body_name}}へ送信された内部審査請求。"
+
+msgid "Invalid form submission"
+msgstr "フォームの送信に失敗しました"
+
+msgid "Invalid one time password"
+msgstr "無効なワンタイムパスワードです"
+
+msgid "Invalid token"
+msgstr "無効なトークンです"
+
+msgid "Invite and edit contributors"
+msgstr "共同編集者の招待と編集"
+
+msgid ""
+"Is {{email_address}} the wrong address for {{law_used_full}} requests to "
+"{{public_body_name}}? If so, please contact us using this form:"
+msgstr ""
+"{{public_body_name}}への{{law_used_full}}に基づく請求において、{{email_address}}は誤ったアドレスですか？その場合は、こちらのフォームからご連絡ください："
+
+msgid ""
+"It looks like something has gone wrong when sending this message. It could "
+"be a technical issue, or an issue with the email address we have for the "
+"authority."
+msgstr "このメッセージの送信中に問題が発生したようです。技術的な問題か、当サービスが保有する機関のメールアドレスに問題がある可能性があります。"
+
+msgid ""
+"It may be that your browser is not set to accept a thing called \"cookies\","
+" or cannot do so.  If you can, please enable cookies, or try using a "
+"different browser.  Then press refresh to have another go."
+msgstr ""
+"お使いのブラウザで「クッキー」を受け入れる設定になっていないか、受け入れられない可能性があります。可能であればクッキーを有効にするか、別のブラウザをお試しください。その後、更新ボタンを押して再度お試しください。"
+
+msgid ""
+"Items matching the following conditions are currently displayed on your "
+"wall."
+msgstr "以下の条件に一致する項目が現在あなたのウォールに表示されています。"
+
+msgid "Joined in {{year}}"
+msgstr "{{year}}年に入会"
+
+msgid "Joined in {{year}}."
+msgstr "{{year}}年に入会。"
+
+msgid "Joined {{site_name}} in {{year}}"
+msgstr "{{year}}年に{{site_name}}に参加"
+
+msgid "Journalism"
+msgstr "ジャーナリズム"
+
+msgid "Journalist, Academic or Power User?"
+msgstr "ジャーナリスト、研究者、またはパワーユーザーですか？"
+
+msgid "Just one more thing"
+msgstr "最後に一つだけ"
+
+msgid "Keep your request up to date"
+msgstr "請求を最新の状態に保つ"
+
+msgid "Keep your requests up to date"
+msgstr "請求を最新の状態に保つ"
+
+msgid "Keywords"
+msgstr "キーワード"
+
+msgid "Laptop or desktop"
+msgstr "ノートPCまたはデスクトップ"
+
+msgid "Last 28 days"
+msgstr "過去28日間"
+
+msgid "Last authority viewed: {{authority_url}}"
+msgstr "最後に閲覧した機関: {{authority_url}}"
+
+msgid "Last edit editor can't be blank"
+msgstr "「最終編集」の入力欄は空にできません"
+
+msgid "Last edit editor can't be longer than 255 characters"
+msgstr "「最終編集」の入力欄は255文字以内で入力してください"
+
+msgid "Last request viewed: {{request_url}}"
+msgstr "最後に閲覧した請求: {{request_url}}"
+
+msgid "Latest"
+msgstr "最新"
+
+msgid "Latest news and campaigns"
+msgstr "最新のニュースとキャンペーン"
+
+msgid "Learn more &rarr;"
+msgstr "詳細を見る &rarr;"
+
+msgid "Leave project"
+msgstr "プロジェクトを離脱する"
+
+msgid "Let us know"
+msgstr "お知らせください"
+
+msgid ""
+"Let us know about great examples of <a href=\"{{citations_path}}\">FOI in "
+"Action</a>."
+msgstr "<a href=\"{{citations_path}}\">FOIの実践例</a>の素晴らしい事例を教えてください。"
+
+msgid "Let us know and we’ll help you challenge it."
+msgstr "お知らせいただければ、異議申し立てをお手伝いします。"
+
+msgid ""
+"Let us know what you were doing when this message appeared and your browser "
+"and operating system type and version."
+msgstr "このメッセージが表示された際に何をしていたか、お使いのブラウザとOSの種類およびバージョンを教えてください。"
+
+msgid "Link to this"
+msgstr "こちらへのリンク"
+
+msgid "List of all authorities (CSV)"
+msgstr "すべての行政機関のリスト (CSV)"
+
+msgid "Log in to download a zip file of {{info_request_title}}"
+msgstr "{{info_request_title}} のzipファイルをダウンロードするにはログインしてください"
+
+msgid "Log into the admin interface"
+msgstr "管理者インターフェースにログインする"
+
+msgid "Long overdue"
+msgstr "大幅な期限超過"
+
+msgid "Made between"
+msgstr "期間："
+
+msgid "Make a request"
+msgstr "請求を行う"
+
+msgid "Make a request &raquo;"
+msgstr "請求を行う &raquo;"
+
+msgid "Make a request to these authorities"
+msgstr "これらの機関に請求を行う"
+
+msgid "Make a request to this authority"
+msgstr "この機関に請求を行う"
+
+msgid "Make a {{legislation}} request to this authority"
+msgstr "この機関に{{legislation}}請求を行う"
+
+msgid "Make an {{law_used_short}} request"
+msgstr "{{law_used_short}}請求を行う"
+
+msgid "Make an {{law_used_short}} request to '{{public_body_name}}'"
+msgstr "'{{public_body_name}}'に{{law_used_short}}請求を行う"
+
+msgid "Make an {{legislation}} request to this authority"
+msgstr "この機関に{{legislation}}請求を行う"
+
+msgid "Make and browse Freedom of Information (FOI) requests"
+msgstr "情報公開（FOI）請求の作成と閲覧"
+
+msgid ""
+"Make sure the information you are asking for is not already publicly "
+"available."
+msgstr "請求する情報が、すでに公表されていないか確認してください。"
+
+msgid "Many requests"
+msgstr "多数の請求"
+
+msgid "Message"
+msgstr "メッセージ"
+
+msgid "Message has been removed"
+msgstr "メッセージは削除されました"
+
+msgid "Message sent using {{site_name}} contact form, "
+msgstr "{{site_name}}の問い合わせフォームから送信されたメッセージです。 "
+
+msgid "Message {{current_message}} of {{total_messages}}"
+msgstr "{{total_messages}}件中 {{current_message}}件目のメッセージ"
+
+msgid "Missing contact details for '{{authority_name}}'"
+msgstr "'{{authority_name}}' の連絡先情報がありません"
+
+msgid "More about this authority"
+msgstr "この機関の詳細を見る"
+
+msgid "More requests in this batch"
+msgstr "この一括請求の他の請求を見る"
+
+msgid "More similar requests"
+msgstr "他の類似した請求を見る"
+
+msgid "Most frequent annotators"
+msgstr "頻繁なコメント投稿者"
+
+msgid "Most frequent requesters"
+msgstr "頻繁な請求者"
+
+msgid "My profile"
+msgstr "マイプロフィール"
+
+msgid "My request has been <strong>refused</strong>"
+msgstr ""
+
+msgid "My requests"
+msgstr "私の請求"
+
+msgid "My wall"
+msgstr "マイウォール"
+
+msgid "Name can't be blank"
+msgstr "名前を入力してください"
+
+msgid "Name is already taken"
+msgstr "その名前は既に使用されています"
+
+msgid "Name successfully updated."
+msgstr "名前を更新しました。"
+
+msgid "Name:"
+msgstr "名前："
+
+msgid "Needs admin attention"
+msgstr "管理者の対応が必要です"
+
+msgid "Needs status update"
+msgstr "状態の更新が必要です"
+
+msgid "New Freedom of Information requests"
+msgstr "新しい情報公開請求"
+
+msgid "New e-mail:"
+msgstr "新しいメールアドレス："
+
+msgid "New email doesn't look like a valid address"
+msgstr "新しいメールアドレスは有効な形式ではありません"
+
+msgid "New password:"
+msgstr "新しいパスワード："
+
+msgid "New password: (again)"
+msgstr "新しいパスワード:（再入力）"
+
+msgid "New response to '{{title}}'"
+msgstr "「{{title}}」に対する新しい回答"
+
+msgid "New response to your FOI request - {{request_title}}"
+msgstr "情報公開請求への新しい回答 - {{request_title}}"
+
+msgid "New response to your request"
+msgstr "請求に対する新しい回答"
+
+msgid "New response to {{law_used_short}} request"
+msgstr "{{law_used_short}}に基づく請求への新しい回答"
+
+msgid "New updates for the request '{{request_title}}'"
+msgstr "請求「{{request_title}}」に関する最新の更新"
+
+msgid "Newest results first"
+msgstr "新しい順に表示"
+
+msgid "Next"
+msgstr "次へ"
+
+msgid "Next &#8594;"
+msgstr "次へ &#8594;"
+
+msgid "Next Step: Preview your public request"
+msgstr "次のステップ：情報公開請求のプレビュー"
+
+msgid "Next message"
+msgstr "次のメッセージ"
+
+msgid "Next, crop your photo &gt;&gt;"
+msgstr "次に、写真をトリミングします &gt;&gt;;"
+
+msgid "Nice work! How about having another try at the requests you skipped?"
+msgstr "お疲れ様でした！スキップした請求にもう一度挑戦してみませんか？"
+
+msgid "No"
+msgstr "いいえ"
+
+msgid ""
+"No more copy and paste emails: our Batch Request tool helps you create one "
+"request and send it to many authorities at once."
+msgstr "メールのコピー＆ペーストはもう不要です。一括請求ツールを使えば、1つの請求を作成して複数の行政機関に一度に送信できます。"
+
+msgid "No requests of this sort yet."
+msgstr "この種類の請求はまだありません。"
+
+msgid "No results found."
+msgstr "結果が見つかりませんでした。"
+
+msgid "No similar requests found."
+msgstr "類似の請求は見つかりませんでした。"
+
+msgid ""
+"Nobody has made any Freedom of Information requests to {{public_body_name}} "
+"using this site yet."
+msgstr "このサイトを通じて{{public_body_name}}に対して情報公開請求を行った人はまだいません。"
+
+msgid "Non-expert"
+msgstr "専門家ではありません"
+
+msgid "None found."
+msgstr "見つかりませんでした。"
+
+msgid "None made."
+msgstr "行われていません。"
+
+msgid "Not a valid request"
+msgstr "有効な請求ではありません"
+
+msgid "Not an FOI request"
+msgstr "情報公開請求ではありません"
+
+msgid "Not held"
+msgstr "保持されていません"
+
+msgid ""
+"Note that it may take some time to link your previous requests to your new "
+"account name."
+msgstr "以前の請求を新しいアカウント名に紐付けるには、時間がかかる場合があります。"
+
+msgid ""
+"Note that the requester will not be notified about your annotation, because "
+"the request was published by {{public_body_name}} on their behalf."
+msgstr ""
+"この請求は{{public_body_name}}によって請求者の代わりに公開されたため、あなたのコメントが請求者に通知されることはありません。"
+
+msgid ""
+"Note that we may still send you emails when new correspondence appears on "
+"your requests, or when you perform actions that require an email "
+"confirmation step."
+msgstr "請求に関する新しいやり取りがあった場合や、メールによる確認が必要な操作を行った場合には、引き続きメールを送信することがあります。"
+
+msgid "Notes:"
+msgstr "備考："
+
+msgid "Now check your email!"
+msgstr "メールを確認してください！"
+
+msgid "Now preview your annotation"
+msgstr "コメントのプレビューを表示します"
+
+msgid "Now preview your follow up"
+msgstr "追加の連絡のプレビューを表示します"
+
+msgid "Now preview your message asking for an internal review"
+msgstr "内部審査を求めるメッセージのプレビューです"
+
+msgid "Number of request hide events over time"
+msgstr "期間ごとの請求の非公開イベント数"
+
+msgid "Number of requests"
+msgstr "請求件数"
+
+msgid "Numeric"
+msgstr "数値"
+
+msgid "OR remove the existing photo"
+msgstr "または既存の写真を削除する"
+
+msgid "Offensive? Unsuitable?"
+msgstr "不適切な内容ですか？"
+
+msgid ""
+"Oh no! Sorry to hear that your request was refused. Here is what to do now."
+msgstr "お困りのこととお察しします。ご請求が不開示となった場合の対応手順は以下の通りです。"
+
+msgid "Old e-mail:"
+msgstr "以前のメール："
+
+msgid ""
+"Old email address isn't the same as the address of the account you are "
+"logged in with"
+msgstr "古いメールアドレスが、現在ログインしているアカウントのアドレスと一致しません"
+
+msgid "Old email doesn't look like a valid address"
+msgstr "古いメールアドレスは有効な形式ではありません"
+
+msgid "On this page"
+msgstr "このページでは"
+
+msgid "One FOI request found"
+msgstr "情報公開請求が1件見つかりました"
+
+msgid "One person found"
+msgstr "1人のユーザーが見つかりました"
+
+msgid "One public authority found"
+msgstr "1つの行政機関が見つかりました"
+
+msgid "Only requests made using {{site_name}} are shown."
+msgstr "{{site_name}} を使用して行われた請求のみが表示されます。"
+
+msgid ""
+"Only the authority can reply to this request, and I don't recognise the "
+"address this reply was sent from"
+msgstr "この請求に回答できるのは機関のみですが、この回答の送信元アドレスを認識できません"
+
+msgid ""
+"Only the authority can reply to this request, but there is no \"From\" "
+"address to check against"
+msgstr "この請求に回答できるのは行政機関のみですが、照合するための「差出人」アドレスがありません。"
+
+msgid ""
+"Only the correct combination of confirming your account through an email "
+"token and entering the correct one time passcode will allow your account "
+"password to be changed."
+msgstr "アカウントのパスワードを変更するには、メールトークンによるアカウント確認と正しいワンタイムパスコードの入力の両方が必要です。"
+
+msgid "Original request sent"
+msgstr "元の請求を送信しました"
+
+msgid "Other"
+msgstr "その他"
+
+msgid "Other:"
+msgstr "その他:"
+
+msgid "Page {{page}}"
+msgstr "{{page}}ページ"
+
+msgid "Pagination"
+msgstr "ページ送り"
+
+msgid "Partial success"
+msgstr "一部開示"
+
+msgid "Partially successful"
+msgstr "一部開示"
+
+msgid "Password is not correct"
+msgstr "パスワードが正しくありません"
+
+msgid "Password is too long (maximum is 72 characters)"
+msgstr "パスワードが長すぎます（最大72文字です）"
+
+msgid "Password is too short (minimum is 12 characters)"
+msgstr "パスワードが短すぎます（最小12文字です）"
+
+msgid "Password:"
+msgstr "パスワード:"
+
+msgid "People"
+msgstr "利用者"
+
+msgid "People {{start_count}} to {{end_count}} of {{total_count}}"
+msgstr "{{total_count}}人中、{{start_count}}人から{{end_count}}人目"
+
+msgid "Percentage of requests that are overdue"
+msgstr "期限超過の請求の割合"
+
+msgid "Percentage of total requests"
+msgstr "全請求に対する割合"
+
+msgid "Photo of you:"
+msgstr "あなたの写真:"
+
+msgid "Plan changed from \"{{from}}\" to \"{{to}}\""
+msgstr "計画が「{{from}}」から「{{to}}」に変更されました"
+
+msgid "Plans and administrative measures that affect these matters"
+msgstr "これらの事項に影響を与える計画および行政措置"
+
+msgid "Play the request categorisation game"
+msgstr "請求の分類ゲームをプレイする"
+
+msgid "Play the request categorisation game!"
+msgstr "請求の分類ゲームをプレイしよう！"
+
+msgid "Please"
+msgstr "お願い"
+
+msgid "Please <a href=\"{{url}}\">get in touch</a> with us so we can fix it."
+msgstr "修正いたしますので、<a href=\"{{url}}\">お問い合わせ</a>をお願いします。"
+
+msgid ""
+"Please <strong>go to the following requests</strong>, and let us know if "
+"there was information in the recent responses to them."
+msgstr "<strong>以下の請求一覧</strong>を確認し、最近の回答に目的の情報が含まれていたかどうかを教えてください。"
+
+msgid ""
+"Please <strong>only</strong> write messages directly relating to your "
+"request {{request_link}}. If you would like to ask for information that was "
+"not in your original request, then <a href=\"{{new_request_link}}\">file a "
+"new request</a>."
+msgstr ""
+
+msgid "Please ask for environmental information only"
+msgstr "環境に関する情報のみを請求してください。"
+
+msgid ""
+"Please check the URL (i.e. the long code of letters and numbers) is copied "
+"correctly from your email."
+msgstr "URL（例：英数字の長いコード）がメールから正しくコピーされているか確認してください。"
+
+msgid "Please choose a file containing your photo."
+msgstr "写真が含まれているファイルを選択してください。"
+
+msgid "Please choose a reason"
+msgstr "理由を選択してください。"
+
+msgid "Please choose what sort of reply you are making."
+msgstr "回答の種類を選択してください。"
+
+msgid ""
+"Please choose whether or not you got some of the information that you "
+"wanted."
+msgstr "希望していた情報のいくつかが提供されたかどうかを選択してください。"
+
+msgid "Please click on the link below to cancel or alter these emails."
+msgstr "これらのメールの配信を停止または変更するには、以下のリンクをクリックしてください。"
+
+msgid ""
+"Please click on the link below to confirm that you want to change the email "
+"address that you use for {{site_name}} from {{old_email}} to {{new_email}}"
+msgstr ""
+"{{site_name}}で使用するメールアドレスを {{old_email}} から {{new_email}} "
+"に変更することを確認するには、以下のリンクをクリックしてください。"
+
+msgid "Please click on the link below to confirm your email address."
+msgstr "メールアドレスを確認するには、以下のリンクをクリックしてください。"
+
+msgid "Please click on the link below to stop these emails."
+msgstr "これらのメールの配信を停止するには、以下のリンクをクリックしてください。"
+
+msgid "Please correct the errors below"
+msgstr "以下のエラーを修正してください。"
+
+msgid "Please create an account or sign in"
+msgstr "アカウントを作成するか、サインインしてください。"
+
+msgid ""
+"Please describe more what the request is about in the subject. There is no "
+"need to say it is an FOI request, we add that on anyway."
+msgstr "件名に請求の内容について詳しく記載してください。「情報公開請求」である旨を明記する必要はありません。こちらで自動的に追加します。"
+
+msgid ""
+"Please don't upload offensive pictures. We will take down images that we "
+"consider inappropriate."
+msgstr "不適切な画像をアップロードしないでください。不適切と判断した画像は削除いたします。"
+
+msgid "Please enable \"cookies\" to carry on"
+msgstr "続行するには「クッキー」を有効にしてください"
+
+msgid "Please enter a Source URL"
+msgstr "ソースURLを入力してください"
+
+msgid "Please enter a password"
+msgstr "パスワードを入力してください"
+
+msgid "Please enter a subject"
+msgstr "件名を入力してください"
+
+msgid "Please enter a summary of your request"
+msgstr "請求の概要を入力してください"
+
+msgid "Please enter a valid email address"
+msgstr "有効なメールアドレスを入力してください"
+
+msgid "Please enter the message you want to send"
+msgstr "送信するメッセージを入力してください"
+
+msgid "Please enter the name of the authority"
+msgstr "機関の名称を入力してください"
+
+msgid "Please enter the same password twice"
+msgstr "パスワードを2回入力してください"
+
+msgid "Please enter your annotation"
+msgstr "コメントを入力してください"
+
+msgid "Please enter your email address"
+msgstr "メールアドレスを入力してください"
+
+msgid "Please enter your follow up message"
+msgstr "追加の連絡内容を入力してください"
+
+msgid "Please enter your letter requesting information"
+msgstr "情報公開請求書を入力してください"
+
+msgid "Please enter your name"
+msgstr "お名前を入力してください"
+
+msgid "Please enter your name, not your email address, in the name field."
+msgstr "お名前の欄には、メールアドレスではなくお名前を入力してください。"
+
+msgid "Please enter your new email address"
+msgstr "新しいメールアドレスを入力してください"
+
+msgid "Please enter your old email address"
+msgstr "以前のメールアドレスを入力してください"
+
+msgid "Please enter your password"
+msgstr "パスワードを入力してください"
+
+msgid "Please give details explaining why you want a review"
+msgstr "レビューを希望する理由の詳細を入力してください"
+
+msgid "Please keep it shorter than 500 characters"
+msgstr "500文字以内で入力してください"
+
+msgid ""
+"Please keep the summary short, like in the subject of an email. You can use "
+"a phrase, rather than a full sentence."
+msgstr "要約は、メールの件名のように簡潔に記載してください。完全な文章ではなく、フレーズでも構いません。"
+
+msgid ""
+"Please note that in some cases publication of requests and responses will be"
+" delayed."
+msgstr "場合によっては、請求と回答の公開が遅れることがありますのでご了承ください。"
+
+msgid ""
+"Please only request information that comes under those categories, "
+"<strong>do not waste your time</strong> or the time of the public authority "
+"by requesting unrelated information."
+msgstr ""
+"対象となるカテゴリーの情報のみを請求してください。<strong>無関係な情報を請求して、ご自身の時間や行政機関の時間を無駄にしないでください。</strong>"
+
+msgid ""
+"Please pass this on to the person who conducts Freedom of Information "
+"reviews."
+msgstr "この内容を情報公開審査を担当する担当者へお伝えください。"
+
+msgid ""
+"Please read the recent response and <strong>update the status</strong> so we"
+" know whether it contains useful information."
+msgid_plural ""
+"Please read the recent responses and <strong>update the status</strong> so "
+"we know whether they contain useful information."
+msgstr[0] "最新の回答を確認し、有用な情報が含まれているかどうかを把握するため、<strong>状態を更新</strong>してください。"
+
+msgid "Please select a type"
+msgstr "種類を選択してください"
+
+msgid "Please select an authority"
+msgstr "行政機関を選択してください"
+
+msgid ""
+"Please select each of these requests in turn, and <strong>let everyone "
+"know</strong> if they are successful yet or not."
+msgstr "これらの請求を一つずつ選択し、それぞれがすでに開示されたかどうかを<strong>全員に知らせて</strong>ください。"
+
+msgid ""
+"Please sign at the bottom with your name, or alter the \"{{signoff}}\" "
+"signature"
+msgstr "末尾に氏名を記入するか、「{{signoff}}」の署名を変更してください"
+
+msgid "Please sign in as {{user_name}}"
+msgstr "{{user_name}}としてサインインしてください"
+
+msgid "Please tell us more:"
+msgstr "詳細を教えてください："
+
+msgid "Please type a message and/or choose a file containing your response."
+msgstr "メッセージを入力し、または回答を含むファイルを選択してください。"
+
+msgid "Please update the status of your request - {{request_title}}"
+msgstr "請求「{{request_title}}」のステータスを更新してください"
+
+msgid "Please use this email address for all replies to this request:"
+msgstr "この請求へのすべての返信には、以下のメールアドレスを使用してください："
+
+msgid "Please write a summary with some text in it"
+msgstr "概要にテキストを入力してください"
+
+msgid ""
+"Please write the summary using a mixture of capital and lower case letters. "
+"This makes it easier for others to read."
+msgstr "読みやすさを考慮し、大文字と小文字を混ぜて概要を記述してください。"
+
+msgid ""
+"Please write your annotation using a mixture of capital and lower case "
+"letters. This makes it easier for others to read."
+msgstr "読みやすさを考慮し、大文字と小文字を混ぜてコメントを記述してください。"
+
+msgid ""
+"Please write your follow up message containing the necessary clarifications "
+"below."
+msgstr "必要な説明を含む追加の連絡メッセージを以下に記入してください。"
+
+msgid ""
+"Please write your message using a mixture of capital and lower case letters."
+" This makes it easier for others to read."
+msgstr "読みやすさを考慮し、大文字と小文字を混ぜてメッセージを記述してください。"
+
+msgid "Please {{contact_us_link}} if you have any questions."
+msgstr "ご不明な点がある場合は、{{contact_us_link}} までお問い合わせください。"
+
+msgid ""
+"Point to <strong>related information</strong>, campaigns or forums which may"
+" be useful."
+msgstr "<strong>関連する情報</strong>、キャンペーン、または役立つフォーラムへのリンクを貼ってください。"
+
+msgid "Possible related requests"
+msgstr "関連する請求の可能性"
+
+msgid "Post annotation"
+msgstr "コメントを投稿する"
+
+msgid "Posted on {{date}}"
+msgstr "{{date}}に投稿されました"
+
+msgid "Posted on {{date}} by {{author}}"
+msgstr "{{date}}に{{author}}によって投稿されました"
+
+msgid "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
+msgstr "Powered by <a href=\"http://www.alaveteli.org/\">Alaveteli</a>"
+
+msgid "Prefer not to receive emails?"
+msgstr "メールの受信を希望しない場合はこちら"
+
+msgid "Prev"
+msgstr "前へ"
+
+msgid "Preview follow up to '"
+msgstr "'への追加の連絡のプレビュー"
+
+msgid "Preview new annotation on '{{info_request_title}}'"
+msgstr "'{{info_request_title}}'への新しいコメントのプレビュー"
+
+msgid "Preview new {{law_used_short}} request"
+msgstr "新しい{{law_used_short}}請求のプレビュー"
+
+msgid "Preview new {{law_used_short}} request to '{{public_body_name}}"
+msgstr "'{{public_body_name}}'への新しい{{law_used_short}}請求のプレビュー"
+
+msgid "Preview your annotation"
+msgstr "あなたのコメントのプレビュー"
+
+msgid "Preview your message"
+msgstr "あなたの送信メッセージのプレビュー"
+
+msgid "Preview your request"
+msgstr "あなたの請求のプレビュー"
+
+msgid "Previous message"
+msgstr "前の受信メッセージ"
+
+msgid "Previously known as:"
+msgstr "以前の名称:"
+
+msgid "Print your one time passcode"
+msgstr "ワンタイムパスコードを印刷する"
+
+msgid "Privacy and cookies"
+msgstr "プライバシーとクッキー"
+
+msgid "Private"
+msgstr "非公開"
+
+msgid "Profile image for {{user_name}}"
+msgstr "{{user_name}} のプロフィール画像"
+
+msgid "Project owner"
+msgstr "プロジェクト所有者"
+
+msgid "Proposed Email:"
+msgstr "提案するメールアドレス:"
+
+msgid "Public"
+msgstr "公開"
+
+msgid "Public Bodies"
+msgstr "行政機関"
+
+msgid "Public Body"
+msgstr "行政機関"
+
+msgid "Public authorities"
+msgstr "行政機関"
+
+msgid "Public authorities - {{description}}"
+msgstr "行政機関 - {{description}}"
+
+msgid "Public authorities {{start_count}} to {{end_count}} of {{total_count}}"
+msgstr "{{start_count}}〜{{end_count}} / {{total_count}} の行政機関"
+
+msgid "Public authority statistics"
+msgstr "行政機関の統計"
+
+msgid "Public bodies that most frequently replied with \"Not Held\""
+msgstr "「保有していない」との回答が最も多い行政機関"
+
+msgid "Public bodies with most overdue requests"
+msgstr "期限超過の請求が最も多い行政機関"
+
+msgid "Public bodies with the fewest successful requests"
+msgstr "開示件数が最も少ない行政機関"
+
+msgid "Public bodies with the most requests"
+msgstr "請求件数の多い行政機関"
+
+msgid "Public bodies with the most successful requests"
+msgstr "開示件数の多い行政機関"
+
+msgid "Publication scheme"
+msgstr "公開スキーム"
+
+msgid "Query can't be blank"
+msgstr "検索条件を入力してください"
+
+msgid "Query is too long"
+msgstr "検索条件が長すぎます"
+
+msgid "Quick"
+msgstr "クイック"
+
+msgid "RSS feed"
+msgstr "RSSフィード"
+
+msgid "Re-edit this annotation"
+msgstr "このコメントを再編集する"
+
+msgid "Re-edit this message"
+msgstr "このメッセージを再編集する"
+
+msgid ""
+"Read about <a href=\"{{advanced_search_url}}\">advanced search "
+"operators</a>, such as proximity and wildcards."
+msgstr "近接検索やワイルドカードなどの<a href=\"{{advanced_search_url}}\">高度な検索演算子</a>について読む。"
+
+msgid "Read blog"
+msgstr "ブログを読む"
+
+msgid "Read more"
+msgstr "詳細を見る"
+
+msgid ""
+"Read through authority responses and choose if their answer satisfies the "
+"intention of the original request, flag any problems and show the project "
+"owner if they need to intervene to keep the project movng forward."
+msgstr ""
+"機関の回答を確認し、元の請求の意図を満たしているか判断してください。問題がある場合はフラグを立て、プロジェクトを前進させるために介入が必要な場合にプロジェクト所有者に通知します。"
+
+msgid "Reason:"
+msgstr "理由："
+
+msgid "Received an error message, such as delivery failure."
+msgstr "配信失敗などのエラーメッセージを受信した。"
+
+msgid "Recent Events"
+msgstr "最近の動向"
+
+msgid "Recently described results first"
+msgstr "最近更新された結果を優先"
+
+msgid "Refused"
+msgstr "不開示"
+
+msgid "Regenerate one time passcode"
+msgstr "ワンタイムパスコードの再生成"
+
+msgid "Regulation"
+msgstr "規則"
+
+msgid "Rejected"
+msgstr "却下"
+
+msgid "Related blog posts"
+msgstr "関連するブログ記事"
+
+msgid ""
+"Remember me (keeps you signed in longer; do not use on a public computer)"
+msgstr "ログイン状態を保持する（サインイン状態を長く維持します。共用PCでは使用しないでください）"
+
+msgid "Report"
+msgstr "報告"
+
+msgid "Report an offensive or unsuitable request"
+msgstr "不適切または不適切な請求を報告する"
+
+msgid "Report annotation"
+msgstr "コメントを報告する"
+
+msgid "Report annotation on request: {{title}}"
+msgstr "請求「{{title}}」のコメントを報告する"
+
+msgid "Report inappropriate content"
+msgstr "不適切なコンテンツを報告する"
+
+msgid "Report request"
+msgstr "請求を報告する"
+
+msgid "Report request: {{title}}"
+msgstr "請求「{{title}}」を報告する"
+
+msgid "Report this request"
+msgstr "この請求を報告する"
+
+msgid "Reported"
+msgstr "報告済み"
+
+msgid "Reported for administrator attention"
+msgstr "管理者の確認を依頼しました"
+
+msgid ""
+"Reporting a request notifies the site administrators. They will respond as "
+"soon as possible."
+msgstr "請求を報告すると、サイトの管理者に通知されます。管理者はできるだけ早く対応します。"
+
+msgid "Request '{{request_title}}' to {{public_body_name}}:"
+msgstr "{{public_body_name}}への請求「{{request_title}}」:"
+
+msgid "Request an internal review"
+msgstr "内部審査を請求する"
+
+msgid "Request an internal review from {{person_or_body}}"
+msgstr "{{person_or_body}}に内部審査を請求する"
+
+msgid "Request classifications and extracted data is compiled into a dataset"
+msgstr "分類された請求と抽出データは、データセットとしてまとめられます。"
+
+msgid "Request email can't be nil"
+msgstr "請求メールを入力してください"
+
+msgid "Request for personal information"
+msgstr "個人情報の請求"
+
+msgid "Request has been removed"
+msgstr "請求は削除されました"
+
+msgid "Request hidden"
+msgstr "請求を非表示にする"
+
+msgid "Request hide events"
+msgstr "請求のイベントを非表示にする"
+
+msgid ""
+"Request sent to {{public_body_name}} by {{info_request_user}} on {{date}}."
+msgstr "{{date}}に{{info_request_user}}によって{{public_body_name}}へ送信された請求。"
+
+msgid ""
+"Request to {{public_body_name}} by {{info_request_user}}. Annotated by "
+"{{event_comment_user}} on {{date}}."
+msgstr ""
+"{{info_request_user}}による{{public_body_name}}への請求。{{date}}に{{event_comment_user}}によってコメントが追加されました。"
+
+msgid ""
+"Requested from {{public_body_name}} by {{info_request_user}} on {{date}}"
+msgstr "{{date}}に{{info_request_user}}によって{{public_body_name}}へ請求済み"
+
+msgid "Requested on {{date}}"
+msgstr "{{date}}に請求"
+
+msgid "Requests"
+msgstr "請求"
+
+msgid ""
+"Requests are considered overdue if they are in the 'Overdue' or 'Very "
+"Overdue' states."
+msgstr "「期限超過」または「大幅な期限超過」の状態にある請求は、期限超過とみなされます。"
+
+msgid ""
+"Requests are considered successful if they were classified as either "
+"'Successful' or 'Partially Successful'."
+msgstr "「開示された」または「一部開示」に分類された請求は、成功とみなされます。"
+
+msgid ""
+"Requests for personal information and vexatious requests are not considered "
+"valid for FOI purposes (<a href=\"/help/about\">read more</a>)."
+msgstr ""
+"個人情報の請求および嫌がらせ目的の請求は、情報公開請求の対象とはみなされません（<a href=\"/help/about\">詳細はこちら</a>）。"
+
+msgid "Requests like this"
+msgstr "このような請求"
+
+msgid "Requests or responses matching your saved search"
+msgstr "保存した検索条件に一致する請求または回答"
+
+msgid "Requests similar to '{{request_title}}'"
+msgstr "「{{request_title}}」と類似した請求"
+
+msgid "Requests similar to '{{request_title}}' (page {{page}})"
+msgstr "「{{request_title}}」と類似した請求（{{page}}ページ）"
+
+msgid "Requests will be sent to the following bodies:"
+msgstr "請求は以下の機関に送信されます："
+
+msgid "Requires admin attention"
+msgstr "管理者の対応が必要です"
+
+msgid "Research"
+msgstr "調査"
+
+msgid "Respond by email"
+msgstr "メールで回答する"
+
+msgid "Respond to request"
+msgstr "請求に回答する"
+
+msgid "Respond to the FOI request '{{request}}' made by {{user}}"
+msgstr "{{user}}による情報公開請求「{{request}}」に回答する"
+
+msgid "Respond using the web"
+msgstr "Web上で回答する"
+
+msgid "Response"
+msgstr "回答"
+
+msgid "Response by {{public_body_name}} to {{info_request_user}} on {{date}}."
+msgstr "{{date}}における{{public_body_name}}から{{info_request_user}}への回答。"
+
+msgid "Response from a public authority"
+msgstr "行政機関からの回答"
+
+msgid "Response received"
+msgstr "回答を受信しました"
+
+msgid "Response to '{{title}}'"
+msgstr ""
+
+msgid "Response to this request is <strong>delayed</strong>."
+msgstr ""
+
+msgid "Response to this request is <strong>long overdue</strong>."
+msgstr ""
+
+msgid "Response to your request"
+msgstr ""
+
+msgid "Response to {{law_used_short}} request"
+msgstr ""
+
+msgid "Response:"
+msgstr "回答："
+
+msgid "Restrict to"
+msgstr "～に限定する"
+
+msgid "Results page {{page_number}}"
+msgstr "結果ページ {{page_number}}"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Search Freedom of Information requests, public authorities and users"
+msgstr "情報公開請求、行政機関、および利用者を検索します。"
+
+msgid "Search contributions by this person"
+msgstr "この人物による投稿を検索"
+
+msgid "Search for the authorities you'd like information from:"
+msgstr "情報の提供を希望する機関を検索："
+
+msgid "Search in"
+msgstr "～内を検索"
+
+msgid "Search in their website for this information &rarr;"
+msgstr "この情報の詳細を公式サイトで検索する &rarr;"
+
+msgid ""
+"Search over<br/><strong>{{number_of_requests}} requests</strong> "
+"<span>and</span><br/><strong>{{number_of_authorities}} authorities</strong>"
+msgstr ""
+"<br/><strong>{{number_of_requests}} 件の請求</strong> "
+"<span>および</span><br/><strong>{{number_of_authorities}} 機関</strong> を検索"
+
+msgid "Search queries"
+msgstr "検索クエリ"
+
+msgid "Search requests"
+msgstr "検索した請求"
+
+msgid "Search requests (page {{count}})"
+msgstr "検索した請求（{{count}} ページ）"
+
+msgid "Search results"
+msgstr "検索結果"
+
+msgid "Search the site to find what you were looking for."
+msgstr "サイト内を検索して、目的の情報を見つけてください。"
+
+msgid "Search your contributions"
+msgstr "自分の活動を検索"
+
+msgid "Section"
+msgstr "セクション"
+
+msgid "See all &rarr;"
+msgstr "すべてを見る &rarr;"
+
+msgid "See more examples of <a href=\"{{citations_path}}\">FOI in Action</a>."
+msgstr "<a href=\"{{citations_path}}\">FOI in Action</a>の事例をもっと見る。"
+
+msgid "Select"
+msgstr "選択"
+
+msgid "Send a followup"
+msgstr "追加の連絡を送る"
+
+msgid "Send a message to {{user_name}}"
+msgstr "{{user_name}}にメッセージを送信"
+
+msgid "Send a public follow up message to {{person_or_body}}"
+msgstr "{{person_or_body}}に公開の追加連絡メッセージを送信"
+
+msgid "Send a public reply to {{person_or_body}}"
+msgstr "{{person_or_body}}に公開の回答を送信する"
+
+msgid "Send and publish message"
+msgstr "メッセージを送信して公開する"
+
+msgid "Send and publish request"
+msgstr "請求を送信して公開する"
+
+msgid "Send follow up to '{{title}}'"
+msgstr "'{{title}}'への追加の連絡を送信する"
+
+msgid "Send me the email"
+msgstr "メールを私に送信する"
+
+msgid "Send message"
+msgstr "メッセージを送信する"
+
+msgid "Send message to {{user_name}}"
+msgstr "{{user_name}}にメッセージを送信する"
+
+msgid "Send message to {{user_name}} just to see how it works"
+msgstr "動作確認のために{{user_name}}にメッセージを送信する"
+
+msgid "Sending to multiple authorities at once?"
+msgstr "複数の行政機関に一括で送信しますか？"
+
+msgid "Sending..."
+msgstr "送信中..."
+
+msgid ""
+"Sent a follow up to {{public_body_link}} again, using a new contact address."
+msgstr "新しい連絡先を使用して、{{public_body_link}} に再度追加の連絡を送信しました。"
+
+msgid "Sent a follow up to {{public_body_link}} again."
+msgstr "{{public_body_link}} に再度追加の連絡を送信しました。"
+
+msgid ""
+"Sent a follow up to {{public_body_name}} again, using a new contact address."
+msgstr "新しい連絡先を使用して、{{public_body_name}} に再度追加の連絡を送信しました。"
+
+msgid "Sent a follow up to {{public_body_name}} again."
+msgstr "{{public_body_name}} に再度追加の連絡を送信しました。"
+
+msgid ""
+"Sent batch ({{batch_admin_link}}) to one authority by {{info_request_user}} "
+"({{user_admin_link}}) on {{date}}."
+msgid_plural ""
+"Sent batch ({{batch_admin_link}}) to {{authority_count}} authorities by "
+"{{info_request_user}} ({{user_admin_link}}) on {{date}}."
+msgstr[0] ""
+"{{date}} に {{info_request_user}} ({{user_admin_link}}) "
+"によって、一括請求（{{batch_admin_link}}）が1つの機関に送信されました。"
+
+msgid ""
+"Sent request to {{public_body_link}} again, using a new contact address."
+msgstr "新しい連絡先を使用して、{{public_body_link}} に再度請求を送信しました。"
+
+msgid "Sent request to {{public_body_link}} again."
+msgstr "{{public_body_link}} へ再度請求を送信しました。"
+
+msgid ""
+"Sent request to {{public_body_name}} again, using a new contact address."
+msgstr "新しい連絡先を使用して、{{public_body_name}} へ再度請求を送信しました。"
+
+msgid "Sent request to {{public_body_name}} again."
+msgstr "{{public_body_name}} へ再度請求を送信しました。"
+
+msgid "Sent to one authority by {{info_request_user}} on {{date}}."
+msgid_plural ""
+"Sent to {{authority_count}} authorities by {{info_request_user}} on "
+"{{date}}."
+msgstr[0] "{{date}} に {{info_request_user}} によって1つの機関へ送信されました。"
+
+msgid "Set your profile photo"
+msgstr "プロフィール写真を設定する"
+
+msgid "Share on Facebook"
+msgstr "Facebookで共有する"
+
+msgid "Share on X"
+msgstr "Xで共有する"
+
+msgid "Share with private link"
+msgstr "プライベートリンクで共有する"
+
+msgid "Share your batch request"
+msgstr "一括請求を共有する"
+
+msgid "Share your request"
+msgstr "請求を共有する"
+
+msgid "Short name is already taken"
+msgstr "その短い名称は既に使用されています"
+
+msgid "Show all attachments"
+msgstr "すべての添付ファイルを表示"
+
+msgid "Show fewer attachments"
+msgstr "添付ファイルの表示を減らす"
+
+msgid "Show less"
+msgstr "少なく表示"
+
+msgid "Show more"
+msgstr "多く表示"
+
+msgid "Show most relevant results first"
+msgstr "関連性の高い結果から先に表示"
+
+msgid "Show only..."
+msgstr "～のみ表示"
+
+msgid "Showing"
+msgstr "表示中"
+
+msgid "Sign in"
+msgstr "サインイン"
+
+msgid "Sign in as the emergency user"
+msgstr "緊急ユーザーとしてサインイン"
+
+msgid "Sign in or make a new account"
+msgstr "サインインまたは新規アカウント作成"
+
+msgid "Sign in or sign up"
+msgstr "サインインまたは会員登録"
+
+msgid "Sign in to track this request"
+msgstr "この請求をフォローするにはサインインしてください"
+
+msgid "Sign out"
+msgstr "サインアウト"
+
+msgid "Sign up"
+msgstr "サインアップ"
+
+msgid "Signing your request"
+msgstr "請求への署名中"
+
+msgid ""
+"Signups from Tor have been blocked due to extensive misuse. Please contact "
+"us if this is a problem for you."
+msgstr "Torからのサインアップは、悪用が多いためブロックされています。問題がある場合はお問い合わせください。"
+
+msgid "Simple search"
+msgstr "簡易検索"
+
+msgid "Skip"
+msgstr "スキップ"
+
+msgid "Skipped!"
+msgstr "スキップしました！"
+
+msgid "Snippets related to"
+msgstr "〜に関する抜粋"
+
+msgid "Some notes have been added to your FOI request - {{request_title}}"
+msgstr "情報公開請求「{{request_title}}」にコメントが追加されました。"
+
+msgid "Some of the information requested has been received"
+msgstr "請求した情報の Vaccination 一部を受信しました"
+
+msgid ""
+"Some people who've made requests haven't let us know whether they were "
+"successful or not.  We need <strong>your</strong> help &ndash; choose one of"
+" these requests, read it, and let everyone know whether or not the "
+"information has been provided. Everyone'll be exceedingly grateful."
+msgstr ""
+
+msgid "Somebody added a note to your FOI request - {{request_title}}"
+msgstr "{{request_title}} の情報公開請求にコメントが追加されました"
+
+msgid ""
+"Someone, perhaps you, just tried to change their email address on "
+"{{site_name}} from {{old_email}} to {{new_email}}."
+msgstr ""
+"誰か（おそらくあなたです）が {{site_name}} でメールアドレスを {{old_email}} から {{new_email}} "
+"に変更しようとしました。"
+
+msgid ""
+"Sorry - you cannot respond to this request via {{site_name}}, because this "
+"is a copy of the request originally at {{link_to_original_request}}."
+msgstr ""
+"申し訳ありません。こちらは {{link_to_original_request}} にある元の請求のコピーであるため、{{site_name}} "
+"を介してこの請求に回答することはできません。"
+
+msgid ""
+"Sorry, '{{authority_name}}' has been marked as defunct, which means we can "
+"no longer process requests to them. You may need to check whether their "
+"responsibilities have been taken over by a different authority."
+msgstr ""
+"申し訳ありません。「{{authority_name}}」は廃止されたものとしてマークされているため、この機関への請求を処理することができません。別の機関がその業務を引き継いでいないか確認してください。"
+
+msgid "Sorry, but only {{user_name}} can do that."
+msgstr "申し訳ありませんが、この操作ができるのは {{user_name}} さんだけです。"
+
+msgid "Sorry, there was a problem processing this page"
+msgstr "申し訳ありません。このページの処理中に問題が発生しました。"
+
+msgid "Sorry, we couldn't find that page"
+msgstr "申し訳ありません。ページが見つかりませんでした。"
+
+msgid ""
+"Sorry, we're currently unable to add your annotation. Please try again "
+"later."
+msgstr "申し訳ありません。現在、コメントを登録できません。後でもう一度お試しください。"
+
+msgid ""
+"Sorry, we're currently unable to create your account. Please try again "
+"later."
+msgstr "申し訳ありません。現在、アカウントを作成できません。後でもう一度お試しください。"
+
+msgid ""
+"Sorry, we're currently unable to send your message. Please try again later."
+msgstr "申し訳ありません。現在、メッセージを送信できません。後でもう一度お試しください。"
+
+msgid ""
+"Sorry, we're currently unable to send your request. Please try again later."
+msgstr "申し訳ありません。現在、請求を送付できません。後でもう一度お試しください。"
+
+msgid ""
+"Sorry, we're currently unable to sign up new users, please try again later"
+msgstr "申し訳ありません。現在、新規ユーザーの登録を受け付けていません。後でもう一度お試しください。"
+
+msgid "Source URL is too long"
+msgstr "ソースURLが長すぎます"
+
+msgid "Source URL:"
+msgstr "ソースURL:"
+
+msgid "Source:"
+msgstr "ソース:"
+
+msgid "Spreadsheets"
+msgstr "スプレッドシート"
+
+msgid "Start classifying"
+msgstr "分類を開始する"
+
+msgid "Start extracting"
+msgstr "抽出を開始する"
+
+msgid "Start your own request"
+msgstr "独自の請求を行う"
+
+msgid "Statistics"
+msgstr "統計"
+
+msgid "Status"
+msgstr "状態"
+
+msgid "Stay up to date"
+msgstr "最新情報を確認する"
+
+msgid "Still awaiting an <strong>internal review</strong>"
+msgstr ""
+
+msgid "Subject"
+msgstr "件名"
+
+msgid "Subject:"
+msgstr "件名:"
+
+msgid "Submit"
+msgstr "送信"
+
+msgid "Submit Search"
+msgstr "検索を実行"
+
+msgid "Submit data"
+msgstr "データを送信"
+
+msgid "Submit request"
+msgstr "請求を送信"
+
+msgid "Submit status"
+msgstr "ステータスを送信"
+
+msgid "Submit status and send message"
+msgstr "ステータスの送信とメッセージの送信"
+
+msgid "Subscribe to blog"
+msgstr "ブログを購読する"
+
+msgid "Subscribe to {{pro_site_name}}"
+msgstr "{{pro_site_name}}を購読する"
+
+msgid "Subscription cancelled"
+msgstr "購読を解除しました"
+
+msgid "Subscription reactivated"
+msgstr "購読を再開しました"
+
+msgid "Subscription renewal failure"
+msgstr "購読の更新に失敗しました"
+
+msgid "Subscription renewal repeated failure"
+msgstr "購読の更新に繰り返し失敗しています"
+
+msgid "Subscription renewed"
+msgstr "購読を更新しました"
+
+msgid "Subscription renewed after failure"
+msgstr "更新に失敗した後のサブスクリプション更新"
+
+msgid "Subscription started"
+msgstr "サブスクリプションを開始しました"
+
+msgid "Success"
+msgstr "成功"
+
+msgid "Successful"
+msgstr "開示された"
+
+msgid "Successful Freedom of Information requests"
+msgstr "開示された情報公開請求"
+
+msgid "Successful requests"
+msgstr "開示された請求"
+
+msgid ""
+"Suggest how the requester can find the <strong>rest of the "
+"information</strong>."
+msgstr "請求者が<strong>残りの情報</strong>を見つけるための方法を提案してください。"
+
+msgid "Summary"
+msgstr "概要"
+
+msgid ""
+"Summary is too short. Please be a little more descriptive about the "
+"information you are asking for."
+msgstr "概要が短すぎます。請求する情報の詳細をもう少し詳しく入力してください。"
+
+msgid "Suspended users cannot edit their profile"
+msgstr "停止中のユーザーはプロフィールを編集できません"
+
+msgid "Table of statuses"
+msgstr "ステータスの一覧"
+
+msgid "Table of varieties"
+msgstr "種類の一覧"
+
+msgid "Tags (separated by a space):"
+msgstr "タグ（スペース区切り）:"
+
+msgid "Tags:"
+msgstr "タグ:"
+
+msgid "Tasks"
+msgstr "タスク"
+
+msgid "Text"
+msgstr "テキスト"
+
+msgid "Thank you for helping us keep the site tidy!"
+msgstr "サイトを整えていただきありがとうございます！"
+
+msgid "Thank you for making an annotation!"
+msgstr "コメントの投稿ありがとうございます！"
+
+msgid ""
+"Thank you for responding to this FOI request! Your response has been "
+"published below, and a link to your response has been emailed to "
+"{{user_name}}."
+msgstr ""
+"この情報公開請求にご回答いただきありがとうございます！ご回答は以下に公開され、{{user_name}} 宛てに回答へのリンクをメールで送信しました。"
+
+msgid ""
+"Thank you for updating the status of the request '<a "
+"href=\"{{url}}\">{{info_request_title}}</a>'. There are some more requests "
+"below for you to classify."
+msgstr ""
+"情報公開請求「<a "
+"href=\"{{url}}\">{{info_request_title}}</a>」のステータスを更新していただきありがとうございます。分類待ちの請求がまだいくつかあります。"
+
+msgid "Thank you for updating this request!"
+msgstr "この請求を更新していただきありがとうございます！"
+
+msgid "Thank you for updating your profile photo"
+msgstr "プロフィール写真の更新ありがとうございます"
+
+msgid "Thank you! Here are some ideas on what to do next:"
+msgstr "ありがとうございます！次にできることのアイデアをいくつかご紹介します："
+
+msgid "Thank you! Hope you don't have to wait much longer."
+msgstr "ありがとうございます！これ以上長く待たなくて済むことを願っています。"
+
+msgid "Thank you! Hopefully your wait isn't too long."
+msgstr "ありがとうございます！無事に早く回答が届くことを願っています。"
+
+msgid "Thank you! We'll look into what happened and try and fix it up."
+msgstr "ありがとうございます！何が起きたのか調査し、修正に努めます。"
+
+msgid ""
+"Thank you! Your request is long overdue, by more than "
+"{{very_late_number_of_days}} working days. Most requests should be answered "
+"within {{late_number_of_days}} working days. You might like to complain "
+"about this, see below."
+msgstr ""
+"ありがとうございます！あなたの請求は{{very_late_number_of_days}}営業日以上、期限を超過しています。ほとんどの請求は{{late_number_of_days}}営業日以内に回答されるはずです。この件について苦情を申し立てることも可能です。以下をご覧ください。"
+
+msgid ""
+"Thanks for helping - your work will make it easier for everyone to find "
+"successful responses, and maybe even let us make league tables..."
+msgstr ""
+"ご協力ありがとうございます。あなたの活動のおかげで、誰もが開示された回答を見つけやすくなり、リーグ表の作成なども可能になるかもしれません..."
+
+msgid ""
+"Thanks for your suggestion to add {{public_body_name}}. It's been added to "
+"the site here:"
+msgstr "{{public_body_name}}の追加提案をいただきありがとうございます。こちらにサイトへ追加されました："
+
+msgid ""
+"Thanks for your suggestion to update the email address for "
+"{{public_body_name}} to {{public_body_email}}. This has now been done and "
+"any new requests will be sent to the new address."
+msgstr ""
+
+msgid ""
+"Thanks very much - this will help others find useful stuff. We'll also, if "
+"you need it, give advice on what to do next about your requests."
+msgstr ""
+
+msgid ""
+"Thanks very much for helping keep everything <strong>neat and "
+"organised</strong>. We'll also, if you need it, give you advice on what to "
+"do next about each of your requests."
+msgstr ""
+
+msgid ""
+"That doesn't look like a valid email address. Please check you have typed it"
+" correctly."
+msgstr "有効なメールアドレスではありません。正しく入力されているか確認してください。"
+
+msgid "The <strong>review has finished</strong> and overall:"
+msgstr ""
+
+msgid "The Freedom of Information Act <strong>does not apply</strong> to"
+msgstr ""
+
+msgid "The URL where you found the article."
+msgstr "その記事を見つけたURL。"
+
+msgid ""
+"The URL where you found the email address. This field is optional, but it "
+"would help us a lot if you can provide a link to a specific page on the "
+"authority's website that gives this address, as it will make it much easier "
+"for us to check."
+msgstr ""
+"メールアドレスを見つけたURL。この項目は任意ですが、機関のウェブサイト上の特定のページへのリンクを提供していただけると大変助かります。確認が非常にスムーズになるためです。"
+
+msgid "The Xapian indexing has been stuck for more than 1 hour"
+msgstr "Xapianのインデックス作成が1時間以上停止しています。"
+
+msgid "The Xapian indexing is not stuck"
+msgstr "Xapianのインデックス作成は停止していません。"
+
+msgid "The accounts have been left as they previously were."
+msgstr "アカウントは以前の状態のまま維持されています。"
+
+msgid "The article references all requests in this batch"
+msgstr "この記事には、この一括請求に含まれるすべての請求への参照が含まれています。"
+
+msgid "The attachment has now been processed and is available for download."
+msgstr "添付ファイルの処理が完了しました。ダウンロード可能です。"
+
+msgid ""
+"The authority do <strong>not have</strong> the information <small>(maybe "
+"they say who does)</small>"
+msgstr ""
+"機関は、その情報を<strong>保有していません</strong><small>（誰が保有しているかказаされている場合があります）</small>"
+
+msgid "The authority email doesn't look like a valid address"
+msgstr "機関のメールアドレスが有効な形式ではないようです。"
+
+msgid ""
+"The authority only has a <strong>paper copy</strong> of the information."
+msgstr "機関は、その情報の<strong>紙のコピー</strong>のみを保有しています。"
+
+msgid ""
+"The authority say that they <strong>need a postal address</strong>, not just"
+" an email, for it to be a valid FOI request"
+msgstr "機関は、有効な情報公開請求とするには、メールだけでなく<strong>郵送先の住所が必要</strong>であると述べています。"
+
+msgid ""
+"The authority would like to / has <strong>responded by postal mail</strong> "
+"to this request."
+msgstr "機関はこの請求に対し、<strong>郵便で回答する</strong>ことを希望しています / 郵便で回答しました。"
+
+msgid ""
+"The classification of requests (e.g. to say whether they were successful or "
+"not) is done manually by users and administrators of the site, which means "
+"that they are subject to error."
+msgstr "請求の状態の分類（例：開示されたか否かなど）は、サイトの利用者および管理者によって手動で行われているため、誤りが含まれる可能性があります。"
+
+msgid "The contact email address for FOI requests to the authority."
+msgstr "機関への情報公開請求に関する連絡用メールアドレス。"
+
+msgid ""
+"The email that you, on behalf of {{public_body}}, sent to {{user}} "
+"<{{incoming_email}}> to reply to an {{law_used_short}} request has not been "
+"delivered."
+msgstr ""
+"{{public_body}}を代表して、{{law_used_short}}に基づく請求への回答として{{user}} "
+"<{{incoming_email}}> へ送信したメールが配信されませんでした。"
+
+msgid ""
+"The error bars shown are 95% confidence intervals for the hypothesized "
+"underlying proportion (i.e. that which you would obtain by making an "
+"infinite number of requests through this site to that authority). In other "
+"words, the population being sampled is all the current and future requests "
+"to the authority through this site, rather than, say, all requests that have"
+" been made to the public body by any means."
+msgstr ""
+
+msgid "The following request has been made public on {{site_name}}."
+msgstr "以下の請求が{{site_name}}上で公開されました。"
+
+msgid ""
+"The following request will be made public on {{site_name}} in the next week."
+" If you do not wish this request to go public at that time, please click on "
+"the link below to keep it private for longer."
+msgstr ""
+"以下の請求は、来週{{site_name}}上で公開される予定です。この時点で公開したくない場合は、下のリンクをクリックして非公開のまま延長してください。"
+
+msgid "The last incoming message was created in the last day"
+msgstr "最新の受信メッセージは過去24時間以内に作成されました。"
+
+msgid "The last incoming message was created over a day ago"
+msgstr "最新の受信メッセージは1日以上前に作成されました。"
+
+msgid "The last outgoing message was created in the last day"
+msgstr "最新の送信メッセージは過去24時間以内に作成されました。"
+
+msgid "The last outgoing message was created over a day ago"
+msgstr "最後の送信メッセージは1日以上前に作成されました"
+
+msgid "The last user was created in the last day"
+msgstr "最後のユーザーは過去24時間以内に作成されました"
+
+msgid "The last user was created over a day ago"
+msgstr "最後のユーザーは1日以上前に作成されました"
+
+msgid "The page doesn't exist. Things you can try now:"
+msgstr "ページが存在しません。以下の操作をお試しください："
+
+msgid ""
+"The percentages are calculated with respect to the total number of requests,"
+" which includes invalid requests; this is a known problem that will be fixed"
+" in a later release."
+msgstr "パーセンテージは、無効な請求を含む全請求数に基づいて算出されています。これは既知の問題であり、後のリリースで修正される予定です。"
+
+msgid "The public authority does not have the information requested"
+msgstr "行政機関は、請求された情報を持っておりません"
+
+msgid "The public authority would like part of the request explained"
+msgstr "行政機関は、請求内容の一部について説明を求めています"
+
+msgid "The public authority would like to / has responded by postal mail"
+msgstr "行政機関は、郵便で回答することを希望しています / 郵便で回答しました"
+
+msgid "The publicly accessible link for this request has now been disabled"
+msgstr "この請求の公開リンクは無効になりました"
+
+msgid "The request has been <strong>refused</strong>"
+msgstr ""
+
+msgid ""
+"The request has been updated since you originally loaded this page. Please "
+"check for any new incoming messages below, and try again."
+msgstr "このページを最初に読み込んだ後に、請求が更新されました。以下の新しい受信メッセージを確認し、再度お試しください。"
+
+msgid "The request is <strong>waiting for clarification</strong>."
+msgstr ""
+
+msgid "The request was <strong>partially successful</strong>."
+msgstr ""
+
+msgid "The request was <strong>refused</strong> by {{authority_name}}."
+msgstr ""
+
+msgid "The request was <strong>successful</strong>."
+msgstr ""
+
+msgid "The request was refused by the public authority"
+msgstr "請求は行政機関によって不開示とされました"
+
+msgid "The requester has abandoned this request for some reason"
+msgstr "請求者は何らかの理由でこの請求を中断しました。"
+
+msgid ""
+"The response to your request has been <strong>delayed</strong>. Although the"
+" authority has no legal obligation to reply, they should normally have "
+"responded by <strong>{{date}}</strong>"
+msgstr ""
+
+msgid ""
+"The response to your request has been <strong>delayed</strong>. You can say "
+"that, by law, the authority should normally have responded "
+"<strong>promptly</strong> and by <strong>{{date}}</strong>"
+msgstr ""
+
+msgid ""
+"The response to your request is <strong>long overdue</strong>. Although the "
+"authority has no legal obligation to reply, they should have responded by "
+"now"
+msgstr ""
+
+msgid ""
+"The response to your request is <strong>long overdue</strong>. You can say "
+"that, by law, under all circumstances, the authority should have responded "
+"by now"
+msgstr ""
+
+msgid ""
+"The search index is currently offline, so we can't show the Freedom of "
+"Information requests that have been made to this authority."
+msgstr "現在検索インデックスがオフラインのため、この機関に対して行われた情報公開請求を表示できません。"
+
+msgid ""
+"The search index is currently offline, so we can't show the Freedom of "
+"Information requests this person has made."
+msgstr "現在検索インデックスがオフラインのため、この利用者が行った情報公開請求を表示できません。"
+
+msgid "The widget will look like this:"
+msgstr "ウィジェットは以下のようになります："
+
+msgid "The {{site_name}} team."
+msgstr "{{site_name}} チーム。"
+
+msgid "Then you can add citations"
+msgstr "その後、引用を追加できます。"
+
+msgid "Then you can cancel the alert."
+msgstr "その後、アラートを解除できます。"
+
+msgid "Then you can cancel the alerts."
+msgstr "その後、アラートをすべて解除できます。"
+
+msgid "Then you can change your email address used on {{site_name}}"
+msgstr "その後、{{site_name}} で使用しているメールアドレスを変更できます。"
+
+msgid "Then you can change your password on {{site_name}}"
+msgstr "その後、{{site_name}} のパスワードを変更できます。"
+
+msgid ""
+"Then you can classify the FOI response you have got from {{authority_name}}."
+msgstr "その後、{{authority_name}} から受け取った情報公開請求の回答を分類できます。"
+
+msgid "Then you can download a zip file of {{info_request_title}}."
+msgstr "その後、{{info_request_title}} のzipファイルをダウンロードできます。"
+
+msgid "Then you can log into the administrative interface"
+msgstr "その後、管理画面にログインできます。"
+
+msgid "Then you can play the request categorisation game."
+msgstr "その後、請求の分類ゲームをプレイできます。"
+
+msgid "Then you can report the request '{{title}}'"
+msgstr "その後、「{{title}}」という請求を報告できます。"
+
+msgid "Then you can send a message to {{user_name}}."
+msgstr "その後、{{user_name}}にメッセージを送ることができます。"
+
+msgid "Then you can sign in to {{site_name}}"
+msgstr "その後、{{site_name}}にサインインできます。"
+
+msgid "Then you can update the status of your request to {{authority_name}}."
+msgstr "その後、{{authority_name}}への請求のステータスを更新できます。"
+
+msgid "Then you can upload an FOI response."
+msgstr "その後、情報公開請求の回答をアップロードできます。"
+
+msgid "Then you can write follow up message to {{authority_name}}."
+msgstr "その後、{{authority_name}}へ追加の連絡を送ることができます。"
+
+msgid "Then you can write your reply to {{authority_name}}."
+msgstr "その後、{{authority_name}}への回答を記入できます。"
+
+msgid "Then you will be following all new FOI requests."
+msgstr "その後、すべての新しい情報公開請求をフォローするようになります。"
+
+msgid ""
+"Then you will be notified whenever '{{user_name}}' requests something or "
+"gets a response."
+msgstr "その後、「{{user_name}}」が何かを請求したり、回答を受け取ったりするたびに通知が届きます。"
+
+msgid ""
+"Then you will be notified whenever a new request or response matches your "
+"search."
+msgstr "その後、新しい請求や回答が検索条件に一致するたびに通知が届きます。"
+
+msgid "Then you will be notified whenever an FOI request succeeds."
+msgstr "その後、情報公開請求が成功するたびに通知が届きます。"
+
+msgid ""
+"Then you will be notified whenever someone requests something or gets a "
+"response from '{{public_body_name}}'."
+msgstr "その後、「{{public_body_name}}」に対して誰かが何かを請求したり、回答を受け取ったりするたびに通知が届きます。"
+
+msgid ""
+"Then you will be updated whenever the request '{{request_title}}' is "
+"updated."
+msgstr "その後、請求「{{request_title}}」が更新されるたびに最新情報が届きます。"
+
+msgid "Then you'll be allowed to send FOI requests."
+msgstr "その後、情報公開請求を送信できるようになります。"
+
+msgid ""
+"Then your FOI request to {{public_body_name}} will be sent and published."
+msgstr "その後、{{public_body_name}}への情報公開請求が送信され、公開されます。"
+
+msgid "Then your annotation to {{info_request_title}} will be posted."
+msgstr "その後、{{info_request_title}}に対するあなたのコメントが投稿されます。"
+
+msgid "There are no requests to classify right now. Great job!"
+msgstr "現在、状態の分類が必要な請求はありません。素晴らしいですね！"
+
+msgid "There are no requests to extract right now. Great job!"
+msgstr "現在、抽出が必要な請求はありません。素晴らしいですね！"
+
+msgid ""
+"There are various reasons why we might have done this, sorry we can't be "
+"more specific here."
+msgstr "これを行った理由にはいくつかの要因がありますが、ここでは詳細をお伝えすることができません。申し訳ありません。"
+
+msgid ""
+"There are {{count}} new annotations on your {{law_used_short}} request. "
+"Follow this link to see what they wrote."
+msgstr ""
+"あなたの{{law_used_short}}に基づく請求に{{count}}件の新しいコメントがあります。このリンクから内容を確認してください。"
+
+msgid ""
+"There is <strong>more than one person</strong> who uses this site and has "
+"this name. Search for other users named \"{{search_user_link}}\""
+msgstr ""
+
+msgid ""
+"There is a limit on the number of annotations you can make in a day because "
+"we don’t want the site to be bombarded with large numbers of inappropriate "
+"annotations. If you feel you have a good reason to ask for the limit to be "
+"lifted in your case, please <a href='{{help_contact_path}}'>get in "
+"touch</a>."
+msgstr ""
+"不適切なコメントが大量に投稿されるのを防ぐため、1日あたりに投稿できるコメントの数には制限があります。個別の事情によりこの制限の解除を希望される場合は、<a"
+" href='{{help_contact_path}}'>お問い合わせ</a>ください。"
+
+msgid ""
+"There is a limit on the number of messages you can send in a day because we "
+"don’t want users to be bombarded with large numbers of inappropriate "
+"messages. If you feel you have a good reason to ask for the limit to be "
+"lifted in your case, please <a href='{{help_contact_path}}'>get in "
+"touch</a>."
+msgstr ""
+"不適切なメッセージの大量送信を防ぐため、1日あたりに送信できるメッセージ数には制限があります。制限の解除を求める正当な理由がある場合は、<a "
+"href='{{help_contact_path}}'>お問い合わせ</a>ください。"
+
+msgid ""
+"There is a limit on the number of requests you can make in a day, because we"
+" don’t want public authorities to be bombarded with large numbers of "
+"inappropriate requests. If you feel you have a good reason to ask for the "
+"limit to be lifted in your case, please <a href='{{help_contact_path}}'>get "
+"in touch</a>."
+msgstr ""
+"行政機関への不適切な請求の大量送信を防ぐため、1日あたりに行える請求数には制限があります。制限の解除を求める正当な理由がある場合は、<a "
+"href='{{help_contact_path}}'>お問い合わせ</a>ください。"
+
+msgid ""
+"There is also a limit on the speed at which you are able to create "
+"annotations. Please try again later if you have not hit your daily limit."
+msgstr "コメントの作成速度にも制限があります。1日の上限に達していない場合は、しばらく経ってから再度お試しください。"
+
+msgid ""
+"There is also a limit on the speed at which you are able to create requests."
+" Please try again later if you have not hit your daily limit."
+msgstr "請求の作成速度にも制限があります。1日の上限に達していない場合は、しばらく経ってから再度お試しください。"
+
+msgid "There is nothing to display yet."
+msgstr "表示するデータはありません。"
+
+msgid ""
+"There was a <strong>delivery error</strong> or similar, which needs fixing "
+"by the {{site_name}} team. Can you help by <a "
+"href=\"{{change_request_url}}\">finding updated contact details</a>?"
+msgstr ""
+
+msgid "There was an error with the reCAPTCHA. Please try again."
+msgstr "reCAPTCHAでエラーが発生しました。もう一度お試しください。"
+
+msgid "There was no data calculated for this graph yet."
+msgstr "このグラフにはまだ計算されたデータがありません。"
+
+msgid "There were no requests matching your query."
+msgstr "クエリに一致する請求はありません。"
+
+msgid "There were no results matching your query."
+msgstr "クエリに一致する結果はありません。"
+
+msgid ""
+"These graphs were partly inspired by <a "
+"href=\"http://mark.goodge.co.uk/2011/08/number-crunching-"
+"whatdotheyknow/\">some statistics that Mark Goodge produced for "
+"WhatDoTheyKnow</a>, so thanks are due to him."
+msgstr ""
+"これらのグラフは、<a href=\"http://mark.goodge.co.uk/2011/08/number-crunching-"
+"whatdotheyknow/\">Mark "
+"GoodgeがWhatDoTheyKnowのために作成した統計</a>から一部着想を得ているため、彼に感謝いたします。"
+
+msgid ""
+"These logs show what happened to this message as it passed through our "
+"{{mta_type}} mail server. You can send these logs to an authority to help "
+"them diagnose problems receiving email from {{site_name}}."
+msgstr ""
+"これらのログは、このメッセージが当社の{{mta_type}}メールサーバーを通過する際に発生した内容を示しています。{{site_name}}からのメール受信に関する問題を診断する際、これらのログを機関に送付することができます。"
+
+msgid "They are going to reply <strong>by postal mail</strong>"
+msgstr ""
+
+msgid ""
+"They do <strong>not have</strong> the information <small>(maybe they say who"
+" does)</small>"
+msgstr ""
+
+msgid "They have been given the following explanation:"
+msgstr "以下の説明が提示されました："
+
+msgid ""
+"They have not replied to your {{law_used_short}} request '{{title}}' "
+"promptly, as normally required by law"
+msgstr ""
+"法的に通常義務付けられている通り、{{law_used_short}}に基づく請求「{{title}}」に対して、機関から迅速な回答が得られていません。"
+
+msgid ""
+"They have not replied to your {{law_used_short}} request '{{title}}', as "
+"normally required by law"
+msgstr "{{law_used_short}}に基づく請求「{{title}}」に対し、法的に義務付けられている回答がまだ届いていません。"
+
+msgid ""
+"They have not replied to your {{law_used_short}} request {{title}} promptly,"
+" as normally required by law"
+msgstr "{{law_used_short}}に基づく請求 {{title}} に対し、法的に義務付けられている期限内に回答が届いていません。"
+
+msgid ""
+"They have still not replied to your {{law_used_short}} request {{title}}, as"
+" normally required by law"
+msgstr "{{law_used_short}}に基づく請求 {{title}} に対し、依然として法的に義務付けられている回答が届いていません。"
+
+msgid "Things you're following"
+msgstr "フォロー中の項目"
+
+msgid "This account has been closed."
+msgstr "このアカウントは閉鎖されました。"
+
+msgid "This annotation has been reported for administrator attention"
+msgstr "このコメントは管理者の確認のために報告されました。"
+
+msgid "This annotation on was already made on {{date}}"
+msgstr "このコメントは{{date}}に既に投稿されています。"
+
+msgid "This attachment has been hidden. {{reason}}"
+msgstr "この添付ファイルは非表示になりました。 {{reason}}"
+
+msgid ""
+"This attachment has prominence \"hidden\". {{reason}} You can only see it "
+"because you are logged in as a super user."
+msgstr "この添付ファイルの公開設定は「非公開」です。{{reason}} スーパーユーザーとしてログインしているため、表示されています。"
+
+msgid ""
+"This attachment has prominence \"requester_only\". {{reason}} You can only "
+"see it because you are logged in as a super user."
+msgstr "この添付ファイルの公開設定は「請求者のみ」です。{{reason}} スーパーユーザーとしてログインしているため、表示されています。"
+
+msgid ""
+"This attachment is hidden, so that only you, the requester, can see it. "
+"{{reason}}"
+msgstr "この添付ファイルは非公開に設定されているため、請求者であるあなたのみが確認できます。{{reason}}"
+
+msgid ""
+"This authority is not subject to FOI law, so is not legally obliged to "
+"respond"
+msgstr "この機関は情報公開法（FOI）の対象外であるため、回答する法的義務はありません。"
+
+msgid "This authority no longer exists, so you cannot make a request to it."
+msgstr "この機関は既に存在しないため、請求を行うことはできません。"
+
+msgid ""
+"This covers a very wide spectrum of information about the state of the "
+"<strong>natural and built environment</strong>, such as:"
+msgstr "これには、<strong>自然環境および建造物環境</strong>の状態に関する非常に幅広い情報の範囲が含まれます。例："
+
+msgid "This email is already in use"
+msgstr "このメールアドレスは既に使用されています。"
+
+msgid "This external request has been hidden"
+msgstr "この外部請求は非公開に設定されました。"
+
+msgid "This is <a href=\"{{profile_url}}\">{{user_name}}'s</a> wall"
+msgstr "これは <a href=\"{{profile_url}}\">{{user_name}}</a> のウォールです。"
+
+msgid ""
+"This is a plain-text version of the Freedom of Information request "
+"\"{{request_title}}\".  The latest, full version is available online at "
+"{{full_url}}"
+msgstr "これは情報公開請求「{{request_title}}」のプレーンテキスト版です。最新の全文は {{full_url}} で確認できます。"
+
+msgid ""
+"This is an HTML version of an attachment to the Freedom of Information "
+"request"
+msgstr "これは情報公開請求の添付ファイルのHTML版です。"
+
+msgid ""
+"This is because '{{title}}' is an old request that has been marked to no "
+"longer receive responses."
+msgstr "'{{title}}' は、回答を受信しないものとしてマークされた古い請求であるためです。"
+
+msgid ""
+"This is your own request, so you will be automatically emailed when new "
+"responses arrive."
+msgstr "ご自身の請求ですので、新しい回答が届くと自動的にメールで通知されます。"
+
+msgid "This is your request"
+msgstr "あなたの請求です。"
+
+msgid "This message could not be delivered."
+msgstr "このメッセージは送信できませんでした。"
+
+msgid "This message has been delivered."
+msgstr "このメッセージは送信されました。"
+
+msgid "This message has been hidden."
+msgstr "このメッセージは非表示になっています。"
+
+msgid ""
+"This message has been hidden. There are various reasons why we might have "
+"done this, sorry we can't be more specific here."
+msgstr "このメッセージは非表示になっています。非表示にした理由はいくつかありますが、ここでは詳細をお伝えできませんのでご了承ください。"
+
+msgid "This message has been hidden. {{reason}}"
+msgstr "このメッセージは非表示になっています。{{reason}}"
+
+msgid "This message has been sent."
+msgstr "このメッセージは送信されました。"
+
+msgid ""
+"This message has prominence \"hidden\". {{reason}} You can only see it "
+"because you are logged in as a super user."
+msgstr "このメッセージには「非公開」の属性が付いています。{{reason}} スーパーユーザーとしてログインしているため、表示されています。"
+
+msgid ""
+"This message has prominence \"requester_only\". {{reason}} You can only see "
+"it because you are logged in as a super user."
+msgstr "このメッセージには「請求者のみ」の属性が付いています。{{reason}} スーパーユーザーとしてログインしているため、表示されています。"
+
+msgid ""
+"This message is hidden, so that only you, the requester, can see it. "
+"{{reason}}"
+msgstr "このメッセージは、請求者であるあなたのみが閲覧できるように非表示になっています。{{reason}}"
+
+msgid "This particular request is finished:"
+msgstr "この請求は完了しました："
+
+msgid ""
+"This person has made no Freedom of Information requests using this site."
+msgstr "この利用者は、このサイトを使用して情報公開請求を行ったことがありません。"
+
+msgid "This person's Freedom of Information request"
+msgid_plural ""
+"This person's Freedom of Information requests (approximately {{count}})"
+msgstr[0] "この利用者の情報公開請求"
+
+msgid "This person's annotations"
+msgstr "この利用者のコメント"
+
+msgid "This person's {{count}} annotation"
+msgid_plural "This person's {{count}} annotations"
+msgstr[0] "この利用者の{{count}}件のコメント"
+
+msgid "This request <strong>requires administrator attention</strong>"
+msgstr "この請求は<strong>管理者の対応が必要です</strong>"
+
+msgid "This request has already been reported for administrator attention"
+msgstr "この請求はすでに管理者への対応依頼が報告されています"
+
+msgid "This request has an <strong>unknown status</strong>."
+msgstr "この請求は<strong>不明な状態</strong>です。"
+
+msgid ""
+"This request has been <strong>closed to new correspondence</strong>. <a "
+"href=\"{{help_contact_url}}\">Contact us</a> if you think it should be "
+"reopened."
+msgstr ""
+"この請求は<strong>新規の連絡を受け付けていません</strong>。再開が必要と思われる場合は、<a "
+"href=\"{{help_contact_url}}\">お問い合わせ</a>ください。"
+
+msgid ""
+"This request has been <strong>reported</strong> as needing administrator "
+"attention."
+msgstr ""
+
+msgid ""
+"This request has been <strong>withdrawn</strong> by the person who made it. "
+"There may be an explanation in the correspondence below."
+msgstr ""
+
+msgid "This request has been hidden. {{reason}}"
+msgstr "この請求は非表示になりました。{{reason}}"
+
+msgid "This request has been made public on {{site_name}}."
+msgstr "この請求は{{site_name}}で公開されました。"
+
+msgid ""
+"This request has been marked for review by the site administrators, who have"
+" not hidden it at this time. If you believe it should be hidden, please <a "
+"href=\"{{url}}\">contact us</a>."
+msgstr ""
+"この請求はサイト管理者による確認対象としてマークされていますが、現時点では非表示にはされていません。非表示にすべきと思われる場合は、<a "
+"href=\"{{url}}\">こちらまでお問い合わせ</a>ください。"
+
+msgid "This request has been reported for administrator attention"
+msgstr "この請求は管理者の対応が必要なものとして報告されました"
+
+msgid ""
+"This request has been reviewed by an administrator and is considered not to "
+"be an FOI request"
+msgstr "この請求は管理者によって確認され、情報公開請求ではないと判断されました"
+
+msgid ""
+"This request has been reviewed by an administrator and is considered to be "
+"vexatious"
+msgstr "この請求は管理者によって確認され、嫌がらせを目的としたもの（vexatious）と判断されました"
+
+msgid ""
+"This request has been set by an administrator to \"allow new responses from "
+"nobody\""
+msgstr "この請求は、管理者によって「新規回答を一切許可しない」に設定されています。"
+
+msgid ""
+"This request has had an unusual response, and <strong>requires "
+"attention</strong> from the {{site_name}} team."
+msgstr ""
+
+msgid ""
+"This request has prominence \"hidden\". {{reason}} You can only see it "
+"because you are logged in as a super user."
+msgstr "この請求の公開設定は「非公開」です。{{reason}} 管理者としてログインしているため、表示されています。"
+
+msgid ""
+"This request has prominence \"requester_only\". {{reason}} You can only see "
+"it because you are logged in as a super user."
+msgstr "この請求の公開設定は「請求者のみ」です。{{reason}} 管理者としてログインしているため、表示されています。"
+
+msgid ""
+"This request is hidden, so that only you, the requester, can see it. "
+"{{reason}}"
+msgstr "この請求は非公開に設定されているため、請求者のあなたのみが確認できます。{{reason}}"
+
+msgid "This request is now publicly accessible via {{public_url}}"
+msgstr "この請求は {{public_url}} を通じて一般公開されました。"
+
+msgid ""
+"This request is part of <a href=\"{{url}}\">a batch sent to {{count}} "
+"authorities</a>"
+msgstr "この請求は <a href=\"{{url}}\">{{count}} 個の機関への一括請求</a> の一部です。"
+
+msgid "This request is still in progress:"
+msgstr "この請求は現在処理中です："
+
+msgid "This request requires administrator attention"
+msgstr "この請求は管理者の対応が必要です"
+
+msgid "This request was not made via {{site_name}}"
+msgstr "この請求は{{site_name}}経由で行われませんでした"
+
+msgid ""
+"This request will be made public on {{site_name}} in the next week. If you "
+"do not wish this request to go public at that time, please click on the link"
+" below to keep it private for longer."
+msgstr ""
+"この請求は来週、{{site_name}}上で公開されます。その時点で公開したくない場合は、以下のリンクをクリックして非公開のまま維持してください。"
+
+msgid ""
+"This section on public body statistics is currently experimental, so there "
+"are some caveats that should be borne in mind:"
+msgstr "行政機関の統計に関するこのセクションは現在試験運用中のため、以下の点にご注意ください："
+
+msgid ""
+"This table shows the technical details of the internal events that happened "
+"to this request on {{site_name}}. This could be used to generate information"
+" about the speed with which authorities respond to requests, the number of "
+"requests which require a postal response and much more."
+msgstr ""
+"この表には、{{site_name}}上でこの請求に発生した内部イベントの技術的な詳細が表示されます。これを利用することで、機関による回答速度や郵便での回答が必要な請求件数などに関する情報を生成できます。"
+
+msgid "This user does not accept user to user messages."
+msgstr "このユーザーは利用者間メッセージを受け付けていません。"
+
+msgid "This user has been suspended from {{site_name}} "
+msgstr "このユーザーは{{site_name}}から停止されています。 "
+
+msgid ""
+"This was not possible because there is already an account using the email "
+"address {{email}}."
+msgstr "{{email}}のメールアドレスを使用するアカウントが既に存在するため、登録できませんでした。"
+
+msgid ""
+"This will appear on your {{site_name}} profile, to make it easier for others"
+" to get involved with what you're doing."
+msgstr "これは{{site_name}}のプロフィールに表示され、他の人があなたの活動に参加しやすくなります。"
+
+msgid "To"
+msgstr "〜するには"
+
+msgid "To add a citation"
+msgstr "引用を追加する"
+
+msgid ""
+"To add a widget for <b>{{info_request_title}}</b>, copy and paste the "
+"following code to your web page:"
+msgstr ""
+"<b>{{info_request_title}}</b>のウィジェットを追加するには、以下のコードをウェブページにコピー＆ペーストしてください："
+
+msgid "To cancel these alerts"
+msgstr "これらの通知を解除する"
+
+msgid "To cancel this alert"
+msgstr "この通知を解除する"
+
+msgid ""
+"To carry on, you need to sign in or make an account. Unfortunately, there "
+"was a technical problem trying to do this."
+msgstr "続行するには、サインインまたはアカウント作成が必要です。残念ながら、処理中に技術的な問題が発生しました。"
+
+msgid "To change your email address used on {{site_name}}"
+msgstr "{{site_name}}で使用しているメールアドレスを変更する"
+
+msgid "To classify the response to this FOI request"
+msgstr "この情報公開請求に対する回答の状態を分類する"
+
+msgid ""
+"To do that please send a private email to {{postal_email}} "
+"{{postal_email_link}} containing your postal address, and asking them to "
+"reply to this request. Or you could phone them."
+msgstr ""
+"そのために、{{postal_email}} {{postal_email_link}} "
+"宛てに、あなたの住所を含み、この請求への回答を求める内容の非公開メールを送付してください。または、電話で連絡することも可能です。"
+
+msgid "To do this, first click on the link below."
+msgstr "これを行うには、まず下のリンクをクリックしてください。"
+
+msgid "To download the zip file"
+msgstr "zipファイルをダウンロードするには"
+
+msgid "To follow all successful requests"
+msgstr "すべての開示済み請求をフォローする"
+
+msgid "To follow new requests"
+msgstr "新しい請求をフォローする"
+
+msgid "To follow requests and responses matching your search"
+msgstr "検索条件に一致する請求と回答をフォローする"
+
+msgid "To follow requests by '{{user_name}}'"
+msgstr "'{{user_name}}' による請求をフォローする"
+
+msgid ""
+"To follow requests made using {{site_name}} to the public authority "
+"'{{public_body_name}}'"
+msgstr "{{site_name}} を使用して行政機関「{{public_body_name}}」に対して行われた請求をフォローする"
+
+msgid "To follow the request '{{request_title}}'"
+msgstr "請求「{{request_title}}」をフォローする"
+
+msgid "To help on this project"
+msgstr "このプロジェクトで協力する"
+
+msgid "To join this project"
+msgstr "このプロジェクトに参加する"
+
+msgid "To leave this project"
+msgstr "このプロジェクトから脱退する"
+
+msgid ""
+"To let everyone know, follow this link and then select the appropriate box."
+msgstr "全員に知らせるには、このリンクにアクセスして適切なボックスを選択してください。"
+
+msgid "To log into the administrative interface"
+msgstr "管理インターフェースにログインする"
+
+msgid "To play the request categorisation game"
+msgstr "請求の分類ゲームをプレイする"
+
+msgid "To post your annotation"
+msgstr "コメントを投稿する"
+
+msgid "To reply to {{authority_name}}."
+msgstr "{{authority_name}}に返信する"
+
+msgid "To report this request"
+msgstr "この請求を報告する"
+
+msgid "To send a follow up message to {{authority_name}}"
+msgstr "{{authority_name}}に追加の連絡を送る"
+
+msgid "To send a message to {{user_name}}"
+msgstr "{{user_name}}にメッセージを送る"
+
+msgid "To send and publish your FOI request"
+msgstr "情報公開請求を送信して公開する"
+
+msgid ""
+"To send your request to another authority, first copy the text of your "
+"request below, then <a href=\"{{find_authority_url}}\">find the other "
+"authority</a>."
+msgstr ""
+"別の機関に請求を送信するには、まず以下の欄に請求内容をコピーし、次に<a "
+"href=\"{{find_authority_url}}\">他の機関を探す</a>をクリックしてください。"
+
+msgid "To update the status of this FOI request"
+msgstr "この情報公開請求のステータスを更新する"
+
+msgid ""
+"To upload a response, you must be logged in using an email address from "
+"{{authority_name}}"
+msgstr "回答をアップロードするには、{{authority_name}}のメールアドレスでログインする必要があります。"
+
+msgid ""
+"To use the advanced search, combine phrases and labels as described in the "
+"search tips below."
+msgstr "高度な検索機能を使用するには、以下の検索ヒントに従ってフレーズとラベルを組み合わせてください。"
+
+msgid "To view the response, click on the link below."
+msgstr "回答を表示するには、下のリンクをクリックしてください。"
+
+msgid "To view this project"
+msgstr "このプロジェクトを表示する"
+
+msgid "To view your two factor authentication details"
+msgstr "2要素認証の詳細を表示する"
+
+msgid "To {{public_body_link_absolute}}"
+msgstr "{{public_body_link_absolute}}を見るには"
+
+msgid "To:"
+msgstr "宛先:"
+
+msgid "Today"
+msgstr "今日"
+
+msgid "Too many annotations"
+msgstr "コメント数が多すぎます"
+
+msgid "Too many messages"
+msgstr "メッセージ数が多すぎます"
+
+msgid "Too many requests"
+msgstr "請求数が多すぎます"
+
+msgid "Top recent contributors"
+msgstr "最近の主な貢献者"
+
+msgid "Top recent players"
+msgstr "最近の主な参加者"
+
+msgid "Track this person"
+msgstr "このユーザーをフォローする"
+
+msgid "Track this search"
+msgstr "この検索をフォローする"
+
+msgid "Trial cancelled"
+msgstr "トライアルはキャンセルされました"
+
+msgid "Trial ended, first payment failed"
+msgstr "トライアル期間が終了しました。最初の支払いに失敗しました。"
+
+msgid "Trial ended, first payment succeeded"
+msgstr "トライアル期間が終了しました。最初の支払いに成功しました。"
+
+msgid "Trial extended"
+msgstr "トライアル期間を延長しました。"
+
+msgid "Try opening the logs in a new window."
+msgstr "ログを新しいウィンドウで開いてみてください。"
+
+msgid "Turn off email alerts"
+msgstr "メール通知をオフにする"
+
+msgid ""
+"Two factor authentication adds extra security to your account by requiring "
+"more information to reset your password."
+msgstr "二要素認証を有効にすると、パスワードのリセット時に追加情報の入力を求めるため、アカウントのセキュリティが向上します。"
+
+msgid "Two factor authentication could not be disabled"
+msgstr "二要素認証を無効にできませんでした。"
+
+msgid "Two factor authentication could not be enabled"
+msgstr "二要素認証を有効にできませんでした。"
+
+msgid "Two factor authentication disabled"
+msgstr "二要素認証が無効です"
+
+msgid "Two factor authentication enabled"
+msgstr "二要素認証が有効です"
+
+msgid "Two factor one time passcode updated"
+msgstr "二要素認証のワンタイムパスコードを更新しました"
+
+msgid "Two factor one time passcode:"
+msgstr "二要素認証ワンタイムパスコード:"
+
+msgid ""
+"Type <strong><code>01/01/2008..14/01/2008</code></strong> to only show "
+"things that happened in the first two weeks of January."
+msgstr ""
+"<strong><code>01/01/2008..14/01/2008</code></strong> "
+"と入力すると、1月の最初の2週間に発生した事項のみを表示します。"
+
+msgid "URL name can't be blank"
+msgstr "URL名は空にできません"
+
+msgid "URL name is already taken"
+msgstr "そのURL名は既に使用されています"
+
+msgid "Unable to change email address on {{site_name}}"
+msgstr "{{site_name}}のメールアドレスを変更できません"
+
+msgid "Unable to send a reply to {{username}}"
+msgstr "{{username}}への返信を送信できませんでした"
+
+msgid "Unable to send follow up message to {{username}}"
+msgstr "{{username}}への追加の連絡を送信できませんでした"
+
+msgid "Unavailable"
+msgstr "利用不可"
+
+msgid "Unexpected search result type {{result_type}}"
+msgstr "予期しない検索結果タイプ {{result_type}} です"
+
+msgid "Unfollow"
+msgstr "フォロー解除"
+
+msgid ""
+"Unfortunately, we do not have a working address for {{public_body_names}}."
+msgstr "残念ながら、{{public_body_names}} の有効な所在地がわかりません。"
+
+msgid "Unfortunately, we do not have a working {{law_used_full}} address for"
+msgstr "残念ながら、以下の機関の有効な {{law_used_full}} 住所がわかりません："
+
+msgid "Unknown"
+msgstr "不明"
+
+msgid "Unknown webhook ({{id}})"
+msgstr "不明なWebhook ({{id}})"
+
+msgid "Unsubscribe"
+msgstr "配信停止"
+
+msgid "Unusual response"
+msgstr "異常な回答"
+
+msgid "Update classification"
+msgstr "状態の分類を更新"
+
+msgid "Update data"
+msgstr "データを更新"
+
+msgid "Update dataset"
+msgstr "データセットを更新"
+
+msgid "Update email address - {{public_body_name}}"
+msgstr "メールアドレスを更新 - {{public_body_name}}"
+
+msgid "Update the address:"
+msgstr "住所を更新:"
+
+msgid "Update the status of this request"
+msgstr "この請求のステータスを更新する"
+
+msgid "Update the status of your request to {{authority_name}}"
+msgstr "{{authority_name}} に対するあなたの請求のステータスを更新する"
+
+msgid "Upload FOI response"
+msgstr "情報公開請求の回答をアップロード"
+
+msgid ""
+"Use OR (in capital letters) where you don't mind which word,  e.g. "
+"<strong><code>commons OR lords</code></strong>"
+msgstr ""
+"どちらの単語でもよい場合は、OR（大文字）を使用してください。例：<strong><code>commons OR "
+"lords</code></strong>"
+
+msgid ""
+"Use quotes when you want to find an exact phrase, e.g. "
+"<strong><code>\"Liverpool City Council\"</code></strong>"
+msgstr ""
+"正確なフレーズを検索する場合は引用符を使用してください。例：<strong><code>\"Liverpool City "
+"Council\"</code></strong>"
+
+msgid ""
+"Use this site to make your request for information – we'll show you how."
+msgstr "このサイトを使って情報公開請求を行ってください。手順をご案内します。"
+
+msgid "User-to-user messaging has been disabled."
+msgstr "利用者間のメッセージ機能は無効になっています。"
+
+msgid ""
+"Users cannot usually make batch requests to multiple authorities at once "
+"because we don’t want public authorities to be bombarded with large numbers "
+"of inappropriate requests.  Please <a href=\"{{url}}\">contact us</a> if you"
+" think you have good reason to send the same request to multiple authorities"
+" at once."
+msgstr ""
+"行政機関に不適切な大量の請求が届くことを防ぐため、通常、複数の機関に対する一括請求はできません。正当な理由があって複数の機関に同時に同じ請求を送る必要がある場合は、<a"
+" href=\"{{url}}\">お問い合わせ</a>ください。"
+
+msgid "Very long – shorter requests are more successful"
+msgstr "非常に長い – 短い請求の方が開示される可能性が高くなります"
+
+msgid "Vexatious"
+msgstr "嫌がらせ行為"
+
+msgid "Vexatious annotation"
+msgstr "嫌がらせに関するコメント"
+
+msgid "View"
+msgstr "表示"
+
+msgid "View Freedom of Information requests made by {{user_name}}:"
+msgstr "{{user_name}} による情報公開請求を表示:"
+
+msgid "View authorities"
+msgstr "機関を表示"
+
+msgid "View dataset"
+msgstr "データセットを表示"
+
+msgid "View event history details"
+msgstr "イベント履歴の詳細を表示"
+
+msgid "View other requests to {{public_body}}"
+msgstr "{{public_body}}への他の請求を表示"
+
+msgid "View requests"
+msgstr "請求を表示"
+
+msgid "View your two factor authentication one time passcode"
+msgstr "2要素認証のワンタイムパスコードを表示"
+
+msgid "Visibility"
+msgstr "公開設定"
+
+msgid "Waiting clarification"
+msgstr "説明待ち"
+
+msgid ""
+"Waiting for an <strong>internal review</strong> by {{public_body_link}} of "
+"their handling of this request."
+msgstr ""
+
+msgid ""
+"Waiting for the public authority to complete an internal review of their "
+"handling of the request"
+msgstr "行政機関による本請求の取り扱いの内部審査完了を待機中"
+
+msgid "Waiting for the public authority to reply"
+msgstr "行政機関からの回答を待機中"
+
+msgid "Want to know something?"
+msgstr "何か知りたいことはありますか？"
+
+msgid ""
+"We consider it is not a valid FOI request, and have therefore hidden it from"
+" other users."
+msgstr "有効な情報公開請求ではないと判断したため、他の利用者から非表示にしています。"
+
+msgid ""
+"We consider it to be vexatious, and have therefore hidden it from other "
+"users."
+msgstr "嫌がらせ目的の請求と判断したため、他の利用者から非表示にしています。"
+
+msgid ""
+"We couldn't determine the delivery status of this message. It can take up to"
+" 24 hours after the message has been sent to determine delivery status "
+"information."
+msgstr "このメッセージの配信状況を確認できませんでした。送信後、配信状況の情報が反映されるまで最大24時間かかる場合があります。"
+
+msgid "We couldn’t display any logs for this message."
+msgstr "このメッセージのログを表示できませんでした。"
+
+msgid "We couldn’t load the mail server logs for this message."
+msgstr "このメッセージのメールサーバーのログを読み込めませんでした。"
+
+msgid ""
+"We do not allow requests for information via {{site_name}} about your "
+"personal circumstances. We have therefore hidden your request from other "
+"users."
+msgstr ""
+"{{site_name}}を通じて個人の事情に関する情報の請求は受け付けておりません。そのため、あなたの請求を他の利用者から非表示にしています。"
+
+msgid ""
+"We do not have a working {{law_used_full}} address for {{public_body_name}}."
+msgstr "{{public_body_name}}の有効な{{law_used_full}}の住所が確認できません。"
+
+msgid "We don't know the delivery status for this message."
+msgstr "このメッセージの配信状況は不明です。"
+
+msgid ""
+"We don't know whether the most recent response to this request contains "
+"information or not &ndash; if you are {{user_link}} please <a "
+"href=\"{{url}}\">sign in</a> and let everyone know."
+msgstr ""
+"この請求に対する最新の回答に情報が含まれているかどうかが不明です &ndash; {{user_link}} の場合は、<a "
+"href=\"{{url}}\">サインイン</a>して皆さんに知らせてください。"
+
+msgid ""
+"We have <a href=\"{{other_means_url}}\">suggestions</a> on other means to "
+"answer your question."
+msgstr "ご質問への回答に関する他の方法について、<a href=\"{{other_means_url}}\">提案</a>があります。"
+
+msgid ""
+"We publish it all online. Great! Now you have your answer, and everybody "
+"else can access it too."
+msgstr "すべてオンラインで公開します。素晴らしいですね！これであなたの回答が得られ、他の人もアクセスできるようになります。"
+
+msgid ""
+"We will not reveal your email address to anybody unless <a "
+"href=\"{{url}}\">you or the law tell us to</a>."
+msgstr "<a href=\"{{url}}\">あなた自身または法律による指示がない限り</a>、あなたのメールアドレスを誰にも開示することはありません。"
+
+msgid ""
+"We will not reveal your email address to anybody unless you or the law tell "
+"us to."
+msgstr "あなた自身または法律による指示がない限り、あなたのメールアドレスを誰にも開示することはありません。"
+
+msgid ""
+"We will not reveal your email addresses to anybody unless you or the law "
+"tell us to."
+msgstr "あなた自身または法律による指示がない限り、あなたのメールアドレスを誰にも開示することはありません。"
+
+msgid ""
+"We would like to know more about you, and your experience making a Freedom "
+"of Information request through the site."
+msgstr "あなた自身のことや、当サイトを通じて情報公開請求を行った際の体験について、より詳しくお聞かせください。"
+
+msgid "We'll drop you an email as soon as your request gets a response."
+msgstr "請求に対する回答があり次第、メールでお知らせします。"
+
+msgid "We're glad you got all the information that you wanted."
+msgstr "ご希望の情報をすべて取得できて良かったです。"
+
+msgid ""
+"We're glad you got all the information that you wanted. If you write about "
+"or make use of the information, please come back and add an annotation below"
+" saying what you did."
+msgstr ""
+"ご希望の情報をすべて取得できて良かったです。もしこの情報について執筆したり活用したりした場合は、こちらに戻って下のコメント欄に内容を追記してください。"
+
+msgid "We're glad you got some of the information that you wanted."
+msgstr "ご希望の情報の一部を取得できて良かったです。"
+
+msgid ""
+"We're glad you got some of the information that you wanted. If you found "
+"{{site_name}} useful, <a href=\"{{donation_url}}\">make a donation</a> to "
+"the charity which runs it."
+msgstr ""
+"ご希望の情報の一部を取得できて良かったです。{{site_name}}が役に立ったと感じた方は、<a "
+"href=\"{{donation_url}}\">運営団体へ寄付</a>をお願いします。"
+
+msgid ""
+"We're still preparing this attachment. The page will reload automatically "
+"once it's ready."
+msgstr "現在、この添付ファイルを準備中です。準備ができ次第、ページが自動的に再読み込みされます。"
+
+msgid ""
+"We're waiting for someone to read a recent response and update the status "
+"accordingly. Perhaps <strong>you</strong> might like to help out by doing "
+"that?"
+msgid_plural ""
+"We're waiting for someone to read recent responses and update the status "
+"accordingly. Perhaps <strong>you</strong> might like to help out by doing "
+"that?"
+msgstr[0] ""
+
+msgid ""
+"We're waiting for {{user}} to read a recent response and update the status."
+msgid_plural ""
+"We're waiting for {{user}} to read recent responses and update the status."
+msgstr[0] "{{user}}さんが最近の回答を確認し、ステータスを更新するのを待っています。"
+
+msgid ""
+"We've received a delivery status notification from the mailserver belonging "
+"to the authority."
+msgstr "機関のメールサーバーから配送ステータスの通知を受信しました。"
+
+msgid ""
+"We've sent an email to your old email address. You'll need to click the link"
+" in it before your email address will be changed."
+msgstr "以前のメールアドレス宛にメールを送信しました。メールアドレスを変更するには、そのメール内のリンクをクリックする必要があります。"
+
+msgid ""
+"We've sent this message but we have not received a confirmation of receipt "
+"from the authority's mailserver. This can take some time."
+msgstr "メッセージを送信しましたが、機関のメールサーバーから受信確認がまだ届いていません。これには時間がかかる場合があります。"
+
+msgid ""
+"We've sent you an email, and you'll need to click the link in it before you "
+"can continue."
+msgstr "メールを送信しました。続行するには、メール内のリンクをクリックしてください。"
+
+msgid ""
+"We've sent you an email, click the link in it, then you can change your "
+"password."
+msgstr "メールを送信しました。メール内のリンクをクリックするとパスワードを変更できます。"
+
+msgid "Week starting"
+msgstr "開始週"
+
+msgid "Welcome to the project!"
+msgstr "プロジェクトへようこそ！"
+
+msgid "What are you doing?"
+msgstr "現在の操作は？"
+
+msgid "What are you investigating using Freedom of Information?"
+msgstr "情報公開請求を用いて何を調査していますか？"
+
+msgid "What best describes the status of this request now?"
+msgstr "この請求の現在の状況を最も適切に表しているものはどれですか？"
+
+msgid "What information has been released?"
+msgstr "どのような情報が開示されましたか？"
+
+msgid "What information has been requested?"
+msgstr "どのような情報を請求しましたか？"
+
+msgid "What next?"
+msgstr "次のステップは？"
+
+msgid "What type of article is it?"
+msgstr "記事の種類は何ですか？"
+
+msgid "What would you like to do?"
+msgstr "どのような操作をしますか？"
+
+msgid "What's happened:"
+msgstr "発生したこと："
+
+msgid "When a dataset is made public, it cannot be reverted to private."
+msgstr "データセットが公開されると、非公開に戻すことはできません。"
+
+msgid ""
+"When you get there, please update the status to say if the response contains"
+" any useful information."
+msgstr "該当のページに到達したら、回答に有用な情報が含まれているかどうかを状態に更新してください。"
+
+msgid ""
+"When you receive the paper response, please help others find out what it "
+"says:"
+msgstr "紙の形式で回答を受け取った場合は、他の人が内容を確認できるよう協力をお願いします："
+
+msgid ""
+"When you want to change your account password, you will also need to enter "
+"your two factor one time passcode. Your one time passcode can only be used "
+"once, so a new one will be generated after you've successfully changed your "
+"password. You'll need to update your password manager or print the new "
+"passcode."
+msgstr ""
+"アカウントパスワードを変更する際は、2要素認証のワンタイムパスコードの入力も必要です。ワンタイムパスコードは一度しか使用できないため、パスワードの変更に成功すると新しいものが生成されます。パスワードマネージャーを更新するか、新しいパスコードを印刷してください。"
+
+msgid ""
+"When you're done, <strong>come back here</strong>, <a "
+"href=\"{{url}}\">reload this page</a> and file your new request."
+msgstr ""
+"完了したら、<strong>ここに戻り</strong>、<a "
+"href=\"{{url}}\">このページを再読み込み</a>して、新しい請求を行ってください。"
+
+msgid "Which of these is happening?"
+msgstr "どれが該当しますか？"
+
+msgid "Who can I request information from?"
+msgstr "どの機関に情報を請求できますか？"
+
+msgid "Why specifically do you consider this request unsuitable?"
+msgstr "具体的に、なぜこの請求が不適切だと判断されるのですか？"
+
+msgid "Withdrawn"
+msgstr "取り下げ済み"
+
+msgid "Withdrawn by the requester"
+msgstr "請求者により取り下げられました"
+
+msgid "Wk"
+msgstr "Wk"
+
+msgid "Write a reply"
+msgstr "回答を書く"
+
+msgid "Write a reply to {{authority_name}}"
+msgstr "{{authority_name}}への回答を書く"
+
+msgid "Write about this on Medium"
+msgstr "これをMediumに書く"
+
+msgid "Write your FOI follow up message to {{authority_name}}"
+msgstr "{{authority_name}}への情報公開請求の追加の連絡を書く"
+
+msgid "Write your request in <strong>simple, precise language</strong>."
+msgstr "<strong>簡潔で正確な言葉</strong>で請求内容を記入してください。"
+
+msgid "Writing your request"
+msgstr "請求の作成"
+
+msgid "Yes"
+msgstr "はい"
+
+msgid "Yes/No"
+msgstr "はい/いいえ"
+
+msgid ""
+"You already created the same batch of requests on {{date}}. You can either "
+"view the <a href=\"{{existing_batch}}\">existing batch</a>, or edit the "
+"details below to make a new but similar batch of requests."
+msgstr ""
+"{{date}} に、すでに同じ一括請求を作成しています。<a "
+"href=\"{{existing_batch}}\">既存の一括請求</a>を表示するか、以下の詳細を編集して、新しく同様の一括請求を作成してください。"
+
+msgid "You are a <strong>contributor</strong> on this project"
+msgstr ""
+
+msgid "You are already a member of this project"
+msgstr "あなたはすでに本プロジェクトのメンバーです"
+
+msgid "You are already following new requests"
+msgstr "あなたはすでに新しい請求をフォローしています"
+
+msgid "You are already following things matching this search"
+msgstr "あなたはすでにこの検索に一致する項目をフォローしています"
+
+msgid "You are already following this person"
+msgstr "この方をすでにフォローしています"
+
+msgid "You are already following this request"
+msgstr "この請求をすでにフォローしています"
+
+msgid ""
+"You are already subscribed to '{{link_to_authority}}', a public authority."
+msgstr "あなたはすでに行政機関である「{{link_to_authority}}」の購読登録を済ませています。"
+
+msgid "You are already subscribed to '{{link_to_request}}', a request."
+msgstr "あなたはすでに請求である「{{link_to_request}}」の購読登録を済ませています。"
+
+msgid "You are already subscribed to '{{link_to_user}}', a person."
+msgstr "あなたはすでに利用者である「{{link_to_user}}」の購読登録を済ませています。"
+
+msgid "You are already subscribed to <a href=\"{{search_url}}\">this search</a>."
+msgstr "あなたはすでに<a href=\"{{search_url}}\">この検索</a>の購読登録を済ませています。"
+
+msgid ""
+"You are already subscribed to any <a href=\"{{new_requests_url}}\">new "
+"requests</a>."
+msgstr "あなたはすでにすべての<a href=\"{{new_requests_url}}\">新しい請求</a>の購読登録を済ませています。"
+
+msgid ""
+"You are already subscribed to any <a "
+"href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+"あなたはすでにすべての<a href=\"{{successful_requests_url}}\">開示された請求</a>の購読登録を済ませています。"
+
+msgid "You are an <strong>owner</strong> on this project"
+msgstr ""
+
+msgid ""
+"You are currently receiving notification of new activity on your wall by "
+"email."
+msgstr "現在、ウォールへの新しいアクティビティに関する通知をメールで受け取っています。"
+
+msgid "You are following all new successful responses"
+msgstr "すべての新しい開示された回答をフォローしています。"
+
+msgid ""
+"You are no longer following '{{link_to_authority}}', a public authority."
+msgstr "行政機関である「{{link_to_authority}}」のフォローを解除しました。"
+
+msgid "You are no longer following '{{link_to_request}}', a request."
+msgstr "請求である「{{link_to_request}}」のフォローを解除しました。"
+
+msgid "You are no longer following '{{link_to_user}}', a person."
+msgstr "利用者である「{{link_to_user}}」のフォローを解除しました。"
+
+msgid ""
+"You are no longer following <a href=\"{{new_requests_url}}\">new "
+"requests</a>."
+msgstr "<a href=\"{{new_requests_url}}\">新しい請求</a>のフォローを解除しました。"
+
+msgid "You are no longer following <a href=\"{{search_url}}\">this search</a>."
+msgstr "<a href=\"{{search_url}}\">この検索結果</a>のフォローを解除しました。"
+
+msgid ""
+"You are no longer following <a "
+"href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr "<a href=\"{{successful_requests_url}}\">開示された請求</a>のフォローを解除しました。"
+
+msgid ""
+"You are now <a href=\"{{wall_url_user}}\">following</a> updates about "
+"'{{link_to_authority}}', a public authority."
+msgstr ""
+"行政機関である'{{link_to_authority}}'に関する更新を、現在<a "
+"href=\"{{wall_url_user}}\">フォローしています</a>。"
+
+msgid ""
+"You are now <a href=\"{{wall_url_user}}\">following</a> updates about "
+"'{{link_to_request}}', a request."
+msgstr ""
+"請求である'{{link_to_request}}'に関する更新を、現在<a "
+"href=\"{{wall_url_user}}\">フォローしています</a>。"
+
+msgid ""
+"You are now <a href=\"{{wall_url_user}}\">following</a> updates about "
+"'{{link_to_user}}', a person."
+msgstr ""
+"個人である'{{link_to_user}}'に関する更新を、現在<a "
+"href=\"{{wall_url_user}}\">フォローしています</a>。"
+
+msgid ""
+"You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a "
+"href=\"{{new_requests_url}}\">new requests</a>."
+msgstr ""
+"<a href=\"{{new_requests_url}}\">新しい請求</a>に関する更新を、現在<a "
+"href=\"{{wall_url_user}}\">フォローしています</a>。"
+
+msgid ""
+"You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a "
+"href=\"{{search_url}}\">this search</a>."
+msgstr ""
+"<a href=\"{{search_url}}\">この検索</a>に関する更新を、現在<a "
+"href=\"{{wall_url_user}}\">フォローしています</a>。"
+
+msgid ""
+"You are now <a href=\"{{wall_url_user}}\">following</a> updates about <a "
+"href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+"<a href=\"{{successful_requests_url}}\">開示された請求</a>に関する更新を、現在<a "
+"href=\"{{wall_url_user}}\">フォローしています</a>。"
+
+msgid "You can <strong>complain</strong> by"
+msgstr ""
+
+msgid ""
+"You can change the requests and users you are following on <a "
+"href=\"{{profile_url}}\">your profile page</a>."
+msgstr "<a href=\"{{profile_url}}\">プロフィールページ</a>で、フォローしている請求や利用者を変更できます。"
+
+msgid ""
+"You can get this page in computer-readable format as part of the <a "
+"href=\"{{json_path}}\">main JSON page</a> for the request. See the <a "
+"href=\"{{api_path}}\">API documentation</a>."
+msgstr ""
+"このページは、請求の<a "
+"href=\"{{json_path}}\">メインJSONページ</a>の一部として、コンピュータが読み取り可能な形式で取得できます。<a "
+"href=\"{{api_path}}\">APIドキュメント</a>を参照してください。"
+
+msgid "You can regenerate your one time passcode at any time."
+msgstr "ワンタイムパスコードはいつでも再発行できます。"
+
+msgid ""
+"You can see the request and remind the body to respond with the following "
+"link:"
+msgid_plural ""
+"You can see the requests and remind the bodies to respond with the following"
+" links:"
+msgstr[0] "以下のリンクから請求を確認し、回答を促すことができます："
+
+msgid ""
+"You can see the request and tell the body to respond with the following "
+"link. You might like to ask for an internal review, asking them to find out "
+"why their response to the request has been so slow."
+msgid_plural ""
+"You can see the requests and tell the bodies to respond with the following "
+"links. You might like to ask for internal reviews, asking the bodies to find"
+" out why responses to the requests have been so slow."
+msgstr[0] ""
+"以下のリンクから請求を確認し、回答を求めることができます。回答が遅れている理由を調査するよう、内部審査を依頼することも検討してください。"
+
+msgid "You can see the response with the following link:"
+msgid_plural "You can see the responses with the following links:"
+msgstr[0] "以下のリンクから回答を確認できます："
+
+msgid "You can't update your profile text at this time."
+msgstr "現在、プロフィールテキストを更新することはできません。"
+
+msgid ""
+"You have a new response to the {{law_used_full}} request '{{request_title}}'"
+" that you made to {{public_body_name}}."
+msgstr ""
+"{{public_body_name}}に対して行った{{law_used_full}}に基づく請求「{{request_title}}」に新しい回答がありました。"
+
+msgid ""
+"You have found a bug.  Please <a href=\"{{contact_url}}\">contact us</a> to "
+"tell us about the problem"
+msgstr "バグが見つかりました。問題について<a href=\"{{contact_url}}\">お問い合わせ</a>ください。"
+
+msgid ""
+"You have hit the rate limit on annotations. Users are ordinarily limited to "
+"{{comment_limit}} annotations per day."
+msgstr "コメントの回数制限に達しました。通常、ユーザーは1日あたり{{comment_limit}}件までのコメントが可能です。"
+
+msgid ""
+"You have hit the rate limit on new requests. Users are ordinarily limited to"
+" {{max_requests_per_user_per_day}} requests in any rolling 24-hour period."
+msgstr ""
+"新規請求の回数制限に達しました。通常、ユーザーは任意の24時間以内に{{max_requests_per_user_per_day}}件までの請求が可能です。"
+
+msgid ""
+"You have hit the rate limit on user messages. Users are ordinarily limited "
+"to {{message_limit}} messages per day."
+msgstr "メッセージの送信制限に達しました。通常、ユーザーは1日あたり{{message_limit}}件までのメッセージを送信できます。"
+
+msgid "You have left the project."
+msgstr "プロジェクトを離脱しました。"
+
+msgid "You have made no Freedom of Information requests using this site."
+msgstr "このサイトを使用して情報公開請求を行った履歴はありません。"
+
+msgid "You have now changed the text about you on your profile."
+msgstr "プロフィール内の自己紹介文を変更しました。"
+
+msgid "You have now changed your email address used on {{site_name}}"
+msgstr "{{site_name}}で使用するメールアドレスを変更しました。"
+
+msgid ""
+"You have the <strong>right</strong> to request information from any "
+"publicly-funded body, and get answers. {{site_name}} helps you make a "
+"Freedom of Information request. It also publishes all requests online."
+msgstr ""
+"あなたは、公的資金を投入するあらゆる行政機関に対して情報を請求し、回答を得る<strong>権利</strong>を持っています。{{site_name}}は、情報公開請求を行うお手伝いをします。また、すべての請求内容をオンラインで公開します。"
+
+msgid ""
+"You just tried to sign up to {{site_name}}, when you already have an "
+"account. Your name and password have been left as they previously were. "
+"Please click on the link below."
+msgstr ""
+"すでにアカウントをお持ちですが、{{site_name}}への新規登録を試みました。お名前とパスワードは以前の情報のままです。以下のリンクをクリックしてください。"
+
+msgid ""
+"You know what caused the error, and can <strong>suggest a solution</strong>,"
+" such as a working email address."
+msgstr "エラーの原因がわかっている場合は、動作するメールアドレスなど、<strong>解決策を提案</strong>することができます。"
+
+msgid "You left an annotation ({{date}})"
+msgstr "コメントを残しました（{{date}}）"
+
+msgid ""
+"You may <strong>include attachments</strong>. If you would like to attach a "
+"file too large for email, use the form below."
+msgstr ""
+"<strong>添付ファイルを含める</strong>ことができます。メールでは送信できない大きなファイルを添付する場合は、以下のフォームを使用してください。"
+
+msgid ""
+"You may be able to find one on their website, or by phoning them up and "
+"asking. If you manage to find one, then please <a href=\"{{help_url}}\">send"
+" it to us</a>."
+msgstr ""
+"機関のウェブサイトや電話での問い合わせで確認できる場合があります。見つかった場合は、<a "
+"href=\"{{help_url}}\">こちらまでお送り</a>ください。"
+
+msgid ""
+"You may be able to find one on their website, or by phoning them up and "
+"asking. If you manage to find one, then please send it to us:"
+msgstr "機関のウェブサイトや電話での問い合わせで確認できる場合があります。見つかった場合は、こちらまでお送りください："
+
+msgid ""
+"You might find some useful information in the notes we hold about "
+"'{{authority_name}}':"
+msgstr "「{{authority_name}}」に関する当方のメモに、役立つ情報があるかもしれません："
+
+msgid "You need to be logged in to change the text about you on your profile."
+msgstr "プロフィール内の自己紹介文を変更するには、ログインが必要です。"
+
+msgid "You need to be logged in to change your name"
+msgstr "名前を変更するには、ログインが必要です。"
+
+msgid "You need to be logged in to change your profile photo."
+msgstr "プロフィール写真を変更するには、ログインが必要です。"
+
+msgid "You need to be logged in to clear your profile photo."
+msgstr "プロフィール写真を削除するには、ログインが必要です。"
+
+msgid "You need to be logged in to edit your profile."
+msgstr "プロフィールを編集するには、ログインが必要です。"
+
+msgid ""
+"You need to be logged in to report a request for administrator attention"
+msgstr "管理者の対応を求める請求を報告するには、ログインが必要です。"
+
+msgid ""
+"You only have a right in law to access information about the environment "
+"from this authority"
+msgstr "この機関から環境に関する情報にアクセスする権利は、法律によってのみ認められています。"
+
+msgid ""
+"You previously submitted that exact follow up message for this request."
+msgstr "この請求に対して、以前に全く同じ追加の連絡を送信済みです。"
+
+msgid ""
+"You should get a response within {{late_number_of_days}} days, or be told if"
+" it will take longer (<a href=\"{{review_url}}\">details</a>)."
+msgstr ""
+"通常、{{late_number_of_days}}日以内に回答がありますが、それ以上かかる場合はその旨を通知されます（<a "
+"href=\"{{review_url}}\">詳細</a>）。"
+
+msgid ""
+"You should have received a copy of the request by email, and you can respond"
+" by <strong>simply replying</strong> to that email. For your convenience, "
+"here is the address:"
+msgstr ""
+
+msgid ""
+"You want to <strong>give your postal address</strong> to the authority in "
+"private."
+msgstr ""
+
+msgid ""
+"You will be given a one time passcode when you enable two factor "
+"authentication. Do not share this passcode. You can either keep it in your "
+"password manager, or print it and keep it somewhere safe."
+msgstr ""
+"二要素認証を有効にすると、一度限りのパスコードが発行されます。このパスコードは他人に共有しないでください。パスワードマネージャーに保存するか、印刷して安全な場所に保管してください。"
+
+msgid ""
+"You will be unable to make new requests, send follow ups or send messages to"
+" other users. You may continue to view other requests, and set up email "
+"alerts."
+msgstr ""
+"新しい請求の作成、追加の連絡の送信、および他の利用者へのメッセージ送信ができなくなります。他の請求の閲覧やメールアラートの設定は引き続き可能です。"
+
+msgid ""
+"You will be unable to make new requests, send follow ups, add annotations or"
+" send messages to other users. You may continue to view other requests, and "
+"set up email alerts."
+msgstr ""
+"新しい請求の作成、追加の連絡の送信、コメントの追加、および他の利用者へのメッセージ送信ができなくなります。他の請求の閲覧やメールアラートの設定は引き続き可能です。"
+
+msgid "You will no longer be emailed updates for those alerts"
+msgstr "これらのアラートに関する更新通知は、今後メールで届かなくなります。"
+
+msgid ""
+"You will now be emailed updates about '{{link_to_authority}}', a public "
+"authority."
+msgstr "今後、行政機関「{{link_to_authority}}」に関する更新情報がメールで届くようになります。"
+
+msgid ""
+"You will now be emailed updates about '{{link_to_request}}', a request."
+msgstr "今後、請求「{{link_to_request}}」に関する更新情報がメールで送信されます。"
+
+msgid "You will now be emailed updates about '{{link_to_user}}', a person."
+msgstr "今後、利用者「{{link_to_user}}」に関する更新情報がメールで送信されます。"
+
+msgid ""
+"You will now be emailed updates about <a href=\"{{search_url}}\">this "
+"search</a>."
+msgstr "今後、<a href=\"{{search_url}}\">この検索</a>に関する更新情報がメールで送信されます。"
+
+msgid ""
+"You will now be emailed updates about <a "
+"href=\"{{successful_requests_url}}\">successful requests</a>."
+msgstr ""
+"今後、<a href=\"{{successful_requests_url}}\">開示された請求</a>に関する更新情報がメールで送信されます。"
+
+msgid ""
+"You will now be emailed updates about any <a "
+"href=\"{{new_requests_url}}\">new requests</a>."
+msgstr "今後、すべての<a href=\"{{new_requests_url}}\">新しい請求</a>に関する更新情報がメールで送信されます。"
+
+msgid ""
+"You will only get an answer to your request if you follow up with the "
+"clarification."
+msgstr "この内容の明確化について追加の連絡を行わない限り、請求に対する回答は得られません。"
+
+msgid ""
+"You will still be able to view it while logged in to the site. Please reply "
+"to this email if you would like to discuss this decision further."
+msgstr "サイトにログインしている間は引き続き閲覧可能です。この決定についてさらに相談したい場合は、このメールに返信してください。"
+
+msgid "You're in. <a href=\"#\" id=\"send-request\">Continue sending your request</a>"
+msgstr "登録完了です。<a href=\"#\" id=\"send-request\">請求の送信を続ける</a>"
+
+msgid "You're long overdue a response to your FOI request - {{request_title}}"
+msgstr "情報公開請求「{{request_title}}」への回答期限が大幅に超過しています"
+
+msgid "You're not following anything."
+msgstr "フォローしている項目はありません。"
+
+msgid "You've now cleared your profile photo"
+msgstr "プロフィール写真を削除しました"
+
+msgid ""
+"Your <strong>name will appear publicly</strong> (<a "
+"href=\"{{why_url}}\">why?</a>) on this website and in search engines. <a "
+"href=\"{{help_url}}\">Thinking of using a pseudonym?</a>"
+msgstr ""
+
+msgid ""
+"Your FOI request - {{request_title}} has been made public on {{site_name}}"
+msgstr "あなたの情報公開請求「{{request_title}}」が{{site_name}}で公開されました"
+
+msgid ""
+"Your FOI request - {{request_title}} will be made public on {{site_name}} "
+"this week"
+msgstr "あなたの情報公開請求「{{request_title}}」は、今週中に{{site_name}}で公開されます"
+
+msgid "Your Freedom of Information request"
+msgid_plural "Your Freedom of Information requests (approximately {{count}})"
+msgstr[0] "あなたの情報公開請求"
+
+msgid "Your account on {{site_name}}"
+msgstr "{{site_name}}のアカウント"
+
+msgid "Your annotations"
+msgstr "あなたのコメント"
+
+msgid "Your batch request \"{{title}}\" has been sent"
+msgstr "一括請求「{{title}}」を送信しました"
+
+msgid "Your current one time passcode:"
+msgstr "現在のワンタイムパスコード："
+
+msgid "Your daily request summary from {{pro_site_name}}"
+msgstr "{{pro_site_name}}からの日次の請求概要"
+
+msgid ""
+"Your details, including your email address, have not been given to anyone."
+msgstr "メールアドレスを含むお客様の詳細は、第三者に提供されることはありません。"
+
+msgid "Your e-mail:"
+msgstr "メールアドレス："
+
+msgid "Your email doesn't look like a valid address"
+msgstr "入力されたメールアドレスは正しくありません"
+
+msgid "Your email:"
+msgstr "メールアドレス："
+
+msgid ""
+"Your follow up has not been sent because this request has been stopped to "
+"prevent spam. Please <a href=\"{{url}}\">contact us</a> if you really want "
+"to send a follow up message."
+msgstr ""
+"スパム防止のため、この請求は停止されているため追加の連絡は送信されませんでした。本当に追加の連絡を送信したい場合は、<a "
+"href=\"{{url}}\">お問い合わせ</a>ください。"
+
+msgid ""
+"Your follow up message has been saved but not yet sent to {{authority_name}}"
+" due to an error."
+msgstr "追加の連絡メッセージは保存されましたが、エラーにより{{authority_name}}にはまだ送信されていません。"
+
+msgid "Your follow up message has been sent on its way."
+msgstr "追加の連絡メッセージを送信中です。"
+
+msgid ""
+"Your internal review request has been saved but not yet sent to "
+"{{authority_name}} due to an error."
+msgstr "内部審査請求は保存されましたが、エラーにより{{authority_name}}にはまだ送信されていません。"
+
+msgid "Your internal review request has been sent on its way."
+msgstr "内部審査請求を送信中です。"
+
+msgid ""
+"Your message has been sent. Thank you for getting in touch! We'll get back "
+"to you soon."
+msgstr "メッセージを送信しました。ご連絡ありがとうございます。追って回答いたします。"
+
+msgid "Your message to {{recipient_user_name}} has been sent"
+msgstr "{{recipient_user_name}}へのメッセージを送信しました"
+
+msgid "Your message to {{recipient_user_name}} has been sent!"
+msgstr "{{recipient_user_name}}へのメッセージを送信しました！"
+
+msgid "Your message will appear in <strong>search engines</strong>"
+msgstr ""
+
+msgid ""
+"Your name and annotation will appear in <strong>search engines</strong>."
+msgstr ""
+
+msgid ""
+"Your name has been changed since your last message in this request. Please "
+"consider mentioning this to the authority and explain that you are the "
+"original requester."
+msgstr ""
+"この請求における前回の送信時以降、お名前が変更されています。機関に対してその旨を伝え、ご自身が元の請求者であることを説明することを検討してください。"
+
+msgid ""
+"Your name, request and any responses will appear in <strong>search "
+"engines</strong> (<a href=\"{{url}}\">details</a>)."
+msgstr ""
+
+msgid "Your name:"
+msgstr "お名前:"
+
+msgid "Your password has been changed."
+msgstr "パスワードを変更しました。"
+
+msgid ""
+"Your password has been changed. You also have a new one time passcode which "
+"you'll need next time you want to change your password"
+msgstr "パスワードを変更しました。次回パスワードを変更する際に必要な、新しいワンタイムパスコードも発行されました。"
+
+msgid "Your password:"
+msgstr "パスワード:"
+
+msgid ""
+"Your photo will be shown in public <strong>on the Internet</strong>, "
+"wherever you do something on {{site_name}}."
+msgstr ""
+
+msgid "Your request"
+msgstr "あなたの請求"
+
+msgid "Your request '{{request}}' at {{url}} has been reviewed by moderators."
+msgstr "{{url}}におけるあなたの請求「{{request}}」は、モデレーターによって確認されました。"
+
+msgid "Your request on {{site_name}} hidden"
+msgstr "{{site_name}}上のあなたの請求を非表示にする"
+
+msgid ""
+"Your request to add an authority has been sent. Thank you for getting in "
+"touch! We'll get back to you soon."
+msgstr "機関の追加依頼を送信しました。ご連絡ありがとうございます。追って回答いたします。"
+
+msgid ""
+"Your request to update the address for {{public_body_name}} has been sent. "
+"Thank you for getting in touch! We'll get back to you soon."
+msgstr "{{public_body_name}}の住所更新依頼を送信しました。ご連絡ありがとうございます。追って回答いたします。"
+
+msgid ""
+"Your request was called '{{info_request}}'. Letting everyone know whether "
+"you got the information will help us keep tabs on"
+msgstr ""
+"あなたの請求は「{{info_request}}」と命名されました。情報の取得状況を共有していただくことで、私たちは状況を把握しやすくなります。"
+
+msgid "Your requests will be <strong>sent</strong> shortly!"
+msgstr ""
+
+msgid "Your response to an FOI request was not delivered"
+msgstr "情報公開請求に対する回答が送信されませんでした"
+
+msgid ""
+"Your response will <strong>appear on the Internet</strong>, <a "
+"href=\"{{url}}\">read why</a> and answers to other questions."
+msgstr ""
+
+msgid "Your right to know"
+msgstr "知る権利"
+
+msgid "Your selected authorities"
+msgstr "選択した行政機関"
+
+msgid ""
+"Your thoughts on what the {{site_name}} <strong>administrators</strong> "
+"should do about the request."
+msgstr ""
+
+msgid "Your {{count}} annotation"
+msgid_plural "Your {{count}} annotations"
+msgstr[0] "あなたの{{count}}件のコメント"
+
+msgid "Your {{count}} batch request"
+msgid_plural "Your {{count}} batch requests"
+msgstr[0] "あなたの{{count}}件の一括請求"
+
+msgid "Your {{count}} private Freedom of Information request"
+msgid_plural "Your {{count}} private Freedom of Information requests"
+msgstr[0] "あなたの{{count}}件の非公開の情報公開請求"
+
+msgid "Your {{law_used_full}} request has been sent"
+msgstr "{{law_used_full}}に基づく請求を送信しました"
+
+msgid "Your {{site_name}} email alert"
+msgstr "{{site_name}}からのメール通知"
+
+msgid "Yours faithfully,"
+msgstr "敬具"
+
+msgid "Yours sincerely,"
+msgstr "拝啓（※文脈により調整）"
+
+msgid "Yours,"
+msgstr ""
+
+msgid "ZIP"
+msgstr "郵便番号"
+
+msgid "[Authority URL will be inserted here]"
+msgstr "[Authority URL will be inserted here]"
+
+msgid "[Authority name]"
+msgstr "[機関名]"
+
+msgid "[FOI #{{request}} email]"
+msgstr "[情報公開請求 #{{request}} メール]"
+
+msgid "[Name Removed]"
+msgstr "[氏名を削除]"
+
+msgid "[Personally Identifiable Information removed]"
+msgstr "[個人を特定できる情報を削除]"
+
+msgid "[REDACTED]"
+msgstr "[墨塗り（伏せ字）]"
+
+msgid "[extraneous and potentially defamatory material removed]"
+msgstr "[extraneous and potentially defamatory material removed]"
+
+msgid "[extraneous material removed]"
+msgstr "[無関係な内容を削除]"
+
+msgid "[name removed]"
+msgstr "[氏名を削除]"
+
+msgid "[potentially defamatory material removed]"
+msgstr "[名誉毀損の可能性がある内容を削除]"
+
+msgid "[{{public_body}} request email]"
+msgstr "[{{public_body}} 請求用メールアドレス]"
+
+msgid "[{{site_name}} contact email]"
+msgstr "[{{site_name}} お問い合わせメールアドレス]"
+
+msgid "admin"
+msgstr "管理者"
+
+msgid "all requests"
+msgstr "すべての請求"
+
+msgid "all requests or comments"
+msgstr "すべての請求またはコメント"
+
+msgid "all requests or comments matching text '{{query}}'"
+msgstr "テキスト '{{query}}' に一致するすべての請求またはコメント"
+
+msgid "also called {{public_body_short_name}}"
+msgstr "{{public_body_short_name}} とも呼ばれます"
+
+msgid "and"
+msgstr "および"
+
+msgid "and we'll suggest <strong>what to do next</strong>"
+msgstr "そして、<strong>次にとるべき行動</strong>を提案します"
+
+msgid "any section"
+msgstr "すべてのセクション"
+
+msgid "anything matching text '{{query}}'"
+msgstr "「{{query}}」に一致するすべての内容"
+
+msgid "are long overdue."
+msgstr "期限を大幅に超過しています。"
+
+msgid "authorities"
+msgstr "行政機関"
+
+msgid "awaiting response"
+msgstr "回答待ち"
+
+msgid "by"
+msgstr "〜まで"
+
+msgid "by {{user_link_absolute}}"
+msgstr "{{user_link_absolute}} による"
+
+msgid "can't be nil"
+msgstr "空にすることはできません"
+
+msgid "clarification needed"
+msgstr "説明が必要です"
+
+msgid "comments"
+msgstr "コメント"
+
+msgid "complete"
+msgstr "完了"
+
+msgid "contact us"
+msgstr "お問い合わせ"
+
+msgid "delivered"
+msgstr "配信済み"
+
+msgid "details"
+msgstr "詳細"
+
+msgid "display_status only works for incoming and outgoing messages right now"
+msgstr "現在、ステータスの表示は受信メッセージと送信メッセージにのみ対応しています"
+
+msgid "e.g. Ministry of Defence"
+msgstr "例：国防省"
+
+msgid "edit text about you"
+msgstr "プロフィールを編集する"
+
+msgid "email address"
+msgstr "メールアドレス"
+
+msgid "everything"
+msgstr "すべて"
+
+msgid "external"
+msgstr "外部"
+
+msgid "failed"
+msgstr "失敗"
+
+msgid "have delayed."
+msgstr "遅延しています。"
+
+msgid "hide quoted sections"
+msgstr "引用部分を非表示にする"
+
+msgid "internal error"
+msgstr "内部エラー"
+
+msgid "internal reviews"
+msgstr "内部レビュー"
+
+msgid "logged in as user {{user_name}}"
+msgstr "{{user_name}} としてログイン中"
+
+msgid "messages from authorities"
+msgstr "機関からの受信メッセージ"
+
+msgid "messages from users"
+msgstr "利用者からの送信メッセージ"
+
+msgid "mobile number"
+msgstr "携帯電話番号"
+
+msgid ""
+"mySociety:Helping people set up sites like {{site_name}} all over the world"
+msgstr "mySociety: {{site_name}} のようなサイトを世界中で構築するのを支援します"
+
+msgid "new requests"
+msgstr "新規請求"
+
+msgid "no later than"
+msgstr "〜までに"
+
+msgid "normally"
+msgstr "通常は"
+
+msgid "not logged in"
+msgstr "ログインしていません"
+
+msgid "other"
+msgstr "その他"
+
+msgid "overdue"
+msgstr "期限超過"
+
+msgid "request hide events"
+msgstr "イベントの非表示を請求"
+
+msgid "requesting an internal review"
+msgstr "内部審査を請求する"
+
+msgid "requests"
+msgstr "請求一覧"
+
+msgid "requests which are successful"
+msgstr "開示された請求"
+
+msgid "requests which are successful matching text '{{query}}'"
+msgstr "'{{query}}'に一致する開示された請求"
+
+msgid "response received"
+msgstr "回答を受信済み"
+
+msgid "send a follow up message"
+msgstr "追加の連絡を送信する"
+
+msgid "sent"
+msgstr "送信済み"
+
+msgid "show quoted sections"
+msgstr "引用箇所を表示"
+
+msgid "sign in"
+msgstr "サインイン"
+
+msgid "simple_date_format"
+msgstr "simple_date_format"
+
+msgid "successful requests"
+msgstr "開示された請求"
+
+msgid "the main FOI contact address for {{public_body}}"
+msgstr "{{public_body}}の主な情報公開請求窓口"
+
+#. TRANSLATORS: This phrase completes the following sentences:
+#. Request an internal review from...
+#. Send a public follow up message to...
+#. Send a public reply to...
+#. Don't want to address your message to... ?
+msgid "the main FOI contact at {{public_body}}"
+msgstr "{{public_body}}の情報公開請求担当者"
+
+msgid "the {{site_name}} team"
+msgstr "{{site_name}}チーム"
+
+msgid "to send a follow up message."
+msgstr "追加の連絡を送信する。"
+
+msgid "type your search term here"
+msgstr "ここに検索ワードを入力してください"
+
+msgid "unknown"
+msgstr "不明"
+
+msgid "unknown reason "
+msgstr "不明な理由 "
+
+msgid "unknown status {{state}}"
+msgstr "不明な状態 {{state}}"
+
+msgid "unknown status {{status}}"
+msgstr "不明な状態 {{status}}"
+
+msgid "unresolved requests"
+msgstr "未解決の請求"
+
+msgid "unsubscribe"
+msgstr "配信停止"
+
+msgid "unsubscribe all"
+msgstr "すべての配信を停止"
+
+msgid "unsuccessful requests"
+msgstr "不開示の請求"
+
+msgid "users"
+msgstr "利用者"
+
+msgid "very overdue"
+msgstr "大幅な期限超過"
+
+msgid "what's that?"
+msgstr "これは何？"
+
+msgid ""
+"{{authority_name}} <strong>did not have</strong> the information requested."
+msgstr "{{authority_name}} は、請求された情報を<strong>保有していませんでした</strong>。"
+
+msgid "{{authority_name}} is <strong>waiting for your clarification</strong>."
+msgstr "{{authority_name}} は、あなたの<strong>説明を待っています</strong>。"
+
+msgid "{{count}} Attachment"
+msgid_plural "{{count}} Attachments"
+msgstr[0] "添付ファイル {{count}} 件"
+
+msgid "{{count}} annotation made."
+msgid_plural "{{count}} annotations made."
+msgstr[0] "コメント {{count}} 件が追加されました。"
+
+msgid "{{count}} contributor has joined this project"
+msgid_plural "{{count}} contributors have joined this project"
+msgstr[0] "{{count}} 人の協力者がこのプロジェクトに参加しました。"
+
+msgid "{{count}} follower"
+msgid_plural "{{count}} followers"
+msgstr[0] "フォロワー {{count}} 人"
+
+msgid "{{count}} matching authority"
+msgid_plural "{{count}} matching authorities"
+msgstr[0] "一致する機関 {{count}} 件"
+
+msgid "{{count}} request"
+msgid_plural "{{count}} requests"
+msgstr[0] "{{count}} 件の請求"
+
+msgid "{{count}} request had a new response:"
+msgid_plural "{{count}} requests had new responses:"
+msgstr[0] "{{count}} 件の請求に新しい回答がありました："
+
+msgid "{{count}} request has been made public on {{site_name}}."
+msgid_plural "{{count}} requests have been made public on {{site_name}}."
+msgstr[0] "{{count}} 件の請求が {{site_name}} で公開されました。"
+
+msgid "{{count}} request has not had a prompt response:"
+msgid_plural "{{count}} requests have not had prompt responses:"
+msgstr[0] "{{count}} 件の請求に対して、迅速な回答が得られていません："
+
+msgid "{{count}} request has still not had a response:"
+msgid_plural "{{count}} requests have still not had responses:"
+msgstr[0] "{{count}} 件の請求に対して、まだ回答がありません："
+
+msgid "{{count}} request made."
+msgid_plural "{{count}} requests made."
+msgstr[0] "{{count}} 件の請求を行いました。"
+
+msgid ""
+"{{count}} request will be made public on {{site_name}} in the next week. If "
+"you do not wish this request to go public at that time, please click on the "
+"link below to keep it private for longer."
+msgid_plural ""
+"{{count}} requests will be made public on {{site_name}} in the next week. If"
+" you do not wish these requests to go public at that time, please click on "
+"the links below to keep them private for longer."
+msgstr[0] ""
+"{{count}} 件の請求が来週 {{site_name}} "
+"で公開される予定です。この時点で公開したくない場合は、以下のリンクをクリックして非公開のまま延長してください。"
+
+msgid "{{count}} request."
+msgid_plural "{{count}} requests."
+msgstr[0] "{{count}} 件の請求。"
+
+msgid ""
+"{{existing_request_user}} already created the same request on {{date}}. You "
+"can either view the <a href=\"{{existing_request}}\">existing request</a>, "
+"or edit the details below to make a new but similar request."
+msgstr ""
+"{{existing_request_user}} は {{date}} に既に同じ請求を行っています。<a "
+"href=\"{{existing_request}}\">既存の請求</a> を確認するか、以下の詳細を編集して新しく同様の請求を作成してください。"
+
+msgid "{{info_request_user_name}}"
+msgstr "{{info_request_user_name}}"
+
+msgid "{{law_used_full}} request - {{title}}"
+msgstr "{{law_used_full}} 請求 - {{title}}"
+
+#. TRANSLATORS: Please don't use double quotes (") in this translation
+#. or it will break the site's ability to send emails to authorities!
+msgid "{{law_used_short}} requests at {{public_body}}"
+msgstr "{{public_body}} に対する {{law_used_short}} 請求"
+
+msgid "{{law_used_short}} requests to '{{public_body_name}}'"
+msgstr "'{{public_body_name}}' に対する {{law_used_short}} 請求"
+
+msgid "{{length_of_time}} ago"
+msgstr "{{length_of_time}} 前"
+
+msgid "{{number_of_comments}} comment"
+msgid_plural "{{number_of_comments}} comments"
+msgstr[0] "{{number_of_comments}} 件のコメント"
+
+msgid "{{number_of_contributions}} contribution"
+msgid_plural "{{number_of_contributions}} contributions"
+msgstr[0] "{{number_of_contributions}} 件の貢献"
+
+msgid "{{number_of_requests}} request"
+msgid_plural "{{number_of_requests}} requests"
+msgstr[0] "{{number_of_requests}} 件の請求"
+
+msgid ""
+"{{number_of_requests}} request left to categorise / "
+"{{total_number_of_requests}} total"
+msgid_plural ""
+"{{number_of_requests}} requests left to categorise / "
+"{{total_number_of_requests}} total"
+msgstr[0] "分類待ち：{{number_of_requests}} / 合計：{{total_number_of_requests}}"
+
+msgid ""
+"{{pro_site_link}} is an all-in-one FOI toolkit including everything you need"
+" to keep on top of complex FOI-driven investigations."
+msgstr ""
+"{{pro_site_link}} "
+"は、複雑な情報公開請求に基づく調査を円滑に進めるために必要な機能をすべて備えた、オールインワンのFOIツールキットです。"
+
+msgid "{{pro_site_name}} Terms"
+msgstr "{{pro_site_name}} 利用規約"
+
+msgid ""
+"{{pro_site_name}} is a powerful, fully-featured FOI toolkit for journalists."
+msgstr "{{pro_site_name}} は、ジャーナリスト向けの強力で高機能な情報公開請求（FOI）ツールキットです。"
+
+msgid "{{public_body_link_absolute}}"
+msgstr "{{public_body_link_absolute}}"
+
+msgid "{{public_body_link}} answered a request about"
+msgstr "{{public_body_link}} は、以下の内容に関する請求に回答しました："
+
+msgid "{{public_body_link}} was sent a request about"
+msgstr "{{public_body_link}} には、以下の内容に関する請求が送信されました："
+
+msgid "{{public_body_name}}"
+msgstr "{{public_body_name}}"
+
+msgid ""
+"{{public_body_name}} have not replied to your {{law_used_short}} request "
+"{{title}} promptly, as normally required by law. Click on the link below to "
+"remind them to reply."
+msgstr ""
+"{{public_body_name}}は、法律で定められた期限内に{{law_used_short}}請求「{{title}}」への回答を行っていません。以下のリンクをクリックして、回答を促す連絡を送ってください。"
+
+msgid ""
+"{{public_body_name}} have still not replied to your {{law_used_short}} "
+"request {{title}}, as normally required by law. Click on the link below to "
+"tell them to reply. You might like to ask for an internal review, asking "
+"them to find out why their response to the request has been so slow."
+msgstr ""
+"{{public_body_name}}は、依然として{{law_used_short}}請求「{{title}}」への回答を行っていません。以下のリンクをクリックして、回答を求める連絡を送ってください。また、なぜ回答に時間がかかっているのかを調査するよう、内部審査を依頼することも検討してください。"
+
+msgid ""
+"{{public_body_name}} no longer exists. From the request page, try replying "
+"to a particular message, rather than sending a general followup. If you need"
+" to make a general followup, and know an email which will go to the right "
+"place, please <a href=\"{{url}}\">send it to us</a>."
+msgstr ""
+"{{public_body_name}}は既に存在しません。請求ページから、一般的な追加の連絡を送るのではなく、特定のメッセージに対して返信を行ってください。もし、適切な宛先となるメールアドレスがわかっている場合にのみ、一般的な追加の連絡を送りたい場合は、<a"
+" href=\"{{url}}\">こちらまで送信してください</a>。"
+
+msgid "{{public_body_name}}: {{confirm_url}}"
+msgstr "{{public_body_name}}: {{confirm_url}}"
+
+msgid "{{public_body_name}}: {{request_url}}"
+msgstr "{{public_body_name}}: {{request_url}}"
+
+msgid "{{public_body_name}}: {{response_url}}"
+msgstr "{{public_body_name}}: {{response_url}}"
+
+msgid ""
+"{{public_body}} has asked you to explain part of your {{law_used_short}} "
+"request."
+msgstr "{{public_body}}より、{{law_used_short}}請求の一部について説明を求める連絡がありました。"
+
+msgid "{{public_body}} sent a response to {{user_name}}"
+msgstr "{{public_body}} から {{user_name}} への回答が届きました"
+
+msgid "{{reason}}, create an account or sign in"
+msgstr "{{reason}}、アカウントを作成するかサインインしてください"
+
+msgid "{{reason}}, please sign in as {{user_name}}."
+msgstr "{{reason}}、{{user_name}} としてサインインしてください。"
+
+msgid ""
+"{{reason}}. Unfortunately we don't know the FOI email address for that "
+"authority, so we can't validate this. Please <a href=\"{{url}}\">contact "
+"us</a> to sort it out."
+msgstr ""
+"{{reason}}。残念ながら、該当する機関の情報公開請求用メールアドレスが不明なため、確認することができません。問題解決のため、<a "
+"href=\"{{url}}\">お問い合わせ</a>ください。"
+
+msgid "{{search_results}} matching '{{query}}'"
+msgstr "'{{query}}' に一致する結果：{{search_results}}"
+
+msgid "{{site_name}} blog"
+msgstr "{{site_name}} ブログ"
+
+msgid ""
+"{{site_name}} covers requests to {{number_of_authorities}} authority, "
+"including:"
+msgid_plural ""
+"{{site_name}} covers requests to {{number_of_authorities}} authorities, "
+"including:"
+msgstr[0] ""
+"{{site_name}} では {{number_of_authorities}} 件の機関への請求をカバーしています。対象は以下の通りです："
+
+msgid ""
+"{{site_name}} has identified {{authority_name}} may have refused all or part"
+" of your request under <strong>{{refusals}}</strong>."
+msgstr ""
+"{{site_name}} は、{{authority_name}} が <strong>{{refusals}}</strong> "
+"に基づき、請求の一部または全部を不開示とした可能性があることを特定しました。"
+
+msgid "{{site_name}} is currently in maintenance. {{message}}"
+msgstr "{{site_name}}は現在メンテナンス中です。{{message}}"
+
+msgid "{{site_name}} login link"
+msgstr "{{site_name}}ログインリンク"
+
+msgid ""
+"{{site_name}} users have made {{number_of_requests}} request, including:"
+msgid_plural ""
+"{{site_name}} users have made {{number_of_requests}} requests, including:"
+msgstr[0] "{{site_name}}の利用者は、以下の {{number_of_requests}} 件の請求を行いました："
+
+msgid "{{title}} - a Freedom of Information request to {{public_body}}"
+msgstr "{{title}} - {{public_body}}に対する情報公開請求"
+
+msgid "{{title}} - a batch request"
+msgstr "{{title}} - 一括請求"
+
+msgid "{{user_name}} (Account suspended)"
+msgstr "{{user_name}}（アカウント停止中）"
+
+msgid "{{user_name}} - Freedom of Information requests"
+msgstr "{{user_name}} - 情報公開請求"
+
+msgid "{{user_name}} - Two Factor Authentication"
+msgstr "{{user_name}} - 二要素認証"
+
+msgid "{{user_name}} - user profile"
+msgstr "{{user_name}} - ユーザープロフィール"
+
+msgid "{{user_name}} - wall"
+msgstr "{{user_name}} - ウォール"
+
+msgid "{{user_name}} added an annotation"
+msgstr "{{user_name}} さんがコメントを追加しました"
+
+msgid ""
+"{{user_name}} has annotated your {{law_used_short}} request. Follow this "
+"link to see what they wrote."
+msgstr ""
+"{{user_name}} さんがあなたの {{law_used_short}} 請求にコメントを付けました。以下のリンクから内容を確認してください。"
+
+msgid ""
+"{{user_name}} has reported an {{law_used_short}} response as needing "
+"administrator attention. Take a look, and reply to this email to let them "
+"know what you are going to do about it."
+msgstr ""
+"{{user_name}} さんが、ある {{law_used_short}} "
+"回答について管理者の対応が必要であると報告しました。内容を確認し、今後の対応についてこのメールに返信してください。"
+
+msgid "{{user_name}} has used {{site_name}} to send you the message below."
+msgstr "{{user_name}} さんから {{site_name}} を通じて以下のメッセージが届きました。"
+
+msgid "{{user_name}} left an annotation ({{date}})"
+msgstr "{{user_name}} さんによるコメント（{{date}}）"
+
+msgid "{{user_name}} sent a follow up message to {{public_body}}"
+msgstr "{{user_name}} さんから {{public_body}} への追加の連絡が送信されました。"
+
+msgid "{{user_name}} sent a request to {{public_body}}"
+msgstr "{{user_name}} が {{public_body}} に対し請求を行いました"
+
+msgid "{{user_name}} would like a new authority added to {{site_name}}"
+msgstr "{{user_name}} は {{site_name}} に新しい機関を追加することを希望しています"
+
+msgid ""
+"{{user_name}} would like the email address for {{public_body_name}} to be "
+"updated"
+msgstr "{{user_name}} は {{public_body_name}} のメールアドレスの更新を希望しています"
+
+msgid "{{username}} left an annotation:"
+msgstr "{{username}} がコメントを残しました："
+
+msgid ""
+"{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
+"href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
+"href=\"{{public_body_admin_url}}\">admin</a>)"
+msgstr ""
+"{{user}} ({{user_admin_link}}) は、{{public_body_link}} (<a "
+"href=\"{{public_body_admin_url}}\">管理者</a>) に対し、この {{law_used_full}} "
+"請求を行いました (<a href=\"{{request_admin_url}}\">管理者</a>)}{{"
+
+msgid ""
+"{{user}} ({{user_admin_link}}) made this {{law_used_full}} request (<a "
+"href=\"{{request_admin_url}}\">admin</a>) to {{public_body_link}} (<a "
+"href=\"{{public_body_admin_url}}\">admin</a>) as part of <a "
+"href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
+"{{user}} ({{user_admin_link}}) は、<a href=\"{{url}}\">{{count}} "
+"件の機関への一括送信</a>の一部として、{{public_body_link}} (<a "
+"href=\"{{public_body_admin_url}}\">admin</a>) に対し {{law_used_full}} "
+"に基づくこの請求を行いました (<a href=\"{{request_admin_url}}\">admin</a>)。"
+
+msgid "{{user}} made this {{law_used_full}} request to {{public_body}}"
+msgstr "{{user}} は {{public_body}} に対し、この {{law_used_full}} 請求を行いました"
+
+msgid ""
+"{{user}} made this {{law_used_full}} request to {{public_body}} as part of "
+"<a href=\"{{url}}\">a batch sent to {{count}} authorities</a>"
+msgstr ""
+"{{user}} は、<a href=\"{{url}}\">{{count}} "
+"件の機関への一括請求</a>の一部として、{{public_body}} に対しこの {{law_used_full}} 請求を行いました。"
+
+msgid "« Back to search results"
+msgstr "« 検索結果に戻る"
