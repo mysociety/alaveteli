@@ -148,6 +148,7 @@ class SearchDocument < ApplicationRecord
 
     { query: sql, values: query_values }
   end
+  private_class_method :hybrid_search_internal
 
   # Run the hybrid full-text search and return a chainable relation.
   #
