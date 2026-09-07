@@ -209,16 +209,23 @@ class SearchDocument < ApplicationRecord
       limit_ratio: limit_ratio
     )
 
+    search_results = materialized_cte(
+      :search_results, sql[:query], sql[:values]
+    )
+
     if model.nil?
-      SearchDocument.where("sd_id IN (SELECT s.sd_id FROM (#{sql[:query]}) s)",
-sql[:values])
+      # A document is one row per section and language already, so the
+      # search results map to them one for one.
+      SearchDocument.
+        with(search_results: search_results).
+        joins(
+          "JOIN search_results " \
+          "ON search_results.sd_id = search_documents.sd_id"
+        ).
+        order(Arel.sql("search_results.score DESC, search_documents.sd_id"))
     else
       record_id = "#{relation.quoted_table_name}." \
                   "#{relation.quoted_primary_key}"
-
-      search_results = materialized_cte(
-        :search_results, sql[:query], sql[:values]
-      )
 
       # A record can match through several translations or sections, so
       # roll the documents up to one row per record, scored by the best

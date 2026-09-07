@@ -127,6 +127,17 @@ RSpec.describe SearchDocument do
     end
   end
 
+  context 'searching every model at once' do
+    it 'returns the documents best match first' do
+      FactoryBot.create(:user, name: 'Ferret Watcher')
+      strong = FactoryBot.create(:user, name: 'Ferret Ferret Ferret')
+
+      results = SearchDocument.hybrid_search('Ferret', admin_mode: true)
+
+      expect(results.first.searchable).to eq(strong)
+    end
+  end
+
   context 'exact mode case sensitivity' do
     # A partial token ("ASE" inside "Charlotte Case") can only match through
     # exact mode's substring search, never through the tsvector matching.
