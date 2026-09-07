@@ -107,6 +107,15 @@ RSpec.describe SearchDocument do
     end
   end
 
+  context 'materialized CTE' do
+    it 'fences the search off so PostgreSQL runs it once' do
+      results = SearchDocument.hybrid_search('Florence', model: User,
+                                                         admin_mode: true)
+
+      expect(results.to_sql).to include('WITH "search_results" AS MATERIALIZED')
+    end
+  end
+
   context 'ordering' do
     it 'returns the best match first' do
       weak = FactoryBot.create(:user, name: 'Otter Watcher')

@@ -224,8 +224,15 @@ sql[:values])
       record_id = "#{relation.quoted_table_name}." \
                   "#{relation.quoted_primary_key}"
 
+      # Requires: lib/core_ext/active_record_materialized_cte.rb
+      search_results = Arel::Nodes::Cte.new(
+        :search_results,
+        Arel.sql("(#{sql[:query]})", **sql[:values]),
+        materialized: true
+      )
+
       relation.
-        with(search_results: Arel.sql(sql[:query], **sql[:values])).
+        with(search_results: search_results).
         joins(
           "JOIN (#{matching_ids.to_sql}) search_matches " \
           "ON search_matches.searchable_id = #{record_id}"
