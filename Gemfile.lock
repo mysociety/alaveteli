@@ -348,7 +348,7 @@ GEM
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
     mime-types-data (3.2025.0507)
-    mini_magick (5.3.3)
+    mini_magick (5.4.0)
       logger
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
@@ -691,7 +691,7 @@ DEPENDENCIES
   matrix (~> 0.4.3)
   maxmind-db (~> 1.4.0)
   mime-types (< 4.0.0)
-  mini_magick (~> 5.3)
+  mini_magick (~> 5.4)
   money (~> 7.1.1)
   net-protocol (~> 0.1.3)
   nokogiri (~> 1.19.4)
