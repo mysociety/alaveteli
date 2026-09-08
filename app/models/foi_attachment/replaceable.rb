@@ -103,6 +103,15 @@ module FoiAttachment::Replaceable
   end
 
   def handle_replacements
+    if replacing? && replacement_file_changed? &&
+       replacement_file.respond_to?(:content_type) &&
+       replacement_file.content_type.present?
+      # Pick up the replacement's MIME type before we run filename= below;
+      # otherwise the old content_type tacks the original extension onto
+      # the new filename (e.g. .tsv becomes .tsv.docx, see #9016).
+      self.content_type = replacement_file.content_type
+    end
+
     if replacing? || (replaced? && replaced_filename_changed?)
       self.filename = replaced_filename.presence ||
                       replacement_file&.original_filename ||
