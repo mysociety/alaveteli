@@ -37,6 +37,7 @@ require 'zip'
 
 class IncomingMessage < ApplicationRecord
   include MessageProminence
+  include Redactable
   include Taggable
 
   # An IncomingMessage is intrinsically linked to its RawEmail. RawEmail just
@@ -81,8 +82,6 @@ class IncomingMessage < ApplicationRecord
 
   delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 
-  delegate :apply_masks, to: :info_request
-
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.
   def response_event
@@ -114,7 +113,9 @@ class IncomingMessage < ApplicationRecord
   #
   # Returns a String
   def safe_from_name
-    info_request.apply_censor_rules_to_text(from_name) if from_name
+    return unless from_name
+
+    apply_masks(from_name, redacted_attribute: :from_name)
   end
 
   def specific_from_name?
@@ -130,6 +131,13 @@ class IncomingMessage < ApplicationRecord
   # when updating an IncomingMessage associated with the request
   def update_request
     info_request.update_last_public_response_at
+  end
+
+  def apply_masks(text, content_type = 'text/plain', redacted_attribute:, redactable: self)
+    info_request.apply_masks(
+      text, content_type,
+      redactable: redactable, redacted_attribute: redacted_attribute
+    )
   end
 
   # Removes anything cached about the object in the database, and saves

@@ -3032,7 +3032,7 @@ RSpec.describe InfoRequest do
                replacement: 'said' }.merge(@default_opts)
       CensorRule.create!(opts)
 
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
 
       expect(result).to eq(expected)
     end
@@ -3050,7 +3050,7 @@ RSpec.describe InfoRequest do
         @request.censor_rules << CensorRule.new(rule.merge(@default_opts))
       end
 
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
@@ -3067,21 +3067,21 @@ RSpec.describe InfoRequest do
         @request.user.censor_rules << CensorRule.new(rule.merge(@default_opts))
       end
 
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
     it 'replaces text with masks belonging to the info request' do
       data = "He emailed #{ @request.incoming_email }"
       expected = "He emailed [FOI ##{ @request.id } email]"
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
     it 'replaces text with global masks' do
       data = 'His email address was stilton@example.org'
       expected = 'His email address was [email address]'
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
@@ -3090,6 +3090,68 @@ RSpec.describe InfoRequest do
       expected = 'His email address was xxxxxxx@xxxxxxx.xxx'
       result = @request.apply_masks(data, 'application/vnd.ms-word')
       expect(result).to eq(expected)
+    end
+  end
+
+  describe '#masks' do
+    subject { info_request.masks }
+
+    let(:public_body) do
+      FactoryBot.create(
+        :public_body,
+        short_name: 'MaskTest',
+        request_email: 'masktest@localhost'
+      )
+    end
+
+    let(:info_request) do
+      FactoryBot.create(:info_request, public_body: public_body)
+    end
+
+    it 'includes a mask for the site contact email' do
+      is_expected.to include(
+        to_replace: 'postmaster@localhost',
+        replacement: '[Alaveteli contact email]'
+      )
+    end
+
+    it 'includes a mask for the request email' do
+      is_expected.to include(
+        to_replace: info_request.incoming_email,
+        replacement: "[FOI ##{info_request.id} email]"
+      )
+    end
+
+    it 'includes a mask for the public body request email' do
+      is_expected.to include(
+        to_replace: 'masktest@localhost',
+        replacement: "[MaskTest request email]"
+      )
+    end
+
+    context 'when the request is not persisted' do
+      let(:info_request) do
+        FactoryBot.build(:info_request, public_body: public_body)
+      end
+
+      it 'does not include a mask for the request email' do
+        replacements = info_request.masks.map { |mask| mask[:replacement] }
+        expect(replacements).to_not include(a_string_matching(/FOI #/))
+      end
+
+      it 'includes a mask for the site contact email' do
+        is_expected.to include(
+          to_replace: 'postmaster@localhost',
+          replacement: '[Alaveteli contact email]'
+        )
+      end
+
+      it 'includes a mask for the public body request email' do
+        is_expected.to include(
+          to_replace: 'masktest@localhost',
+          replacement: "[MaskTest request email]"
+        )
+      end
     end
   end
 

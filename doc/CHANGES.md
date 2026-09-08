@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Track when CensorRules actually redact content from Redactable records (Gareth
+  Rees)
 * Enqueue jobs once their transaction has committed, adopting the Rails 8.2
   default early (Graeme Porteous)
 * Exclude `foi_no` bodies from Batch (Gareth Rees)

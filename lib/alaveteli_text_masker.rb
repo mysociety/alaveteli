@@ -192,7 +192,12 @@ module AlaveteliTextMasker
 
     # Replace censor items
     censor_rules = options[:censor_rules] || []
-    text = censor_rules.reduce(text) { |t, rule| rule.apply_to_binary(t) }
+    redactable = options[:redactable]
+    redacted_attribute = options[:redacted_attribute]
+    text = censor_rules.reduce(text) do |t, rule|
+      rule.apply_to_binary(t, redactable: redactable,
+                              redacted_attribute: redacted_attribute)
+    end
     raise "internal error in apply_binary_masks" if text.bytesize != orig_size
 
     text
@@ -201,11 +206,16 @@ module AlaveteliTextMasker
   def apply_text_masks(text, options = {})
     all_masks = (options[:masks] || []) + masks.values
     censor_rules = options[:censor_rules] || []
+    redactable = options[:redactable]
+    redacted_attribute = options[:redacted_attribute]
 
     text = all_masks.inject(text) do |memo, mask|
       memo.gsub(mask[:to_replace], mask[:replacement])
     end
 
-    censor_rules.reduce(text) { |t, rule| rule.apply_to_text(t) }
+    censor_rules.reduce(text) do |t, rule|
+      rule.apply_to_text(t, redactable: redactable,
+                            redacted_attribute: redacted_attribute)
+    end
   end
 end

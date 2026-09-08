@@ -59,6 +59,43 @@ RSpec.describe CensorRule do
     it { is_expected.not_to include(user_rule) }
   end
 
+  describe '#update' do
+    context 'when the rule has redactions' do
+      let(:rule) { FactoryBot.create(:global_censor_rule) }
+      let(:redactable) { FactoryBot.create(:info_request) }
+
+      before do
+        rule.redactions.create!(redactable: redactable,
+                                redacted_attribute: 'body')
+      end
+
+      it 'clears redactions when text is changed' do
+        expect { rule.update!(text: 'new pattern') }.
+          to change(rule.redactions, :count).by(-1)
+      end
+
+      it 'clears redactions when regexp is changed' do
+        expect { rule.update!(regexp: true) }.
+          to change(rule.redactions, :count).by(-1)
+      end
+
+      it 'clears redactions when case_sensitive is changed' do
+        expect { rule.update!(case_sensitive: false) }.
+          to change(rule.redactions, :count).by(-1)
+      end
+
+      it 'clears redactions when regexp is changed' do
+        expect { rule.update!(ignore_diacritics: true) }.
+          to change(rule.redactions, :count).by(-1)
+      end
+
+      it 'does not clear redactions when other fields change' do
+        expect { rule.update!(replacement: 'new replacement') }.
+          not_to change(rule.redactions, :count)
+      end
+    end
+  end
+
   describe 'after_commit callbacks' do
     it 'expires requests after create' do
       rule = FactoryBot.create(:global_censor_rule)
@@ -229,6 +266,61 @@ RSpec.describe CensorRule do
         expect(rule.apply_to_text('Ecole text')).to eq('[REDACTED] text')
         expect(rule.apply_to_text('ECOLE text')).to eq('[REDACTED] text')
         expect(rule.apply_to_text('ÉCOLE text')).to eq('[REDACTED] text')
+      end
+    end
+
+    describe 'recording redactions' do
+      let(:rule) { FactoryBot.create(:global_censor_rule, text: 'secret') }
+      let(:redactable) { FactoryBot.create(:info_request) }
+
+      it 'creates a redaction row when the rule matches' do
+        expect {
+          rule.apply_to_text(
+            'contains secret text',
+            redactable: redactable, redacted_attribute: :body
+          )
+        }.to change(rule.redactions, :count).by(1)
+      end
+
+      it 'does not create a redaction row when the rule does not match' do
+        expect {
+          rule.apply_to_text(
+            'no match here', redactable: redactable, redacted_attribute: :body
+          )
+        }.not_to change(rule.redactions, :count)
+      end
+
+      it 'does not create a redaction row when no redactable is given' do
+        expect {
+          rule.apply_to_text('contains secret text')
+        }.not_to change(rule.redactions, :count)
+      end
+
+      it 'deletes an existing redaction row when the rule no longer matches' do
+        rule.apply_to_text(
+          'contains secret text',
+          redactable: redactable, redacted_attribute: :body
+        )
+        expect {
+          rule.apply_to_text(
+            'no match here', redactable: redactable, redacted_attribute: :body
+          )
+        }.to change(rule.redactions, :count).by(-1)
+      end
+
+      it 'keeps separate rows per attribute on the same redactable' do
+        rule.apply_to_text(
+          'secret body', redactable: redactable, redacted_attribute: :body
+        )
+
+        rule.apply_to_text(
+          'secret title', redactable: redactable, redacted_attribute: :title
+        )
+
+        redactions = rule.redactions.where(redactable: redactable)
+
+        expect(redactions.pluck(:redacted_attribute)).
+          to match_array(%w[body title])
       end
     end
   end
@@ -413,6 +505,28 @@ RSpec.describe CensorRule do
       it 'matches diacritic variants in any case in binary' do
         expect(rule.apply_to_binary('ECOLE text')).to eq('xxxxx text')
         expect(rule.apply_to_binary('école text')).to eq('xxxxxx text')
+      end
+    end
+
+    describe 'recording redactions' do
+      let(:rule) { FactoryBot.create(:global_censor_rule, text: 'secret') }
+      let(:redactable) { FactoryBot.create(:info_request) }
+
+      it 'creates a redaction row when the rule matches' do
+        expect {
+          rule.apply_to_binary(
+            'contains secret text',
+            redactable: redactable, redacted_attribute: :body
+          )
+        }.to change(rule.redactions, :count).by(1)
+      end
+
+      it 'does not create a redaction row when the rule does not match' do
+        expect {
+          rule.apply_to_binary(
+            'no match here', redactable: redactable, redacted_attribute: :body
+          )
+        }.not_to change(rule.redactions, :count)
       end
     end
   end
@@ -603,4 +717,3 @@ RSpec.describe 'when validating rules' do
     end
   end
 end
-

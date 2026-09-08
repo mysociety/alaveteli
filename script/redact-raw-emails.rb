@@ -49,7 +49,7 @@ module AlaveteliTextMasker
 end
 
 def censor_data(data, content_type)
-  @incoming_message.apply_masks(data, content_type)
+  @incoming_message.info_request.apply_masks(data, content_type)
 end
 
 def censor(text)

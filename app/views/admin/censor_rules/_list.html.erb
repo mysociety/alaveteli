@@ -16,6 +16,9 @@
         <% CensorRule.content_columns_names.each do |column| %>
           <th><%= column.humanize %></th>
         <% end %>
+        <% if defined?(info_request) %>
+          <th>Records redacted</th>
+        <% end %>
         <th>Actions</th>
       </tr>
 
@@ -31,6 +34,22 @@
             <% else %>
               <td class="<%= column %>"><%=h censor_rule.send(column) %></td>
             <% end %>
+          <% end %>
+
+          <% if defined?(info_request) %>
+            <td>
+              <% count = censor_rule.redactions.for_request(info_request).count %>
+
+              <% if count.zero? %>
+                <span class="badge"><%= count %></span>
+              <% else %>
+                <%= link_to admin_request_censor_rule_redactions_path(info_request, censor_rule) do %>
+                  <span class="badge badge-warning">
+                    <%= count %>
+                  </span>
+                <% end %>
+              <% end %>
+            </td>
           <% end %>
 
           <td>
