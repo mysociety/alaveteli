@@ -2,7 +2,7 @@
   <div class="btn-group sort-options">
     <% sort_options.keys.each do |sort_option| %>
       <%=
-        link_to_unless(sort_order == sort_option, sort_order_humanized(sort_option), url_for(sort_order: sort_option, query: @query), class: 'btn') do
+        link_to_unless(sort_order == sort_option, sort_order_humanized(sort_option), url_for(sort_order: sort_option, query: @query, search_engine: params[:search_engine]), class: 'btn') do
           link_to sort_order_humanized(sort_option), '#', class: 'btn disabled'
         end
        %>

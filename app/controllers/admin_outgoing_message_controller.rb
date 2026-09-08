@@ -13,7 +13,6 @@ class AdminOutgoingMessageController < AdminController
 
     @outgoing_messages = measure_search(
       outgoing_message_scope.
-        order(created_at: :desc).
         paginate(page: params[:page], per_page: 100)
     )
   end

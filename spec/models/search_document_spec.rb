@@ -107,6 +107,37 @@ RSpec.describe SearchDocument do
     end
   end
 
+  context 'materialized CTE' do
+    it 'fences the search off so PostgreSQL runs it once' do
+      results = SearchDocument.hybrid_search('Florence', model: User,
+                                                         admin_mode: true)
+
+      expect(results.to_sql).to include('WITH "search_results" AS MATERIALIZED')
+    end
+  end
+
+  context 'ordering' do
+    it 'returns the best match first' do
+      weak = FactoryBot.create(:user, name: 'Otter Watcher')
+      strong = FactoryBot.create(:user, name: 'Otter Otter Otter')
+
+      results = User.newsearch('Otter', admin_mode: true)
+
+      expect(results.to_a).to eq([strong, weak])
+    end
+  end
+
+  context 'searching every model at once' do
+    it 'returns the documents best match first' do
+      FactoryBot.create(:user, name: 'Ferret Watcher')
+      strong = FactoryBot.create(:user, name: 'Ferret Ferret Ferret')
+
+      results = SearchDocument.hybrid_search('Ferret', admin_mode: true)
+
+      expect(results.first.searchable).to eq(strong)
+    end
+  end
+
   context 'exact mode case sensitivity' do
     # A partial token ("ASE" inside "Charlotte Case") can only match through
     # exact mode's substring search, never through the tsvector matching.

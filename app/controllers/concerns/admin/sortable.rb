@@ -20,11 +20,12 @@ module Admin::Sortable
   class_methods do
     DEFAULT_SORTABLE_ATTRS = [:created_at, :updated_at]
 
-    def sortable(*attrs, default: nil, only: nil, except: nil)
+    def sortable(*attrs, default: nil, only: nil, except: nil,
+                 relevance: nil)
       attrs = attrs.any? ? attrs : DEFAULT_SORTABLE_ATTRS
 
       before_action only: only, except: except do
-        configure_sort_options(attrs)
+        configure_sort_options(attrs, relevance: relevance)
         configure_sort_order(default: default.to_s)
       end
     end
@@ -42,13 +43,22 @@ module Admin::Sortable
     @sort_options[@sort_order]
   end
 
+  def sorted(relation)
+    sort_query ? relation.reorder(sort_query) : relation
+  end
+
   private
 
-  def configure_sort_options(attrs)
-    @sort_options = attrs.each_with_object({}) do |attr, h|
+  def configure_sort_options(attrs, relevance: nil)
+    options = attrs.each_with_object({}) do |attr, h|
       h["#{attr}_asc"]  = "#{attr} ASC"
       h["#{attr}_desc"] = "#{attr} DESC"
-    end.with_indifferent_access
+    end
+
+    offer_relevance = relevance && send(relevance)
+    options = { 'relevance': nil }.merge(options) if offer_relevance
+
+    @sort_options = options.with_indifferent_access
   end
 
   def configure_sort_order(default: nil)
