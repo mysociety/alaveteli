@@ -732,7 +732,7 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :info_request_events,
       :controller => 'admin_info_request_event',
-      :only => [:update]
+      :only => [:edit, :index, :update]
   end
 
   #### AdminIncomingMessage controller

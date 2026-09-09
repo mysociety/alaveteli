@@ -1,0 +1,30 @@
+<% @title = "Listing FOI request events" %>
+
+<h1><%= @title %></h1>
+
+<%= form_tag({}, method: 'get', class: 'form form-search') do %>
+  <div class="input-append">
+    <%= text_field_tag "query",
+    params[:query],
+    size: 40,
+    class: "input-large search-query" %>
+    <%= submit_tag "Search", class: "btn" %>
+  </div>
+
+  <span class="help-inline">(search in event metadata)</span>
+<% end %>
+
+<div class="accordion" id="info_request_events">
+  <% if @info_request_events.any? %>
+    <h2>Found
+      <%= @info_request_events.count %>
+      events
+    </h2>
+
+    <%= render partial: "admin_info_request_event/info_request_event",
+    collection: @info_request_events %>
+    <%= will_paginate(@info_request_events) %>
+  <% else %>
+    <p>Nothing found.</p>
+  <% end %>
+</div>
