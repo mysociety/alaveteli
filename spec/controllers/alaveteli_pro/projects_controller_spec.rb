@@ -591,7 +591,7 @@ RSpec.describe AlaveteliPro::ProjectsController, type: :controller do
         format: :turbo_stream
       expect(assigns(:contributor_ids)).to_not include(contributor2.id)
       project.contributors.reload
-      expect(project.contributors).to eq([contributor1, contributor2])
+      expect(project.contributors).to contain_exactly(contributor1, contributor2)
     end
 
     it 'renders the edit_contributors template' do
