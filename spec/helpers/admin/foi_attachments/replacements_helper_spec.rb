@@ -6,14 +6,14 @@ RSpec.describe Admin::FoiAttachments::ReplacementsHelper do
 
     let(:foi_attachment) do
       double(
-        replaced?: replaced,
+        replacement_retained?: replacement_retained,
         erased?: erased,
         replacement_clearable?: replacement_clearable
       )
     end
 
     context 'when the replacement is clearable' do
-      let(:replaced) { true }
+      let(:replacement_retained) { true }
       let(:erased) { false }
       let(:replacement_clearable) { true }
 
@@ -26,7 +26,7 @@ RSpec.describe Admin::FoiAttachments::ReplacementsHelper do
     end
 
     context 'when the attachment has no replacement' do
-      let(:replaced) { false }
+      let(:replacement_retained) { false }
       let(:erased) { false }
       let(:replacement_clearable) { false }
 
@@ -35,7 +35,7 @@ RSpec.describe Admin::FoiAttachments::ReplacementsHelper do
     end
 
     context 'when the attachment is replaced and erased' do
-      let(:replaced) { true }
+      let(:replacement_retained) { true }
       let(:erased) { true }
       let(:replacement_clearable) { false }
 

@@ -114,6 +114,26 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe 'validation: replaced_reason' do
+    let(:foi_attachment) { FactoryBot.create(:body_text, :erased) }
+
+    context 'when erased with a replacement' do
+      before { foi_attachment.replaced_at = 12.hours.ago }
+
+      it 'allows a replaced reason' do
+        foi_attachment.replaced_reason = 'GDPR case'
+        expect(foi_attachment).to be_valid
+      end
+    end
+
+    context 'when erased without a replacement' do
+      it 'does not allow a replaced reason' do
+        foi_attachment.replaced_reason = 'GDPR case'
+        expect(foi_attachment).to_not be_valid
+      end
+    end
+  end
+
   describe 'replacement attributes' do
     let(:foi_attachment) { FactoryBot.create(:body_text) }
 
@@ -823,6 +843,31 @@ RSpec.describe FoiAttachment do
       expect(last_event.params[:replaced_reason]).to eq('GDPR case')
     end
 
+    it 'logs the storage key holding the original when replacing a body' do
+      old_storage_key = foi_attachment.storage_key
+      foi_attachment.update_and_log_event!(
+        replacement_body: 'new body', replaced_reason: 'GDPR case'
+      )
+      expect(last_event.params[:old_storage_key]).to eq(old_storage_key)
+    end
+
+    it 'logs the storage key holding the original when replacing a file' do
+      old_storage_key = foi_attachment.storage_key
+      foi_attachment.update_and_log_event!(
+        replacement_file: Rack::Test::UploadedFile.new(
+          file_fixture_name('interesting.pdf'), 'application/pdf'
+        ),
+        replaced_reason: 'GDPR case'
+      )
+      expect(last_event.params[:old_storage_key]).to eq(old_storage_key)
+      expect(foi_attachment.storage_key).to_not eq(old_storage_key)
+    end
+
+    it 'does not log a storage key when nothing is replaced' do
+      foi_attachment.update_and_log_event!(prominence: 'hidden')
+      expect(last_event.params[:old_storage_key]).to be_nil
+    end
+
     it 'logs additional event data' do
       foi_attachment.update_and_log_event!(
         prominence: 'hidden', event: { editor: 'me' }
@@ -1486,6 +1531,19 @@ RSpec.describe FoiAttachment do
 
       it { is_expected.to eq false }
     end
+
+    context 'when erased with a retained replacement' do
+      subject { foi_attachment.replacing? }
+
+      let(:foi_attachment) do
+        FactoryBot.create(:body_text, :erased, replaced_at: 12.hours.ago,
+                                               replaced_reason: 'GDPR case')
+      end
+
+      before { foi_attachment.replacement_body = 'foo' }
+
+      it { is_expected.to eq true }
+    end
   end
 
   describe '#replace' do
@@ -1571,6 +1629,12 @@ RSpec.describe FoiAttachment do
         expect(last_event.event_type).to eq('edit_attachment')
       end
 
+      it 'logs the storage key holding the original' do
+        old_storage_key = foi_attachment.storage_key
+        subject
+        expect(last_event.params[:old_storage_key]).to eq(old_storage_key)
+      end
+
       it { is_expected.to eq(true) }
     end
 
@@ -1606,6 +1670,46 @@ RSpec.describe FoiAttachment do
       it 'sets the replaced reason' do
         subject
         expect(foi_attachment.reload.replaced_reason).to eq('GDPR case')
+      end
+
+      it 'logs the storage key holding the original' do
+        old_storage_key = foi_attachment.storage_key
+        subject
+        expect(last_event.params[:old_storage_key]).to eq(old_storage_key)
+        expect(foi_attachment.reload.storage_key).to_not eq(old_storage_key)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the attachment has been erased' do
+      subject do
+        foi_attachment.replace!(
+          editor: editor, reason: reason, replacement_body: 'second body'
+        )
+      end
+
+      let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+
+      let(:foi_attachment) do
+        attachment = FactoryBot.create(
+          :body_text, incoming_message: info_request.incoming_messages.first
+        )
+        attachment.replace!(
+          editor: editor, reason: reason, replacement_body: 'first body'
+        )
+        attachment.erase(editor: editor, reason: reason)
+        attachment.reload
+      end
+
+      it 'replaces the retained replacement' do
+        subject
+        expect(foi_attachment.reload.body).to eq('second body')
+      end
+
+      it 'leaves the attachment erased' do
+        subject
+        expect(foi_attachment.reload).to be_erased
       end
 
       it { is_expected.to eq(true) }
@@ -1971,6 +2075,19 @@ RSpec.describe FoiAttachment do
 
       it { is_expected.to eq false }
     end
+
+    context 'when erased with a retained replacement' do
+      subject { foi_attachment.replacing_or_replaced? }
+
+      let(:foi_attachment) do
+        FactoryBot.create(:body_text, :erased, replaced_at: 12.hours.ago,
+                                               replaced_reason: 'GDPR case')
+      end
+
+      before { allow(foi_attachment).to receive(:replacing?).and_return(true) }
+
+      it { is_expected.to eq true }
+    end
   end
 
   describe '#raw_email_erased?' do
@@ -2007,6 +2124,56 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#replacement_retained?' do
+    subject { foi_attachment.replacement_retained? }
+
+    context 'when replaced_at is unset' do
+      let(:foi_attachment) { FactoryBot.build(:body_text) }
+      it { is_expected.to eq false }
+    end
+
+    context 'when replaced_at is set' do
+      let(:foi_attachment) do
+        FactoryBot.build(:body_text, replaced_at: Time.zone.now,
+                                     replaced_reason: 'Test reason')
+      end
+
+      it { is_expected.to eq true }
+    end
+
+    context 'when replaced and erased' do
+      let(:foi_attachment) do
+        FactoryBot.build(:body_text, :erased, replaced_at: Time.zone.now,
+                                              replaced_reason: 'Test reason')
+      end
+
+      it { is_expected.to eq true }
+    end
+  end
+
+  describe '#content_erased?' do
+    subject { foi_attachment.content_erased? }
+
+    context 'when not erased' do
+      let(:foi_attachment) { FactoryBot.build(:body_text) }
+      it { is_expected.to eq false }
+    end
+
+    context 'when erased' do
+      let(:foi_attachment) { FactoryBot.build(:body_text, :erased) }
+      it { is_expected.to eq true }
+    end
+
+    context 'when erased with a retained replacement' do
+      let(:foi_attachment) do
+        FactoryBot.build(:body_text, :erased, replaced_at: Time.zone.now,
+                                              replaced_reason: 'Test reason')
+      end
+
+      it { is_expected.to eq false }
+    end
+  end
+
   describe '#ensure_not_erased!' do
     let(:foi_attachment) { FactoryBot.build(:body_text) }
 
@@ -2030,6 +2197,18 @@ RSpec.describe FoiAttachment do
         expect { foi_attachment.ensure_not_erased! }.to raise_error(
           FoiAttachment::ErasedError, 'attachment has been erased (ID=123)'
         )
+      end
+    end
+
+    context 'when erased with a retained replacement' do
+      before do
+        allow(foi_attachment).to receive(:erased?).and_return(true)
+        allow(foi_attachment).to receive(:replacement_retained?).
+          and_return(true)
+      end
+
+      it 'returns nil' do
+        expect(foi_attachment.ensure_not_erased!).to be_nil
       end
     end
   end
@@ -2114,6 +2293,12 @@ RSpec.describe FoiAttachment do
       expect { subject }.to change { erase_attachment_event }.from(nil)
     end
 
+    it 'records the erased storage key on the event' do
+      storage_key = foi_attachment.storage_key
+      subject
+      expect(erase_attachment_event.params[:storage_key]).to eq(storage_key)
+    end
+
     it 'expires the associated info_request' do
       expect(foi_attachment.info_request).to receive(:expire)
       subject
@@ -2150,6 +2335,15 @@ RSpec.describe FoiAttachment do
         subject
         perform_enqueued_jobs
         expect(foi_attachment.reload).not_to be_erased
+      end
+
+      it 'logs the reason for the failure' do
+        allow(Rails.logger).to receive(:error)
+        subject
+        expect(Rails.logger).to have_received(:error).with(
+          "FoiAttachment#erase failed (ID=#{foi_attachment.id}): " \
+          'ActiveRecord::Rollback: could not log erase_attachment event'
+        )
       end
 
       it { is_expected.to eq(false) }
@@ -2221,7 +2415,70 @@ RSpec.describe FoiAttachment do
         expect(foi_attachment.reload).not_to be_erased
       end
 
+      it 'logs the reason for the failure' do
+        allow(Rails.logger).to receive(:error)
+        subject
+        expect(Rails.logger).to have_received(:error).with(
+          a_string_including(
+            "FoiAttachment#erase failed (ID=#{foi_attachment.id})",
+            'RawEmail::UnmaskedAttachmentsError'
+          )
+        )
+      end
+
       it { is_expected.to eq(false) }
+    end
+
+    context 'when the attachment has been replaced' do
+      before do
+        foi_attachment.replace!(
+          editor: editor,
+          reason: 'Replacing content',
+          replacement_body: 'replacement body'
+        )
+      end
+
+      it 'erases the attachment' do
+        expect { subject }.to change { foi_attachment.reload.erased? }.
+          from(false).to(true)
+      end
+
+      it 'retains the replacement details' do
+        subject
+        expect(foi_attachment.reload.replaced_reason).to eq('Replacing content')
+        expect(foi_attachment.replaced_at).to be_present
+      end
+
+      it 'retains the replacement file' do
+        blob = foi_attachment.file_blob
+        perform_enqueued_jobs { subject }
+        expect(blob.service.exist?(blob.key)).to eq(true)
+      end
+
+      it 'retains the replacement body' do
+        perform_enqueued_jobs { subject }
+        expect(foi_attachment.reload.body).to eq('replacement body')
+      end
+
+      it 'retains the replacement filename' do
+        expect { subject }.to_not change(foi_attachment, :filename).
+          from('bob.txt')
+      end
+
+      it 'does not erase the content' do
+        perform_enqueued_jobs { subject }
+        expect(foi_attachment.reload).to_not be_content_erased
+      end
+
+      it 'does not record a storage key on the event' do
+        subject
+        expect(erase_attachment_event.params[:storage_key]).to be_nil
+      end
+
+      it 'erases the raw email' do
+        subject
+        expect(foi_attachment.raw_email.reload).to be_erased
+      end
     end
 
     context 'when a sibling attachment is unmasked' do

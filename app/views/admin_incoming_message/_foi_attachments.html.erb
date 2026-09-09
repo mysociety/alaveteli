@@ -21,7 +21,7 @@
               <% if attachment.main_body_part? %>
                 <span class="label">Main Body</span>
               <% end %>
-              <% if attachment.replaced? %>
+              <% if attachment.replacement_retained? %>
                 <span class="label">Replaced</span>
               <% end %>
               <% if attachment.erased? %>
