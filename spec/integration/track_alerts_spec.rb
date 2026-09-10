@@ -56,6 +56,34 @@ RSpec.describe "When sending track alerts" do
     expect(deliveries.size).to eq(0)
   end
 
+  # No search stub: the whole point is that nothing consults the index.
+  it "sends alerts from the database", feature: :database_backed_alerts do
+    info_request = FactoryBot.create(:info_request)
+    user = FactoryBot.create(:user, last_daily_track_email: 3.days.ago)
+    user_session = login(user)
+    using_session(user_session) do
+      visit "request/#{info_request.url_title}/track"
+    end
+
+    other_user = FactoryBot.create(:user)
+    other_user_session = login(other_user)
+    using_session(other_user_session) do
+      visit "annotate/request/#{info_request.url_title}"
+      fill_in "comment[body]", with: 'database comment'
+      click_button 'Preview your annotation'
+      click_button 'Post annotation'
+    end
+
+    expect(Search).not_to receive(:search)
+
+    TrackMailer.alert_tracks
+
+    mail = ActionMailer::Base.deliveries.last
+    expect(mail.to_addrs.first.to_s).to include(user.email)
+    expect(mail.body).to include('added an annotation')
+    expect(mail.body).to match(/database comment/)
+  end
+
   it "should send localised alerts" do
     info_request = FactoryBot.create(:info_request)
     user = FactoryBot.create(:user, last_daily_track_email: 3.days.ago)

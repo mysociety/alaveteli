@@ -73,10 +73,10 @@ RSpec.describe TrackMailer do
         before do
           @track_things_sent_emails_array = []
           allow(@track_things_sent_emails_array).to receive(:where).and_return([]) # this is for the date range find (created in last 14 days)
-          @search_results = double('search results', results: [],
-                                                     words_to_highlight: [])
+          @matches = double('matching events', events: [],
+                                               highlight_words: [])
           @track_thing = mock_model(TrackThing,
-                                    matches: @search_results,
+                                    matches: @matches,
                                     track_things_sent_emails: @track_things_sent_emails_array,
                                     created_at: Time.utc(2007, 11, 9, 23, 59))
           allow(TrackThing).to receive(:where).and_return([@track_thing])
@@ -85,13 +85,12 @@ RSpec.describe TrackMailer do
                                                 :info_request_event_id= => true)
           allow(TrackThingsSentEmail).to receive(:new).and_return(@track_things_sent_email)
           @found_event = mock_model(InfoRequestEvent, described_at: @track_thing.created_at + 1.day)
-          @search_result = { model: @found_event }
         end
 
         it 'should ask the track for the events it matches' do
           expect(@track_thing).to receive(:matches).
             with(sort_by: 'described_at', limit: 100).
-            and_return(@search_results)
+            and_return(@matches)
           TrackMailer.alert_tracks
         end
 
@@ -100,8 +99,7 @@ RSpec.describe TrackMailer do
           # this is for the date range find (created in last 14 days)
           allow(@track_things_sent_emails_array).
             to receive(:where).and_return([sent_email])
-          allow(@search_results).to receive(:results).
-            and_return([@search_result])
+          allow(@matches).to receive(:events).and_return([@found_event])
           expect(TrackMailer).not_to receive(:event_digest)
           TrackMailer.alert_tracks
         end
@@ -109,8 +107,7 @@ RSpec.describe TrackMailer do
         it 'should not include events described before the track was set up' do
           allow(@found_event).to receive(:described_at).
             and_return(@track_thing.created_at - 1.day)
-          allow(@search_results).to receive(:results).
-            and_return([@search_result])
+          allow(@matches).to receive(:events).and_return([@found_event])
           expect(TrackMailer).not_to receive(:event_digest)
           TrackMailer.alert_tracks
         end
@@ -118,8 +115,7 @@ RSpec.describe TrackMailer do
         it 'should include new events described since the track was set up' do
           allow(@found_event).to receive(:described_at).
             and_return(@track_thing.created_at + 1.day)
-          allow(@search_results).to receive(:results).
-            and_return([@search_result])
+          allow(@matches).to receive(:events).and_return([@found_event])
           expect(TrackMailer).to receive(:event_digest)
           TrackMailer.alert_tracks
         end
@@ -127,9 +123,8 @@ RSpec.describe TrackMailer do
         it 'passes the words to highlight to the digest' do
           allow(@found_event).to receive(:described_at).
             and_return(@track_thing.created_at + 1.day)
-          allow(@search_results).to receive(:results).
-            and_return([@search_result])
-          allow(@search_results).to receive(:words_to_highlight).
+          allow(@matches).to receive(:events).and_return([@found_event])
+          allow(@matches).to receive(:highlight_words).
             and_return(%w[fancy dog])
 
           expect(TrackMailer).to receive(:event_digest).
@@ -139,8 +134,7 @@ RSpec.describe TrackMailer do
         end
 
         it 'should record sent tracking email for each included event' do
-          allow(@search_results).to receive(:results).
-            and_return([@search_result])
+          allow(@matches).to receive(:events).and_return([@found_event])
           sent_email = mock_model(TrackThingsSentEmail)
           expect(TrackThingsSentEmail).to receive(:new).and_return(sent_email)
           expect(sent_email).to receive(:track_thing_id=).with(@track_thing.id)

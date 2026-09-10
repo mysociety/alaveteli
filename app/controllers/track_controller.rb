@@ -171,7 +171,7 @@ class TrackController < ApplicationController
 
   def atom_feed_internal
     search_results = perform_track_search(@track_thing)
-    @events = search_results.results.map { |result| result[:model] }
+    @events = search_results.events
     # We're assuming that a request to a feed url with no format suffix wants atom/xml
     # so set that as the default, regardless of content negotiation
     request.format = params[:format] || 'xml'
@@ -180,9 +180,7 @@ class TrackController < ApplicationController
         highlight = ->(t) do
           view_context.highlight_and_excerpt(
             t,
-            search_results.words_to_highlight(
-              regex: true, include_original: true
-            ),
+            search_results.highlight_words,
             150
           )
         end
