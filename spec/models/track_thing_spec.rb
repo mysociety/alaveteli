@@ -172,10 +172,9 @@ RSpec.describe TrackThing, "#matches" do
            hash_including(models: [InfoRequestEvent],
                           sort_by: 'described_at',
                           sort_ascending: true)).
-      and_return(double(results: :search_results))
+      and_return(double(results: build_search_results(items: [])))
 
-    expect(track_thing.matches(sort_by: 'described_at', limit: 100)).
-      to eq(:search_results)
+    track_thing.matches(sort_by: 'described_at', limit: 100).events
   end
 end
 

@@ -77,9 +77,7 @@ class TrackMailer < ApplicationMailer
                                              limit: 100)
         # Go through looking for unalerted things
         alert_events = []
-        search_results.results.each do |result|
-          event = result[:model]
-
+        search_results.events.each do |event|
           # made before the track was created
           next if track_thing.created_at >= event.described_at
 
@@ -94,7 +92,7 @@ class TrackMailer < ApplicationMailer
         end
         # If there were more alerts for this track, then store them
         unless alert_events.empty?
-          highlight_words = search_results.words_to_highlight(regex: true)
+          highlight_words = search_results.highlight_words
           email_about_things.push([track_thing, alert_events, highlight_words])
         end
       end

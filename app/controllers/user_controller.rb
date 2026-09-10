@@ -129,7 +129,7 @@ class UserController < ApplicationController
       @track_things.each do |track_thing|
         results = track_thing.matches(sort_by: 'described_at',
                                       limit: 20)
-        feed_results += results.results.map { |x| x[:model] }
+        feed_results += results.events
       end
     end
 
@@ -317,8 +317,7 @@ class UserController < ApplicationController
     else
       @user.
         track_things.
-        flat_map { |thing| perform_track_search(thing).results }.
-        map { |result| result[:model] }.
+        flat_map { |thing| perform_track_search(thing).events }.
         sort { |a, b| b.created_at <=> a.created_at }.
         first(20)
     end

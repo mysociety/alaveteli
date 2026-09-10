@@ -142,8 +142,8 @@ namespace :translation do
 
     # track mailer
     search_results = track_thing.matches(sort_by: 'described_at', limit: 100)
-    highlight_words = search_results.words_to_highlight(regex: true)
-    alert_events = search_results.results.map { |result| result[:model] }
+    highlight_words = search_results.highlight_words
+    alert_events = search_results.events
     event_digest_email = TrackMailer.event_digest(
       info_request.user, [[track_thing, alert_events, highlight_words]]
     )
