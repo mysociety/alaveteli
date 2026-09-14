@@ -1,0 +1,36 @@
+<% @title = "Listing FOI requests" %>
+
+<h1><%= @title %></h1>
+
+<%= form_tag({}, method: 'get', class: 'form form-search') do %>
+  <div class="input-append">
+    <%= text_field_tag "query",
+    params[:query],
+    size: 30,
+    class: "input-large search-query" %>
+    <%= submit_tag "Search", class: "btn" %>
+  </div>
+
+  <div>
+    Search through info requests and their nested content (emails, attachments)
+    and show whatever matches. This uses the new search engine, please report
+    bad results so we can improve it!
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="span12">
+    <%= render partial: "concerns/admin/sortable/sort_options" %>
+  </div>
+</div>
+
+<div class="accordion" id="requests">
+  <% if @hits.any? %>
+    <%= render partial: "admin_request/request_search_result", collection: @hits %>
+    <%= will_paginate(@hits) %>
+  <% else %>
+    <p>Nothing found.</p>
+  <% end %>
+</div>
+
+<%= render "concerns/admin/searchable/search_stats" %>

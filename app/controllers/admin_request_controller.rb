@@ -13,7 +13,7 @@ class AdminRequestController < AdminController
   ]
 
   sortable default: :updated_at_desc, relevance: :indexed_search?,
-           only: [:index]
+           only: [:index, :index_with_content]
 
   def index
     @query = params[:query]
@@ -30,6 +30,87 @@ class AdminRequestController < AdminController
         info_requests.includes(:embargo, :user, public_body: :translations)
       ).paginate(page: params[:page], per_page: 100)
     )
+  end
+
+  # list and search through info_requests with child items
+  # (messages and attachments)
+  def index_with_content
+    @query = params[:query]
+
+    if @query
+      hits = SearchDocument.
+        includes(
+          searchable: {
+            info_request: [
+              :embargo,
+              :user,
+              public_body: :translations
+            ]
+          }
+        ).
+        hybrid_search(@query, admin_mode: true, limit: 1_000).
+        where(
+          searchable_type: [
+            :InfoRequest,
+            :IncomingMessage,
+            :OutgoingMessage,
+            :FoiAttachment
+          ]
+        ).
+        paginate(page: params[:page], per_page: 100)
+
+      # if cannot? :admin, AlaveteliPro::Embargo
+      if params[:emb] == "1"
+        # we need to handle each SearchDocument type differently here,
+        # so we join multiple times on embargoes
+        hits = hits.joins(
+          # InfoRequest
+          "LEFT OUTER JOIN embargoes embargo_ir " \
+          "ON embargo_ir.info_request_id = search_documents.searchable_id " \
+          "AND search_documents.searchable_type = 'InfoRequest'"
+        ).joins(
+          # OutgoingMessage
+          "LEFT OUTER JOIN outgoing_messages om " \
+          "ON om.id = search_documents.searchable_id " \
+          "AND search_documents.searchable_type = 'OutgoingMessage' " \
+          "LEFT OUTER JOIN embargoes embargo_om " \
+          "ON embargo_om.info_request_id = om.info_request_id"
+        ).joins(
+          # IncomingMessage
+          "LEFT OUTER JOIN incoming_messages im " \
+          "ON im.id = search_documents.searchable_id " \
+          "AND search_documents.searchable_type = 'IncomingMessage' " \
+          "LEFT OUTER JOIN embargoes embargo_im " \
+          "ON embargo_im.info_request_id = im.info_request_id"
+        ).joins(
+          # FoiAttachment
+          "LEFT OUTER JOIN foi_attachments fa " \
+          "ON fa.id = search_documents.searchable_id " \
+          "AND search_documents.searchable_type = 'FoiAttachment' " \
+          "LEFT OUTER JOIN incoming_messages fa_im " \
+          "ON fa.incoming_message_id = fa_im.id " \
+          "LEFT OUTER JOIN embargoes embargo_fa " \
+          "ON embargo_fa.info_request_id = fa_im.info_request_id"
+        ).where("embargo_om.id is null")
+        .where("embargo_ir.id is null")
+          .where("embargo_im.id is null")
+          .where("embargo_fa.id is null")
+      end
+      @hits = measure_search(sorted(hits))
+    else
+      @hits = SearchDocument.where(searchable_type: 'InfoRequest').
+                includes(
+                  searchable: {
+                    info_request: [
+                      :embargo,
+                      :user,
+                      public_body: :translations
+                    ]
+                  }
+                ).
+                order(sort_query).
+                paginate(page: params[:page], per_page: 100)
+    end
   end
 
   def show
