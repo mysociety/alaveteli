@@ -626,6 +626,9 @@ Lint/LiteralInInterpolation:
 Lint/Loop:
   Enabled: true
 
+Lint/MisplacedMagicComment:
+  Enabled: false
+
 Lint/MissingCopEnableDirective:
   Enabled: false
 
@@ -1772,9 +1775,6 @@ Style/Documentation:
     - test/**/*
 
 Style/DocumentationMethod:
-  Enabled: false
-
-Style/DoubleCopDisableDirective:
   Enabled: false
 
 Style/DoubleNegation:
