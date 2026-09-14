@@ -1,8 +1,12 @@
 ARG RUBY_VERSION=3.4
 FROM ruby:${RUBY_VERSION}-trixie
 
-ENV DOCKER 1
-ENV DEBIAN_FRONTEND noninteractive
+ENV DOCKER=1
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update -y && \
+    apt-get install -y postgresql-common && \
+    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
 
 RUN apt-get update -y && \
     apt-get install -y \
@@ -14,7 +18,7 @@ RUN apt-get update -y && \
     libreoffice-writer-nogui \
     pdftk \
     poppler-utils \
-    postgresql-client \
+    postgresql-client-15 \
     sendmail \
     tnef \
     unrtf \

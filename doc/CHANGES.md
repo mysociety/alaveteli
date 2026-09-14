@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Drop support for PostgreSQL 13 (Graeme Porteous)
 * Speed up determination of applicable censor rules and guarantee order of
   application (Laurent Savaete)
 * Enqueue jobs once their transaction has committed, adopting the Rails 8.2
@@ -98,6 +99,16 @@
 * Block various action links via robots.txt (Laurent Savaete)
 
 ## Upgrade Notes
+
+* **IMPORTANT! We no longer support PostgreSQL 13**. Please upgrade to at least
+  version 15 before upgrading Alaveteli. This is the version shipped with Debian
+  Bookworm, and PostgreSQL 13 is now out of support upstream.
+
+  A major version upgrade needs the data moving over, either with `pg_upgrade`
+  or by dumping and restoring. Take a backup first and check your site works
+  before upgrading Alaveteli.
+
+  See: https://www.postgresql.org/docs/15/upgrading.html
 
 * _Required:_ This release now allows responses to be received from any source,
   1. Postfix/Exim `./script/mailin` pipe,
