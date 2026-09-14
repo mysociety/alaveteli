@@ -300,6 +300,48 @@ RSpec.describe 'when getting header strings' do
 end
 
 RSpec.describe 'when getting attachment attributes' do
+  # Decoding an 8bit part leaves it untouched, so its hexdigest changes with
+  # the line endings of the raw email unless RawEmail#mail normalises them
+  # first.
+  def hexdigests(source)
+    raw_email = FactoryBot.create(:incoming_message).raw_email
+    raw_email.data = source
+    attributes = MailHandler.get_attachment_attributes(raw_email.mail)
+    attributes.map { |a| a[:hexdigest] }
+  end
+
+  it 'ignores the line endings of the raw email' do
+    email = <<~EML
+      From: sender@example.com
+      To: request-1234-xxxxxxxx@localhost
+      Subject: Test
+      MIME-Version: 1.0
+      Content-Type: multipart/mixed; boundary="BOUNDARY"
+
+      --BOUNDARY
+      Content-Type: text/plain; charset=utf-8
+      Content-Transfer-Encoding: 8bit
+
+      Dear Sir,
+
+      Please find our réponse below.
+      --BOUNDARY
+      Content-Type: text/html; charset=utf-8
+      Content-Transfer-Encoding: 8bit
+
+      <p>Dear Sir,</p>
+
+      <p>Please find our réponse below.</p>
+      --BOUNDARY--
+    EML
+
+    lf_digests = hexdigests(Mail::Utilities.binary_unsafe_to_lf(email))
+    crlf_digests = hexdigests(Mail::Utilities.binary_unsafe_to_crlf(email))
+    expect(lf_digests.size).to eq(2)
+    expect(crlf_digests.size).to eq(2)
+    expect(lf_digests).to eq(crlf_digests)
+  end
+
   it 'should handle an Outlook attachment with HTML generated from RTF' do
     mail = get_fixture_mail('outlook-encoding-rtf.eml')
     attribute_hashes = MailHandler.get_attachment_attributes(mail)
