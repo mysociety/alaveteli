@@ -684,6 +684,9 @@ Rails.application.routes.draw do
 
   #### AdminRequest controller
   scope '/admin', :as => 'admin' do
+    get 'requests_with_content',
+      to: 'admin_request#index_with_content',
+      as: :requests_with_content
     resources :requests,
       :controller => 'admin_request',
     :except => [:new, :create] do
