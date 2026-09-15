@@ -1348,6 +1348,7 @@ RSpec.describe IncomingMessage, " when uudecoding bad messages" do
     mail = get_fixture_mail('inline-uuencode.eml')
     im = incoming_messages(:useless_incoming_message)
     allow(im.raw_email).to receive(:mail!).and_return(mail)
+    allow_any_instance_of(FoiAttachment).to receive(:is_indexable?).and_return(false)
     im.parse_raw_email!
     attachments = im.foi_attachments
     expect(attachments.size).to eq(2)
