@@ -66,6 +66,31 @@ Available sort fields: `created_at`, `described_at`.
 
 Available collapse fields: `request_collapse`, `request_title_collapse`.
 
+### Request search
+
+`Search.request_search` is the keyword search behind site search, the
+public body and user pages, and the request list's keyword filter. It
+returns one `InfoRequest` per match, so callers and views work in
+requests rather than in whatever the backend happened to index:
+
+```ruby
+results = Search.request_search('freedom of information',
+                                sort_by: 'created_at',
+                                sort_ascending: false).
+            results(page: 1, per_page: 25)
+
+results.results # [{model: #<InfoRequest>, ...}, ...]
+```
+
+Each backend decides which models carry the content it searches. Xapian
+searches `InfoRequestEvent`, collapses by `request_collapse`, and maps
+each matching event back to its request. PostgreSQL will search the
+request and its messages and attachments, and group the hits by request.
+So a caller cannot assume what was matched, only that a request matched.
+
+Use it for any keyword search over requests. Use `Search.search` when
+you want the matching records themselves, such as annotations.
+
 ### Scoped search
 
 `Search.search_scope` (or `Model.search_scope` via the `Searchable`
@@ -197,6 +222,11 @@ module Search
           # and returns a Search::Results
         end
 
+        def request_search(query, sort_by: nil, sort_ascending: true)
+          # Same contract as search, but the results must be InfoRequests,
+          # one per matching request
+        end
+
         def typeahead(query, model:, exclude_tags: [])
           # Same contract as search
         end
@@ -254,6 +284,9 @@ The `search` method receives these backend-agnostic parameters:
 | `sort_ascending` | Boolean | Sort direction (default `true`) |
 | `collapse_by` | String/nil | Logical field name to deduplicate by |
 
+`request_search` takes the same parameters bar `models`, which it picks
+itself, and `collapse_by`, which it always applies to the request.
+
 **Note on query syntax:** The query string currently uses Xapian's query
 syntax (e.g. `variety:response status:successful`). A future change will
 replace this with structured query objects so backends don't need to parse
@@ -308,6 +341,9 @@ automatically in all specs.
 stub_search_results(items: [event1, event2], total: 100)
 stub_search_results(items: [], spelling_correction: 'bob')
 
+# Request search (the request listings)
+stub_request_search_results(items: [request1, request2], total: 100)
+
 # Typeahead
 stub_typeahead_results(items: [body1, body2])
 
@@ -340,8 +376,9 @@ in `{model: item, percent: 100, ...}` hashes if not already in that format.
 
 A `SearchHelpers::Guard` module is prepended onto
 `Search::Adapters::Xapian::Adapter`. In non-`:xapian` tagged specs, all
-`search`/`typeahead`/`similar` calls return a `NullSearcher` that produces
-empty results, preventing any Xapian database access in unit tests.
+`search`/`request_search`/`typeahead`/`similar` calls return a
+`NullSearcher` that produces empty results, preventing any Xapian database
+access in unit tests.
 
 To run specs that hit the real Xapian index, tag them with `:xapian`:
 
@@ -438,6 +475,7 @@ app/search/
     xapian.rb                         # Xapian backend adapter
     xapian/
       full_text_search.rb             # Wraps ActsAsXapian::Search
+      request_search.rb               # Event search mapped back to requests
       similar_requests.rb             # Wraps ActsAsXapian::Similar
       typeahead.rb                    # Xapian typeahead query prep + execution
       indexing.rb                     # acts_as_xapian model configuration
