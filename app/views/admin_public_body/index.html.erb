@@ -45,7 +45,7 @@
 
 <% if @public_bodies_by_tag.size > 0 %>
   <h2>Exact tag matches (<%= @public_bodies_by_tag.size %> total)</h2>
-  <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies_by_tag, :table_name => 'exact' } %>
+  <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies_by_tag } %>
 <% end %>
 
 <% if @public_bodies.size > 0 %>
@@ -60,7 +60,7 @@
         total)</h2>
     <% end %>
   <% end %>
-  <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies, :table_name => 'substring' } %>
+  <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies } %>
 <% end %>
 
 <%= will_paginate(@public_bodies) %>
