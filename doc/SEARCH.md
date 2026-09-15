@@ -359,12 +359,13 @@ end
 
 #### Shared backend contract
 
-`spec/search/shared_examples/backend_contract.rb` defines
+`spec/models/search/shared_examples/backend_contract.rb` defines
 `shared_examples 'a search backend'`, the interface every adapter must
-satisfy (composable `search_scope`, `search(...).results(page:, per_page:)`
-returning `Search::Results`, `reindex_later`, and `queued_jobs_count`). Run
-it against a new adapter by including it with a `subject` and an indexed
-backend tag:
+satisfy: a composable `search_scope`, a `search` that pages, sorts and
+collapses, returning `Search::Results` items keyed by `:model`, a
+`request_search` that pages and returns each matching InfoRequest once,
+`reindex_later`, and `queued_jobs_count`. Run it against a new adapter by
+including it with a `subject` and an indexed backend tag:
 
 ```ruby
 require_relative '../shared_examples/backend_contract'
