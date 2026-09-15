@@ -828,6 +828,17 @@ RSpec.describe IncomingMessage do
         expect(message.get_attachment_text_full).not_to include('[REDACTED]')
         expect(message.get_attachment_text_full).to include('hide_me')
       end
+
+      it 'records the redaction against the extracted text' do
+        message.get_attachment_text_full
+
+        recorded = censor_rule.redactions.
+          pluck(:redactable_id, :redacted_attribute)
+
+        expect(recorded).
+          to include([message.foi_attachments.last.id, 'body_to_text'])
+      end
+
     end
 
     context 'when an attachment cannot be masked' do
