@@ -2,7 +2,9 @@
 module CensorRule::Recordable
   extend ActiveSupport::Concern
 
-  PATTERN_COLUMNS = %w[text regexp case_sensitive ignore_diacritics].freeze
+  # The attributes that, if changed, may result in different content being
+  # redacted
+  PATTERN_ATTRIBUTES = %w[text regexp case_sensitive ignore_diacritics].freeze
 
   included do
     has_many :redactions,
@@ -35,6 +37,6 @@ module CensorRule::Recordable
   end
 
   def clear_redactions_if_pattern_changed
-    redactions.delete_all if (changed & PATTERN_COLUMNS).any?
+    redactions.delete_all if (changed & PATTERN_ATTRIBUTES).any?
   end
 end
