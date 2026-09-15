@@ -60,6 +60,45 @@ RSpec.describe AlaveteliTextMasker do
       end
     end
 
+    context 'redaction tracking via redactable: option' do
+      let(:rule) { FactoryBot.create(:global_censor_rule, text: 'Stilton') }
+      let(:redactable) { FactoryBot.create(:info_request) }
+
+      it 'records a redaction on the redactable when a censor rule matches' do
+        expect {
+          class_instance.apply_masks(
+            'There was a mouse called Stilton.',
+            'text/plain',
+            censor_rules: [rule],
+            redactable: redactable,
+            redacted_attribute: :body
+          )
+        }.to change(CensorRule::Redaction, :count).by(1)
+      end
+
+      it 'does not record a redaction when redactable: is absent' do
+        expect {
+          class_instance.apply_masks(
+            'There was a mouse called Stilton.',
+            'text/plain',
+            censor_rules: [rule]
+          )
+        }.not_to change(CensorRule::Redaction, :count)
+      end
+
+      it 'does not record a redaction when no rule matches' do
+        expect {
+          class_instance.apply_masks(
+            'No match here.',
+            'text/plain',
+            censor_rules: [rule],
+            redactable: redactable,
+            redacted_attribute: :body
+          )
+        }.not_to change(CensorRule::Redaction, :count)
+      end
+    end
+
     context 'applying masks to binary' do
       it "replaces ASCII email addresses in Word documents" do
         data = "His email was foo@bar.com"

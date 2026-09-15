@@ -47,7 +47,8 @@ class AttachmentsController < ApplicationController
       }
     )
 
-    html = @incoming_message.apply_masks(html, response.media_type)
+    html = @attachment.apply_masks(html, response.media_type,
+                                   redacted_attribute: :body)
 
     render html: html.html_safe
   end

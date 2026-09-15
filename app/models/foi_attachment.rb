@@ -43,6 +43,7 @@ class FoiAttachment < ApplicationRecord
   include Eventable
   include Lockable
   include Maskable
+  include Redactable
   include Replaceable
 
   MissingError = Class.new(StandardError)
@@ -172,7 +173,7 @@ class FoiAttachment < ApplicationRecord
     return filename unless info_request
     return filename if locked? && !locking?
 
-    info_request.apply_censor_rules_to_text(filename)
+    apply_masks(filename, redacted_attribute: :filename)
   end
 
   # TODO: changing this will break existing URLs, so have a care - maybe

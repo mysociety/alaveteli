@@ -5,6 +5,15 @@
       the previous rule, so the order may matter depending on what you are
       trying to redact.
     </p>
+
+    <% if defined?(info_request) && info_request.foi_attachments.locked.any? %>
+      <p>
+        <strong>This request has locked attachments.</strong>
+        Attachments locked before redaction tracking was added are not
+        counted here as their content is frozen, so what was redacted can no
+        longer be determined.
+      </p>
+    <% end %>
   </div>
 </div>
 
@@ -15,6 +24,9 @@
         <th>Id</th>
         <% CensorRule.content_columns_names.each do |column| %>
           <th><%= column.humanize %></th>
+        <% end %>
+        <% if defined?(info_request) %>
+          <th>Records redacted</th>
         <% end %>
         <th>Actions</th>
       </tr>
@@ -31,6 +43,22 @@
             <% else %>
               <td class="<%= column %>"><%=h censor_rule.send(column) %></td>
             <% end %>
+          <% end %>
+
+          <% if defined?(info_request) %>
+            <td>
+              <% count = censor_rule.redactions.for_request(info_request).count %>
+
+              <% if count.zero? %>
+                <span class="badge"><%= count %></span>
+              <% else %>
+                <%= link_to admin_request_censor_rule_redactions_path(info_request, censor_rule) do %>
+                  <span class="badge badge-warning">
+                    <%= count %>
+                  </span>
+                <% end %>
+              <% end %>
+            </td>
           <% end %>
 
           <td>
