@@ -39,8 +39,8 @@
     <div class="results_block">
       <% if @info_request_batch.sent? %>
         <% @info_requests.each do |info_request| %>
-          <%= render partial: 'request/request_listing_via_event',
-                     locals: { event: info_request.last_event_forming_initial_request } %>
+          <%= render partial: 'request/request_listing_single',
+                     locals: { info_request: info_request } %>
         <% end %>
 
         <%= will_paginate @info_requests %>
