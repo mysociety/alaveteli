@@ -61,19 +61,75 @@ end
 RSpec.shared_examples 'a search backend' do
   include_examples 'a scoped search backend'
 
+  def request_ids(results)
+    results.results.map { |result| result[:model].info_request_id }
+  end
+
   describe '#search' do
     it 'returns a searcher whose #results is a Search::Results' do
       searcher = subject.search('bob', models: [User])
       results = searcher.results(page: 1, per_page: 25)
       expect(results).to be_a(Search::Results)
     end
+
+    it 'returns items carrying the matched record under :model' do
+      results = subject.search('bob', models: [User]).
+                results(page: 1, per_page: 25)
+      expect(results.results).not_to be_empty
+      expect(results.results).to all(include(model: an_instance_of(User)))
+    end
+
+    it 'accepts the sort options callers pass' do
+      searcher = subject.search('bob',
+                                models: [User],
+                                sort_by: 'created_at',
+                                sort_ascending: false)
+      expect { searcher.results(page: 1, per_page: 25) }.not_to raise_error
+    end
+
+    it 'collapses the results by the given field' do
+      plain = subject.search('boring', models: [InfoRequestEvent])
+      collapsed = subject.search('boring',
+                                 models: [InfoRequestEvent],
+                                 collapse_by: 'request_collapse')
+
+      plain_ids = request_ids(plain.results(page: 1, per_page: 25))
+      collapsed_ids = request_ids(collapsed.results(page: 1, per_page: 25))
+
+      expect(plain_ids).not_to eq(plain_ids.uniq)
+      expect(collapsed_ids).to eq(collapsed_ids.uniq)
+    end
   end
 
   describe '#request_search' do
     it 'returns a searcher whose results are InfoRequests' do
-      results = subject.request_search('test').results(page: 1, per_page: 25)
+      results = subject.request_search('money').results(page: 1, per_page: 25)
       expect(results).to be_a(Search::Results)
-      expect(results.results.map { |r| r[:model] }).to all(be_a(InfoRequest))
+      expect(results.results).not_to be_empty
+      expect(results.results).
+        to all(include(model: an_instance_of(InfoRequest)))
+    end
+
+    it 'returns each matching request once' do
+      results = subject.request_search('money').results(page: 1, per_page: 25)
+      ids = results.results.map { |result| result[:model].id }
+      expect(ids).to eq(ids.uniq)
+    end
+
+    it 'accepts the ranking options callers pass' do
+      searcher = subject.request_search(
+        'money', sort_by: 'created_at', sort_ascending: false
+      )
+      expect { searcher.results(page: 1, per_page: 25) }.not_to raise_error
+    end
+
+    it 'pages the results' do
+      first = subject.request_search('money').results(page: 1, per_page: 1)
+      second = subject.request_search('money').results(page: 2, per_page: 1)
+      expect(first.results.size).to eq(1)
+      expect(second.results.size).to eq(1)
+      expect(second.results.map { |result| result[:model] }).
+        not_to eq(first.results.map { |result| result[:model] })
     end
   end
 end
