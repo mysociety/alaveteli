@@ -17,25 +17,9 @@ class CensorRule::Redaction < ApplicationRecord
   validates_presence_of :redacted_attribute
 
   scope :for_request, ->(info_request) {
-    outgoing = where(
-      redactable_type: 'OutgoingMessage',
-      redactable_id: info_request.outgoing_messages.select(:id)
-    )
-    incoming = where(
-      redactable_type: 'IncomingMessage',
-      redactable_id: info_request.incoming_messages.select(:id)
-    )
-    attachments = where(
-      redactable_type: 'FoiAttachment',
-      redactable_id: FoiAttachment.where(
-        incoming_message_id: info_request.incoming_messages.select(:id)
-      ).select(:id)
-    )
-    info_request_self = where(
-      redactable_type: 'InfoRequest',
-      redactable_id: info_request.id
-    )
-
-    outgoing.or(incoming).or(attachments).or(info_request_self)
+    where(redactable: info_request).
+      or(where(redactable: info_request.outgoing_messages)).
+      or(where(redactable: info_request.incoming_messages)).
+      or(where(redactable: info_request.foi_attachments))
   }
 end
