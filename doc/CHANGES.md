@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Drop the exact tag matches list from the authority admin (Graeme Porteous)
 * Drop the mass tagging tools from the authority admin (Graeme Porteous)
 * Drop support for PostgreSQL 13 (Graeme Porteous)
 * Speed up determination of applicable censor rules and guarantee order of

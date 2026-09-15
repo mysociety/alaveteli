@@ -30,8 +30,7 @@
 
     <%= render partial: 'concerns/admin/searchable/search_engine',
                locals: {
-                 legacy_label: 'substring search in names and emails; ' \
-                               'exact match of tags',
+                 legacy_label: 'substring search in names and emails',
                  new_label: 'whole word search in names, emails and ' \
                             'notes; please report poor search results!'
                } %>
@@ -42,11 +41,6 @@
 
   <% end %>
 </div>
-
-<% if @public_bodies_by_tag.size > 0 %>
-  <h2>Exact tag matches (<%= @public_bodies_by_tag.size %> total)</h2>
-  <%= render :partial => 'one_list', :locals => { :bodies => @public_bodies_by_tag } %>
-<% end %>
 
 <% if @public_bodies.size > 0 %>
   <% if @query.nil? %>

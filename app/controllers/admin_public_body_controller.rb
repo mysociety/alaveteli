@@ -227,10 +227,6 @@ class AdminPublicBodyController < AdminController
           includes(:tags, :translations).
             paginate(page: @page, per_page: 100)
       )
-
-      @public_bodies_by_tag = PublicBody.
-        find_by_tag(@query).
-          includes(:tags, :translations)
     end
   end
 
