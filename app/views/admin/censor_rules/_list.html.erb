@@ -5,6 +5,15 @@
       the previous rule, so the order may matter depending on what you are
       trying to redact.
     </p>
+
+    <% if defined?(info_request) && info_request.foi_attachments.locked.any? %>
+      <p>
+        <strong>This request has locked attachments.</strong>
+        Attachments locked before redaction tracking was added are not
+        counted here as their content is frozen, so what was redacted can no
+        longer be determined.
+      </p>
+    <% end %>
   </div>
 </div>
 
