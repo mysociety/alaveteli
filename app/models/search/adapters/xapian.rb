@@ -1,6 +1,7 @@
 require_relative 'xapian/indexing'
 require_relative 'xapian/similar_requests'
 require_relative 'xapian/full_text_search'
+require_relative 'xapian/request_search'
 require_relative 'xapian/typeahead'
 
 module Search
@@ -31,6 +32,12 @@ module Search
             sort_by_prefix: sort_by,
             sort_by_ascending: sort_ascending,
             collapse_by_prefix: collapse_by
+          )
+        end
+
+        def request_search(query, sort_by: nil, sort_ascending: true, **)
+          RequestSearch.new(
+            query, sort_by: sort_by, sort_ascending: sort_ascending
           )
         end
 
