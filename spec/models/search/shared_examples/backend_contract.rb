@@ -68,4 +68,12 @@ RSpec.shared_examples 'a search backend' do
       expect(results).to be_a(Search::Results)
     end
   end
+
+  describe '#request_search' do
+    it 'returns a searcher whose results are InfoRequests' do
+      results = subject.request_search('test').results(page: 1, per_page: 25)
+      expect(results).to be_a(Search::Results)
+      expect(results.results.map { |r| r[:model] }).to all(be_a(InfoRequest))
+    end
+  end
 end

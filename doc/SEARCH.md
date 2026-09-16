@@ -93,8 +93,8 @@ they do not support):
 
 ### Forcing a backend
 
-Every facade query method (`search`, `search_scope`, `typeahead`,
-`similar`) takes an optional `backend` naming a registered
+Every facade query method (`search`, `request_search`, `search_scope`,
+`typeahead`, `similar`) takes an optional `backend` naming a registered
 backend for that one call, overriding the configured `SEARCH_BACKEND`.
 This suits callers tied to one backend's features — admin user search
 relies on the PostgreSQL-only admin index, so it forces that backend:
