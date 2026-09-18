@@ -626,6 +626,22 @@ RSpec.describe AttachmentsController, type: :controller do
       end
     end
 
+    context 'when a censor rule redacts the HTML version', feature: :redaction_tracking do
+      let!(:censor_rule) do
+        info_request.censor_rules.create!(
+          text: 'hereisthemaskedtext', replacement: 'REDACTED',
+          last_edit_editor: 'unknown', last_edit_comment: 'none'
+        )
+      end
+
+      it 'records the redaction against the HTML rendering' do
+        show_as_html
+
+        expect(censor_rule.redactions.pluck(:redacted_attribute)).
+          to include('body_to_html')
+      end
+    end
+
     context 'when attachment has a long filename' do
       let(:long_name) { 'blah' * 150 + '.pdf' }
 
