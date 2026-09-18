@@ -6,7 +6,7 @@
       trying to redact.
     </p>
 
-    <% if defined?(info_request) && info_request.foi_attachments.locked.any? %>
+    <% if feature_enabled?(:redaction_tracking) && defined?(info_request) && info_request.foi_attachments.locked.any? %>
       <p>
         <strong>This request has locked attachments.</strong>
         Redaction tracking counts may be incorrect as their content is frozen,
@@ -24,7 +24,7 @@
         <% CensorRule.content_columns_names.each do |column| %>
           <th><%= column.humanize %></th>
         <% end %>
-        <% if defined?(info_request) %>
+        <% if feature_enabled?(:redaction_tracking) && defined?(info_request) %>
           <th>Records redacted</th>
         <% end %>
         <th>Actions</th>
@@ -44,7 +44,7 @@
             <% end %>
           <% end %>
 
-          <% if defined?(info_request) %>
+          <% if feature_enabled?(:redaction_tracking) && defined?(info_request) %>
             <td>
               <% count = censor_rule.redactions.for_request(info_request).count %>
 

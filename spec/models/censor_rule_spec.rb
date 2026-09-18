@@ -280,7 +280,7 @@ RSpec.describe CensorRule do
       end
     end
 
-    describe 'recording redactions' do
+    describe 'recording redactions', feature: :redaction_tracking do
       let(:rule) { FactoryBot.create(:global_censor_rule, text: 'secret') }
       let(:redactable) { FactoryBot.create(:info_request) }
 
@@ -519,7 +519,7 @@ RSpec.describe CensorRule do
       end
     end
 
-    describe 'recording redactions' do
+    describe 'recording redactions', feature: :redaction_tracking do
       let(:rule) { FactoryBot.create(:global_censor_rule, text: 'secret') }
       let(:redactable) { FactoryBot.create(:info_request) }
 

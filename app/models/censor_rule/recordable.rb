@@ -1,6 +1,7 @@
 # Record when a CensorRule has actually been applied to a Redactable
 module CensorRule::Recordable
   extend ActiveSupport::Concern
+  include AlaveteliFeatures::Helpers
 
   # The attributes that, if changed, may result in different content being
   # redacted
@@ -17,7 +18,8 @@ module CensorRule::Recordable
   private
 
   def record_redaction(redactable, redacted_attribute, before:, after:)
-    return unless redactable&.persisted?
+    return unless redactable&.persisted? &&
+      feature_enabled?(:redaction_tracking)
 
     if redacted_attribute.blank?
       raise ArgumentError,

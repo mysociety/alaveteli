@@ -16,6 +16,9 @@ class Admin::CensorRules::RedactionsController < AdminController
   private
 
   def set_info_request
+    raise ActiveRecord::RecordNotFound unless
+      feature_enabled?(:redaction_tracking)
+
     @info_request = InfoRequest.find(params[:request_id])
   end
 

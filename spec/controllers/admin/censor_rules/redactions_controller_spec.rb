@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe Admin::CensorRules::RedactionsController do
   before { basic_auth_login(@request) }
 
-  describe 'GET #index' do
+  describe 'GET #index', feature: :redaction_tracking do
     let(:info_request) { FactoryBot.create(:info_request) }
     let(:rule) { FactoryBot.create(:global_censor_rule, text: 'secret') }
 

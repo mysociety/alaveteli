@@ -60,7 +60,7 @@ RSpec.describe AlaveteliTextMasker do
       end
     end
 
-    context 'redaction tracking via redactable: option' do
+    context 'redaction tracking via redactable: option', feature: :redaction_tracking do
       let(:rule) { FactoryBot.create(:global_censor_rule, text: 'Stilton') }
       let(:redactable) { FactoryBot.create(:info_request) }
 

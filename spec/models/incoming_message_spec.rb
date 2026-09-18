@@ -829,7 +829,7 @@ RSpec.describe IncomingMessage do
         expect(message.get_attachment_text_full).to include('hide_me')
       end
 
-      it 'records the redaction against the extracted text' do
+      it 'records the redaction against the extracted text', feature: :redaction_tracking do
         message.get_attachment_text_full
 
         recorded = censor_rule.redactions.
