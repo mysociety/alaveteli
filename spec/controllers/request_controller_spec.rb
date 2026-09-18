@@ -1942,7 +1942,7 @@ end
 
 RSpec.describe RequestController do
   describe 'GET #download_entire_request' do
-    context 'when a censor rule redacts an attachment' do
+    context 'when a censor rule redacts an attachment', feature: :redaction_tracking do
       let(:info_request) do
         FactoryBot.create(:info_request_with_html_attachment)
       end

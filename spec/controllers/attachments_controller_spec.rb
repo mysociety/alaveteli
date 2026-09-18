@@ -625,7 +625,7 @@ RSpec.describe AttachmentsController, type: :controller do
       end
     end
 
-    context 'when a censor rule redacts the HTML version' do
+    context 'when a censor rule redacts the HTML version', feature: :redaction_tracking do
       let!(:censor_rule) do
         info_request.censor_rules.create!(
           text: 'hereisthemaskedtext', replacement: 'REDACTED',

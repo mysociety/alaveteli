@@ -1,3 +1,5 @@
+include AlaveteliFeatures::Helpers
+
 namespace :temp do
   desc 'Populate User#status_update_count'
   task populate_user_status_update_count: :environment do
@@ -50,6 +52,10 @@ namespace :temp do
     # masking pipeline runs again and records what it removes.
     #
     # Safe to re-run and can be picked up from a given request with START_AT.
+    unless feature_enabled?(:redaction_tracking)
+      abort 'The :redaction_tracking feature must be enabled to run this task'
+    end
+
     start_at = (ENV['START_AT'] || 0).to_i
     scope = requests_with_censor_rules.where(id: start_at..).order(:id)
     count = scope.count

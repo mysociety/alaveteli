@@ -480,7 +480,7 @@ RSpec.describe FoiAttachment do
     end
   end
 
-  describe '#masked_default_body' do
+  describe '#masked_default_body', feature: :redaction_tracking do
     subject { foi_attachment.masked_default_body }
 
     let(:foi_attachment) { FactoryBot.create(:body_text) }
@@ -688,7 +688,7 @@ RSpec.describe FoiAttachment do
 
   end
 
-  describe '#masked_body_to_html' do
+  describe '#masked_body_to_html', feature: :redaction_tracking do
     subject { foi_attachment.masked_body_to_html }
 
     let(:foi_attachment) { FactoryBot.create(:body_text) }

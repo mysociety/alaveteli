@@ -28,6 +28,25 @@ RSpec.describe Admin::CensorRulesHelper do
     end
   end
 
+  describe '#redaction_tracking?' do
+    subject { redaction_tracking?(info_request) }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    context 'when the feature is disabled' do
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the feature is enabled', feature: :redaction_tracking do
+      it { is_expected.to eq(true) }
+
+      context 'without a request' do
+        let(:info_request) { nil }
+        it { is_expected.to eq(false) }
+      end
+    end
+  end
+
   describe '#censor_rule_redaction_counts' do
     subject { censor_rule_redaction_counts(censor_rules, info_request) }
 
@@ -44,55 +63,62 @@ RSpec.describe Admin::CensorRulesHelper do
       )
     end
 
-    context 'when no redactions have been recorded' do
+    context 'when redaction tracking is disabled' do
+      before { record_redaction(rule, incoming_message) }
       it { is_expected.to eq({}) }
     end
 
-    context 'when there is no request' do
-      let(:info_request) { nil }
-      it { is_expected.to eq({}) }
-    end
+    context 'when redaction tracking is enabled', feature: :redaction_tracking do
+      context 'when no redactions have been recorded' do
+        it { is_expected.to eq({}) }
+      end
 
-    it 'counts redactions against the request' do
-      record_redaction(rule, info_request, :title)
-      is_expected.to eq(rule.id => 1)
-    end
+      context 'when there is no request' do
+        let(:info_request) { nil }
+        it { is_expected.to eq({}) }
+      end
 
-    it 'counts redactions against outgoing messages' do
-      record_redaction(rule, outgoing_message)
-      is_expected.to eq(rule.id => 1)
-    end
+      it 'counts redactions against the request' do
+        record_redaction(rule, info_request, :title)
+        is_expected.to eq(rule.id => 1)
+      end
 
-    it 'counts redactions against incoming messages' do
-      record_redaction(rule, incoming_message)
-      is_expected.to eq(rule.id => 1)
-    end
+      it 'counts redactions against outgoing messages' do
+        record_redaction(rule, outgoing_message)
+        is_expected.to eq(rule.id => 1)
+      end
 
-    it 'counts redactions against attachments' do
-      record_redaction(rule, incoming_message.foi_attachments.first)
-      is_expected.to eq(rule.id => 1)
-    end
+      it 'counts redactions against incoming messages' do
+        record_redaction(rule, incoming_message)
+        is_expected.to eq(rule.id => 1)
+      end
 
-    it 'counts each rule separately' do
-      record_redaction(rule, incoming_message)
-      record_redaction(rule, outgoing_message)
-      record_redaction(other_rule, outgoing_message)
+      it 'counts redactions against attachments' do
+        record_redaction(rule, incoming_message.foi_attachments.first)
+        is_expected.to eq(rule.id => 1)
+      end
 
-      is_expected.to eq(rule.id => 2, other_rule.id => 1)
-    end
+      it 'counts each rule separately' do
+        record_redaction(rule, incoming_message)
+        record_redaction(rule, outgoing_message)
+        record_redaction(other_rule, outgoing_message)
 
-    it 'excludes rules which are not given' do
-      excluded = FactoryBot.create(:global_censor_rule)
-      record_redaction(excluded, incoming_message)
+        is_expected.to eq(rule.id => 2, other_rule.id => 1)
+      end
 
-      is_expected.to eq({})
-    end
+      it 'excludes rules which are not given' do
+        excluded = FactoryBot.create(:global_censor_rule)
+        record_redaction(excluded, incoming_message)
 
-    it 'excludes redactions belonging to another request' do
-      other_request = FactoryBot.create(:info_request_with_incoming)
-      record_redaction(rule, other_request.incoming_messages.first)
+        is_expected.to eq({})
+      end
 
-      is_expected.to eq({})
+      it 'excludes redactions belonging to another request' do
+        other_request = FactoryBot.create(:info_request_with_incoming)
+        record_redaction(rule, other_request.incoming_messages.first)
+
+        is_expected.to eq({})
+      end
     end
   end
 end
