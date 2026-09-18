@@ -115,6 +115,8 @@ namespace :temp do
         attempt(errors, attachment) do
           attachment.redacted_filename
           attachment.body
+          attachment.default_body
+          attachment.body_to_text
         end
       end
 
