@@ -48,7 +48,7 @@ function stripeForm(form, options) {
   }, options);
 
   that.load = function() {
-    var cardError = document.getElementById('card-errors');
+    var cardError = that.cardError = document.getElementById('card-errors');
 
     // Sync initial state for terms checkbox and submit button
     that.submit.setAttribute('disabled', 'true');
@@ -87,23 +87,33 @@ function stripeForm(form, options) {
 
       that.stripe.createToken(card).then(function(result) {
         if (result.error) {
-          // Inform the customer that there was an error
-          cardError.textContent = result.error.message;
-
-          // Prevent re-submitting after error
-          that.submitConditions.cardValid = false;
-          that.updateSubmit();
-
-          // Reset submit button value which was changed by Rails' UJS
-          // disable-with option
-          var text = $(that.submit).data('ujs:enable-with');
-          if (text) { $(that.submit)['val'](text); }
+          that.showError(result.error.message);
         } else {
           // Send the token to your server.
           that.stripeTokenHandler(result.token);
         }
-      });
+      }).catch(that.handleFailure);
     });
+  };
+
+  that.showError = function(message) {
+    that.cardError.textContent = message;
+
+    // Prevent re-submitting after error
+    that.submitConditions.cardValid = false;
+    that.updateSubmit();
+
+    // Reset submit button value which was changed by Rails' UJS
+    // disable-with option
+    var text = $(that.submit).data('ujs:enable-with');
+    if (text) { $(that.submit)['val'](text); }
+  };
+
+  // Stripe.js or our server failed outright rather than returning an error
+  // result. Keep the detail in the console so support can see it.
+  that.handleFailure = function(error) {
+    if (error && window.console) { console.error(error); }
+    that.showError(AlaveteliPro.stripe_error_message);
   };
 
   that.canSubmit = function() {
@@ -145,23 +155,29 @@ function stripeForm(form, options) {
 
   that.handleStripeCallback = function(jqXHR, textStatus) {
     var data = jqXHR.responseJSON;
-    if (data.url) {
+    if (data && data.url) {
       location.href = data.url;
-    } else if (data.payment_intent) {
+    } else if (data && data.payment_intent) {
       that.stripePaymentIntent(data.payment_intent, data.callback_url);
+    } else {
+      that.handleFailure(jqXHR);
     }
   };
 
   that.stripePaymentIntent = function(paymentIntent, callbackUrl) {
     that.stripe.confirmCardPayment(
       paymentIntent
-    ).then(function() {
-      $.ajax({
-        url: callbackUrl,
-        dataType: 'json',
-        complete: that.handleStripeCallback
-      })
-    });
+    ).then(function(result) {
+      if (result.error) {
+        that.showError(result.error.message);
+      } else {
+        $.ajax({
+          url: callbackUrl,
+          dataType: 'json',
+          complete: that.handleStripeCallback
+        });
+      }
+    }).catch(that.handleFailure);
   };
 
   that.load();
