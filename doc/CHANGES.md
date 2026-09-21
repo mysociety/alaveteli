@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improved error handing on Pro card payment form (Graeme Porteous)
 * Drop support for PostgreSQL 13 (Graeme Porteous)
 * Speed up determination of applicable censor rules and guarantee order of
   application (Laurent Savaete)
