@@ -153,7 +153,7 @@ function stripeForm(form, options) {
   };
 
   that.stripePaymentIntent = function(paymentIntent, callbackUrl) {
-    that.stripe.handleCardPayment(
+    that.stripe.confirmCardPayment(
       paymentIntent
     ).then(function() {
       $.ajax({
