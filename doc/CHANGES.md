@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Improved error handing on Pro card payment form (Graeme Porteous)
 * Drop the exact tag matches list from the authority admin (Graeme Porteous)
 * Drop the mass tagging tools from the authority admin (Graeme Porteous)
 * Drop support for PostgreSQL 13 (Graeme Porteous)
