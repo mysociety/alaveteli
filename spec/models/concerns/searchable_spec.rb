@@ -161,3 +161,53 @@ RSpec.describe Searchable, 'index lifecycle' do
     end
   end
 end
+
+RSpec.describe Searchable, 'public content' do
+  let(:document) { info_request.search_documents.reload.first }
+
+  context 'with normal prominence' do
+    let(:info_request) do
+      FactoryBot.create(:info_request, title: 'Plain sight')
+    end
+
+    it 'goes in the public index' do
+      expect(document.raw_content).to include('Plain sight')
+      expect(document.raw_admin_content).not_to include('Plain sight')
+    end
+  end
+
+  context 'with any other prominence' do
+    let(:info_request) do
+      FactoryBot.create(:backpage_request, title: 'Back page')
+    end
+
+    it 'goes in the admin index instead' do
+      expect(document.raw_content).to be_nil
+      expect(document.raw_admin_content).to include('Back page')
+    end
+  end
+
+  context 'under an embargo' do
+    let(:info_request) do
+      FactoryBot.create(:embargoed_request, title: 'Under wraps')
+    end
+
+    it 'stays in the public index' do
+      expect(document.raw_content).to include('Under wraps')
+    end
+  end
+
+  context 'when the prominence changes' do
+    let(:info_request) do
+      FactoryBot.create(:info_request, title: 'On the move')
+    end
+
+    it 'moves between the indexes' do
+      expect { info_request.update!(prominence: 'hidden') }.
+        to change { document.reload.raw_content }.
+        from(a_string_including('On the move')).to(nil).
+        and change { document.reload.raw_admin_content }.
+        to(a_string_including('On the move'))
+    end
+  end
+end

@@ -18,6 +18,10 @@ module Searchable
     end
   end
 
+  # The prominence values whose content goes in the public index. Anything
+  # else goes in the admin index.
+  PUBLIC_PROMINENCE = %w[normal].freeze
+
   # rubocop:disable Style/ClassVars
   # store rails models that are searchable, with settings for each of them.
   # See the `searchable` method below for details.
@@ -48,6 +52,16 @@ module Searchable
     @@locale_to_language_map[locale]
   end
 
+  # The columns behind each index for a record the public may or may not
+  # see. Content the public may not see moves from the public index to the
+  # admin one, so admins can still find it.
+  def self.index_columns(options, public:)
+    index = options[:index] || {}
+    admin_index = options[:admin_index] || {}
+
+    public ? [index, admin_index] : [{}, admin_index.merge(index)]
+  end
+
   def self.partition_table_name(model)
     "search_documents_#{model.downcase.gsub('::', '_')}"
   end
@@ -61,12 +75,10 @@ module Searchable
 
   # We can't just use the raw_content here, because it has lost the
   # weight from various columns.
-  def search_content_from_db_query(idx_name, language)
-    opts = @@searchable_models[self.class.to_s]
-
+  def search_content_from_db_query(columns, language)
     raw_content_bits = []
     content_tsv_bits = []
-    opts[idx_name].each do |col, w|
+    columns.each do |col, w|
       if col.start_with?(".")
         c = ActiveRecord::Base.connection.quote("#{send(col[1..])} ")
       else
@@ -91,37 +103,31 @@ module Searchable
 
   # Build a search record
   #
-  # +idx_name+ is either :index or :admin_index
+  # +columns+ are the index or admin_index columns from the searchable call
   # +language+ is the language for the pg dictionary to tokenize content.
-  def search_content_from_db(idx_name, language)
-    search_cfg = @@searchable_models[self.class.to_s]
-    if search_cfg[idx_name].nil? || search_cfg[idx_name].empty?
-      {}
-    else
-      ActiveRecord::Base.
-        connection.
-        exec_query(
-          search_content_from_db_query(idx_name, language),
-          "Search content query",
-          [ActiveRecord::Relation::QueryAttribute.new(
-            "somename",
-            id,
-            ActiveRecord::Type::Integer.new
-          )]
-        ).to_a.first
-    end
+  def search_content_from_db(columns, language)
+    return {} if columns.blank?
+
+    ActiveRecord::Base.
+      connection.
+      exec_query(
+        search_content_from_db_query(columns, language),
+        "Search content query",
+        [ActiveRecord::Relation::QueryAttribute.new(
+          "somename",
+          id,
+          ActiveRecord::Type::Integer.new
+        )]
+      ).to_a.first
   end
 
   # upsert the search content
   def upsert_content(language, section_ref)
-    content_from_db = search_content_from_db(
-      :index,
-      language
+    index, admin_index = Searchable.index_columns(
+      self.class.search_options, public: publicly_searchable?
     )
-    admin_content_from_db = search_content_from_db(
-      :admin_index,
-      language
-    )
+    content_from_db = search_content_from_db(index, language)
+    admin_content_from_db = search_content_from_db(admin_index, language)
 
     root_type, root_id = search_root
 
@@ -150,6 +156,13 @@ module Searchable
                     :content_tsv,
                     :admin_content_tsv]
     )
+  end
+
+  # Whether the public index may hold this record's content. A model
+  # without a prominence is public.
+  def publicly_searchable?
+    !has_attribute?(:prominence) ||
+      PUBLIC_PROMINENCE.include?(self[:prominence])
   end
 
   # The type and id of the record at the top of the tree this document belongs
