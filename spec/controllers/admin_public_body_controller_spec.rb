@@ -27,13 +27,6 @@ RSpec.describe AdminPublicBodyController do
       expect(body.association(:translations)).to be_loaded
     end
 
-    it "eager loads associations for the tag search" do
-      get :index, params: { query: "useless_agency", search_engine: "legacy" }
-      body = assigns[:public_bodies_by_tag].first
-      expect(body.association(:tags)).to be_loaded
-      expect(body.association(:translations)).to be_loaded
-    end
-
     it "lists all authorities in name order" do
       get :index
       names = assigns[:public_bodies].map(&:name)
@@ -680,35 +673,6 @@ RSpec.describe AdminPublicBodyController do
       post :destroy, params: { id: public_bodies(:forlorn_public_body).id }
       expect(response).to redirect_to admin_bodies_path
       expect(PublicBody.count).to eq(n - 1)
-    end
-  end
-
-  describe "POST #mass_tag" do
-    it "mass assigns tags" do
-      condition = "public_body_translations.locale = ?"
-      n = PublicBody.joins(:translations).where([condition, "en"]).count
-      post :mass_tag, params: { tag: "department", table_name: "substring" }
-      expect(request.flash[:notice]).to eq("Added tag to table of bodies.")
-      expect(response).to redirect_to admin_bodies_path
-      expect(PublicBody.find_by_tag("department").count).to eq(n)
-    end
-  end
-
-  describe "DELETE #mass_tag" do
-    around do |example|
-      disable_not_many_requests_auto_tagging { example.run }
-    end
-
-    it "mass removed tags" do
-      body = FactoryBot.create(:public_body, tag_string: 'department foo')
-      expect(PublicBody.find_by_tag("department").count).to eq(1)
-      delete :mass_tag, params: {
-        tag: "department", query: "department", table_name: "exact"
-      }
-      expect(request.flash[:notice]).to eq("Removed tag from table of bodies.")
-      expect(response).to redirect_to admin_bodies_path(query: 'department')
-      expect { body.reload }.to change(body, :tag_string).to("foo")
-      expect(PublicBody.find_by_tag("department").count).to eq(0)
     end
   end
 
