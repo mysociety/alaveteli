@@ -62,6 +62,14 @@ module Searchable
     public ? [index, admin_index] : [{}, admin_index.merge(index)]
   end
 
+  # Names of the models whose documents can be rooted at +root+.
+  def self.models_rooted_at(root)
+    @@searchable_models.keys.select do |name|
+      klass = name.constantize.search_root_class
+      klass.nil? || klass == root
+    end
+  end
+
   def self.partition_table_name(model)
     "search_documents_#{model.downcase.gsub('::', '_')}"
   end
