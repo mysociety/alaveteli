@@ -25,9 +25,12 @@
 #  admin_content_tsv :tsvector
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  root_type         :string
+#  root_id           :bigint
 #
 class SearchDocument < ApplicationRecord
   belongs_to :searchable, polymorphic: true
+  belongs_to :root, polymorphic: true
   self.primary_key = [:searchable_type, :sd_id]
 
   # build the sql query for the search. This should be injection-safe.

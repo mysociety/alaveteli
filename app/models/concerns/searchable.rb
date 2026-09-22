@@ -123,9 +123,13 @@ module Searchable
       language
     )
 
+    root_type, root_id = search_root
+
     record = {
       searchable_type: self.class.to_s,
       searchable_id: id,
+      root_type: root_type,
+      root_id: root_id,
       language: language,
       section_ref: section_ref,
       raw_content: content_from_db["raw"],
@@ -139,11 +143,28 @@ module Searchable
                   :searchable_id,
                   :section_ref,
                   :language],
-      update_only: [:raw_content,
+      update_only: [:root_type,
+                    :root_id,
+                    :raw_content,
                     :raw_admin_content,
                     :content_tsv,
                     :admin_content_tsv]
     )
+  end
+
+  # The type and id of the record at the top of the tree this document belongs
+  # to, from the model's `root` search option. A record with no parent is its
+  # own root.
+  def search_root
+    root = self.class.search_options[:root]
+
+    case root
+    when nil then [self.class.name, id]
+    when Hash then [self[root[:type]], self[root[:id]]]
+    else
+      record = public_send(root)
+      [record&.class&.name, record&.id]
+    end
   end
 
   # Override this method per model to allow excluding specific objects
@@ -203,6 +224,12 @@ module Searchable
     #     "column_name": <A|B|C|D>,
     #     ".method_name": <A|B|C|D>,
     #   },
+    #   # The record at the top of the tree this model belongs to, so hits
+    #   # on a message or attachment can be grouped under their request.
+    #   # Name a belongs_to association, or the two columns holding a
+    #   # polymorphic type and id. Leave it out when the model is its own
+    #   # root.
+    #   root: :info_request,
     #   # Fields the search results can be filtered by,
     #   # to limit search perimeter or do facetting.
     #   filterable: [:col_a, :col_b],
@@ -299,6 +326,7 @@ module Searchable
       rows = indexable.select(Arel.sql(<<~SQL.chomp))
         #{connection.quote(name)},
         id,
+        #{root_query},
         #{connection.quote(language)},
         '1',
         #{raw_content_query(:index)},
@@ -313,6 +341,8 @@ module Searchable
         INSERT INTO "#{table}" (
           "searchable_type",
           "searchable_id",
+          "root_type",
+          "root_id",
           "language",
           "section_ref",
           "raw_content",
@@ -340,7 +370,29 @@ module Searchable
       Searchable.class_variable_get(:@@searchable_models)[name]
     end
 
+    def search_root_class
+      root = search_options[:root]
+
+      case root
+      when nil then self
+      when Hash then nil
+      else reflect_on_association(root).klass
+      end
+    end
+
     private
+
+    def root_query
+      root = search_options[:root]
+
+      case root
+      when nil then "#{connection.quote(name)}, id"
+      when Hash then "#{root[:type]}, #{root[:id]}"
+      else
+        reflection = reflect_on_association(root)
+        "#{connection.quote(reflection.klass.name)}, #{reflection.foreign_key}"
+      end
+    end
 
     def raw_content_query(idx_name)
       columns = search_options[idx_name]

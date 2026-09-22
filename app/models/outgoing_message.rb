@@ -101,7 +101,8 @@ class OutgoingMessage < ApplicationRecord
     admin_index: {
       from_name: "B",
       prominence_reason: "D",
-    }
+    },
+    root: :info_request
   )
 
   def self.default_salutation(public_body)
