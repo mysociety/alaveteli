@@ -109,6 +109,85 @@ RSpec.describe SearchDocument do
     end
   end
 
+  context 'request search' do
+    def request_with_message(title:, body:)
+      FactoryBot.create(
+        :info_request,
+        title: title,
+        initial_request: FactoryBot.build(:initial_request, body: body)
+      )
+    end
+
+    it 'returns a chainable relation of requests' do
+      results = SearchDocument.request_search('anything')
+      expect(results).to be_an(ActiveRecord::Relation)
+      expect(results.klass).to eq(InfoRequest)
+    end
+
+    it 'finds a request through its messages' do
+      request = request_with_message(title: 'Some title',
+                                     body: 'Send the ptarmigan census')
+
+      expect(SearchDocument.request_search('ptarmigan')).to eq([request])
+    end
+
+    it 'returns a request matched through several documents once' do
+      request = request_with_message(title: 'Ptarmigan numbers',
+                                     body: 'Send the ptarmigan census')
+
+      results = SearchDocument.request_search('ptarmigan')
+      expect(results).to eq([request])
+      expect(results.count).to eq(1)
+    end
+
+    it 'ranks a request by its best hit' do
+      weak = request_with_message(title: 'Unrelated',
+                                  body: 'Ptarmigan mentioned in passing')
+      strong = request_with_message(title: 'Ptarmigan ptarmigan',
+                                    body: 'All about the ptarmigan')
+
+      expect(SearchDocument.request_search('ptarmigan')).to eq([strong, weak])
+    end
+
+    it 'leaves out requests the public cannot see' do
+      request_with_message(title: 'Ptarmigan', body: 'Hidden ptarmigan').
+        update!(prominence: 'hidden')
+      FactoryBot.create(:embargoed_request, title: 'Embargoed ptarmigan')
+      visible = request_with_message(title: 'Ptarmigan', body: 'Visible')
+
+      expect(SearchDocument.request_search('ptarmigan')).to eq([visible])
+    end
+
+    it 'leaves out requests only matched through hidden messages' do
+      FactoryBot.create(
+        :info_request,
+        title: 'Unrelated',
+        initial_request: FactoryBot.build(:initial_request,
+                                          body: 'Hidden ptarmigan',
+                                          prominence: 'hidden')
+      )
+
+      expect(SearchDocument.request_search('ptarmigan')).to be_empty
+    end
+
+    it 'searches the requests the viewer is given' do
+      request = FactoryBot.create(:embargoed_request,
+                                  title: 'Private ptarmigan')
+      FactoryBot.create(:info_request, title: 'Public ptarmigan')
+
+      results = SearchDocument.request_search(
+        'ptarmigan', requests: request.user.info_requests
+      )
+
+      expect(results).to eq([request])
+    end
+
+    it 'rejects unsupported languages' do
+      expect { SearchDocument.request_search('anything', language: 'klingon') }.
+        to raise_error(ArgumentError)
+    end
+  end
+
   context 'materialized CTE' do
     it 'fences the search off so PostgreSQL runs it once' do
       results = SearchDocument.hybrid_search('Florence', model: User,

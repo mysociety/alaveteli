@@ -81,6 +81,12 @@ RSpec.describe Searchable, 'index lifecycle' do
     expect(message.search_documents.first.raw_content).to include('foobar')
   end
 
+  it 'lists the models whose documents can be rooted at a class' do
+    expect(Searchable.models_rooted_at(InfoRequest)).
+      to include('InfoRequest', 'OutgoingMessage')
+    expect(Searchable.models_rooted_at(InfoRequest)).not_to include('User')
+  end
+
   it 'does not index models that are not registered as searchable' do
     n = FactoryBot.create(:notification)
     expect(SearchDocument.where(searchable_type: "Notification").count).to eq(0)
