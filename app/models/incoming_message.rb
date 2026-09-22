@@ -78,6 +78,7 @@ class IncomingMessage < ApplicationRecord
   after_update :update_request
 
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
+  scope :is_searchable, -> { where(prominence: 'normal') }
 
   delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 

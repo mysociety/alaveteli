@@ -34,6 +34,18 @@ RSpec.describe IncomingMessage do
   it_behaves_like 'concerns/message_prominence', :incoming_message
   it_behaves_like 'concerns/taggable', :incoming_message
 
+  describe '.is_searchable' do
+    subject { described_class.is_searchable }
+
+    let!(:searchable_message) { FactoryBot.create(:incoming_message) }
+    let!(:unsearchable_message) do
+      FactoryBot.create(:incoming_message, :hidden)
+    end
+
+    it { is_expected.to include(searchable_message) }
+    it { is_expected.not_to include(unsearchable_message) }
+  end
+
   describe '.unparsed' do
     subject { described_class.unparsed }
     before { IncomingMessage.destroy_all }

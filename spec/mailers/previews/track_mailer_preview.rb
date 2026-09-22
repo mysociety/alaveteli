@@ -13,13 +13,8 @@ class TrackMailerPreview < ActionMailer::Preview
     [
       [
         track_thing,
-        [
-          OpenStruct.new(model: comment_event),
-          OpenStruct.new(model: response_event),
-          OpenStruct.new(model: followup_sent),
-          OpenStruct.new(model: sent_event)
-        ],
-        ActsAsXapian::Search.new([InfoRequestEvent], 'matches', limit: 10)
+        [comment_event, response_event, followup_sent, sent_event],
+        ['matches']
       ]
     ]
   end

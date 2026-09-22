@@ -407,6 +407,14 @@ class ApplicationController < ActionController::Base
       results(page: @page, per_page: @per_page)
   end
 
+  def perform_track_search(track_thing)
+    per_page = 25
+    order, = order_to_sort_by(track_thing.params[:feed_sortby])
+    offset = (get_search_page_from_params - 1) * per_page
+    track_thing.matches(sort_by: order, limit: per_page,
+                        offset: offset)
+  end
+
   def get_search_page_from_params
     page = (params[:page] || "1").to_i
     page = 1 if page < 1

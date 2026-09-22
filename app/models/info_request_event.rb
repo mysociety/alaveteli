@@ -89,6 +89,19 @@ class InfoRequestEvent < ApplicationRecord
 
   validates_presence_of :event_type
 
+  scope :is_searchable, -> {
+    searchable_requests = joins(:info_request).merge(InfoRequest.is_searchable)
+
+    searchable_requests.
+      where(event_type: 'response',
+            incoming_message: IncomingMessage.is_searchable).
+      or(searchable_requests.
+           where(event_type: %w[sent followup_sent],
+                 outgoing_message: OutgoingMessage.is_searchable)).
+      or(searchable_requests.
+           where(event_type: 'comment', comment: Comment.where(visible: true)))
+  }
+
   before_save(if: :only_editing_prominence_to_hide?) do
     self.event_type = "hide"
   end

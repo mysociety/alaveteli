@@ -49,6 +49,10 @@ Rails.configuration.after_initialize do
     :pro_batch_category_add_all,
     label: 'Batch category "add all" button'
   )
+  AlaveteliFeatures.features.add(
+    :database_backed_alerts,
+    label: 'Generate alerts from the database instead of the search index'
+  )
 
   next unless ActiveRecord::Base.connection.data_source_exists?(:roles)
 

@@ -10,9 +10,6 @@ RSpec.describe "track_mailer/event_digest" do
                       title: "Request apostrophe's data")
   end
   let(:track) { FactoryBot.create(:search_track, tracking_user: user) }
-  let(:search_results) do
-    double('search results', results: [event], words_to_highlight: 'test')
-  end
 
   before do
     allow(AlaveteliConfiguration).to receive(:site_name).
@@ -27,22 +24,19 @@ RSpec.describe "track_mailer/event_digest" do
     end
 
     it "does not add HTMLEntities to the request title" do
-      result = { model: event }
-      assign(:email_about_things, [[track, [result], search_results]])
+      assign(:email_about_things, [[track, [event], ['test']]])
       render
       expect(response).to match("-- Request apostrophe's data --")
     end
 
     it "does not add HTMLEntities to the public body name" do
-      result = { model: event }
-      assign(:email_about_things, [[track, [result], search_results]])
+      assign(:email_about_things, [[track, [event], ['test']]])
       render
       expect(response).to match("Apostrophe's sent a response")
     end
 
     it "does not add HTMLEntities to the user name" do
-      result = { model: event }
-      assign(:email_about_things, [[track, [result], search_results]])
+      assign(:email_about_things, [[track, [event], ['test']]])
       render
       expect(response).to match("sent a response to Test Us'r")
     end
@@ -51,8 +45,7 @@ RSpec.describe "track_mailer/event_digest" do
       let(:request) { FactoryBot.create(:info_request, :external) }
 
       it 'uses "An anonymous user" as the user name' do
-        result = { model: event }
-        assign(:email_about_things, [[track, [result], search_results]])
+        assign(:email_about_things, [[track, [event], ['test']]])
         render
         expect(response).to match('sent a response to An anonymous user')
       end
@@ -68,22 +61,19 @@ RSpec.describe "track_mailer/event_digest" do
     end
 
     it "does not add HTMLEntities to the request title" do
-      result = { model: event }
-      assign(:email_about_things, [[track, [result], search_results]])
+      assign(:email_about_things, [[track, [event], ['test']]])
       render
       expect(response).to match("-- Request apostrophe's data --")
     end
 
     it "does not add HTMLEntities to the public body name" do
-      result = { model: event }
-      assign(:email_about_things, [[track, [result], search_results]])
+      assign(:email_about_things, [[track, [event], ['test']]])
       render
       expect(response).to match("message to Apostrophe's")
     end
 
     it "does not add HTMLEntities to the user name" do
-      result = { model: event }
-      assign(:email_about_things, [[track, [result], search_results]])
+      assign(:email_about_things, [[track, [event], ['test']]])
       render
       expect(response).to match("Test Us'r sent a follow up message")
     end
@@ -101,15 +91,13 @@ RSpec.describe "track_mailer/event_digest" do
     end
 
     it "does not add HTMLEntities to the request title" do
-      result = { model: event }
-      assign(:email_about_things, [[track, [result], search_results]])
+      assign(:email_about_things, [[track, [event], ['test']]])
       render
       expect(response).to match("-- Request apostrophe's data --")
     end
 
     it "does not add HTMLEntities to the user name" do
-      result = { model: event }
-      assign(:email_about_things, [[track, [result], search_results]])
+      assign(:email_about_things, [[track, [event], ['test']]])
       render
       expect(response).to match("Test Us'r added an annotation")
     end
@@ -125,22 +113,19 @@ RSpec.describe "track_mailer/event_digest" do
     end
 
     it "does not add HTMLEntities to the request title" do
-      result = { model: event }
-      assign(:email_about_things, [[track, [result], search_results]])
+      assign(:email_about_things, [[track, [event], ['test']]])
       render
       expect(response).to match("-- Request apostrophe's data --")
     end
 
     it "does not add HTMLEntities to the public body name" do
-      result = { model: event }
-      assign(:email_about_things, [[track, [result], search_results]])
+      assign(:email_about_things, [[track, [event], ['test']]])
       render
       expect(response).to match("request to Apostrophe's")
     end
 
     it "does not add HTMLEntities to the user name" do
-      result = { model: event }
-      assign(:email_about_things, [[track, [result], search_results]])
+      assign(:email_about_things, [[track, [event], ['test']]])
       render
       expect(response).to match("Test Us'r sent a request")
     end
