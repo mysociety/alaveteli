@@ -65,16 +65,7 @@ def build_incoming_message_mail(im)
   mail.body = im.cached_main_body_text_unfolded
 
   im.foi_attachments.each do |a|
-    if a.persisted?
-      content = a.file.download
-    else
-      # NOTE: this uses a private API
-      io = a.attachment_changes['file'].attachable[:io]
-      content = io.read
-      io.rewind
-    end
-
-    mail.add_file filename: a.filename, content: content
+    mail.add_file filename: a.filename, content: a.file.download
   end
 
   mail

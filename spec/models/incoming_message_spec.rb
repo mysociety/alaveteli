@@ -725,7 +725,7 @@ RSpec.describe IncomingMessage do
   describe '#get_body_for_indexing' do
     subject { incoming_message.get_body_for_indexing }
 
-    let(:incoming_message) { FactoryBot.build(:incoming_message) }
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
 
     context 'guest can read main body part' do
       it 'returns body for text display' do

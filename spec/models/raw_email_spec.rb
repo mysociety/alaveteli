@@ -368,7 +368,7 @@ RSpec.describe RawEmail do
   describe '#erase' do
     subject { raw_email.erase(editor: editor, reason: reason) }
 
-    let(:raw_email) do
+    let!(:raw_email) do
       request = FactoryBot.create(:info_request)
       message = FactoryBot.create(:incoming_message, info_request: request)
       message.raw_email = FactoryBot.create(:raw_email, :with_file)

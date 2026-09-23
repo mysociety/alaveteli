@@ -60,10 +60,11 @@ FactoryBot.define do
 
       event_type { 'response' }
 
-      after(:build) do |event, evaluator|
-        event.incoming_message ||= build(
-          *evaluator.incoming_message_factory, info_request: event.info_request
-        )
+      incoming_message do
+        association(*incoming_message_factory, info_request: info_request)
+      end
+
+      after(:build) do |event|
         event.info_request = event.incoming_message.info_request
       end
 

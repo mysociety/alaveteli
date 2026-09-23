@@ -32,19 +32,23 @@ FactoryBot.define do
       foi_attachments_factories { [] }
     end
 
-    after(:build) do |incoming_message, evaluator|
+    after(:build) do |incoming_message|
+      incoming_message.raw_email.data =
+        build_incoming_message_mail(incoming_message)
+    end
+
+    # Each attachment adds itself to the raw email when created, so a built
+    # message has none and a created one always has its main body part.
+    after(:create) do |incoming_message, evaluator|
       foi_attachments_factories = [[:body_text]]
       foi_attachments_factories += evaluator.foi_attachments_factories
       foi_attachments_factories.each.with_index(1) do |factory, index|
-        incoming_message.foi_attachments << build(
+        create(
           *factory,
           incoming_message: incoming_message,
           url_part_number: index
         )
       end
-
-      mail = build_incoming_message_mail(incoming_message)
-      incoming_message.raw_email.data = mail
     end
 
     trait :unparsed do
