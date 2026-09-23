@@ -2576,4 +2576,11 @@ RSpec.describe FoiAttachment do
       end
     end
   end
+
+  describe 'factories' do
+    it 'put the attachment in the raw email of its message' do
+      foi_attachment = FactoryBot.create(:pdf_attachment)
+      expect(foi_attachment.unmasked_body).to eq(foi_attachment.body)
+    end
+  end
 end

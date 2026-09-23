@@ -46,6 +46,18 @@ FactoryBot.define do
       )
     end
 
+    # Put the attachment in the raw email too, so code that looks it up
+    # there by hexdigest finds it instead of falling back to guesswork.
+    after(:create) do |foi_attachment|
+      incoming_message = foi_attachment.incoming_message
+      next unless incoming_message
+
+      incoming_message.foi_attachments.reset
+      incoming_message.raw_email.data =
+        build_incoming_message_mail(incoming_message)
+      incoming_message.save!
+    end
+
     trait :unmasked do
       masked_at { nil }
     end
