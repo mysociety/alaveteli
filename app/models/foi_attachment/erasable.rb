@@ -6,6 +6,7 @@ module FoiAttachment::Erasable
 
   included do
     scope :erased, -> { where.not(erased_at: nil) }
+    scope :not_erased, -> { where(erased_at: nil) }
 
     delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
   end

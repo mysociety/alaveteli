@@ -83,6 +83,7 @@ class IncomingMessage < ApplicationRecord
   delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 
   delegate :apply_masks, to: :info_request
+  delegate :expire, :log_event, to: :info_request
 
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.
