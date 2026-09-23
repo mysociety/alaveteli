@@ -149,6 +149,30 @@ RSpec.describe Searchable, 'index lifecycle' do
       User.reindex_all
     end
 
+    it 'reads the record when a model decides publicly_searchable? itself' do
+      allow(User).to receive(:public_split_in_database?).and_return(false)
+
+      expect(User).not_to receive(:reindex_all_inside_db)
+      User.reindex_all
+    end
+
+    it 'splits the public content by prominence inside the database' do
+      shown = FactoryBot.create(:info_request, title: 'Plain sight')
+      hidden = FactoryBot.create(:hidden_request, title: 'Out of sight')
+      SearchDocument.delete_all
+
+      InfoRequest.reindex_all
+
+      documents = SearchDocument.where(searchable_type: 'InfoRequest')
+      expect(documents.find_by(searchable_id: shown.id)).
+        to have_attributes(raw_content: a_string_including('Plain sight'))
+      expect(documents.find_by(searchable_id: hidden.id)).
+        to have_attributes(
+          raw_content: nil,
+          raw_admin_content: a_string_including('Out of sight')
+        )
+    end
+
     it 'copies the indexed columns into the raw content' do
       user = FactoryBot.create(:user, name: 'Winston Smith')
 

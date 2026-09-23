@@ -306,7 +306,8 @@ module Searchable
 
       # if none of the index keys starts with a '.', we don't need to call ruby
       # attributes so we can index within a DB query
-      if columns.none? { |column| column.start_with?('.') } && root_in_database?
+      if columns.none? { |column| column.start_with?('.') } &&
+         root_in_database? && public_split_in_database?
         return reindex_all_inside_db
       end
 
@@ -335,6 +336,8 @@ module Searchable
         AlaveteliLocalization.default_locale
       )
       table = Searchable.partition_table_name(name)
+      shown = Searchable.index_columns(search_options, public: true)
+      hidden = Searchable.index_columns(search_options, public: false)
 
       rows = indexable.select(Arel.sql(<<~SQL.chomp))
         #{connection.quote(name)},
@@ -342,10 +345,14 @@ module Searchable
         #{root_query},
         #{connection.quote(language)},
         '1',
-        #{raw_content_query(:index)},
-        #{raw_content_query(:admin_index)},
-        #{content_tsv_query(:index, language)},
-        #{content_tsv_query(:admin_index, language)},
+        #{public_case(raw_content_query(shown[0]),
+                      raw_content_query(hidden[0]))},
+        #{public_case(raw_content_query(shown[1]),
+                      raw_content_query(hidden[1]))},
+        #{public_case(content_tsv_query(shown[0], language),
+                      content_tsv_query(hidden[0], language))},
+        #{public_case(content_tsv_query(shown[1], language),
+                      content_tsv_query(hidden[1], language))},
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
       SQL
@@ -395,6 +402,12 @@ module Searchable
 
     private
 
+    # A model that decides publicly_searchable? itself needs the record
+    # loaded; the CASE in public_case only knows the prominence column.
+    def public_split_in_database?
+      !method_defined?(:publicly_searchable?, false)
+    end
+
     def root_in_database?
       root = search_options[:root]
       return true if root.nil? || root.is_a?(Hash)
@@ -415,16 +428,25 @@ module Searchable
       end
     end
 
-    def raw_content_query(idx_name)
-      columns = search_options[idx_name]
-      return "''" if columns.nil?
+    # The same split as publicly_searchable?, done in SQL: +public_sql+ for
+    # a record the public may see, +private_sql+ for the rest.
+    def public_case(public_sql, private_sql)
+      return public_sql unless column_names.include?('prominence')
+
+      values = PUBLIC_PROMINENCE.map { |value| connection.quote(value) }
+      "CASE WHEN prominence IN (#{values.join(', ')}) " \
+        "THEN #{public_sql} ELSE #{private_sql} END"
+    end
+
+    # Empty column sets give NULL, as the per-record path does.
+    def raw_content_query(columns)
+      return 'NULL' if columns.empty?
 
       "concat(#{columns.keys.join(", ' ', ")})"
     end
 
-    def content_tsv_query(idx_name, language)
-      columns = search_options[idx_name]
-      return "''" if columns.nil?
+    def content_tsv_query(columns, language)
+      return 'NULL' if columns.empty?
 
       columns.map { |column, weight|
         "setweight(to_tsvector('#{language}'::regconfig, " \
