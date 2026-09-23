@@ -1,15 +1,3 @@
-# the smallest "thing" we can search for (in info requests,
-# incoming/outgoing messages, attachments, public bodies,
-# comments...)
-# Can be a paragraph, a page, a sheet in a spreadsheet, or
-# an entire file depending on how each class defines its
-# search capabilities
-#
-# The search_documents table is partitioned in postgresql for
-# better search performance. This is why `id` is called `sd_id`,
-# because Rails makes assumptions about the primary key that do
-# not work with this setup.
-#
 # == Schema Information
 #
 # Table name: search_documents
@@ -25,9 +13,22 @@
 #  admin_content_tsv :tsvector
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  root_type         :string
+#  root_id           :bigint
+
+##
+# The smallest "thing" we can search for (in info requests, incoming/outgoing
+# messages, attachments, public bodies, comments...) Can be a paragraph, a
+# page, a sheet in a spreadsheet, or an entire file depending on how each class
+# defines its search capabilities
+#
+# The search_documents table is partitioned in postgresql for better search
+# performance. This is why `id` is called `sd_id`, because Rails makes
+# assumptions about the primary key that do not work with this setup.
 #
 class SearchDocument < ApplicationRecord
   belongs_to :searchable, polymorphic: true
+  belongs_to :root, polymorphic: true
   self.primary_key = [:searchable_type, :sd_id]
 
   # build the sql query for the search. This should be injection-safe.

@@ -13,6 +13,8 @@
 #  admin_content_tsv :tsvector
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  root_type         :string
+#  root_id           :bigint
 #
 
 require 'spec_helper'

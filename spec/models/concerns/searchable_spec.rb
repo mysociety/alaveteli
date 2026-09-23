@@ -60,6 +60,18 @@ RSpec.describe Searchable, 'index lifecycle' do
     expect { user.destroy! }.to change(SearchDocument, :count).by(-1)
   end
 
+  it 'roots a record with no parent at itself' do
+    user = FactoryBot.create(:user)
+    expect(user.search_documents.map(&:root)).to eq([user])
+  end
+
+  it 'roots a record at the top of its tree' do
+    info_request = FactoryBot.create(:info_request)
+    message = info_request.outgoing_messages.first
+
+    expect(message.search_documents.map(&:root)).to eq([info_request])
+  end
+
   it 'does not index models that are not registered as searchable' do
     n = FactoryBot.create(:notification)
     expect(SearchDocument.where(searchable_type: "Notification").count).to eq(0)
@@ -113,6 +125,28 @@ RSpec.describe Searchable, 'index lifecycle' do
       expect(
         SearchDocument.where(searchable_type: 'User', searchable_id: banned.id)
       ).to be_empty
+    end
+
+    it 'builds the root inside the database from a belongs_to' do
+      message = FactoryBot.create(:initial_request)
+      SearchDocument.delete_all
+      allow(OutgoingMessage).to receive(:search_options).
+        and_return(index: { body: 'A' }, root: :info_request)
+
+      expect(OutgoingMessage).to receive(:reindex_all_inside_db).
+        and_call_original
+      OutgoingMessage.reindex_all
+
+      expect(message.search_documents.map(&:root)).
+        to eq([message.info_request])
+    end
+
+    it 'reads the record when the root is not a belongs_to' do
+      allow(User).to receive(:search_options).
+        and_return(index: { name: 'A' }, root: :profile_photo)
+
+      expect(User).not_to receive(:reindex_all_inside_db)
+      User.reindex_all
     end
 
     it 'copies the indexed columns into the raw content' do
