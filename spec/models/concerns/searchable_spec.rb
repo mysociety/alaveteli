@@ -141,6 +141,14 @@ RSpec.describe Searchable, 'index lifecycle' do
         to eq([message.info_request])
     end
 
+    it 'reads the record when the root is not a belongs_to' do
+      allow(User).to receive(:search_options).
+        and_return(index: { name: 'A' }, root: :profile_photo)
+
+      expect(User).not_to receive(:reindex_all_inside_db)
+      User.reindex_all
+    end
+
     it 'copies the indexed columns into the raw content' do
       user = FactoryBot.create(:user, name: 'Winston Smith')
 

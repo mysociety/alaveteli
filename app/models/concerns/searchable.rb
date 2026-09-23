@@ -293,7 +293,7 @@ module Searchable
 
       # if none of the index keys starts with a '.', we don't need to call ruby
       # attributes so we can index within a DB query
-      if columns.none? { |column| column.start_with?('.') }
+      if columns.none? { |column| column.start_with?('.') } && root_in_database?
         return reindex_all_inside_db
       end
 
@@ -381,6 +381,14 @@ module Searchable
     end
 
     private
+
+    def root_in_database?
+      root = search_options[:root]
+      return true if root.nil? || root.is_a?(Hash)
+
+      reflection = reflect_on_association(root)
+      reflection.belongs_to? && !reflection.polymorphic?
+    end
 
     def root_query
       root = search_options[:root]
