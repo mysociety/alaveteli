@@ -902,8 +902,6 @@ RSpec.describe FoiAttachment do
     let(:incoming_message) { info_request.incoming_messages.first }
     let(:attachment) { incoming_message.foi_attachments.last }
 
-    before { rebuild_raw_emails(info_request) }
-
     it 'updates masked_at' do
       info_request.censor_rules.create!(
         text: 'dull', replacement: 'boring',

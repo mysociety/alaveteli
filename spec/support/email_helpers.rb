@@ -79,10 +79,3 @@ def build_incoming_message_mail(im)
 
   mail
 end
-
-def rebuild_raw_emails(info_request)
-  info_request.incoming_messages.each do |im|
-    im.raw_email.data = build_incoming_message_mail(im)
-    im.save!
-  end
-end
