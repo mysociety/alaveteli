@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add prominence check to public search indexing (Graeme Porteous)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)
 * Fix an endless loop if there is issues masking attachment (Graeme Porteous)
