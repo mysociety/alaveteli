@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix an endless loop if there is issues masking attachment (Graeme Porteous)
 * Store the top-level record on each search document (Graeme Porteous)
 * Improved error handing on Pro card payment form (Graeme Porteous)
 * Drop the exact tag matches list from the authority admin (Graeme Porteous)

@@ -329,6 +329,22 @@ RSpec.describe FoiAttachment do
       end
     end
 
+    context 'when masked but the file is still missing after masking' do
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      before do
+        foi_attachment.file_blob.service.delete(foi_attachment.file_blob.key)
+        allow(FoiAttachment::MaskJob).to receive(:perform_now)
+      end
+
+      it 'raises MissingError' do
+        expect { foi_attachment.body }.to raise_error(
+          FoiAttachment::MissingError,
+          "attachment still missing after masking (ID=#{foi_attachment.id})"
+        )
+      end
+    end
+
     context 'when unmasked and original attachment can be found' do
       let(:incoming_message) do
         FactoryBot.create(:incoming_message, foi_attachments_factories: [
@@ -346,6 +362,15 @@ RSpec.describe FoiAttachment do
           })
 
         expect(foi_attachment.body).to eq('maskedbody')
+      end
+
+      it 'raises MissingError if masking does not store a file' do
+        allow(FoiAttachment::MaskJob).to receive(:perform_now)
+
+        expect { foi_attachment.body }.to raise_error(
+          FoiAttachment::MissingError,
+          "attachment still missing after masking (ID=#{foi_attachment.id})"
+        )
       end
     end
 
