@@ -193,8 +193,6 @@ RSpec.describe IncomingMessage do
       FactoryBot.create(:csv_attachment, :unlocked, incoming_message: message)
     end
 
-    before { message.reload }
-
     it 'locks all attachments' do
       subject
       expect([attachment_1, attachment_2].map(&:reload)).to all(be_locked)
@@ -785,7 +783,6 @@ RSpec.describe IncomingMessage do
                         body: load_file_fixture('pdf-with-utf8-characters.pdf'),
                         incoming_message: message,
                         url_part_number: 3)
-      message.reload
 
       expect { message.get_attachment_text_full }.
         to_not raise_error
