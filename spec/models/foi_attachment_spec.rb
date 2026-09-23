@@ -330,12 +330,7 @@ RSpec.describe FoiAttachment do
     end
 
     context 'when unmasked and original attachment can be found' do
-      let(:incoming_message) do
-        FactoryBot.create(:incoming_message, foi_attachments_factories: [
-          [:body_text, :unmasked]
-        ])
-      end
-      let(:foi_attachment) { incoming_message.foi_attachments.last }
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
 
       it 'calls the FoiAttachment::MaskJob now and return the masked body' do
         expect(FoiAttachment::MaskJob).to receive(:perform_now).
@@ -350,21 +345,14 @@ RSpec.describe FoiAttachment do
     end
 
     context 'when unmasked and original attachment can not be found' do
-      let(:incoming_message) do
-        FactoryBot.create(:incoming_message, foi_attachments_factories: [
-          [:body_text, :unmasked]
-        ])
-      end
-      let(:foi_attachment) { incoming_message.foi_attachments.last }
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
 
       before do
-        foi_attachment.update(hexdigest: '123')
-
         expect(FoiAttachment::MaskJob).to receive(:perform_now).
           with(foi_attachment).
           and_invoke(-> (_) {
-            # mock the job
-            incoming_message.parse_raw_email!
+            # mock the job rebuilding the attachments from the raw email
+            foi_attachment.destroy
           })
       end
 
