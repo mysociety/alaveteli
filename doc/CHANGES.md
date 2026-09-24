@@ -227,6 +227,16 @@
 
     bin/rails runner "AlaveteliFeatures.backend.enable(:censor_rule_ignore_diacritics)"
 
+* _Optional:_ We can now track when censor rules actually redact content. This
+  is disabled by default while we test it before full release. Before then you
+  can enable it by running:
+
+    # Enable the feature
+    bin/rails runner "AlaveteliFeatures.backend.enable(:redaction_tracking)"
+
+    # Run the backfill script
+    bin/rails temp:record_censor_rule_redactions
+
 * **Note:** Global censor rules are now applied in descending order of creation. Prior to this release,
   global censor rules were applied in whatever order they were returned by the database. This could lead
   to unpredictable data leaks. The order of application of other censor rules (non-global) is not modified.
