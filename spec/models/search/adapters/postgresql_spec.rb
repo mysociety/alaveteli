@@ -25,6 +25,41 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
     end
   end
 
+  describe '#search' do
+    let!(:older) do
+      FactoryBot.create(:public_body, name: 'Ptarmigan Ptarmigan Board',
+                                      created_at: 2.days.ago)
+    end
+    let!(:newer) { FactoryBot.create(:public_body, name: 'Ptarmigan Office') }
+
+    def search(models: [PublicBody], **options)
+      adapter.search('ptarmigan', models: models, **options).
+        results(page: 1, per_page: 25).map { |result| result[:model] }
+    end
+
+    it 'puts the best match first by default' do
+      expect(search).to eq([older, newer])
+    end
+
+    it 'puts the newest first when sorting ascending, as Xapian does' do
+      expect(search(sort_by: 'created_at', sort_ascending: true)).
+        to eq([newer, older])
+    end
+
+    it 'keeps the ranking when the model has no such column' do
+      expect(search(sort_by: 'described_at')).to eq([older, newer])
+    end
+
+    it 'finds nothing in a model without a public index' do
+      expect(search(models: [InfoRequestEvent])).to be_empty
+    end
+
+    it 'refuses to search several models at once' do
+      expect { search(models: [PublicBody, User]) }.
+        to raise_error(ArgumentError)
+    end
+  end
+
   describe '#request_search' do
     let!(:older) do
       FactoryBot.create(:info_request, title: 'Ptarmigan ptarmigan',
