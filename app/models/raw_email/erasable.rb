@@ -28,21 +28,19 @@ module RawEmail::Erasable
     transaction do |t|
       t.after_rollback { return false }
 
-      raise ActiveRecord::Rollback unless
-        lock_all_attachments(
-          editor: editor,
-          reason: 'RawEmail#erase',
-          raw_email: self
-        )
+      lock_all_attachments(
+        editor: editor,
+        reason: 'RawEmail#erase',
+        raw_email: self
+      ) || raise(ActiveRecord::Rollback, 'could not lock all attachments')
 
-      raise ActiveRecord::Rollback unless
-        log_event(
-          'erase_raw_email',
-          editor: editor,
-          reason: reason,
-          raw_email: self,
-          storage_key: storage_key
-        )
+      log_event(
+        'erase_raw_email',
+        editor: editor,
+        reason: reason,
+        raw_email: self,
+        storage_key: storage_key
+      ) || raise(ActiveRecord::Rollback, 'could not log erase_raw_email event')
 
       file.purge_later
       inbound_email&.destroy
@@ -51,6 +49,11 @@ module RawEmail::Erasable
       expire(preserve_database_cache: true)
 
       true
+    rescue StandardError => ex
+      Rails.logger.error(
+        "RawEmail#erase failed (ID=#{id}): #{ex.class}: #{ex.message}"
+      )
+      raise
     end
   end
 end
