@@ -117,7 +117,7 @@ class FoiAttachment < ApplicationRecord
     if persisted?
       FoiAttachment::MaskJob.unlock!(self)
       FoiAttachment::MaskJob.perform_now(self)
-      return body unless destroyed?
+      return body_after_masking unless destroyed?
     end
 
     load_attachment_from_incoming_message!.body if destroyed?
@@ -302,4 +302,15 @@ class FoiAttachment < ApplicationRecord
       "url_part_number and display_filename attributes"
   end
 
+  def body_after_masking
+    return @cached_body if @cached_body
+
+    if masking_failed?
+      raise MaskingError, "masking previously failed (ID=#{id})"
+    end
+
+    return file.download if masked? && file_blob.service.exist?(file_blob.key)
+
+    raise MissingError, "attachment still missing after masking (ID=#{id})"
+  end
 end
