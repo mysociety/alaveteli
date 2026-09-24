@@ -20,19 +20,10 @@ module Search
         end
 
         def results(page: 1, per_page: 25)
-          offset = calculate_offset(page, per_page)
-          relation = sorted(
-            SearchDocument.request_search(query, requests: @requests)
-          ).includes(:user, :outgoing_messages, public_body: :translations)
-
-          create_search_results(
-            items: relation.offset(offset).limit(per_page).
-              map { |request| { model: request } },
-            total_estimate: relation.count,
-            current_page: page,
-            per_page: per_page,
-            offset: offset,
-            has_normal_search_terms: query.present?
+          paginated_results(
+            sorted(SearchDocument.request_search(query, requests: @requests)).
+              includes(:user, :outgoing_messages, public_body: :translations),
+            page, per_page
           )
         end
 
