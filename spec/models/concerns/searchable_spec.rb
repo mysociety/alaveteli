@@ -149,6 +149,30 @@ RSpec.describe Searchable, 'index lifecycle' do
       User.reindex_all
     end
 
+    it 'reads the record when a model decides publicly_searchable? itself' do
+      allow(User).to receive(:public_split_in_database?).and_return(false)
+
+      expect(User).not_to receive(:reindex_all_inside_db)
+      User.reindex_all
+    end
+
+    it 'splits the public content by prominence inside the database' do
+      shown = FactoryBot.create(:info_request, title: 'Plain sight')
+      hidden = FactoryBot.create(:hidden_request, title: 'Out of sight')
+      SearchDocument.delete_all
+
+      InfoRequest.reindex_all
+
+      documents = SearchDocument.where(searchable_type: 'InfoRequest')
+      expect(documents.find_by(searchable_id: shown.id)).
+        to have_attributes(raw_content: a_string_including('Plain sight'))
+      expect(documents.find_by(searchable_id: hidden.id)).
+        to have_attributes(
+          raw_content: nil,
+          raw_admin_content: a_string_including('Out of sight')
+        )
+    end
+
     it 'copies the indexed columns into the raw content' do
       user = FactoryBot.create(:user, name: 'Winston Smith')
 
@@ -158,6 +182,56 @@ RSpec.describe Searchable, 'index lifecycle' do
                                         searchable_id: user.id)
       expect(document.raw_admin_content).to include('Winston Smith')
       expect(User.newsearch('Winston Smith', admin_mode: true)).to eq([user])
+    end
+  end
+end
+
+RSpec.describe Searchable, 'public content' do
+  let(:document) { info_request.search_documents.reload.first }
+
+  context 'with normal prominence' do
+    let(:info_request) do
+      FactoryBot.create(:info_request, title: 'Plain sight')
+    end
+
+    it 'goes in the public index' do
+      expect(document.raw_content).to include('Plain sight')
+      expect(document.raw_admin_content).not_to include('Plain sight')
+    end
+  end
+
+  context 'with any other prominence' do
+    let(:info_request) do
+      FactoryBot.create(:backpage_request, title: 'Back page')
+    end
+
+    it 'goes in the admin index instead' do
+      expect(document.raw_content).to be_nil
+      expect(document.raw_admin_content).to include('Back page')
+    end
+  end
+
+  context 'under an embargo' do
+    let(:info_request) do
+      FactoryBot.create(:embargoed_request, title: 'Under wraps')
+    end
+
+    it 'stays in the public index' do
+      expect(document.raw_content).to include('Under wraps')
+    end
+  end
+
+  context 'when the prominence changes' do
+    let(:info_request) do
+      FactoryBot.create(:info_request, title: 'On the move')
+    end
+
+    it 'moves between the indexes' do
+      expect { info_request.update!(prominence: 'hidden') }.
+        to change { document.reload.raw_content }.
+        from(a_string_including('On the move')).to(nil).
+        and change { document.reload.raw_admin_content }.
+        to(a_string_including('On the move'))
     end
   end
 end

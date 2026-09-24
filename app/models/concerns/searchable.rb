@@ -18,6 +18,10 @@ module Searchable
     end
   end
 
+  # The prominence values whose content goes in the public index. Anything
+  # else goes in the admin index.
+  PUBLIC_PROMINENCE = %w[normal].freeze
+
   # rubocop:disable Style/ClassVars
   # store rails models that are searchable, with settings for each of them.
   # See the `searchable` method below for details.
@@ -48,6 +52,16 @@ module Searchable
     @@locale_to_language_map[locale]
   end
 
+  # The columns behind each index for a record the public may or may not
+  # see. Content the public may not see moves from the public index to the
+  # admin one, so admins can still find it.
+  def self.index_columns(options, public:)
+    index = options[:index] || {}
+    admin_index = options[:admin_index] || {}
+
+    public ? [index, admin_index] : [{}, admin_index.merge(index)]
+  end
+
   def self.partition_table_name(model)
     "search_documents_#{model.downcase.gsub('::', '_')}"
   end
@@ -61,12 +75,10 @@ module Searchable
 
   # We can't just use the raw_content here, because it has lost the
   # weight from various columns.
-  def search_content_from_db_query(idx_name, language)
-    opts = @@searchable_models[self.class.to_s]
-
+  def search_content_from_db_query(columns, language)
     raw_content_bits = []
     content_tsv_bits = []
-    opts[idx_name].each do |col, w|
+    columns.each do |col, w|
       if col.start_with?(".")
         c = ActiveRecord::Base.connection.quote("#{send(col[1..])} ")
       else
@@ -91,37 +103,31 @@ module Searchable
 
   # Build a search record
   #
-  # +idx_name+ is either :index or :admin_index
+  # +columns+ are the index or admin_index columns from the searchable call
   # +language+ is the language for the pg dictionary to tokenize content.
-  def search_content_from_db(idx_name, language)
-    search_cfg = @@searchable_models[self.class.to_s]
-    if search_cfg[idx_name].nil? || search_cfg[idx_name].empty?
-      {}
-    else
-      ActiveRecord::Base.
-        connection.
-        exec_query(
-          search_content_from_db_query(idx_name, language),
-          "Search content query",
-          [ActiveRecord::Relation::QueryAttribute.new(
-            "somename",
-            id,
-            ActiveRecord::Type::Integer.new
-          )]
-        ).to_a.first
-    end
+  def search_content_from_db(columns, language)
+    return {} if columns.blank?
+
+    ActiveRecord::Base.
+      connection.
+      exec_query(
+        search_content_from_db_query(columns, language),
+        "Search content query",
+        [ActiveRecord::Relation::QueryAttribute.new(
+          "somename",
+          id,
+          ActiveRecord::Type::Integer.new
+        )]
+      ).to_a.first
   end
 
   # upsert the search content
   def upsert_content(language, section_ref)
-    content_from_db = search_content_from_db(
-      :index,
-      language
+    index, admin_index = Searchable.index_columns(
+      self.class.search_options, public: publicly_searchable?
     )
-    admin_content_from_db = search_content_from_db(
-      :admin_index,
-      language
-    )
+    content_from_db = search_content_from_db(index, language)
+    admin_content_from_db = search_content_from_db(admin_index, language)
 
     root_type, root_id = search_root
 
@@ -150,6 +156,13 @@ module Searchable
                     :content_tsv,
                     :admin_content_tsv]
     )
+  end
+
+  # Whether the public index may hold this record's content. A model
+  # without a prominence is public.
+  def publicly_searchable?
+    !has_attribute?(:prominence) ||
+      PUBLIC_PROMINENCE.include?(self[:prominence])
   end
 
   # The type and id of the record at the top of the tree this document belongs
@@ -293,7 +306,8 @@ module Searchable
 
       # if none of the index keys starts with a '.', we don't need to call ruby
       # attributes so we can index within a DB query
-      if columns.none? { |column| column.start_with?('.') } && root_in_database?
+      if columns.none? { |column| column.start_with?('.') } &&
+         root_in_database? && public_split_in_database?
         return reindex_all_inside_db
       end
 
@@ -322,6 +336,8 @@ module Searchable
         AlaveteliLocalization.default_locale
       )
       table = Searchable.partition_table_name(name)
+      shown = Searchable.index_columns(search_options, public: true)
+      hidden = Searchable.index_columns(search_options, public: false)
 
       rows = indexable.select(Arel.sql(<<~SQL.chomp))
         #{connection.quote(name)},
@@ -329,10 +345,14 @@ module Searchable
         #{root_query},
         #{connection.quote(language)},
         '1',
-        #{raw_content_query(:index)},
-        #{raw_content_query(:admin_index)},
-        #{content_tsv_query(:index, language)},
-        #{content_tsv_query(:admin_index, language)},
+        #{public_case(raw_content_query(shown[0]),
+                      raw_content_query(hidden[0]))},
+        #{public_case(raw_content_query(shown[1]),
+                      raw_content_query(hidden[1]))},
+        #{public_case(content_tsv_query(shown[0], language),
+                      content_tsv_query(hidden[0], language))},
+        #{public_case(content_tsv_query(shown[1], language),
+                      content_tsv_query(hidden[1], language))},
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
       SQL
@@ -382,6 +402,12 @@ module Searchable
 
     private
 
+    # A model that decides publicly_searchable? itself needs the record
+    # loaded; the CASE in public_case only knows the prominence column.
+    def public_split_in_database?
+      !method_defined?(:publicly_searchable?, false)
+    end
+
     def root_in_database?
       root = search_options[:root]
       return true if root.nil? || root.is_a?(Hash)
@@ -402,16 +428,25 @@ module Searchable
       end
     end
 
-    def raw_content_query(idx_name)
-      columns = search_options[idx_name]
-      return "''" if columns.nil?
+    # The same split as publicly_searchable?, done in SQL: +public_sql+ for
+    # a record the public may see, +private_sql+ for the rest.
+    def public_case(public_sql, private_sql)
+      return public_sql unless column_names.include?('prominence')
+
+      values = PUBLIC_PROMINENCE.map { |value| connection.quote(value) }
+      "CASE WHEN prominence IN (#{values.join(', ')}) " \
+        "THEN #{public_sql} ELSE #{private_sql} END"
+    end
+
+    # Empty column sets give NULL, as the per-record path does.
+    def raw_content_query(columns)
+      return 'NULL' if columns.empty?
 
       "concat(#{columns.keys.join(", ' ', ")})"
     end
 
-    def content_tsv_query(idx_name, language)
-      columns = search_options[idx_name]
-      return "''" if columns.nil?
+    def content_tsv_query(columns, language)
+      return 'NULL' if columns.empty?
 
       columns.map { |column, weight|
         "setweight(to_tsvector('#{language}'::regconfig, " \
