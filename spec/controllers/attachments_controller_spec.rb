@@ -46,7 +46,6 @@ RSpec.describe AttachmentsController, type: :controller do
       unless params[:public_token]
         default_params[:request_url_title] = info_request.url_title
       end
-      rebuild_raw_emails(info_request)
       get :show, params: default_params.merge(params)
     end
 

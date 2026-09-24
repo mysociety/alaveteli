@@ -42,7 +42,9 @@ RSpec.describe "track_mailer/event_digest" do
     end
 
     context 'when info request is external' do
-      let(:request) { FactoryBot.create(:info_request, :external) }
+      let(:request) do
+        FactoryBot.create(:info_request, :external, :with_incoming)
+      end
 
       it 'uses "An anonymous user" as the user name' do
         assign(:email_about_things, [[track, [event], ['test']]])

@@ -9,8 +9,6 @@ RSpec.describe FoiAttachment::MaskJob, type: :job do
     described_class.new.perform(attachment)
   end
 
-  before { rebuild_raw_emails(info_request) }
-
   describe 'uniqueness' do
     let(:attachment_1) { incoming_message.foi_attachments.first }
     let(:attachment_2) { incoming_message.foi_attachments.last }

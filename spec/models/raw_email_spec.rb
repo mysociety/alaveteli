@@ -311,13 +311,7 @@ RSpec.describe RawEmail do
   describe '#erased?' do
     subject { raw_email.erased? }
 
-    let(:raw_email) do
-      request = FactoryBot.create(:info_request)
-      message = FactoryBot.create(:incoming_message, info_request: request)
-      message.raw_email = FactoryBot.create(:raw_email, :with_file)
-      message.save!
-      message.raw_email
-    end
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
 
     it { is_expected.to eq(false) }
 
@@ -334,13 +328,7 @@ RSpec.describe RawEmail do
   end
 
   describe '#ensure_not_erased!' do
-    let(:raw_email) do
-      request = FactoryBot.create(:info_request)
-      message = FactoryBot.create(:incoming_message, info_request: request)
-      message.raw_email = FactoryBot.create(:raw_email, :with_file)
-      message.save!
-      message.raw_email
-    end
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
 
     context 'when not erased' do
       it 'returns nil' do
@@ -368,13 +356,7 @@ RSpec.describe RawEmail do
   describe '#erase' do
     subject { raw_email.erase(editor: editor, reason: reason) }
 
-    let(:raw_email) do
-      request = FactoryBot.create(:info_request)
-      message = FactoryBot.create(:incoming_message, info_request: request)
-      message.raw_email = FactoryBot.create(:raw_email, :with_file)
-      message.save!
-      message.raw_email
-    end
+    let!(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
 
     let(:editor) { FactoryBot.create(:admin_user) }
     let(:reason) { 'Removing PII' }
@@ -586,7 +568,7 @@ RSpec.describe RawEmail do
   end
 
   describe '#storage_key' do
-    let(:raw_email) { FactoryBot.create(:raw_email, :with_file) }
+    let(:raw_email) { FactoryBot.create(:incoming_message).raw_email }
 
     context 'when file is attached' do
       it 'returns the blob key' do

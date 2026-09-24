@@ -346,12 +346,7 @@ RSpec.describe FoiAttachment do
     end
 
     context 'when unmasked and original attachment can be found' do
-      let(:incoming_message) do
-        FactoryBot.create(:incoming_message, foi_attachments_factories: [
-          [:body_text, :unmasked]
-        ])
-      end
-      let(:foi_attachment) { incoming_message.foi_attachments.last }
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
 
       it 'calls the FoiAttachment::MaskJob now and return the masked body' do
         expect(FoiAttachment::MaskJob).to receive(:perform_now).
@@ -375,21 +370,14 @@ RSpec.describe FoiAttachment do
     end
 
     context 'when unmasked and original attachment can not be found' do
-      let(:incoming_message) do
-        FactoryBot.create(:incoming_message, foi_attachments_factories: [
-          [:body_text, :unmasked]
-        ])
-      end
-      let(:foi_attachment) { incoming_message.foi_attachments.last }
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
 
       before do
-        foi_attachment.update(hexdigest: '123')
-
         expect(FoiAttachment::MaskJob).to receive(:perform_now).
           with(foi_attachment).
           and_invoke(-> (_) {
-            # mock the job
-            incoming_message.parse_raw_email!
+            # mock the job rebuilding the attachments from the raw email
+            foi_attachment.destroy
           })
       end
 
@@ -615,7 +603,7 @@ RSpec.describe FoiAttachment do
   describe '#main_body_part?' do
     subject { attachment.main_body_part? }
 
-    let(:message) { FactoryBot.build(:incoming_message, :with_pdf_attachment) }
+    let(:message) { FactoryBot.create(:incoming_message, :with_pdf_attachment) }
 
     context 'when the attachment is the main body' do
       let(:attachment) { message.get_main_body_text_part }
@@ -926,8 +914,6 @@ RSpec.describe FoiAttachment do
     let(:info_request) { FactoryBot.create(:info_request_with_html_attachment) }
     let(:incoming_message) { info_request.incoming_messages.first }
     let(:attachment) { incoming_message.foi_attachments.last }
-
-    before { rebuild_raw_emails(info_request) }
 
     it 'updates masked_at' do
       info_request.censor_rules.create!(
@@ -2599,6 +2585,13 @@ RSpec.describe FoiAttachment do
       it 'returns nil' do
         expect(foi_attachment.storage_key).to be_nil
       end
+    end
+  end
+
+  describe 'factories' do
+    it 'put the attachment in the raw email of its message' do
+      foi_attachment = FactoryBot.create(:pdf_attachment)
+      expect(foi_attachment.unmasked_body).to eq(foi_attachment.body)
     end
   end
 end
