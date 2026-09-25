@@ -33,7 +33,7 @@ class AttachmentsController < ApplicationController
   end
 
   def show_as_html
-    html = @attachment.body_to_html(
+    html = @attachment.masked_body_to_html(
       attachment_url: attachment_url(@attachment),
       content_for: {
         head_suffix: render_to_string(
@@ -46,8 +46,6 @@ class AttachmentsController < ApplicationController
         )
       }
     )
-
-    html = @incoming_message.apply_masks(html, response.media_type)
 
     render html: html.html_safe
   end

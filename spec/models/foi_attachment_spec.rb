@@ -480,6 +480,29 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#masked_default_body', feature: :redaction_tracking do
+    subject { foi_attachment.masked_default_body }
+
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    let!(:censor_rule) do
+      FactoryBot.create(:info_request_censor_rule,
+                        censorable: foi_attachment.info_request,
+                        text: 'hereisthetext', replacement: '[REDACTED]')
+    end
+
+    it 'masks the body served in a request zip' do
+      is_expected.to include('[REDACTED]')
+    end
+
+    it 'records the redaction against :default_body' do
+      subject
+
+      expect(censor_rule.redactions.pluck(:redacted_attribute)).
+        to include('default_body')
+    end
+  end
+
   describe '#unmasked_body' do
     let(:foi_attachment) { FactoryBot.create(:body_text) }
     subject(:unmasked_body) { foi_attachment.unmasked_body }
@@ -663,6 +686,39 @@ RSpec.describe FoiAttachment do
       end
     end
 
+  end
+
+  describe '#masked_body_to_html', feature: :redaction_tracking do
+    subject { foi_attachment.masked_body_to_html }
+
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    let!(:censor_rule) do
+      FactoryBot.create(:info_request_censor_rule,
+                        censorable: foi_attachment.info_request,
+                        text: 'hereisthetext', replacement: '[REDACTED]')
+    end
+
+    it 'binary masks the HTML rendering' do
+      is_expected.to include('xxxxxxxxxxxxx')
+    end
+
+    it 'records the redaction against :body_to_html' do
+      subject
+
+      expect(censor_rule.redactions.pluck(:redacted_attribute)).
+        to include('body_to_html')
+    end
+
+    it 'passes options through to #body_to_html' do
+      expect(foi_attachment).to receive(:body_to_html).
+        with(attachment_url: 'http://example.com/attachment').
+        and_return('<p>html</p>')
+
+      foi_attachment.masked_body_to_html(
+        attachment_url: 'http://example.com/attachment'
+      )
+    end
   end
 
   describe '#body_to_text' do
