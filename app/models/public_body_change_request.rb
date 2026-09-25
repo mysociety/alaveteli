@@ -17,6 +17,8 @@
 #
 
 class PublicBodyChangeRequest < ApplicationRecord
+  include Searchable
+
   belongs_to :user,
              inverse_of: :public_body_change_requests,
              counter_cache: true,
@@ -46,6 +48,15 @@ class PublicBodyChangeRequest < ApplicationRecord
 
   singleton_class.undef_method :open # Undefine Kernel.open to avoid warning
   scope :open, -> { where(is_open: true) }
+
+  searchable admin_index: {
+    "notes": "A",
+    "public_body_email": "A",
+    "public_body_name": "A",
+    "source_url": "A",
+    "user_email": "A",
+    "user_name": "A"
+  }
 
   def self.from_params(params, user)
     change_request = new
