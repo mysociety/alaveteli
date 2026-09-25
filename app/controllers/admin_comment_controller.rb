@@ -5,22 +5,32 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminCommentController < AdminController
+  include Admin::Searchable
+  include Admin::Sortable
+
   before_action :set_comment, only: [:edit, :update]
+
+  sortable default: :updated_at_desc, relevance: :indexed_search?,
+           only: [:index]
 
   def index
     @title = 'Listing comments'
+    @page = get_search_page_from_params
     @query = params[:query]
 
+    base_scope = Comment.order(created_at: :desc)
+
     comments = if @query
-      Comment.where(["lower(body) LIKE lower('%'||?||'%')", @query]).
-        order(created_at: :desc)
+      base_scope.search_scope(@query, backend: :postgresql, admin_mode: true)
     else
-      Comment.order(created_at: :desc)
+      comments = base_scope
     end
+
+    comments = comments
 
     comments = comments.not_embargoed if cannot? :admin, AlaveteliPro::Embargo
 
-    @comments = comments.paginate page: params[:page], per_page: 100
+    @comments = measure_search(sorted(comments.paginate(page: @page, per_page: 100)))
   end
 
   def edit
