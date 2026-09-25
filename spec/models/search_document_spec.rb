@@ -202,4 +202,69 @@ RSpec.describe SearchDocument do
       end
     end
   end
+
+  context 'searching through InfoRequest' do
+    context 'outgoing messages' do
+      subject {
+        SearchDocument.hybrid_search(
+          "some information",
+          admin_mode: true
+        )
+      }
+
+      it 'does not show embargoed messages' do
+        embargoed_request = FactoryBot.create(
+          :embargoed_request, :with_plain_incoming
+        )
+        message = embargoed_request.outgoing_messages.first
+        message.reindex
+        expect(subject).to include(message.search_documents.first)
+        expect(subject.not_embargoed).
+          to be_empty
+      end
+    end
+
+    context 'incoming messages' do
+      subject {
+        SearchDocument.hybrid_search(
+          "house",
+          admin_mode: true
+        )
+      }
+
+      it 'does not show embargoed messages' do
+        embargoed_request = FactoryBot.create(
+          :embargoed_request, :with_plain_incoming
+        )
+        message = embargoed_request.incoming_messages.first
+        message.get_main_body_text_folded
+        message.reindex
+        expect(subject).to include(message.search_documents.first)
+        expect(subject.not_embargoed).
+          to be_empty
+      end
+    end
+
+    context 'attachments' do
+      subject {
+        SearchDocument.hybrid_search(
+          "powered by",
+          admin_mode: true
+        )
+      }
+      it 'does not show embargoed attachments' do
+        embargoed_request = FactoryBot.create(
+          :embargoed_request, :with_incoming_with_pdf_attachment
+        )
+        message = embargoed_request.incoming_messages.first
+        attachment = message.foi_attachments.last
+        expect(subject).to include(attachment.search_documents.first)
+        expect(subject.not_embargoed).
+          to be_empty
+      end
+    end
+  end
+
+  context 'searching through InfoRequest incoming messages' do
+  end
 end

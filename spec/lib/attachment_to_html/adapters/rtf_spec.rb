@@ -50,6 +50,9 @@ RSpec.describe AttachmentToHTML::Adapters::RTF do
       </html>
       DOC
       allow(AlaveteliExternalCommand).to receive(:run).and_return(invalid)
+      allow_any_instance_of(FoiAttachment).to receive(
+        :is_indexable?
+      ).and_return(false)
 
       expect(adapter.body).not_to include('//W3C//DTD HTML 4.01 Transitional//EN')
     end
@@ -62,6 +65,9 @@ RSpec.describe AttachmentToHTML::Adapters::RTF do
 
     it 'doesnt fail if the external command returns nil' do
       allow(AlaveteliExternalCommand).to receive(:run).and_return(nil)
+      allow_any_instance_of(FoiAttachment).to receive(
+        :is_indexable?
+      ).and_return(false)
       expect(adapter.body).to eq('')
     end
 
