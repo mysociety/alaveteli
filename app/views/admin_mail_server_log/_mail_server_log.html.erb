@@ -1,0 +1,17 @@
+<div class="accordion-group row">
+  <div class="accordion-heading">
+    <span class="muted">
+      <pre>
+        <%= link_to(
+          "#{mail_server_log.line.gsub(/\s+/m, " ")}",
+          edit_admin_mail_server_log_path(mail_server_log),
+          title: "Edit mail server log line",
+        ) %>
+      </pre>
+      at
+      <%= admin_date(mail_server_log.created_at) %>
+      in
+      <%= both_links(mail_server_log.info_request) %>
+    </span>
+  </div>
+</div>
