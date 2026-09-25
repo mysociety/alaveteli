@@ -1808,7 +1808,9 @@ RSpec.describe InfoRequest do
     subject { info_request.safe_from_name }
 
     before do
-      FactoryBot.create(:global_censor_rule, text: 'Bob', replacement: 'Robert')
+      FactoryBot.create(:global_censor_rule,
+                        text: 'Bob',
+                        replacement: 'Bob [hidden]')
     end
 
     context 'when external' do
@@ -1828,13 +1830,13 @@ RSpec.describe InfoRequest do
       let(:info_request) { FactoryBot.build(:info_request, user: user) }
 
       it 'returns users name with censor rule applied' do
-        is_expected.to eq('Robert Smith 1')
+        is_expected.to eq('Bob [hidden] Smith 1')
       end
     end
 
     context 'when sent internal message' do
       let(:outgoing_message) do
-        FactoryBot.build(:initial_request, from_name: 'Robert Smith 2')
+        FactoryBot.build(:initial_request, from_name: 'Bob Smith 2')
       end
 
       let(:info_request) do
@@ -1842,7 +1844,7 @@ RSpec.describe InfoRequest do
       end
 
       it 'returns initial request from name with censor rule applied' do
-        is_expected.to eq('Robert Smith 2')
+        is_expected.to eq('Bob [hidden] Smith 2')
       end
     end
   end

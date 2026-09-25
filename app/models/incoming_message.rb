@@ -37,6 +37,7 @@ require 'zip'
 
 class IncomingMessage < ApplicationRecord
   include MessageProminence
+  include Redactable
   include Taggable
 
   # An IncomingMessage is intrinsically linked to its RawEmail. RawEmail just
@@ -80,6 +81,8 @@ class IncomingMessage < ApplicationRecord
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
   scope :is_searchable, -> { where(prominence: 'normal') }
 
+  redactable :from_name, :from_email, :from_email_domain, :subject
+
   delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 
   delegate :apply_masks, to: :info_request
@@ -116,7 +119,8 @@ class IncomingMessage < ApplicationRecord
   #
   # Returns a String
   def safe_from_name
-    info_request.apply_censor_rules_to_text(from_name) if from_name
+    name = unredacted.from_name
+    info_request.apply_censor_rules_to_text(name) if name
   end
 
   def specific_from_name?

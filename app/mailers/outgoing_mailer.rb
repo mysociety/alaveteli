@@ -20,7 +20,7 @@ class OutgoingMailer < ApplicationMailer
     @contact_email = AlaveteliConfiguration.contact_email
     headers["message-id"] = OutgoingMailer.id_for_message(@outgoing_message)
 
-    mail(from: @outgoing_message.from,
+    mail(from: @outgoing_message.unredacted.from,
          to: @outgoing_message.to,
          subject: @outgoing_message.subject)
   end
@@ -33,9 +33,16 @@ class OutgoingMailer < ApplicationMailer
     @contact_email = AlaveteliConfiguration.contact_email
     headers["message-id"] = OutgoingMailer.id_for_message(@outgoing_message)
 
-    mail(from: @outgoing_message.from,
+    subject = OutgoingMailer.subject_for_followup(
+      @info_request,
+      @outgoing_message,
+      html: false,
+      incoming_message: @incoming_message_followup&.unredacted
+    )
+
+    mail(from: @outgoing_message.unredacted.from,
          to: @outgoing_message.to,
-         subject: @outgoing_message.subject)
+         subject: subject)
   end
 
   # TODO: the condition checking valid_to_reply_to? also appears in views/request/_followup.html.erb,
@@ -48,8 +55,10 @@ class OutgoingMailer < ApplicationMailer
       info_request.recipient_name_and_email
     else
       # calling safe_from_name from so censor rules are run
-      MailHandler.address_from_name_and_email(incoming_message_followup.safe_from_name,
-                                                     incoming_message_followup.from_email)
+      MailHandler.address_from_name_and_email(
+        incoming_message_followup.safe_from_name,
+        incoming_message_followup.unredacted.from_email
+      )
     end
   end
 
@@ -68,7 +77,7 @@ class OutgoingMailer < ApplicationMailer
     if incoming_message_followup.nil? || !incoming_message_followup.valid_to_reply_to?
       info_request.recipient_email
     else
-      incoming_message_followup.from_email
+      incoming_message_followup.unredacted.from_email
     end
   end
 
@@ -77,8 +86,12 @@ class OutgoingMailer < ApplicationMailer
     if outgoing_message.what_doing == 'internal_review'
       _("Internal review of {{email_subject}}", email_subject: info_request.email_subject_request(html: options[:html]))
     else
-      info_request.email_subject_followup(incoming_message: outgoing_message.incoming_message_followup,
-                                                 html: options[:html])
+      incoming_message = options.fetch(:incoming_message) do
+        outgoing_message.incoming_message_followup
+      end
+
+      info_request.email_subject_followup(incoming_message: incoming_message,
+                                          html: options[:html])
     end
   end
 

@@ -11,11 +11,11 @@ class Admin::FoiAttachmentsController < AdminController
   private
 
   def set_foi_attachment
-    @foi_attachment = FoiAttachment.find(params[:id])
+    @foi_attachment = FoiAttachment.find(params[:id]).unredacted
   end
 
   def set_incoming_message
-    @incoming_message = @foi_attachment&.incoming_message
+    @incoming_message = @foi_attachment&.incoming_message.unredacted
   end
 
   def set_info_request

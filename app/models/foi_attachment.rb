@@ -37,6 +37,7 @@ class FoiAttachment < ApplicationRecord
   include LinkToHelper
 
   include MessageProminence
+  include Redactable
 
   include ContentType
   include Erasable
@@ -68,6 +69,8 @@ class FoiAttachment < ApplicationRecord
 
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
                 include: %i[redacted_filename display_filename metadata]
+
+  redactable :filename, :body
 
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
@@ -136,6 +139,16 @@ class FoiAttachment < ApplicationRecord
     text_type? ? body_as_text.string : body
   end
 
+  # unredacted.body already goes through the real #body method, which
+  # masks (and caches) the content itself via FoiAttachment::MaskJob.
+  # Applying masks again here would be redundant, and isn't safe to do
+  # twice for every content type (e.g. PDF mask application isn't
+  # perfectly idempotent, so a second pass can needlessly re-derive a
+  # byte-different, but equally unmasked, PDF).
+  def apply_masks_to_body
+    unredacted.body
+  end
+
   # return the body as it is in the raw email, unmasked without censor rules
   # applied
   def unmasked_body
@@ -169,10 +182,9 @@ class FoiAttachment < ApplicationRecord
 
   def redacted_filename
     return replaced_filename if replaced_filename.present?
-    return filename unless info_request
-    return filename if locked? && !locking?
+    return unredacted.filename if locked? && !locking?
 
-    info_request.apply_censor_rules_to_text(filename)
+    filename
   end
 
   # TODO: changing this will break existing URLs, so have a care - maybe
@@ -194,7 +206,7 @@ class FoiAttachment < ApplicationRecord
   end
 
   def ensure_filename!
-    if filename.blank?
+    if read_attribute(:filename).blank?
       calc_ext = AlaveteliFileTypes.mimetype_to_extension(content_type)
       calc_ext = "bin" unless calc_ext
       if !within_rfc822_subject.nil?
@@ -220,7 +232,7 @@ class FoiAttachment < ApplicationRecord
 
   # Size to show next to the download link for the attachment
   def update_display_size!
-    s = body.size
+    s = unredacted.body.size
 
     if s > 1024 * 1024
       self.display_size = format("%.1f", s.to_f / 1024 / 1024) + 'M'

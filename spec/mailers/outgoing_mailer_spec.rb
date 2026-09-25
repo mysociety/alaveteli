@@ -9,6 +9,10 @@ RSpec.describe OutgoingMailer, " when working out follow up names and addresses"
     @incoming_message = mock_model(IncomingMessage,
                                    from_email: 'specific@example.com',
                                    safe_from_name: 'Specific Person')
+
+    allow(@incoming_message).
+      to receive(:unredacted).
+      and_return(@incoming_message)
   end
 
   describe 'if there is no incoming message being replied to' do
@@ -72,6 +76,23 @@ RSpec.describe OutgoingMailer, "when working out follow up subjects" do
     om.incoming_message_followup = im
 
     expect(OutgoingMailer.subject_for_followup(ir, om, html: false)).to eq("Re: Geraldine FOI Code AZXB421")
+  end
+
+  it "uses the unredacted incoming subject when delivering a followup" do
+    ir = info_requests(:fancy_dog_request)
+    im = ir.incoming_messages[0]
+    om = outgoing_messages(:useless_outgoing_message)
+    om.incoming_message_followup = im
+
+    im.raw_email.data = im.raw_email.data.sub(
+      'Subject: Geraldine FOI Code AZXB421',
+      'Subject: Re: case foo@example.com'
+    )
+    im.parse_raw_email!
+
+    expect(im.subject).to eq('Re: case [email address]')
+    expect(OutgoingMailer.followup(ir, om, im).subject).
+      to eq('Re: case foo@example.com')
   end
 
   it "should not add Re: prefix if there already is such a prefix" do
