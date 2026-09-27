@@ -22,10 +22,24 @@
   </div>
 
   <span class="help-inline">(substring search, source_url)</span>
+
+  <%= render partial: 'concerns/admin/searchable/search_engine',
+             locals: {
+               legacy_label: 'substring search in titles only',
+               new_label: 'whole word search in titles; please report ' \
+                          'poor search results!'
+             } %>
 <% end %>
 
+<div class="row">
+  <div class="span12">
+    <%= render partial: 'concerns/admin/sortable/sort_options' %>
+  </div>
+</div>
 
 <%= render partial: 'admin/citations/list',
            locals: { citations: @citations } %>
 
 <%= will_paginate(@citations) %>
+
+<%= render 'concerns/admin/searchable/search_stats' %>
