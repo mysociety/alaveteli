@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add request and authority results to site search with the PostgreSQL search
+  backend (Graeme Porteous)
 * Fix slow request listings with date filters, and stop counting above the
   results limit (Graeme Porteous)
 * Fix hidden comments, and content on hidden messages or requests, showing in
