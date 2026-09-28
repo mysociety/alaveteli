@@ -24,9 +24,9 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
   end
 
   describe '#reindex_later' do
-    it 'reindexes the record inline' do
+    it 'asks the record to reindex later' do
       user = users(:bob_smith_user)
-      expect(user).to receive(:reindex)
+      expect(user).to receive(:reindex_later)
       adapter.reindex_later(user)
     end
   end
