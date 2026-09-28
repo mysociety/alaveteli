@@ -28,6 +28,7 @@ class OutgoingMessage < ApplicationRecord
   include MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper
+  include OutgoingMessage::Erasable
   include Redactable
   include Searchable
   include Taggable
@@ -43,12 +44,14 @@ class OutgoingMessage < ApplicationRecord
   # To override the default letter
   attr_accessor :default_letter
 
-  before_validation :cache_from_name
-  validates_presence_of :from_name, unless: -> (m) { !m.info_request&.user }
+  before_validation :cache_from_name, unless: -> (m) { m.erased_at.present? }
+  validates_presence_of :from_name, unless: -> (m) {
+    !m.info_request&.user || m.erased_at.present?
+  }
   validates_inclusion_of :message_type, in: MESSAGE_TYPES
-  validate :template_changed
-  validate :body_uses_mixed_capitals
-  validate :body_has_signature
+  validate :template_changed, unless: -> (m) { m.erased_at.present? }
+  validate :body_uses_mixed_capitals, unless: -> (m) { m.erased_at.present? }
+  validate :body_has_signature, unless: -> (m) { m.erased_at.present? }
   validate :what_doing_value
 
   belongs_to :info_request,
@@ -114,6 +117,10 @@ class OutgoingMessage < ApplicationRecord
       raw_body,
       get_text_for_indexing
     )
+  end
+
+  def is_indexable?
+    erased_at.nil?
   end
 
   def self.default_salutation(public_body)
