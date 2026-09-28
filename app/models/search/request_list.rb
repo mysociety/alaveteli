@@ -1,10 +1,28 @@
 module Search
   ##
-  # Searches for InfoRequestEvents matching the given filters and returns a
-  # paginated request list for RequestController#list.
+  # The paginated request list for RequestController#list.
+  #
+  # The list is a filtered listing rather than a keyword search: status, date
+  # and tag filters are applied as database conditions on InfoRequest (which
+  # works under any backend). Only a free-text +query+ goes through the search
+  # index, via Search.request_search, and restricts the listing to the
+  # requests it matches.
   #
   class RequestList
-    include EventSearch
+    # Map a request-list status view to the described_state values it covers.
+    STATUS_STATES = {
+      'successful' => %w[successful partially_successful],
+      'unsuccessful' => %w[rejected not_held],
+      'internal_review' => %w[internal_review],
+      'gone_postal' => %w[gone_postal],
+      'other' => %w[gone_postal error_message requires_admin user_withdrawn]
+    }.freeze
+
+    # 'awaiting' also matches requests still awaiting classification.
+    AWAITING_STATES = %w[
+      waiting_response waiting_clarification internal_review
+      gone_postal error_message requires_admin
+    ].freeze
 
     def initialize(filters, page, per_page, max_results)
       @filters = filters
@@ -13,20 +31,84 @@ module Search
       @max_results = max_results
     end
 
+    # The requested page as a paginated relation; +total_entries+ counts
+    # every match.
     def call
-      query = InfoRequestEvent.make_query_from_params(@filters)
+      filtered_requests.
+        includes(:user, :outgoing_messages, public_body: :translations).
+        order(created_at: :desc).
+        paginate(page: @page, per_page: @per_page)
+    end
 
-      results = search_events(query,
-                              limit: 25,
-                              offset: (@page - 1) * @per_page,
-                              collapse_by: 'request_collapse')
+    # A theme with its own states can prepend an override that returns
+    # `super.merge(...)`.
+    def status_states
+      STATUS_STATES
+    end
 
-      list_results = results.results.map { |r| r[:model] }
-      matches_estimated = results.matches_estimated
-      show_no_more_than = [matches_estimated, @max_results].min
-      { results: list_results,
-        matches_estimated: matches_estimated,
-        show_no_more_than: show_no_more_than }
+    private
+
+    def filtered_requests
+      scope = InfoRequest.is_searchable
+      scope = filter_by_status(scope)
+      scope = filter_by_dates(scope)
+      scope = filter_by_tag(scope)
+      filter_by_keyword(scope)
+    end
+
+    def filter_by_status(scope)
+      views = Array(@filters[:latest_status]).compact
+      return scope if views.empty? || (views & %w[all recent]).any?
+
+      if views.include?('awaiting')
+        return scope.where(described_state: AWAITING_STATES).
+          or(scope.where(awaiting_description: true))
+      end
+
+      states = views.flat_map { |view| status_states[view] }.compact.uniq
+      states.empty? ? scope : scope.where(described_state: states)
+    end
+
+    # Match requests with a searchable event in the range, as Xapian did.
+    def filter_by_dates(scope)
+      after = parse_date(@filters[:request_date_after])
+      before = parse_date(@filters[:request_date_before])
+      return scope unless after || before
+
+      events = InfoRequestEvent.is_searchable.
+        where(created_at: after&.beginning_of_day..before&.end_of_day)
+      scope.where(id: events.select(:info_request_id))
+    end
+
+    def filter_by_tag(scope)
+      tag = @filters[:tag]
+      tag.present? ? scope.with_tag(tag) : scope
+    end
+
+    def filter_by_keyword(scope)
+      query = @filters[:query].to_s.strip
+      return scope if query.empty?
+
+      ids = Search.request_search(query).
+        results(page: 1, per_page: @max_results).
+        results.map { |result| result[:model].id }
+      scope.where(id: ids)
+    end
+
+    # The date picker sends the locale's date format with `/` for `-`, so
+    # read that, then ISO 8601 or day first, once the separators are `/`.
+    def parse_date(value)
+      return if value.blank?
+
+      value = value.tr('.-', '//')
+      [I18n.t('date.formats.default'), '%Y-%m-%d', '%d-%m-%Y'].each do |format|
+        date = Date.strptime(value, format.tr('.-', '//'))
+        # %Y reads the day of a day-first date as a year without error.
+        return date if date.year >= 1000
+      rescue ArgumentError
+        next
+      end
+      nil
     end
   end
 end

@@ -154,7 +154,7 @@ requests = InfoRequest.recent_requests
 
 # Paginated request list (used by RequestController#list)
 results = InfoRequest.request_list(filters, page, per_page, max_results)
-# => { results: [...], matches_estimated: N, show_no_more_than: N }
+# => a will_paginate relation of InfoRequests; total_entries is the count
 
 # Index health monitoring
 Search.queued_jobs_count  # => Integer
