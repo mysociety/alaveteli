@@ -489,7 +489,7 @@ module Searchable
       # keep the search index in sync with the record, so edits (including
       # anonymisation of personal data) are reflected in the indexed and
       # raw copies of the content.
-      after_commit :reindex, on: [:create, :update]
+      after_commit :reindex_later, on: [:create, :update]
       # Override this scope to help filter out records which don't need
       # reindexing in `reindex_all`.
       scope :indexable, -> { all }

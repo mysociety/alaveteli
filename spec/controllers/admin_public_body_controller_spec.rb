@@ -33,7 +33,8 @@ RSpec.describe AdminPublicBodyController do
       expect(names).to eq(names.sort_by(&:downcase))
     end
 
-    it "lists the best match first with the new search", :postgresql do
+    it "lists the best match first with the new search",
+       :postgresql, :reindex_inline do
       weak = FactoryBot.create(:public_body, name: 'Otter Watch')
       strong = FactoryBot.create(:public_body, name: 'Otter Otter Otter Watch')
       get :index, params: { query: 'otter', search_engine: 'new' }

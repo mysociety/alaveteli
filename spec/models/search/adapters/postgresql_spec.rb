@@ -10,7 +10,7 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
     let(:search_scope_options) { { admin_mode: true } }
   end
 
-  describe '#search_scope' do
+  describe '#search_scope', :reindex_inline do
     it 'passes case_sensitive through to the exact match search' do
       user = FactoryBot.create(:user, name: 'Charlotte Case')
 

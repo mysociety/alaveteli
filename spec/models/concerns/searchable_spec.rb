@@ -57,9 +57,16 @@ RSpec.describe Searchable, '#reindex_later' do
     expect { UnindexedModel.new.reindex_later }.
       not_to have_enqueued_job(Search::ReindexJob)
   end
+
+  it 'queues a job rather than indexing inline when a record is saved' do
+    user = nil
+    expect { user = FactoryBot.create(:user) }.
+      to have_enqueued_job(Search::ReindexJob)
+    expect(user.search_documents).to be_empty
+  end
 end
 
-RSpec.describe Searchable, 'index lifecycle' do
+RSpec.describe Searchable, 'index lifecycle', :reindex_inline do
   it 'indexes a record when it is created' do
     user = FactoryBot.create(:user)
     expect(user.search_documents.count).to eq(1)
@@ -240,7 +247,7 @@ RSpec.describe Searchable, 'index lifecycle' do
   end
 end
 
-RSpec.describe Searchable, 'public content' do
+RSpec.describe Searchable, 'public content', :reindex_inline do
   let(:document) { info_request.search_documents.reload.first }
 
   context 'with normal prominence' do
