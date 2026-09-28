@@ -209,6 +209,34 @@ RSpec.describe OutgoingMessage do
     end
   end
 
+  describe '#erase' do
+    let(:user) { FactoryBot.create(:user, name: 'Alice') }
+
+    ["initial_request", "followup"].each do |msg_type|
+      it "should keep the #{msg_type} message with nullified fields" do
+        attrs = { status: 'ready',
+                  message_type: 'initial_request',
+                  body: 'abc',
+                  what_doing: 'normal_sort' }
+        outgoing_message = FactoryBot.create(:initial_request, attrs)
+        outgoing_message.erase!(editor: user, reason: 'GDPR')
+
+        erased_message = OutgoingMessage.find(outgoing_message.id)
+        expect(erased_message.raw_body).to eq('')
+        expect(erased_message.body).to eq('')
+        expect(erased_message.read_attribute(:from_name)).to be_nil
+        expect(erased_message.status).to eq(outgoing_message.status)
+
+        last_event = erased_message.info_request.info_request_events.last
+        expect(last_event.event_type).to eq('erase_outgoing')
+        expect(last_event.params[:reason]).to eq('GDPR')
+        expect(last_event.params[:outgoing_message]).to eq(erased_message)
+
+        expect(erased_message.search_documents).to be_empty
+      end
+    end
+  end
+
   describe '#from' do
     it 'uses the user name and request magic email' do
       user = FactoryBot.create(:user, name: 'Spec User 862')

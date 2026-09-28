@@ -15,6 +15,7 @@
 #  prominence                   :string           default("normal"), not null
 #  prominence_reason            :text
 #  from_name                    :text
+#  erased_at                    :datetime
 #
 
 FactoryBot.define do
