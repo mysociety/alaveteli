@@ -28,10 +28,13 @@
     </div>
   </div>
 
-    <%= after_form_fields if defined?(after_form_fields) -%>
-
     <div class="list-filter-item">
       <%= submit_tag(_("Search")) %>
     </div>
+
+    <br>
+
+    <%= after_form_fields if defined?(after_form_fields) -%>
+
   <% end %>
 </div>
