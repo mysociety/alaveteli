@@ -50,6 +50,12 @@
   @include respond-min( $main_menu-mobile_menu_cutoff ) {
     border: 0;
   }
+
+  .locale-list-trigger {
+    button {
+      background-color: inherit;
+    }
+  }
 }
 
 .logged_in_bar {
