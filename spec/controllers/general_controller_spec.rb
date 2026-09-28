@@ -207,7 +207,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
       call_count = 0
       allow(InfoRequest).to receive(:recent_requests) do
         call_count += 1
-        [FactoryBot.create(:info_request_event)]
+        [FactoryBot.create(:info_request)]
       end
 
       get :frontpage
@@ -229,19 +229,18 @@ RSpec.describe GeneralController, "when showing the frontpage" do
       expect(call_count).to eq(2)
     end
 
-    it 'excludes requests hidden since the events were cached' do
-      visible_event = FactoryBot.create(:info_request_event)
-      hidden_event = FactoryBot.create(:info_request_event)
-      hidden_event.info_request.update!(prominence: 'hidden')
+    it 'excludes requests hidden since the ids were cached' do
+      visible = FactoryBot.create(:info_request)
+      hidden = FactoryBot.create(:info_request, prominence: 'hidden')
 
       allow(InfoRequest).to receive(:recent_requests).
-        and_return([visible_event, hidden_event])
+        and_return([visible, hidden])
 
       get :frontpage
 
-      assigned_ids = assigns[:request_events].ids
-      expect(assigned_ids).to include(visible_event.id)
-      expect(assigned_ids).not_to include(hidden_event.id)
+      assigned_ids = assigns[:recent_requests].ids
+      expect(assigned_ids).to include(visible.id)
+      expect(assigned_ids).not_to include(hidden.id)
     end
   end
 end
