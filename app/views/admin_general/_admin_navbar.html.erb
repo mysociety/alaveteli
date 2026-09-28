@@ -62,6 +62,11 @@
 
               <li><%= link_to 'Categories', admin_categories_path(model_type: 'PublicBody') %></li>
               <li><%= link_to 'Tags', admin_tags_path(model_type: 'PublicBody') %></li>
+
+              <% if feature_enabled?(:admin_public_body_change_requests) %>
+                <li><%= link_to 'Change requests', admin_change_requests_path %></li>
+              <% end %>
+
             </ul>
           </li>
 

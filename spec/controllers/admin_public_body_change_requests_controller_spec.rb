@@ -4,15 +4,18 @@ RSpec.describe AdminPublicBodyChangeRequestsController do
   let(:add_request) { FactoryBot.create(:add_body_request) }
 
   describe 'GET #edit' do
-    before do
-      get :edit, params: { id: add_request.id }
+    it 'sets the page title for a full edit' do
+      get :edit, params: { id: add_request.id, full_edit: true }
+      expect(assigns[:title]).to eq('Edit change request')
     end
 
-    it 'sets the page title' do
+    it 'sets the page title when closing the request' do
+      get :edit, params: { id: add_request.id }
       expect(assigns[:title]).to eq('Close change request')
     end
 
     it 'renders the edit template' do
+      get :edit, params: { id: add_request.id }
       expect(response).to render_template('edit')
     end
   end

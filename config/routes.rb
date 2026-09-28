@@ -666,7 +666,7 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :change_requests,
       :controller => 'admin_public_body_change_requests',
-      :only => [:edit, :update]
+      :only => [:index, :destroy, :edit, :update]
   end
   ####
 

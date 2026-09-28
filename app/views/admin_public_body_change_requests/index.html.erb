@@ -1,0 +1,25 @@
+<% @title = "Listing Public body change requests" %>
+
+<h1><%= @title %></h1>
+
+<%= form_tag({}, method: 'get', class: 'form form-search') do %>
+  <div class="input-append">
+    <%= text_field_tag "query",
+    params[:query],
+    size: 30,
+    class: "input-large search-query" %>
+    <%= hidden_field_tag "sort_order", @sort_order %>
+    <%= submit_tag "Search", class: "btn" %>
+  </div>
+<% end %>
+
+<div class="accordion" id="change_requests">
+  <% if @change_requests.any? %>
+    <%= render partial: "change_request", collection: @change_requests %>
+    <%= will_paginate(@change_requests) %>
+  <% else %>
+    <p>None yet.</p>
+  <% end %>
+</div>
+
+<%= render "concerns/admin/searchable/search_stats" %>
