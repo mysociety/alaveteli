@@ -40,6 +40,25 @@ RSpec.describe Searchable, :xapian do
   end
 end
 
+RSpec.describe Searchable, '#reindex_later' do
+  it 'queues a job to reindex the record' do
+    user = users(:bob_smith_user)
+    expect { user.reindex_later }.
+      to have_enqueued_job(Search::ReindexJob).with(user)
+  end
+
+  it 'does not queue a job for a model with nothing to index' do
+    model = Class.new(ApplicationRecord) do
+      self.table_name = 'users'
+      include Searchable
+    end
+    stub_const('UnindexedModel', model)
+
+    expect { UnindexedModel.new.reindex_later }.
+      not_to have_enqueued_job(Search::ReindexJob)
+  end
+end
+
 RSpec.describe Searchable, 'index lifecycle' do
   it 'indexes a record when it is created' do
     user = FactoryBot.create(:user)

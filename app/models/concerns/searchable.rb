@@ -188,6 +188,14 @@ module Searchable
     true
   end
 
+  # Jobs wait for the current transaction to commit, so the upsert never
+  # runs inside a caller's transaction.
+  def reindex_later
+    return unless @@searchable_models.key?(self.class.to_s)
+
+    Search::ReindexJob.perform_later(self)
+  end
+
   # "diffs" the unredacted and redacted versions of a text
   # and returns either an empty string if both are the same, or the
   # unredacted_text if they differ.
