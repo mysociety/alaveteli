@@ -5,6 +5,8 @@ module IncomingMessage::MainBody
   mattr_accessor :unmasked_main_body_available_from,
                  default: Time.zone.parse('2026-10-01')
 
+  UnmaskedBodyUnavailableError = Class.new(StandardError)
+
   # Returns body text from main text part of email, converted to UTF-8, with
   # uudecode removed, emails and privacy sensitive things remove, censored, and
   # folded to remove excess quoted text (marked with FOLDED_QUOTED_SECTION)
@@ -162,6 +164,26 @@ module IncomingMessage::MainBody
     !main_part.locked? && !main_part.erased?
   end
 
+  # Returns the main body text as HTML without masks applied. The text is
+  # loaded from the raw email rather than the database cache (which has masks
+  # applied) so is slow and must only be requested on demand. Quoted sections
+  # are always shown.
+  #
+  # This bypasses masks so must only be shown to the requester.
+  def get_unmasked_body_for_html_display # rubocop:disable Naming/AccessorMethodName
+    raise UnmaskedBodyUnavailableError unless unmasked_main_body_available?
+
+    text = _convert_part_body_to_text(get_main_body_text_part, unmasked: true)
+    # Strip the uudecode parts from main text
+    text = text.split(/^begin.+^`\n^end\n/m).join(" ")
+    text = MySociety::Format.simplify_angle_bracketed_urls(text)
+    text = CGI.escapeHTML(text)
+    text.strip!
+
+    text = ActionController::Base.helpers.simple_format(text)
+    text.html_safe
+  end
+
   # TODO: This could be a private method – it is only called by IncomingMessage
   # and is directly tested.
   def get_body_for_indexing # rubocop:disable Naming/AccessorMethodName
@@ -216,12 +238,13 @@ module IncomingMessage::MainBody
   end
 
   # Given a main text part, converts it to text
-  def _convert_part_body_to_text(part)
+  def _convert_part_body_to_text(part, unmasked: false)
     if part.nil?
       text = "[ Email has no body, please see attachments ]"
     else
       # whatever kind of attachment it is, get the UTF-8 encoded text
-      text = part.body_as_text.string
+      body_as_text = unmasked ? part.unmasked_body_as_text : part.body_as_text
+      text = body_as_text.string
 
       if part.content_type == 'text/html'
         # e.g. http://www.whatdotheyknow.com/request/35/response/177
@@ -233,7 +256,7 @@ module IncomingMessage::MainBody
     end
 
     # Add an annotation if the text had to be scrubbed
-    if part && part.body_as_text.scrubbed?
+    if part && body_as_text.scrubbed?
       text += _("\n\n[ {{site_name}} note: The above text was badly " \
                 "encoded, and has had strange characters removed. ]",
                 site_name: site_name)

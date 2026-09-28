@@ -1084,6 +1084,77 @@ RSpec.describe IncomingMessage do
       it { is_expected.to eq(true) }
     end
   end
+
+  describe '#get_unmasked_body_for_html_display' do
+    include_context 'unmasked main body available'
+
+    subject { incoming_message.get_unmasked_body_for_html_display }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    let(:incoming_message) do
+      receive_incoming_mail(mail, to: info_request.incoming_email)
+      info_request.incoming_messages.last
+    end
+
+    let(:mail) do
+      <<~EML
+        From: EMAIL_FROM
+        To: EMAIL_TO
+        Subject: Basic Email
+
+        Contact me at officer@example.com or Mob: 07700 900000
+
+        > Quoted text
+      EML
+    end
+
+    it 'does not apply masks' do
+      is_expected.to include('officer@example.com')
+      is_expected.to include('Mob: 07700 900000')
+    end
+
+    it 'does not fold quoted sections' do
+      is_expected.to include('&gt; Quoted text')
+    end
+
+    it 'returns HTML safe text' do
+      is_expected.to be_html_safe
+    end
+
+    context 'with an HTML main body part' do
+      let(:mail) do
+        <<~EML
+          From: EMAIL_FROM
+          To: EMAIL_TO
+          Subject: Basic Email
+          Content-Type: text/html
+
+          <p>Contact <b>officer@example.com</b></p><script>alert(1)</script>
+        EML
+      end
+
+      it 'converts the HTML to text' do
+        is_expected.to include('Contact')
+        is_expected.to include('officer@example.com')
+        is_expected.not_to include('<b>')
+        is_expected.not_to include('<script>')
+      end
+    end
+
+    context 'when the unmasked body is unavailable' do
+      before do
+        FactoryBot.create(:info_request_censor_rule,
+                          censorable: info_request)
+      end
+
+      it 'raises an error' do
+        expect { subject }.to raise_error(
+          IncomingMessage::MainBody::UnmaskedBodyUnavailableError
+        )
+      end
+    end
+  end
 end
 
 RSpec.describe IncomingMessage, "when the prominence is changed" do

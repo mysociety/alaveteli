@@ -144,6 +144,11 @@ class FoiAttachment < ApplicationRecord
     mail_attributes[:body]
   end
 
+  # unmasked body as UTF-8 text, with scrubbing of invalid chars if needed
+  def unmasked_body_as_text
+    convert_string_to_utf8(unmasked_body, 'UTF-8')
+  end
+
   def main_body_part?
     self == incoming_message.get_main_body_text_part
   end
