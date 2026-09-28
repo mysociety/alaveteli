@@ -151,6 +151,64 @@ RSpec.describe Ability do
     end
   end
 
+  describe 'reading unmasked IncomingMessage bodies' do
+    include_context 'unmasked main body available'
+
+    subject { ability }
+
+    let(:ability) { Ability.new(user) }
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+    let(:message) { info_request.incoming_messages.first }
+
+    context 'when the user owns the request' do
+      let(:user) { info_request.user }
+
+      it { is_expected.to be_able_to(:read_unmasked_body, message) }
+
+      context 'when the unmasked body is unavailable' do
+        before do
+          allow(message).to receive(:unmasked_main_body_available?).
+            and_return(false)
+        end
+
+        it { is_expected.not_to be_able_to(:read_unmasked_body, message) }
+      end
+
+      context 'when the message is requester only' do
+        before { message.update(prominence: 'requester_only') }
+        it { is_expected.to be_able_to(:read_unmasked_body, message) }
+      end
+
+      context 'when the message is hidden' do
+        before { message.update(prominence: 'hidden') }
+        it { is_expected.not_to be_able_to(:read_unmasked_body, message) }
+      end
+
+      context 'when the main body part is hidden' do
+        before do
+          message.get_main_body_text_part.update(prominence: 'hidden')
+        end
+
+        it { is_expected.not_to be_able_to(:read_unmasked_body, message) }
+      end
+    end
+
+    context 'when the user is an admin' do
+      let(:user) { FactoryBot.create(:user, :admin) }
+      it { is_expected.to be_able_to(:read_unmasked_body, message) }
+    end
+
+    context 'when the user is another user' do
+      let(:user) { FactoryBot.create(:user) }
+      it { is_expected.not_to be_able_to(:read_unmasked_body, message) }
+    end
+
+    context 'when the user is a guest' do
+      let(:user) { nil }
+      it { is_expected.not_to be_able_to(:read_unmasked_body, message) }
+    end
+  end
+
   describe 'managing OutgoingMessage::Snippet' do
     subject { ability }
 

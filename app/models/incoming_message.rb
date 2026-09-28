@@ -85,6 +85,7 @@ class IncomingMessage < ApplicationRecord
 
   delegate :apply_masks, to: :info_request
   delegate :expire, :log_event, to: :info_request
+  delegate :is_owning_user?, to: :info_request
 
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.

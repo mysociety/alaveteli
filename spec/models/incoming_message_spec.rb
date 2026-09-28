@@ -1012,6 +1012,78 @@ RSpec.describe IncomingMessage do
       end
     end
   end
+
+  describe '#unmasked_main_body_available?' do
+    include_context 'unmasked main body available'
+
+    subject { incoming_message.unmasked_main_body_available? }
+
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:main_part) { incoming_message.get_main_body_text_part }
+
+    it { is_expected.to eq(true) }
+
+    let(:available_from) do
+      IncomingMessage::MainBody.unmasked_main_body_available_from
+    end
+
+    context 'when the message was received before unmasking was available' do
+      before do
+        incoming_message.update_column(:created_at, available_from - 1.second)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the message was received after unmasking became available' do
+      before do
+        incoming_message.update_column(:created_at, available_from)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when there is no main body part' do
+      before do
+        allow(incoming_message).to receive(:get_main_body_text_part).
+          and_return(nil)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the main body part is locked' do
+      before { main_part.update_column(:locked, true) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the main body part is erased' do
+      before { main_part.update_column(:erased_at, Time.zone.now) }
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the raw email is erased' do
+      before do
+        allow(incoming_message).to receive(:raw_email_erased?).and_return(true)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when a censor rule applies' do
+      before do
+        FactoryBot.create(:info_request_censor_rule,
+                          censorable: incoming_message.info_request)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when a censor rule applies to another request' do
+      before { FactoryBot.create(:info_request_censor_rule) }
+      it { is_expected.to eq(true) }
+    end
+  end
 end
 
 RSpec.describe IncomingMessage, "when the prominence is changed" do

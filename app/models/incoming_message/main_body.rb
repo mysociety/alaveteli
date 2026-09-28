@@ -2,6 +2,9 @@
 module IncomingMessage::MainBody
   extend ActiveSupport::Concern
 
+  mattr_accessor :unmasked_main_body_available_from,
+                 default: Time.zone.parse('2026-10-01')
+
   # Returns body text from main text part of email, converted to UTF-8, with
   # uudecode removed, emails and privacy sensitive things remove, censored, and
   # folded to remove excess quoted text (marked with FOLDED_QUOTED_SECTION)
@@ -130,6 +133,33 @@ module IncomingMessage::MainBody
 
     text = ActionController::Base.helpers.simple_format(text)
     text.html_safe
+  end
+
+  # Whether the main body text can be shown without masks applied. We only
+  # allow this when
+  #   * the message was received after the introduction of this feature. Sites
+  #     can change this in their theme by setting
+  #     IncomingMessage::MainBody.unmasked_main_body_available_from
+  #   * the raw email hasn't been erased, as showing the unmasked body requires
+  #     re-parsing the raw email
+  #   * no censor rules apply to the request, as the cached body has text masks
+  #     and censor rules applied together and we don't want to risk exposing
+  #     text that admins have chosen to redact
+  #   * the main body part isn't locked, as admins will have made permanent
+  #     changes to it
+  def unmasked_main_body_available?
+    return false if created_at < unmasked_main_body_available_from
+    return false if raw_email_erased?
+
+    # TODO: We can update this to use the :redaction_tracking feature once
+    # we're happy with it
+    return false if info_request.applicable_censor_rules.any?
+
+    parse_raw_email
+    main_part = get_main_body_text_part
+    return false unless main_part
+
+    !main_part.locked? && !main_part.erased?
   end
 
   # TODO: This could be a private method – it is only called by IncomingMessage
