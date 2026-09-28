@@ -8,23 +8,42 @@ RSpec.describe AttachmentToText do
     # --------------------------------------------------------------------------
 
     context 'doc' do
-      let(:attachment) { FactoryBot.create(:doc_attachment) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'application/vnd.ms-word',
+          body: load_file_fixture('lorem.doc')
+        )
+      end
       it { is_expected.to match(/lorem/) }
     end
 
     context 'docx' do
-      let(:attachment) { FactoryBot.create(:docx_attachment) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'application/vnd.openxmlformats-officedocument.' \
+            'wordprocessingml.document',
+          body: load_file_fixture('lorem.docx')
+        )
+      end
       it { is_expected.to match(/lorem/) }
     end
 
     context 'html' do
-      let(:attachment) { FactoryBot.create(:html_attachment) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'text/html',
+          body: load_file_fixture('interesting.html')
+        )
+      end
 
       it { is_expected.to match(/dull/) }
 
       context 'with UTF-8 characters' do
         let(:attachment) do
-          FactoryBot.create(:html_attachment, body: '<html><b>foo</b> është')
+          FoiAttachment.new(
+            content_type: 'text/html',
+            body: '<html><b>foo</b> është'
+          )
         end
 
         it 'retains the UTF-8 characters in the extracted text' do
@@ -34,7 +53,12 @@ RSpec.describe AttachmentToText do
     end
 
     context 'pdf' do
-      let(:attachment) { FactoryBot.create(:pdf_attachment) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'application/pdf',
+          body: load_file_fixture('interesting.pdf')
+        )
+      end
       it { is_expected.to match(/thisisthebody/) }
 
       context 'when pdf_ocr_threshold is not set' do
@@ -84,7 +108,12 @@ RSpec.describe AttachmentToText do
     end
 
     context 'ppt' do
-      let(:attachment) { FactoryBot.create(:ppt_attachment) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'application/vnd.ms-powerpoint',
+          body: load_file_fixture('interesting.ppt')
+        )
+      end
 
       it 'includes contents from the first slide' do
         is_expected.to match(/Interesting/)
@@ -96,7 +125,13 @@ RSpec.describe AttachmentToText do
     end
 
     context 'pptx' do
-      let(:attachment) { FactoryBot.create(:pptx_attachment) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'application/vnd.openxmlformats-officedocument.' \
+            'presentationml.presentation',
+          body: load_file_fixture('interesting.pptx')
+        )
+      end
 
       it 'includes contents from the first slide' do
         is_expected.to match(/Interesting/)
@@ -108,7 +143,12 @@ RSpec.describe AttachmentToText do
     end
 
     context 'rtf' do
-      let(:attachment) { FactoryBot.create(:rtf_attachment) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'application/rtf',
+          body: load_file_fixture('interesting.rtf')
+        )
+      end
       it { is_expected.to match(/thisisthebody/) }
 
       context 'when LibreOffice writes no output' do
@@ -121,12 +161,22 @@ RSpec.describe AttachmentToText do
     end
 
     context 'txt' do
-      let(:attachment) { FactoryBot.create(:body_text) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'text/plain',
+          body: 'hereisthetext'
+        )
+      end
       it { is_expected.to match(/hereisthetext/) }
     end
 
     context 'xls' do
-      let(:attachment) { FactoryBot.create(:xls_attachment) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'application/vnd.ms-excel',
+          body: load_file_fixture('interesting.xls')
+        )
+      end
 
       it 'includes the first sheet name' do
         is_expected.to match(/Sheet1/)
@@ -146,7 +196,14 @@ RSpec.describe AttachmentToText do
     end
 
     context 'xlsx' do
-      let(:attachment) { FactoryBot.create(:xlsx_attachment) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'application/vnd.openxmlformats-officedocument.' \
+            'spreadsheetml.sheet',
+          body: body
+        )
+      end
+      let(:body) { load_file_fixture('interesting.xlsx') }
 
       it 'includes the first sheet name' do
         is_expected.to match(/Sheet1/)
@@ -165,12 +222,7 @@ RSpec.describe AttachmentToText do
       end
 
       context 'with a sparsely populated spreadsheet' do
-        let(:attachment) do
-          FactoryBot.create(
-            :xlsx_attachment,
-            body: load_file_fixture('sparse.xlsx')
-          )
-        end
+        let(:body) { load_file_fixture('sparse.xlsx') }
 
         it 'extracts the substantive contents' do
           is_expected.to match(/cat/)
@@ -183,13 +235,23 @@ RSpec.describe AttachmentToText do
     end
 
     context 'csv' do
-      let(:attachment) { FactoryBot.create(:csv_attachment) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'text/csv',
+          body: load_file_fixture('interesting.csv')
+        )
+      end
       it { is_expected.to match(/foo/) }
       it { is_expected.to match(/maçã/) }
     end
 
     context 'zip' do
-      let(:attachment) { FactoryBot.create(:zip_attachment) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'application/zip',
+          body: load_file_fixture('example.zip')
+        )
+      end
 
       it { is_expected.to match(/Contravention/) }
 
@@ -215,7 +277,12 @@ RSpec.describe AttachmentToText do
     # --------------------------------------------------------------------------
 
     context 'jpeg' do
-      let(:attachment) { FactoryBot.create(:jpeg_attachment) }
+      let(:attachment) do
+        FoiAttachment.new(
+          content_type: 'image/jpeg',
+          body: 'someimage'
+        )
+      end
       it { is_expected.to be_empty }
     end
   end
