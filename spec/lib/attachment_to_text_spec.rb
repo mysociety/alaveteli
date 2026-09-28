@@ -110,6 +110,14 @@ RSpec.describe AttachmentToText do
     context 'rtf' do
       let(:attachment) { FactoryBot.create(:rtf_attachment) }
       it { is_expected.to match(/thisisthebody/) }
+
+      context 'when LibreOffice writes no output' do
+        before do
+          allow(AlaveteliExternalCommand).to receive(:run).and_return(nil)
+        end
+
+        it { is_expected.to eq('') }
+      end
     end
 
     context 'txt' do
