@@ -405,3 +405,15 @@ input.cplink__field {
   padding: 0;
   width: 100%;
 }
+
+.unmasked-body {
+  word-wrap: break-word;
+}
+
+.unmasked-body__notice {
+  margin-bottom: 1em;
+
+  ul {
+    margin-bottom: 0;
+  }
+}
