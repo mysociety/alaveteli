@@ -36,7 +36,7 @@ module Search
 
     # Optional: queue a record for a later search index update.
     # Backends where the search index is the database itself (e.g.
-    # PostgreSQL) can leave this as a no-op.
+    # PostgreSQL) can reindex the record straight away.
     def reindex_later(record)
       nil
     end
