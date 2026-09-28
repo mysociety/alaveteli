@@ -8,6 +8,7 @@
 //= require general
 //= require ba-throttle-debounce
 //= require correspondence-collapse
+//= require unmasked-body
 //= require monitor-text-length
 //= require alaveteli_pro/alaveteli_pro
 //= require carousel

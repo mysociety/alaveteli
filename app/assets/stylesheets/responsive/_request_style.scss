@@ -466,11 +466,19 @@ div.comment_in_request {
   background-image: image-url('loader-000-on-fff-16px.gif');
 }
 
-
 .unmasked-body__notice {
   padding: 0.5em 1em;
   background-color: #eee;
   font-style: italic;
+}
+
+.toggle-unmasked-body--loading {
+  padding-right: 20px;
+  background: image-url('loader-000-on-fff-16px.gif') no-repeat right center;
+}
+
+.js-unmasked-body-ajax-error[hidden] {
+  display: none;
 }
 
 /* Event history details */
