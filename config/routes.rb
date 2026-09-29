@@ -769,6 +769,9 @@ Rails.application.routes.draw do
       :controller => 'admin_outgoing_message',
     :only => [:index, :edit, :update, :destroy] do
       post 'resend', :on => :member
+      resources :erasures,
+                controller: 'admin/outgoing_messages/erasures',
+                only: [:create]
     end
   end
   ####
