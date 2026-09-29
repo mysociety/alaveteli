@@ -4,13 +4,17 @@
   .head {
     font-weight: bold;
     font-size: 1.6em; // =h3
+
+    a {
+      text-decoration: none;
+    }
   }
+
   a {
-    text-decoration: none;
     &:hover,
     &:active,
     &:focus {
-      text-decoration: underline;
+      text-decoration: none;
     }
   }
 }
