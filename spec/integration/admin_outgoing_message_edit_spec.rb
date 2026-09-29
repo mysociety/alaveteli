@@ -22,6 +22,17 @@ RSpec.describe 'Editing the OutgoingMessage body' do
     expect(ogm.reload.body).to eq('Updated text')
   end
 
+  it 'erases the message correctly' do
+    using_session(@admin) do
+      visit edit_admin_outgoing_message_path(ogm)
+      fill_in 'outgoing_message_erasure_reason', with: 'Super secret'
+
+      click_button 'Erase message'
+    end
+
+    expect(ogm.reload.body).to eq('')
+  end
+
   context 'a censor rule applies to the request' do
     before do
       FactoryBot.create(:info_request_censor_rule,
