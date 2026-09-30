@@ -103,7 +103,8 @@ class Ability
 
     # Reading the main body of responses to their own requests without masks
     can :read_unmasked_body, IncomingMessage do |message|
-      user &&
+      feature_enabled?(:unmasked_main_body) &&
+        user &&
         message.is_owning_user?(user) &&
         message.unmasked_main_body_available? &&
         can?(:read, message) &&

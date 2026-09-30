@@ -229,6 +229,12 @@
 
     bin/rails runner "AlaveteliFeatures.backend.enable(:censor_rule_ignore_diacritics)"
 
+* _Optional:_ Request authors can now view the unmasked main body of responses
+  to their requests. This is disabled by default while we test it before full
+  release. Before then you can enable it by running:
+
+    bin/rails runner "AlaveteliFeatures.backend.enable(:unmasked_main_body)"
+
 * _Optional:_ We can now track when censor rules actually redact content. This
   is disabled by default while we test it before full release. Before then you
   can enable it by running:

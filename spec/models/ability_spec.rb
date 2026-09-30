@@ -151,7 +151,7 @@ RSpec.describe Ability do
     end
   end
 
-  describe 'reading unmasked IncomingMessage bodies' do
+  describe 'reading unmasked IncomingMessage bodies', feature: :unmasked_main_body do
     include_context 'unmasked main body available'
 
     subject { ability }
@@ -164,6 +164,10 @@ RSpec.describe Ability do
       let(:user) { info_request.user }
 
       it { is_expected.to be_able_to(:read_unmasked_body, message) }
+
+      context 'when the feature is disabled', feature: { unmasked_main_body: false } do
+        it { is_expected.not_to be_able_to(:read_unmasked_body, message) }
+      end
 
       context 'when the unmasked body is unavailable' do
         before do

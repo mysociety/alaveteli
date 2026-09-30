@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe IncomingMessages::UnmaskedController do
+RSpec.describe IncomingMessages::UnmaskedController, feature: :unmasked_main_body do
   include_context 'unmasked main body available'
 
   describe 'GET show' do
@@ -46,6 +46,14 @@ RSpec.describe IncomingMessages::UnmaskedController do
                    params: { incoming_message_id: incoming_message.id }
         expect(response).to render_template(partial: '_unmasked_body')
         expect(response).not_to render_template('show')
+      end
+
+      context 'when the feature is disabled', feature: { unmasked_main_body: false } do
+        it 'raises a CanCan::AccessDenied error' do
+          expect {
+            get :show, params: { incoming_message_id: incoming_message.id }
+          }.to raise_error(CanCan::AccessDenied)
+        end
       end
 
       context 'when censor rules apply to the request' do
