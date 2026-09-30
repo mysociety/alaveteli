@@ -1,0 +1,33 @@
+<div class="accordion-group row">
+  <div class="accordion-heading">
+    <a
+      href="<%= edit_admin_change_request_path(change_request.id, full_edit: true) %>"
+    >
+      <div>
+        Sent by
+        <%= change_request.user_name %>
+        (<%= change_request.user_email %>)
+      </div>
+      <div>
+        For
+        <%= change_request.public_body_name %>
+      </div>
+      <div>
+        Proposed email:
+        <%= change_request.public_body_email %>
+      </div>
+      <div>
+        Source:
+        <%= change_request.source_url %>
+      </div>
+      <div>
+        Notes:
+        <%= change_request.notes %>
+      </div>
+      <div>
+        at
+        <%= admin_date(change_request.created_at) %>
+      </div>
+    </a>
+  </div>
+</div>

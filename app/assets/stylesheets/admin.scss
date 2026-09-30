@@ -293,6 +293,13 @@ body.admin {
   #mail_server_logs .row {
     margin-bottom: 1em;
   }
+
+  #change_requests .row {
+    margin-bottom: 1em;
+  }
+  #change_requests .row:nth-child(even) {
+    background-color: #f9f9f9;
+  }
 }
 
 /* Debug */
