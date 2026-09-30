@@ -20,10 +20,18 @@ RSpec.describe Admin::CitationsController do
       expect(assigns[:query]).to eq('hello')
     end
 
-    it 'filters citations by the search query' do
+    it 'filters citations by the search query (legacy)' do
       net = FactoryBot.create(:citation, source_url: 'https://example.net/a')
       org = FactoryBot.create(:citation, source_url: 'https://example.org/b')
-      get :index, params: { query: 'example.net' }
+      get :index, params: { query: 'example.net', search_engine: :legacy }
+      expect(assigns[:citations]).to include(net)
+      expect(assigns[:citations]).not_to include(org)
+    end
+
+    it 'filters citations by the search query (new)' do
+      net = FactoryBot.create(:citation, source_url: 'https://example.net/a')
+      org = FactoryBot.create(:citation, source_url: 'https://example.org/b')
+      get :index, params: { query: 'example.net', search_engine: :new }
       expect(assigns[:citations]).to include(net)
       expect(assigns[:citations]).not_to include(org)
     end
