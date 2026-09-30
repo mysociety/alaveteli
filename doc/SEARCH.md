@@ -294,10 +294,13 @@ Xapian syntax.
 
 ### 4. Wire it up
 
-Set the backend in an initializer or via configuration:
+Set `SEARCH_BACKEND` in `config/general.yml`, or set the backend in a
+`to_prepare` block, as a code reload undoes one set only at boot:
 
 ```ruby
-Search.backend = Search::Adapters::PostgreSQL::Adapter.new
+Rails.application.config.to_prepare do
+  Search.backend = Search::Adapters::PostgreSQL::Adapter.new
+end
 ```
 
 `config/initializers/search.rb` reads the `SEARCH_BACKEND` config value and
