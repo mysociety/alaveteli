@@ -58,6 +58,8 @@ class AdminController < ApplicationController
   end
 
   def authenticate
+    clear_stale_admin_session unless AlaveteliConfiguration.skip_admin_auth
+
     if AlaveteliConfiguration.skip_admin_auth
       session[:using_admin] = 1
       nil
@@ -70,7 +72,7 @@ class AdminController < ApplicationController
             email_subject: _('Log into the admin interface'),
             user_name: 'a superuser'
           )
-        elsif !@user.nil? && @user.is_admin?
+        elsif current_user&.active? && current_user.is_admin?
           session[:using_admin] = 1
           session[:admin_name] = @user.url_name
         else
@@ -90,5 +92,18 @@ class AdminController < ApplicationController
         end
       end
     end
+  end
+
+  private
+
+  # Admin mode is cached in the session, so re-check the signed in user on every
+  # request in case they've since lost the admin role, changed their password or
+  # been closed or banned.
+  def clear_stale_admin_session
+    return unless session[:user_id]
+    return if current_user&.active? && current_user.is_admin?
+
+    session[:using_admin] = nil
+    session[:admin_name] = nil
   end
 end
