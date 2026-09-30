@@ -23,7 +23,13 @@ module FoiAttachment::Erasable
     FoiAttachment::EraseJob.perform_later(self, editor: editor, reason: reason)
   end
 
-  def erase(editor:, reason:)
+  def erase(...)
+    erase!(...)
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
+  def erase!(editor:, reason:)
     return if erased?
 
     mask_siblings
@@ -49,7 +55,7 @@ module FoiAttachment::Erasable
 
       delete_cached_file!
 
-      raw_email.erase(editor: editor, reason: 'FoiAttachment#erase')
+      raw_email.erase!(editor: editor, reason: 'FoiAttachment#erase')
 
       expire
 
