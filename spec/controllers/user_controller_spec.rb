@@ -823,6 +823,62 @@ RSpec.describe UserController do
       end
     end
 
+    context 'filling in the form with an existing unconfirmed email' do
+      let!(:existing_user) do
+        FactoryBot.create(:user, email: 'pending-owner@localhost',
+                                 name: 'Earlier Registrant',
+                                 password: 'earlierpassword',
+                                 email_confirmed: false)
+      end
+
+      before do
+        post :signup, params: {
+          user_signup: {
+            email: 'pending-owner@localhost',
+            name: 'Mailbox Owner',
+            password: 'ownerpassword',
+            password_confirmation: 'ownerpassword'
+          }
+        }
+      end
+
+      it 'renders the confirm template' do
+        expect(response).to render_template('confirm')
+      end
+
+      it 'does not create a new user' do
+        expect(User.where(email: 'pending-owner@localhost').count).to eq(1)
+      end
+
+      it 'sends the normal confirmation email' do
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(1)
+        expect(deliveries[0].body).
+          to match(/confirm\s+your\s+email\s+address/)
+        expect(deliveries[0].body).
+          not_to match(/when\s+you\s+already\s+have\s+an/)
+      end
+
+      it 'replaces the password chosen by the earlier registrant' do
+        expect(existing_user.reload.has_this_password?('ownerpassword')).
+          to eq(true)
+      end
+
+      it 'replaces the name chosen by the earlier registrant' do
+        expect(existing_user.reload.name).to eq('Mailbox Owner')
+      end
+
+      it 'leaves the user unconfirmed' do
+        expect(existing_user.reload.email_confirmed).to eq(false)
+      end
+
+      it 'binds the confirmation link to the existing user' do
+        post_redirect = PostRedirect.where(user: existing_user).last
+        expect(ActionMailer::Base.deliveries.last.body).
+          to include(post_redirect.email_token)
+      end
+    end
+
     it 'accepts only whitelisted parameters' do
       expect {
         post :signup, params: {
