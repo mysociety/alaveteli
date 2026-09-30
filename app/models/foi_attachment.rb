@@ -93,6 +93,8 @@ class FoiAttachment < ApplicationRecord
     # to give trouble
     return false if masking_failed_at.present?
 
+    return false if erased?
+
     # this is a bit of a belts and braces approach with the ordering of
     # after_commit hooks above, but cannot hurt
     return false unless file_blob && file_blob.service.exist?(file_blob.key)
