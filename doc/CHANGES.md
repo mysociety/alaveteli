@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Log out admins if their admin role has been removed (Gareth Rees)
 * Add prominence check to public search indexing (Graeme Porteous)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)
