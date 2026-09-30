@@ -287,6 +287,38 @@ RSpec.describe SearchDocument do
         expect(search(admin_mode: true)).to include(document)
       end
     end
+
+    context 'attachments of a hidden message' do
+      let(:message) do
+        FactoryBot.create(:info_request, :with_incoming).
+          incoming_messages.sole
+      end
+
+      let!(:document) do
+        FactoryBot.create(:foi_attachment, incoming_message: message,
+                                           body: 'The capercaillie census').
+          search_documents.sole
+      end
+
+      def search(**options)
+        SearchDocument.hybrid_search('capercaillie', **options)
+      end
+
+      it 'leaves them out of public searches' do
+        expect { message.update!(prominence: 'hidden') }.
+          to change { search.include?(document) }.from(true).to(false)
+      end
+
+      it 'leaves them out of public exact searches' do
+        message.update!(prominence: 'hidden')
+        expect(search(exact_mode: true)).not_to include(document)
+      end
+
+      it 'keeps them in admin searches' do
+        message.update!(prominence: 'hidden')
+        expect(search(admin_mode: true)).to include(document)
+      end
+    end
   end
 
   context 'searching through InfoRequest incoming messages' do

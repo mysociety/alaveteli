@@ -159,7 +159,8 @@ class SearchDocument < ApplicationRecord
 
   # A record's own prominence is applied at index time, but a parent's is not
   # copied onto its children, as changing it would mean reindexing them all. So
-  # leave out anything belonging to a request which the public cannot see.
+  # leave out anything belonging to a request or message which the public
+  # cannot see.
   def self.public_parent_condition
     prominence = Searchable::PUBLIC_PROMINENCE.
       map { |value| connection.quote(value) }.join(', ')
@@ -171,6 +172,15 @@ class SearchDocument < ApplicationRecord
         WHERE search_documents.root_type = 'InfoRequest'
           AND info_requests.id = search_documents.root_id
           AND info_requests.prominence NOT IN (#{prominence})
+      )
+      AND NOT EXISTS (
+        SELECT 1
+        FROM foi_attachments
+        JOIN incoming_messages
+          ON incoming_messages.id = foi_attachments.incoming_message_id
+        WHERE search_documents.searchable_type = 'FoiAttachment'
+          AND foi_attachments.id = search_documents.searchable_id
+          AND incoming_messages.prominence NOT IN (#{prominence})
       )
     SQL
   end
