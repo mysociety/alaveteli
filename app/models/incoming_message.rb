@@ -130,6 +130,13 @@ class IncomingMessage < ApplicationRecord
     info_request.apply_censor_rules_to_text(from_name) if from_name
   end
 
+  # Public: The subject with InfoRequest masks and censor rules applied.
+  #
+  # Returns a String
+  def safe_subject
+    apply_masks(subject, 'text/plain') if subject
+  end
+
   def specific_from_name?
     !safe_from_name.nil? && safe_from_name.strip != info_request.public_body.name.strip
   end
@@ -523,7 +530,7 @@ class IncomingMessage < ApplicationRecord
       text.strip!
       # if there is nothing but quoted stuff, then show the subject
       if text == "FOLDED_QUOTED_SECTION"
-        text = "[Subject only] " + CGI.escapeHTML(subject || '') + text
+        text = "[Subject only] " + CGI.escapeHTML(safe_subject || '') + text
       end
       # and display link for quoted stuff
       text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+id.to_s+'">'+_("show quoted sections")+'</a></span>' + "\n\n")
