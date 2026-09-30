@@ -770,6 +770,14 @@ Rails.application.routes.draw do
   end
   ####
 
+  #### AdminMailServerLog controller
+  scope '/admin', :as => 'admin' do
+    resources :mail_server_logs,
+      :controller => 'admin_mail_server_log',
+    :only => [:index, :edit, :update]
+  end
+  ####
+
   #### AdminFoiAttachment controller
   namespace :admin do
     resources :foi_attachments, path: :attachments,

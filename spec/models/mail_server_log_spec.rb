@@ -541,4 +541,34 @@ RSpec.describe MailServerLog do
       end
     end
   end
+
+  describe 'search indexing' do
+    it 'indexes logs and finds PII' do
+      log = FactoryBot.create(:mail_server_log, line: "Nov  2 20:13:47 servername postfix/smtp[28805]: 12345ABCDE: to=<admin@someplace.fr>, relay=mx1.example.com[1.2.3.4]:25, delay=12, delays=0.05/0.02/0.83/11, dsn=2.0.0, status=sent (250 OK id=1iQidI-000L38-SB)")
+      expect(log.search_documents.count).to eq(1)
+      puts(log.search_documents.first.inspect)
+      expect(
+        MailServerLog.search_scope('admin@someplace.fr', backend: :postgresql)
+      ).to eq([])
+      expect(
+        MailServerLog.search_scope('admin@someplace.fr', admin_mode: true, backend: :postgresql)
+      ).to eq([log])
+    end
+
+    it 'excludes logs for embargoed requests' do
+      info_request = FactoryBot.create(:embargoed_request)
+      log = FactoryBot.create(:mail_server_log, info_request: info_request, line: "Nov  2 20:13:47 servername postfix/smtp[28805]: 12345ABCDE: to=<admin@someplace.fr>, relay=mx1.example.com[1.2.3.4]:25, delay=12, delays=0.05/0.02/0.83/11, dsn=2.0.0, status=sent (250 OK id=1iQidI-000L38-SB)")
+      expect(log.search_documents.count).to eq(1)
+      puts(log.search_documents.first.inspect)
+      expect(
+        MailServerLog.
+          search_scope('admin@someplace.fr', admin_mode: true, backend: :postgresql)
+      ).to eq([log])
+      expect(
+        MailServerLog.
+          search_scope('admin@someplace.fr', admin_mode: true, backend: :postgresql).
+          not_embargoed
+      ).to eq([])
+    end
+  end
 end

@@ -1,0 +1,31 @@
+<% @title = "Listing mail server logs" %>
+
+<h1><%= @title %></h1>
+
+<%= form_tag nil, method: :get, class: 'form form-search' do %>
+  <div class="input-append">
+    <%= text_field_tag "query",
+    params[:query],
+    size: 30,
+    class: "input-large search-query" %>
+    <%= submit_tag "Search", class: "btn" %>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="span12">
+    <%= render partial: "concerns/admin/sortable/sort_options" %>
+  </div>
+</div>
+
+<div class="accordion" id="mail_server_logs">
+  <% if @mail_server_logs.any? %>
+    <%= render partial: "mail_server_log", collection: @mail_server_logs %>
+  <% else %>
+    <p>Nothing found.</p>
+  <% end %>
+</div>
+
+<%= will_paginate(@mail_server_logs) %>
+
+<%= render "concerns/admin/searchable/search_stats" %>

@@ -34,6 +34,10 @@
                 <li><%= link_to 'Outgoing messages', admin_outgoing_messages_path %></li>
               <% end %>
 
+              <% if feature_enabled?(:admin_mail_server_logs) %>
+                <li><%= link_to "Mail server logs", admin_mail_server_logs_path %></li>
+              <% end %>
+
               <li class="divider"></li>
 
               <li><%= link_to 'Comments', admin_comments_path %></li>
