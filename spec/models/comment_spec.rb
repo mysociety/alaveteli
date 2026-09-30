@@ -80,6 +80,29 @@ RSpec.describe Comment do
     end
   end
 
+  describe 'search indexing' do
+    let(:document) { comment.search_documents.reload.sole }
+
+    context 'when the comment is hidden' do
+      let(:comment) { FactoryBot.create(:hidden_comment, body: 'Out of sight') }
+
+      it 'goes in the admin index only' do
+        expect(document.raw_content).to be_nil
+        expect(document.raw_admin_content).to include('Out of sight')
+      end
+    end
+
+    context 'when a visible comment is hidden' do
+      let(:comment) { FactoryBot.create(:comment, body: 'On the move') }
+
+      it 'moves to the admin index' do
+        expect { comment.update!(visible: false) }.
+          to change { document.reload.raw_content }.
+          from(a_string_including('On the move')).to(nil)
+      end
+    end
+  end
+
   # rubocop:disable Layout/FirstArrayElementIndentation
   describe '.exceeded_creation_rate?' do
     subject { described_class.exceeded_creation_rate?(comments) }

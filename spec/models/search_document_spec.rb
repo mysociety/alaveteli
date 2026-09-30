@@ -263,6 +263,62 @@ RSpec.describe SearchDocument do
           to be_empty
       end
     end
+
+    context 'records on a request the public cannot see' do
+      let(:info_request) { FactoryBot.create(:info_request) }
+
+      let!(:document) do
+        FactoryBot.create(:comment, info_request: info_request,
+                                    body: 'Capercaillie spotted').
+          search_documents.sole
+      end
+
+      def search(**options)
+        SearchDocument.hybrid_search('capercaillie', **options)
+      end
+
+      it 'leaves them out of public searches' do
+        expect { info_request.update!(prominence: 'backpage') }.
+          to change { search.include?(document) }.from(true).to(false)
+      end
+
+      it 'keeps them in admin searches' do
+        info_request.update!(prominence: 'backpage')
+        expect(search(admin_mode: true)).to include(document)
+      end
+    end
+
+    context 'attachments of a hidden message' do
+      let(:message) do
+        FactoryBot.create(:info_request, :with_incoming).
+          incoming_messages.sole
+      end
+
+      let!(:document) do
+        FactoryBot.create(:foi_attachment, incoming_message: message,
+                                           body: 'The capercaillie census').
+          search_documents.sole
+      end
+
+      def search(**options)
+        SearchDocument.hybrid_search('capercaillie', **options)
+      end
+
+      it 'leaves them out of public searches' do
+        expect { message.update!(prominence: 'hidden') }.
+          to change { search.include?(document) }.from(true).to(false)
+      end
+
+      it 'leaves them out of public exact searches' do
+        message.update!(prominence: 'hidden')
+        expect(search(exact_mode: true)).not_to include(document)
+      end
+
+      it 'keeps them in admin searches' do
+        message.update!(prominence: 'hidden')
+        expect(search(admin_mode: true)).to include(document)
+      end
+    end
   end
 
   context 'searching through InfoRequest incoming messages' do
