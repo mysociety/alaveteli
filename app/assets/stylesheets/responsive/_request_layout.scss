@@ -249,6 +249,10 @@ a.track-request-action {
   padding: 1.2em;
 }
 
+.correspondence_info {
+  padding: 1.2em;
+}
+
 .correspondence__footer {
   padding: 0.6em 1.2em;
  }
@@ -404,4 +408,16 @@ input.cplink__field {
   display: inline-block;
   padding: 0;
   width: 100%;
+}
+
+.unmasked-body {
+  word-wrap: break-word;
+}
+
+.unmasked-body__notice {
+  margin-bottom: 1em;
+
+  ul {
+    margin-bottom: 0;
+  }
 }

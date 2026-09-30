@@ -262,6 +262,13 @@ Rails.application.routes.draw do
     resources :widget_votes, :only => [:create]
   end
 
+  #### IncomingMessage controller
+  resources :incoming_messages, only: [] do
+    resource :unmasked, only: [:show], controller: 'unmasked',
+                        module: 'incoming_messages'
+  end
+  ####
+
   #### OutgoingMessage controller
   resources :outgoing_messages, :only => [] do
     resource :delivery_status, :only => [:show], :module => 'outgoing_messages'

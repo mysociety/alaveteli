@@ -1,0 +1,27 @@
+<div class="unmasked-body">
+  <div class="unmasked-body__notice">
+    <p>
+      ⚠️ <%= _('This is the original text of this message, including any  ' \
+               'email addresses and other details we would normally hide. ' \
+               'Only you can see this version.') %>
+    </p>
+
+    <ul>
+      <li>
+        <%= _('Please keep the request’s unique email address private.' \
+              'Revealing it can lead to malicious use and spam appearing on ' \
+              'the request thread.') %>
+      </li>
+      <li>
+        <%= _('Please keep correspondence on the site. Use the options under ' \
+              '"Actions" to reply to the authority.') %>
+      </li>
+      <li>
+        <%= _('Take care with other personal information, such as officers’ ' \
+              'contact details.') %>
+      </li>
+    </ul>
+  </div>
+
+  <%= @body %>
+</div>

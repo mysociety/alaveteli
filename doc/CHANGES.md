@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Enable request authors to view the unmasked main body of an IncomingMessage
+  (Gareth Rees)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)
 * Fix an endless loop if there is issues masking attachment (Graeme Porteous)

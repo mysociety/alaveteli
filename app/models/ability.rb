@@ -101,6 +101,15 @@ class Ability
       can?(:_read, message) && can?(:read, message.info_request)
     end
 
+    # Reading the main body of responses to their own requests without masks
+    can :read_unmasked_body, IncomingMessage do |message|
+      user &&
+        message.is_owning_user?(user) &&
+        message.unmasked_main_body_available? &&
+        can?(:read, message) &&
+        can?(:read, message.get_main_body_text_part)
+    end
+
     # Reading requests with prominence or via a project or public token
     can :read, InfoRequest do |info_request|
       next true if can?(:_read, info_request)

@@ -33,6 +33,40 @@
       <% end %>
     </p>
 
+    <% if @is_owning_user %>
+      <div class="correspondence_info">
+        <p>
+           <%= _('Email addresses and phone numbers may have been ' \
+                 'automatically redacted from this response and any ' \
+                 'attachments by {{site_name}} to protect people from spam.',
+                 site_name: site_name) %>
+
+          <% if can?(:read_unmasked_body, incoming_message) %>
+            <%= link_to _('Show unredacted text'),
+                        incoming_message_unmasked_path(incoming_message),
+                        class: 'js-toggle-unmasked-body',
+                        data: { body: incoming_message_dom_id(incoming_message),
+                                hide_text: _('Hide unredacted text') } %>.
+          <% else %>
+            <%= _('We are unable to show the unredacted version of this ' \
+                  'message.') %>
+          <% end %>
+        </p>
+
+        <% if can?(:read_unmasked_body, incoming_message) %>
+          <div class="js-unmasked-body-ajax-error" hidden>
+            <p>
+              <%= _('We couldn’t load the unredacted text of this message.') %>
+
+              <%= link_to _('Try opening it in a new window.'),
+                          incoming_message_unmasked_path(incoming_message),
+                          target: '_blank' %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
     <% if show_correspondence_footer %>
       <% link_to_this_url = incoming_message_url(incoming_message) %>
 

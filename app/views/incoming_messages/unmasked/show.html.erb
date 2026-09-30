@@ -1,0 +1,13 @@
+<% @title = _('Unredacted text of message') %>
+
+<h1><%= @title %></h1>
+
+<p>
+  <%= link_to _('Back to {{request_title}}',
+                request_title: @info_request.title),
+              incoming_message_path(@incoming_message) %>
+</p>
+
+<div class="correspondence_text">
+  <%= render partial: 'unmasked_body' %>
+</div>

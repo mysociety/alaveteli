@@ -86,6 +86,7 @@ class IncomingMessage < ApplicationRecord
 
   delegate :apply_masks, to: :info_request
   delegate :expire, :log_event, to: :info_request
+  delegate :is_owning_user?, to: :info_request
 
   searchable(
     index: {
