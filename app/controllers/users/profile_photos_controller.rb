@@ -17,7 +17,7 @@ class Users::ProfilePhotosController < ApplicationController
       redirect_to frontpage_url
       return
     end
-    if params[:submitted_draft_profile_photo].present?
+    if request.post? && params[:submitted_draft_profile_photo].present?
       if @user.suspended?
         flash[:error] = _('Suspended users cannot edit their profile')
         redirect_to set_profile_photo_path
@@ -51,11 +51,14 @@ class Users::ProfilePhotosController < ApplicationController
         return
       end
 
+      session[:draft_profile_photo_id] = @draft_profile_photo.id
       render :set_crop_profile_photo
       nil
-    elsif params[:submitted_crop_profile_photo].present?
+    elsif request.post? && params[:submitted_crop_profile_photo].present?
       # crop the draft photo according to jquery parameters and set it as the users photo
-      draft_profile_photo = ProfilePhoto.find(params[:draft_profile_photo_id])
+      draft_profile_photo = ProfilePhoto.find_by!(
+        id: session.delete(:draft_profile_photo_id), draft: true
+      )
       @profile_photo = ProfilePhoto.new(data: draft_profile_photo.data, draft: false,
                                         x: params[:x], y: params[:y], w: params[:w], h: params[:h])
       @user.set_profile_photo(@profile_photo)
@@ -91,7 +94,11 @@ class Users::ProfilePhotosController < ApplicationController
 
   # before they've cropped it
   def get_draft_profile_photo
-    profile_photo = ProfilePhoto.find(params[:id])
+    unless params[:id].to_i == session[:draft_profile_photo_id]
+      raise ActiveRecord::RecordNotFound
+    end
+
+    profile_photo = ProfilePhoto.find_by!(id: params[:id], draft: true)
     render body: profile_photo.data,
            content_type: 'image/png'
   end

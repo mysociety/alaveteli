@@ -49,15 +49,12 @@ RSpec.describe 'Updating your user profile' do
                 "you and your research on your profile."
           # post the form to work around the Next button being drawn
           # by JavaScript
-          profile_photo = ProfilePhoto.
-                            create(data: load_file_fixture("parrot.png"),
-                                   user: user)
-
+          visit set_profile_photo_path
           page.driver.post set_profile_photo_path,
-               id: user.id,
-               file: photo_file,
-               submitted_crop_profile_photo: 1,
-               draft_profile_photo_id: profile_photo.id
+               file: Rack::Test::UploadedFile.new(photo_file, 'image/jpeg'),
+               submitted_draft_profile_photo: 1
+          page.driver.post set_profile_photo_path,
+               submitted_crop_profile_photo: 1
 
           visit page.driver.response.location
           expect(page).to have_content(msg)
