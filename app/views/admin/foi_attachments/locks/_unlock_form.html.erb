@@ -1,4 +1,5 @@
 <%= form_for foi_attachment, url: admin_foi_attachment_locks_path(foi_attachment), method: :delete, class: 'form form-inline' do |f| %>
+  <% unlocking_disabled = !foi_attachment.unlockable? %>
   <fieldset class="form-horizontal">
     <legend>Locking</legend>
 
@@ -23,8 +24,21 @@
 
   <div class="form-actions">
     <div class="input-prepend">
-      <%= f.submit 'Unlock attachment', class: 'btn btn-warning' %>
-      <%= text_field_tag :reason, nil, placeholder: 'Reason for unlocking', required: true, class: 'input-xlarge' %>
+      <%= f.submit "Unlock attachment",
+               class: "btn btn-warning",
+               disabled: unlocking_disabled %>
+      <%= text_field_tag :reason,
+      nil,
+      placeholder: "Reason for unlocking",
+      required: true,
+      class: "input-xlarge",
+      disabled: unlocking_disabled %>
     </div>
+    <% if unlocking_disabled %>
+      <span class="help-inline">
+        This attachment cannot be unlocked because its raw email has been
+        erased.
+      </span>
+    <% end %>
   </div>
 <% end %>
