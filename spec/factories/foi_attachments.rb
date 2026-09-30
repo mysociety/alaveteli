@@ -132,7 +132,7 @@ FactoryBot.define do
     factory :rtf_attachment do
       content_type { 'application/rtf' }
       filename { 'interesting.rtf' }
-      body { load_file_fixture('interesting.rtf') }
+      body { Mail::Utilities.to_crlf(load_file_fixture('interesting.rtf')) }
     end
 
     factory :html_attachment do
@@ -171,7 +171,9 @@ FactoryBot.define do
     factory :delivery_status_notification_attachment do
       content_type { 'message/delivery-status' }
       filename { 'attachment.delivery_status' }
-      body { load_file_fixture('attachment.delivery_status') }
+      body do
+        Mail::Utilities.to_crlf(load_file_fixture('attachment.delivery_status'))
+      end
     end
 
     factory :unknown_attachment do

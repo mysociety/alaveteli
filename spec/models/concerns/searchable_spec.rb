@@ -72,6 +72,15 @@ RSpec.describe Searchable, 'index lifecycle' do
     expect(message.search_documents.map(&:root)).to eq([info_request])
   end
 
+  it 'strips null bytes from content indexed from a method' do
+    message = FactoryBot.create(:info_request).outgoing_messages.first
+    allow(message).to receive(:get_text_for_indexing).
+      and_return("foo\u0000bar")
+
+    message.reindex
+    expect(message.search_documents.first.raw_content).to include('foobar')
+  end
+
   it 'does not index models that are not registered as searchable' do
     n = FactoryBot.create(:notification)
     expect(SearchDocument.where(searchable_type: "Notification").count).to eq(0)

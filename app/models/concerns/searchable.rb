@@ -68,7 +68,9 @@ module Searchable
     content_tsv_bits = []
     opts[idx_name].each do |col, w|
       if col.start_with?(".")
-        c = ActiveRecord::Base.connection.quote("#{send(col[1..])} ")
+        c = ActiveRecord::Base.connection.quote(
+          "#{send(col[1..])} ".delete("\u0000")
+        )
       else
         c = "(SELECT concat(#{col}, ' ') FROM #{self.class.table_name} WHERE id=$1)"
       end

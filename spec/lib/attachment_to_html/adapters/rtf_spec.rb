@@ -1,7 +1,13 @@
 require 'spec_helper'
 
 RSpec.describe AttachmentToHTML::Adapters::RTF do
-  let(:attachment) { FactoryBot.create(:rtf_attachment) }
+  let(:attachment) do
+    FoiAttachment.new(
+      content_type: 'application/rtf',
+      filename: 'interesting.rtf',
+      body: load_file_fixture('interesting.rtf')
+    )
+  end
   let(:adapter) { AttachmentToHTML::Adapters::RTF.new(attachment) }
 
   describe :tmpdir do
@@ -55,7 +61,10 @@ RSpec.describe AttachmentToHTML::Adapters::RTF do
     end
 
     it 'converts empty files' do
-      attachment = FactoryBot.create(:rtf_attachment, body: load_file_fixture('empty.rtf'))
+      attachment = FoiAttachment.new(
+        content_type: 'application/rtf',
+        body: load_file_fixture('empty.rtf')
+      )
       adapter = AttachmentToHTML::Adapters::RTF.new(attachment)
       expect(adapter.body).to eq('')
     end
@@ -66,7 +75,10 @@ RSpec.describe AttachmentToHTML::Adapters::RTF do
     end
 
     it 'sanitizes malicious files' do
-      attachment = FactoryBot.create(:rtf_attachment, body: load_file_fixture('rtf-xss.rtf'))
+      attachment = FoiAttachment.new(
+        content_type: 'application/rtf',
+        body: load_file_fixture('rtf-xss.rtf')
+      )
       adapter = AttachmentToHTML::Adapters::RTF.new(attachment)
       expect(adapter.body).not_to include('<script>alert(1)</script>')
     end

@@ -175,7 +175,9 @@ class AttachmentToText
           timeout: 5.minutes
         )
 
-        File.read("#{ File.basename(file.path) }.txt")
+        # LibreOffice writes no output when it fails or times out
+        output = "#{ File.basename(file.path) }.txt"
+        File.exist?(output) ? File.read(output) : ''
       end
     end
   end
