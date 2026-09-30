@@ -14,9 +14,14 @@
     <%= render :partial => 'request/request_search_form',
                :locals => { :after_form_fields => render(:partial => 'request/request_filter_form') } %>
   <% end %>
+
+  <a href="#results" class="show-with-keyboard-focus-only skip-to-link">
+    <%= _('Skip to results') %>
+  </a>
 </div>
 
 <div id="header_right" class="sidebar header_right">
+  <a class="visually-hidden" href=""></a>
   <h2><%= _("Follow these requests") %></h2>
   <% if @track_thing %>
     <%= render :partial => 'track/tracking_links', :locals => { :track_thing => @track_thing, :own_request => false, :location => 'main' } %>
@@ -29,7 +34,7 @@
 
 <div style="clear:both"></div>
 
-<div class="results_section">
+<div class="results_section" id="results">
   <% cache_if_caching_fragments(request_list_cache_key, :expires_in => 5.minutes) do %>
     <%= render :partial => 'list_results' %>
   <% end %>

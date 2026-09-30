@@ -286,7 +286,8 @@ module InfoRequestHelper
 
     link_to image_tag(image, class: "attachment__image",
                              alt: "Attachment"),
-            attachment_path(attachment)
+            attachment_path(attachment),
+            'aria-hidden': true
   end
 
   def attachment_path(attachment, options = {})

@@ -101,6 +101,12 @@
 
 <div class="authority__body">
   <div class="authority__body__foi-results">
+    <% if @number_of_visible_requests > 4 %>
+      <a href="#list-filter" class="show-with-keyboard-focus-only skip-to-link">
+        <%= _('Skip to search options') %>
+      </a>
+    <% end %>
+
     <% if @number_of_visible_requests.zero? %>
       <% if @public_body.is_requestable? or @public_body.not_requestable_reason != 'defunct' %>
         <% if @public_body.eir_only? %>
@@ -137,7 +143,7 @@
         <p>
           <%= _('Only requests made using {{site_name}} are shown.',
                 :site_name => site_name) %>
-          <%= link_to _('?'), help_about_path %>
+          <%= link_to _('Find out why'), help_about_path %>
         </p>
       <% end %>
 
