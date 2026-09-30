@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Replace the credentials of an unconfirmed account when it is signed up for
+  again (Gareth Rees)
 * Add prominence check to public search indexing (Graeme Porteous)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)
