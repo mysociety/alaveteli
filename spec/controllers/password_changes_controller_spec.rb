@@ -375,6 +375,24 @@ RSpec.describe PasswordChangesController do
       expect(response).to render_template(:edit)
     end
 
+    it 'does not allow the token to be reused on success' do
+      put :update, params: {
+        id: post_redirect.token,
+        password_change_user: @valid_password_params
+      }
+      get :edit, params: { id: post_redirect.token }
+      expect(response).to redirect_to(new_password_change_path)
+    end
+
+    it 'allows the token to be retried on failure' do
+      put :update, params: {
+        id: post_redirect.token,
+        password_change_user: @invalid_password_params
+      }
+      get :edit, params: { id: post_redirect.token }
+      expect(response).to render_template(:edit)
+    end
+
     context 'no user is specified' do
       let(:post_redirect) { PostRedirect.new(user: nil) }
 

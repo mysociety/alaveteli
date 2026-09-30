@@ -263,5 +263,16 @@ RSpec.describe Users::ConfirmationsController do
         expect(found).to be_nil
       end
     end
+
+    context 'when the user password has changed since the link was sent' do
+      it 'renders bad_token' do
+        user = FactoryBot.create(:user, email_confirmed: false)
+        post_redirect = PostRedirect.create(uri: '/', user: user)
+        user.update!(password: 'new-password')
+
+        get :confirm, params: { email_token: post_redirect.email_token }
+        expect(response).to render_template(:bad_token)
+      end
+    end
   end
 end

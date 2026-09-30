@@ -6,9 +6,16 @@ module User::LoginToken
 
   included do
     before_save :set_login_token
+    after_update :delete_post_redirects, if: :saved_change_to_login_token?
   end
 
   private
+
+  # Outstanding confirmation and password change links grant access to the
+  # account, so revoke them when credentials change
+  def delete_post_redirects
+    post_redirects.delete_all
+  end
 
   def set_login_token
     set_login_token! if email_changed? || hashed_password_changed?
