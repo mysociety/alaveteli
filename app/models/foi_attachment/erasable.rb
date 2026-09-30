@@ -45,6 +45,7 @@ module FoiAttachment::Erasable
 
       self.erased_at = Time.zone.now
       save!
+      search_documents.delete_all
 
       delete_cached_file!
 
