@@ -470,6 +470,29 @@ RSpec.describe IncomingMessage do
     end
   end
 
+  describe '#safe_subject' do
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    it 'returns nil if there is no subject' do
+      message.subject = nil
+      expect(message.safe_subject).to be_nil
+    end
+
+    it 'masks email addresses and mobile numbers' do
+      message.subject = 'Re: foo@example.com Mob: 07700 900123'
+      expect(message.safe_subject).
+        to eq('Re: [email address] [mobile number]')
+    end
+
+    it 'applies the info request censor rules' do
+      FactoryBot.create(:censor_rule,
+                        text: 'secret',
+                        censorable: message.info_request)
+      message.subject = 'Re: secret stuff'
+      expect(message.safe_subject).to eq('Re: [REDACTED] stuff')
+    end
+  end
+
   describe '#from_email' do
     it 'returns the email address in the From header' do
       inbound_email = <<-EOF.strip_heredoc
@@ -1234,7 +1257,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should handle a main body part that is just quoted content in an email that has
         no subject' do
-    i = IncomingMessage.new
+    i = FactoryBot.build(:incoming_message)
     allow(i).to receive(:get_main_body_text_unfolded).and_return("some quoting")
     allow(i).to receive(:get_main_body_text_folded).and_return("FOLDED_QUOTED_SECTION")
     allow(i).to receive(:subject).and_return(nil)
@@ -1609,6 +1632,39 @@ RSpec.describe IncomingMessage, 'when getting the body of a message for html dis
 
     expected = "<p>Line 1</p>\n\n<p>Line 2</p>"
     expect(incoming_message.get_body_for_html_display).to include(expected)
+  end
+
+  context 'when the body contains only quoted text' do
+    let(:incoming_message) { FactoryBot.build(:incoming_message) }
+
+    before do
+      allow(incoming_message).to receive(:get_main_body_text_folded).
+        and_return('FOLDED_QUOTED_SECTION')
+      allow(incoming_message).to receive(:get_main_body_text_unfolded).
+        and_return('> quoted')
+      incoming_message.subject = 'Re: foo@example.com Mob: 07700 900123 secret'
+      FactoryBot.create(:censor_rule,
+                        text: 'secret',
+                        censorable: incoming_message.info_request)
+    end
+
+    it 'shows the subject with masks and censor rules applied' do
+      html = incoming_message.get_body_for_html_display
+      expect(html).to include('[Subject only] Re: [email address] ' \
+                              '[mobile number] [REDACTED]')
+      expect(html).not_to include('foo@example.com')
+      expect(html).not_to include('07700 900123')
+      expect(html).not_to include('secret')
+    end
+
+    it 'masks the subject when the main body part is locked' do
+      locked_part = instance_double(FoiAttachment, locked?: true)
+      allow(incoming_message).to receive(:get_main_body_text_part).
+        and_return(locked_part)
+      html = incoming_message.get_body_for_html_display
+      expect(html).not_to include('foo@example.com')
+      expect(html).not_to include('secret')
+    end
   end
 end
 
