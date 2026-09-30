@@ -9,7 +9,15 @@
   <span class="help-inline">(substring search, body)</span>
 <% end %>
 
+<div class="row">
+  <div class="span12">
+    <%= render partial: "concerns/admin/sortable/sort_options" %>
+  </div>
+</div>
+
 <%= render partial: 'admin_request/some_annotations' ,
            locals: { comments: @comments } %>
 
 <%= will_paginate(@comments) %>
+
+<%= render "concerns/admin/searchable/search_stats" %>
