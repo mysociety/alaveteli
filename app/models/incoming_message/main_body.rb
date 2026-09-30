@@ -125,7 +125,7 @@ module IncomingMessage::MainBody
 
       # if there is nothing but quoted stuff, then show the subject
       if text == "FOLDED_QUOTED_SECTION"
-        text = "[Subject only] " + CGI.escapeHTML(subject || '') + text
+        text = "[Subject only] " + CGI.escapeHTML(safe_subject || '') + text
       end
 
       # and display link for quoted stuff

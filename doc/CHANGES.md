@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Mask subject in fallback for when the main body of an IncomingMessage has no
+  text (Gareth Rees) 
 * Add prominence check to public search indexing (Graeme Porteous)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)
