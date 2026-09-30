@@ -9,6 +9,8 @@ class FoiAttachment::MaskJob < ApplicationJob
   queue_as :default
   unique :until_executed, on_conflict: :log
 
+  discard_on RawEmail::ErasedError
+
   attr_reader :attachment
 
   delegate :incoming_message, to: :attachment
@@ -33,7 +35,7 @@ class FoiAttachment::MaskJob < ApplicationJob
   private
 
   def mask
-    attachment.mask
+    return unless attachment.mask
 
     # Masking hit a Regexp::TimeoutError. Notify once (on the first failure) so
     # it can be investigated, then stop.

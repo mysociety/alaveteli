@@ -1,4 +1,5 @@
 # Shared behaviour for records that can be redacted by CensorRule
+# Generally included by a record-specific `Redactable` concern
 module Redactable
   extend ActiveSupport::Concern
 
