@@ -623,6 +623,39 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#unredacted_diff_for_admin_indexing' do
+    subject { foi_attachment.unredacted_diff_for_admin_indexing }
+
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    context 'when nothing was masked' do
+      it 'returns an empty string without extracting the text again' do
+        expect(AttachmentToText).not_to receive(:from_string)
+        is_expected.to eq('')
+      end
+    end
+
+    context 'when masking changed the body' do
+      before do
+        allow(foi_attachment).to receive(:body).
+          and_return('hereisthe[REDACTED]')
+      end
+
+      it { is_expected.to match(/hereisthetext/) }
+    end
+
+    context 'when the hexdigest does not match the raw email' do
+      before { foi_attachment.update_column(:hexdigest, 'ABC') }
+
+      it { is_expected.to eq('') }
+
+      it 'does not recover the hexdigest' do
+        subject
+        expect(foi_attachment.reload.hexdigest).to eq('ABC')
+      end
+    end
+  end
+
   describe '#main_body_part?' do
     subject { attachment.main_body_part? }
 
@@ -2431,7 +2464,9 @@ RSpec.describe FoiAttachment do
         and_return(body: original_body)
 
       allow(foi_attachment).to receive(:incoming_message).
-        and_return(double(raw_email_erased?: false))
+        and_return(
+          double(raw_email_erased?: false, get_main_body_text_part: nil)
+        )
     end
 
     context 'when locking an unmasked attachment' do
@@ -2648,6 +2683,30 @@ RSpec.describe FoiAttachment do
     it 'put the attachment in the raw email of its message' do
       foi_attachment = FactoryBot.create(:pdf_attachment)
       expect(foi_attachment.unmasked_body).to eq(foi_attachment.body)
+    end
+  end
+
+  describe 'search indexing', :postgresql do
+    it 'indexes the attachment content correctly' do
+      expect(
+        SearchDocument.where(searchable_type: 'FoiAttachment').count
+      ).to eq(0)
+      incoming_message = FactoryBot.create(
+        :incoming_message, :with_pdf_attachment
+      )
+      incoming_message.foi_attachments.map(&:body)
+      incoming_message.foi_attachments.map(&:reindex)
+      perform_enqueued_jobs
+      expect(
+        incoming_message.foi_attachments.second.search_documents.count
+      ).to eq(1)
+      expect(
+        FoiAttachment.search_scope(
+          'powered by',
+          exact_mode: true,
+          backend: :postgresql
+        )
+      ).to include(incoming_message.foi_attachments.second)
     end
   end
 end
