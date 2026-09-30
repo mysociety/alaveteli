@@ -812,12 +812,14 @@ Rails.application.routes.draw do
   #### Admin::Users::Closures controller
   #### Admin::Users::Anonymisations controller
   #### Admin::Users::Erasures controller
+  #### Admin::Users::CensorRules controller
   namespace :admin do
     resources :users, only: [], module: :users do
       resource :suspension, only: [:create]
       resource :closure, only: [:create]
       resource :anonymisation, only: [:create]
       resource :erasure, only: [:create]
+      resources :censor_rules, only: [:index]
     end
   end
   ####

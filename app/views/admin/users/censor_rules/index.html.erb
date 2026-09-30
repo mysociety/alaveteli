@@ -1,0 +1,80 @@
+<ul class="breadcrumb">
+  <li>User: <%= both_links(@admin_user) %></li>
+</ul>
+
+<div class="row">
+  <div class="span12 help-block">
+    <p>
+      Censor rules that apply to requests made by this user: those attached to
+      the user, to their requests or to the authorities they have made requests
+      to, and global rules.
+    </p>
+
+    <% if feature_enabled?(:redaction_tracking) %>
+      <p>
+        Redactions are only recorded as content is rendered, so records that
+        haven't been viewed since redaction tracking was enabled won't be
+        listed.
+      </p>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <% if @censor_rules.any? %>
+    <table class="table table-condensed table-hover span12 censor-rule-list">
+      <tr>
+        <th>Id</th>
+        <th>Applies to</th>
+        <th>Text</th>
+        <th>Replacement</th>
+        <th>Regexp?</th>
+        <th>Last edit comment</th>
+        <% if feature_enabled?(:redaction_tracking) %>
+          <th>Records redacted</th>
+        <% end %>
+        <th>Actions</th>
+      </tr>
+
+      <% @censor_rules.each do |censor_rule| %>
+        <% redactions = @redactions.fetch(censor_rule.id, []) %>
+
+        <tr id="<%= dom_id(censor_rule) %>">
+          <td class="id"><%= censor_rule.id %></td>
+          <td class="applies-to"><%= censor_rule_applies_to(censor_rule) %></td>
+          <td class="text"><%= censor_rule.text %></td>
+          <td class="replacement"><%= censor_rule.replacement %></td>
+          <td class="regexp"><%= censor_rule.regexp? %></td>
+          <td class="last_edit_comment"><%= censor_rule.last_edit_comment %></td>
+
+          <% if feature_enabled?(:redaction_tracking) %>
+            <td>
+              <% if redactions.empty? %>
+                <span class="badge">0</span>
+              <% else %>
+                <span class="badge badge-warning"><%= redactions.size %></span>
+              <% end %>
+            </td>
+          <% end %>
+
+          <td>
+            <%= link_to 'Edit', edit_admin_censor_rule_path(censor_rule) %>
+          </td>
+        </tr>
+
+        <% redactions.each do |redaction| %>
+          <tr class="muted redaction">
+            <td></td>
+            <td colspan="2">
+              &#8627; <%= both_links(redaction.redactable) %>
+            </td>
+            <td><tt><%= redaction.redactable_type %></tt></td>
+            <td colspan="4"><tt><%= redaction.redacted_attribute %></tt></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  <% else %>
+    <p class="span12">None.</p>
+  <% end %>
+</div>

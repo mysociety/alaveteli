@@ -59,6 +59,51 @@ RSpec.describe CensorRule do
     it { is_expected.not_to include(user_rule) }
   end
 
+  describe '.applicable_to_requests' do
+    subject { described_class.applicable_to_requests(info_requests) }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:info_requests) { InfoRequest.where(id: info_request) }
+    let(:other_request) { FactoryBot.create(:info_request) }
+
+    it 'includes global rules' do
+      rule = FactoryBot.create(:global_censor_rule)
+      is_expected.to include(rule)
+    end
+
+    it 'includes rules attached to the requests' do
+      rule = FactoryBot.create(:censor_rule, censorable: info_request)
+      is_expected.to include(rule)
+    end
+
+    it 'excludes rules attached to other requests' do
+      rule = FactoryBot.create(:censor_rule, censorable: other_request)
+      is_expected.not_to include(rule)
+    end
+
+    it 'includes rules attached to the users of the requests' do
+      rule = FactoryBot.create(:censor_rule, censorable: info_request.user)
+      is_expected.to include(rule)
+    end
+
+    it 'excludes rules attached to other users' do
+      rule = FactoryBot.create(:censor_rule, censorable: other_request.user)
+      is_expected.not_to include(rule)
+    end
+
+    it 'includes rules attached to the public bodies of the requests' do
+      rule = FactoryBot.create(:censor_rule,
+                               censorable: info_request.public_body)
+      is_expected.to include(rule)
+    end
+
+    it 'excludes rules attached to other public bodies' do
+      rule = FactoryBot.create(:censor_rule,
+                               censorable: other_request.public_body)
+      is_expected.not_to include(rule)
+    end
+  end
+
   describe '#update' do
     context 'when the rule has redactions' do
       let(:rule) { FactoryBot.create(:global_censor_rule) }

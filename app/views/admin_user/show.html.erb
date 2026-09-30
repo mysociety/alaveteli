@@ -220,3 +220,10 @@
 <%= render partial: 'admin/censor_rules/list',
            locals: { censor_rules: @admin_user.censor_rules,
                      user: @admin_user } %>
+
+<div class="row">
+  <p class="span12">
+    <%= link_to 'View all censor rules applying to this user’s requests',
+                admin_user_censor_rules_path(@admin_user) %>
+  </p>
+</div>
