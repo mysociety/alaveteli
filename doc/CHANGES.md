@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix hidden comments, and content on hidden messages or requests, showing in
+  public search (Graeme Porteous)
 * Add prominence check to public search indexing (Graeme Porteous)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)
