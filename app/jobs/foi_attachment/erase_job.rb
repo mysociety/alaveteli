@@ -11,6 +11,6 @@ class FoiAttachment::EraseJob < ApplicationJob
   unique :until_and_while_executing, on_conflict: :log
 
   def perform(attachment, editor:, reason:)
-    attachment.erase(editor: editor, reason: reason)
+    attachment.erase!(editor: editor, reason: reason)
   end
 end
