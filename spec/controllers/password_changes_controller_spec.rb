@@ -115,6 +115,15 @@ RSpec.describe PasswordChangesController do
         expect(post_redirect_attrs).to eq(expected_attrs)
       end
 
+      it 'does not send mail for a closed account' do
+        user = FactoryBot.create(:user, :closed)
+        post :create, params: {
+          password_change_user: { email: user.email }
+        }
+        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(response).to render_template(:check_email)
+      end
+
       context 'when a pretoken is supplied' do
         it 'adds the pretoken to the post redirect uri' do
           user = FactoryBot.create(:user)
@@ -243,6 +252,15 @@ RSpec.describe PasswordChangesController do
         get :edit, params: { id: post_redirect.token, pretoken: 'abcdef' }
         expect(response).
           to redirect_to(new_password_change_path(pretoken: 'abcdef'))
+      end
+    end
+
+    context 'the user is closed' do
+      before { user.close! }
+
+      it 'redirects to new' do
+        get :edit, params: { id: post_redirect.token }
+        expect(response).to redirect_to(new_password_change_path)
       end
     end
 
@@ -394,6 +412,31 @@ RSpec.describe PasswordChangesController do
         }
         expect(response).
           to redirect_to(new_password_change_path(pretoken: 'abcdef'))
+      end
+    end
+
+    context 'the user is closed' do
+      before do
+        user.close!
+
+        @old_hash = user.hashed_password
+
+        put :update, params: {
+          id: post_redirect.token,
+          password_change_user: @valid_password_params
+        }
+      end
+
+      it 'does not change the password' do
+        expect(user.reload.hashed_password).to eq(@old_hash)
+      end
+
+      it 'does not sign the user in' do
+        expect(session[:user_id]).to be_nil
+      end
+
+      it 'redirects to new' do
+        expect(response).to redirect_to(new_password_change_path)
       end
     end
 

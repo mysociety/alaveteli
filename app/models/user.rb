@@ -288,7 +288,10 @@ class User < ApplicationRecord
   def self.authenticate_from_session(session)
     return unless session[:user_id]
 
-    find_by(id: session[:user_id], login_token: session[:user_login_token])
+    not_closed.find_by(
+      id: session[:user_id],
+      login_token: session[:user_login_token]
+    )
   end
 
   # Case-insensitively find a user from their email
@@ -442,7 +445,11 @@ class User < ApplicationRecord
   end
 
   def close!
-    update!(closed_at: Time.zone.now, receive_email_alerts: false)
+    update!(
+      closed_at: Time.zone.now,
+      receive_email_alerts: false,
+      login_token: nil
+    )
   end
 
   def closed?

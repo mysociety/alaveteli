@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Prevent closed users logging in from secondary authentication routes (Gareth
+  Rees)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)
 * Fix an endless loop if there is issues masking attachment (Graeme Porteous)

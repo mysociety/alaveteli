@@ -41,7 +41,7 @@ class PasswordChangesController < ApplicationController
       return
     end
 
-    @password_change_user = User.find_user_by_email(email)
+    @password_change_user = User.not_closed.find_user_by_email(email)
 
     if @password_change_user
       post_redirect_attrs =
@@ -130,6 +130,7 @@ class PasswordChangesController < ApplicationController
         )
         post_redirect.user if post_redirect
       end
+    @password_change_user = nil if @password_change_user&.closed?
   end
 
   # Edit and update need a user resolved from the token to change a password
