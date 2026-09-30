@@ -534,6 +534,10 @@ class UserController < ApplicationController
 
   # If they register again
   def already_registered_mail(user)
+    # must render the same as for send_confirmation_mail to avoid leak of
+    # presence of email in db
+    return render action: 'confirm' if user.closed?
+
     post_redirect = generate_confirmation_post_redirect(user)
 
     url = confirm_url(email_token: post_redirect.email_token)
