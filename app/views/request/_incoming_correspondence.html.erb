@@ -1,48 +1,66 @@
-<div class="incoming correspondence <%= incoming_message.prominence %> js-collapsible" id="<%= dom_id(incoming_message) %>">
-  <div class="correspondence__header">
-    <span class="correspondence__header__author js-collapsible-trigger">
-      <% if incoming_message.specific_from_name? %>
-        <%= incoming_message.safe_from_name %>,
-      <% end %>
-      <% if incoming_message.from_public_body? %>
-        <%= @info_request.public_body.name %>
-      <% end %>
-    </span>
+<% if incoming_message.erased? %>
 
-    <%= link_to incoming_message_path(incoming_message, anchor_only: true), :class => 'correspondence__header__date' do %>
+  <div class="incoming correspondence box" id="incoming-<%=incoming_message.id.to_s%>">
+    <h2>
       <%= simple_date(incoming_message.sent_at) %>
-    <% end %>
-  </div>
+    </h2>
 
-  <%= render partial: 'request/prominence', locals: { prominenceable: incoming_message } %>
-
-  <%- if can?(:read, incoming_message) %>
-    <% if feature_enabled?(:refusal_identification) %>
-      <%= render partial: 'request/incoming_refusals',
-                 locals: { incoming_message: incoming_message } %>
-    <% end %>
-
-    <div class="correspondence_text">
-      <%= render partial: 'request/attachments',
-                 locals: { incoming_message: incoming_message } %>
-    </div>
-
-    <p class="event_actions">
-      <% if !@user.nil? && @user.admin_page_links? %>
-        <%= link_to "Admin", edit_admin_incoming_message_path(incoming_message.id) %>
+    <p class="event_plain">
+      <%= _('A message was received but has been removed.') %>
+      <% if incoming_message.prominence_reason.present? %>
+        <%= _('Details:') %> <%= incoming_message.prominence_reason %>
       <% end %>
     </p>
+  </div>
 
-    <% if show_correspondence_footer %>
-      <% link_to_this_url = incoming_message_url(incoming_message) %>
+<% else %>
 
-      <% report_path =
-           new_request_report_path(@info_request.url_title,
-                                   incoming_message_id: incoming_message.id) %>
+  <div class="incoming correspondence <%= incoming_message.prominence %> js-collapsible" id="<%= dom_id(incoming_message) %>">
+    <div class="correspondence__header">
+      <span class="correspondence__header__author js-collapsible-trigger">
+        <% if incoming_message.specific_from_name? %>
+          <%= incoming_message.safe_from_name %>,
+        <% end %>
+        <% if incoming_message.from_public_body? %>
+          <%= @info_request.public_body.name %>
+        <% end %>
+      </span>
 
-      <%= render partial: 'request/correspondence_footer',
-                 locals: { link_to_this_url: link_to_this_url,
-                           report_path: report_path } %>
-    <% end %>
-  <%- end %>
-</div>
+      <%= link_to incoming_message_path(incoming_message, anchor_only: true), :class => 'correspondence__header__date' do %>
+        <%= simple_date(incoming_message.sent_at) %>
+      <% end %>
+    </div>
+
+    <%= render partial: 'request/prominence', locals: { prominenceable: incoming_message } %>
+
+    <%- if can?(:read, incoming_message) %>
+      <% if feature_enabled?(:refusal_identification) %>
+        <%= render partial: 'request/incoming_refusals',
+                   locals: { incoming_message: incoming_message } %>
+      <% end %>
+
+      <div class="correspondence_text">
+        <%= render partial: 'request/attachments',
+                   locals: { incoming_message: incoming_message } %>
+      </div>
+
+      <p class="event_actions">
+        <% if !@user.nil? && @user.admin_page_links? %>
+          <%= link_to "Admin", edit_admin_incoming_message_path(incoming_message.id) %>
+        <% end %>
+      </p>
+
+      <% if show_correspondence_footer %>
+        <% link_to_this_url = incoming_message_url(incoming_message) %>
+
+        <% report_path =
+             new_request_report_path(@info_request.url_title,
+                                     incoming_message_id: incoming_message.id) %>
+
+        <%= render partial: 'request/correspondence_footer',
+                   locals: { link_to_this_url: link_to_this_url,
+                             report_path: report_path } %>
+      <% end %>
+    <%- end %>
+  </div>
+<% end %>
