@@ -20,7 +20,7 @@ RSpec.describe AdminInfoRequestEventController do
       expect(assigns[:info_request_events]).to match_array(InfoRequestEvent.all)
     end
 
-    it 'finds info request events matching a query' do
+    it 'finds info request events matching a query', :reindex_inline do
       event.update!(params: { email: 'foi@example.com' })
       get :index, params: { query: 'foi@example.com' }
       expect(assigns[:info_request_events]).to match_array([event])

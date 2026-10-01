@@ -2074,7 +2074,8 @@ RSpec.describe PublicBody, " when override all public body request emails set" d
   end
 end
 
-RSpec.describe PublicBody, "when indexing for postgres search" do
+RSpec.describe PublicBody, "when indexing for postgres search",
+               :reindex_inline do
   it 'updates the search index after updating the public body' do
     pb = FactoryBot.create(:public_body, name: 'Council of things')
     expect(PublicBody.newsearch('Council of things')).to eq([pb])

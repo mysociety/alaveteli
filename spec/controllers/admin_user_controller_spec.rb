@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AdminUserController do
-  describe 'GET index' do
+  describe 'GET index', :reindex_inline do
     it 'renders the index template' do
       get :index
       expect(response).to render_template('index')
