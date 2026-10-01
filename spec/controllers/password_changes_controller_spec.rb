@@ -198,6 +198,47 @@ RSpec.describe PasswordChangesController do
         expect(response).to render_template(:new)
       end
     end
+
+    context 'when the attempt limit is exceeded' do
+      let(:user) { FactoryBot.create(:user) }
+
+      def submit(email, ip: '0.0.0.0')
+        request.env['REMOTE_ADDR'] = ip
+        post :create, params: { password_change_user: { email: email } }
+      end
+
+      it 'limits recovery emails to the same address across IPs' do
+        3.times { |i| submit(user.email, ip: "10.0.0.#{i}") }
+        submit(user.email.upcase, ip: '10.0.0.99')
+
+        expect(response).to render_template(:new)
+        expect(response).to have_http_status(:too_many_requests)
+        expect(flash[:error]).to match(/Too many attempts/)
+        expect(ActionMailer::Base.deliveries.size).to eq(3)
+      end
+
+      it 'limits attempts from the same IP across addresses' do
+        10.times { |i| submit("user#{i}@localhost") }
+        submit('another@localhost')
+
+        expect(response).to have_http_status(:too_many_requests)
+      end
+
+      it 'responds the same for an unknown address' do
+        4.times { submit('unknown@localhost') }
+
+        expect(response).to have_http_status(:too_many_requests)
+      end
+
+      it 'limits a signed in user by their own email' do
+        sign_in user
+        3.times { |i| submit(nil, ip: "10.0.0.#{i}") }
+        submit(nil, ip: '10.0.0.99')
+
+        expect(response).to have_http_status(:too_many_requests)
+        expect(ActionMailer::Base.deliveries.size).to eq(3)
+      end
+    end
   end
 
   describe 'GET edit' do
