@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="span12 danger-zone">
+    <h1 class="span12 danger-zone__header">Danger Zone</h1>
+
+    <div class="danger-zone__item">
+      <div class="span7">
+        <p>
+          <strong>Erase this message</strong>
+        </p>
+
+        <details>
+          <summary>
+            Permanently erase the content of this message.
+          </summary>
+          <br/>
+
+          <p>
+            This can be used to
+            <strong>permanently erase data</strong>
+            sent by a user in their message.
+          </p>
+
+          <p>
+            <ul>
+              <li>Erases the From: information in this message</li>
+              <li>Erases the body of this message</li>
+              <li>Erases all attachments of this message</li>
+              <li>Keeps a trace that a message was received</li>
+            </ul>
+          </p>
+
+          <p>
+            Note that
+            <strong>this will not erase from any backups</strong>
+            or file storage retention policies created outside of Alaveteli. In
+            most cases allowing the database backup to be rotated out is fine,
+            but in the most extreme cases you may wish to manually purge the
+            file from backups.
+          </p>
+        </details>
+
+        <br/>
+      </div>
+
+      <%= form_for incoming_message, url: admin_incoming_message_erasures_path(incoming_message), method: :post, class: 'span4 form form-inline' do |f| %>
+        <div class="input-append">
+          <%= f.text_field :erasure_reason,
+                       value: "",
+                       placeholder: "Reason for erasure",
+                       required: true %>
+          <%= f.submit "Erase message",
+                   class: "btn btn-danger",
+                   data: {
+                     confirm: "Are you sure? This is irreversible.",
+                   } %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="danger-zone__item">
+      <div class="span7">
+        <p>
+          <strong>Destroy this message</strong>
+        </p>
+
+        <details>
+          <summary>
+            Permanently destroy this message.
+          </summary>
+
+          <br/>
+
+          <p>
+            Destroys the message entirely, as if it had never existed.
+          </p>
+        </details>
+
+        <br/>
+      </div>
+      <%= form_tag admin_incoming_message_path(incoming_message), :method => 'delete', :class => "form form-inline" do %>
+        <div class="control-group">
+          <label class="control-label" for="destroy_message_<%= incoming_message.id %>">Destroy message</label>
+          <div class="controls">
+            <%= hidden_field_tag "incoming_message_id", incoming_message.id, id: nil %>
+            <%= submit_tag "Destroy message",
+            class: "btn btn-danger",
+            data: {
+              confirm: "This is permanent! Are you sure?",
+            },
+            id: "destroy_message_#{incoming_message.id}" %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
