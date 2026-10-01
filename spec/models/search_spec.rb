@@ -87,6 +87,23 @@ RSpec.describe Search do
     end
   end
 
+  describe '.request_search' do
+    it 'delegates to the backend' do
+      expect(backend).to receive(:request_search).with('test')
+      Search.request_search('test')
+    end
+
+    it 'delegates to the named backend without the backend option' do
+      other = instance_double(Search::Backend)
+      allow(Search).to receive(:backend_for).with(:postgresql).
+        and_return(other)
+      expect(other).to receive(:request_search).with('test', sort_by: 'newest')
+      Search.request_search(
+        'test', backend: :postgresql, sort_by: 'newest'
+      )
+    end
+  end
+
   describe '.search_scope' do
     it 'delegates to the backend' do
       relation = User.all

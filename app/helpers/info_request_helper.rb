@@ -17,11 +17,9 @@ module InfoRequestHelper
     end
   end
 
-  def all_successful_requests?(events)
-    events.any? && events.all? do |event|
-      %w[successful partially_successful].include?(
-        event.info_request.calculate_status
-      )
+  def all_successful_requests?(requests)
+    requests.any? && requests.all? do |request|
+      %w[successful partially_successful].include?(request.calculate_status)
     end
   end
 
