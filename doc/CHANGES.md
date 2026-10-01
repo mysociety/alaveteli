@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix minor security issues with profile photo uploads and purge abandoned
+  drafts (Gareth Rees)
 * Add prominence check to public search indexing (Graeme Porteous)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)

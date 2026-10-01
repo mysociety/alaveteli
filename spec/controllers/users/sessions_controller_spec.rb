@@ -538,5 +538,10 @@ RSpec.describe Users::SessionsController do
       get :destroy, session: { user_id: user.id, ttl: Time.zone.now }
       expect(session[:ttl]).to be_nil
     end
+
+    it 'clears a draft profile photo' do
+      get :destroy, session: { user_id: user.id, draft_profile_photo_id: 1 }
+      expect(session[:draft_profile_photo_id]).to be_nil
+    end
   end
 end
