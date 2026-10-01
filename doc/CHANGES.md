@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Rate limit sign in and password recovery attempts (Gareth Rees)
 * Add prominence check to public search indexing (Graeme Porteous)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)
