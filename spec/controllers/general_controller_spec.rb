@@ -409,4 +409,26 @@ RSpec.describe GeneralController, 'when using search' do
       end
     end
   end
+
+  context 'with the PostgreSQL backend', :postgresql do
+    around do |example|
+      original = Search.backend
+      Search.backend = Search.backend_for(:postgresql)
+      example.run
+    ensure
+      Search.backend = original
+    end
+
+    it 'finds requests and authorities' do
+      request = FactoryBot.create(:info_request, title: 'Ptarmigan census')
+      body = FactoryBot.create(:public_body, name: 'Ptarmigan Board')
+
+      get :search, params: { combined: 'ptarmigan/all' }
+
+      expect(response).to be_successful
+      expect(assigns[:request_results].map { _1[:model] }).to eq([request])
+      expect(assigns[:body_results].map { _1[:model] }).to eq([body])
+      expect(assigns[:sortby]).to eq('relevant')
+    end
+  end
 end
