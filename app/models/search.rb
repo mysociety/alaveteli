@@ -38,7 +38,7 @@ module Search
   end
 
   # Apply the configured query backend. Called from the search initializer
-  # once the app has booted.
+  # at boot and after every code reload.
   def self.use_configured_backend!
     self.backend = backend_for(AlaveteliConfiguration.search_backend)
   end

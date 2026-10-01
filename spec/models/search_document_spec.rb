@@ -251,6 +251,26 @@ RSpec.describe SearchDocument do
     end
   end
 
+  context 'exact mode over the limit' do
+    it 'keeps the newest substring match' do
+      FactoryBot.create(:user, name: 'Olive Case')
+      newest = FactoryBot.create(:user, name: 'Charlotte Case')
+
+      results = SearchDocument.hybrid_search(
+        'ASE',
+        model: User,
+        admin_mode: true,
+        exact_mode: true,
+        case_sensitive: false,
+        language: 'english',
+        limit: 1,
+        limit_ratio: 1
+      )
+
+      expect(results).to eq([newest])
+    end
+  end
+
   context 'searching within a provided base relation' do
     it 'restricts the search to the given relation' do
       with_default_locale(:en) do
