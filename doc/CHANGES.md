@@ -19,6 +19,7 @@
 * Prevent closed users logging in from secondary authentication routes (Gareth
   Rees)
 * Update PostgreSQL search documents in a background job (Graeme Porteous)
+* Add ability to erase an IncomingMessage (Laurent Savaete)
 * Add prominence check to public search indexing (Graeme Porteous)
 * Several accessibility improvements (Lucas Cumsille Montesinos)
 * Track when CensorRules actually redact content from Redactable records (Gareth
