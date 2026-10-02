@@ -3,6 +3,7 @@
 ## Highlighted Features
 
 * Add prominence check to public search indexing (Graeme Porteous)
+* Add ability to erase an outgoing message (Laurent Savaete)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)
 * Fix an endless loop if there is issues masking attachment (Graeme Porteous)
