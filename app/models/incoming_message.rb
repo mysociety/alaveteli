@@ -19,6 +19,7 @@
 #  prominence                     :string           default("normal"), not null
 #  prominence_reason              :text
 #  from_email                     :text
+#  erased_at                      :datetime
 #
 
 # models/incoming_message.rb:
@@ -37,6 +38,7 @@ require 'zip'
 
 class IncomingMessage < ApplicationRecord
   include MessageProminence
+  include Erasable
   include Redactable
   include Taggable
   include Searchable
@@ -109,7 +111,7 @@ class IncomingMessage < ApplicationRecord
   # as this forces caching the main body, which causes all sorts of
   # annoying side effects.
   def is_indexable?
-    !cached_main_body_text_folded.nil?
+    !cached_main_body_text_folded.nil? && !erased?
   end
 
   # Given that there are in theory many info request events, a convenience

@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add ability to erase an IncomingMessage (Laurent Savaete)
 * Add prominence check to public search indexing (Graeme Porteous)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)
