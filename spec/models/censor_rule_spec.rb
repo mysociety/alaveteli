@@ -138,6 +138,25 @@ RSpec.describe CensorRule do
     it 'is no longer applicable to the request' do
       expect(info_request.applicable_censor_rules).not_to include(rule)
     end
+
+    context 'when the rule has redactions' do
+      let(:redaction) do
+        rule.redactions.create!(
+          redactable: info_request.outgoing_messages.first,
+          redacted_attribute: 'body'
+        )
+      end
+
+      before do
+        rule.update_columns(erased_at: nil, text: 'secret')
+        redaction
+        rule.reload.erase(editor: 'admin')
+      end
+
+      it 'keeps the redactions' do
+        expect(rule.reload.redactions).to include(redaction)
+      end
+    end
   end
 
   describe '#update' do

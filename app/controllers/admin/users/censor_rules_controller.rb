@@ -13,17 +13,14 @@ class Admin::Users::CensorRulesController < AdminController
   # Fix the redactions of the selected rules in place, then erase the rules so
   # that we no longer hold the content they matched
   def make_permanent
-    rules = @censor_rules.erasable.where(id: params[:censor_rule_ids])
+    rules = @censor_rules.erasable.where(id: params[:censor_rule_ids]).to_a
 
     if rules.empty?
       flash[:error] = 'No censor rules selected.'
       return redirect_to admin_user_censor_rules_path(@admin_user)
     end
 
-    editor = admin_current_user
-
-    if rules.all? { |rule| rule.make_permanent(editor: editor) }
-      rules.each { |rule| rule.erase(editor: editor) }
+    if CensorRule.make_permanent_and_erase(rules, editor: admin_current_user)
       flash[:notice] = "Made #{rules.size} censor rule(s) permanent."
     else
       flash[:error] = 'Some redactions could not be made permanent. No ' \

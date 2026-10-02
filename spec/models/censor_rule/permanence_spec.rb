@@ -63,4 +63,32 @@ RSpec.describe CensorRule::Permanence, feature: :redaction_tracking do
       expect(outgoing_message.reload.body).to include('[x]')
     end
   end
+
+  describe '.make_permanent_and_erase' do
+    let(:outgoing_message) { info_request.outgoing_messages.first }
+
+    let(:rule) do
+      FactoryBot.create(:censor_rule, censorable: info_request,
+                                      text: 'information', replacement: '[x]')
+    end
+
+    before { outgoing_message.body }
+
+    it 'erases the rules' do
+      CensorRule.make_permanent_and_erase([rule], editor: 'admin')
+      expect(rule.reload).to be_erased
+    end
+
+    it 'keeps the record of what was redacted' do
+      CensorRule.make_permanent_and_erase([rule], editor: 'admin')
+      expect(rule.reload.redactions.map(&:redactable)).
+        to include(outgoing_message)
+    end
+
+    it 'does not erase the rules if any could not be made permanent' do
+      allow(rule).to receive(:make_permanent).and_return(false)
+      CensorRule.make_permanent_and_erase([rule], editor: 'admin')
+      expect(rule.reload).not_to be_erased
+    end
+  end
 end
