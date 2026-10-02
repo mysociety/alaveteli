@@ -6,9 +6,12 @@ module FoiAttachment::Replaceable
     attribute :replacement_file
     attribute :replacement_body, :string
     attribute :replaced_filename, :string
+    attribute :old_storage_key, :string
 
     validates :replaced_filename, absence: true, unless: :replacing_or_replaced?
-    validates :replaced_reason, absence: true, unless: :replacing_or_replaced?
+    validates :replaced_reason,
+              absence: true,
+              unless: -> { replacing_or_replaced? || replacement_retained? }
     validates :replaced_reason, presence: true, if: :replacing_or_replaced?
 
     before_save :handle_replacements
@@ -67,7 +70,7 @@ module FoiAttachment::Replaceable
   end
 
   def replacing?
-    !erased? && !unlocking? &&
+    !content_erased? && !unlocking? &&
       (replacement_file_changed? || replacement_body_changed?)
   end
 
@@ -75,8 +78,12 @@ module FoiAttachment::Replaceable
     !erased? && replaced_at.present?
   end
 
+  def replacement_retained?
+    replaced_at.present?
+  end
+
   def replacing_or_replaced?
-    !erased? && (replacing? || replaced?)
+    !content_erased? && (replacing? || replaced?)
   end
 
   def replaced_filename
@@ -112,6 +119,7 @@ module FoiAttachment::Replaceable
     end
 
     if replacing?
+      self.old_storage_key = storage_key
       self.replaced_at = Time.zone.now
       self.masked_at = Time.zone.now
       self.masking_failed_at = nil
