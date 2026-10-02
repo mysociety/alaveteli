@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Several accessibility improvements (Lucas Cumsille Montesinos)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)
 * Fix an endless loop if there is issues masking attachment (Graeme Porteous)
