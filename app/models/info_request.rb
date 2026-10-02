@@ -1286,7 +1286,7 @@ class InfoRequest < ApplicationRecord
   def applicable_censor_rules
     query= <<-SQL
     SELECT cr.* FROM censor_rules cr
-      WHERE (
+      WHERE cr.erased_at IS NULL AND (
           cr.censorable_type = 'InfoRequest'
           AND cr.censorable_id = :info_request_id
         OR cr.censorable_id IS NULL
