@@ -51,6 +51,7 @@ class IncomingMessage < ApplicationRecord
   # body and other attachments extracted from the RawEmail.
   include IncomingMessage::Attachments
   include IncomingMessage::MainBody
+  include IncomingMessage::PermanentRedactions
 
   # Ancillary behaviour
   include IncomingMessage::QuoteHandling

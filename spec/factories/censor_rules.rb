@@ -14,6 +14,7 @@
 #  ignore_diacritics :boolean          default(FALSE), not null
 #  censorable_type   :string
 #  censorable_id     :bigint
+#  erased_at         :datetime
 #
 
 FactoryBot.define do

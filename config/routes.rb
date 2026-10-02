@@ -819,7 +819,9 @@ Rails.application.routes.draw do
       resource :closure, only: [:create]
       resource :anonymisation, only: [:create]
       resource :erasure, only: [:create]
-      resources :censor_rules, only: [:index]
+      resources :censor_rules, only: [:index] do
+        post :make_permanent, on: :collection
+      end
     end
   end
   ####

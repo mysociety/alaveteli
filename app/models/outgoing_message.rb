@@ -33,6 +33,7 @@ class OutgoingMessage < ApplicationRecord
   include Taggable
 
   include OutgoingMessage::DeliveryStatus
+  include OutgoingMessage::PermanentRedactions
 
   MESSAGE_TYPES = %w(initial_request followup).freeze
   WHAT_DOING_VALUES = %w(normal_sort

@@ -114,4 +114,40 @@ RSpec.describe Admin::Users::CensorRulesController do
       end
     end
   end
+
+  describe 'POST #make_permanent' do
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:user) { info_request.user }
+
+    let!(:user_rule) { FactoryBot.create(:censor_rule, censorable: user) }
+    let!(:global_rule) { FactoryBot.create(:global_censor_rule) }
+
+    before { sign_in admin_user }
+
+    def make_permanent(ids)
+      post :make_permanent,
+           params: { user_id: user.id, censor_rule_ids: ids }
+    end
+
+    it 'erases the selected rules' do
+      make_permanent([user_rule.id])
+      expect(user_rule.reload).to be_erased
+    end
+
+    it 'does not erase rules that affect other users' do
+      make_permanent([global_rule.id])
+      expect(global_rule.reload).not_to be_erased
+    end
+
+    it 'redirects to the index' do
+      make_permanent([user_rule.id])
+      expect(response).to redirect_to(admin_user_censor_rules_path(user))
+    end
+
+    it 'sets an error when no rules are selected' do
+      make_permanent([])
+      expect(flash[:error]).to eq('No censor rules selected.')
+    end
+  end
 end

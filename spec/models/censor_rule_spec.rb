@@ -14,6 +14,7 @@
 #  ignore_diacritics :boolean          default(FALSE), not null
 #  censorable_type   :string
 #  censorable_id     :bigint
+#  erased_at         :datetime
 #
 
 require 'spec_helper'
@@ -101,6 +102,41 @@ RSpec.describe CensorRule do
       rule = FactoryBot.create(:censor_rule,
                                censorable: other_request.public_body)
       is_expected.not_to include(rule)
+    end
+  end
+
+  describe '#erase' do
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    let(:rule) do
+      FactoryBot.create(:censor_rule, censorable: info_request,
+                                      text: 'secret', replacement: '[x]')
+    end
+
+    before { rule.erase(editor: 'admin') }
+
+    it 'clears the text' do
+      expect(rule.reload.text).to eq('')
+    end
+
+    it 'clears the replacement' do
+      expect(rule.reload.replacement).to eq('')
+    end
+
+    it 'records when the rule was erased' do
+      expect(rule.reload).to be_erased
+    end
+
+    it 'records the editor' do
+      expect(rule.reload.last_edit_editor).to eq('admin')
+    end
+
+    it 'no longer applies to text' do
+      expect(rule.apply_to_text('a secret')).to eq('a secret')
+    end
+
+    it 'is no longer applicable to the request' do
+      expect(info_request.applicable_censor_rules).not_to include(rule)
     end
   end
 
