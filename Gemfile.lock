@@ -302,7 +302,7 @@ GEM
       logger
       ostruct
     ice_cube (0.17.0)
-    image_processing (2.1.0)
+    image_processing (2.2.0)
     importmap-rails (2.2.3)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -679,7 +679,7 @@ DEPENDENCIES
   htmlentities (~> 4.4.2)
   i18n (~> 1.15.2)
   icalendar (~> 2.12.4)
-  image_processing (~> 2.1)
+  image_processing (~> 2.2)
   importmap-rails (~> 2.2.3)
   iso_country_codes (~> 0.7.8)
   jquery-rails (~> 4.6.1)
