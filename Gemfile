@@ -145,7 +145,7 @@ gem 'benchmark', '~> 0.5.0'
 gem 'csv', '~> 3.3.6'
 gem 'drb', '~> 2.2.3'
 gem 'pstore', '~> 0.2.1'
-gem 'rdoc', '~> 8.0.0'
+gem 'rdoc', '~> 8.1.0'
 gem 'uri', '~> 1.1.1'
 
 # Gems only used by the research export task
