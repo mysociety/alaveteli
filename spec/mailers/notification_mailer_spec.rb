@@ -508,7 +508,8 @@ RSpec.describe NotificationMailer do
       expected_message = load_file_fixture(
         "notification_mailer/new_response.txt", 'r:utf-8')
       expected_message.gsub!('INCOMING_MESSAGE_ID', incoming_message.id.to_s)
-      expect(mail.body.encoded).to eq(expected_message)
+      expect(Mail::Utilities.to_crlf(mail.body.encoded)).
+        to eq(Mail::Utilities.to_crlf(expected_message))
     end
 
     context "when the user is a pro user" do
@@ -524,7 +525,8 @@ RSpec.describe NotificationMailer do
         expected_message = load_file_fixture(
           "notification_mailer/new_response_pro.txt", 'r:utf-8')
         expected_message.gsub!('INCOMING_MESSAGE_ID', incoming_message.id.to_s)
-        expect(mail.body.encoded).to eq(expected_message)
+        expect(Mail::Utilities.to_crlf(mail.body.encoded)).
+          to eq(Mail::Utilities.to_crlf(expected_message))
       end
     end
   end
@@ -772,7 +774,8 @@ RSpec.describe NotificationMailer do
       expected_message = load_file_fixture(
         "notification_mailer/overdue.txt", 'r:utf-8')
       expected_message.gsub!(/INFO_REQUEST_URL_TITLE/, info_request.url_title)
-      expect(mail.body.encoded).to eq(expected_message)
+      expect(Mail::Utilities.to_crlf(mail.body.encoded)).
+        to eq(Mail::Utilities.to_crlf(expected_message))
     end
   end
 
@@ -855,7 +858,8 @@ RSpec.describe NotificationMailer do
       expected_message = load_file_fixture(
         "notification_mailer/very_overdue.txt", 'r:utf-8')
       expected_message.gsub!(/INFO_REQUEST_URL_TITLE/, info_request.url_title)
-      expect(mail.body.encoded).to eq(expected_message)
+      expect(Mail::Utilities.to_crlf(mail.body.encoded)).
+        to eq(Mail::Utilities.to_crlf(expected_message))
     end
   end
 
