@@ -193,7 +193,7 @@ GEM
     digest-crc (0.7.0)
       rake (>= 12.0.0, < 14.0.0)
     drb (2.2.3)
-    erb (6.0.6)
+    erb (6.0.7)
     erubi (1.13.1)
     ethon (0.16.0)
       ffi (>= 1.15.0)
@@ -464,11 +464,11 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.4.2)
-    rbs (4.1.2)
+    rbs (4.2.0)
       logger
       prism (>= 1.6.0)
       tsort
-    rdoc (8.0.0)
+    rdoc (8.1.0)
       erb
       prism (>= 1.6.0)
       rbs (>= 4.0.0)
@@ -707,7 +707,7 @@ DEPENDENCIES
   rails (~> 8.0.5)
   rails-controller-testing
   rails-i18n (~> 8.1.0)
-  rdoc (~> 8.0.0)
+  rdoc (~> 8.1.0)
   recaptcha (~> 5.21.2)
   redcarpet (~> 3.6.1)
   redis (~> 4.8.1)
