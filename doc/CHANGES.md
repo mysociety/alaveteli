@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix minor security issues with profile photo uploads and purge abandoned
+  drafts (Gareth Rees)
 * Rate limit sign in and password recovery attempts (Gareth Rees)
 * Replace the credentials of an unconfirmed account when it is signed up for
   again (Gareth Rees)
