@@ -14,7 +14,7 @@ RSpec.describe FoiAttachment::EraseJob, type: :job do
   end
 
   it 'erases the attachment' do
-    expect(attachment).to receive(:erase).with(editor: editor, reason: reason)
+    expect(attachment).to receive(:erase!).with(editor: editor, reason: reason)
     perform
   end
 

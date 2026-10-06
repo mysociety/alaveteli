@@ -20,7 +20,13 @@ module RawEmail::Erasable
     all_attachments_masked_or_erased?
   end
 
-  def erase(editor:, reason:)
+  def erase(...)
+    erase!(...)
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
+  def erase!(editor:, reason:)
     return if erased?
 
     raise RawEmail::UnmaskedAttachmentsError unless erasable?
