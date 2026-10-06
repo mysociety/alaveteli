@@ -214,7 +214,7 @@ class Ability
     end
 
     can :login_as, User do |target_user|
-      if user == target_user
+      if user == target_user || target_user.closed?
         false
       elsif target_user.is_pro? || target_user.is_pro_admin?
         user && user.is_pro_admin?

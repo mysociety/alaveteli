@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Prevent closed users logging in from secondary authentication routes (Gareth
+  Rees)
 * Update PostgreSQL search documents in a background job (Graeme Porteous)
 * Add prominence check to public search indexing (Graeme Porteous)
 * Several accessibility improvements (Lucas Cumsille Montesinos)

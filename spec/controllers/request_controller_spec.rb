@@ -1726,8 +1726,7 @@ RSpec.describe RequestController, "when making a new request" do
     allow(@user).to receive(:exceeded_request_limits?).and_return(false)
     allow(@user).to receive(:locale).and_return("en")
     allow(@user).to receive(:login_token).and_return('abc')
-    allow(User).to receive(:find_by).with(id: @user.id, login_token: 'abc').
-      and_return(@user)
+    allow(User).to receive(:authenticate_from_session).and_return(@user)
     @body = FactoryBot.create(:public_body, name: 'Test Quango')
   end
 

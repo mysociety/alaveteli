@@ -704,6 +704,20 @@ RSpec.describe UserController do
         expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
       end
 
+      it 'does not send mail for a closed account' do
+        FactoryBot.create(:user, :closed, email: 'closed@localhost')
+        post :signup, params: {
+          user_signup: {
+            email: 'closed@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(response).to render_template('confirm')
+        expect(ActionMailer::Base.deliveries).to be_empty
+      end
+
       it "cope with trailing spaces in the email address" do
         post :signup, params: {
                         user_signup: {

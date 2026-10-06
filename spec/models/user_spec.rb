@@ -691,6 +691,12 @@ RSpec.describe User do
       session = { user_id: user.id, user_login_token: 'ABC' }
       expect(User.authenticate_from_session(session)).to be_nil
     end
+
+    it 'returns nil when the user is closed' do
+      session = { user_id: user.id, user_login_token: user.login_token }
+      user.close!
+      expect(User.authenticate_from_session(session)).to be_nil
+    end
   end
 
   describe '#stay_logged_in_on_redirect?' do
@@ -1427,7 +1433,7 @@ RSpec.describe User do
   describe '#close!' do
     subject { user.close! }
 
-    let(:user) { FactoryBot.build(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     context 'the update is successful' do
       before { subject }
@@ -1442,6 +1448,10 @@ RSpec.describe User do
 
       it 'disables email alerts' do
         expect(user.receive_email_alerts).to eq(false)
+      end
+
+      it 'clears the login token' do
+        expect(user.reload.login_token).to be_nil
       end
     end
 
