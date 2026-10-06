@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Replace the credentials of an unconfirmed account when it is signed up for
+  again (Gareth Rees)
 * Clear a user's post redirects after credential change (Gareth Rees)
 * Mask subject in fallback for when the main body of an IncomingMessage has no
   text (Gareth Rees) 

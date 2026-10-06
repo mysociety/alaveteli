@@ -164,10 +164,10 @@ class UserController < ApplicationController
       # Show the form
       render action: 'sign'
     else
-      if user_alreadyexists
+      if user_alreadyexists&.email_confirmed?
         already_registered_mail user_alreadyexists
       else
-        # New unconfirmed user
+        # New or existing unconfirmed user
 
       # Block signups from suspicious countries
       # TODO: Add specs (see RequestController#create)
@@ -190,8 +190,16 @@ class UserController < ApplicationController
         end && return
       end
 
-        @user_signup.email_confirmed = false
-        @user_signup.save!
+        if user_alreadyexists
+          # Nobody has proven control of the mailbox yet, so the latest
+          # signup's credentials replace any chosen by an earlier registrant
+          user_alreadyexists.update!(name: @user_signup.name,
+                                     password: @user_signup.password)
+          @user_signup = user_alreadyexists
+        else
+          @user_signup.email_confirmed = false
+          @user_signup.save!
+        end
         send_confirmation_mail @user_signup
       end
       nil
