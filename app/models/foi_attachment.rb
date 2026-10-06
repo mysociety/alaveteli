@@ -43,8 +43,9 @@ class FoiAttachment < ApplicationRecord
   include Eventable
   include Lockable
   include Maskable
-  include Redactable
   include Replaceable
+
+  include FoiAttachment::Redactable
 
   MissingError = Class.new(StandardError)
   MaskingError = Class.new(StandardError)

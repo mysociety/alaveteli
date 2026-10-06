@@ -37,7 +37,6 @@ require 'zip'
 
 class IncomingMessage < ApplicationRecord
   include MessageProminence
-  include Redactable
   include Taggable
   include Searchable
 
@@ -55,6 +54,7 @@ class IncomingMessage < ApplicationRecord
 
   # Ancillary behaviour
   include IncomingMessage::QuoteHandling
+  include IncomingMessage::Redactable
   include IncomingMessage::Refusals
 
   UnableToExtractAttachments = Class.new(StandardError)
