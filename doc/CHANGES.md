@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Rate limit sign in and password recovery attempts (Gareth Rees)
 * Replace the credentials of an unconfirmed account when it is signed up for
   again (Gareth Rees)
 * Clear a user's post redirects after credential change (Gareth Rees)
