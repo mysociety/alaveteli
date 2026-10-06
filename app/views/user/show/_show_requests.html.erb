@@ -84,8 +84,8 @@
       <% end %>
 
       <% @request_results.results.each do |result| %>
-        <%= render partial: 'request/request_listing_via_event',
-                   locals: { event: result[:model] } %>
+        <%= render partial: 'request/request_search_result',
+                   locals: { result: result } %>
       <% end %>
 
       <% requests_collection =

@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Update request listings to work via the request itself; filtering by status,
+  date and tag in the database rather than the search index (Graeme Porteous)
 * Add prominence check to public search indexing (Graeme Porteous)
 * Several accessibility improvements (Lucas Cumsille Montesinos)
 * Track when CensorRules actually redact content from Redactable records (Gareth
