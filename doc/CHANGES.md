@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Log out admins if their admin role has been removed (Gareth Rees)
 * Prevent closed users logging in from secondary authentication routes (Gareth
   Rees)
 * Update PostgreSQL search documents in a background job (Graeme Porteous)
