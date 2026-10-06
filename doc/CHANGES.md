@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Update PostgreSQL search documents in a background job (Graeme Porteous)
 * Add prominence check to public search indexing (Graeme Porteous)
 * Several accessibility improvements (Lucas Cumsille Montesinos)
 * Track when CensorRules actually redact content from Redactable records (Gareth

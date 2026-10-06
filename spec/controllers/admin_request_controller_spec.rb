@@ -97,7 +97,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
       end
     end
 
-    context 'when passed a query with the new search engine', :postgresql do
+    context 'when passed a query with the new search engine',
+            :postgresql, :reindex_inline do
       let!(:dog_request) do
         FactoryBot.create(:info_request, title: 'A dog request')
       end

@@ -19,8 +19,8 @@
 
 require 'spec_helper'
 
-RSpec.describe SearchDocument do
-  # created eagerly so the after_commit indexes it before the search runs
+RSpec.describe SearchDocument, :reindex_inline do
+  # created eagerly so its reindex job runs before the search
   let!(:user) do
     FactoryBot.create(:user, name: 'Florence Nightingale',
                              about_me: 'I enjoy data visualisation')

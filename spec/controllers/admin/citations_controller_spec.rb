@@ -28,7 +28,7 @@ RSpec.describe Admin::CitationsController do
       expect(assigns[:citations]).not_to include(org)
     end
 
-    it 'filters citations by the search query (new)' do
+    it 'filters citations by the search query (new)', :reindex_inline do
       net = FactoryBot.create(:citation, source_url: 'https://example.net/a')
       org = FactoryBot.create(:citation, source_url: 'https://example.org/b')
       get :index, params: { query: 'example.net', search_engine: :new }

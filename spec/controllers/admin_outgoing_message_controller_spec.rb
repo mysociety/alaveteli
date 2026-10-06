@@ -4,7 +4,7 @@ RSpec.describe AdminOutgoingMessageController do
   let(:admin_user) { FactoryBot.create(:admin_user) }
   let(:pro_admin_user) { FactoryBot.create(:pro_admin_user) }
 
-  describe 'GET #index' do
+  describe 'GET #index', :reindex_inline do
     before { sign_in(admin_user) }
 
     let(:info_request) { FactoryBot.create(:info_request) }
