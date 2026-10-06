@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Mask subject in fallback for when the main body of an IncomingMessage has no
+  text (Gareth Rees) 
 * Log out admins if their admin role has been removed (Gareth Rees)
 * Prevent closed users logging in from secondary authentication routes (Gareth
   Rees)
