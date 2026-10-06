@@ -80,6 +80,62 @@ namespace :temp do
     errors.each { |error| puts "  #{error}" }
   end
 
+  desc 'Populate SearchDocument#root for existing documents'
+  task populate_search_document_roots: :environment do
+    # Batched so each update commits on its own, rather than rewriting the
+    # partitions and their GIN indexes in one long transaction. Safe to re-run.
+    # It only fills roots that are still missing.
+    %w[InfoRequest PublicBody User].each do |type|
+      populate_search_document_roots(type) do |batch|
+        <<~SQL
+          UPDATE search_documents
+          SET root_type = searchable_type, root_id = searchable_id
+          WHERE searchable_type = '#{type}' AND #{batch}
+        SQL
+      end
+    end
+
+    populate_search_document_roots('OutgoingMessage') do |batch|
+      <<~SQL
+        UPDATE search_documents AS documents
+        SET root_type = 'InfoRequest', root_id = messages.info_request_id
+        FROM outgoing_messages AS messages
+        WHERE documents.searchable_type = 'OutgoingMessage'
+          AND #{batch}
+          AND documents.searchable_id = messages.id
+      SQL
+    end
+
+    puts "Populating SearchDocument#root completed."
+  end
+
+  # Walks the type's documents in primary key order. A document whose parent
+  # record has gone keeps a NULL root, so move on by id rather than by what is
+  # left to update.
+  def populate_search_document_roots(type)
+    scope = SearchDocument.where(searchable_type: type, root_id: nil)
+    count = scope.count
+    done = 0
+    last_id = 0
+
+    loop do
+      ids = scope.where(sd_id: (last_id + 1)..).
+        order(:sd_id).limit(1000).pluck(:sd_id)
+      break if ids.empty?
+
+      SearchDocument.connection.exec_update(
+        yield("root_id IS NULL AND sd_id BETWEEN #{ids.first} AND #{ids.last}")
+      )
+      done += ids.size
+      last_id = ids.last
+
+      erase_line
+      print "Populating SearchDocument#root for #{type} #{done}/#{count}"
+    end
+
+    erase_line
+  end
+
   # InfoRequests that at least one CensorRule applies to. A global rule covers
   # every request, otherwise collect the requests that each rule could apply to.
   def requests_with_censor_rules
