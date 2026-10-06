@@ -69,6 +69,8 @@ class SearchDocument < ApplicationRecord
       query_values[:model] = model.to_s
     end
 
+    public_q = admin_mode ? "" : "AND #{public_parent_condition}"
+
     # and UNION them
     search_queries = []
 
@@ -114,6 +116,7 @@ class SearchDocument < ApplicationRecord
           (raw_content #{like_op} :like_query
           #{adm_q})
           #{doc_type_q}
+          #{public_q}
         LIMIT #{limit * limit_ratio}
       SQL
     end
@@ -132,6 +135,7 @@ class SearchDocument < ApplicationRecord
             websearch_to_tsquery(:language, unaccent(:query)) @@ content_tsv
             AND language = :language
             #{doc_type_q}
+            #{public_q}
         ORDER BY rank
         LIMIT #{limit * limit_ratio}
       SQL
@@ -152,6 +156,35 @@ class SearchDocument < ApplicationRecord
     { query: sql, values: query_values }
   end
   private_class_method :hybrid_search_internal
+
+  # A record's own prominence is applied at index time, but a parent's is not
+  # copied onto its children, as changing it would mean reindexing them all. So
+  # leave out anything belonging to a request or message which the public
+  # cannot see.
+  def self.public_parent_condition
+    prominence = Searchable::PUBLIC_PROMINENCE.
+      map { |value| connection.quote(value) }.join(', ')
+
+    <<~SQL.squish
+      NOT EXISTS (
+        SELECT 1
+        FROM info_requests
+        WHERE search_documents.root_type = 'InfoRequest'
+          AND info_requests.id = search_documents.root_id
+          AND info_requests.prominence NOT IN (#{prominence})
+      )
+      AND NOT EXISTS (
+        SELECT 1
+        FROM foi_attachments
+        JOIN incoming_messages
+          ON incoming_messages.id = foi_attachments.incoming_message_id
+        WHERE search_documents.searchable_type = 'FoiAttachment'
+          AND foi_attachments.id = search_documents.searchable_id
+          AND incoming_messages.prominence NOT IN (#{prominence})
+      )
+    SQL
+  end
+  private_class_method :public_parent_condition
 
   # Run the hybrid full-text search and return a chainable relation.
   #

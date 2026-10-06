@@ -111,6 +111,10 @@ class Comment < ApplicationRecord
     !visible?
   end
 
+  def publicly_searchable?
+    visible?
+  end
+
   def reindex_request_events
     info_request_events.find_each { |e| Search.reindex_later(e) }
   end
