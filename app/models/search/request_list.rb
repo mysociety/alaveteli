@@ -1,7 +1,7 @@
 module Search
   ##
-  # The paginated request list for RequestController#list and
-  # PublicBodyController#show.
+  # The paginated request list for RequestController#list, and the request
+  # lists on authority and user pages.
   #
   # The list is a filtered listing rather than a keyword search: status, date
   # and tag filters are request attributes, so they are applied as database
@@ -51,6 +51,8 @@ module Search
     def filtered_requests
       scope = InfoRequest.is_searchable
       scope = filter_by_public_body(scope)
+      scope = filter_by_user(scope)
+      scope = filter_by_described_state(scope)
       scope = filter_by_status(scope)
       scope = filter_by_dates(scope)
       scope = filter_by_tag(scope)
@@ -60,6 +62,16 @@ module Search
     def filter_by_public_body(scope)
       public_body = @filters[:public_body]
       public_body ? scope.where(public_body: public_body) : scope
+    end
+
+    def filter_by_user(scope)
+      user = @filters[:user]
+      user ? scope.where(user: user) : scope
+    end
+
+    def filter_by_described_state(scope)
+      state = @filters[:described_state]
+      state.present? ? scope.where(described_state: state) : scope
     end
 
     def filter_by_status(scope)

@@ -25,6 +25,27 @@ RSpec.describe Search::RequestList do
       expect(result[:results]).to eq([to_body])
     end
 
+    it 'filters searchable requests by their requester' do
+      user = FactoryBot.create(:user)
+      by_user = FactoryBot.create(:info_request, user: user)
+      FactoryBot.create(:info_request)
+
+      result = described_class.new({ user: user }, 1, 25, 100).call
+
+      expect(result[:results]).to eq([by_user])
+    end
+
+    it 'filters searchable requests by their described state' do
+      rejected = FactoryBot.create(:info_request)
+      rejected.set_described_state('rejected')
+      FactoryBot.create(:info_request)
+
+      result = described_class.
+               new({ described_state: 'rejected' }, 1, 25, 100).call
+
+      expect(result[:results]).to eq([rejected])
+    end
+
     it 'restricts by a free-text query through the search backend' do
       match = FactoryBot.create(:info_request)
       stub_request_search_results(items: [match])
