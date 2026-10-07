@@ -131,7 +131,7 @@
   <% end %>
 
   <% if @comment_results && feature_enabled?(:annotations) %>
-    <% if @comment_results.results.empty? %>
+    <% if @comment_results.empty? %>
       <% if @page == 1 %>
         <h2>
           <% if @is_you %>
@@ -159,20 +159,15 @@
                    :count => @display_user.comments.visible.size) %>
           <% end %>
 
-        <!-- matches_estimated <%= @comment_results.matches_estimated %> -->
         <%= @page_desc %>
       </h2>
 
-      <% @comment_results.results.each do |result| %>
+      <% @comment_results.each do |event| %>
         <%= render partial: 'request/request_listing_via_event',
-                   locals: { event: result[:model] } %>
+                   locals: { event: event } %>
       <% end %>
 
-      <% comments_collection =
-           WillPaginate::Collection.new(@page,
-                                        @per_page,
-                                        @display_user.comments.visible.size) %>
-      <%= will_paginate comments_collection %>
+      <%= will_paginate @comment_results %>
     <% end %>
   <% end %>
 </div>

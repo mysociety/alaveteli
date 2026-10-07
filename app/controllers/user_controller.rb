@@ -96,16 +96,12 @@ class UserController < ApplicationController
     long_cache
     @is_you = current_user_is_display_user
     feed_results = Set.new
-    # Use search query for this so can collapse and paginate easily
-    # TODO: really should just use SQL query here rather than Xapian.
     begin
-      comments_query = 'commented_by:' + @display_user.url_name
       @request_results = InfoRequest.request_list(
         { user: @display_user }, get_search_page_from_params, 25, MAX_RESULTS
       )
-      @comment_results = perform_search(
-        [InfoRequestEvent], comments_query, 'newest', nil
-      )
+      @comment_results = comment_events({}).
+        paginate(page: get_search_page_from_params, per_page: 25)
 
     rescue
       @request_results = nil
@@ -115,9 +111,7 @@ class UserController < ApplicationController
     if @request_results
       feed_results += latest_events(@request_results[:results])
     end
-    if @comment_results
-      feed_results += @comment_results.results.map { |x| x[:model] }
-    end
+    feed_results += @comment_results if @comment_results
 
     # All tracks for the user
     if @is_you
@@ -566,24 +560,36 @@ class UserController < ApplicationController
     InfoRequestEvent.where(id: ids)
   end
 
-  def set_show_requests
-    # Use search query for this so can collapse and paginate easily
-    # TODO: really should just use SQL query here rather than Xapian.
+  def comment_events(filters)
+    comments = @display_user.comments.visible
 
+    if filters[:query].present?
+      like = "%#{Comment.sanitize_sql_like(filters[:query])}%"
+      comments = comments.where('comments.body ILIKE ?', like)
+    end
+
+    if filters[:described_state].present?
+      comments = comments.
+        where(info_requests: { described_state: filters[:described_state] })
+    end
+
+    InfoRequestEvent.comment_events.where(comment: comments).
+      includes(:comment, info_request: [:public_body, :user]).
+      order(created_at: :desc, id: :desc)
+  end
+
+  def set_show_requests
     @request_states = assign_request_states(@display_user)
 
     @page = get_search_page_from_params
     @per_page = 25
     filters = { user: @display_user }
-    comments_query = 'commented_by:' + @display_user.url_name
     if params[:user_query]
       filters[:query] = params[:user_query]
-      comments_query += " " + params[:user_query]
       @match_phrase = _("{{search_results}} matching '{{query}}'", search_results: "", query: params[:user_query])
 
       unless params[:request_latest_status].blank?
         filters[:described_state] = params[:request_latest_status]
-        comments_query << ' latest_status:' << params[:request_latest_status]
         @match_phrase << _(" filtered by status: '{{status}}'", status: params[:request_latest_status])
       end
     end
@@ -592,9 +598,8 @@ class UserController < ApplicationController
       @request_results = InfoRequest.request_list(
         filters, @page, @per_page, MAX_RESULTS
       )
-      @comment_results = perform_search(
-        [InfoRequestEvent], comments_query, 'newest', nil
-      )
+      @comment_results = comment_events(filters).
+        paginate(page: @page, per_page: @per_page)
     # TODO: make this rescue specific to errors thrown when xapian is not working
 
     rescue

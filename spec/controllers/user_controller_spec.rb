@@ -212,15 +212,13 @@ RSpec.describe UserController do
         comment2 = FactoryBot.create(:visible_comment,
                                      info_request: shown_request,
                                      user: user)
-        comment_event = FactoryBot.create(:info_request_event,
-                                          event_type: 'comment',
-                                          comment: comment2,
-                                          info_request: shown_request)
+        FactoryBot.create(:info_request_event,
+                          event_type: 'comment',
+                          comment: comment2,
+                          info_request: shown_request)
 
         expect(user.reload.comments.size).to eq(2)
         expect(user.reload.comments.visible.size).to eq(1)
-
-        stub_search_results(items: [comment_event], total: 1)
 
         make_request
 
@@ -264,6 +262,21 @@ RSpec.describe UserController do
                    }
 
         expect(assigns[:request_results][:results]).to eq([request_1])
+      end
+
+      it 'filters annotations by the given query' do
+        badger = FactoryBot.create(:visible_comment, user: user,
+                                                     body: 'Badger count')
+        event = FactoryBot.create(:comment_event, comment: badger)
+        FactoryBot.create(:comment_event,
+                          comment: FactoryBot.create(:visible_comment,
+                                                     user: user))
+
+        get :show, params: {
+          url_name: user.url_name, view: 'requests', user_query: 'badger'
+        }
+
+        expect(assigns[:comment_results]).to eq([event])
       end
 
       it 'filters private requests by the given query' do
@@ -394,15 +407,13 @@ RSpec.describe UserController do
         comment2 = FactoryBot.create(:visible_comment,
                                      info_request: shown_request,
                                      user: user)
-        comment_event = FactoryBot.create(:info_request_event,
-                                          event_type: 'comment',
-                                          comment: comment2,
-                                          info_request: shown_request)
+        FactoryBot.create(:info_request_event,
+                          event_type: 'comment',
+                          comment: comment2,
+                          info_request: shown_request)
 
         expect(user.reload.comments.size).to eq(2)
         expect(user.reload.comments.visible.size).to eq(1)
-
-        stub_search_results(items: [comment_event], total: 1)
 
         make_request
 
@@ -1436,20 +1447,19 @@ RSpec.describe UserController, "when viewing the wall" do
   let(:admin) { FactoryBot.create(:admin_user) }
 
   it 'orders feed results by created_at descending' do
-    user = FactoryBot.create(:user)
+    info_request = FactoryBot.create(:info_request)
+    sent_event = info_request.info_request_events.last
+    sent_event.update_column(:created_at, 2.days.ago)
+    comment = FactoryBot.create(:visible_comment, user: info_request.user)
+    comment_event = FactoryBot.create(:comment_event, comment: comment)
 
-    old_event = mock_model(InfoRequestEvent, created_at: 2.days.ago)
-    new_event = mock_model(InfoRequestEvent, created_at: 1.hour.ago)
-    stub_search_results(items: [old_event, new_event])
+    get :wall, params: { url_name: info_request.user.url_name }
 
-    get :wall, params: { url_name: user.url_name }
-
-    expect(assigns[:feed_results]).to eq([new_event, old_event])
+    expect(assigns[:feed_results]).to eq([comment_event, sent_event])
   end
 
   it 'includes the newest event of each request the user has made' do
     info_request = FactoryBot.create(:info_request)
-    stub_search_results(items: [])
 
     get :wall, params: { url_name: info_request.user.url_name }
 
@@ -1462,7 +1472,6 @@ RSpec.describe UserController, "when viewing the wall" do
 
     it 'shows the requests the user has made' do
       info_request = FactoryBot.create(:info_request, title: 'Badger counts')
-      stub_search_results(items: [])
 
       get :wall, params: { url_name: info_request.user.url_name }
 
@@ -1476,7 +1485,6 @@ RSpec.describe UserController, "when viewing the wall" do
     tracked_event = mock_model(InfoRequestEvent, created_at: 1.hour.ago)
 
     searcher = double
-    stub_search_results(items: [])
     allow(Search).to receive(:search).
       with(track_thing.track_query, hash_including(sort_by: 'described_at')).
       and_return(searcher)
@@ -1492,9 +1500,7 @@ RSpec.describe UserController, "when viewing the wall" do
 
   it 'does not return feed results for closed users' do
     user = FactoryBot.create(:user, :closed)
-
-    event = mock_model(InfoRequestEvent, created_at: 1.hour.ago)
-    stub_search_results(items: [event])
+    FactoryBot.create(:info_request, user: user)
 
     get :wall, params: { url_name: user.url_name }
 
