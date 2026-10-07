@@ -22,6 +22,7 @@ Disallow: *?*update_status=1*
 Disallow: */request/*/annotate
 Disallow: */request/*/feed
 Disallow: */request/*/followups/new
+Disallow: */request/*/report/*
 Disallow: */request/*/similar
 Disallow: */request/*/track
 Disallow: */request/*/upload
