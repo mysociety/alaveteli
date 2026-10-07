@@ -263,10 +263,7 @@ RSpec.describe UserController do
                      user_query: 'money'
                    }
 
-        actual =
-          assigns[:request_results].results.map { |x| x[:model] }
-
-        expect(actual).to match_array([request_1])
+        expect(assigns[:request_results][:results]).to eq([request_1])
       end
 
       it 'filters private requests by the given query' do
@@ -291,10 +288,11 @@ RSpec.describe UserController do
       it 'filters by the given query and request status' do
         request_1 =
           FactoryBot.create(:info_request, user: user, title: 'Some money?')
-        FactoryBot.create(:successful_request, user: user, title: 'More money')
+        request_2 = FactoryBot.
+          create(:successful_request, user: user, title: 'More money')
         FactoryBot.create(:info_request, user: user, title: 'How many books?')
 
-        stub_request_search_results(items: [request_1], total: 1)
+        stub_request_search_results(items: [request_1, request_2], total: 2)
 
         get :show, params: {
                      url_name: user.url_name,
@@ -303,10 +301,7 @@ RSpec.describe UserController do
                      request_latest_status: 'waiting_response'
                    }
 
-        actual =
-          assigns[:request_results].results.map { |x| x[:model] }
-
-        expect(actual).to match_array([request_1])
+        expect(assigns[:request_results][:results]).to eq([request_1])
       end
 
       it 'filters private requests by the given query and request status' do
@@ -333,6 +328,13 @@ RSpec.describe UserController do
     context 'when logged in viewing other requests' do
       def make_request
         get :show, params: { url_name: user.url_name, view: 'requests' }
+      end
+
+      it 'lists the requests the user has made' do
+        info_request = FactoryBot.create(:info_request, user: user)
+        FactoryBot.create(:info_request)
+        make_request
+        expect(assigns[:request_results][:results]).to eq([info_request])
       end
 
       render_views
@@ -442,10 +444,7 @@ RSpec.describe UserController do
                      user_query: 'money'
                    }
 
-        actual =
-          assigns[:request_results].results.map { |x| x[:model] }
-
-        expect(actual).to match_array([request_1])
+        expect(assigns[:request_results][:results]).to eq([request_1])
       end
 
       it 'does not show private requests when filtering by query' do
@@ -468,10 +467,11 @@ RSpec.describe UserController do
       it 'filters by the given query and request status' do
         request_1 =
           FactoryBot.create(:info_request, user: user, title: 'Some money?')
-        FactoryBot.create(:successful_request, user: user, title: 'More money')
+        request_2 = FactoryBot.
+          create(:successful_request, user: user, title: 'More money')
         FactoryBot.create(:info_request, user: user, title: 'How many books?')
 
-        stub_request_search_results(items: [request_1], total: 1)
+        stub_request_search_results(items: [request_1, request_2], total: 2)
 
         get :show, params: {
                      url_name: user.url_name,
@@ -480,10 +480,7 @@ RSpec.describe UserController do
                      request_latest_status: 'waiting_response'
                    }
 
-        actual =
-          assigns[:request_results].results.map { |x| x[:model] }
-
-        expect(actual).to match_array([request_1])
+        expect(assigns[:request_results][:results]).to eq([request_1])
       end
 
       it 'does not show private requests when filtering by request status' do
@@ -1448,6 +1445,29 @@ RSpec.describe UserController, "when viewing the wall" do
     get :wall, params: { url_name: user.url_name }
 
     expect(assigns[:feed_results]).to eq([new_event, old_event])
+  end
+
+  it 'includes the newest event of each request the user has made' do
+    info_request = FactoryBot.create(:info_request)
+    stub_search_results(items: [])
+
+    get :wall, params: { url_name: info_request.user.url_name }
+
+    expect(assigns[:feed_results]).
+      to eq([info_request.info_request_events.last])
+  end
+
+  context 'when rendering the wall' do
+    render_views
+
+    it 'shows the requests the user has made' do
+      info_request = FactoryBot.create(:info_request, title: 'Badger counts')
+      stub_search_results(items: [])
+
+      get :wall, params: { url_name: info_request.user.url_name }
+
+      expect(response.body).to have_content('Badger counts')
+    end
   end
 
   it 'includes events matching the tracks the user owns' do

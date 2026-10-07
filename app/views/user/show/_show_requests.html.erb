@@ -25,7 +25,7 @@
   <% end %>
 
   <% if @request_results %>
-    <% if @request_results.results.empty? %>
+    <% if @request_results[:results].empty? %>
       <% if @page == 1 %>
         <h2 class="foi_results foi_requests" id="foi_requests">
           <% if @is_you %>
@@ -61,17 +61,17 @@
           <%= n_('Your Freedom of Information request',
                  'Your Freedom of Information requests ' \
                  '(approximately {{count}})',
-                 @request_results.matches_estimated,
-                 :count => @request_results.matches_estimated) %>
+                 @request_results[:matches_estimated],
+                 :count => @request_results[:matches_estimated]) %>
         <% else %>
           <%= n_("This person's Freedom of Information request",
                  "This person's Freedom of Information requests " \
                  "(approximately {{count}})",
-                 @request_results.matches_estimated,
-                 :count => @request_results.matches_estimated) %>
+                 @request_results[:matches_estimated],
+                 :count => @request_results[:matches_estimated]) %>
         <% end %>
 
-        <!-- matches_estimated <%= @request_results.matches_estimated %> -->
+        <!-- matches_estimated <%= @request_results[:matches_estimated] %> -->
         <%= @match_phrase %>
         <%= @page_desc %>
       </h2>
@@ -83,15 +83,15 @@
         </p>
       <% end %>
 
-      <% @request_results.results.each do |result| %>
-        <%= render partial: 'request/request_search_result',
-                   locals: { result: result } %>
+      <% @request_results[:results].each do |info_request| %>
+        <%= render partial: 'request/request_listing_single',
+                   locals: { info_request: info_request } %>
       <% end %>
 
       <% requests_collection =
            WillPaginate::Collection.new(@page,
                                         @per_page,
-                                        @request_results.matches_estimated) %>
+                                        @request_results[:matches_estimated]) %>
       <%= will_paginate requests_collection %>
     <% end %>
   <% else %>
