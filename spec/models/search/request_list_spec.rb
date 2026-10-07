@@ -29,6 +29,17 @@ RSpec.describe Search::RequestList do
       expect(list.call).to eq([appealed])
     end
 
+    it 'filters searchable requests by their authority' do
+      public_body = FactoryBot.create(:public_body)
+      to_body = FactoryBot.create(:info_request, public_body: public_body)
+      FactoryBot.create(:info_request)
+
+      result = described_class.
+               new({ public_body: public_body }, 1, 25, 100).call
+
+      expect(result).to eq([to_body])
+    end
+
     it 'restricts by a free-text query through the search backend' do
       match = FactoryBot.create(:info_request)
       stub_request_search_results(items: [match])
