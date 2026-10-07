@@ -13,15 +13,15 @@ Disallow: */profile/*
 Disallow: */signin*
 Disallow: */tor*
 Allow: */request/*/response/*/attach/*
-Disallow: */request/*/response/*
-Disallow: */request/*/download*
 Disallow: */change_request/*
 Disallow: */outgoing_messages/*/mail_server_logs*
 Disallow: */outgoing_messages/*/delivery_status*
 Disallow: *?*update_status=1*
+Disallow: */request/*/download*
 Disallow: */request/*/annotate
 Disallow: */request/*/feed
 Disallow: */request/*/followups/new
+Disallow: */request/*/response/*
 Disallow: */request/*/report/*
 Disallow: */request/*/similar
 Disallow: */request/*/track
