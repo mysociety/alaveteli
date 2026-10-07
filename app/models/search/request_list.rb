@@ -1,6 +1,7 @@
 module Search
   ##
-  # The paginated request list for RequestController#list.
+  # The paginated request list for RequestController#list and
+  # PublicBodyController#show.
   #
   # The list is a filtered listing rather than a keyword search: status, date
   # and tag filters are request attributes, so they are applied as database
