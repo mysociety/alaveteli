@@ -125,9 +125,8 @@
     <% end %>
 
     <% if @request_results %>
-      <% @request_results[:results].each do |info_request| %>
-        <%= render :partial => 'request/request_listing_single', :locals => { :info_request => info_request } %>
-      <% end %>
+      <%= render partial: 'request/request_listing_single',
+                 collection: @request_results[:results], as: :info_request %>
 
       <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @request_results[:show_no_more_than]) %>
 

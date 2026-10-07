@@ -83,10 +83,8 @@
         </p>
       <% end %>
 
-      <% @request_results[:results].each do |info_request| %>
-        <%= render partial: 'request/request_listing_single',
-                   locals: { info_request: info_request } %>
-      <% end %>
+      <%= render partial: 'request/request_listing_single',
+                 collection: @request_results[:results], as: :info_request %>
 
       <% requests_collection =
            WillPaginate::Collection.new(@page,
@@ -122,10 +120,8 @@
       <%= @page_desc %>
     </h2>
 
-    <% @private_requests.each do |info_request| %>
-      <%= render partial: 'request/request_listing_single',
-                 locals: { info_request: info_request } %>
-    <% end %>
+    <%= render partial: 'request/request_listing_single',
+               collection: @private_requests, as: :info_request %>
 
     <%= will_paginate @private_requests %>
   <% end %>
@@ -162,10 +158,8 @@
         <%= @page_desc %>
       </h2>
 
-      <% @comment_results.each do |event| %>
-        <%= render partial: 'request/request_listing_via_event',
-                   locals: { event: event } %>
-      <% end %>
+      <%= render partial: 'request/request_listing_via_event',
+                 collection: @comment_results, as: :event %>
 
       <%= will_paginate @comment_results %>
     <% end %>
