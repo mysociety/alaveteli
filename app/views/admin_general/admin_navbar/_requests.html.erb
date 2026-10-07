@@ -8,14 +8,9 @@
       <li><%= link_to 'Outgoing messages', admin_outgoing_messages_path %></li>
     <% end %>
 
-    <% if feature_enabled?(:admin_mail_server_logs) %>
-      <li><%= link_to "Mail server logs", admin_mail_server_logs_path %></li>
-    <% end %>
-
     <li class="divider"></li>
 
     <li><%= link_to 'Comments', admin_comments_path %></li>
-    <li><%= link_to 'Request events', admin_info_request_events_path %></li>
     <% if feature_enabled?(:projects) && can?(:admin, Project) %>
       <li><%= link_to 'Projects', admin_projects_path %></li>
     <% end %>
@@ -29,5 +24,14 @@
 
     <li><%= link_to 'Citations', admin_citations_path %></li>
     <% if feature_enabled?(:refusal_snippets) %><li><%= link_to 'Snippets', admin_snippets_path %></li><% end %>
+
+    <li class="divider"></li>
+    <li class="nav-header">Technical Details</li>
+
+    <li><%= link_to 'Request events', admin_info_request_events_path %></li>
+
+    <% if feature_enabled?(:admin_mail_server_logs) %>
+      <li><%= link_to "Mail server logs", admin_mail_server_logs_path %></li>
+    <% end %>
   </ul>
 </li>
