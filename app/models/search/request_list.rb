@@ -49,10 +49,16 @@ module Search
 
     def filtered_requests
       scope = InfoRequest.is_searchable
+      scope = filter_by_public_body(scope)
       scope = filter_by_status(scope)
       scope = filter_by_dates(scope)
       scope = filter_by_tag(scope)
       filter_by_keyword(scope)
+    end
+
+    def filter_by_public_body(scope)
+      public_body = @filters[:public_body]
+      public_body ? scope.where(public_body: public_body) : scope
     end
 
     def filter_by_status(scope)
