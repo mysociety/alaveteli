@@ -201,6 +201,7 @@ class ApplicationController < ActionController::Base
     session[:admin_name] = nil
     session[:change_password_post_redirect_id] = nil
     session[:post_redirect_token] = nil
+    session[:draft_profile_photo_id] = nil
     session[:ttl] = nil
     PendingTwoFactorSignIn.new(session).clear
   end

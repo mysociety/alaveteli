@@ -61,6 +61,16 @@ RSpec.describe "Signing in" do
         to have_current_path('/list?post_redirect=1')
     end
 
+    it 'signs you out when the account is closed' do
+      try_login(user, { redirect: '/list' })
+      expect(page).to have_content user.name
+
+      user.close!
+
+      visit '/list'
+      expect(page).not_to have_content user.name
+    end
+
     context 'if an account is not confirmed' do
       let(:user) { FactoryBot.create(:user, email_confirmed: false) }
 

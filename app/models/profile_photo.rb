@@ -34,6 +34,11 @@ class ProfilePhoto < ApplicationRecord
 
   before_validation :process_data, if: :allowed_content_type?
 
+  # Called from cron job delete-old-things
+  def self.delete_old_drafts
+    where(draft: true, created_at: ...48.hours.ago).delete_all
+  end
+
   def image
     @image ||= MiniMagick::Image.read(data) if allowed_content_type?
   end

@@ -3003,7 +3003,7 @@ RSpec.describe InfoRequest do
         created_at: '2024-01-12'
       )
       req_rule_2 = FactoryBot.create(
-        :info_request_censor_rule, 
+        :info_request_censor_rule,
         text: '2',
         created_at: '2024-01-11',
         censorable: req_rule_1.censorable
@@ -5173,7 +5173,8 @@ RSpec.describe InfoRequest do
   end
 end
 
-RSpec.describe InfoRequest, "when indexing for postgres search" do
+RSpec.describe InfoRequest, "when indexing for postgres search",
+               :reindex_inline do
   it 'updates the search index after updating the request' do
     request = FactoryBot.create(:info_request, title: 'Council of things')
     expect(InfoRequest.newsearch('Council of things')).to eq([request])

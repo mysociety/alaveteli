@@ -328,16 +328,16 @@ Rails.application.routes.draw do
   match '/profile/change_email' => 'user#signchangeemail',
         :as => :signchangeemail,
         :via => [:get, :post]
-  match '/profile/set_photo' => 'user#set_profile_photo',
+  match '/profile/set_photo' => 'users/profile_photos#set_profile_photo',
         :as => :set_profile_photo,
         :via => [:get, :post]
-  match '/profile/clear_photo' => 'user#clear_profile_photo',
+  match '/profile/clear_photo' => 'users/profile_photos#clear_profile_photo',
         :as => :clear_profile_photo,
         :via => :post
-  match '/user/:url_name/photo.png' => 'user#get_profile_photo',
+  match '/user/:url_name/photo.png' => 'users/profile_photos#get_profile_photo',
         :as => :get_profile_photo,
         :via => :get
-  match '/profile/draft_photo/:id.png' => 'user#get_draft_profile_photo',
+  match '/profile/draft_photo/:id.png' => 'users/profile_photos#get_draft_profile_photo',
         :as => :get_draft_profile_photo,
         :via => :get
 

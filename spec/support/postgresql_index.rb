@@ -17,4 +17,8 @@ RSpec.configure do |config|
   ensure
     Search.backend = original
   end
+
+  config.around(:each, reindex_inline: true) do |example|
+    perform_enqueued_jobs(only: Search::ReindexJob) { example.run }
+  end
 end

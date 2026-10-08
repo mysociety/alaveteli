@@ -12,7 +12,7 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
 
   it_behaves_like 'a request search backend'
 
-  describe '#search_scope' do
+  describe '#search_scope', :reindex_inline do
     it 'passes case_sensitive through to the exact match search' do
       user = FactoryBot.create(:user, name: 'Charlotte Case')
 
@@ -127,9 +127,9 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
   end
 
   describe '#reindex_later' do
-    it 'reindexes the record inline' do
+    it 'asks the record to reindex later' do
       user = users(:bob_smith_user)
-      expect(user).to receive(:reindex)
+      expect(user).to receive(:reindex_later)
       adapter.reindex_later(user)
     end
   end

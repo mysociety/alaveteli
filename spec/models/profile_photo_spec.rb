@@ -87,3 +87,31 @@ RSpec.describe ProfilePhoto, "when constructing a new photo" do
     expect(profile_photo.valid?).to eq(true)
   end
 end
+
+RSpec.describe ProfilePhoto, '.delete_old_drafts' do
+  let!(:old_draft) do
+    FactoryBot.create(:profile_photo, :draft, created_at: 49.hours.ago)
+  end
+
+  let!(:recent_draft) do
+    FactoryBot.create(:profile_photo, :draft, created_at: 47.hours.ago)
+  end
+
+  let!(:old_photo) do
+    FactoryBot.create(:profile_photo, created_at: 49.hours.ago)
+  end
+
+  before { described_class.delete_old_drafts }
+
+  it 'deletes drafts older than 48 hours' do
+    expect(described_class.exists?(old_draft.id)).to eq(false)
+  end
+
+  it 'keeps recent drafts' do
+    expect(described_class.exists?(recent_draft.id)).to eq(true)
+  end
+
+  it 'keeps old published photos' do
+    expect(described_class.exists?(old_photo.id)).to eq(true)
+  end
+end

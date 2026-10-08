@@ -148,6 +148,13 @@ class IncomingMessage < ApplicationRecord
     apply_masks(from_name, redacted_attribute: :from_name)
   end
 
+  # Public: The subject with InfoRequest masks and censor rules applied.
+  #
+  # Returns a String
+  def safe_subject
+    apply_masks(subject, redacted_attribute: :subject)
+  end
+
   def specific_from_name?
     !safe_from_name.nil? && safe_from_name.strip != info_request.public_body.name.strip
   end
