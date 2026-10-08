@@ -63,7 +63,7 @@ module Searchable
   end
 
   def self.partition_table_name(model)
-    "search_documents_#{model.downcase.gsub('::', '_')}"
+    "search_documents_#{model.table_name}"
   end
 
   # TODO: rename to `search`
@@ -363,7 +363,7 @@ module Searchable
       language = Searchable.lang_from_locale(
         AlaveteliLocalization.default_locale
       )
-      table = Searchable.partition_table_name(name)
+      table = Searchable.partition_table_name(self)
       shown = Searchable.index_columns(search_options, public: true)
       hidden = Searchable.index_columns(search_options, public: false)
 
