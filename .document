@@ -1,0 +1,7 @@
+doc
+app
+commonlib/*.rb
+config
+lib/*.rb
+script
+spec
