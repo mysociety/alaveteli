@@ -112,6 +112,15 @@ class IncomingMessage < ApplicationRecord
     !cached_main_body_text_folded.nil?
   end
 
+  # A message nobody has viewed has no cached body yet. One we can't parse is
+  # left unindexed rather than stopping the backfill, which would otherwise
+  # fail on it again each time it resumed.
+  def prepare_for_reindex
+    get_main_body_text_folded
+  rescue StandardError => e
+    Rails.logger.warn("Can't prepare IncomingMessage #{id} to index: #{e}")
+  end
+
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.
   def response_event

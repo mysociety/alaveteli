@@ -64,6 +64,14 @@ RSpec.describe Searchable, '#reindex_later' do
       to have_enqueued_job(Search::ReindexJob)
     expect(user.search_documents).to be_empty
   end
+
+  it 'reindexes inline rather than queueing a job inside inline_reindex' do
+    user = users(:bob_smith_user)
+    expect(user).to receive(:reindex)
+
+    expect { Searchable.inline_reindex { user.reindex_later } }.
+      not_to have_enqueued_job(Search::ReindexJob)
+  end
 end
 
 RSpec.describe Searchable, 'index lifecycle', :reindex_inline do

@@ -55,6 +55,19 @@ module Searchable
     @@searchable_models.keys.map(&:constantize)
   end
 
+  thread_mattr_accessor :reindex_inline, instance_accessor: false
+
+  # Reindex records inline rather than in a job while the block runs. A
+  # backfill saves records as it goes, and a job for each would flood the
+  # queue and leave them unindexed until the workers caught up.
+  def self.inline_reindex
+    previous = reindex_inline
+    self.reindex_inline = true
+    yield
+  ensure
+    self.reindex_inline = previous
+  end
+
   def self.lang_from_locale(locale)
     @@locale_to_language_map[locale]
   end
@@ -196,11 +209,18 @@ module Searchable
   end
 
   # Jobs wait for the current transaction to commit, so the upsert never
-  # runs inside a caller's transaction.
+  # runs inside a caller's transaction, unless `inline_reindex` is on.
   def reindex_later
     return unless @@searchable_models.key?(self.class.to_s)
+    return reindex if Searchable.reindex_inline
 
     Search::ReindexJob.perform_later(self)
+  end
+
+  # Override this method per model to do the work `is_indexable?` waits for,
+  # such as parsing an email. Only `reindex_all` calls it, so saving a record
+  # never sets off that work.
+  def prepare_for_reindex
   end
 
   # "diffs" the unredacted and redacted versions of a text
@@ -352,12 +372,15 @@ module Searchable
 
       start = Time.zone.now
       count = 0
-      scope.find_in_batches(batch_size: batch_size) do |records|
-        records.each do |record|
-          record.reindex
-          count += 1
+      Searchable.inline_reindex do
+        scope.find_in_batches(batch_size: batch_size) do |records|
+          records.each do |record|
+            record.prepare_for_reindex
+            record.reindex
+            count += 1
+          end
+          yield records.last.id if block_given?
         end
-        yield records.last.id if block_given?
       end
       elapsed = Time.zone.now - start
       Rails.logger.info("Reindexed #{count} #{name} in #{elapsed} seconds")
