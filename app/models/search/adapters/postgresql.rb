@@ -1,5 +1,6 @@
 require_relative 'postgresql/full_text_search'
 require_relative 'postgresql/request_search'
+require_relative 'postgresql/similar_requests'
 
 module Search
   module Adapters
@@ -12,8 +13,7 @@ module Search
       # +search_documents+ table via SearchDocument.hybrid_search, and indexing
       # is a SearchDocument upsert done by the record's #reindex.
       #
-      # The rest of the paginated query interface (typeahead, similar) is
-      # follow-on work; those methods keep the base class's
+      # Typeahead is follow-on work; it keeps the base class's
       # NotImplementedError behaviour.
       #
       class Adapter < Search::Backend
@@ -46,6 +46,10 @@ module Search
             query,
             sort_by: sort_by, sort_ascending: sort_ascending, requests: requests
           )
+        end
+
+        def similar(record)
+          SimilarRequests.new(record)
         end
 
         def reindex_later(record)
