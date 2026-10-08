@@ -100,6 +100,32 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
     end
   end
 
+  describe '#similar' do
+    let!(:info_request) do
+      FactoryBot.create(:info_request, title: 'Ptarmigan "census" -grouse')
+    end
+
+    let!(:closer) do
+      FactoryBot.create(:info_request, title: 'Ptarmigan census')
+    end
+    let!(:further) { FactoryBot.create(:info_request, title: 'Grouse') }
+
+    before { FactoryBot.create(:info_request, title: 'Capercaillie') }
+
+    it 'finds requests sharing a title word, best match first' do
+      expect(adapter.similar(info_request).results.to_a).
+        to eq([closer, further])
+    end
+
+    it 'leaves out the request itself' do
+      expect(adapter.similar(closer).results.to_a).to eq([info_request])
+    end
+
+    it 'says when there are more' do
+      expect(adapter.similar(info_request).first(1)).to eq([[closer], true])
+    end
+  end
+
   describe '#reindex_later' do
     it 'reindexes the record inline' do
       user = users(:bob_smith_user)

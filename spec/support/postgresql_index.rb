@@ -9,4 +9,12 @@ RSpec.configure do |config|
   config.before(:each, postgresql: true) do
     rebuild_postgresql_index
   end
+
+  config.around(:each, postgresql: true) do |example|
+    original = Search.backend
+    Search.backend = Search.backend_for(:postgresql)
+    example.run
+  ensure
+    Search.backend = original
+  end
 end

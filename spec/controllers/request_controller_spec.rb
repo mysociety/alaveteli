@@ -117,6 +117,18 @@ RSpec.describe RequestController, "when showing one request" do
     end
   end
 
+  context 'with the PostgreSQL backend', :postgresql do
+    it 'lists similar requests' do
+      info_request = FactoryBot.create(:info_request, title: 'Ptarmigan census')
+      similar = FactoryBot.create(:info_request, title: 'Ptarmigan numbers')
+
+      get :show, params: { url_title: info_request.url_title }
+
+      expect(response).to be_successful
+      expect(assigns[:similar_requests]).to eq([similar])
+    end
+  end
+
   context 'when the request has citations' do
     let(:info_request) { FactoryBot.create(:info_request) }
 
