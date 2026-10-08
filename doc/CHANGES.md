@@ -11,7 +11,7 @@
   again (Gareth Rees)
 * Clear a user's post redirects after credential change (Gareth Rees)
 * Mask subject in fallback for when the main body of an IncomingMessage has no
-  text (Gareth Rees) 
+  text (Gareth Rees)
 * Log out admins if their admin role has been removed (Gareth Rees)
 * Prevent closed users logging in from secondary authentication routes (Gareth
   Rees)
