@@ -4,10 +4,10 @@ module Search
   # lists on authority and user pages.
   #
   # The list is a filtered listing rather than a keyword search: status, date
-  # and tag filters are request attributes, so they are applied as database
-  # conditions on InfoRequest (which works under any backend). Only a free-text
-  # +query+ goes through the search index, via Search.request_search, and
-  # restricts the listing to the requests it matches.
+  # and tag filters are applied as database conditions on InfoRequest (which
+  # works under any backend). Only a free-text +query+ goes through the search
+  # index, via Search.request_search, and restricts the listing to the
+  # requests it matches.
   #
   class RequestList
     # Map a request-list status view to the described_state values it covers.
@@ -24,6 +24,10 @@ module Search
       waiting_response waiting_clarification internal_review
       gone_postal error_message requires_admin
     ].freeze
+
+    # The date picker uses the locale's format, with `/`, `-` or `.` between
+    # the parts, so read either order once the separators are made `/`.
+    DATE_FORMATS = %w[%d/%m/%Y %Y/%m/%d].freeze
 
     def initialize(filters, page, per_page, max_results)
       @filters = filters
@@ -87,12 +91,15 @@ module Search
       states.empty? ? scope : scope.where(described_state: states)
     end
 
+    # Match requests with a searchable event in the range, as Xapian did.
     def filter_by_dates(scope)
       after = parse_date(@filters[:request_date_after])
       before = parse_date(@filters[:request_date_before])
-      scope = scope.where(created_at: after.beginning_of_day..) if after
-      scope = scope.where(created_at: ..before.end_of_day) if before
-      scope
+      return scope unless after || before
+
+      events = InfoRequestEvent.is_searchable.
+        where(created_at: after&.beginning_of_day..before&.end_of_day)
+      scope.where(id: events.select(:info_request_id))
     end
 
     def filter_by_tag(scope)
@@ -113,8 +120,12 @@ module Search
     def parse_date(value)
       return if value.blank?
 
-      Date.strptime(value, '%d/%m/%Y')
-    rescue ArgumentError
+      value = value.tr('.-', '//')
+      DATE_FORMATS.each do |format|
+        return Date.strptime(value, format)
+      rescue ArgumentError
+        next
+      end
       nil
     end
   end
