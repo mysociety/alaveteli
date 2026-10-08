@@ -121,6 +121,7 @@ class SearchDocument < ApplicationRecord
           (raw_content #{like_op} :like_query
           #{adm_q})
           #{doc_type_q}
+        ORDER BY rank
         LIMIT #{limit * limit_ratio}
       SQL
     end

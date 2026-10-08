@@ -2708,5 +2708,12 @@ RSpec.describe FoiAttachment do
         )
       ).to include(incoming_message.foi_attachments.second)
     end
+
+    it 'roots the documents at the request' do
+      foi_attachment = FactoryBot.create(:pdf_attachment)
+      foi_attachment.reindex
+      expect(foi_attachment.search_documents.map(&:root)).
+        to eq([foi_attachment.info_request])
+    end
   end
 end
