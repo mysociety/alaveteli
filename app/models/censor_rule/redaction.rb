@@ -27,4 +27,15 @@ class CensorRule::Redaction < ApplicationRecord
       or(where(redactable: info_request.incoming_messages)).
       or(where(redactable: info_request.foi_attachments))
   }
+
+  scope :for_requests, ->(info_requests) {
+    outgoing_messages = OutgoingMessage.where(info_request: info_requests)
+    incoming_messages = IncomingMessage.where(info_request: info_requests)
+    foi_attachments = FoiAttachment.where(incoming_message: incoming_messages)
+
+    where(redactable: info_requests).
+      or(where(redactable: outgoing_messages)).
+      or(where(redactable: incoming_messages)).
+      or(where(redactable: foi_attachments))
+  }
 end
