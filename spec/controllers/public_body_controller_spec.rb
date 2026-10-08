@@ -19,11 +19,11 @@ RSpec.describe PublicBodyController, "when showing a body" do
     expect(assigns[:public_body]).to eq(public_bodies(:humpadink_public_body))
   end
 
-  it "should assign the requests" do
-    event = info_request_events(:useless_outgoing_message_event)
-    stub_search_results(items: [event])
-    get :show, params: { url_name: "tgq", view: 'all' }
-    expect(assigns[:request_results]).to be_present
+  it 'lists the requests made to the body' do
+    info_request = FactoryBot.create(:info_request, title: 'Badger counts')
+    get :show, params: { url_name: info_request.public_body.url_name,
+                         view: 'all' }
+    expect(response.body).to have_content('Badger counts')
   end
 
   it "should display the body using same locale as that used in url_name" do

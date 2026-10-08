@@ -62,12 +62,10 @@ RSpec.describe RequestController, "when listing recent requests" do
   end
 
   it 'sets title based on if tag does not match an request category' do
-    stub_search_results(items: [], total: 0)
     get :list, params: { view: 'all', tag: 'other' }
     expect(assigns[:title]).to eq('Found 0 requests tagged ‘other’')
 
-    request = FactoryBot.create(:info_request, tag_string: 'other')
-    stub_search_results(items: [request], total: 1)
+    FactoryBot.create(:info_request, tag_string: 'other')
     get :list, params: { view: 'all', tag: 'other' }
     expect(assigns[:title]).to eq('Found 1 request tagged ‘other’')
   end
@@ -116,6 +114,18 @@ RSpec.describe RequestController, "when showing one request" do
 
     it 'assigns similar_more' do
       expect(assigns[:similar_more]).to eq(similar_more)
+    end
+  end
+
+  context 'with the PostgreSQL backend', :postgresql do
+    it 'lists similar requests' do
+      info_request = FactoryBot.create(:info_request, title: 'Ptarmigan census')
+      similar = FactoryBot.create(:info_request, title: 'Ptarmigan numbers')
+
+      get :show, params: { url_title: info_request.url_title }
+
+      expect(response).to be_successful
+      expect(assigns[:similar_requests]).to eq([similar])
     end
   end
 

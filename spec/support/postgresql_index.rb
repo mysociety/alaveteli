@@ -10,9 +10,14 @@ RSpec.configure do |config|
     rebuild_postgresql_index
   end
 
-  # Records are indexed by a job after they are saved. Specs tagged
-  # `:reindex_inline` run that job straight away, so they can search for
-  # records they have just created.
+  config.around(:each, postgresql: true) do |example|
+    original = Search.backend
+    Search.backend = Search.backend_for(:postgresql)
+    example.run
+  ensure
+    Search.backend = original
+  end
+
   config.around(:each, reindex_inline: true) do |example|
     perform_enqueued_jobs(only: Search::ReindexJob) { example.run }
   end

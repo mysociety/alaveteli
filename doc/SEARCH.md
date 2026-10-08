@@ -11,34 +11,34 @@ pluggable backend. The default backend is Xapian.
 Controllers / Models / Mailers
         |
         v
-  Search module          (app/search/search.rb)    -- public facade
+  Search module     (app/models/search.rb)           -- public facade
         |
         v
-  Search::Backend        (app/search/backend.rb)   -- abstract interface
+  Search::Backend   (app/models/search/backend.rb)   -- abstract interface
         |
         v
-  Adapters::Xapian       (app/search/adapters/)    -- concrete implementation
+  Adapters::Xapian  (app/models/search/adapters/)    -- concrete implementation
         |
         v
-  Search::Adapter        (app/search/adapter.rb)   -- base for search types
+  Search::Adapter   (app/models/search/adapter.rb)   -- base for search types
         |
     +---+---+------------------+
     |       |                  |
 FullText  Typeahead   SimilarRequests
     |       |                  |
     v       v                  v
-  Search::Results        (app/search/results.rb)   -- unified result object
+  Search::Results   (app/models/search/results.rb)   -- unified result object
 ```
 
 ### Key classes
 
 | Class | File | Role |
 |-------|------|------|
-| `Search` | `app/search/search.rb` | Public API facade |
-| `Search::Backend` | `app/search/backend.rb` | Abstract backend interface |
-| `Search::Adapter` | `app/search/adapter.rb` | Base class for search operation types |
-| `Search::Results` | `app/search/results.rb` | Paginated result collection |
-| `Search::Context::InfoRequest` | `app/search/context/info_request.rb` | Context object for request-scoped searches |
+| `Search` | `app/models/search.rb` | Public API facade |
+| `Search::Backend` | `app/models/search/backend.rb` | Abstract backend interface |
+| `Search::Adapter` | `app/models/search/adapter.rb` | Base class for search operation types |
+| `Search::Results` | `app/models/search/results.rb` | Paginated result collection |
+| `Search::Context::InfoRequest` | `app/models/search/context/info_request.rb` | Context object for request-scoped searches |
 
 ## Using the Search API
 
@@ -65,6 +65,31 @@ maps `sort_by` to `sort_by_prefix`).
 Available sort fields: `created_at`, `described_at`.
 
 Available collapse fields: `request_collapse`, `request_title_collapse`.
+
+### Request search
+
+`Search.request_search` is the keyword search behind site search, the
+public body and user pages, and the request list's keyword filter. It
+returns one `InfoRequest` per match, so callers and views work in
+requests rather than in whatever the backend happened to index:
+
+```ruby
+results = Search.request_search('freedom of information',
+                                sort_by: 'created_at',
+                                sort_ascending: false).
+            results(page: 1, per_page: 25)
+
+results.results # [{model: #<InfoRequest>, ...}, ...]
+```
+
+Each backend decides which models carry the content it searches. Xapian
+searches `InfoRequestEvent`, collapses by `request_collapse`, and maps
+each matching event back to its request. PostgreSQL will search the
+request and its messages and attachments, and group the hits by request.
+So a caller cannot assume what was matched, only that a request matched.
+
+Use it for any keyword search over requests. Use `Search.search` when
+you want the matching records themselves, such as annotations.
 
 ### Scoped search
 
@@ -93,8 +118,8 @@ they do not support):
 
 ### Forcing a backend
 
-Every facade query method (`search`, `search_scope`, `typeahead`,
-`similar`) takes an optional `backend` naming a registered
+Every facade query method (`search`, `request_search`, `search_scope`,
+`typeahead`, `similar`) takes an optional `backend` naming a registered
 backend for that one call, overriding the configured `SEARCH_BACKEND`.
 This suits callers tied to one backend's features — admin user search
 relies on the PostgreSQL-only admin index, so it forces that backend:
@@ -138,9 +163,9 @@ When a record changes and needs re-indexing:
 Search.reindex_later(record)
 ```
 
-Backends with async indexing (Xapian) queue a job. Backends where the
-search index is the database itself (e.g. PostgreSQL) can leave this
-as a no-op.
+This goes to every registered backend, not just the configured one, so
+each index stays fresh. Xapian queues a job. PostgreSQL reindexes the
+record straight away.
 
 ### Request-scoped convenience methods
 
@@ -150,7 +175,7 @@ facade itself stays model-agnostic.
 
 ```ruby
 # Front page recent requests
-events = InfoRequest.recent_requests
+requests = InfoRequest.recent_requests
 
 # Paginated request list (used by RequestController#list)
 results = InfoRequest.request_list(filters, page, per_page, max_results)
@@ -184,17 +209,26 @@ alias), `total_pages`, `has_more?`, `has_previous?`, `next_page`,
 
 ### 1. Subclass Search::Backend
 
-Create `app/search/adapters/postgresql.rb` (or similar):
+Create `app/models/search/adapters/example.rb`:
 
 ```ruby
 module Search
   module Adapters
-    module PostgreSQL
+    module Example
       class Adapter < Search::Backend
         def search(query, models:, sort_by: nil, sort_ascending: true,
                    collapse_by: nil)
           # Return an object that responds to .results(page:, per_page:)
           # and returns a Search::Results
+        end
+
+        def request_search(query, sort_by: nil, sort_ascending: true)
+          # Same contract as search, but the results must be InfoRequests,
+          # one per matching request
+        end
+
+        def search_scope(query, relation, **)
+          # Return relation narrowed to the matching records
         end
 
         def typeahead(query, model:, exclude_tags: [])
@@ -254,6 +288,9 @@ The `search` method receives these backend-agnostic parameters:
 | `sort_ascending` | Boolean | Sort direction (default `true`) |
 | `collapse_by` | String/nil | Logical field name to deduplicate by |
 
+`request_search` takes the same parameters bar `models`, which it picks
+itself, and `collapse_by`, which it always applies to the request.
+
 **Note on query syntax:** The query string currently uses Xapian's query
 syntax (e.g. `variety:response status:successful`). A future change will
 replace this with structured query objects so backends don't need to parse
@@ -261,19 +298,19 @@ Xapian syntax.
 
 ### 4. Wire it up
 
-Set the backend in an initializer or via configuration:
+Add the adapter to `Search.backends` in `app/models/search.rb`:
 
 ```ruby
-Search.backend = Search::Adapters::PostgreSQL::Adapter.new
+example: 'Search::Adapters::Example::Adapter'
 ```
 
 `config/initializers/search.rb` reads the `SEARCH_BACKEND` config value and
-assigns `Search.backend` via `Search.backend_for`. Selecting the backend is
-then a config change, not a code edit:
+assigns `Search.backend` via `Search.backend_for`, at boot and after every
+code reload. Selecting the backend is then a config change, not a code edit:
 
 ```yaml
 # config/general.yml
-SEARCH_BACKEND: postgresql
+SEARCH_BACKEND: example
 ```
 
 ### 5. Indexing (if applicable)
@@ -282,8 +319,8 @@ If your backend needs indexing configuration (like Xapian does), place it
 in your adapter's namespace:
 
 ```ruby
-# app/search/adapters/postgresql/indexing.rb
-module Search::Adapters::PostgreSQL::Indexing
+# app/models/search/adapters/example/indexing.rb
+module Search::Adapters::Example::Indexing
   def self.configure!
     # set up tsvector columns, triggers, etc.
   end
@@ -291,7 +328,7 @@ end
 ```
 
 Call it from an initializer. See
-`app/search/adapters/xapian/indexing.rb` for the Xapian example.
+`app/models/search/adapters/xapian/indexing.rb` for the Xapian example.
 
 ## Testing
 
@@ -307,6 +344,9 @@ automatically in all specs.
 # Full-text search
 stub_search_results(items: [event1, event2], total: 100)
 stub_search_results(items: [], spelling_correction: 'bob')
+
+# Request search (the request listings)
+stub_request_search_results(items: [request1, request2], total: 100)
 
 # Typeahead
 stub_typeahead_results(items: [body1, body2])
@@ -340,8 +380,9 @@ in `{model: item, percent: 100, ...}` hashes if not already in that format.
 
 A `SearchHelpers::Guard` module is prepended onto
 `Search::Adapters::Xapian::Adapter`. In non-`:xapian` tagged specs, all
-`search`/`typeahead`/`similar` calls return a `NullSearcher` that produces
-empty results, preventing any Xapian database access in unit tests.
+`search`/`request_search`/`typeahead`/`similar` calls return a
+`NullSearcher` that produces empty results, preventing any Xapian database
+access in unit tests.
 
 To run specs that hit the real Xapian index, tag them with `:xapian`:
 
@@ -359,28 +400,31 @@ end
 
 #### Shared backend contract
 
-`spec/search/shared_examples/backend_contract.rb` defines
+`spec/models/search/shared_examples/backend_contract.rb` defines
 `shared_examples 'a search backend'`, the interface every adapter must
-satisfy (composable `search_scope`, `search(...).results(page:, per_page:)`
-returning `Search::Results`, `reindex_later`, and `queued_jobs_count`). Run
-it against a new adapter by including it with a `subject` and an indexed
-backend tag:
+satisfy: a composable `search_scope`, a `search` that pages, sorts and
+collapses, returning `Search::Results` items keyed by `:model`, a
+`request_search` that pages and returns each matching InfoRequest once,
+`reindex_later`, and `queued_jobs_count`. Run it against a new adapter by
+including it with a `subject` and an indexed backend tag:
 
 ```ruby
 require_relative '../shared_examples/backend_contract'
 
-RSpec.describe Search::Adapters::PostgreSQL::Adapter, :postgresql do
+RSpec.describe Search::Adapters::Example::Adapter do
   subject(:adapter) { described_class.new }
   it_behaves_like 'a search backend'
 end
 ```
 
 The Xapian adapter already includes it in
-`spec/search/adapters/xapian_spec.rb`.
+`spec/models/search/adapters/xapian_spec.rb`. A backend that only
+supports `search_scope`, like PostgreSQL, uses
+`'a scoped search backend'` instead.
 
 #### Query contract
 
-`spec/search/queries_spec.rb` tests the search query contract against the
+`spec/models/search/queries_spec.rb` tests the search query contract against the
 real Xapian backend. These specs verify that query syntax, prefix terms,
 collapsing, sorting, and spelling correction work correctly with actual
 indexed fixture data.
@@ -426,32 +470,48 @@ expect(Search).to receive(:search).with(
 ## File layout
 
 ```
-app/search/
+app/models/
+  search.rb                           # Public facade and convenience methods
+app/models/search/
   backend.rb                          # Abstract backend interface
   adapter.rb                          # Base class for search operation types
   results.rb                          # Paginated result collection
-  search.rb                           # Public facade and convenience methods
+  event_search.rb                     # Shared InfoRequestEvent search helper
+  request_list.rb                     # Paginated request list
+  recent_requests.rb                  # Front page recent requests
+  stats.rb                            # Admin search timings and query plans
+  track_events.rb                     # Picks how a track finds new events
+  track_events/                       # One class per kind of track
   context/
     info_request.rb                   # Context for request-scoped searches
   adapters/
+    postgresql.rb                     # PostgreSQL backend adapter
     xapian.rb                         # Xapian backend adapter
     xapian/
       full_text_search.rb             # Wraps ActsAsXapian::Search
+      request_search.rb               # Event search mapped back to requests
       similar_requests.rb             # Wraps ActsAsXapian::Similar
       typeahead.rb                    # Xapian typeahead query prep + execution
       indexing.rb                     # acts_as_xapian model configuration
 
-spec/search/
+spec/models/
+  search_spec.rb                      # Search facade specs
+spec/models/search/
   backend_spec.rb                     # Backend base class specs
   adapter_spec.rb                     # Adapter base class specs
   results_spec.rb                     # Results collection specs
-  search_spec.rb                      # Search facade specs
   queries_spec.rb                     # Query contract specs (tagged :xapian)
-  backend_selection_spec.rb           # Config-driven backend selection specs
+  request_list_spec.rb                # Request list specs
+  recent_requests_spec.rb             # Recent requests specs
+  stats_spec.rb                       # Search stats specs
+  track_events_spec.rb                # Track strategy selection specs
+  track_events/                       # Specs for each kind of track
   shared_examples/
-    backend_contract.rb               # 'a search backend' shared contract
+    backend_contract.rb               # shared backend contracts
   context/
     info_request_spec.rb              # Context specs
+  adapters/postgresql_spec.rb         # PostgreSQL adapter specs
+  adapters/xapian_spec.rb             # Xapian adapter contract specs
   adapters/xapian/
     full_text_search_spec.rb          # Xapian full-text specs (:xapian)
     similar_requests_spec.rb          # Xapian similar specs (:xapian)
@@ -463,7 +523,7 @@ spec/support/
 
 # Search in Alaveteli
 
-Alaveteli uses the postgresql database's search capabilities in replacement of `xapian` that was used since its creation.
+Alaveteli is moving from `xapian`, which it has used since its creation, to the `postgresql` database's own search.
 
 The goal is to simplify the code (by storing all data in a single place) by allowing to chain rails ORM calls directly after the search call itself. This avoids an expensive pattern where `xapian` (or another external search index) is first called, then checks need to be done in postgresql, eg. to verify permissions. It also simplifies deployment, as there is no need for a separate search tool to deploy and maintain.
 
@@ -498,7 +558,7 @@ There is no index to back this search type at the moment (it would use the built
 
 `content_tsv` (resp. `admin_content_tsv`) stores the searchable data stemmed and tokenised according to the language used by the platform (or the specific content where multiple languages are used). postgresql uses `ts_vector` format for this.
 
-The `ts_vector` search system only searches words by their start (ie. it can search for `the_user@somedomain.com` if it is the full email address, but it won't match the domain only without some further custom preprocessing). This is the part that will match `requester`, `requesting`, etc... when searching for `request`. But it will not find `reuqest` (typo).
+The `ts_vector` search system only searches words by their start (ie. it can search for `the_user@somedomain.com` if it is the full email address, but it won't match the domain only without some further custom preprocessing). This is the part that will match `requester`, `requesting`, etc... when searching for `request`. But it will not find `request` if the search has a typo, such as swapped letters.
 
 ## Semantic search
 

@@ -5,9 +5,8 @@
     <%= _('About {{count}} FOI requests found',
           :count => @results[:matches_estimated]) %></h2>
   <div class="results_block">
-    <% @results[:results].each do |result| %>
-      <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result } %>
-    <% end %>
+    <%= render partial: 'request/request_listing_single',
+               collection: @results[:results], as: :info_request %>
   </div>
 <% end %>
 <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @results[:show_no_more_than]) %>

@@ -16,6 +16,10 @@
 * Prevent closed users logging in from secondary authentication routes (Gareth
   Rees)
 * Update PostgreSQL search documents in a background job (Graeme Porteous)
+* Add request and authority results to site search with the PostgreSQL search
+  backend (Graeme Porteous)
+* Update request listings to work via the request itself; filtering by status,
+  date and tag in the database rather than the search index (Graeme Porteous)
 * Add prominence check to public search indexing (Graeme Porteous)
 * Several accessibility improvements (Lucas Cumsille Montesinos)
 * Track when CensorRules actually redact content from Redactable records (Gareth

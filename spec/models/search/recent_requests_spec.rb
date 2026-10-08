@@ -2,40 +2,27 @@ require 'spec_helper'
 
 RSpec.describe Search::RecentRequests do
   describe '#call' do
-    it 'backfills with sent events if fewer than five successful responses' do
-      successful_event = FactoryBot.build(
-        :info_request_event, event_type: 'response'
-      )
-      sent_event = FactoryBot.build(
-        :info_request_event, event_type: 'sent'
-      )
-
-      successful_result = build_search_results(items: [successful_event])
-      sent_result = build_search_results(items: [sent_event])
-
-      searcher = double('FullTextSearch')
-      allow(searcher).to receive(:results).
-        and_return(successful_result, sent_result)
-      allow(Search).to receive(:search).and_return(searcher)
-
-      events = described_class.new.call
-
-      expect(events).to match_array([successful_event, sent_event])
-    end
-
-    it 'returns five events when there are five or more successful responses' do
-      events = Array.new(5) do
-        FactoryBot.build(:info_request_event, event_type: 'response')
+    it 'returns recent successful requests' do
+      5.times do
+        FactoryBot.create(:info_request).set_described_state('successful')
       end
 
-      searcher = double('FullTextSearch')
-      allow(searcher).to receive(:results).
-        and_return(build_search_results(items: events))
-      allow(Search).to receive(:search).and_return(searcher)
+      requests = described_class.new.call
 
-      result_events = described_class.new.call
+      expect(requests.size).to eq(5)
+      expect(requests).to all(be_a(InfoRequest))
+    end
 
-      expect(result_events.size).to eq(5)
+    it 'backfills with other recent requests when fewer than five succeed' do
+      # ensure fewer than five successful requests exist
+      InfoRequest.update_all(described_state: 'waiting_response')
+      successful = FactoryBot.create(:info_request)
+      successful.set_described_state('successful')
+      other = FactoryBot.create(:info_request)
+
+      requests = described_class.new.call
+
+      expect(requests).to include(successful, other)
     end
   end
 end
