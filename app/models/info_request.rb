@@ -62,6 +62,7 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
 
+  NotReportedError = Class.new(StandardError)
 
   admin_columns exclude: %i[title url_title],
                 include: %i[rejected_incoming_count]
@@ -774,6 +775,10 @@ class InfoRequest < ApplicationRecord
     self.class.requires_admin_states.include?(described_state)
   end
 
+  def reported?
+    %w[attention_requested requires_admin].include?(described_state)
+  end
+
   # Report this request for administrator attention
   def report!(reason, message, user)
     ActiveRecord::Base.transaction do
@@ -789,6 +794,47 @@ class InfoRequest < ApplicationRecord
 
       set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
       self.attention_requested = true # tells us if attention has ever been requested
+      save!
+    end
+  end
+
+  # returns the last "report" event
+  def last_report_event
+    report_evt = nil
+    info_request_events.reverse.each do |event|
+      report_evt =
+        event if %w[attention_requested requires_admin].include?(
+          event.described_state
+        )
+      break if report_evt
+    end
+    report_evt
+  end
+
+  # returns the last event just before last_report_event
+  def last_event_before_last_report
+    info_request_events.reverse.at(
+      info_request_events.reverse.find_index(last_report_event) + 1
+    )
+  end
+
+  # Revert the status of the request back to what it was before being reported
+  # as needing admin attention.
+  def revert_report!(editor:)
+    raise NotReportedError unless reported?
+
+    ActiveRecord::Base.transaction do
+      old_described_state = described_state
+      revert_to_state = last_event_before_last_report.described_state
+
+      log_event(
+        'status_update',
+        editor: editor,
+        old_described_state: old_described_state,
+        described_state: revert_to_state
+      )
+      set_described_state(revert_to_state)
+      self.awaiting_description = true
       save!
     end
   end

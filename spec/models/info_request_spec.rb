@@ -1965,6 +1965,82 @@ RSpec.describe InfoRequest do
     end
   end
 
+  describe '#revert_report!' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    let(:previous_state) { 'waiting_response' }
+
+    it 'keeps the awaiting_description state' do
+      info_request.set_described_state(previous_state)
+      info_request.update(awaiting_description: true)
+      info_request.report!('test', 'Some message', user)
+
+      info_request.revert_report!(editor: admin_user)
+      expect(info_request.awaiting_description).to be(true)
+    end
+
+    context 'with a reported request' do
+      before(:each) do
+        info_request.set_described_state(previous_state)
+        info_request.report!('test', 'Some message', user)
+      end
+
+      it 'reverts described_state to the the previous state' do
+        info_request.revert_report!(editor: admin_user)
+        expect(info_request.described_state).to eq(previous_state)
+      end
+
+      it 'logs an event' do
+        info_request.revert_report!(editor: admin_user)
+        last_event = info_request.reload.last_event
+        expect(last_event.event_type).to eq('status_update')
+        expect(last_event.params).
+          to match(
+            editor: { gid: admin_user.to_global_id.to_s },
+            old_described_state: 'attention_requested',
+            described_state: previous_state
+          )
+      end
+
+      it 'finds the correct event when another event follows reporting' do
+        # A response is received
+        info_request.awaiting_description = true
+        info_request.log_event('response', {})
+
+        info_request.revert_report!(editor: admin_user)
+        last_event = info_request.reload.last_event
+        expect(last_event.event_type).to eq('status_update')
+        expect(last_event.params).
+          to match(
+            editor: { gid: admin_user.to_global_id.to_s },
+            old_described_state: 'attention_requested',
+            described_state: previous_state
+          )
+        expect(info_request.last_report_event.params[:message]).
+          to eq('Some message')
+        expect(info_request.last_event_before_last_report.described_state).
+          to eq(previous_state)
+        expect(info_request.awaiting_description).to be(true)
+      end
+    end
+
+
+    context 'with a non-reported request' do
+      before(:each) do
+        info_request.set_described_state(previous_state)
+      end
+
+      it 'raises an error if trying to revert a non-reported request' do
+        expect {
+          info_request.revert_report!(editor: admin_user)
+        }.to raise_error(InfoRequest::NotReportedError)
+      end
+    end
+  end
+
   describe '#legislation' do
     let(:legislation) { Legislation.new(key: 'abc') }
 
