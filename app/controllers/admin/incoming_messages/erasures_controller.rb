@@ -6,14 +6,15 @@ class Admin::IncomingMessages::ErasuresController < AdminController
   before_action :check_info_request
 
   def create
-    if @incoming_message.erase_later(
+    @incoming_message.erase_later(
       editor: admin_current_user,
       reason: erasure_reason
     )
-      @incoming_message.expire
-      flash[:notice] = 'Incoming message erasure has been queued.'
-      redirect_to admin_request_url(@incoming_message.info_request)
-    end
+
+    @incoming_message.expire
+
+    flash[:notice] = 'Incoming message erasure has been queued.'
+    redirect_to admin_request_url(@incoming_message.info_request)
   end
 
   private
