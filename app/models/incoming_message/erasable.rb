@@ -1,16 +1,16 @@
 module IncomingMessage::Erasable
   extend ActiveSupport::Concern
 
+  def erased?
+    erased_at.present?
+  end
+
   def erase_later(editor:, reason:)
     IncomingMessage::EraseJob.perform_later(
       self,
       editor: editor,
       reason: reason
     )
-  end
-
-  def erased?
-    erased_at.present?
   end
 
   # erasing is potentially slow, prefer erase_later if possible
@@ -34,6 +34,7 @@ module IncomingMessage::Erasable
         subject: nil,
         erased_at: Time.zone.now
       )
+
       search_documents.delete_all
 
       # the raw_email can't be erased before foi_attachments
@@ -41,11 +42,10 @@ module IncomingMessage::Erasable
       # the actual work, since we are about to get rid of them.
       # This also minimises the risk of failure inside the transaction
       # that will rollback in case something goes wrong anyway
-      foi_attachments.unmasked.map { |fa| fa.update(masked_at: Time.zone.now) }
+      foi_attachments.unmasked.each { it.update!(masked_at: Time.zone.now) }
+      foi_attachments.each { it.erase!(editor: editor, reason: reason) }
 
-      foi_attachments.map { |fa| fa.erase!(editor: editor, reason: reason) }
-
-      raw_email.erase(editor: editor, reason: 'IncomingMessage#erase')
+      raw_email.erase(editor: editor, reason: 'IncomingMessage#erase!')
 
       raise ActiveRecord::Rollback unless
         log_event(
