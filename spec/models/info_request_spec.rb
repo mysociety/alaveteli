@@ -1965,6 +1965,37 @@ RSpec.describe InfoRequest do
     end
   end
 
+  describe '#revert_report!' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:admin_user) { FactoryBot.create(:admin_user) }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    let(:previous_state) { 'waiting_response' }
+
+    before(:each) do
+      info_request.set_described_state(previous_state)
+      info_request.report!('test', 'Some message', user)
+    end
+
+    it 'reverts described_state to the the previous state' do
+      info_request.revert_report!(admin_user)
+      expect(info_request.described_state).to eq(previous_state)
+    end
+
+    it 'logs an event' do
+      info_request.revert_report!(admin_user)
+      last_event = info_request.reload.last_event
+      expect(last_event.event_type).to eq('status_update')
+      expect(last_event.params).
+        to match(
+          editor: { gid: admin_user.to_global_id.to_s },
+          old_described_state: 'attention_requested',
+          described_state: previous_state
+        )
+    end
+  end
+
   describe '#legislation' do
     let(:legislation) { Legislation.new(key: 'abc') }
 

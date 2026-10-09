@@ -793,6 +793,40 @@ class InfoRequest < ApplicationRecord
     end
   end
 
+  def find_pre_report_described_state
+    revert_to_state = nil
+    info_request_events.reverse.each do |event|
+      if revert_to_state.nil?
+        revert_to_state = 
+          event.described_state unless
+            %w[attention_requested requires_admin].include?(
+                event.described_state
+            )
+      end
+      break if revert_to_state
+    end
+    revert_to_state
+  end
+
+  # Revert the status of the request back to what it was before being reported
+  # as needing admin attention.
+  def revert_report!(user)
+    old_described_state = described_state
+
+    revert_to_state = find_pre_report_described_state
+
+    ActiveRecord::Base.transaction do
+      log_event(
+        'status_update',
+        editor: user,
+        old_described_state: old_described_state,
+        described_state: revert_to_state
+      )
+      set_described_state(revert_to_state)
+      save!
+    end
+  end
+
   # change status, including for last event for later historical purposes
   # described_state should always indicate the current state of the request, as described
   # by the request owner (or, in some other cases an admin or other user)
