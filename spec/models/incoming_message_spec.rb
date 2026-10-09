@@ -1121,38 +1121,54 @@ RSpec.describe 'when destroying a message' do
 end
 
 RSpec.describe 'when erasing a message' do
-  let(:user) { FactoryBot.create(:user, name: 'Alice') }
+  let(:admin) { FactoryBot.create(:admin_user, name: 'Alice') }
 
   let(:raw_email) { FactoryBot.create(:raw_email) }
-  let(:im) do
+
+  let(:message) do
     FactoryBot.create(:incoming_message, raw_email: raw_email)
   end
-  let(:to) { im.info_request.incoming_email }
-  let(:from) { im.info_request.public_body.request_email }
 
-  it "should keep the message with nullified fields" do
-    im.erase!(editor: user, reason: 'GDPR')
+  let(:to) { message.info_request.incoming_email }
+  let(:from) { message.info_request.public_body.request_email }
 
-    erased_message = IncomingMessage.find(im.id)
-    expect(erased_message.cached_main_body_text_folded).to be_nil
-    expect(erased_message.from_email).to be_nil
 
-    last_event = erased_message.info_request.info_request_events.last
+        from_email: nil,
+        from_name: nil,
+        from_email_domain: nil,
+        cached_attachment_text_clipped: nil,
+        cached_main_body_text_unfolded: nil,
+        cached_main_body_text_folded: nil,
+        subject: nil,
+        erased_at: Time.zone.now
+
+  it 'keeps the message with nullified fields' do
+    message.erase!(editor: admin, reason: 'GDPR')
+    message.reload
+
+    expect(message.from_name).to be_nil
+    expect(message.from_email).to be_nil
+    expect(message.from_email_domain).to be_nil
+    expect(message.subject).to be_nil
+    expect(message.cached_main_body_text_folded).to be_nil
+    expect(message.cached_main_body_text_unfolded).to be_nil
+    expect(message.cached_attachment_text_clipped).to be_nil
+
+    last_event = message.info_request.info_request_events.last
     expect(last_event.event_type).to eq('erase_incoming')
-    expect(last_event.params[:incoming_message]).to eq(erased_message)
+    expect(last_event.params[:incoming_message]).to eq(message)
 
-    expect(erased_message.search_documents).to be_empty
+    expect(message.search_documents).to be_empty
   end
 
-  it "should erase all attachments as well" do
+  it 'erases all attachments and the raw email' do
     populate_raw_email('incoming-request-multiple-attachments.eml')
-    im.extract_attachments!
-    puts(im.foi_attachments.inspect)
-    expect(im.foi_attachments.count).to eq(6)
-    im.erase!(editor: user, reason: 'GDPR')
+    message.extract_attachments!
+    expect(message.foi_attachments.count).to eq(6)
+    message.erase!(editor: admin, reason: 'GDPR')
 
-    expect(im.foi_attachments.map(&:erased?)).to all(be true)
-    expect(im.raw_email.erased?).to be true
+    expect(message.foi_attachments.map(&:erased?)).to all(be true)
+    expect(message.raw_email.erased?).to be true
   end
 end
 
