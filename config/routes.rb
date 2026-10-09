@@ -636,7 +636,9 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :holiday_imports,
       :controller => 'admin_holiday_imports',
-      :only => [:new, :create]
+      :only => [:new, :create] do
+        post :preview, :on => :collection
+      end
   end
   ####
 
