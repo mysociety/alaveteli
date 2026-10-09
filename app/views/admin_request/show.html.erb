@@ -337,6 +337,10 @@
         <%= both_links(incoming_message) %>
         <%= locked_icon(incoming_message) %>
 
+        <% if incoming_message.erased? %>
+          <span class="label">Erased</span>
+        <% end %>
+
         <span class="muted">
           --
           <%= h(incoming_message.from_name) %>
