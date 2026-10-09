@@ -85,6 +85,9 @@ Rails.application.configure do
     Rails.root.join('spec', 'mailers', 'previews')
   ]
 
+  # Allow access from any host
+  config.hosts = nil
+
   # Set RAILS_LOG_LEVEL in the environment to a valid log level to temporarily
   # run the application with a non-default setting.
   config.log_level = ENV.fetch('RAILS_LOG_LEVEL', :debug)
