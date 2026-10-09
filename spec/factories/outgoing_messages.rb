@@ -83,6 +83,10 @@ FactoryBot.define do
       'ogm-14+537f69734b97c-1ebd@localhost')
     end
 
+    trait :erased do
+      erased_at { Time.zone.now }
+    end
+
     trait :hidden do
       transient do
         prominence { 'hidden' }
