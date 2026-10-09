@@ -1,6 +1,6 @@
-<% if outgoing_message.erased_at.present? %>
+<% if outgoing_message.erased? %>
   <div class="outgoing correspondence box" id="outgoing-<%=outgoing_message.id.to_s%>">
-    <h2>
+    <h2 id="<%= outgoing_message_path(outgoing_message, anchor_only: true) %>">
       <%= simple_date(info_request_event.created_at) %>
     </h2>
 
