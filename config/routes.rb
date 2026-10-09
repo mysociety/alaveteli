@@ -693,6 +693,7 @@ Rails.application.routes.draw do
       post 'move', :on => :member
       post 'generate_upload_url', :on => :member
       post 'hide', :on => :member
+      post 'revert_report', :on => :member
       resources :censor_rules,
         :controller => 'admin/censor_rules',
         :only => [:new, :create] do
