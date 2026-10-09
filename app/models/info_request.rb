@@ -40,6 +40,7 @@ require 'fileutils'
 
 class InfoRequest < ApplicationRecord
   OLD_AGE_IN_DAYS = 21.days
+  REPORTED_STATES = %w[attention_requested requires_admin]
 
   include Rails.application.routes.url_helpers
   include LinkToHelper
@@ -62,6 +63,7 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
 
+  NotReportedError = Class.new(StandardError)
 
   admin_columns exclude: %i[title url_title],
                 include: %i[rejected_incoming_count]
@@ -774,6 +776,10 @@ class InfoRequest < ApplicationRecord
     self.class.requires_admin_states.include?(described_state)
   end
 
+  def reported?
+    REPORTED_STATES.include?(described_state)
+  end
+
   # Report this request for administrator attention
   def report!(reason, message, user)
     ActiveRecord::Base.transaction do
@@ -789,6 +795,53 @@ class InfoRequest < ApplicationRecord
 
       set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
       self.attention_requested = true # tells us if attention has ever been requested
+      save!
+    end
+  end
+
+  # returns the last "report" event
+  def last_report_event
+    report_evt = nil
+    info_request_events.reverse.each do |event|
+      report_evt =
+        event if REPORTED_STATES.include?(
+          event.described_state
+        )
+      break if report_evt
+    end
+    report_evt
+  end
+
+  # returns the last event that changed classification
+  # but is not a reporting event, before last_report_event
+  def last_classification_event_before_report
+    states = REPORTED_STATES + [ nil ]
+    last_report_event_id = last_report_event.id
+    previous_state_setting_events =
+      info_request_events.
+        where.not(described_state: states).
+        where("id < ?", last_report_event_id).
+        reverse
+    previous_state_setting_events.first
+  end
+
+  # Revert the status of the request back to what it was before being reported
+  # as needing admin attention.
+  def revert_report!(editor:)
+    raise NotReportedError unless reported?
+
+    ActiveRecord::Base.transaction do
+      old_described_state = described_state
+      revert_to_state = last_classification_event_before_report.described_state
+
+      log_event(
+        'status_update',
+        editor: editor,
+        old_described_state: old_described_state,
+        described_state: revert_to_state
+      )
+      set_described_state(revert_to_state)
+      self.awaiting_description = true
       save!
     end
   end

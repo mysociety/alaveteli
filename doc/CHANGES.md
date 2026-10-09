@@ -19,6 +19,8 @@
 * Remove utm params from similar request list (Gareth Rees)
 * Switch from the unmaintained `activejob-uniqueness` gem to its
   `activejob-unique` fork, which supports Rails 8.1 (Graeme Porteous)
+* Add button to revert status of requests marked for admin attention (Laurent
+  Savaete)
 * Make it obvious that proposed email address is the same current one
   (Laurent Savaete)
 * Switch locale by submitting a form rather than following a link to stop
