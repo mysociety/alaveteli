@@ -7,6 +7,24 @@ RSpec.describe HolidayImport do
     expect(holiday_import.errors[:ical_feed_url]).to eq(["can't be blank"])
   end
 
+  it 'validates that the feed is an HTTP or HTTPS URL' do
+    expected = [
+      'Please enter an iCal feed URL starting with http:// or https://'
+    ]
+
+    ['|id', '/etc/passwd', 'file:///etc/passwd', 'ftp://example.com/a.ics',
+     'http://', 'http://exa mple.com'].each do |url|
+      holiday_import = HolidayImport.new(source: 'feed', ical_feed_url: url)
+      expect(holiday_import.valid?).to be(false), url
+      expect(holiday_import.errors[:ical_feed_url]).to eq(expected)
+    end
+
+    %w[http://example.com/a.ics https://example.com/a.ics].each do |url|
+      holiday_import = HolidayImport.new(source: 'feed', ical_feed_url: url)
+      expect(holiday_import.valid?).to be(true), url
+    end
+  end
+
   it 'does not validate the presence of a feed if the source is suggestions' do
     holiday_import = HolidayImport.new(source: 'suggestions')
     expect(holiday_import.valid?).to be true

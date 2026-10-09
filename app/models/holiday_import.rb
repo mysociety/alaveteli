@@ -12,8 +12,15 @@ class HolidayImport
 
   validate :all_holidays_valid
   validates_inclusion_of :source, in: %w( suggestions feed )
+
   validates_presence_of :ical_feed_url,
-    if: proc { |holiday_import| holiday_import.source == 'feed' }
+    if: ->(import) { import.source == 'feed' }
+
+  validates_format_of :ical_feed_url,
+    with: %r{\Ahttps?://\S+\z},
+    allow_blank: true,
+    message: 'Please enter an iCal feed URL starting with http:// or https://',
+    if: ->(import) { import.source == 'feed' }
 
   def initialize(opts = {})
     @populated = false
