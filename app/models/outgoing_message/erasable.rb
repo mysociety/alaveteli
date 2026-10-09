@@ -1,6 +1,10 @@
 module OutgoingMessage::Erasable
   extend ActiveSupport::Concern
 
+  def erased?
+    erased_at.present?
+  end
+
   def erase_later(editor:, reason:)
     OutgoingMessage::ErasureJob.
       perform_later(self, editor: editor, reason: reason)
@@ -16,13 +20,14 @@ module OutgoingMessage::Erasable
 
   def erase!(editor:, reason:)
     transaction do
-      params = {
+      update!(
         body: '', # body cannot be null in database
         from_name: nil,
         erased_at: Time.zone.now
-      }
-      update!(params)
+      )
+
       search_documents.delete_all
+
       log_event(
         'erase_outgoing',
         editor: editor,
