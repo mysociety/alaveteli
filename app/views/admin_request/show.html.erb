@@ -221,6 +221,20 @@
       </div>
     <% end %>
   <% end %>
+
+  <% if %w[attention_requested requires_admin].include?(@info_request.described_state) %>
+    <div class="control-group">
+      <label class="control-label">
+        Revert "Marked for attention"
+      </label>
+      <div class="controls">
+        <%= form_tag revert_report_admin_request_path(@info_request), :class => "form form-inline" do %>
+          <%= submit_tag "Revert report", :class => "btn"  %>
+        <% end %>
+        <p class="help-block">Revert the request to its status before it was reported (<%= @info_request.find_pre_report_described_state %>)</p>
+      </div>
+    </div>
+  <% end %>
 </fieldset>
 
 <hr>
