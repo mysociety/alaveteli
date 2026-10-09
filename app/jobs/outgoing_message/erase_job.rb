@@ -1,5 +1,5 @@
 ##
-# Job to erase a OutgoingMessage.
+# Job to erase an OutgoingMessage.
 #
 # Example:
 #   OutgoingMessage::EraseJob.perform_later(

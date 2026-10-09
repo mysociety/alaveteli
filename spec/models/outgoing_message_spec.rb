@@ -209,30 +209,47 @@ RSpec.describe OutgoingMessage do
     end
   end
 
+  describe '#erased?' do
+    subject { message.erased? }
+
+    context 'when erased_at is present' do
+      let(:message) { FactoryBot.build(:initial_request, :erased) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when erased_at is empty' do
+      let(:message) { FactoryBot.build(:initial_request) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe '#erase' do
-    let(:user) { FactoryBot.create(:user, name: 'Alice') }
+    let(:admin) { FactoryBot.create(:admin_user, name: 'Alice') }
 
     ["initial_request", "followup"].each do |msg_type|
       it "should keep the #{msg_type} message with nullified fields" do
-        attrs = { status: 'ready',
-                  message_type: 'initial_request',
-                  body: 'abc',
-                  what_doing: 'normal_sort' }
+        attrs = { body: 'abc', from_name: 'Bob Smith' }
         outgoing_message = FactoryBot.create(:initial_request, attrs)
-        outgoing_message.erase!(editor: user, reason: 'GDPR')
+        outgoing_message.erase!(editor: admin, reason: 'GDPR')
 
-        erased_message = OutgoingMessage.find(outgoing_message.id)
-        expect(erased_message.raw_body).to eq('')
-        expect(erased_message.body).to eq('')
-        expect(erased_message.read_attribute(:from_name)).to be_nil
-        expect(erased_message.status).to eq(outgoing_message.status)
+        outgoing_message.reload
 
-        last_event = erased_message.info_request.info_request_events.last
+        # Erasable attributes
+        expect(outgoing_message.raw_body).to eq('')
+        expect(outgoing_message.body).to eq('')
+        expect(outgoing_message.read_attribute(:from_name)).to be_nil
+
+        # Preserved metadata
+        expect(outgoing_message.status).to be_present
+        expect(outgoing_message.message_type).to be_present
+        expect(outgoing_message.what_doing).to be_present
+
+        last_event = outgoing_message.info_request.info_request_events.last
         expect(last_event.event_type).to eq('erase_outgoing')
         expect(last_event.params[:reason]).to eq('GDPR')
-        expect(last_event.params[:outgoing_message]).to eq(erased_message)
+        expect(last_event.params[:outgoing_message]).to eq(outgoing_message)
 
-        expect(erased_message.search_documents).to be_empty
+        expect(outgoing_message.search_documents).to be_empty
       end
     end
   end
