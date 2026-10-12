@@ -1,6 +1,8 @@
 module OutgoingMessage::Erasable
   extend ActiveSupport::Concern
 
+  class ErasedError < StandardError; end
+
   def erased?
     erased_at.present?
   end
@@ -19,6 +21,8 @@ module OutgoingMessage::Erasable
   end
 
   def erase!(editor:, reason:)
+    raise ErasedError, "OutgoingMessage has already been erased" if erased?
+
     transaction do
       update!(
         body: '', # body cannot be null in database
