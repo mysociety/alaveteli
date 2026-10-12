@@ -161,7 +161,7 @@ class OutgoingMessage < ApplicationRecord
   def from_name
     return info_request.external_user_name if info_request.is_external?
 
-    super || info_request.user_name
+    super || (erased? ? nil : info_request.user_name)
   end
 
   def safe_from_name
