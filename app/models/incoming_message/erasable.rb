@@ -32,6 +32,7 @@ module IncomingMessage::Erasable
         cached_main_body_text_unfolded: nil,
         cached_main_body_text_folded: nil,
         subject: nil,
+        valid_to_reply_to: false,
         erased_at: Time.zone.now
       )
 
@@ -45,7 +46,7 @@ module IncomingMessage::Erasable
       foi_attachments.unmasked.each { it.update!(masked_at: Time.zone.now) }
       foi_attachments.each { it.erase!(editor: editor, reason: reason) }
 
-      raw_email.erase(editor: editor, reason: 'IncomingMessage#erase!')
+      raw_email.erase!(editor: editor, reason: 'IncomingMessage#erase!')
 
       raise ActiveRecord::Rollback unless
         log_event(
@@ -54,6 +55,8 @@ module IncomingMessage::Erasable
           reason: reason,
           incoming_message: self
         )
+
+      expire
     end
   end
 end
