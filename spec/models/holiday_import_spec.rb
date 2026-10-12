@@ -152,8 +152,15 @@ RSpec.describe HolidayImport do
     end
 
     it 'should add an error if the calendar cannot be found' do
-      allow(URI).to receive(:open).
-        and_raise(Errno::ENOENT.new('No such file or directory'))
+      stub_request(:get, 'http://www.example.com/').to_return(status: 404)
+
+      @holiday_import.populate
+      expected = ["Sorry we couldn't find that feed."]
+      expect(@holiday_import.errors[:ical_feed_url]).to eq(expected)
+    end
+
+    it 'should add an error if the feed is a local file' do
+      @holiday_import.ical_feed_url = Rails.root.join('Gemfile').to_s
 
       @holiday_import.populate
       expected = ["Sorry we couldn't find that feed."]
