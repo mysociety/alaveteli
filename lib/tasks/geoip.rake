@@ -38,15 +38,13 @@ namespace :geoip do
       downloaded_location = File.join(tmp_dir, 'geodata.tar.gz')
 
       File.open(downloaded_location, "wb") do |saved_file|
-        URI.open(link, "rb") do |read_file|
-          saved_file.write(read_file.read)
-        end
+        saved_file.write(fetch_url!(link))
 
-      rescue OpenURI::HTTPError => ex
+      rescue FetchURLError => ex
         log 'Error downloading MaxMind geoip data file'
         log "  #{ex.message}"
 
-        if ex.message == '401 Unauthorized'
+        if ex.response.is_a?(Net::HTTPUnauthorized)
           log 'Please check the MAXMIND_LICENSE_KEY setting in ' \
               'config/general.yml'
         end
