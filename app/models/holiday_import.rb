@@ -65,7 +65,7 @@ class HolidayImport
   end
 
   def populate_from_ical_feed
-    cal_file = open(ical_feed_url)
+    cal_file = fetch_url!(ical_feed_url)
     cal_parser = Icalendar::Parser.new(cal_file)
     cals = cal_parser.parse
     cal = cals.first
@@ -75,11 +75,11 @@ class HolidayImport
     end
     cal.events.each { |cal_event| populate_from_ical_event(cal_event) }
 
-  rescue Errno::ENOENT, Exception => e
+  rescue FetchURLError
+    errors.add(:ical_feed_url, "Sorry we couldn't find that feed.")
+  rescue Exception => e
     if e.message == 'Invalid line in calendar string!'
       errors.add(:ical_feed_url, "Sorry, there's a problem with the format of that feed.")
-    elsif e.message =~ /^No such file or directory/
-      errors.add(:ical_feed_url, "Sorry we couldn't find that feed.")
     else
       raise e
     end
