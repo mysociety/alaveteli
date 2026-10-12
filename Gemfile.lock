@@ -175,7 +175,7 @@ GEM
       logger (~> 1.5)
     chunky_png (1.4.0)
     coderay (1.1.3)
-    compare-xml (1.0.0)
+    compare-xml (1.0.1)
       nokogiri (>= 1.6)
     concurrent-ruby (1.3.8)
     connection_pool (2.5.5)
