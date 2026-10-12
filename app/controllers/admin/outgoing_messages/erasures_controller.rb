@@ -10,7 +10,7 @@ class Admin::OutgoingMessages::ErasuresController < AdminController
     @outgoing_message.erase!(editor: admin_current_user, reason: erasure_reason)
     @outgoing_message.expire
     flash[:notice] = 'Outgoing message successfully erased.'
-    redirect_to admin_request_url(@outgoing_message.info_request)
+    redirect_to edit_admin_outgoing_message_url(@outgoing_message.info_request)
   end
 
   private
