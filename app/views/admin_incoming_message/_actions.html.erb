@@ -67,10 +67,16 @@
 
   <div class="controls">
     <div class="btn-group">
-      <%= link_to 'View', admin_raw_email_path(incoming_message.raw_email_id), class: 'btn' %>
-      <%= button_to 'Download', admin_raw_email_path(incoming_message.raw_email, format: 'eml'), method: :get, class: 'btn', disabled: incoming_message.raw_email_erased? %>
+      <%= link_to 'View',
+          admin_raw_email_path(incoming_message.raw_email_id),
+          class: 'btn',
+          disabled: incoming_message.erased? %>
+      <%= button_to 'Download',
+          admin_raw_email_path(incoming_message.raw_email, format: 'eml'),
+          method: :get,
+          class: 'btn',
+          disabled: incoming_message.erased? || incoming_message.raw_email_erased? %>
     </div>
   </div>
 </div>
-
 </fieldset>

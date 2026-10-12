@@ -22,9 +22,10 @@
 
           <p>
             <ul>
-              <li>Erases the From: information in this message</li>
-              <li>Erases the body of this message</li>
-              <li>Erases all attachments of this message</li>
+              <li>Erases the sender information (from name, email and email
+                domain)</li>
+              <li>Erases the body and any cached attachment content</li>
+              <li>Erases all attachments and the raw email</li>
               <li>Keeps a trace that a message was received</li>
             </ul>
           </p>
@@ -47,9 +48,11 @@
           <%= f.text_field :erasure_reason,
                        value: "",
                        placeholder: "Reason for erasure",
+                       disabled: incoming_message.erased?,
                        required: true %>
           <%= f.submit "Erase message",
                    class: "btn btn-danger",
+                   disabled: incoming_message.erased?,
                    data: {
                      confirm: "Are you sure? This is irreversible.",
                    } %>
@@ -79,7 +82,6 @@
       </div>
       <%= form_tag admin_incoming_message_path(incoming_message), :method => 'delete', :class => "form form-inline" do %>
         <div class="control-group">
-          <label class="control-label" for="destroy_message_<%= incoming_message.id %>">Destroy message</label>
           <div class="controls">
             <%= hidden_field_tag "incoming_message_id", incoming_message.id, id: nil %>
             <%= submit_tag "Destroy message",
