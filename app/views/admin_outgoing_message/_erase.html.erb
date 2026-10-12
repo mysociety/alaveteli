@@ -47,10 +47,12 @@
           <%= f.text_field :erasure_reason,
                        value: "",
                        placeholder: "Reason for erasure",
+                       disabled: @outgoing_message.erased?,
                        required: true %>
 
           <%= f.submit "Erase message",
                    class: "btn btn-danger",
+                   disabled: @outgoing_message.erased?,
                    data: {
                      confirm: "Are you sure? This is irreversible.",
                    } %>
