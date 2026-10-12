@@ -12,8 +12,15 @@ class HolidayImport
 
   validate :all_holidays_valid
   validates_inclusion_of :source, in: %w( suggestions feed )
+
   validates_presence_of :ical_feed_url,
-    if: proc { |holiday_import| holiday_import.source == 'feed' }
+    if: ->(import) { import.source == 'feed' }
+
+  validates_format_of :ical_feed_url,
+    with: %r{\Ahttps?://\S+\z},
+    allow_blank: true,
+    message: 'Please enter an iCal feed URL starting with http:// or https://',
+    if: ->(import) { import.source == 'feed' }
 
   def initialize(opts = {})
     @populated = false
@@ -65,7 +72,7 @@ class HolidayImport
   end
 
   def populate_from_ical_feed
-    cal_file = open(ical_feed_url)
+    cal_file = fetch_url!(ical_feed_url)
     cal_parser = Icalendar::Parser.new(cal_file)
     cals = cal_parser.parse
     cal = cals.first
@@ -75,14 +82,11 @@ class HolidayImport
     end
     cal.events.each { |cal_event| populate_from_ical_event(cal_event) }
 
-  rescue Errno::ENOENT, Exception => e
-    if e.message == 'Invalid line in calendar string!'
-      errors.add(:ical_feed_url, "Sorry, there's a problem with the format of that feed.")
-    elsif e.message =~ /^No such file or directory/
-      errors.add(:ical_feed_url, "Sorry we couldn't find that feed.")
-    else
-      raise e
-    end
+  rescue FetchURLError
+    errors.add(:ical_feed_url, "Sorry we couldn't find that feed.")
+  rescue Icalendar::Parser::ParseError
+    errors.add(:ical_feed_url,
+               "Sorry, there's a problem with the format of that feed.")
   end
 
   def populate_from_ical_event(cal_event)

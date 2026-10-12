@@ -1,3 +1,23 @@
+# 0.46.8.0
+
+## Highlighted Features
+
+* Fix command injection in the admin holiday feed import, and only fetch
+  remote HTTP and HTTPS URLs (Arnaud Jost, Gareth Rees, Graeme Porteous, Helen
+  Cross)
+
+# 0.46.7.0
+
+## Highlighted Features
+
+* Prevent token rebinding when it already has a user (Gareth Rees)
+
+# 0.46.6.0
+
+## Highlighted Features
+
+* Prevent token rebinding for non-normal circumstance (Gareth Rees)
+
 # 0.46.5.0
 
 ## Highlighted Features

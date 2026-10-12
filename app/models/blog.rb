@@ -43,7 +43,7 @@ class Blog
   private
 
   def content
-    @content ||= quietly_try_to_open(feed_url, timeout)
+    @content ||= fetch_url(feed_url, timeout: timeout)
   end
 
   def timeout

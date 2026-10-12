@@ -1,7 +1,12 @@
 class AdminHolidayImportsController < AdminController
   def new
+    @holiday_import = HolidayImport.new
+  end
+
+  def preview
     @holiday_import = HolidayImport.new(holiday_import_params)
     @holiday_import.populate if @holiday_import.valid?
+    render :new
   end
 
   def create

@@ -758,8 +758,99 @@ RSpec.describe UserController do
         expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
       end
 
+      context 'when the token belongs to a non-normal circumstance' do
+        let(:existing_user) { FactoryBot.create(:user) }
+
+        let!(:change_password_redirect) do
+          FactoryBot.create(:post_redirect,
+                            circumstance: 'change_password',
+                            user: existing_user)
+        end
+
+        it 'does not rebind the token to the existing user' do
+          post :signup, params: {
+            token: change_password_redirect.token,
+            user_signup: {
+              email: 'silly@localhost',
+              name: 'New Person',
+              password: 'sillypassword',
+              password_confirmation: 'sillypassword'
+            }
+          }
+
+          expect(change_password_redirect.reload.user).to eq(existing_user)
+        end
+      end
+
+      context 'when a token already has a user (confirmation sent)' do
+        # Rebinding a post redirect that already has a user lets an attacker
+        # steal a victim account: attacker signs up with token A, gets a
+        # confirmation email pointing to token A's email_token, then rebinds
+        # token A to the victim, and clicks their confirmation link to log in
+        # as the victim.
+        let(:user) { FactoryBot.create(:user) }
+        let(:other_user) { FactoryBot.create(:user) }
+
+        let!(:claimed_redirect) do
+          FactoryBot.create(:post_redirect, circumstance: 'normal', user: user)
+        end
+
+        before do
+          post :signup, params: {
+            token: claimed_redirect.token,
+            user_signup: {
+              email: other_user.email,
+              name: 'New Person',
+              password: 'sillypassword',
+              password_confirmation: 'sillypassword'
+            }
+          }
+        end
+
+        it 'does not rebind the token to a different user' do
+          expect(claimed_redirect.reload.user).to eq(user)
+        end
+
+        it 'sends the already-registered email using a fresh token' do
+          confirmation = ActionMailer::Base.deliveries.last
+          expect(confirmation.body).to match(/when\s+you\s+already\s+have\s+an/)
+          expect(confirmation.body).not_to match(claimed_redirect.token)
+        end
+      end
+
+      context 'when the token already has a user and a new user signs up' do
+        let(:user) { FactoryBot.create(:user) }
+        let(:new_user) { FactoryBot.build(:user) }
+
+        let!(:claimed_redirect) do
+          FactoryBot.create(:post_redirect, circumstance: 'normal', user: user)
+        end
+
+        before do
+          post :signup, params: {
+            token: claimed_redirect.token,
+            user_signup: {
+              email: new_user.email,
+              name: new_user.name,
+              password: new_user.password,
+              password_confirmation: new_user.password
+            }
+          }
+        end
+
+        it 'does not rebind the token to the newly created user' do
+          expect(claimed_redirect.reload.user).to eq(user)
+        end
+
+        it 'sends the confirmation email using a fresh token' do
+          confirmation = ActionMailer::Base.deliveries.last
+          expect(confirmation.body).to match(/confirm\s+your\s+email\s+address/)
+          expect(confirmation.body).not_to match(claimed_redirect.token)
+        end
+      end
+
       it "should create a new PostRedirect if the old one has expired" do
-        allow(PostRedirect).to receive(:find_by_token).and_return(nil)
+        allow(PostRedirect).to receive(:find_by).and_return(nil)
         post :signup, params: {
                         user_signup: {
                           email: 'silly@localhost',
