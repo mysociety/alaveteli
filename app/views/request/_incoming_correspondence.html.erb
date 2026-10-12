@@ -6,7 +6,7 @@
     </h2>
 
     <p class="event_plain">
-      <%= _('A message was received but has been removed.') %>
+    <%= _('A message was received but has been erased by {{site_name}}.') %>
       <% if incoming_message.prominence_reason.present? %>
         <%= _('Details:') %> <%= incoming_message.prominence_reason %>
       <% end %>
