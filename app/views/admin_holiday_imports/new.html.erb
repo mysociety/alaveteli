@@ -1,7 +1,7 @@
 <% @title = "Create holidays from suggestions or iCal feed" %>
 <h1><%= @title %></h1>
 
-<%= form_for( @holiday_import, :as => 'holiday_import', :url => '', :method => 'get', :html => { :class => 'form-horizontal form-inline' }) do |f| %>
+<%= form_for( @holiday_import, :as => 'holiday_import', :url => preview_admin_holiday_imports_path, :html => { :class => 'form-horizontal form-inline' }) do |f| %>
   <% if @holiday_import.holidays.empty? %>
     <% if @holiday_import.errors.any? %><h2>There was a problem with these import settings</h2><% end %>
     <%= foi_error_messages_for :holiday_import %>
@@ -33,7 +33,10 @@
     <div class="control-group">
       <label class="control-label">iCal feed URL:</label>
       <div class="controls">
-        <%= f.text_field 'ical_feed_url' %>
+        <%= f.url_field :ical_feed_url,
+                        pattern: 'https?://.+',
+                        placeholder: 'https://example.com/holidays.ics',
+                        title: 'An iCal feed URL starting with http:// or https://' %>
       </div>
     </div>
 
