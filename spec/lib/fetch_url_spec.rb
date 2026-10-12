@@ -88,6 +88,40 @@ RSpec.describe "fetch_url!" do
     expect(fetch_url!(uri).encoding).to eq(Encoding::BINARY)
   end
 
+  it "follows redirects" do
+    stub_request(:get, uri).
+      to_return(status: 302, headers: { 'Location' => '/moved' })
+    stub_request(:get, 'http://example.com/moved').to_return(body: 'feed')
+    expect(fetch_url!(uri)).to eq('feed')
+  end
+
+  it "stops following redirects after 5" do
+    stub_request(:get, uri).
+      to_return(status: 302, headers: { 'Location' => uri })
+    expect { fetch_url!(uri) }.
+      to raise_error(FetchURLError, /Too many redirects/)
+    expect(a_request(:get, uri)).to have_been_made.times(6)
+  end
+
+  it "raises an error for a redirect without a location" do
+    stub_request(:get, uri).to_return(status: [300, 'Multiple Choices'])
+    expect { fetch_url!(uri) }.
+      to raise_error(FetchURLError, '300 Multiple Choices')
+  end
+
+  it "refuses to follow a redirect to a local file" do
+    stub_request(:get, uri).
+      to_return(status: 302, headers: { 'Location' => 'file:///etc/passwd' })
+    expect { fetch_url!(uri) }.to raise_error(FetchURLError, /Unsupported URL/)
+  end
+
+  it "refuses to follow a redirect from HTTPS to HTTP" do
+    stub_request(:get, 'https://example.com/feed').
+      to_return(status: 302, headers: { 'Location' => uri })
+    expect { fetch_url!('https://example.com/feed') }.
+      to raise_error(FetchURLError, /Refused redirect/)
+  end
+
   it "raises an error with the response for an unsuccessful response" do
     stub_request(:get, uri).to_return(status: [401, 'Unauthorized'])
     expect { fetch_url!(uri) }.

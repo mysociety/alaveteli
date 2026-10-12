@@ -50,7 +50,7 @@ end
 # Unlike URI.open, only fetches HTTP(S) URLs, so a URL can't read a local
 # file or run a command.
 #
-def fetch_url!(url, timeout: 60)
+def fetch_url!(url, timeout: 60, redirects: 5)
   uri = URI.parse(url.to_s)
   unless uri.is_a?(URI::HTTP) && uri.host.present?
     raise FetchURLError, "Unsupported URL #{url}"
@@ -72,6 +72,22 @@ def fetch_url!(url, timeout: 60)
       body.force_encoding(Encoding::UTF_8)
     end
     body
+  when Net::HTTPRedirection
+    raise FetchURLError, "Too many redirects for #{url}" if redirects.zero?
+
+    location = response['location']
+    if location.blank?
+      raise FetchURLError.new(
+        "#{response.code} #{response.message}", response: response
+      )
+    end
+
+    target = URI.join(uri, location)
+    if uri.is_a?(URI::HTTPS) && !target.is_a?(URI::HTTPS)
+      raise FetchURLError, "Refused redirect from HTTPS to #{target}"
+    end
+
+    fetch_url!(target, timeout: timeout, redirects: redirects - 1)
   else
     raise FetchURLError.new(
       "#{response.code} #{response.message}", response: response
