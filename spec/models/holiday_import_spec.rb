@@ -151,6 +151,16 @@ RSpec.describe HolidayImport do
       expect(@holiday_import.errors[:ical_feed_url]).to eq(expected)
     end
 
+    it 'should add an error if the calendar is nested too deeply' do
+      body = "BEGIN:VCALENDAR\n" + "BEGIN:VEVENT\n" * 6 +
+             "END:VEVENT\n" * 6 + "END:VCALENDAR\n"
+      stub_request(:get, 'http://www.example.com/').to_return(body: body)
+
+      @holiday_import.populate
+      expected = ["Sorry, there's a problem with the format of that feed."]
+      expect(@holiday_import.errors[:ical_feed_url]).to eq(expected)
+    end
+
     it 'should add an error if the calendar cannot be found' do
       stub_request(:get, 'http://www.example.com/').to_return(status: 404)
 
