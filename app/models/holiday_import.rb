@@ -77,12 +77,9 @@ class HolidayImport
 
   rescue FetchURLError
     errors.add(:ical_feed_url, "Sorry we couldn't find that feed.")
-  rescue Exception => e
-    if e.message == 'Invalid line in calendar string!'
-      errors.add(:ical_feed_url, "Sorry, there's a problem with the format of that feed.")
-    else
-      raise e
-    end
+  rescue Icalendar::Parser::ParseError
+    errors.add(:ical_feed_url,
+               "Sorry, there's a problem with the format of that feed.")
   end
 
   def populate_from_ical_event(cal_event)
