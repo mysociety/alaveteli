@@ -1,4 +1,8 @@
-def quietly_try_to_open(url, timeout=60)
+##
+# Fetch the body of a URL. Logs a warning and returns an empty string if it
+# can't be fetched.
+#
+def fetch_url(url, timeout: 60)
   begin
     result = URI.open(url, read_timeout: timeout).read.strip
   rescue OpenURI::HTTPError,
@@ -22,4 +26,10 @@ def quietly_try_to_open(url, timeout=60)
     result = ""
   end
   result
+end
+
+def quietly_try_to_open(url, timeout = 60)
+  warn %q([DEPRECATION] quietly_try_to_open will be removed in 0.48. It has
+          been replaced by fetch_url).squish
+  fetch_url(url, timeout: timeout)
 end

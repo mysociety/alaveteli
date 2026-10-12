@@ -35,7 +35,7 @@ RSpec.describe GeneralController do
       before do
         allow(AlaveteliConfiguration).to receive(:blog_feed).
           and_return('http://blog.example.com')
-        allow(blog).to receive(:quietly_try_to_open).
+        allow(blog).to receive(:fetch_url).
           and_return(load_file_fixture('blog_feed.atom'))
       end
 

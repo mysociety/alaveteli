@@ -16,7 +16,7 @@ Rails.autoloaders.main.ignore(
   "lib/mail_handler/backends/mail_extensions.rb",
   "lib/no_constraint_disabling.rb",
   "lib/normalize_string.rb",
-  "lib/quiet_opener.rb",
+  "lib/fetch_url.rb",
   "lib/routing_filters.rb",
   "lib/stripe_mock_patch.rb",
   "lib/theme.rb",
