@@ -73,7 +73,7 @@ class UserController < ApplicationController
 
       # very recent requests might not show up immediately on a user's page
       # leading to unneeded actions like resends, or support emails. Warn them.
-      @has_recent_requests = 
+      @has_recent_requests =
         @display_user.
           info_requests.
           visible_to_requester.
