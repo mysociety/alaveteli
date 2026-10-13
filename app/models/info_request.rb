@@ -774,6 +774,10 @@ class InfoRequest < ApplicationRecord
     self.class.requires_admin_states.include?(described_state)
   end
 
+  def reported?
+    %w[attention_requested requires_admin].include?(described_state)
+  end
+
   # Report this request for administrator attention
   def report!(reason, message, user)
     ActiveRecord::Base.transaction do
@@ -789,6 +793,39 @@ class InfoRequest < ApplicationRecord
 
       set_described_state('attention_requested', user, "Reason: #{reason}\n\n#{message}")
       self.attention_requested = true # tells us if attention has ever been requested
+      save!
+    end
+  end
+
+  def find_pre_report_described_state
+    revert_to_state = nil
+    info_request_events.reverse.each do |event|
+      if revert_to_state.nil?
+        revert_to_state = 
+          event.described_state unless
+            %w[attention_requested requires_admin].include?(
+                event.described_state
+            )
+      end
+      break if revert_to_state
+    end
+    revert_to_state
+  end
+
+  # Revert the status of the request back to what it was before being reported
+  # as needing admin attention.
+  def revert_report!(editor:)
+    ActiveRecord::Base.transaction do
+      old_described_state = described_state
+      revert_to_state = find_pre_report_described_state
+
+      log_event(
+        'status_update',
+        editor: editor,
+        old_described_state: old_described_state,
+        described_state: revert_to_state
+      )
+      set_described_state(revert_to_state)
       save!
     end
   end
