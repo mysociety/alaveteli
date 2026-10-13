@@ -1,0 +1,10 @@
+main_page: doc/README.md
+title: Alaveteli Documentation
+generator_name: aliki
+
+footer_content:
+  DOCUMENTATION:
+    Home: index.html
+  RESOURCES:
+    GitHub Repository: https://github.com/mysociety/alaveteli
+    Issue Tracker: https://github.com/mysociety/alaveteli/issues

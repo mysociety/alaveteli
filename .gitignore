@@ -30,6 +30,7 @@
 /locale/model_attributes.rb
 /log
 /old-cache/
+/p/
 /public/*theme/
 /public/alavetelitheme
 /public/asktheeu-theme
