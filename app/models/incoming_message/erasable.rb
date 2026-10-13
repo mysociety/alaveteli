@@ -1,3 +1,4 @@
+# Handles the erasure of IncomingMessage records.
 module IncomingMessage::Erasable
   extend ActiveSupport::Concern
 
