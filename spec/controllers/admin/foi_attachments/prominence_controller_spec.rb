@@ -109,6 +109,36 @@ RSpec.describe Admin::FoiAttachments::ProminenceController do
       end
     end
 
+    context 'on resetting the prominence' do
+      let(:params) do
+        {
+          # commit: 'Reset Prominence',
+          reset: true,
+          foi_attachment_id: attachment.id,
+          foi_attachment: {
+            prominence: 'hidden',
+            prominence_reason: 'ignore me'
+          }
+        }
+      end
+
+      it 'updates the prominence_reason' do
+        patch :update, params: params
+        expect(attachment.reload.prominence_reason).to be_nil
+        expect(attachment.reload.prominence).to eq('normal')
+      end
+
+      it 'expires the attachment' do
+        expect_any_instance_of(FoiAttachment).to receive(:expire)
+        patch :update, params: params
+      end
+
+      it 'sets a success notice' do
+        patch :update, params: params
+        expect(flash[:notice]).to eq('Prominence updated.')
+      end
+    end
+
     context 'if the request is embargoed', feature: :alaveteli_pro do
       before { info_request.create_embargo }
 

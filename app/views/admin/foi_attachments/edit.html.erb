@@ -54,7 +54,16 @@
   </fieldset>
 
   <div class="form-actions">
-    <%= f.submit 'Update Prominence', class: 'btn btn-success' %>
+    <div class="btn-group">
+      <%= f.submit 'Update Prominence',
+                   name: :update,
+                   class: 'btn btn-success' %>
+
+      <%= f.submit 'Reset Prominence',
+                   name: :reset,
+                   class: 'btn btn-success',
+                   disabled: @foi_attachment.prominence == 'normal' %>
+    </div>
   </div>
 <% end %>
 
