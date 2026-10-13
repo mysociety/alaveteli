@@ -90,6 +90,15 @@ RSpec.shared_examples 'a request search backend' do
       expect(second.results.map { |result| result[:model] }).
         not_to eq(first.results.map { |result| result[:model] })
     end
+
+    it 'returns the ids of the matching requests, best match first' do
+      searcher = subject.request_search('boring')
+      results = searcher.results(page: 1, per_page: 25)
+
+      expect(searcher.ids(25)).
+        to eq(results.results.map { |result| result[:model].id })
+      expect(searcher.ids(1).size).to eq(1)
+    end
   end
 end
 

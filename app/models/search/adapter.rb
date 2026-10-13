@@ -22,6 +22,12 @@ module Search
       [paginated.items, paginated.has_more?]
     end
 
+    # Ids of the first +limit+ matches. A subclass that can read them without
+    # loading each record overrides this.
+    def ids(limit)
+      results(page: 1, per_page: limit).results.map { |r| r[:model].id }
+    end
+
     protected
 
     def default_options

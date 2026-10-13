@@ -108,11 +108,9 @@ module Search
       query = @filters[:query].to_s.strip
       return scope if query.empty?
 
-      # shortcut: Xapian ignores +requests+ and ranks the whole site, so a
-      # narrow list can miss matches; drop this when Xapian is retired.
-      ids = Search.request_search(query, requests: scope).
-        results(page: 1, per_page: @max_results).
-        results.map { |result| result[:model].id }
+      # Xapian ignores +requests+ and ranks the whole site, so a narrow list
+      # can miss matches; drop this when Xapian is retired.
+      ids = Search.request_search(query, requests: scope).ids(@max_results)
       scope.where(id: ids)
     end
 
