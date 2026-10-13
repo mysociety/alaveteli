@@ -22,8 +22,13 @@ class Admin::FoiAttachments::ProminenceController < AdminController
   private
 
   def prominence_params
-    { prominence: foi_attachment_params[:prominence],
-      prominence_reason: foi_attachment_params[:prominence_reason] }
+    if params[:commit] == 'Reset Prominence'
+      { prominence: 'normal',
+          prominence_reason: nil }
+    else
+      { prominence: foi_attachment_params[:prominence],
+        prominence_reason: foi_attachment_params[:prominence_reason] }
+    end
   end
 
   def foi_attachment_params

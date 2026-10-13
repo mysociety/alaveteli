@@ -55,6 +55,9 @@
 
   <div class="form-actions">
     <%= f.submit 'Update Prominence', class: 'btn btn-success' %>
+    <%= f.submit 'Reset Prominence',
+             class: 'btn btn-success',
+             disabled: @foi_attachment.prominence == 'normal' %>
   </div>
 <% end %>
 
