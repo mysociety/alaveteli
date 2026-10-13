@@ -112,6 +112,23 @@ RSpec.describe AlaveteliPro::StripeWebhooksController, feature: [:alaveteli_pro,
       end
     end
 
+    context 'the webhook secret is not configured' do
+      let(:config_secret) { '' }
+
+      before do
+        send_request
+      end
+
+      it 'returns 401 Unauthorized response' do
+        expect(response.status).to eq(401)
+      end
+
+      it 'includes the error message in the message body' do
+        expect(response.body).
+          to eq('{"error":"Webhook secret not configured"}')
+      end
+    end
+
     context 'the secret_key does not match' do
       let(:signing_secret) { 'whsec_fake' }
 
