@@ -32,9 +32,11 @@ module Search
           )
         end
 
-        def request_search(query, sort_by: nil, sort_ascending: true, **)
+        def request_search(query, sort_by: nil, sort_ascending: true,
+                           requests: nil, **)
           RequestSearch.new(
-            query, sort_by: sort_by, sort_ascending: sort_ascending
+            query,
+            sort_by: sort_by, sort_ascending: sort_ascending, requests: requests
           )
         end
 

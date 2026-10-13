@@ -39,6 +39,18 @@ RSpec.describe Search::RequestList do
       expect(result).to eq([match])
     end
 
+    it 'searches only the filtered requests', :postgresql, :reindex_inline do
+      FactoryBot.create(:info_request, title: 'Ptarmigan ptarmigan')
+      tagged = FactoryBot.create(:info_request, title: 'Ptarmigan',
+                                                tag_string: 'bird:grouse')
+
+      result = described_class.new(
+        { tag: 'bird:grouse', query: 'ptarmigan' }, 1, 25, 1
+      ).call
+
+      expect(result).to eq([tagged])
+    end
+
     context 'with a date range' do
       let!(:old) do
         FactoryBot.create(:info_request).tap do |request|
