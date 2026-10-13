@@ -83,7 +83,7 @@ git_source(:mysociety) { |repo| "https://github.com/mysociety/#{repo}.git" }
 
 gem 'rails', '~> 8.0.5'
 
-gem 'pg', '~> 1.6.3'
+gem 'pg', '~> 1.7.0'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
 gem 'addressable', '~> 2.9.0'
