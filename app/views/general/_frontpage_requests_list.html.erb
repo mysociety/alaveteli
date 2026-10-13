@@ -1,6 +1,7 @@
+<% all_successful = all_successful_requests?(@request_events) %>
 <div id="examples_1" class="latest-requests">
   <h3>
-    <% if @request_events_all_successful %>
+    <% if all_successful %>
       <%= _("What information has been released?") %>
     <% else %>
       <%= _("What information has been requested?") %>
@@ -21,7 +22,7 @@
         <div class="request-listing__request-status-icon bottomline icon_<%= event.info_request.calculate_status %> icon-standalone"></div>
         <div class="request-listing__request-body">
           <p>
-            <% if @request_events_all_successful %>
+            <% if all_successful %>
               <%= _("{{public_body_link}} answered a request about",
                     :public_body_link => public_body_link(event.info_request.public_body)) %>
             <% else %>

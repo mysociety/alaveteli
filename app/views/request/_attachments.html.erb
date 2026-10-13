@@ -19,7 +19,21 @@
           <% if concealed_prominence?(a) %>
             <span class="hidden_attachment"><%= render_prominence(a) %></span>
           <% end %>
-          <% if can?(:read, a) %>
+          <% if can?(:read, a) && a.masking_failed? %>
+            <p class="attachment__name">
+              <%= h a.display_filename %>
+            </p>
+
+            <p class="attachment__meta">
+              <%= a.display_size %>
+              <em><%= _('We were not able to process this attachment.') %></em>
+
+              <% if @user.present? && @user.admin_page_links? %>
+                <%= link_to _('Admin'), edit_admin_foi_attachment_path(a) %>
+              <% end %>
+            </p>
+
+          <% elsif can?(:read, a) %>
             <%= attachment_link(incoming_message, a) %>
 
             <p class="attachment__name">

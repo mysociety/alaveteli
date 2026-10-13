@@ -81,6 +81,13 @@ FactoryBot.define do
       with_incoming
     end
 
+    trait :with_incoming_with_deeply_nested_html_attachment do
+      incoming_message_factory do
+        [:incoming_message, :with_deeply_nested_html_attachment]
+      end
+      with_incoming
+    end
+
     trait :with_incoming_with_pdf_attachment do
       incoming_message_factory { [:incoming_message, :with_pdf_attachment] }
       with_incoming
@@ -292,6 +299,8 @@ FactoryBot.define do
             traits: [:with_plain_incoming]
     factory :info_request_with_html_attachment,
             traits: [:with_incoming_with_html_attachment]
+    factory :info_request_with_deeply_nested_html_attachment,
+            traits: [:with_incoming_with_deeply_nested_html_attachment]
     factory :info_request_with_pdf_attachment,
             traits: [:with_incoming_with_pdf_attachment]
     factory :info_request_with_internal_review_request,

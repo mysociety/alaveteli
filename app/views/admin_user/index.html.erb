@@ -8,9 +8,14 @@
       <%= submit_tag 'Search', class: 'btn' %>
     </div>
 
-    <span class="help-inline">
-      (substring search, names, emails and about me; exact match of tags)
-    </span>
+    <%= render partial: 'concerns/admin/searchable/search_engine',
+               locals: {
+                 legacy_label: 'substring search in names, emails and ' \
+                               'about me; exact match of tags',
+                 new_label: 'whole word and substring search in names, ' \
+                            'emails and about me; please report poor ' \
+                            'search results!'
+               } %>
 
     <div class="input-group role-filter">
       <span class="help-inline">Filter by role:</span>
@@ -34,5 +39,11 @@
 <div class="row">
   <div class="span12">
     <%= render :partial => 'user_table', :locals => { :users => @admin_users } %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <%= render 'concerns/admin/searchable/search_stats' %>
   </div>
 </div>

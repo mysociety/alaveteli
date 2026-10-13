@@ -3,9 +3,6 @@
 # Table name: censor_rules
 #
 #  id                :integer          not null, primary key
-#  info_request_id   :integer
-#  user_id           :integer
-#  public_body_id    :integer
 #  text              :text             not null
 #  replacement       :text             not null
 #  last_edit_editor  :string           not null
@@ -15,6 +12,8 @@
 #  regexp            :boolean          default(FALSE), not null
 #  case_sensitive    :boolean          default(TRUE), not null
 #  ignore_diacritics :boolean          default(FALSE), not null
+#  censorable_type   :string
+#  censorable_id     :bigint
 #
 
 FactoryBot.define do
@@ -30,15 +29,15 @@ FactoryBot.define do
     end
 
     factory :info_request_censor_rule do
-      info_request
+      association :censorable, factory: :info_request
     end
 
     factory :public_body_censor_rule do
-      public_body
+      association :censorable, factory: :public_body
     end
 
     factory :user_censor_rule do
-      user
+      association :censorable, factory: :user
     end
 
     factory :global_censor_rule do

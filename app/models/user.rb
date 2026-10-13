@@ -48,6 +48,7 @@ class User < ApplicationRecord
   include Rails.application.routes.url_helpers
   include LinkToHelper
 
+  include Searchable
   include Taggable
 
   include AlaveteliFeatures::Helpers
@@ -55,6 +56,7 @@ class User < ApplicationRecord
 
   include User::Anonymisable
   include User::Authentication
+  include User::Erasable
   include User::InternalAdmin
   include User::LimitedProfile
   include User::LoginToken
@@ -138,7 +140,8 @@ class User < ApplicationRecord
           dependent: :destroy
   has_many :censor_rules,
            -> { order(created_at: :desc) },
-           inverse_of: :user,
+           as: :censorable,
+           inverse_of: :censorable,
            dependent: :destroy
   has_many :info_request_batches,
            -> { order(created_at: :desc) },
@@ -223,14 +226,15 @@ class User < ApplicationRecord
   after_update :reindex_referencing_models, :invalidate_cached_pages,
                unless: :no_xapian_reindex
 
-  acts_as_xapian texts: [:name, :about_me],
-                 values: [
-                   [:created_at_numeric, 1, 'created_at', :number] # for sorting
-                 ],
-                 terms: [[:variety, 'V', 'variety']],
-                 if: :indexed_by_search?
+  searchable admin_index: {
+    "email": "A",
+    "name": "A",
+    "url_name": "A",
+    "ban_text": "A",
+    "about_me": "A"
+  }
 
-  def self.search(query)
+  def self.legacy_search(query)
     sql = <<~SQL
       users.name ILIKE '%'||:query||'%' OR
       users.email ILIKE '%'||:query||'%' OR
@@ -284,7 +288,10 @@ class User < ApplicationRecord
   def self.authenticate_from_session(session)
     return unless session[:user_id]
 
-    find_by(id: session[:user_id], login_token: session[:user_login_token])
+    not_closed.find_by(
+      id: session[:user_id],
+      login_token: session[:user_login_token]
+    )
   end
 
   # Case-insensitively find a user from their email
@@ -438,49 +445,22 @@ class User < ApplicationRecord
   end
 
   def close!
-    update!(closed_at: Time.zone.now, receive_email_alerts: false)
+    update!(
+      closed_at: Time.zone.now,
+      receive_email_alerts: false,
+      login_token: nil
+    )
   end
 
   def closed?
     closed_at.present?
   end
 
-  def erase
-    erase!
-  rescue ActiveRecord::RecordInvalid
-    false
-  end
-
-  def erase!
-    raise ActiveRecord::RecordInvalid unless closed?
-
-    sha = Digest::SHA1.hexdigest(rand.to_s)
-
-    transaction do
-      slugs.destroy_all
-      sign_ins.destroy_all
-      email_histories.destroy_all
-      profile_photo&.destroy!
-
-      outgoing_messages.update!(
-        from_name: _('[Name Removed]')
-      )
-
-      update!(
-        name: _('[Name Removed]'),
-        email: "#{sha}@invalid",
-        url_name: sha,
-        about_me: '',
-        password: MySociety::Util.generate_token
-      )
-    end
-  end
-
-  def close_and_anonymise
+  def close_and_anonymise(editor:, reason:)
     transaction do
       close!
       anonymise!
-      erase!
+      erase!(editor: editor, reason: reason)
     end
   end
 
@@ -694,7 +674,7 @@ class User < ApplicationRecord
   end
 
   def info_request_count_changed
-    xapian_mark_needs_index
+    Search.reindex_later(self)
   end
 
   def record_sign_in(*args)

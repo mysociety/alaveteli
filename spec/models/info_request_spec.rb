@@ -1457,10 +1457,11 @@ RSpec.describe InfoRequest do
     end
 
     it 'destroys associated censor_rules' do
-      censor_rule = FactoryBot.create(:censor_rule, info_request: info_request)
+      censor_rule = FactoryBot.create(:censor_rule, censorable: info_request)
       info_request.reload
       info_request.destroy
-      expect(CensorRule.where(info_request_id: info_request.id)).to be_empty
+      expect(CensorRule.info_request.where(censorable_id: info_request.id)).
+        to be_empty
     end
 
     it 'destroys associated comments' do
@@ -2986,6 +2987,60 @@ RSpec.describe InfoRequest do
     end
   end
 
+  describe '#applicable_censor_rules order' do
+    it 'returns censor rules in the expected order' do
+      global_rule_2 = FactoryBot.create(
+        :global_censor_rule,
+        created_at: '2023-01-03'
+      )
+      global_rule_1 = FactoryBot.create(
+        :global_censor_rule,
+        created_at: '2024-01-15'
+      )
+      req_rule_1 = FactoryBot.create(
+        :info_request_censor_rule,
+        text: '1',
+        created_at: '2024-01-12'
+      )
+      req_rule_2 = FactoryBot.create(
+        :info_request_censor_rule,
+        text: '2',
+        created_at: '2024-01-11',
+        censorable: req_rule_1.censorable
+      )
+      info_request = req_rule_1.censorable
+      body_rule_2 = FactoryBot.create(
+        :public_body_censor_rule,
+        created_at: '2021-01-10'
+      )
+      body_rule_1 = FactoryBot.create(
+        :public_body_censor_rule,
+        created_at: '2025-01-10',
+        censorable: body_rule_2.censorable
+      )
+      info_request.public_body = body_rule_1.censorable
+      user_rule_1 = FactoryBot.create(
+        :user_censor_rule,
+        created_at: '2026-12-31'
+      )
+      user_rule_2 = FactoryBot.create(
+        :user_censor_rule,
+        created_at: '2023-12-31',
+        censorable: user_rule_1.censorable
+      )
+      info_request.user = user_rule_1.censorable
+
+      expected = [
+        req_rule_1.id, req_rule_2.id,
+        global_rule_1.id, global_rule_2.id,
+        body_rule_1.id, body_rule_2.id,
+        user_rule_1.id, user_rule_2.id,
+      ]
+
+      expect(info_request.applicable_censor_rules.map(&:id)).to eq(expected)
+    end
+  end
+
   describe '#apply_censor_rules_to_text' do
     it 'applies each censor rule to the text' do
       rule_1 = FactoryBot.build(:censor_rule, text: '1')
@@ -3031,7 +3086,7 @@ RSpec.describe InfoRequest do
                replacement: 'said' }.merge(@default_opts)
       CensorRule.create!(opts)
 
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
 
       expect(result).to eq(expected)
     end
@@ -3049,7 +3104,7 @@ RSpec.describe InfoRequest do
         @request.censor_rules << CensorRule.new(rule.merge(@default_opts))
       end
 
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
@@ -3066,21 +3121,21 @@ RSpec.describe InfoRequest do
         @request.user.censor_rules << CensorRule.new(rule.merge(@default_opts))
       end
 
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
     it 'replaces text with masks belonging to the info request' do
       data = "He emailed #{ @request.incoming_email }"
       expected = "He emailed [FOI ##{ @request.id } email]"
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
     it 'replaces text with global masks' do
       data = 'His email address was stilton@example.org'
       expected = 'His email address was [email address]'
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
@@ -3089,6 +3144,68 @@ RSpec.describe InfoRequest do
       expected = 'His email address was xxxxxxx@xxxxxxx.xxx'
       result = @request.apply_masks(data, 'application/vnd.ms-word')
       expect(result).to eq(expected)
+    end
+  end
+
+  describe '#masks' do
+    subject { info_request.masks }
+
+    let(:public_body) do
+      FactoryBot.create(
+        :public_body,
+        short_name: 'MaskTest',
+        request_email: 'masktest@localhost'
+      )
+    end
+
+    let(:info_request) do
+      FactoryBot.create(:info_request, public_body: public_body)
+    end
+
+    it 'includes a mask for the site contact email' do
+      is_expected.to include(
+        to_replace: 'postmaster@localhost',
+        replacement: '[Alaveteli contact email]'
+      )
+    end
+
+    it 'includes a mask for the request email' do
+      is_expected.to include(
+        to_replace: info_request.incoming_email,
+        replacement: "[FOI ##{info_request.id} email]"
+      )
+    end
+
+    it 'includes a mask for the public body request email' do
+      is_expected.to include(
+        to_replace: 'masktest@localhost',
+        replacement: "[MaskTest request email]"
+      )
+    end
+
+    context 'when the request is not persisted' do
+      let(:info_request) do
+        FactoryBot.build(:info_request, public_body: public_body)
+      end
+
+      it 'does not include a mask for the request email' do
+        replacements = info_request.masks.map { |mask| mask[:replacement] }
+        expect(replacements).to_not include(a_string_matching(/FOI #/))
+      end
+
+      it 'includes a mask for the site contact email' do
+        is_expected.to include(
+          to_replace: 'postmaster@localhost',
+          replacement: '[Alaveteli contact email]'
+        )
+      end
+
+      it 'includes a mask for the public body request email' do
+        is_expected.to include(
+          to_replace: 'masktest@localhost',
+          replacement: "[MaskTest request email]"
+        )
+      end
     end
   end
 
@@ -3769,92 +3886,50 @@ RSpec.describe InfoRequest do
     end
   end
 
-  describe InfoRequest, 'when getting similar requests', :xapian do
+  describe InfoRequest, 'when getting similar requests' do
+    let(:request) { info_requests(:spam_1_request) }
+    let(:similar_request) { info_requests(:spam_1_request) }
+
     it 'returns similar requests' do
-      similar, more = info_requests(:spam_1_request).similar_requests(1)
-      expect(similar.first).to eq(info_requests(:spam_2_request))
+      stub_similar_requests(items: [similar_request], total: 1)
+      similar, _more = request.similar_requests.first(10)
+      expect(similar).to eq([similar_request])
     end
 
-    it 'returns a flag set to true' do
-      similar, more = info_requests(:spam_1_request).similar_requests(1)
+    it 'returns the more flag' do
+      stub_similar_requests(items: [similar_request], total: 11)
+      _similar, more = request.similar_requests.first(10)
       expect(more).to be true
     end
 
-    it 'should not raise error if similar request has been deleted' do
-      request = info_requests(:spam_1_request)
-      allow(request).to receive(:similar_ids).and_return([[-1, -2], 0])
-      expect { request.similar_requests }.to_not raise_error
-    end
-  end
-
-  describe InfoRequest, '.recent_requests' do
-    it 'backfills with sent events if fewer than five successful responses' do
-      successful_event = FactoryBot.build(
-        :info_request_event, event_type: 'response'
-      )
-      sent_event = FactoryBot.build(
-        :info_request_event, event_type: 'sent'
-      )
-
-      successful_result = build_search_results(
-        items: [successful_event]
-      )
-      sent_result = build_search_results(items: [sent_event])
-
-      allow(ActsAsXapian::Search).to receive(:new).
-        and_return(successful_result, sent_result)
-
-      events, all_successful = InfoRequest.recent_requests
-
-      expect(events).to match_array([successful_event, sent_event])
-      expect(all_successful).to be false
-    end
-
-    it 'sets all_successful flag for five or more successful responses' do
-      events = Array.new(5) do
-        FactoryBot.build(:info_request_event, event_type: 'response')
-      end
-
-      stub_search_results(items: events)
-
-      result_events, all_successful = InfoRequest.recent_requests
-
-      expect(result_events.size).to eq(5)
-      expect(all_successful).to be true
+    it 'does not raise error if similar request has been deleted' do
+      stub_similar_requests(items: [], total: 0)
+      expect { request.similar_requests.first(10) }.to_not raise_error
     end
   end
 
   describe InfoRequest, '.request_list' do
-    it 'caps show_no_more_than at max_results' do
-      events = Array.new(2) do
-        FactoryBot.build(:info_request_event, event_type: 'sent')
-      end
+    it 'delegates to the InfoRequest search context' do
+      context = instance_double(Search::Context::InfoRequest)
+      filters = { latest_status: 'all' }
 
-      stub_search_results(items: events, total: 200)
+      expect(Search).to receive(:context).
+        with(info_request: InfoRequest).and_return(context)
+      expect(context).to receive(:request_list).with(filters, 1, 25, 50)
 
-      results = InfoRequest.request_list(
-        { latest_status: 'all' }, 1, 25, 50
-      )
-
-      expect(results[:show_no_more_than]).to eq(50)
-      expect(results[:matches_estimated]).to eq(200)
-      expect(results[:results].size).to eq(2)
+      InfoRequest.request_list(filters, 1, 25, 50)
     end
+  end
 
-    it 'uses matches_estimated if less than max_results' do
-      events = Array.new(2) do
-        FactoryBot.build(:info_request_event, event_type: 'sent')
-      end
+  describe InfoRequest, '.recent_requests' do
+    it 'delegates to the InfoRequest search context' do
+      context = instance_double(Search::Context::InfoRequest)
 
-      stub_search_results(items: events, total: 10)
+      expect(Search).to receive(:context).
+        with(info_request: InfoRequest).and_return(context)
+      expect(context).to receive(:recent_requests)
 
-      results = InfoRequest.request_list(
-        { latest_status: 'all' }, 1, 25, 50
-      )
-
-      expect(results[:show_no_more_than]).to eq(10)
-      expect(results[:matches_estimated]).to eq(10)
-      expect(results[:results].size).to eq(2)
+      InfoRequest.recent_requests
     end
   end
 
@@ -5066,5 +5141,66 @@ RSpec.describe InfoRequest do
 
       it { is_expected.to eq([reference]) }
     end
+  end
+
+  describe '#info_requests' do
+    subject { info_request.info_requests }
+    let(:info_request) { FactoryBot.create(:info_request) }
+    it { is_expected.to match_array([info_request]) }
+    it { is_expected.to respond_to(:where) }
+  end
+
+  describe '#expire_requests' do
+    subject { info_request.expire_requests }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    it 'expires the request' do
+      expect { subject }.
+        to have_enqueued_job(InfoRequest::ExpireJob).with(info_request)
+    end
+
+    it 'notifies the cache when configured' do
+      allow(AlaveteliConfiguration).to receive(:varnish_hosts).and_return('x')
+      expect { subject }.to have_enqueued_job(NotifyCacheJob).with(info_request)
+    end
+
+    it 'does not notify the cache when not configured' do
+      allow(AlaveteliConfiguration).to receive(:varnish_hosts).and_return('')
+      expect { subject }.
+        not_to have_enqueued_job(NotifyCacheJob).with(info_request)
+    end
+  end
+end
+
+RSpec.describe InfoRequest, "when indexing for postgres search",
+               :reindex_inline do
+  it 'updates the search index after updating the request' do
+    request = FactoryBot.create(:info_request, title: 'Council of things')
+    expect(InfoRequest.newsearch('Council of things')).to eq([request])
+
+    request.update!(title: 'Ministry of Stuff')
+
+    expect(InfoRequest.newsearch('Council of things')).to eq([])
+    expect(InfoRequest.newsearch('Ministry of Stuff')).to eq([request])
+  end
+
+  it 'finds a request by the name of its external user in admin mode' do
+    request = FactoryBot.create(:external_request,
+                                external_user_name: 'Winston Smith')
+
+    expect(InfoRequest.newsearch('Winston Smith')).to eq([])
+    expect(InfoRequest.newsearch('Winston Smith', admin_mode: true)).
+      to eq([request])
+  end
+
+  it 'keeps the reason a request was hidden out of the public index' do
+    request = FactoryBot.create(:info_request)
+    request.update!(prominence: 'hidden',
+                    prominence_reason: 'Names a living person')
+
+    expect(InfoRequest.newsearch('living person')).to eq([])
+    expect(InfoRequest.newsearch('living person', admin_mode: true)).
+      to eq([request])
   end
 end

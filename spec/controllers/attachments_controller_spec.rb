@@ -46,7 +46,6 @@ RSpec.describe AttachmentsController, type: :controller do
       unless params[:public_token]
         default_params[:request_url_title] = info_request.url_title
       end
-      rebuild_raw_emails(info_request)
       get :show, params: default_params.merge(params)
     end
 
@@ -131,6 +130,47 @@ RSpec.describe AttachmentsController, type: :controller do
         it 'redirects to show action' do
           show
           expect(response).to redirect_to(request.fullpath)
+        end
+      end
+
+      context 'when the attachment has already failed masking' do
+        let(:attachment) do
+          FactoryBot.create(
+            :body_text, :unmasked,
+            incoming_message: message,
+            prominence: attachment_prominence,
+            masking_failed_at: Time.zone.now
+          )
+        end
+
+        before do
+          allow(IncomingMessage).to receive(
+            :get_attachment_by_url_part_number_and_filename!
+          ).and_return(attachment)
+        end
+
+        it 'renders the masking failed page without masking again' do
+          expect(attachment).to_not receive(:mask_later)
+          show
+          expect(response).to render_template('attachments/masking_failed')
+          expect(response.code).to eq('422')
+        end
+      end
+
+      context 'when masking fails while waiting' do
+        before do
+          allow(IncomingMessage).to receive(
+            :get_attachment_by_url_part_number_and_filename!
+          ).and_return(attachment)
+          allow(attachment).to receive(:masked?).and_return(false)
+          allow(attachment).to receive(:masking_failed?).
+            and_return(false, true)
+        end
+
+        it 'renders the masking failed page' do
+          show
+          expect(response).to render_template('attachments/masking_failed')
+          expect(response.code).to eq('422')
         end
       end
 
@@ -582,6 +622,22 @@ RSpec.describe AttachmentsController, type: :controller do
 
       it 'returns an ActiveRecord::RecordNotFound error' do
         expect { show_as_html }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'when a censor rule redacts the HTML version', feature: :redaction_tracking do
+      let!(:censor_rule) do
+        info_request.censor_rules.create!(
+          text: 'hereisthemaskedtext', replacement: 'REDACTED',
+          last_edit_editor: 'unknown', last_edit_comment: 'none'
+        )
+      end
+
+      it 'records the redaction against the HTML rendering' do
+        show_as_html
+
+        expect(censor_rule.redactions.pluck(:redacted_attribute)).
+          to include('body_to_html')
       end
     end
 

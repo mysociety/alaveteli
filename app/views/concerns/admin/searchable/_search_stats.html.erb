@@ -1,0 +1,27 @@
+<% if search_stats %>
+  <details class="search-stats">
+    <summary>
+      <%= search_engine %> engine:
+      <%= pluralize(number_with_delimiter(search_stats.count), 'match') %>
+      in <%= search_duration(search_stats.duration) %>
+    </summary>
+
+    <dl class="dl-horizontal">
+      <dt>Counting matches</dt>
+      <dd><%= search_duration(search_stats.count_duration) %></dd>
+      <dt>Loading this page</dt>
+      <dd><%= search_duration(search_stats.load_duration) %></dd>
+    </dl>
+
+    <pre class="pre-scrollable"><%= search_stats.sql %></pre>
+
+    <% if explain_search? %>
+      <pre class="pre-scrollable"><%= search_stats.explain %></pre>
+      <%= link_to 'Hide the query plan', explain_search_url(false),
+                  class: 'btn btn-small' %>
+    <% else %>
+      <%= link_to 'Explain this query', explain_search_url(true),
+                  class: 'btn btn-small' %>
+    <% end %>
+  </details>
+<% end %>

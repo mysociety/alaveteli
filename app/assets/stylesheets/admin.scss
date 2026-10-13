@@ -272,6 +272,46 @@ body.admin {
     width: 75px;
   }
 
+  .edit-history .row:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  #info_request_events .row {
+    margin-bottom: 1em;
+  }
+  #info_request_events .row .details {
+    display: flex;
+    margin-left: 7em;
+  }
+  #info_request_events .row:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  #info_request_events .row .details .event-params {
+    margin-left: 1em;
+  }
+
+  #mail_server_logs .row {
+    margin-bottom: 1em;
+  }
+
+  #change_requests .row {
+    margin-bottom: 1em;
+  }
+  #change_requests .row:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .search_sub_result {
+    margin-left: 2em;
+  }
+
+  #requests .search-result {
+    padding-bottom: 1em;
+    padding-top: 1em;
+  }
+  #requests .accordion-group:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
 }
 
 /* Debug */
@@ -309,17 +349,6 @@ table.table-debug {
 
 #citations .item-title {
   word-break: break-all;
-}
-
-/* Toolbox */
-.toolbox {
-  summary {
-    margin-bottom: 1em;
-  }
-
-  .toolbox-tool {
-    margin-bottom: 1em;
-  }
 }
 
 /* Rails helpers */
@@ -456,4 +485,51 @@ pre.error {
 .classification_icon--failed,
 .classification_icon--rejected {
   background-position: -112px 0;
+}
+/* tagging widget */
+.tagging-tag-container {
+  border: 0.1em solid #d3d3d3;
+  margin-bottom: 10px;
+}
+.tagging-tags {
+  background-color: #f7f7f9;
+  color: #d14;
+  margin: 3px 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+  border: 1px solid #e1e1e8;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.84615385;
+  text-decoration: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+/* bootstrap is imported inside .admin, so its input rules outweigh a
+   lone class here */
+.tagging-tag-container input.tagging-add-tags {
+  width: 170px;
+  margin-bottom: 0;
+  background-color: transparent;
+  border: none;
+  font-size: 12px;
+  padding: 5px 3px;
+}
+.tagging-tag-remove {
+  color: inherit;
+  font-size: 15px;
+  line-height: 1;
+  opacity: 0.5;
+  text-decoration: none;
+  cursor: pointer;
+}
+.tagging-tag-remove:hover,
+.tagging-tag-remove:focus {
+  color: inherit;
+  text-decoration: none;
+  opacity: 1;
 }

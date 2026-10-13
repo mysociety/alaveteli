@@ -9,7 +9,52 @@ RSpec.describe FoiAttachment::MaskJob, type: :job do
     described_class.new.perform(attachment)
   end
 
-  before { rebuild_raw_emails(info_request) }
+  describe 'uniqueness' do
+    let(:attachment_1) { incoming_message.foi_attachments.first }
+    let(:attachment_2) { incoming_message.foi_attachments.last }
+
+    before { described_class.unlock! }
+    after { described_class.unlock! }
+
+    it 'does not enqueue duplicate jobs for the same attachment' do
+      expect {
+        described_class.perform_later(attachment_1)
+        described_class.perform_later(attachment_1)
+      }.to have_enqueued_job(described_class).exactly(:once)
+    end
+
+    it 'enqueues jobs for sibling attachments of the same message' do
+      expect {
+        described_class.perform_later(attachment_1)
+        described_class.perform_later(attachment_2)
+      }.to have_enqueued_job(described_class).twice
+    end
+  end
+
+  context 'when masking times out' do
+    before do
+      allow(attachment).to receive(:apply_masks).and_raise(Regexp::TimeoutError)
+      allow_any_instance_of(described_class).
+        to receive(:send_exception_notifications?).and_return(true)
+      allow(ExceptionNotifier).to receive(:notify_exception)
+    end
+
+    it 'records the failure without raising' do
+      expect { perform }.to_not raise_error
+      expect(attachment.masking_failed_at).to be_present
+    end
+
+    it 'notifies once on the first failure' do
+      expect(ExceptionNotifier).to receive(:notify_exception).once
+      perform
+    end
+
+    it 'does not notify when the attachment already failed' do
+      attachment.update_column(:masking_failed_at, Time.zone.now)
+      expect(ExceptionNotifier).to_not receive(:notify_exception)
+      perform
+    end
+  end
 
   context 'after rescuing from FoiAttachment::MissingError' do
     before do

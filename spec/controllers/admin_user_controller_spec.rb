@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe AdminUserController do
-  describe 'GET index' do
+  describe 'GET index', :reindex_inline do
     it 'renders the index template' do
       get :index
       expect(response).to render_template('index')
@@ -100,9 +100,17 @@ RSpec.describe AdminUserController do
       expect(assigns[:admin_users]).to include(user)
     end
 
+    it 'finds users by a partial email fragment' do
+      user = FactoryBot.create(:user, email: 'julie@example.com')
+      get :index, params: { query: '@example.com' }
+      expect(assigns[:admin_users]).to include(user)
+    end
+
     it 'will search the about me text' do
+      # PostgreSQL tokenises a URL by host, so the about me link is found by
+      # its domain rather than an arbitrary substring.
       user = FactoryBot.create(:user, about_me: 'http://example.com')
-      get :index, params: { query: 'http' }
+      get :index, params: { query: 'example.com' }
       expect(assigns[:admin_users]).to include(user)
     end
 
@@ -113,6 +121,22 @@ RSpec.describe AdminUserController do
       u3 = FactoryBot.create(:user, name: 'John Doe')
       get :index, params: { query: 'smith', sort_order: 'name_desc' }
       expect(assigns[:admin_users]).to eq([u2, u1])
+    end
+
+    it 'sorts by relevance until another order is chosen' do
+      User.destroy_all
+      alice = FactoryBot.create(:user, name: 'Alice Smith')
+      bob = FactoryBot.create(:user, name: 'Bob Smith Smith Smith')
+      get :index, params: { query: 'smith' }
+      expect(assigns[:admin_users]).to eq([bob, alice])
+    end
+
+    it 'sorts by the chosen column rather than search relevance' do
+      User.destroy_all
+      alice = FactoryBot.create(:user, name: 'Alice Smith')
+      bob = FactoryBot.create(:user, name: 'Bob Smith Smith Smith')
+      get :index, params: { query: 'smith', sort_order: 'name_asc' }
+      expect(assigns[:admin_users]).to eq([alice, bob])
     end
 
     it 'filters the records by role' do

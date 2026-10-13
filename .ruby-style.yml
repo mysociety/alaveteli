@@ -276,6 +276,7 @@ Layout/LineLength:
     - "^\\s*describe\\s+.*do$"
     - "^RSpec\\.describe(\\s+|\\().*do$"
     - "^\\s*class\\s+[A-Z].*<.*"
+    - "^\\s*def\\s"
   Exclude:
     - bin/setup
     - config/environments/development.rb
@@ -440,6 +441,9 @@ Lint/AmbiguousRange:
 Lint/AmbiguousRegexpLiteral:
   Enabled: true
 
+Lint/ArgumentMismatch:
+  Enabled: false
+
 Lint/ArrayLiteralInRegexp:
   Enabled: false
 
@@ -486,6 +490,9 @@ Lint/DeprecatedConstants:
   Enabled: false
 
 Lint/DeprecatedOpenSSLConstant:
+  Enabled: false
+
+Lint/DeprecatedReference:
   Enabled: false
 
 Lint/DisjunctiveAssignmentInConstructor:
@@ -620,6 +627,9 @@ Lint/LiteralInInterpolation:
 Lint/Loop:
   Enabled: true
 
+Lint/MisplacedMagicComment:
+  Enabled: false
+
 Lint/MissingCopEnableDirective:
   Enabled: false
 
@@ -633,6 +643,9 @@ Lint/MixedRegexpCaptureTypes:
   Enabled: false
 
 Lint/MultipleComparison:
+  Enabled: false
+
+Lint/NameTypo:
   Enabled: false
 
 Lint/NestedMethodDefinition:
@@ -779,6 +792,9 @@ Lint/SharedMutableDefault:
 Lint/StructNewOverride:
   Enabled: false
 
+Lint/SuperArgumentMismatch:
+  Enabled: false
+
 Lint/SuppressedException:
   Enabled: true
 
@@ -835,6 +851,9 @@ Lint/UnusedBlockArgument:
 
 Lint/UnusedMethodArgument:
   Enabled: true
+
+Lint/UnusedPrivateMethod:
+  Enabled: false
 
 Lint/UriEscapeUnescape:
   Enabled: false
@@ -1740,6 +1759,9 @@ Style/Dir:
 Style/DirEmpty:
   Enabled: false
 
+Style/DirectiveScope:
+  Enabled: false
+
 Style/DisableCopsWithinSourceCodeDirective:
   Enabled: false
 
@@ -1754,9 +1776,6 @@ Style/Documentation:
     - test/**/*
 
 Style/DocumentationMethod:
-  Enabled: false
-
-Style/DoubleCopDisableDirective:
   Enabled: false
 
 Style/DoubleNegation:
@@ -2432,6 +2451,9 @@ Style/TallyMethod:
   Enabled: false
 
 Style/TernaryParentheses:
+  Enabled: false
+
+Style/TimeNow:
   Enabled: false
 
 Style/TopLevelMethodDefinition:

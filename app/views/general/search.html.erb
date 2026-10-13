@@ -1,4 +1,4 @@
-<% @show_tips = @xapian_requests.nil? || (@total_hits == 0) %>
+<% @show_tips = @request_results.nil? || (@total_hits == 0) %>
 
 <%= render :partial => 'localised_datepicker'  %>
 
@@ -157,16 +157,16 @@
 
 <% if not @query.nil? %>
 
-  <% if @xapian_bodies_hits > 0 %>
+  <% if @body_result_count > 0 %>
     <div class="results_section">
-      <% if @xapian_bodies_hits == 1 && @page == 1 %>
+      <% if @body_result_count == 1 && @page == 1 %>
         <h2 class="publicbody_results"><%= _('One public authority found') %></h2>
       <% else %>
-        <h2 class="publicbody_results"><%= _('Public authorities {{start_count}} to {{end_count}} of {{total_count}}', :start_count => ((@page-1)*@bodies_per_page+1).to_s, :end_count => [@page*@bodies_per_page, @xapian_bodies.matches_estimated].min.to_s, :total_count => @xapian_bodies.matches_estimated.to_s) %></h2>
+        <h2 class="publicbody_results"><%= _('Public authorities {{start_count}} to {{end_count}} of {{total_count}}', :start_count => ((@page-1)*@bodies_per_page+1).to_s, :end_count => [@page*@bodies_per_page, @body_results.matches_estimated].min.to_s, :total_count => @body_results.matches_estimated.to_s) %></h2>
       <% end %>
 
       <div class="results_block">
-        <% for result in @xapian_bodies.results %>
+        <% for result in @body_results.results %>
           <%= render :partial => 'public_body/body_listing_single',
             :locals => { :public_body => result[:model],
                          :request_link => true }  %>
@@ -179,16 +179,16 @@
     <p><%= raw(_('<a href="{{browse_url}}">Browse all</a> or <a href="{{add_url}}">ask us to add one</a>.', :browse_url => list_public_bodies_default_path.html_safe, :add_url => help_requesting_path(:anchor => 'missing_body').html_safe)) %></p>
   <% end %>
 
-  <% if @xapian_users_hits > 0 %>
+  <% if @user_result_count > 0 %>
     <div class="results_section">
-      <% if @xapian_users_hits == 1 && @page == 1 %>
+      <% if @user_result_count == 1 && @page == 1 %>
         <h2 class="person_results"><%= _("One person found") %></h2>
       <% else %>
-        <h2 class="person_results"><%= _("People {{start_count}} to {{end_count}} of {{total_count}}", :start_count => ((@page-1)*@users_per_page+1).to_s, :end_count =>  [@page*@users_per_page, @xapian_users.matches_estimated].min.to_s, :total_count =>  @xapian_users.matches_estimated.to_s) %></h2>
+        <h2 class="person_results"><%= _("People {{start_count}} to {{end_count}} of {{total_count}}", :start_count => ((@page-1)*@users_per_page+1).to_s, :end_count =>  [@page*@users_per_page, @user_results.matches_estimated].min.to_s, :total_count =>  @user_results.matches_estimated.to_s) %></h2>
       <% end %>
 
       <div class="results_block">
-        <% for result in @xapian_users.results %>
+        <% for result in @user_results.results %>
           <%= render :partial => 'user/user_listing_single', :locals => { :display_user => result[:model] } %>
         <% end %>
       </div>
@@ -198,16 +198,16 @@
   <% end %>
 
 
-  <% if @xapian_requests_hits > 0 %>
+  <% if @request_result_count > 0 %>
     <div class="results_section">
-      <% if @xapian_requests_hits == 1 && @page == 1 %>
+      <% if @request_result_count == 1 && @page == 1 %>
         <h2 class="foi_results"><%= _("One FOI request found") %></h2>
       <% else %>
-        <h2 class="foi_results"><%= _("FOI requests {{start_count}} to {{end_count}} of about {{total_count}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @xapian_requests.matches_estimated].min.to_s, :total_count =>  @xapian_requests.matches_estimated.to_s) %></h2>
+        <h2 class="foi_results"><%= _("FOI requests {{start_count}} to {{end_count}} of about {{total_count}}", :start_count => ((@page-1)*@requests_per_page+1).to_s, :end_count => [@page*@requests_per_page, @request_results.matches_estimated].min.to_s, :total_count =>  @request_results.matches_estimated.to_s) %></h2>
       <% end %>
 
       <div class="results_block">
-        <% for result in @xapian_requests.results %>
+        <% for result in @request_results.results %>
           <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
         <% end %>
       </div>

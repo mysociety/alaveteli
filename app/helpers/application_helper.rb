@@ -57,6 +57,8 @@ module ApplicationHelper
       end
     end
 
+    html[:tabindex] = '-1'
+    html[:autofocus] = true
     content_tag(:div, content_tag(:ul, error_messages), html)
   end
 

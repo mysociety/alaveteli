@@ -10,7 +10,7 @@ module Health
 
     def index
       @sidekiq_stats = Sidekiq::Stats.new
-      @xapian_queued_jobs = ActsAsXapian::ActsAsXapianJob.count
+      @queued_index_jobs = Search.queued_jobs_count
     end
   end
 end

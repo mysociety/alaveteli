@@ -6,6 +6,7 @@ module FoiAttachment::Erasable
 
   included do
     scope :erased, -> { where.not(erased_at: nil) }
+    scope :not_erased, -> { where(erased_at: nil) }
 
     delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
   end
@@ -18,8 +19,14 @@ module FoiAttachment::Erasable
     raise ErasedError, "attachment has been erased (ID=#{id})" if erased?
   end
 
+  def erase_later(editor:, reason:)
+    FoiAttachment::EraseJob.perform_later(self, editor: editor, reason: reason)
+  end
+
   def erase(editor:, reason:)
     return if erased?
+
+    mask_siblings
 
     transaction do |t|
       t.after_rollback { return false }

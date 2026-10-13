@@ -18,7 +18,7 @@ class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::Base
       exclude_tags: PublicBody.batch_excluded_tags
     )
 
-    unless @search.blank?
+    unless @search.empty?
       @result_limit = calculate_result_limit(@search)
       check_page_limit!(@page, @per_page)
     end

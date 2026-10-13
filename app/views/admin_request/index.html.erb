@@ -11,10 +11,18 @@
 <%= form_tag({}, method: 'get', class: 'form form-search') do %>
   <div class="input-append">
     <%= text_field_tag 'query', params[:query], size: 30, class: 'input-large search-query' %>
+    <%= hidden_field_tag 'sort_order', @sort_order %>
     <%= submit_tag 'Search', class: 'btn' %>
   </div>
 
-  <span class="help-inline">(substring search, titles only)</span>
+  <%= render partial: 'concerns/admin/searchable/search_engine',
+             locals: {
+               legacy_label: 'substring search in titles only',
+               new_label: 'whole word search in titles; please report ' \
+                          'poor search results!'
+             } %>
 <% end %>
 
 <%= render partial: 'some_requests', locals: { info_requests: @info_requests } %>
+
+<%= render 'concerns/admin/searchable/search_stats' %>

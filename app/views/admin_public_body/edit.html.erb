@@ -41,6 +41,9 @@
         (this is permanent!)
       <% end %>
     </div>
+    <hr>
+    <h2>History</h2>
+    <%= render partial: 'edit_history', locals: {versions: @public_body.versions.order(version: :desc)} %>
 
   </div>
   <div class="span4">

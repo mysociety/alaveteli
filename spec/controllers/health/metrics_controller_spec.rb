@@ -12,9 +12,9 @@ RSpec.describe Health::MetricsController do
       expect(assigns[:sidekiq_stats]).to_not be_nil
     end
 
-    it 'assigns xapian_queued_jobs' do
+    it 'assigns queued_index_jobs' do
       get :index, format: 'txt'
-      expect(assigns[:xapian_queued_jobs]).to_not be_nil
+      expect(assigns[:queued_index_jobs]).to_not be_nil
     end
 
     it 'does not render a layout' do

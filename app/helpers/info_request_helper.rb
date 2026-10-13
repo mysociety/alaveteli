@@ -17,6 +17,14 @@ module InfoRequestHelper
     end
   end
 
+  def all_successful_requests?(events)
+    events.any? && events.all? do |event|
+      %w[successful partially_successful].include?(
+        event.info_request.calculate_status
+      )
+    end
+  end
+
   def js_correspondence_navigation
     css_class = 'js-request-navigation request-navigation'
 
@@ -278,7 +286,8 @@ module InfoRequestHelper
 
     link_to image_tag(image, class: "attachment__image",
                              alt: "Attachment"),
-            attachment_path(attachment)
+            attachment_path(attachment),
+            'aria-hidden': true
   end
 
   def attachment_path(attachment, options = {})

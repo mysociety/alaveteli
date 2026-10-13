@@ -35,7 +35,7 @@ RSpec.describe GeneralController do
       before do
         allow(AlaveteliConfiguration).to receive(:blog_feed).
           and_return('http://blog.example.com')
-        allow(blog).to receive(:quietly_try_to_open).
+        allow(blog).to receive(:fetch_url).
           and_return(load_file_fixture('blog_feed.atom'))
       end
 
@@ -84,10 +84,10 @@ RSpec.describe GeneralController, "when showing the frontpage" do
                                     info_request: info_request,
                                     described_at: Time.zone.now,
                                     search_text_main: 'example text')
-    xapian_result = double(
-      'xapian result', results: [{ model: info_request_event }]
+    search_result = double(
+      'search result', results: [{ model: info_request_event }]
     )
-    allow(controller).to receive(:perform_search).and_return(xapian_result)
+    allow(controller).to receive(:perform_search).and_return(search_result)
   end
 
   it "should render the front page successfully" do
@@ -196,6 +196,54 @@ RSpec.describe GeneralController, "when showing the frontpage" do
       expect(@response).to redirect_to alaveteli_pro_dashboard_path
     end
   end
+
+  describe 'caching of recent requests' do
+    before do
+      allow(Rails).to receive(:cache).
+        and_return(ActiveSupport::Cache::MemoryStore.new)
+    end
+
+    it 'searches once for two visits to the front page' do
+      call_count = 0
+      allow(InfoRequest).to receive(:recent_requests) do
+        call_count += 1
+        [FactoryBot.create(:info_request_event)]
+      end
+
+      get :frontpage
+      get :frontpage
+
+      expect(call_count).to eq(1)
+    end
+
+    it 'does not cache an empty search result' do
+      call_count = 0
+      allow(InfoRequest).to receive(:recent_requests) do
+        call_count += 1
+        []
+      end
+
+      get :frontpage
+      get :frontpage
+
+      expect(call_count).to eq(2)
+    end
+
+    it 'excludes requests hidden since the events were cached' do
+      visible_event = FactoryBot.create(:info_request_event)
+      hidden_event = FactoryBot.create(:info_request_event)
+      hidden_event.info_request.update!(prominence: 'hidden')
+
+      allow(InfoRequest).to receive(:recent_requests).
+        and_return([visible_event, hidden_event])
+
+      get :frontpage
+
+      assigned_ids = assigns[:request_events].ids
+      expect(assigned_ids).to include(visible_event.id)
+      expect(assigned_ids).not_to include(hidden_event.id)
+    end
+  end
 end
 
 RSpec.describe GeneralController, 'when using search' do
@@ -228,9 +276,9 @@ RSpec.describe GeneralController, 'when using search' do
 
     get :search, params: { combined: "bob/all" }
 
-    expect(assigns[:xapian_requests]).to be_present
-    expect(assigns[:xapian_users]).to be_present
-    expect(assigns[:xapian_bodies]).to be_present
+    expect(assigns[:request_results]).to be_a(Search::Results)
+    expect(assigns[:user_results]).to be_a(Search::Results)
+    expect(assigns[:body_results]).to be_a(Search::Results)
   end
 
   it "should only populate users for /users searches" do
@@ -238,9 +286,9 @@ RSpec.describe GeneralController, 'when using search' do
 
     get :search, params: { combined: "bob/users" }
 
-    expect(assigns[:xapian_requests]).to be_nil
-    expect(assigns[:xapian_users]).to be_present
-    expect(assigns[:xapian_bodies]).to be_nil
+    expect(assigns[:request_results]).to be_nil
+    expect(assigns[:user_results]).to be_present
+    expect(assigns[:body_results]).to be_nil
   end
 
   it "should only populate bodies for /bodies searches" do
@@ -249,9 +297,9 @@ RSpec.describe GeneralController, 'when using search' do
 
     get :search, params: { combined: "bob/bodies" }
 
-    expect(assigns[:xapian_requests]).to be_nil
-    expect(assigns[:xapian_users]).to be_nil
-    expect(assigns[:xapian_bodies]).to be_present
+    expect(assigns[:request_results]).to be_nil
+    expect(assigns[:user_results]).to be_nil
+    expect(assigns[:body_results]).to be_present
   end
 
   it "should only populate requests for /requests searches" do
@@ -260,9 +308,9 @@ RSpec.describe GeneralController, 'when using search' do
 
     get :search, params: { combined: "bob/requests" }
 
-    expect(assigns[:xapian_requests]).to be_present
-    expect(assigns[:xapian_users]).to be_nil
-    expect(assigns[:xapian_bodies]).to be_nil
+    expect(assigns[:request_results]).to be_present
+    expect(assigns[:user_results]).to be_nil
+    expect(assigns[:body_results]).to be_nil
   end
 
   it 'should render spelling suggestion when available' do
@@ -283,9 +331,12 @@ RSpec.describe GeneralController, 'when using search' do
   end
 
   it 'should pass search error to flash and redirect' do
-    allow(ActsAsXapian::Search).to receive(:new).
-      and_raise(RuntimeError, 'QueryParserError: ' \
-        'Syntax: <expression> AND <expression>')
+    searcher = double('FullTextSearch')
+    allow(Search).to receive(:search).and_return(searcher)
+    allow(searcher).to receive(:results).and_raise(
+      RuntimeError, 'QueryParserError: ' \
+        'Syntax: <expression> AND <expression>'
+    )
 
     get :search, params: { combined: "test AND" }
 
@@ -312,7 +363,7 @@ RSpec.describe GeneralController, 'when using search' do
 
     get :search, params: { query: 'cardiff council',
                            combined: 'cardiff council/bodies' }
-    results = assigns[:xapian_bodies].results.map { |x| x[:model] }
+    results = assigns[:body_results].results.map { |x| x[:model] }
 
     expect(results.first.name).to eq('Cardiff Council')
   end

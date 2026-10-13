@@ -86,15 +86,21 @@ module FoiAttachment::Replaceable
   end
 
   def replacement_body
-    super || normalize_string_to_utf8(body)
+    super || normalize_string_to_utf8(current_body)
   end
 
   def replacement_body=(new_replacement_body)
     super unless normalize_line_endings(new_replacement_body) ==
-                 normalize_line_endings(body)
+                 normalize_line_endings(current_body)
   end
 
   private
+
+  def current_body
+    body
+  rescue FoiAttachment::MaskingError
+    unmasked_body
+  end
 
   def handle_replacements
     if replacing? || (replaced? && replaced_filename_changed?)
@@ -108,6 +114,7 @@ module FoiAttachment::Replaceable
     if replacing?
       self.replaced_at = Time.zone.now
       self.masked_at = Time.zone.now
+      self.masking_failed_at = nil
       self.locked = true
 
       if replacement_file_changed?

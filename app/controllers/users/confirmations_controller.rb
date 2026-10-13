@@ -16,6 +16,10 @@ class Users::ConfirmationsController < UserController
         @reason_params = { user_name: user.name }
         render template: 'user/wrong_user'
         return
+      elsif user.closed?
+        flash[:error] = _('This account has been closed.')
+        redirect_to frontpage_path
+        return
       else
         user.confirm!
 

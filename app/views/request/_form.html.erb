@@ -14,10 +14,13 @@
 </div>
 
 <%= fields_for :outgoing_message do |o| %>
+  <label class="form_label" for="outgoing_message_body">
+    <%= _('Your request') %></label>
+  <p class="form_item_note" id="outgoing_message_body_hint">
+    <%= _('The box already contains a greeting and a sign-off. Write your request between them, sign your name at the end, and use normal capital and lower case letters.') %>
+  </p>
   <p>
-    <label class="form_label" for="outgoing_message_body">
-      <%= _('Your request') %></label>
-    <%= o.text_area :body, :rows => 20, :cols => 60 %>
+    <%= o.text_area :body, :rows => 20, :cols => 60, 'aria-describedby': 'outgoing_message_body_hint' %>
   </p>
 <% end %>
 

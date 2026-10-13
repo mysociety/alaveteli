@@ -27,7 +27,8 @@ class OtpEnrolment
   private
 
   def code_matches_secret
-    return if ROTP::TOTP.new(secret).verify(otp_code.to_s)
+    return if ROTP::TOTP.new(secret).
+              verify(otp_code.to_s, drift_behind: User::OneTimePassword::DRIFT)
 
     errors.add(:otp_code, _('That code did not match. Please try again.'))
   end

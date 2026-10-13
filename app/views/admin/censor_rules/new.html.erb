@@ -9,10 +9,7 @@
 </div>
 
 <%= form_for @censor_rule, url: @form_url, html: { class: 'form form-horizontal' } do %>
-  <%= render partial: 'form',
-             locals: { info_request: @info_request,
-                       user: @censor_user,
-                       public_body: @public_body } %>
+  <%= render partial: 'form' %>
 
   <div class="form-actions">
     <%= submit_tag 'Create', class: 'btn btn-success' %>

@@ -1,21 +1,27 @@
 class Admin::CitationsController < AdminController
+  include Admin::Searchable
+  include Admin::Sortable
+
   before_action :find_citation, except: :index
 
+  sortable default: :updated_at_desc, relevance: :indexed_search?,
+           only: [:index]
+
   def index
-    @query = params[:query]
+    @query = params[:query] || nil
+    @page = get_search_page_from_params
 
-    citations = (
-      if @query
-        Citation.search(@query)
-      else
-        Citation
-      end
+    citations = citation_scope
+
+    if cannot? :admin, AlaveteliPro::Embargo
+      citations = citations.not_embargoed
+    end
+
+    @citations = measure_search(
+      sorted(
+        citations.includes(:citable, :user)
+      ).paginate(page: @page, per_page: 100)
     )
-
-    @citations =
-      citations.
-      order(created_at: :desc).
-      paginate(page: params[:page], per_page: 50)
   end
 
   def edit
@@ -35,6 +41,25 @@ class Admin::CitationsController < AdminController
   end
 
   private
+
+  def citation_scope
+    return Citation unless @query.present?
+
+    legacy_search? ? legacy_citation_scope : indexed_citation_scope
+  end
+
+  def legacy_citation_scope
+    Citation.search(@query)
+  end
+
+  def indexed_citation_scope
+    Citation.search_scope(
+      @query,
+      backend: :postgresql,
+      admin_mode: true,
+      exact_mode: true
+    )
+  end
 
   def find_citation
     @citation = Citation.find(params[:id])

@@ -6,3 +6,9 @@
 
 * It's assumed that Pull Requests in a draft state are still being worked on, so won't actively be reviewed. You're more than welcome to @mention someone to request specific feedback though.
 * Once Pull Requests are ready to review, mark them as "Ready for review" using GitHub's button for this. We can't promise timelines for review as sometimes our capacity can be quite stretched, but we'll try to provide feedback as soon as we can.
+
+# Security Reports
+
+**Do not submit security vulnerability reports via public platforms (GitHub, mailing lists, etc).**
+
+Instead, refer to our [security policy](https://alaveteli.org/docs/running/security/).

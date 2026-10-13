@@ -47,7 +47,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
       end
     end
 
-    context 'when passed a query' do
+    context 'when passed a query with the legacy search engine' do
       let!(:dog_request) { FactoryBot.create(:info_request,
                                             title: 'A dog request') }
       let!(:cat_request) { FactoryBot.create(:info_request,
@@ -55,7 +55,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
 
       it 'assigns info requests with titles matching the query to the view
           case insensitively' do
-        get :index, params: { query: 'Cat' }
+        get :index, params: { query: 'Cat', search_engine: 'legacy' }
         expect(assigns[:info_requests].include?(dog_request)).to be false
         expect(assigns[:info_requests].include?(cat_request)).to be true
       end
@@ -63,8 +63,16 @@ RSpec.describe AdminRequestController, "when administering requests" do
       it 'does not include embargoed requests if the current user is an
           admin user' do
         cat_request.create_embargo
-        get :index, params: { query: 'cat' }
+        get :index, params: { query: 'cat', search_engine: 'legacy' }
         expect(assigns[:info_requests].include?(cat_request)).to be false
+      end
+
+      it 'eager loads the associations the listing renders' do
+        get :index, params: { query: 'cat', search_engine: 'legacy' }
+        request = assigns[:info_requests].first
+        expect(request.association(:embargo)).to be_loaded
+        expect(request.association(:user)).to be_loaded
+        expect(request.association(:public_body)).to be_loaded
       end
 
       context 'when pro is enabled' do
@@ -72,7 +80,7 @@ RSpec.describe AdminRequestController, "when administering requests" do
             admin user' do
           with_feature_enabled(:alaveteli_pro) do
             cat_request.create_embargo
-            get :index, params: { query: 'cat' }
+            get :index, params: { query: 'cat', search_engine: 'legacy' }
             expect(assigns[:info_requests].include?(cat_request)).to be false
           end
         end
@@ -82,10 +90,65 @@ RSpec.describe AdminRequestController, "when administering requests" do
           with_feature_enabled(:alaveteli_pro) do
             cat_request.create_embargo
             sign_in pro_admin_user
-            get :index, params: { query: 'cat' }
+            get :index, params: { query: 'cat', search_engine: 'legacy' }
             expect(assigns[:info_requests].include?(cat_request)).to be true
           end
         end
+      end
+    end
+
+    context 'when passed a query with the new search engine',
+            :postgresql, :reindex_inline do
+      let!(:dog_request) do
+        FactoryBot.create(:info_request, title: 'A dog request')
+      end
+
+      let!(:cat_request) do
+        FactoryBot.create(:info_request, title: 'A cat request')
+      end
+
+      it 'assigns info requests with titles matching the query to the view' do
+        get :index, params: { query: 'Cat' }
+        expect(assigns[:info_requests]).to include(cat_request)
+        expect(assigns[:info_requests]).not_to include(dog_request)
+      end
+
+      it 'searches fields only admins can see' do
+        external = FactoryBot.create(:external_request,
+                                     external_user_name: 'Winston Smith')
+        get :index, params: { query: 'Winston Smith' }
+        expect(assigns[:info_requests]).to include(external)
+      end
+
+      it 'assigns all info requests to the view when the query is blank' do
+        get :index, params: { query: '' }
+        expect(assigns[:info_requests]).to match_array(InfoRequest.all)
+      end
+
+      it 'does not include embargoed requests if the current user is an
+          admin user' do
+        cat_request.create_embargo
+        get :index, params: { query: 'cat' }
+        expect(assigns[:info_requests]).not_to include(cat_request)
+      end
+
+      it 'sorts by the chosen column rather than search relevance' do
+        best_match = FactoryBot.create(:info_request,
+                                       title: 'A cat cat cat request')
+        best_match.update_columns(updated_at: 2.days.ago)
+
+        get :index, params: { query: 'cat', sort_order: 'updated_at_desc' }
+        expect(assigns[:info_requests].first).to eq(cat_request)
+      end
+
+      it 'offers relevance as a sort option' do
+        get :index, params: { query: 'cat' }
+        expect(controller.sort_options.keys.first).to eq('relevance')
+      end
+
+      it 'does not offer relevance without a search' do
+        get :index
+        expect(controller.sort_options.keys).not_to include('relevance')
       end
     end
   end
@@ -297,7 +360,8 @@ RSpec.describe AdminRequestController, "when administering requests" do
       post :hide, params: {
                     id: info_request.id,
                     explanation: "Foo",
-                    reason: "vexatious"
+                    reason: "vexatious",
+                    commit: "Hide request and notify user"
                   }
       info_request.reload
       expect(info_request.prominence).to eq("requester_only")
@@ -306,6 +370,20 @@ RSpec.describe AdminRequestController, "when administering requests" do
       expect(deliveries.size).to eq(1)
       mail = deliveries[0]
       expect(mail.body).to match(/Foo/)
+    end
+
+    it "hides requests without a notification email" do
+      post :hide, params: {
+                    id: info_request.id,
+                    explanation: "Foo",
+                    reason: "vexatious",
+                    commit: "Hide request"
+                  }
+      info_request.reload
+      expect(info_request.prominence).to eq("requester_only")
+      expect(info_request.described_state).to eq("vexatious")
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.size).to eq(0)
     end
 
     it 'expires the file cache for the request' do

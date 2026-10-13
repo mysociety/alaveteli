@@ -24,6 +24,7 @@ class Comment < ApplicationRecord
   include LinkToHelper
 
   include RateLimited
+  include Searchable
 
   strip_attributes allow_empty: true
 
@@ -64,6 +65,8 @@ class Comment < ApplicationRecord
           where('embargoes.id IS NULL').
             references(:embargoes)
   }
+
+  searchable index: { body: "A" }, root: :info_request
 
   after_save :reindex_request_events
 
@@ -109,7 +112,7 @@ class Comment < ApplicationRecord
   end
 
   def reindex_request_events
-    info_request_events.find_each(&:xapian_mark_needs_index)
+    info_request_events.find_each { |e| Search.reindex_later(e) }
   end
 
   # Return body for display as HTML

@@ -7,6 +7,24 @@ RSpec.describe HolidayImport do
     expect(holiday_import.errors[:ical_feed_url]).to eq(["can't be blank"])
   end
 
+  it 'validates that the feed is an HTTP or HTTPS URL' do
+    expected = [
+      'Please enter an iCal feed URL starting with http:// or https://'
+    ]
+
+    ['|id', '/etc/passwd', 'file:///etc/passwd', 'ftp://example.com/a.ics',
+     'http://', 'http://exa mple.com'].each do |url|
+      holiday_import = HolidayImport.new(source: 'feed', ical_feed_url: url)
+      expect(holiday_import.valid?).to be(false), url
+      expect(holiday_import.errors[:ical_feed_url]).to eq(expected)
+    end
+
+    %w[http://example.com/a.ics https://example.com/a.ics].each do |url|
+      holiday_import = HolidayImport.new(source: 'feed', ical_feed_url: url)
+      expect(holiday_import.valid?).to be(true), url
+    end
+  end
+
   it 'does not validate the presence of a feed if the source is suggestions' do
     holiday_import = HolidayImport.new(source: 'suggestions')
     expect(holiday_import.valid?).to be true
@@ -151,9 +169,26 @@ RSpec.describe HolidayImport do
       expect(@holiday_import.errors[:ical_feed_url]).to eq(expected)
     end
 
+    it 'should add an error if the calendar is nested too deeply' do
+      body = "BEGIN:VCALENDAR\n" + "BEGIN:VEVENT\n" * 6 +
+             "END:VEVENT\n" * 6 + "END:VCALENDAR\n"
+      stub_request(:get, 'http://www.example.com/').to_return(body: body)
+
+      @holiday_import.populate
+      expected = ["Sorry, there's a problem with the format of that feed."]
+      expect(@holiday_import.errors[:ical_feed_url]).to eq(expected)
+    end
+
     it 'should add an error if the calendar cannot be found' do
-      allow(URI).to receive(:open).
-        and_raise(Errno::ENOENT.new('No such file or directory'))
+      stub_request(:get, 'http://www.example.com/').to_return(status: 404)
+
+      @holiday_import.populate
+      expected = ["Sorry we couldn't find that feed."]
+      expect(@holiday_import.errors[:ical_feed_url]).to eq(expected)
+    end
+
+    it 'should add an error if the feed is a local file' do
+      @holiday_import.ical_feed_url = Rails.root.join('Gemfile').to_s
 
       @holiday_import.populate
       expected = ["Sorry we couldn't find that feed."]

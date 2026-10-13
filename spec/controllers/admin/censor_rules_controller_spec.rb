@@ -46,16 +46,8 @@ RSpec.describe Admin::CensorRulesController do
         expect(response).to render_template('new')
       end
 
-      it 'does not associate the censor rule with an info request' do
-        expect(assigns[:censor_rule].info_request).to be_nil
-      end
-
-      it 'does not associate the censor rule with a public body' do
-        expect(assigns[:censor_rule].public_body).to be_nil
-      end
-
-      it 'does not associate the censor rule with a user' do
-        expect(assigns[:censor_rule].user).to be_nil
+      it 'does not associate the censor rule with a censorable' do
+        expect(assigns[:censor_rule].censorable).to be_nil
       end
 
       it 'sets the URL for the form to POST to' do
@@ -87,7 +79,7 @@ RSpec.describe Admin::CensorRulesController do
       end
 
       it 'associates the info request with the new censor rule' do
-        expect(assigns[:censor_rule].info_request).to eq(info_request)
+        expect(assigns[:censor_rule].censorable).to eq(info_request)
       end
 
       it 'sets the URL for the form to POST to' do
@@ -120,7 +112,7 @@ RSpec.describe Admin::CensorRulesController do
       end
 
       it 'associates the user with the new censor rule' do
-        expect(assigns[:censor_rule].user).to eq(user)
+        expect(assigns[:censor_rule].censorable).to eq(user)
       end
 
       it 'sets the URL for the form to POST to' do
@@ -153,7 +145,7 @@ RSpec.describe Admin::CensorRulesController do
       end
 
       it 'associates the public_body with the new censor rule' do
-        expect(assigns[:censor_rule].public_body).to eq(public_body)
+        expect(assigns[:censor_rule].censorable).to eq(public_body)
       end
 
       it 'sets the URL for the form to POST to' do
@@ -181,19 +173,9 @@ RSpec.describe Admin::CensorRulesController do
         expect(assigns[:censor_rule].last_edit_editor).to eq('*unknown*')
       end
 
-      it 'does not associate the censor rule with an info request' do
+      it 'does not associate the censor rule with a censorable' do
         create_censor_rule
-        expect(assigns[:censor_rule].info_request).to be_nil
-      end
-
-      it 'does not associate the censor rule with a public body' do
-        create_censor_rule
-        expect(assigns[:censor_rule].public_body).to be_nil
-      end
-
-      it 'does not associate the censor rule with a user' do
-        create_censor_rule
-        expect(assigns[:censor_rule].user).to be_nil
+        expect(assigns[:censor_rule].censorable).to be_nil
       end
 
       it 'sets the URL for the form to POST to' do
@@ -258,7 +240,7 @@ RSpec.describe Admin::CensorRulesController do
                         request_id: info_request.id,
                         censor_rule: censor_rule_params
                       }
-        expect(assigns[:censor_rule].info_request).to eq(info_request)
+        expect(assigns[:censor_rule].censorable).to eq(info_request)
       end
 
       it 'sets the URL for the form to POST to' do
@@ -294,7 +276,7 @@ RSpec.describe Admin::CensorRulesController do
                           request_id: info_request.id
                         }
           expect(response).to redirect_to(
-            admin_request_path(assigns[:censor_rule].info_request)
+            admin_request_path(info_request)
           )
         end
       end
@@ -326,7 +308,7 @@ RSpec.describe Admin::CensorRulesController do
       let(:user) { FactoryBot.create(:user) }
 
       let(:censor_rule_params) do
-        params = FactoryBot.attributes_for(:user_censor_rule, user: user)
+        params = FactoryBot.attributes_for(:user_censor_rule)
         # last_edit_editor gets set in the controller
         params.delete(:last_edit_editor)
         params
@@ -351,7 +333,7 @@ RSpec.describe Admin::CensorRulesController do
 
       it 'associates the user with the new censor rule' do
         create_censor_rule
-        expect(assigns[:censor_rule].user).to eq(user)
+        expect(assigns[:censor_rule].censorable).to eq(user)
       end
 
       it 'sets the URL for the form to POST to' do
@@ -360,10 +342,10 @@ RSpec.describe Admin::CensorRulesController do
       end
 
       context 'successfully saving the censor rule' do
-        it 'redirects to the associated info request' do
+        it 'redirects to the associated user' do
           create_censor_rule
           expect(response).to redirect_to(
-            admin_user_path(assigns[:censor_rule].user)
+            admin_user_path(user)
           )
         end
       end
@@ -417,7 +399,7 @@ RSpec.describe Admin::CensorRulesController do
       end
 
       it 'associates the public body with the new censor rule' do
-        expect(assigns[:censor_rule].public_body).to eq(public_body)
+        expect(assigns[:censor_rule].censorable).to eq(public_body)
       end
 
       it 'sets the URL for the form to POST to' do
@@ -449,7 +431,7 @@ RSpec.describe Admin::CensorRulesController do
                           body_id: public_body.id
                         }
           expect(response).to redirect_to(
-            admin_body_path(assigns[:censor_rule].public_body)
+            admin_body_path(public_body)
           )
         end
       end
@@ -634,6 +616,7 @@ RSpec.describe Admin::CensorRulesController do
 
     context 'a CensorRule with an associated InfoRequest' do
       let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
+      let(:info_request) { censor_rule.censorable }
 
       it 'finds the correct censor rule to edit' do
         put :update, params: {
@@ -679,7 +662,7 @@ RSpec.describe Admin::CensorRulesController do
                        }
 
           expect(response).to redirect_to(
-            admin_request_path(assigns[:censor_rule].info_request)
+            admin_request_path(info_request)
           )
         end
       end
@@ -711,6 +694,7 @@ RSpec.describe Admin::CensorRulesController do
 
     context 'a CensorRule with an associated User' do
       let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
+      let(:user) { censor_rule.censorable }
 
       it 'finds the correct censor rule to edit' do
         put :update, params: {
@@ -749,14 +733,14 @@ RSpec.describe Admin::CensorRulesController do
           expect(flash[:notice]).to eq(msg)
         end
 
-        it 'redirects to the associated info request' do
+        it 'redirects to the associated user' do
           put :update, params: {
                          id: censor_rule.id,
                          censor_rule: { text: 'different text' }
                        }
 
           expect(response).to redirect_to(
-            admin_user_path(assigns[:censor_rule].user)
+            admin_user_path(user)
           )
         end
       end
@@ -788,6 +772,7 @@ RSpec.describe Admin::CensorRulesController do
 
     context 'a CensorRule with an associated PublicBody' do
       let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
+      let(:public_body) { censor_rule.censorable }
 
       it 'finds the correct censor rule to edit' do
         put :update, params: {
@@ -832,9 +817,7 @@ RSpec.describe Admin::CensorRulesController do
                          censor_rule: { text: 'different text' }
                        }
 
-          expect(response).to redirect_to(
-            admin_body_path(assigns[:censor_rule].public_body)
-          )
+          expect(response).to redirect_to(admin_body_path(public_body))
         end
       end
 
@@ -887,6 +870,7 @@ RSpec.describe Admin::CensorRulesController do
 
     context 'a CensorRule with an associated InfoRequest' do
       let(:censor_rule) { FactoryBot.create(:info_request_censor_rule) }
+      let(:info_request) { censor_rule.censorable }
 
       it 'finds the correct censor rule to destroy' do
         delete :destroy, params: { id: censor_rule.id }
@@ -902,12 +886,13 @@ RSpec.describe Admin::CensorRulesController do
       it 'redirects to the associated info request' do
         delete :destroy, params: { id: censor_rule.id }
         expect(response).
-          to redirect_to(admin_request_path(censor_rule.info_request))
+          to redirect_to(admin_request_path(info_request))
       end
     end
 
     context 'a CensorRule with an associated User' do
       let(:censor_rule) { FactoryBot.create(:user_censor_rule) }
+      let(:user) { censor_rule.censorable }
 
       it 'finds the correct censor rule to destroy' do
         delete :destroy, params: { id: censor_rule.id }
@@ -920,14 +905,15 @@ RSpec.describe Admin::CensorRulesController do
         expect(flash[:notice]).to eq(msg)
       end
 
-      it 'redirects to the associated info request' do
+      it 'redirects to the associated user' do
         delete :destroy, params: { id: censor_rule.id }
-        expect(response).to redirect_to(admin_user_path(censor_rule.user))
+        expect(response).to redirect_to(admin_user_path(user))
       end
     end
 
     context 'a CensorRule with an associated PublicBody' do
       let(:censor_rule) { FactoryBot.create(:public_body_censor_rule) }
+      let(:public_body) { censor_rule.censorable }
 
       it 'finds the correct censor rule to destroy' do
         delete :destroy, params: { id: censor_rule.id }
@@ -943,7 +929,7 @@ RSpec.describe Admin::CensorRulesController do
       it 'redirects to the associated public body' do
         delete :destroy, params: { id: censor_rule.id }
         expect(response).
-          to redirect_to(admin_body_path(censor_rule.public_body))
+          to redirect_to(admin_body_path(public_body))
       end
     end
   end

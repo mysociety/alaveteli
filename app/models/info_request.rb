@@ -45,14 +45,19 @@ class InfoRequest < ApplicationRecord
   include LinkToHelper
 
   include Categorisable
+  include Searchable
   include Taggable
   include Notable
   include RateLimited
+  include Redactable
 
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
 
   include InfoRequest::BatchPagination
+  include InfoRequest::Guessable
+  include InfoRequest::HoldingPen
+  include InfoRequest::MagicEmail
   include InfoRequest::PublicToken
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
@@ -121,7 +126,8 @@ class InfoRequest < ApplicationRecord
            dependent: :destroy
   has_many :censor_rules,
            -> { order(created_at: :desc) },
-           inverse_of: :info_request,
+           as: :censorable,
+           inverse_of: :censorable,
            dependent: :destroy
   has_many :mail_server_logs,
            -> { order(:mail_server_log_done_id, :order) },
@@ -202,7 +208,6 @@ class InfoRequest < ApplicationRecord
 
   after_initialize :set_defaults
   before_create :set_use_notifications
-  before_validation :compute_idhash
   before_validation :set_law_used, on: :create
   after_create :notify_associations
   after_save :update_counter_cache
@@ -210,32 +215,15 @@ class InfoRequest < ApplicationRecord
   before_destroy :expire
   after_destroy :notify_associations, :update_counter_cache
 
-  # Return info request corresponding to an incoming email address, or nil if
-  # none found. Checks the hash to ensure the email came from the public body -
-  # only they are sent the email address with the has in it. (We don't check
-  # the prefix and domain, as sometimes those change, or might be elided by
-  # copying an email, and that doesn't matter)
-  def self.find_by_incoming_email(incoming_email)
-    id, hash = InfoRequest._extract_id_hash_from_email(incoming_email)
-    if hash_from_id(id) == hash
-      # Not using find(id) because we don't exception raised if nothing found
-      find_by_id(id)
-    end
-  end
-
-  # Public: Find by a list of incoming email addresses.
-  # TODO: It would be better to make this return a chainable
-  # ActiveRecord::Relation
-  #
-  # Examples:
-  #
-  #   InfoRequest.matching_incoming_email('request-1-ae63fb73@localhost')
-  #   InfoRequest.matching_incoming_email(@array_of_email_addresses)
-  #
-  # Returns an Array
-  def self.matching_incoming_email(emails)
-    Array(emails).map { |email| find_by_incoming_email(email) }.compact
-  end
+  searchable index: {
+               "title": "A",
+               "url_title": "B"
+             },
+             admin_index: {
+               "external_user_name": "A",
+               "external_url": "A",
+               "prominence_reason": "D"
+             }
 
   # Subset of states accepted via the API
   def self.allowed_incoming_states
@@ -249,115 +237,6 @@ class InfoRequest < ApplicationRecord
 
   def self.custom_states_loaded
     @@custom_states_loaded
-  end
-
-  # Public: Attempt to find InfoRequests by matching against extracted `id` and
-  # `idhash` elements of an `incoming_email`.
-  #
-  # emails - A String email address or an Array of String email addresses.
-  #
-  # Returns an Array
-  def self.guess_by_incoming_email(*emails)
-    guesses = emails.flatten.reduce([]) do |memo, email|
-      id, idhash = _extract_id_hash_from_email(email)
-      id, idhash = _guess_idhash_from_email(email) if idhash.nil? || id.nil?
-
-      memo << Guess.new(
-        find_by_id(id), email: email, id: id, idhash: idhash
-      )
-      memo << Guess.new(
-        find_by_idhash(idhash), email: email, id: id, idhash: idhash
-      )
-    end
-
-    # Unique Guesses where we've found an `InfoRequest`
-    guesses.select(&:info_request).uniq(&:info_request)
-  end
-
-  # Internal function used by guess_by_incoming_email
-  def self._guess_idhash_from_email(incoming_email)
-    incoming_email = incoming_email.downcase
-    incoming_email =~ /request\-?(\w+)-?(\w{8})@/
-
-    id = _id_string_to_i(_clean_idhash($1))
-    id_hash = $2
-
-    if id_hash.nil? && incoming_email.include?('@')
-      # try to grab the last 8 chars of the local part of the address instead
-      local_part = incoming_email[0..incoming_email.index('@')-1]
-      id_hash =
-        (_clean_idhash(local_part[-8..-1]) if local_part.length >= 8)
-    end
-
-    [id, id_hash]
-  end
-
-  # Internal function - attempts to convert a guessed id String from incoming
-  # email addresses to an Integer. Returns nil if it fails to avoid accidentally
-  # stripping trailing letters e.g. '123ab' should not match 123
-  #
-  # Returns an Integer
-  def self._id_string_to_i(id_string)
-    Integer(id_string) if id_string
-  rescue ArgumentError
-    nil
-  end
-
-  # Internal function used to clean the id_hash from incoming email addresses.
-  # Converts l to 1, and o to 0. FOI officers quite often retype the email
-  # address and make this kind of error.
-  def self._clean_idhash(hash)
-    return unless hash
-
-    hash.gsub(/l/, "1").gsub(/o/, "0")
-  end
-
-  # Public: Attempt to find InfoRequests by matching against extracted `subject`
-  # element of an `incoming_email`.
-  #
-  # subject_line - A String an email subject line
-  # Returns an Array
-  def self.guess_by_incoming_subject(subject_line)
-    return [] unless subject_line
-
-    # try to find a match on InfoRequest#title
-    reply_format = InfoRequest.new(title: '').email_subject_followup
-    requests_by_title = InfoRequest.left_joins(:incoming_messages).
-      where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
-
-    # try to find a match on IncomingMessage#subject
-    requests_by_subject = InfoRequest.left_joins(:incoming_messages).
-      where(incoming_messages: {
-              subject: [subject_line.gsub(/^Re: /i, ''), subject_line].uniq
-            })
-
-    requests = requests_by_title.or(requests_by_subject).
-      distinct.
-      where.not(url_title: 'holding_pen').
-      limit(25)
-
-    guesses = requests.each.reduce([]) do |memo, request|
-      memo << Guess.new(request, subject: subject_line)
-    end
-
-    # Unique Guesses where we've found an `InfoRequest`
-    guesses.select(&:info_request).uniq(&:info_request)
-  end
-
-  # Internal function used by find_by_magic_email and guess_by_incoming_email
-  def self._extract_id_hash_from_email(incoming_email)
-    # Match case insensitively, FOI officers often write Request with capital R.
-    incoming_email = incoming_email.downcase
-
-    # The optional bounce- dates from when we used to have separate emails for the envelope from.
-    # (that was abandoned because councils would send hand written responses to them, not just
-    # bounce messages)
-    incoming_email =~ /request-(?:bounce-)?([a-z0-9]+)-([a-z0-9]+)/
-
-    id = _id_string_to_i($1)
-    hash = _clean_idhash($2)
-
-    [id, hash]
   end
 
   # When constructing a new request, use this to check user hasn't double submitted.
@@ -374,39 +253,6 @@ class InfoRequest < ApplicationRecord
           merge(OutgoingMessage.with_body(body)).
             references(:outgoing_messages).
               first
-  end
-
-  # The "holding pen" is a special request which stores incoming emails whose
-  # destination request is unknown.
-  def self.holding_pen_request
-    ir = InfoRequest.find_by_url_title("holding_pen")
-    if ir.nil?
-      ir = InfoRequest.new(
-        user: User.internal_admin_user,
-        public_body: PublicBody.internal_admin_body,
-        title: 'Holding pen',
-        described_state: 'waiting_response',
-        awaiting_description: false,
-        prominence: 'hidden'
-      )
-      om = OutgoingMessage.new({
-        status: 'ready',
-        message_type: 'initial_request',
-        body: 'This is the holding pen request. It shows responses that were sent to invalid addresses, and need moving to the correct request by an administrator.',
-        last_sent_at: Time.zone.now,
-        what_doing: 'normal_sort'
-
-      })
-      ir.outgoing_messages << om
-      om.info_request = ir
-      ir.save!
-      ir.log_event(
-        'sent',
-        outgoing_message_id: om.id,
-        email: ir.public_body.request_email
-      )
-    end
-    ir
   end
 
   # states which require administrator action (hence email administrators
@@ -443,14 +289,6 @@ class InfoRequest < ApplicationRecord
     else
       raise _("unknown status {{status}}", status: status)
     end
-  end
-
-  def self.magic_email_for_id(prefix_part, id)
-    magic_email = AlaveteliConfiguration.incoming_email_prefix
-    magic_email += prefix_part + id.to_s
-    magic_email += "-" + InfoRequest.hash_from_id(id)
-    magic_email += "@" + AlaveteliConfiguration.incoming_email_domain
-    magic_email
   end
 
   def self.build_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
@@ -490,10 +328,6 @@ class InfoRequest < ApplicationRecord
       )
     end
     info_request
-  end
-
-  def self.hash_from_id(id)
-    Digest::SHA1.hexdigest(id.to_s + AlaveteliConfiguration.incoming_email_secret)[0,8]
   end
 
   # Used to find when event last changed
@@ -610,55 +444,12 @@ class InfoRequest < ApplicationRecord
   end
 
   def self.request_list(filters, page, per_page, max_results)
-    query = InfoRequestEvent.make_query_from_params(filters)
-    search_options = {
-      limit: 25,
-      offset: (page - 1) * per_page,
-      collapse_by_prefix: 'request_collapse' }
-
-    xapian_object = search_events(query, search_options)
-    list_results = xapian_object.results.map { |r| r[:model] }
-    matches_estimated = xapian_object.matches_estimated
-    show_no_more_than = [matches_estimated, max_results].min
-    { results: list_results,
-      matches_estimated: matches_estimated,
-      show_no_more_than: show_no_more_than }
+    Search.context(info_request: self).
+      request_list(filters, page, per_page, max_results)
   end
 
   def self.recent_requests
-    request_events = []
-    request_events_all_successful = false
-    # Get some successful requests
-    begin
-      query = 'variety:response (status:successful OR status:partially_successful)'
-      max_count = 5
-      search_options = {
-        limit: max_count,
-        collapse_by_prefix: 'request_title_collapse' }
-
-      xapian_object = search_events(query, search_options)
-      xapian_object.results
-      request_events = xapian_object.results.map { |r| r[:model] }
-
-      # If there are not yet enough successful requests, fill out the list with
-      # other requests
-      if request_events.count < max_count
-        query = 'variety:sent'
-        search_options[:limit] = max_count-request_events.count
-        xapian_object = search_events(query, search_options)
-        xapian_object.results
-        more_events = xapian_object.results.map { |r| r[:model] }
-        request_events += more_events
-        # Overall we still want the list sorted with the newest first
-        request_events.sort! { |e1,e2| e2.created_at <=> e1.created_at }
-      else
-        request_events_all_successful = true
-      end
-    rescue
-      request_events = []
-    end
-
-    [request_events, request_events_all_successful]
+    Search.context(info_request: self).recent_requests
   end
 
   def self.find_in_state(state)
@@ -794,7 +585,7 @@ class InfoRequest < ApplicationRecord
   def safe_from_name
     return external_user_name if is_external?
 
-    apply_censor_rules_to_text(from_name)
+    apply_masks(from_name, redactable: self, redacted_attribute: :from_name)
   end
 
   def user_name_slug
@@ -823,7 +614,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def reindex_request_events
-    info_request_events.find_each(&:xapian_mark_needs_index)
+    info_request_events.find_each { |e| Search.reindex_later(e) }
   end
 
   # Force reindex when tag string changes
@@ -879,13 +670,6 @@ class InfoRequest < ApplicationRecord
     _title = read_attribute(:title)
     _title.strip! if _title
     _title
-  end
-
-  # Email which public body should use to respond to request. This is in
-  # the format PREFIXrequest-ID-HASH@DOMAIN. Here ID is the id of the
-  # FOI request, and HASH is a signature for that id.
-  def incoming_email
-    magic_email("request-")
   end
 
   def incoming_name_and_email
@@ -1080,7 +864,7 @@ class InfoRequest < ApplicationRecord
   def calculate_event_states
     curr_state = nil
     info_request_events.reverse.each do |event|
-      event.xapian_mark_needs_index # we need to reindex all events in order to update their latest_* terms
+      Search.reindex_later(event)
       if curr_state.nil?
         curr_state = event.described_state if event.described_state
       end
@@ -1366,18 +1150,6 @@ class InfoRequest < ApplicationRecord
     InfoRequest.get_status_description(calculate_status(cached_value_ok))
   end
 
-  # Called by incoming_email - and used to be called to generate separate
-  # envelope from address until we abandoned it.
-  def magic_email(prefix_part)
-    raise "id required to create a magic email" unless id
-
-    InfoRequest.magic_email_for_id(prefix_part, id)
-  end
-
-  def compute_idhash
-    self.idhash = InfoRequest.hash_from_id(id)
-  end
-
   def foi_fragment_cache_directories
     # return stub path so admin can expire it
     directories = []
@@ -1512,36 +1284,72 @@ class InfoRequest < ApplicationRecord
 
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
-    applicable_rules = [censor_rules, CensorRule.global]
-    applicable_rules << public_body.censor_rules unless public_body.blank?
-    applicable_rules << user.censor_rules if user
-    applicable_rules.flatten
+    query= <<-SQL
+    SELECT cr.* FROM censor_rules cr
+      WHERE (
+          cr.censorable_type = 'InfoRequest'
+          AND cr.censorable_id = :info_request_id
+        OR cr.censorable_id IS NULL
+          AND cr.censorable_type IS NULL
+        OR cr.censorable_type = 'PublicBody'
+          AND cr.censorable_id = :public_body_id
+        OR cr.censorable_type = 'User'
+          AND cr.censorable_id = :user_id
+      )
+    ORDER BY 
+      (CASE WHEN cr.censorable_type = 'InfoRequest' THEN 0
+         WHEN cr.censorable_type IS NULL THEN 1
+         WHEN cr.censorable_type = 'PublicBody' THEN 2
+         ELSE 3
+       END) ASC,
+      cr.created_at DESC
+    SQL
+    CensorRule.find_by_sql [
+      query,
+      {
+        info_request_id: id,
+        public_body_id: public_body_id,
+        user_id: user_id
+      }
+    ]
   end
 
-  def apply_censor_rules_to_text(text)
-    applicable_censor_rules.
-      reduce(text) { |t, rule| rule.apply_to_text(t) }
+  def apply_censor_rules_to_text(text, redactable: nil, redacted_attribute: nil)
+    applicable_censor_rules.reduce(text) do |t, rule|
+      rule.apply_to_text(t, redactable: redactable,
+                            redacted_attribute: redacted_attribute)
+    end
   end
 
-  def apply_censor_rules_to_binary(text)
-    applicable_censor_rules.
-      reduce(text) { |t, rule| rule.apply_to_binary(t) }
+  def apply_censor_rules_to_binary(text, redactable: nil, redacted_attribute: nil)
+    applicable_censor_rules.reduce(text) do |t, rule|
+      rule.apply_to_binary(t, redactable: redactable,
+                              redacted_attribute: redacted_attribute)
+    end
   end
 
-  def apply_masks(text, content_type)
+  def apply_masks(text, content_type = 'text/plain', redactable: nil, redacted_attribute: nil)
     mask_options = { censor_rules: applicable_censor_rules,
-                     masks: masks }
+                     masks: masks,
+                     redactable: redactable,
+                     redacted_attribute: redacted_attribute }
     AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
   end
 
   # Masks we apply to text associated with this request convert email addresses
   # we know about into textual descriptions of them
   def masks
-    masks = [{ to_replace: incoming_email,
-               replacement: _('[FOI #{{request}} email]', request: id.to_s) },
-             { to_replace: AlaveteliConfiguration.contact_email,
-               replacement: _("[{{site_name}} contact email]",
-                              site_name: site_name) }]
+    masks = [
+      { to_replace: AlaveteliConfiguration.contact_email,
+        replacement: _("[{{site_name}} contact email]",
+                       site_name: site_name) }
+    ]
+
+    if persisted?
+      masks << { to_replace: incoming_email,
+                 replacement: _('[FOI #{{request}} email]', request: id.to_s) }
+    end
+
     if public_body.is_followupable?
       masks << { to_replace: public_body.request_email,
                  replacement: _("[{{public_body}} request email]",
@@ -1606,35 +1414,8 @@ class InfoRequest < ApplicationRecord
     body.update_counter_cache
   end
 
-  def similar_cache_key
-    "request/similar/#{id}"
-  end
-
-  # Get requests that have similar important terms
-  def similar_requests(limit=10)
-    ids, more = similar_ids(limit)
-    [InfoRequest.includes(public_body: :translations).where(id: ids), more]
-  end
-
-  # Get the ids of similar requests, and whether there are more
-  def similar_ids(limit=10)
-    Rails.cache.fetch(similar_cache_key, expires_in: 3.days) do
-      ids = []
-      xapian_similar_more = false
-      begin
-        xapian_similar =
-          ActsAsXapian::Similar.new([InfoRequestEvent],
-                                    info_request_events,
-                                    limit: limit,
-                                    collapse_by_prefix: 'request_collapse')
-        xapian_similar_more = (xapian_similar.matches_estimated > limit)
-        ids = xapian_similar.results.map do |result|
-          result[:model].info_request_id
-        end
-      rescue
-      end
-      [ids, xapian_similar_more]
-    end
+  def similar_requests
+    Search.context(info_request: self).similar_requests
   end
 
   def move_to_public_body(destination_public_body, opts = {})
@@ -1779,12 +1560,6 @@ class InfoRequest < ApplicationRecord
     categories
   end
 
-  def holding_pen_request?
-    return true if url_title == 'holding_pen'
-
-    self == self.class.holding_pen_request
-  end
-
   def latest_refusals
     incoming_messages.select(&:refusals?).last&.refusals || []
   end
@@ -1817,6 +1592,19 @@ class InfoRequest < ApplicationRecord
     ]
   end
 
+  # Return only this request in a chainable relation. This is mainly for
+  # duck-typing with other censorable relationships.
+  def info_requests
+    self.class.where(id: id)
+  end
+
+  # Expire this request. This is mainly for
+  # duck-typing with other censorable relationships.
+  def expire_requests
+    InfoRequest::ExpireJob.perform_later(self)
+    NotifyCacheJob.perform_later(self)
+  end
+
   private
 
   def self.add_conditions_from_extra_params(params, extra_params)
@@ -1827,17 +1615,6 @@ class InfoRequest < ApplicationRecord
     end
   end
   private_class_method :add_conditions_from_extra_params
-
-  def self.search_events(query, opts = {})
-    defaults = {
-      offset: 0,
-      limit: 20,
-      sort_by_prefix: 'created_at',
-      sort_by_ascending: true
-    }
-    ActsAsXapian::Search.new([InfoRequestEvent], query, defaults.merge(opts))
-  end
-  private_class_method :search_events
 
   def accept_incoming?(mail)
     # See if new responses are prevented
@@ -1903,7 +1680,13 @@ class InfoRequest < ApplicationRecord
     end
 
     # for the "waiting_classification" index
+    # TODO: drop this once the waiting_classification index is based on
+    # postgresql queries instead of xapian
     reindex_request_events
+
+    # TODO: make sure the incoming_message is indexed for search now that
+    # it is fully received. Without this, it may not be findable until
+    # someone visits the request page.
 
     incoming_message
   end

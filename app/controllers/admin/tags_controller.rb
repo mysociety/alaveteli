@@ -3,6 +3,8 @@ class Admin::TagsController < AdminController
 
   before_action :check_klass
 
+  skip_before_action :html_response, only: :suggestions
+
   # GET /admin/tags
   def index
     scope = HasTagString::HasTagStringTag.distinct.
@@ -30,6 +32,18 @@ class Admin::TagsController < AdminController
         apply_filters(HasTagString::HasTagStringTag.all)
       ).
       paginate(page: params[:page], per_page: 50)
+  end
+
+  # tags in use on a model, with their counts, to suggest from
+  def suggestions
+    tags = HasTagString::HasTagStringTag.
+      where(model_type: current_klass.name).
+      select("CONCAT_WS(':', name, value) AS t, COUNT(*) AS c").
+      group(:name, :value).
+      having('COUNT(*) > 1').
+      order(Arel.sql('COUNT(*) DESC'))
+
+    render json: tags.map { |tag| { t: tag.t, c: tag.c } }
   end
 
   private

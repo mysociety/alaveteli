@@ -176,7 +176,7 @@ namespace :users do
 
     ActiveRecord::Base.logger.silence do
       User.where(id: ids).in_batches.each_record do |user|
-        user.xapian_mark_needs_index
+        Search.reindex_later(user)
         progressbar&.increment
       end
     end

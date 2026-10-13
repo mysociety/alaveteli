@@ -122,6 +122,11 @@ a.track-request-action {
   }
 }
 
+.correspondence_text,
+.event_actions {
+  background-color: #fff;
+}
+
 .correspondence__footer {
   background-color: #f4f4f4;
   border-top: 1px solid #ddd;
@@ -133,21 +138,21 @@ a.track-request-action {
 }
 
 .cplink__label {
-  color: #777;
+  color: #666;
 }
 
 input.cplink__field {
   box-shadow: none;
   border: 1px solid #E9E9E9;
   border-right-color: #ddd; //so it appears part of the button, but still changes when this field is focused
-  color: #777;
+  color: #666;
   border-radius: 3px 0 0 3px;
 }
 
 a.cplink__button {
   padding: 0.5em 1.25em;
   text-decoration: none;
-  color: #777;
+  color: #666;
   background-color: #eaeaea;
   border: 1px solid #ddd;
   border-left: 0;
@@ -156,7 +161,7 @@ a.cplink__button {
   }
   &:link,
   &:visited {
-    color: #777;
+    color: #666;
   }
   &:hover,
   &:active,
@@ -241,6 +246,10 @@ div.comment_in_request {
 
   .comment_content {
     padding: 1.2em 1.2em 0 1.2em;
+
+    .event_actions {
+      background-color: inherit;
+    }
   }
 }
 

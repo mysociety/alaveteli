@@ -22,6 +22,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class InfoRequestEvent < ApplicationRecord
+  include Searchable
+
   extend XapianQueries
 
   EVENT_TYPES = [
@@ -87,6 +89,26 @@ class InfoRequestEvent < ApplicationRecord
 
   validates_presence_of :event_type
 
+  scope :is_searchable, -> {
+    searchable_requests = joins(:info_request).merge(InfoRequest.is_searchable)
+
+    searchable_requests.
+      where(event_type: 'response',
+            incoming_message: IncomingMessage.is_searchable).
+      or(searchable_requests.
+           where(event_type: %w[sent followup_sent],
+                 outgoing_message: OutgoingMessage.is_searchable)).
+      or(searchable_requests.
+           where(event_type: 'comment', comment: Comment.where(visible: true)))
+  }
+
+  scope :not_embargoed, -> {
+    joins('LEFT OUTER JOIN embargoes
+           ON embargoes.info_request_id = info_request_events.info_request_id').
+      where('embargoes.id IS NULL').
+      references(:embargoes)
+  }
+
   before_save(if: :only_editing_prominence_to_hide?) do
     self.event_type = "hide"
   end
@@ -107,42 +129,16 @@ class InfoRequestEvent < ApplicationRecord
 
   attr_accessor :no_xapian_reindex
 
-  # Full text search indexing
-  acts_as_xapian \
-    texts: [
-      :search_text_main,
-      :title
-    ],
-    values: [
-      # for QueryParser range searches e.g. 01/01/2008..14/01/2008:
-      [:created_at, 0, 'range_search', :date],
-      # for sorting:
-      [:created_at_numeric, 1, 'created_at', :number],
-      # TODO: using :number for lack of :datetime support in Xapian values:
-      [:described_at_numeric, 2, 'described_at', :number],
-      [:request, 3, 'request_collapse', :string],
-      [:request_title_collapse, 4, 'request_title_collapse', :string]
-    ],
-    terms: [
-      [:calculated_state, 'S', 'status'],
-      [:requested_by, 'B', 'requested_by'],
-      [:requested_from, 'F', 'requested_from'],
-      [:commented_by, 'C', 'commented_by'],
-      [:request, 'R', 'request'],
-      [:variety, 'V', 'variety'],
-      [:latest_variety, 'K', 'latest_variety'],
-      [:latest_status, 'L', 'latest_status'],
-      [:waiting_classification, 'W', 'waiting_classification'],
-      [:filetype, 'T', 'filetype'],
-      [:tags, 'U', 'tag'],
-      [:request_public_body_tags, 'X', 'request_public_body_tag']
-    ],
-    eager_load: [
-      :outgoing_message,
-      :comment,
-      { info_request: [:user, :public_body, :censor_rules] }
-    ],
-    if: :indexed_by_search?
+  # we don't want users to find events, they search through requests
+  # and messages directly. This is only intended for admins to find PII
+  # inside the JSON logs.
+  searchable admin_index: {
+    # call a custom SQL function to extract the relevant bits of JSON into the index,
+    # to help keep the index size manageable.
+    # Doing this in SQL is a lot faster than doing the same in ruby.
+    "cleanup_jsonb_for_search(params)": "A"
+  },
+  root: :info_request
 
   def self.count_of_hides_by_week
     where(event_type: "hide").group("date(date_trunc('week', created_at))").count.sort

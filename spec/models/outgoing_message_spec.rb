@@ -35,6 +35,19 @@ RSpec.describe OutgoingMessage do
     it { is_expected.not_to include(unsearchable_message) }
   end
 
+  describe '.not_embargoed' do
+    subject { described_class.not_embargoed }
+
+    let!(:message) { FactoryBot.create(:initial_request) }
+    let!(:embargoed_message) do
+      FactoryBot.create(:initial_request,
+                        info_request: FactoryBot.create(:embargoed_request))
+    end
+
+    it { is_expected.to include(message) }
+    it { is_expected.not_to include(embargoed_message) }
+  end
+
   describe '.followup' do
     subject { described_class.followup }
 
@@ -380,7 +393,7 @@ RSpec.describe OutgoingMessage do
 
       rules = [FactoryBot.build(:censor_rule, text: 'secret'),
                FactoryBot.build(:censor_rule, text: 'sensitive')]
-      allow_any_instance_of(InfoRequest).to receive(:censor_rules).and_return(rules)
+      allow_any_instance_of(InfoRequest).to receive(:applicable_censor_rules).and_return(rules)
 
       expected = 'This [REDACTED] text contains [REDACTED] info!'
       expect(message.body).to eq(expected)

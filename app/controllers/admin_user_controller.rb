@@ -5,6 +5,7 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminUserController < AdminController
+  include Admin::Searchable
   include Admin::Sortable
 
   layout 'admin/users'
@@ -20,7 +21,7 @@ class AdminUserController < AdminController
                 :check_role_authorisation,
                 :check_role_requirements, only: %i[update]
 
-  sortable :name, :created_at, :updated_at,
+  sortable :name, :created_at, :updated_at, relevance: :indexed_search?,
            only: [:index, :active, :banned, :closed]
 
   sortable default: :updated_at_desc, only: [:show]
@@ -32,8 +33,7 @@ class AdminUserController < AdminController
 
     @roles = params[:roles] || []
 
-    users = @base_scope || User
-    users = users.search(@query) if @query.present?
+    users = user_scope
 
     # with_all_roles returns an array as it takes multiple queries
     # so we need to requery in order to paginate
@@ -42,9 +42,10 @@ class AdminUserController < AdminController
       users = User.where(id: users.map(&:id))
     end
 
-    @admin_users =
-      users.order(sort_query).
+    @admin_users = measure_search(
+      sorted(users).
         paginate(page: params[:page], per_page: 100)
+    )
 
     render action: :index
   end
@@ -138,6 +139,33 @@ class AdminUserController < AdminController
   end
 
   private
+
+  def user_scope
+    return base_scope if @query.blank?
+
+    legacy_search? ? legacy_user_scope : indexed_user_scope
+  end
+
+  def base_scope
+    @base_scope || User
+  end
+
+  def legacy_user_scope
+    base_scope.legacy_search(@query)
+  end
+
+  def indexed_user_scope
+    # Admin search relies on the PostgreSQL-only admin index, so force
+    # that backend whatever SEARCH_BACKEND configures. Exact mode keeps
+    # fragment searches like partial email addresses working.
+    base_scope.search_scope(
+      @query,
+      backend: :postgresql,
+      admin_mode: true,
+      exact_mode: true,
+      case_sensitive: false
+    )
+  end
 
   def user_params
     if params[:admin_user]

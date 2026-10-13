@@ -91,6 +91,45 @@ RSpec.describe Users::SessionsController do
       expect(ActionMailer::Base.deliveries).to be_empty
     end
 
+    context 'when the attempt limit is exceeded' do
+      def submit(email, password: 'NOTRIGHTPASSWORD', ip: '0.0.0.0')
+        request.env['REMOTE_ADDR'] = ip
+        post :create, params: {
+          user_signin: { email: email, password: password }
+        }
+      end
+
+      it 'limits attempts for the same email across IPs' do
+        5.times { |i| submit('bob@localhost', ip: "10.0.0.#{i}") }
+        submit('BOB@localhost ', ip: '10.0.0.99')
+
+        expect(response).to render_template('user/sign')
+        expect(response).to have_http_status(:too_many_requests)
+        expect(flash[:error]).to match(/Too many attempts/)
+      end
+
+      it 'limits attempts from the same IP across emails' do
+        10.times { |i| submit("user#{i}@localhost") }
+        submit('another@localhost')
+
+        expect(response).to have_http_status(:too_many_requests)
+      end
+
+      it 'blocks even the correct password once the limit is exceeded' do
+        5.times { submit('bob@localhost') }
+        submit('bob@localhost', password: 'jonespassword')
+
+        expect(response).to have_http_status(:too_many_requests)
+        expect(session[:user_id]).to be_nil
+      end
+
+      it 'responds the same for an unknown email' do
+        6.times { submit('unknown@localhost') }
+
+        expect(response).to have_http_status(:too_many_requests)
+      end
+    end
+
     context 'with a TOTP-enabled user' do
       let(:totp_user) do
         FactoryBot.create(:user, :enable_totp,
@@ -537,6 +576,11 @@ RSpec.describe Users::SessionsController do
     it "clears the session ttl" do
       get :destroy, session: { user_id: user.id, ttl: Time.zone.now }
       expect(session[:ttl]).to be_nil
+    end
+
+    it 'clears a draft profile photo' do
+      get :destroy, session: { user_id: user.id, draft_profile_photo_id: 1 }
+      expect(session[:draft_profile_photo_id]).to be_nil
     end
   end
 end

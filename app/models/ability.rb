@@ -125,7 +125,8 @@ class Ability
 
     # Downloading batch requests
     can :download, InfoRequestBatch do |batch_request|
-      user && user == batch_request.user && user.is_pro?
+      (user && user == batch_request.user && user.is_pro?) ||
+        can?(:admin, batch_request)
     end
 
     # Updating batch requests
@@ -213,7 +214,7 @@ class Ability
     end
 
     can :login_as, User do |target_user|
-      if user == target_user
+      if user == target_user || target_user.closed?
         false
       elsif target_user.is_pro? || target_user.is_pro_admin?
         user && user.is_pro_admin?

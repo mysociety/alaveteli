@@ -19,6 +19,13 @@
   }
 }
 
+.rsp_menu_button {
+  &:focus-within {
+    box-shadow: 0 0 0 3px #fd0;
+    outline: 2px solid #000;
+  }
+}
+
 // New logged in menu styles
 .pro-pill {
   font-size: 0.625rem;
@@ -49,6 +56,12 @@
   border-bottom: 1px solid rgba(0,0,0,0.15);
   @include respond-min( $main_menu-mobile_menu_cutoff ) {
     border: 0;
+  }
+
+  .locale-list-trigger {
+    button {
+      background-color: inherit;
+    }
   }
 }
 

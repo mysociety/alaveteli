@@ -170,25 +170,22 @@ class TrackController < ApplicationController
   end
 
   def atom_feed_internal
-    @xapian_object = perform_search(
-      [InfoRequestEvent], @track_thing.track_query,
-      @track_thing.params[:feed_sortby], nil, 25
-    )
+    search_results = perform_track_search(@track_thing)
+    @events = search_results.events
     # We're assuming that a request to a feed url with no format suffix wants atom/xml
     # so set that as the default, regardless of content negotiation
     request.format = params[:format] || 'xml'
     respond_to do |format|
-      format.json { render json: @xapian_object.results.map { |r| r[:model].json_for_api(true,
-                                                                                            ->(t) do
-                                                                                              view_context.highlight_and_excerpt(
-                                                                                                t,
-                                                                                                @xapian_object.words_to_highlight(
-                                                                                                  regex: true,
-                                                                                                include_original: true),
-                                                                                                150
-                                                                                              )
-                                                                                            end
-                                                                                            ) } }
+      format.json do
+        highlight = ->(t) do
+          view_context.highlight_and_excerpt(
+            t,
+            search_results.highlight_words,
+            150
+          )
+        end
+        render json: @events.map { |event| event.json_for_api(true, highlight) }
+      end
       format.any { render template: 'track/atom_feed',
                    formats: [:atom],
                    layout: false,

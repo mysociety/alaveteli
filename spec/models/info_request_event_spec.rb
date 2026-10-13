@@ -19,6 +19,63 @@
 require 'spec_helper'
 
 RSpec.describe InfoRequestEvent do
+  describe '.is_searchable' do
+    subject(:searchable) { described_class.is_searchable }
+
+    let!(:visible) do
+      { sent: FactoryBot.create(:sent_event),
+        followup: FactoryBot.create(:followup_sent_event),
+        response: FactoryBot.create(:response_event),
+        comment: FactoryBot.create(:comment_event) }
+    end
+
+    let!(:hidden) do
+      { other_type: FactoryBot.create(:info_request_event, event_type: 'edit'),
+        resent: FactoryBot.create(:info_request_event, event_type: 'resent'),
+        hidden_outgoing: FactoryBot.create(
+          :sent_event,
+          outgoing_message: FactoryBot.create(:initial_request, :hidden)
+        ),
+        hidden_incoming: FactoryBot.create(
+          :response_event,
+          incoming_message_factory: [:incoming_message, :hidden]
+        ),
+        hidden_comment: FactoryBot.create(
+          :comment_event, comment: FactoryBot.create(:hidden_comment)
+        ),
+        hidden_request: FactoryBot.create(
+          :sent_event, info_request: FactoryBot.create(:info_request, :hidden)
+        ),
+        requester_only_request: FactoryBot.create(
+          :sent_event,
+          info_request: FactoryBot.create(:info_request, :requester_only)
+        ),
+        backpage_request: FactoryBot.create(
+          :sent_event,
+          info_request: FactoryBot.create(:info_request, :backpage)
+        ),
+        embargoed_request: FactoryBot.create(
+          :sent_event,
+          info_request: FactoryBot.create(:info_request, :embargoed)
+        ) }
+    end
+
+    it 'includes every event the search index would hold' do
+      expect(searchable).to include(*visible.values)
+    end
+
+    it 'excludes every event the search index would leave out' do
+      hidden.each_value { |event| expect(searchable).not_to include(event) }
+    end
+
+    it 'agrees with indexed_by_search? for all of them' do
+      events = visible.values + hidden.values
+      indexed = events.select { |event| event.send(:indexed_by_search?) }
+      expect(searchable.where(id: events).pluck(:id).sort).
+        to eq(indexed.map(&:id).sort)
+    end
+  end
+
   describe 'event_type scopes' do
     described_class::EVENT_TYPES.each do |event_type|
       it "for '#{event_type}' events" do

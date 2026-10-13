@@ -109,6 +109,7 @@ module AlaveteliConfiguration
       REPLY_VERY_LATE_AFTER_DAYS: 40,
       RESTRICTED_COUNTRIES: '',
       RESTRICT_NEW_RESPONSES_ON_OLD_REQUESTS_AFTER_MONTHS: 6,
+      SEARCH_BACKEND: 'xapian',
       SECRET_KEY_BASE: 'this default is insecure as code is open source, please override for live sites in config/general; this will do for local development',
       SITE_NAME: 'Alaveteli',
       SKIP_ADMIN_AUTH: false,

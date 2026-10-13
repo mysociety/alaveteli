@@ -1,0 +1,270 @@
+# == Schema Information
+#
+# Table name: search_documents
+#
+#  sd_id             :bigint           not null, primary key
+#  searchable_type   :string           not null, primary key
+#  searchable_id     :bigint
+#  raw_content       :text
+#  raw_admin_content :text
+#  section_ref       :text
+#  language          :text
+#  content_tsv       :tsvector
+#  admin_content_tsv :tsvector
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  root_type         :string
+#  root_id           :bigint
+#
+
+require 'spec_helper'
+
+RSpec.describe SearchDocument, :reindex_inline do
+  # created eagerly so its reindex job runs before the search
+  let!(:user) do
+    FactoryBot.create(:user, name: 'Florence Nightingale',
+                             about_me: 'I enjoy data visualisation')
+  end
+
+  context 'model search' do
+    it 'returns a chainable ActiveRecord::Relation' do
+      results = User.newsearch('Florence', admin_mode: true)
+      expect(results).to be_an(ActiveRecord::Relation)
+      expect(results.where(email_confirmed: true).count).to eq(1)
+    end
+
+    it 'finds users by admin indexed fields' do
+      expect(
+        User.newsearch(user.email, admin_mode: true)
+      ).to match_array([user])
+      expect(
+        User.newsearch('data visualisation', admin_mode: true)
+      ).to match_array([user])
+    end
+
+    it 'does not match admin indexed fields without admin_mode' do
+      expect(User.newsearch('Florence')).to match_array([])
+    end
+
+    it 'raises for models that have not been made searchable' do
+      expect { RawEmail.newsearch('anything') }.
+        to raise_error(NotImplementedError)
+    end
+  end
+
+  context 'input validation' do
+    it 'rejects a model given as a string' do
+      expect { SearchDocument.hybrid_search('anything', model: 'User') }.
+        to raise_error(ArgumentError)
+    end
+
+    it 'rejects a non-numeric limit' do
+      expect {
+        User.newsearch('anything', admin_mode: true,
+                                   limit: '10; DROP TABLE users')
+      }.to raise_error(ArgumentError)
+    end
+
+    it 'rejects a non-numeric limit_ratio' do
+      expect {
+        SearchDocument.hybrid_search('anything', model: User,
+                                                 limit_ratio: '3--')
+      }.to raise_error(ArgumentError)
+    end
+
+    it 'rejects unsupported languages' do
+      expect { User.newsearch('anything', language: 'klingon') }.
+        to raise_error(ArgumentError)
+    end
+  end
+
+  context 'exact mode' do
+    it 'treats LIKE wildcards in the query as literal characters' do
+      legit = FactoryBot.create(:user, name: 'Legitimate 100% Prospect')
+      FactoryBot.create(:user, name: 'Someone Else')
+
+      expect(
+        User.newsearch('100%', admin_mode: true, exact_mode: true)
+      ).to match_array([legit])
+      expect(
+        User.newsearch('%', admin_mode: true, exact_mode: true)
+      ).to match_array([legit])
+    end
+  end
+
+  context 'de-duplicating records matched via several sections' do
+    it 'returns the record once and counts it once' do
+      user = FactoryBot.create(:user, name: "Danny Dedupe")
+      # the record is indexed on create; add a second section to simulate
+      # the multi-part content produced by attachments and similar.
+      user.upsert_content('english', 2)
+      expect(SearchDocument.where(searchable: user).count).to eq(2)
+
+      results = User.newsearch(
+        "Dedupe", admin_mode: true, exact_mode: true, language: 'english'
+      )
+
+      expect(results).to match_array([user])
+      expect(results.count).to eq(1)
+    end
+  end
+
+  context 'materialized CTE' do
+    it 'fences the search off so PostgreSQL runs it once' do
+      results = SearchDocument.hybrid_search('Florence', model: User,
+                                                         admin_mode: true)
+
+      expect(results.to_sql).to include('WITH "search_results" AS MATERIALIZED')
+    end
+  end
+
+  context 'ordering' do
+    it 'returns the best match first' do
+      weak = FactoryBot.create(:user, name: 'Otter Watcher')
+      strong = FactoryBot.create(:user, name: 'Otter Otter Otter')
+
+      results = User.newsearch('Otter', admin_mode: true)
+
+      expect(results.to_a).to eq([strong, weak])
+    end
+  end
+
+  context 'searching every model at once' do
+    it 'returns the documents best match first' do
+      FactoryBot.create(:user, name: 'Ferret Watcher')
+      strong = FactoryBot.create(:user, name: 'Ferret Ferret Ferret')
+
+      results = SearchDocument.hybrid_search('Ferret', admin_mode: true)
+
+      expect(results.first.searchable).to eq(strong)
+    end
+  end
+
+  context 'exact mode case sensitivity' do
+    # A partial token ("ASE" inside "Charlotte Case") can only match through
+    # exact mode's substring search, never through the tsvector matching.
+    # The query is upper-case so it does not match the lower-cased url_name
+    # either, isolating the case_sensitive behaviour.
+    it 'matches substrings case-sensitively by default' do
+      user = FactoryBot.create(:user, name: "Charlotte Case")
+
+      results = SearchDocument.hybrid_search(
+        "ASE", model: User, admin_mode: true, exact_mode: true,
+               language: 'english'
+      )
+
+      expect(results).to be_empty
+    end
+
+    it 'matches substrings of any case when case_sensitive is false' do
+      user = FactoryBot.create(:user, name: "Charlotte Case")
+
+      results = SearchDocument.hybrid_search(
+        "ASE",
+        model: User,
+        admin_mode: true,
+        exact_mode: true,
+        case_sensitive: false,
+        language: 'english'
+      )
+
+      expect(results).to match_array([user])
+    end
+  end
+
+  context 'searching within a provided base relation' do
+    it 'restricts the search to the given relation' do
+      with_default_locale(:en) do
+        keep = FactoryBot.create(:user, name: "Ria Relation")
+        drop = FactoryBot.create(:user, name: "Rory Relation")
+
+        results = SearchDocument.hybrid_search(
+          "Relation",
+          relation: User.where.not(id: drop.id),
+          admin_mode: true,
+          language: 'english'
+        )
+
+        expect(results).to match_array([keep])
+      end
+    end
+
+    it 'composes with conditions chained after the search' do
+      with_default_locale(:en) do
+        a = FactoryBot.create(:user, name: "Charlie Chain")
+        b = FactoryBot.create(:user, name: "Chloe Chain")
+
+        results = User.
+                  newsearch("Chain", admin_mode: true, language: 'english').
+                  where.not(id: b.id)
+
+        expect(results).to match_array([a])
+      end
+    end
+  end
+
+  context 'searching through InfoRequest' do
+    context 'outgoing messages' do
+      subject {
+        SearchDocument.hybrid_search(
+          "some information",
+          admin_mode: true
+        )
+      }
+
+      it 'does not show embargoed messages' do
+        embargoed_request = FactoryBot.create(
+          :embargoed_request, :with_plain_incoming
+        )
+        message = embargoed_request.outgoing_messages.first
+        message.reindex
+        expect(subject).to include(message.search_documents.first)
+        expect(subject.not_embargoed).
+          to be_empty
+      end
+    end
+
+    context 'incoming messages' do
+      subject {
+        SearchDocument.hybrid_search(
+          "house",
+          admin_mode: true
+        )
+      }
+
+      it 'does not show embargoed messages' do
+        embargoed_request = FactoryBot.create(
+          :embargoed_request, :with_plain_incoming
+        )
+        message = embargoed_request.incoming_messages.first
+        message.get_main_body_text_folded
+        message.reindex
+        expect(subject).to include(message.search_documents.first)
+        expect(subject.not_embargoed).
+          to be_empty
+      end
+    end
+
+    context 'attachments' do
+      subject {
+        SearchDocument.hybrid_search(
+          "powered by",
+          admin_mode: true
+        )
+      }
+      it 'does not show embargoed attachments' do
+        embargoed_request = FactoryBot.create(
+          :embargoed_request, :with_incoming_with_pdf_attachment
+        )
+        message = embargoed_request.incoming_messages.first
+        attachment = message.foi_attachments.last
+        expect(subject).to include(attachment.search_documents.first)
+        expect(subject.not_embargoed).
+          to be_empty
+      end
+    end
+  end
+
+  context 'searching through InfoRequest incoming messages' do
+  end
+end

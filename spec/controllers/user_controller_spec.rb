@@ -3,6 +3,7 @@ require 'spec_helper'
 RSpec.describe UserController do
   describe 'GET show' do
     let(:user) { FactoryBot.create(:user) }
+    let(:admin) { FactoryBot.create(:admin_user) }
 
     it 'renders the show template' do
       get :show, params: { url_name: user.url_name }
@@ -112,7 +113,7 @@ RSpec.describe UserController do
       end
 
       it 'does not show requests and batch requests for a closed user' do
-        user.close_and_anonymise
+        user.close_and_anonymise(editor: admin, reason: 'test')
         make_request
 
         expect(assigns[:show_profile]).to be false
@@ -264,7 +265,7 @@ RSpec.describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+          assigns[:request_results].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
       end
@@ -305,7 +306,7 @@ RSpec.describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+          assigns[:request_results].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
       end
@@ -445,7 +446,7 @@ RSpec.describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+          assigns[:request_results].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
       end
@@ -484,7 +485,7 @@ RSpec.describe UserController do
                    }
 
         actual =
-          assigns[:xapian_requests].results.map { |x| x[:model].info_request }
+          assigns[:request_results].results.map { |x| x[:model].info_request }
 
         expect(actual).to match_array([request_1])
       end
@@ -508,32 +509,6 @@ RSpec.describe UserController do
                    }
 
         expect(assigns[:private_requests]).to be_empty
-      end
-    end
-  end
-
-  describe 'POST set_profile_photo' do
-    context 'user is banned' do
-      before(:each) do
-        @user = FactoryBot.create(:user, ban_text: 'Causing trouble')
-        sign_in @user
-        @uploadedfile = fixture_file_upload("parrot.png")
-
-        post :set_profile_photo, params: {
-                                   id: @user.id,
-                                   file: @uploadedfile,
-                                   submitted_draft_profile_photo: 1,
-                                   automatically_crop: 1
-                                 }
-      end
-
-      it 'redirects to the profile page' do
-        expect(response).to redirect_to(set_profile_photo_path)
-      end
-
-      it 'renders an error message' do
-        msg = 'Suspended users cannot edit their profile'
-        expect(flash[:error]).to eq(msg)
       end
     end
   end
@@ -703,6 +678,20 @@ RSpec.describe UserController do
         expect(deliveries[0].body).to match(/when\s+you\s+already\s+have\s+an/)
       end
 
+      it 'does not send mail for a closed account' do
+        FactoryBot.create(:user, :closed, email: 'closed@localhost')
+        post :signup, params: {
+          user_signup: {
+            email: 'closed@localhost',
+            name: 'New Person',
+            password: 'sillypassword',
+            password_confirmation: 'sillypassword'
+          }
+        }
+        expect(response).to render_template('confirm')
+        expect(ActionMailer::Base.deliveries).to be_empty
+      end
+
       it "cope with trailing spaces in the email address" do
         post :signup, params: {
                         user_signup: {
@@ -819,6 +808,62 @@ RSpec.describe UserController do
                         }
                       }
         expect(response).to render_template('confirm')
+      end
+    end
+
+    context 'filling in the form with an existing unconfirmed email' do
+      let!(:existing_user) do
+        FactoryBot.create(:user, email: 'pending-owner@localhost',
+                                 name: 'Earlier Registrant',
+                                 password: 'earlierpassword',
+                                 email_confirmed: false)
+      end
+
+      before do
+        post :signup, params: {
+          user_signup: {
+            email: 'pending-owner@localhost',
+            name: 'Mailbox Owner',
+            password: 'ownerpassword',
+            password_confirmation: 'ownerpassword'
+          }
+        }
+      end
+
+      it 'renders the confirm template' do
+        expect(response).to render_template('confirm')
+      end
+
+      it 'does not create a new user' do
+        expect(User.where(email: 'pending-owner@localhost').count).to eq(1)
+      end
+
+      it 'sends the normal confirmation email' do
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.size).to eq(1)
+        expect(deliveries[0].body).
+          to match(/confirm\s+your\s+email\s+address/)
+        expect(deliveries[0].body).
+          not_to match(/when\s+you\s+already\s+have\s+an/)
+      end
+
+      it 'replaces the password chosen by the earlier registrant' do
+        expect(existing_user.reload.has_this_password?('ownerpassword')).
+          to eq(true)
+      end
+
+      it 'replaces the name chosen by the earlier registrant' do
+        expect(existing_user.reload.name).to eq('Mailbox Owner')
+      end
+
+      it 'leaves the user unconfirmed' do
+        expect(existing_user.reload.email_confirmed).to eq(false)
+      end
+
+      it 'binds the confirmation link to the existing user' do
+        post_redirect = PostRedirect.where(user: existing_user).last
+        expect(ActionMailer::Base.deliveries.last.body).
+          to include(post_redirect.email_token)
       end
     end
 
@@ -1282,115 +1327,6 @@ RSpec.describe UserController, "when changing email address" do
   end
 end
 
-RSpec.describe UserController, "when using profile photos" do
-  render_views
-
-  before do
-    @user = users(:bob_smith_user)
-
-    @uploadedfile = fixture_file_upload("parrot.png")
-    @uploadedfile_2 = fixture_file_upload("parrot.png")
-  end
-
-  it "should not let you change profile photo if you're not logged in as the user" do
-    post :set_profile_photo, params: {
-                               id: @user.id,
-                               file: @uploadedfile,
-                               submitted_draft_profile_photo: 1,
-                               automatically_crop: 1
-                             }
-  end
-
-  it "should return a 404 not a 500 when a profile photo has not been set" do
-    expect(@user.profile_photo).to be_nil
-    expect {
-      get :get_profile_photo, params: { url_name: @user.url_name }
-    }.to raise_error(ActiveRecord::RecordNotFound)
-  end
-
-  it "should let you change profile photo if you're logged in as the user" do
-    expect(@user.profile_photo).to be_nil
-    sign_in @user
-
-    post :set_profile_photo, params: {
-                               id: @user.id,
-                               file: @uploadedfile,
-                               submitted_draft_profile_photo: 1,
-                               automatically_crop: 1
-                             }
-
-    expect(response).to redirect_to(
-      controller: 'user',
-      action: 'show',
-      url_name: "bob_smith"
-    )
-    expect(flash[:notice]).to match(/Thank you for updating your profile photo/)
-
-    @user.reload
-    expect(@user.profile_photo).not_to be_nil
-  end
-
-  context 'there is no profile text' do
-    let(:user) { FactoryBot.create(:user, about_me: '') }
-
-    it 'prompts you to add profile text when adding a photo' do
-      sign_in user
-
-      profile_photo = ProfilePhoto.
-                        create(data: load_file_fixture("parrot.png"),
-                               user: user)
-
-      post :set_profile_photo,
-           params: {
-             id: user.id,
-             file: @uploadedfile,
-             submitted_crop_profile_photo: 1,
-             draft_profile_photo_id: profile_photo.id
-           }
-
-      expect(flash[:notice][:partial]).
-        to eq("user/update_profile_photo")
-    end
-  end
-
-  it "should let you change profile photo twice" do
-    expect(@user.profile_photo).to be_nil
-    sign_in @user
-
-    post :set_profile_photo, params: {
-                               id: @user.id,
-                               file: @uploadedfile,
-                               submitted_draft_profile_photo: 1,
-                               automatically_crop: 1
-                             }
-    expect(response).to redirect_to(
-      controller: 'user',
-      action: 'show',
-      url_name: "bob_smith"
-    )
-    expect(flash[:notice]).to match(/Thank you for updating your profile photo/)
-
-    post :set_profile_photo, params: {
-                               id: @user.id,
-                               file: @uploadedfile_2,
-                               submitted_draft_profile_photo: 1,
-                               automatically_crop: 1
-                             }
-    expect(response).to redirect_to(
-      controller: 'user',
-      action: 'show',
-      url_name: "bob_smith"
-    )
-    expect(flash[:notice]).to match(/Thank you for updating your profile photo/)
-
-    @user.reload
-    expect(@user.profile_photo).not_to be_nil
-  end
-
-  # TODO: todo check the two stage javascript cropping (above only tests one
-  # stage non-javascript one)
-end
-
 RSpec.describe UserController, "when showing JSON version for API" do
   it "should be successful" do
     get :show, params: { url_name: "bob_smith", format: "json" }
@@ -1403,7 +1339,44 @@ RSpec.describe UserController, "when showing JSON version for API" do
   end
 end
 
+RSpec.describe UserController, "when viewing the river" do
+  let(:user) { FactoryBot.create(:user) }
+
+  it 'gathers the events matching every track the user has' do
+    request_track = FactoryBot.create(:request_update_track,
+                                      tracking_user: user)
+    search_track = FactoryBot.create(:search_track, tracking_user: user)
+    older = mock_model(InfoRequestEvent, created_at: 2.hours.ago)
+    newer = mock_model(InfoRequestEvent, created_at: 1.hour.ago)
+
+    stub_search_results(items: [])
+    allow(Search).to receive(:search).
+      with(request_track.track_query, any_args).
+      and_return(double(results: build_search_results(
+        items: [{ model: older }]
+      )))
+    allow(Search).to receive(:search).
+      with(search_track.track_query, any_args).
+      and_return(double(results: build_search_results(
+        items: [{ model: newer }]
+      )))
+
+    sign_in user
+    get :river
+
+    expect(assigns[:results]).to eq([newer, older])
+  end
+
+  it 'has no results for a visitor who is not logged in' do
+    get :river
+
+    expect(assigns[:results]).to be_empty
+  end
+end
+
 RSpec.describe UserController, "when viewing the wall" do
+  let(:admin) { FactoryBot.create(:admin_user) }
+
   it 'orders feed results by created_at descending' do
     user = FactoryBot.create(:user)
 
@@ -1414,6 +1387,26 @@ RSpec.describe UserController, "when viewing the wall" do
     get :wall, params: { url_name: user.url_name }
 
     expect(assigns[:feed_results]).to eq([new_event, old_event])
+  end
+
+  it 'includes events matching the tracks the user owns' do
+    user = FactoryBot.create(:user)
+    track_thing = FactoryBot.create(:search_track, tracking_user: user)
+    tracked_event = mock_model(InfoRequestEvent, created_at: 1.hour.ago)
+
+    searcher = double
+    stub_search_results(items: [])
+    allow(Search).to receive(:search).
+      with(track_thing.track_query, hash_including(sort_by: 'described_at')).
+      and_return(searcher)
+    expect(searcher).to receive(:results).
+      with(page: 1, per_page: 20).
+      and_return(build_search_results(items: [tracked_event]))
+
+    sign_in user
+    get :wall, params: { url_name: user.url_name }
+
+    expect(assigns[:feed_results]).to eq([tracked_event])
   end
 
   it 'does not return feed results for closed users' do

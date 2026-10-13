@@ -189,6 +189,47 @@ RSpec.describe Users::ConfirmationsController do
       end
     end
 
+    context 'if the post redirect user is closed' do
+      let(:user) do
+        FactoryBot.create(:user, :closed, email_confirmed: false)
+      end
+
+      let(:post_redirect) { PostRedirect.create(uri: '/', user: user) }
+
+      before do
+        get :confirm, params: { email_token: post_redirect.email_token }
+      end
+
+      it 'does not sign the user in' do
+        expect(session[:user_id]).to be_nil
+      end
+
+      it 'does not confirm the user' do
+        expect(user.reload.email_confirmed).to eq(false)
+      end
+
+      it 'redirects to the frontpage' do
+        expect(response).to redirect_to(frontpage_path)
+      end
+    end
+
+    context 'if the post redirect user is closed and has TOTP enabled' do
+      let(:user) do
+        FactoryBot.create(:user, :closed, :enable_totp, email_confirmed: false)
+      end
+
+      let(:post_redirect) { PostRedirect.create(uri: '/', user: user) }
+
+      before do
+        get :confirm, params: { email_token: post_redirect.email_token }
+      end
+
+      it 'does not start a two factor challenge' do
+        expect(session[:pending_2fa_user_id]).to be_nil
+        expect(response).to redirect_to(frontpage_path)
+      end
+    end
+
     context 'if the post redirect user has TOTP two factor enabled' do
       let(:user) do
         FactoryBot.create(:user, :enable_totp, email_confirmed: false)
@@ -261,6 +302,17 @@ RSpec.describe Users::ConfirmationsController do
 
         found = PostRedirect.find_by(email_token: original_token)
         expect(found).to be_nil
+      end
+    end
+
+    context 'when the user password has changed since the link was sent' do
+      it 'renders bad_token' do
+        user = FactoryBot.create(:user, email_confirmed: false)
+        post_redirect = PostRedirect.create(uri: '/', user: user)
+        user.update!(password: 'new-password')
+
+        get :confirm, params: { email_token: post_redirect.email_token }
+        expect(response).to render_template(:bad_token)
       end
     end
   end

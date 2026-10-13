@@ -642,8 +642,8 @@ RSpec.describe RequestController, "when searching for an authority" do
     get :select_authority, params: { query: "Quango" }
 
     expect(response).to render_template('select_authority')
-    expect(assigns[:xapian_requests].results.size).to eq(1)
-    expect(assigns[:xapian_requests].results[0][:model].name).
+    expect(assigns[:request_results].results.size).to eq(1)
+    expect(assigns[:request_results].results[0][:model].name).
       to eq(body.name)
   end
 
@@ -1726,8 +1726,7 @@ RSpec.describe RequestController, "when making a new request" do
     allow(@user).to receive(:exceeded_request_limits?).and_return(false)
     allow(@user).to receive(:locale).and_return("en")
     allow(@user).to receive(:login_token).and_return('abc')
-    allow(User).to receive(:find_by).with(id: @user.id, login_token: 'abc').
-      and_return(@user)
+    allow(User).to receive(:authenticate_from_session).and_return(@user)
     @body = FactoryBot.create(:public_body, name: 'Test Quango')
   end
 
@@ -1808,7 +1807,7 @@ RSpec.describe RequestController, "when doing type ahead searches" do
     stub_typeahead_results(items: [event], total: 1)
     get :search_typeahead, params: { q: 'boring', per_page: '1' }
     expect(assigns[:per_page]).to eq(1)
-    expect(assigns[:xapian_requests].results.size).to eq(1)
+    expect(assigns[:request_results].results.size).to eq(1)
   end
 end
 
@@ -1829,14 +1828,14 @@ RSpec.describe RequestController, "when showing similar requests" do
     expect(assigns[:info_request]).to eq(info_requests(:badger_request))
   end
 
-  it "assigns a xapian object with similar requests" do
+  it "assigns a results object with similar requests" do
     expected = InfoRequest.all.reject { |request| request == badger_request }
     events = expected.map { |r| r.info_request_events.first }
     stub_similar_requests(items: events, total: events.size)
 
     get :similar, params: { url_title: badger_request.url_title }
 
-    results = assigns[:xapian_object].results
+    results = assigns[:results].results
     expect(results.map { |result| result[:model].info_request })
       .to match_array(expected)
   end
@@ -1942,6 +1941,28 @@ end
 
 RSpec.describe RequestController do
   describe 'GET #download_entire_request' do
+    context 'when a censor rule redacts an attachment', feature: :redaction_tracking do
+      let(:info_request) do
+        FactoryBot.create(:info_request_with_html_attachment)
+      end
+
+      let!(:censor_rule) do
+        info_request.censor_rules.create!(
+          text: 'dull', replacement: 'REDACTED',
+          last_edit_editor: 'unknown', last_edit_comment: 'none'
+        )
+      end
+
+      it 'records the redaction against the body written to the zip' do
+        sign_in info_request.user
+        get :download_entire_request,
+            params: { url_title: info_request.url_title }
+
+        expect(censor_rule.redactions.pluck(:redacted_attribute)).
+          to include('default_body')
+      end
+    end
+
     context 'when the request is embargoed' do
       let(:user) { FactoryBot.create(:user) }
       let(:pro_user) { FactoryBot.create(:pro_user) }

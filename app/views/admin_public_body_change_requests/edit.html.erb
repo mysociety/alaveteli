@@ -6,23 +6,63 @@
   </div>
 </div>
 
-<%= form_tag admin_change_request_path(@change_request), method: 'put', class: 'form form-horizontal' do %>
-  <%= render partial: 'admin_public_body_change_requests/response' %>
+<% if @full_edit %>
+  <%= form_tag admin_change_request_path(@change_request), method: 'put', class: 'form form-horizontal' do %>
 
-  <div class="form-actions">
-    <%= link_to 'Close', admin_change_request_path(@change_request),
-                  method: :put,
-                  accesskey: 'c',
-                  class: 'btn' %>
+    <% if @change_request.user_id.present? %>
+      <p>Requested by <%= both_links(@change_request.user) %></p>
+    <% else %>
+    <p><label for="change_request_user_name">Requested by</label>
+      <%= text_field(:change_request, :user_name) %>
+    <p><label for="change_request_user_email">User email</label>
+      <%= email_field(:change_request, :user_email) %>
+    <% end %>
+    <p><label for="change_request_public_body_name">Authority</label>
+      <%= text_field(:change_request, :public_body_name, maxlength: 30) %>
+    <p><label for="change_request_public_body_email">Authority email</label>
+      <%= text_field(:change_request, :public_body_email) %>
 
-    <%= submit_tag 'Close and respond',
-                   accesskey: 'r',
-                   class: 'btn btn-primary' %>
+    <p><label for="change_request_source_url">Source URL</label>
+      <%= url_field :change_request, :source_url %></p>
+
+    <p><label for="change_request_notes">Notes</label>
+      <%= text_area :change_request, :notes, rows: 10, cols: 100 %></p>
+
+    <p><label for="change_request_open">Change request is open</label>
+      <%= select('change_request', "is_open",
+                 [["Yes", true], ["No", false]]) %>
+    </p>
+
+    <p><%= submit_tag "Save", accesskey: "s", class: "btn btn-success" %></p>
+  <% end %>
+
+  <%= form_tag admin_change_request_path(@change_request), :method => 'delete' do %>
+    <p><%= submit_tag "Destroy change request",
+      accesskey: "d",
+      class: "btn btn-danger",
+      data: {
+        confirm: "This is permanent! Are you sure?",
+      } %></p>
+  <% end %>
+
+<% else %>
+  <%= form_tag admin_change_request_path(@change_request), method: 'put', class: 'form form-horizontal' do %>
+    <%= render partial: "admin_public_body_change_requests/response" %>
+
+    <div class="form-actions">
+      <%= link_to "Close",
+      admin_change_request_path(@change_request),
+      method: :put,
+      accesskey: "c",
+      class: "btn" %>
+
+      <%= submit_tag "Close and respond", accesskey: "r", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="span12">
+      <%= render partial: "admin_general/change_request_summary" %>
+    </div>
   </div>
 <% end %>
-
-<div class="row">
-  <div class="span12">
-    <%= render partial: 'admin_general/change_request_summary' %>
-  </div>
-</div>

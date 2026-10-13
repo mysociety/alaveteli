@@ -27,7 +27,7 @@ RSpec.describe 'Editing the OutgoingMessage body' do
       FactoryBot.create(:info_request_censor_rule,
                         text: 'information',
                         replacement: 'coffee',
-                        info_request: request)
+                        censorable: request)
     end
 
     it 'displays the unredacted version of the message' do

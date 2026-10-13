@@ -18,21 +18,12 @@
   <%- end %>
 </h1>
 
-<% if @xapian_object.results.empty? %>
+<% if @results.empty? %>
     <p><%= _('No similar requests found.')%></p>
 <% else %>
-  <!--
-  <p class="subtitle">
-    <%= @xapian_object.matches_estimated %> in total
-  </p>
-  -->
-  <% for result in @xapian_object.results %>
-    <% if result[:model].class.to_s == 'InfoRequestEvent' %>
-      <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
-    <% else %>
-      <p><strong><%= _('Unexpected search result type {{result_type}}',
-                       :result_type => result[:model].class.to_s) %></strong></p>
-    <% end %>
+  <% @results.each do |info_request| %>
+    <%= render partial: 'request/request_listing_single',
+               locals: { info_request: info_request } %>
   <% end %>
 <% end %>
 

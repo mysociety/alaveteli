@@ -124,7 +124,6 @@ RSpec.describe 'when making a zipfile available' do
       # Non-owner can download zip with outgoing
       non_owner = login(FactoryBot.create(:user))
       info_request = FactoryBot.create(:info_request_with_pdf_attachment)
-      rebuild_raw_emails(info_request)
 
       inspect_zip_download(non_owner, info_request) do |zip|
         expect(zip.count).to eq(2)
@@ -243,7 +242,7 @@ RSpec.describe 'when making a zipfile available' do
       FactoryBot.create(:censor_rule,
                         text: 'First',
                         replacement: 'REDACTED',
-                        info_request: info_request)
+                        censorable: info_request)
 
       sleep_and_receive_mail('incoming-request-two-same-name.eml', info_request)
 

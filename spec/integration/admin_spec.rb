@@ -170,7 +170,7 @@ RSpec.describe "When administering the site" do
       using_session(@admin) do
         visit admin_request_path id: request.id
         choose('reason_not_foi_not_foi')
-        find_button('Hide request').click
+        find_button('Hide request and notify user').click
         expect(page).
           to have_content('Your message to Awkward > Name has been sent')
       end

@@ -20,6 +20,7 @@
 #  replaced_at           :datetime
 #  replaced_reason       :string
 #  erased_at             :datetime
+#  masking_failed_at     :datetime
 #
 
 # models/foi_attachment.rb:
@@ -42,9 +43,11 @@ class FoiAttachment < ApplicationRecord
   include Eventable
   include Lockable
   include Maskable
+  include Redactable
   include Replaceable
 
   MissingError = Class.new(StandardError)
+  MaskingError = Class.new(StandardError)
 
   belongs_to :incoming_message, inverse_of: :foi_attachments, optional: true
   has_one :raw_email, through: :incoming_message, source: :raw_email
@@ -52,6 +55,9 @@ class FoiAttachment < ApplicationRecord
   has_one :user, through: :info_request
 
   has_one_attached :file, service: :attachments
+  # Searchable needs to be included after has_one_attached :file so that
+  # the reindex after_commit hook runs after the file blob has been uploaded
+  include Searchable
 
   validates_presence_of :filename
   validates_presence_of :display_size
@@ -67,12 +73,90 @@ class FoiAttachment < ApplicationRecord
   admin_columns exclude: %i[url_part_number within_rfc822_subject hexdigest],
                 include: %i[redacted_filename display_filename metadata]
 
+  searchable(
+    index: {
+      ".body_for_indexing": "A"
+    },
+    admin_index: {
+      "filename": "A",
+      ".unredacted_diff_for_admin_indexing": "A",
+      "prominence_reason": "A",
+      "replaced_reason": "A"
+    },
+    root: :info_request
+  )
+
+  def is_indexable?
+    # skip indexing until the attachment has been cached,
+    # otherwise we get into infinite loops.
+    # likewise, indexing attachments with masking failures is bound
+    # to give trouble
+    return false if masking_failed_at.present?
+
+    # this is a bit of a belts and braces approach with the ordering of
+    # after_commit hooks above, but cannot hurt
+    return false unless file_blob && file_blob.service.exist?(file_blob.key)
+
+    # the main body is indexed with the incoming_message,
+    # avoid double indexing
+    !main_body_part? && file.attached? && masked_at.present?
+  end
+
+  # Get the text content of the attachment. As this is expensive,
+  # take shortcuts for files we can't process at the moment.
+  # This is assuming that we don't do OCR, review this method when
+  # this happens.
+  def body_for_indexing
+    if [
+      'application/x-empty',
+      'image/bmp',
+      'image/gif',
+      'image/jpeg',
+      'image/png',
+      'image/tiff',
+      'image/webp',
+      'image/x-png',
+      'message/disposition-notification',
+      'video/x-flv'
+    ].include?(content_type)
+      return ''
+    end
+
+    body_to_text
+  rescue FoiAttachment::Erasable::ErasedError
+    ''
+  end
+
   BODY_MAX_TRIES = 3
   BODY_MAX_DELAY = 5
 
   def delete_cached_file!
     @cached_body = nil
     file.purge_later if file.attached?
+  end
+
+  def unredacted_content_for_indexing
+    AttachmentToText.
+      from_string(unmasked_body_for_indexing, content_type: content_type).
+      to_text
+  rescue RawEmail::Erasable::ErasedError,
+         FoiAttachment::Erasable::ErasedError,
+         MailHandler::MismatchedAttachmentHexdigest
+    ''
+  end
+
+  def unredacted_diff_for_admin_indexing
+    # Nothing was masked, so skip extracting the text again as it can be slow
+    return '' if unmasked_body_for_indexing.b == body.b
+
+    diff_unredacted_and_redacted_content(
+      unredacted_content_for_indexing,
+      body_for_indexing
+    )
+  rescue RawEmail::Erasable::ErasedError,
+         FoiAttachment::Erasable::ErasedError,
+         MailHandler::MismatchedAttachmentHexdigest
+    ''
   end
 
   def body=(d)
@@ -108,10 +192,14 @@ class FoiAttachment < ApplicationRecord
       raise ex if locked? || erased?
     end
 
+    if masking_failed?
+      raise MaskingError, "masking previously failed (ID=#{id})"
+    end
+
     if persisted?
       FoiAttachment::MaskJob.unlock!(self)
       FoiAttachment::MaskJob.perform_now(self)
-      return body unless destroyed?
+      return body_after_masking unless destroyed?
     end
 
     load_attachment_from_incoming_message!.body if destroyed?
@@ -166,7 +254,11 @@ class FoiAttachment < ApplicationRecord
     return filename unless info_request
     return filename if locked? && !locking?
 
-    info_request.apply_censor_rules_to_text(filename)
+    # FIXME: We should use `apply_masks` to use the full masking pipeline, but
+    # this may break some attachment URLs.
+    info_request.apply_censor_rules_to_text(
+      filename, redactable: self, redacted_attribute: :filename
+    )
   end
 
   # TODO: changing this will break existing URLs, so have a care - maybe
@@ -261,7 +353,15 @@ class FoiAttachment < ApplicationRecord
 
   private
 
-  def mail_attributes
+  # Unlike unmasked_body, this doesn't recover an attachment missing from the
+  # raw email, as that saves a new hexdigest and so triggers a reindex from
+  # within a reindex.
+  def unmasked_body_for_indexing
+    ensure_not_erased!
+    mail_attributes(recover: false)[:body]
+  end
+
+  def mail_attributes(recover: true)
     raw_email_ensure_not_erased!
 
     MailHandler.attachment_attributes_for_hexdigest(
@@ -270,6 +370,8 @@ class FoiAttachment < ApplicationRecord
     )
 
   rescue MailHandler::MismatchedAttachmentHexdigest
+    raise unless recover
+
     begin
       attributes = MailHandler.attempt_to_find_original_attachment_attributes(
         raw_email.mail,
@@ -296,4 +398,15 @@ class FoiAttachment < ApplicationRecord
       "url_part_number and display_filename attributes"
   end
 
+  def body_after_masking
+    return @cached_body if @cached_body
+
+    if masking_failed?
+      raise MaskingError, "masking previously failed (ID=#{id})"
+    end
+
+    return file.download if masked? && file_blob.service.exist?(file_blob.key)
+
+    raise MissingError, "attachment still missing after masking (ID=#{id})"
+  end
 end

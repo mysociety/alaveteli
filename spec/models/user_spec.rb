@@ -495,7 +495,7 @@ RSpec.describe User, 'previous names' do
   describe '#safe_previous_names' do
     it 'returns unique safe previous names without current name' do
       FactoryBot.create(
-        :censor_rule, user: user, text: 'Bobby', replacement: '[redacted]'
+        :censor_rule, censorable: user, text: 'Bobby', replacement: '[redacted]'
       )
 
       expect(user.safe_previous_names).to include('[redacted]').once
@@ -619,72 +619,6 @@ RSpec.describe User, "when emails have bounced" do
 end
 
 RSpec.describe User do
-  describe '.search' do
-    subject { described_class.search(query) }
-
-    let(:user_1) do
-      attrs = {
-        name: 'Alice',
-        email: 'alice@example.com',
-        about_me: 'foo bar'
-      }
-
-      FactoryBot.create(:user, attrs)
-    end
-
-    let(:user_2) do
-      attrs = {
-        name: 'James',
-        email: 'james@example.com',
-        about_me: 'bar',
-        tag_string: 'foo_bar'
-      }
-
-      FactoryBot.create(:user, attrs)
-    end
-
-    context 'when given a name' do
-      let(:query) { 'Alice' }
-      it { is_expected.to match_array([user_1]) }
-    end
-
-    context 'when given a partial name' do
-      let(:query) { 'lic' }
-      it { is_expected.to match_array([user_1]) }
-    end
-
-    context 'when given an email' do
-      let(:query) { 'alice@example.com' }
-      it { is_expected.to match_array([user_1]) }
-    end
-
-    context 'when given a partial email' do
-      let(:query) { 'alice@' }
-      it { is_expected.to match_array([user_1]) }
-    end
-
-    context 'when given an about_me matching a single user' do
-      let(:query) { 'foo' }
-      it { is_expected.to match_array([user_1]) }
-    end
-
-    context 'when given an about_me matching multiple users' do
-      let(:query) { 'bar' }
-      it { is_expected.to match_array([user_1, user_2]) }
-    end
-
-    context 'when given an exact tag' do
-      let(:query) { 'foo_bar' }
-      it { is_expected.to match_array([user_2]) }
-    end
-
-    context 'when given a partial tag' do
-      let(:query) { 'foo' }
-      # Matches user_1 about_me; doesn't match the initial part of user_2 tag
-      it { is_expected.to match_array([user_1]) }
-    end
-  end
-
   describe '.authenticate_from_form' do
     let(:empty_user) { described_class.new }
 
@@ -755,6 +689,12 @@ RSpec.describe User do
 
     it "returns nil when user login token doesn't match" do
       session = { user_id: user.id, user_login_token: 'ABC' }
+      expect(User.authenticate_from_session(session)).to be_nil
+    end
+
+    it 'returns nil when the user is closed' do
+      session = { user_id: user.id, user_login_token: user.login_token }
+      user.close!
       expect(User.authenticate_from_session(session)).to be_nil
     end
   end
@@ -882,8 +822,8 @@ RSpec.describe User do
 
     it 'destroys any associated censor_rules' do
       censor_rule = FactoryBot.create(:user_censor_rule)
-      censor_rule.user.destroy
-      expect(CensorRule.where(id: censor_rule.id)).to be_empty
+      censor_rule.censorable.destroy
+      expect(CensorRule.user.where(censorable_id: user.id)).to be_empty
     end
 
     it 'destroys any associated info_request_batches' do
@@ -901,11 +841,13 @@ RSpec.describe User do
   end
 
   describe '#expire_requests' do
-    it 'create expire job for the user' do
-      user = FactoryBot.build(:user)
-      expect(InfoRequest::ExpireJob).to receive(:perform_later).
-        with(user, :info_requests)
-      user.expire_requests
+    subject { user.expire_requests }
+
+    let(:user) { FactoryBot.create(:user) }
+
+    it 'expires the requests' do
+      expect { subject }.
+        to have_enqueued_job(InfoRequest::ExpireJob).with(user, :info_requests)
     end
   end
 
@@ -1176,6 +1118,46 @@ RSpec.describe User do
     end
   end
 
+  describe 'TOTP drift tolerance' do
+    let(:user) { FactoryBot.create(:user, :enable_totp) }
+    let(:period_start) { Time.utc(2026, 8, 5, 10, 0, 0) }
+    let(:period_end) { period_start + 30.seconds }
+    let(:window_closes) { period_end + User::OneTimePassword::DRIFT }
+
+    # Read at the end of a step, submitted after it has ended
+    def expiring_code
+      travel_to(period_end - 1.second) { user.otp_code }
+    end
+
+    it 'accepts it until the drift window closes' do
+      code = expiring_code
+
+      travel_to(window_closes - 1.second) do
+        expect(user.authenticate_otp(code)).to eq(true)
+      end
+    end
+
+    it 'rejects a code once the drift window has closed' do
+      code = expiring_code
+
+      travel_to(window_closes) do
+        expect(user.authenticate_otp(code)).to eq(false)
+      end
+    end
+
+    it 'refuses to replay a code accepted inside the drift window' do
+      code = expiring_code
+
+      travel_to(window_closes - 2.seconds) do
+        expect(user.authenticate_otp(code)).to eq(true)
+      end
+
+      travel_to(window_closes - 1.second) do
+        expect(user.authenticate_otp(code)).to eq(false)
+      end
+    end
+  end
+
   describe '#disable_otp' do
     it 'sets otp_enabled to false' do
       user = User.new(otp_enabled: true)
@@ -1407,10 +1389,12 @@ RSpec.describe User do
     let(:user) { FactoryBot.create(:user) }
 
     it 'delegates to close!, anonymise! and erase! methods' do
+      editor = double
+      reason = double
       expect(user).to receive(:close!)
       expect(user).to receive(:anonymise!)
-      expect(user).to receive(:erase!)
-      user.close_and_anonymise
+      expect(user).to receive(:erase!).with(editor: editor, reason: reason)
+      user.close_and_anonymise(editor: editor, reason: reason)
     end
   end
 
@@ -1449,7 +1433,7 @@ RSpec.describe User do
   describe '#close!' do
     subject { user.close! }
 
-    let(:user) { FactoryBot.build(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     context 'the update is successful' do
       before { subject }
@@ -1464,6 +1448,10 @@ RSpec.describe User do
 
       it 'disables email alerts' do
         expect(user.receive_email_alerts).to eq(false)
+      end
+
+      it 'clears the login token' do
+        expect(user.reload.login_token).to be_nil
       end
     end
 
@@ -1493,14 +1481,17 @@ RSpec.describe User do
   end
 
   describe '#erase' do
-    subject { user.erase }
+    subject { user.erase(editor: editor, reason: reason) }
 
+    let(:editor) { instance_double(User) }
+    let(:reason) { 'GDPR' }
     let(:user) { FactoryBot.build(:user) }
 
     context 'the update is successful' do
       before do
         user.close!
-        expect(user).to receive(:erase!).and_call_original
+        expect(user).to receive(:erase!).
+          with(editor: editor, reason: reason).and_call_original
         subject
       end
 
@@ -1513,7 +1504,9 @@ RSpec.describe User do
 
     context 'the update is unsuccessful' do
       before do
-        expect(user).to receive(:erase!).and_raise(ActiveRecord::RecordInvalid)
+        expect(user).to receive(:erase!).
+          with(editor: editor, reason: reason).
+          and_raise(ActiveRecord::RecordInvalid)
         subject
       end
 
@@ -1526,7 +1519,10 @@ RSpec.describe User do
   end
 
   describe '#erase!' do
-    subject { user.erase! }
+    subject { user.erase!(editor: editor, reason: reason) }
+
+    let(:editor) { instance_double(User) }
+    let(:reason) { 'GDPR' }
 
     context 'the user account is not closed' do
       let(:user) { FactoryBot.build(:user, about_me: 'Hi') }
@@ -1614,6 +1610,20 @@ RSpec.describe User do
       it 'raises an ActiveRecord::RecordInvalid error' do
         expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
       end
+    end
+  end
+
+  describe '#erase_later' do
+    subject { user.erase_later(editor: editor, reason: reason) }
+
+    let(:user) { FactoryBot.create(:user) }
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'GDPR' }
+
+    it 'enqueues a User::ErasureJob' do
+      expect { subject }.
+        to have_enqueued_job(User::ErasureJob).
+        with(user, editor: editor, reason: reason)
     end
   end
 
@@ -2636,7 +2646,7 @@ RSpec.describe User do
     let(:user) { FactoryBot.create(:user) }
 
     it 'mark as needed to be indexed' do
-      expect(user).to receive(:xapian_mark_needs_index)
+      expect(Search).to receive(:reindex_later).with(user)
       user.info_request_count_changed
     end
   end

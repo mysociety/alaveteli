@@ -32,6 +32,29 @@ module IncomingMessage::MainBody
 
   rescue FoiAttachment::ErasedError
     ''
+
+  rescue FoiAttachment::MaskingError
+    _('[ {{site_name}} note: We were not able to process this message. ]',
+      site_name: site_name)
+  end
+
+  # fetches the raw email and extracts text without applying masks nor
+  # censor rules.
+  def main_body_text_uncensored_for_indexing
+    parse_raw_email
+    main_part = get_main_body_text_part
+    AttachmentToText.
+      from_part(main_part, main_part.unmasked_body).
+      to_text.
+      squeeze(' ')
+  rescue FoiAttachment::MissingError,
+         FoiAttachment::ErasedError,
+         RawEmail::Erasable::ErasedError
+    # TODO: is there still some content we can index?
+    ''
+  rescue ActiveStorage::FileNotFoundError
+    puts("File not found for #{self.class.name} #{id}")
+    ''
   end
 
   # Returns part which contains main body text, or nil if there isn't one,
@@ -102,7 +125,7 @@ module IncomingMessage::MainBody
 
       # if there is nothing but quoted stuff, then show the subject
       if text == "FOLDED_QUOTED_SECTION"
-        text = "[Subject only] " + CGI.escapeHTML(subject || '') + text
+        text = "[Subject only] " + CGI.escapeHTML(safe_subject || '') + text
       end
 
       # and display link for quoted stuff
@@ -134,6 +157,8 @@ module IncomingMessage::MainBody
     return '' if Ability.guest.cannot?(:read, get_main_body_text_part)
 
     get_body_for_quoting
+  rescue FoiAttachment::MaskingError
+    ''
   end
 
   # Returns text of email for using in quoted section when replying
@@ -167,7 +192,7 @@ module IncomingMessage::MainBody
 
     # apply masks for this message
     unless get_main_body_text_part&.locked?
-      text = apply_masks(text, 'text/html')
+      text = apply_masks(text, 'text/html', redacted_attribute: :body)
     end
 
     # Remove existing quoted sections

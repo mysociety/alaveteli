@@ -765,11 +765,13 @@ RSpec.describe PublicBody do
   end
 
   describe '#expire_requests' do
-    it 'create expire job for the public body' do
-      public_body = FactoryBot.build(:public_body)
-      expect(InfoRequest::ExpireJob).to receive(:perform_later).
-        with(public_body, :info_requests)
-      public_body.expire_requests
+    subject { body.expire_requests }
+
+    let(:body) { FactoryBot.create(:public_body) }
+
+    it 'expires the requests' do
+      expect { subject }.
+        to have_enqueued_job(InfoRequest::ExpireJob).with(body, :info_requests)
     end
   end
 
@@ -1287,9 +1289,10 @@ RSpec.describe PublicBody, "when destroying" do
   end
 
   it 'should destroy the associated censor_rules' do
-    FactoryBot.create(:censor_rule, public_body: public_body)
+    censor_rule = FactoryBot.create(:censor_rule, censorable: public_body)
     public_body.destroy
-    expect(CensorRule.where(public_body_id: public_body.id)).to be_empty
+    expect(CensorRule.public_body.where(censorable_id: public_body.id)).
+      to be_empty
   end
 
   it 'destroys associated translations' do
@@ -2068,6 +2071,114 @@ RSpec.describe PublicBody, " when override all public body request emails set" d
     expect(AlaveteliConfiguration).to receive(:override_all_public_body_request_emails).twice.and_return("catch_all_test_email@foo.com")
     @geraldine = public_bodies(:geraldine_public_body)
     expect(@geraldine.request_email).to eq("catch_all_test_email@foo.com")
+  end
+end
+
+RSpec.describe PublicBody, "when indexing for postgres search",
+               :reindex_inline do
+  it 'updates the search index after updating the public body' do
+    pb = FactoryBot.create(:public_body, name: 'Council of things')
+    expect(PublicBody.newsearch('Council of things')).to eq([pb])
+    pb.update(name: 'Ministry of Stuff')
+    pb.save
+    expect(PublicBody.newsearch('Council of things')).to eq([])
+    expect(PublicBody.newsearch('Ministry of Stuff')).to eq([pb])
+  end
+
+  it 'PublicBody has one SearchDocument per translation' do
+    name_en = "Some public authority ABCD"
+    name_fr = "Une administration ABCD"
+    body = FactoryBot.create(:public_body, name: name_en)
+    body.translations.create(locale: 'fr',
+                             name: name_fr)
+    expect(body.translations.size).to eq(2)
+    expect(body.name(:fr)).to eq(name_fr)
+
+    body.reindex
+
+    expect(body.search_documents.count).to eq(2)
+    expect(PublicBody.newsearch("ABCD", language: 'french')).to eq([body])
+    expect(PublicBody.newsearch("ABCD")).to eq([body])
+    expect(PublicBody.newsearch(
+             "authority",
+             language: 'french'
+           )).to match_array([])
+    expect(PublicBody.newsearch(
+             "administration",
+             language: 'english'
+           )).to match_array([])
+  end
+
+  context 'handles known problematic searches from various sites' do
+    # from https://github.com/mysociety/alaveteli/issues/1179
+    it 'finds UK public bodies' do
+      with_default_locale(:en) do
+        nhs = FactoryBot.create(:public_body, name: "NHS England")
+        bodies = [
+          nhs,
+          FactoryBot.create(:public_body, name: "NHS Improving Quality"),
+          FactoryBot.create(:public_body, name: "NHSX"),
+          FactoryBot.create(
+            :public_body,
+            name: "Northern England NHS fictitious center"
+          )
+        ]
+        expect(PublicBody.newsearch("NHS England").first).to eq(nhs)
+      end
+    end
+
+    it 'finds French public bodies' do
+      with_default_locale(:fr_FR) do
+        AlaveteliLocalization.with_locale(:fr_FR) do
+          body = FactoryBot.create(
+            :public_body,
+            name: "Ministère de l'Intérieur"
+          )
+          expect(PublicBody.newsearch(
+                   "ministere intérieur",
+            language: 'french'
+                 )).to match_array([body])
+          expect(
+            PublicBody.newsearch("ministere interieur")
+          ).to match_array([body])
+          expect(
+            PublicBody.newsearch("ministere de l'intérieur")
+          ).to match_array([body])
+        end
+      end
+    end
+
+    it 'finds the Australian attorney general' do
+      # from https://github.com/mysociety/alaveteli/issues/1179#issuecomment-304157132
+      with_default_locale(:en) do
+        ag = FactoryBot.create(:public_body,
+                               name: "WA Department of the Attorney General")
+        expect(PublicBody.newsearch("WA Attorney General")).to match_array([ag])
+        expect(PublicBody.newsearch("Attorney General")).to match_array([ag])
+      end
+    end
+
+    it 'finds the Swedish name of a public body in either locale' do
+      with_default_locale(:sv) do
+        st = FactoryBot.create(:public_body, name: "Skånetrafiken")
+        st.translations.create(locale: "sv",
+                               name: "Skånetrafiken")
+        st.reindex
+        s = SearchDocument.first
+        AlaveteliLocalization.with_locale(:sv) do
+          expect(PublicBody.newsearch(
+                   "Skånetrafiken",
+               language: 'swedish'
+                 )).to match_array([st])
+        end
+        AlaveteliLocalization.with_locale(:en) do
+          expect(PublicBody.newsearch(
+                   "Skånetrafiken",
+               language: 'english'
+                 )).to match_array([st])
+        end
+      end
+    end
   end
 end
 

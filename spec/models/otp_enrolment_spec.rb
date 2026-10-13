@@ -59,6 +59,30 @@ RSpec.describe OtpEnrolment do
       enrolment.valid?
       expect(enrolment.errors[:otp_code]).to be_present
     end
+
+    context 'with a code submitted just after its step ended' do
+      let(:period_start) { Time.utc(2026, 8, 5, 10, 0, 0) }
+      let(:period_end) { period_start + 30.seconds }
+      let(:window_closes) { period_end + User::OneTimePassword::DRIFT }
+
+      before do
+        travel_to(period_end - 1.second) do
+          enrolment.otp_code = ROTP::TOTP.new(secret).now
+        end
+      end
+
+      it 'is true inside the drift window' do
+        travel_to(window_closes - 1.second) do
+          expect(enrolment.valid?).to eq(true)
+        end
+      end
+
+      it 'is false once the drift window has closed' do
+        travel_to(window_closes) do
+          expect(enrolment.valid?).to eq(false)
+        end
+      end
+    end
   end
 
   describe '#save' do

@@ -16,6 +16,9 @@ class AttachmentMasksController < ApplicationController
         referer: verifier.generate(@referer)
       )
 
+    elsif @attachment.masking_failed?
+      redirect_to @referer
+
     else
       @attachment.mask_later
     end

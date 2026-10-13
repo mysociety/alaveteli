@@ -42,7 +42,7 @@
     </p>
 
     <% if @request_from_foreign_country %>
-      <%= recaptcha_tags %>
+      <%= recaptcha_tags(nonce: content_security_policy_nonce) %>
     <% end %>
 
     <div class="form_button">

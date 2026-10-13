@@ -33,6 +33,7 @@ class PublicBody < ApplicationRecord
   include LinkToHelper
 
   include Categorisable
+  include Searchable
   include Taggable
   include Notable
 
@@ -57,7 +58,7 @@ class PublicBody < ApplicationRecord
   # batch authority search results or batch category UI
   cattr_accessor :batch_excluded_tags,
                  instance_accessor: false,
-                 default: %w[not_apply defunct]
+                 default: %w[defunct foi_no not_apply]
 
   has_many :info_requests,
            -> { order(created_at: :desc) },
@@ -68,7 +69,8 @@ class PublicBody < ApplicationRecord
            dependent: :destroy
   has_many :censor_rules,
            -> { order(created_at: :desc) },
-           inverse_of: :public_body,
+           as: :censorable,
+           inverse_of: :censorable,
            dependent: :destroy
   has_many :track_things_sent_emails,
            -> { order(created_at: :desc) },
@@ -120,23 +122,26 @@ class PublicBody < ApplicationRecord
   scope :visible, -> { where("public_bodies.id <> #{ PublicBody.internal_admin_body.id }") }
 
   acts_as_versioned
-  acts_as_xapian texts: [:name, :short_name, :notes_as_string],
-                 values: [
-                   # for sorting
-                   [:created_at_numeric, 1, "created_at", :number]
-                 ],
-                 terms: [
-                   [:name_for_search, 'N', 'name'],
-                   [:variety, 'V', "variety"],
-                   [:tag_array_for_search, 'U', "tag"]
-                 ],
-                 eager_load: [:translations]
 
   strip_attributes allow_empty: false, except: %i[request_email]
   strip_attributes allow_empty: true, only: %i[request_email]
 
   translates :name, :short_name, :request_email, :url_name, :first_letter,
              :publication_scheme, :disclosure_log
+
+  searchable index: {
+               ".name": "A",
+               ".short_name": "A",
+               "home_page": "B",
+               ".notes_for_search": "C",
+               ".disclosure_log": "D",
+               ".publication_scheme": "D",
+             },
+             admin_index: {
+               ".request_email": "A",
+               "last_edit_editor": "D",
+               "last_edit_comment": "D",
+             }
 
   # Cannot be grouped at top as it depends on the `translates` macro
   include Translatable
@@ -224,6 +229,13 @@ class PublicBody < ApplicationRecord
     def editor
       User.find_by(url_name: last_edit_editor)
     end
+  end
+
+  # return only the notes attached to the body itself, excluding
+  # notes brought it by tags, as they pollute search results because
+  # they tend to be non-specific.
+  def notes_for_search
+    concrete_notes.map(&:body).join(' ')
   end
 
   # Public: Search for Public Bodies whose name, short_name, request_email or

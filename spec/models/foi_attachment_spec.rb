@@ -20,6 +20,7 @@
 #  replaced_at           :datetime
 #  replaced_reason       :string
 #  erased_at             :datetime
+#  masking_failed_at     :datetime
 #
 
 require 'spec_helper'
@@ -74,6 +75,36 @@ RSpec.describe FoiAttachment do
 
     it { is_expected.to include(erased_attachment) }
     it { is_expected.to_not include(non_erased_attachment) }
+  end
+
+  describe '.not_erased' do
+    subject { described_class.not_erased }
+
+    let!(:erased_attachment) { FactoryBot.create(:body_text, :erased) }
+    let!(:non_erased_attachment) { FactoryBot.create(:body_text) }
+
+    it { is_expected.to_not include(erased_attachment) }
+    it { is_expected.to include(non_erased_attachment) }
+  end
+
+  describe '.masked' do
+    subject { described_class.masked }
+
+    let!(:masked_attachment) { FactoryBot.create(:body_text) }
+    let!(:unmasked_attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+    it { is_expected.to include(masked_attachment) }
+    it { is_expected.to_not include(unmasked_attachment) }
+  end
+
+  describe '.unmasked' do
+    subject { described_class.unmasked }
+
+    let!(:masked_attachment) { FactoryBot.create(:body_text) }
+    let!(:unmasked_attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+    it { is_expected.to_not include(masked_attachment) }
+    it { is_expected.to include(unmasked_attachment) }
   end
 
   describe '.cached_urls' do
@@ -251,6 +282,20 @@ RSpec.describe FoiAttachment do
       end
     end
 
+    context 'when masking has previously failed' do
+      let(:foi_attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked, masking_failed_at: Time.zone.now
+        )
+      end
+
+      it 'raises MaskingError without re-running the mask job' do
+        expect(FoiAttachment::MaskJob).to_not receive(:perform_now)
+        expect { foi_attachment.body }.
+          to raise_error(FoiAttachment::MaskingError)
+      end
+    end
+
     context 'when masked' do
       let(:foi_attachment) { FactoryBot.create(:body_text) }
 
@@ -284,13 +329,24 @@ RSpec.describe FoiAttachment do
       end
     end
 
-    context 'when unmasked and original attachment can be found' do
-      let(:incoming_message) do
-        FactoryBot.create(:incoming_message, foi_attachments_factories: [
-          [:body_text, :unmasked]
-        ])
+    context 'when masked but the file is still missing after masking' do
+      let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+      before do
+        foi_attachment.file_blob.service.delete(foi_attachment.file_blob.key)
+        allow(FoiAttachment::MaskJob).to receive(:perform_now)
       end
-      let(:foi_attachment) { incoming_message.foi_attachments.last }
+
+      it 'raises MissingError' do
+        expect { foi_attachment.body }.to raise_error(
+          FoiAttachment::MissingError,
+          "attachment still missing after masking (ID=#{foi_attachment.id})"
+        )
+      end
+    end
+
+    context 'when unmasked and original attachment can be found' do
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
 
       it 'calls the FoiAttachment::MaskJob now and return the masked body' do
         expect(FoiAttachment::MaskJob).to receive(:perform_now).
@@ -302,24 +358,26 @@ RSpec.describe FoiAttachment do
 
         expect(foi_attachment.body).to eq('maskedbody')
       end
+
+      it 'raises MissingError if masking does not store a file' do
+        allow(FoiAttachment::MaskJob).to receive(:perform_now)
+
+        expect { foi_attachment.body }.to raise_error(
+          FoiAttachment::MissingError,
+          "attachment still missing after masking (ID=#{foi_attachment.id})"
+        )
+      end
     end
 
     context 'when unmasked and original attachment can not be found' do
-      let(:incoming_message) do
-        FactoryBot.create(:incoming_message, foi_attachments_factories: [
-          [:body_text, :unmasked]
-        ])
-      end
-      let(:foi_attachment) { incoming_message.foi_attachments.last }
+      let(:foi_attachment) { FactoryBot.create(:body_text, :unmasked) }
 
       before do
-        foi_attachment.update(hexdigest: '123')
-
         expect(FoiAttachment::MaskJob).to receive(:perform_now).
           with(foi_attachment).
           and_invoke(-> (_) {
-            # mock the job
-            incoming_message.parse_raw_email!
+            # mock the job rebuilding the attachments from the raw email
+            foi_attachment.destroy
           })
       end
 
@@ -419,6 +477,29 @@ RSpec.describe FoiAttachment do
     it 'returns binary for a PDF attachment' do
       foi_attachment = FactoryBot.create(:pdf_attachment)
       expect(foi_attachment.default_body.encoding.to_s).to eq('ASCII-8BIT')
+    end
+  end
+
+  describe '#masked_default_body', feature: :redaction_tracking do
+    subject { foi_attachment.masked_default_body }
+
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    let!(:censor_rule) do
+      FactoryBot.create(:info_request_censor_rule,
+                        censorable: foi_attachment.info_request,
+                        text: 'hereisthetext', replacement: '[REDACTED]')
+    end
+
+    it 'masks the body served in a request zip' do
+      is_expected.to include('[REDACTED]')
+    end
+
+    it 'records the redaction against :default_body' do
+      subject
+
+      expect(censor_rule.redactions.pluck(:redacted_attribute)).
+        to include('default_body')
     end
   end
 
@@ -542,10 +623,43 @@ RSpec.describe FoiAttachment do
     end
   end
 
+  describe '#unredacted_diff_for_admin_indexing' do
+    subject { foi_attachment.unredacted_diff_for_admin_indexing }
+
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    context 'when nothing was masked' do
+      it 'returns an empty string without extracting the text again' do
+        expect(AttachmentToText).not_to receive(:from_string)
+        is_expected.to eq('')
+      end
+    end
+
+    context 'when masking changed the body' do
+      before do
+        allow(foi_attachment).to receive(:body).
+          and_return('hereisthe[REDACTED]')
+      end
+
+      it { is_expected.to match(/hereisthetext/) }
+    end
+
+    context 'when the hexdigest does not match the raw email' do
+      before { foi_attachment.update_column(:hexdigest, 'ABC') }
+
+      it { is_expected.to eq('') }
+
+      it 'does not recover the hexdigest' do
+        subject
+        expect(foi_attachment.reload.hexdigest).to eq('ABC')
+      end
+    end
+  end
+
   describe '#main_body_part?' do
     subject { attachment.main_body_part? }
 
-    let(:message) { FactoryBot.build(:incoming_message, :with_pdf_attachment) }
+    let(:message) { FactoryBot.create(:incoming_message, :with_pdf_attachment) }
 
     context 'when the attachment is the main body' do
       let(:attachment) { message.get_main_body_text_part }
@@ -605,6 +719,39 @@ RSpec.describe FoiAttachment do
       end
     end
 
+  end
+
+  describe '#masked_body_to_html', feature: :redaction_tracking do
+    subject { foi_attachment.masked_body_to_html }
+
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+
+    let!(:censor_rule) do
+      FactoryBot.create(:info_request_censor_rule,
+                        censorable: foi_attachment.info_request,
+                        text: 'hereisthetext', replacement: '[REDACTED]')
+    end
+
+    it 'binary masks the HTML rendering' do
+      is_expected.to include('xxxxxxxxxxxxx')
+    end
+
+    it 'records the redaction against :body_to_html' do
+      subject
+
+      expect(censor_rule.redactions.pluck(:redacted_attribute)).
+        to include('body_to_html')
+    end
+
+    it 'passes options through to #body_to_html' do
+      expect(foi_attachment).to receive(:body_to_html).
+        with(attachment_url: 'http://example.com/attachment').
+        and_return('<p>html</p>')
+
+      foi_attachment.masked_body_to_html(
+        attachment_url: 'http://example.com/attachment'
+      )
+    end
   end
 
   describe '#body_to_text' do
@@ -857,8 +1004,6 @@ RSpec.describe FoiAttachment do
     let(:incoming_message) { info_request.incoming_messages.first }
     let(:attachment) { incoming_message.foi_attachments.last }
 
-    before { rebuild_raw_emails(info_request) }
-
     it 'updates masked_at' do
       info_request.censor_rules.create!(
         text: 'dull', replacement: 'boring',
@@ -868,22 +1013,55 @@ RSpec.describe FoiAttachment do
       expect { subject }.to change { attachment.masked_at }.to(Time)
     end
 
-    it 'sanitises HTML attachments' do
-      # Nokogiri adds the meta tag; see
-      # https://github.com/sparklemotion/nokogiri/issues/1008
-      expected = <<-EOF.squish
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        </head>
-        <body>dull
-        </body>
-      </html>
-      EOF
+    context 'with HTML attachment' do
+      it 'preserves structural tags' do
+        subject
+        expect(attachment.body).to include('<!DOCTYPE html>')
+        expect(attachment.body).to include('<html>')
+      end
 
-      subject
-      expect(attachment.body.squish).to eq(expected)
+      it 'sanitises the attachments' do
+        subject
+        expect(attachment.body).to include('dull')
+        expect(attachment.body).not_to include('<script>')
+      end
+    end
+
+    context 'with deeply nested HTML attachment' do
+      let(:info_request) do
+        FactoryBot.create(:info_request_with_deeply_nested_html_attachment)
+      end
+
+      it 'collapses redundant nesting and preserves the content as HTML' do
+        subject
+        expect(attachment.body).to eq(
+          "<!DOCTYPE html><html><head></head><body>" \
+          "<div>Deeply nested content</div>\n</body></html>"
+        )
+      end
+
+      it 'sanitises the attachments' do
+        subject
+        expect(attachment.body).not_to include('<script>')
+      end
+
+      context 'when the parser rejects the nesting as too deep' do
+        before do
+          allow(Loofah).to receive(:html5_document).
+            and_raise(ArgumentError, 'Document tree depth limit exceeded')
+        end
+
+        it 'falls back to escaped plain text' do
+          subject
+          expect(attachment.body).
+            to eq('Deeply nested content alert(&#39;x&#39;)')
+        end
+
+        it 'sanitises the attachments' do
+          subject
+          expect(attachment.body).not_to include('<script>')
+        end
+      end
     end
 
     it 'censors attachments downloaded directly' do
@@ -925,6 +1103,28 @@ RSpec.describe FoiAttachment do
       expect(attachment.body).to_not include 'dull'
       expect(attachment.body).to include 'Horse'
     end
+
+    context 'when masking times out' do
+      let(:attachment) { FactoryBot.create(:body_text, :unmasked) }
+
+      before do
+        allow(attachment).to receive(:unmasked_body).and_return('body')
+        allow(attachment).to receive(:apply_masks).
+          and_raise(Regexp::TimeoutError)
+      end
+
+      it 'records the failure without masking' do
+        expect { subject }.
+          to change { attachment.masking_failed_at }.from(nil).to(be_present)
+        expect(attachment.masked_at).to be_nil
+      end
+
+      it 'does not attempt masking again once failed' do
+        subject
+        expect(attachment).to_not receive(:apply_masks)
+        attachment.mask
+      end
+    end
   end
 
   describe '#mask_later' do
@@ -935,6 +1135,64 @@ RSpec.describe FoiAttachment do
     it 'enqueues the job' do
       expect { subject }.
         to have_enqueued_job(FoiAttachment::MaskJob).with(foi_attachment)
+    end
+  end
+
+  describe '#mask_siblings' do
+    subject { foi_attachment.mask_siblings }
+
+    let(:info_request) { FactoryBot.create(:info_request_with_incoming) }
+    let(:incoming_message) { info_request.incoming_messages.first }
+    let(:foi_attachment) do
+      FactoryBot.create(:body_text, incoming_message: incoming_message)
+    end
+
+    context 'with an unmasked sibling' do
+      let!(:sibling) do
+        FactoryBot.create(
+          :body_text, :unmasked, incoming_message: incoming_message
+        )
+      end
+
+      it 'masks the sibling' do
+        expect { subject }.to change { sibling.reload.masked? }.
+          from(false).to(true)
+      end
+    end
+
+    context 'with a masked sibling' do
+      let!(:sibling) do
+        FactoryBot.create(:body_text, incoming_message: incoming_message)
+      end
+
+      it 'does not re-mask the sibling' do
+        expect { subject }.to_not change { sibling.reload.masked_at }
+      end
+    end
+
+    context 'with an erased sibling' do
+      let!(:sibling) do
+        FactoryBot.create(
+          :body_text, :erased, :unmasked, incoming_message: incoming_message
+        )
+      end
+
+      it 'does not mask the sibling' do
+        expect { subject }.to_not change { sibling.reload.masked_at }.from(nil)
+      end
+    end
+
+    context 'when itself is unmasked' do
+      let(:foi_attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked, incoming_message: incoming_message
+        )
+      end
+
+      it 'does not mask itself' do
+        expect { subject }.to_not change { foi_attachment.reload.masked? }.
+          from(false)
+      end
     end
   end
 
@@ -1483,6 +1741,32 @@ RSpec.describe FoiAttachment do
       it { is_expected.to eq(true) }
     end
 
+    context 'when masking has previously failed' do
+      subject do
+        foi_attachment.replace!(
+          editor: editor,
+          reason: reason,
+          replacement_file: fixture_file_upload('parrot.png', 'image/png')
+        )
+      end
+
+      let(:foi_attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked, masking_failed_at: Time.zone.now
+        )
+      end
+
+      it 'clears the masking failure' do
+        subject
+        expect(foi_attachment.reload.masking_failed_at).to be_nil
+      end
+
+      it 'no longer reports the attachment as failed' do
+        subject
+        expect(foi_attachment.reload).to_not be_masking_failed
+      end
+    end
+
     context 'when logging the event' do
       subject do
         foi_attachment.replace!(
@@ -1911,6 +2195,42 @@ RSpec.describe FoiAttachment do
       expect(foi_attachment.reload.file).not_to be_attached
     end
 
+    it 'deletes the file from storage' do
+      blob = foi_attachment.file.blob
+
+      perform_enqueued_jobs { subject }
+
+      expect(blob.service.exist?(blob.key)).to eq(false)
+    end
+
+    context 'when the purge runs in another process' do
+      self.use_transactional_tests = false
+
+      after do
+        [info_request, info_request.user, info_request.public_body,
+         editor].each(&:destroy)
+      end
+
+      it 'deletes the file from storage' do
+        blob = foi_attachment.file.blob
+
+        # Purge from another connection part way through the erase, once the
+        # file has been detached but before anything has been saved
+        allow(foi_attachment).to receive(:expire) do
+          Thread.new do
+            ActiveRecord::Base.connection_pool.with_connection do
+              perform_enqueued_jobs(only: ActiveStorage::PurgeJob)
+            end
+          end.join
+        end
+
+        subject
+        perform_enqueued_jobs(only: ActiveStorage::PurgeJob)
+
+        expect(blob.service.exist?(blob.key)).to eq(false)
+      end
+    end
+
     it 'touches erased_at' do
       expect { subject }.to change(foi_attachment, :erased_at).from(nil)
       expect(foi_attachment.erased_at).to be_a(Time)
@@ -2004,6 +2324,14 @@ RSpec.describe FoiAttachment do
         expect(foi_attachment.reload).not_to be_erased
       end
 
+      it 'does not delete the file from storage' do
+        blob = foi_attachment.file.blob
+
+        perform_enqueued_jobs { subject }
+
+        expect(blob.service.exist?(blob.key)).to eq(true)
+      end
+
       it { is_expected.to eq(false) }
     end
 
@@ -2024,6 +2352,43 @@ RSpec.describe FoiAttachment do
       end
 
       it { is_expected.to eq(false) }
+    end
+
+    context 'when a sibling attachment is unmasked' do
+      let!(:sibling) do
+        FactoryBot.create(
+          :body_text, :unmasked, incoming_message: incoming_message
+        )
+      end
+
+      it 'masks the sibling' do
+        expect { subject }.to change { sibling.reload.masked? }.
+          from(false).to(true)
+      end
+
+      it 'erases the attachment' do
+        expect { subject }.to change { foi_attachment.reload.erased? }.
+          from(false).to(true)
+      end
+
+      it 'erases the raw email' do
+        subject
+        expect(foi_attachment.raw_email.reload).to be_erased
+      end
+    end
+  end
+
+  describe '#erase_later' do
+    subject { foi_attachment.erase_later(editor: editor, reason: reason) }
+
+    let(:foi_attachment) { FactoryBot.create(:body_text) }
+    let(:editor) { FactoryBot.create(:admin_user) }
+    let(:reason) { 'Removing PII' }
+
+    it 'enqueues the job' do
+      expect { subject }.
+        to have_enqueued_job(FoiAttachment::EraseJob).
+        with(foi_attachment, editor: editor, reason: reason)
     end
   end
 
@@ -2048,6 +2413,23 @@ RSpec.describe FoiAttachment do
 
       it 'returns a UTF-8 string of the original body' do
         expect(foi_attachment.replacement_body.is_utf8?).to eq(true)
+      end
+    end
+
+    context 'when masking has previously failed' do
+      let(:foi_attachment) do
+        FactoryBot.create(
+          :body_text, :unmasked, masking_failed_at: Time.zone.now
+        )
+      end
+
+      before do
+        allow(foi_attachment).to receive(:body).and_call_original
+        allow(foi_attachment).to receive(:unmasked_body).and_return('raw'.b)
+      end
+
+      it 'returns the unmasked body' do
+        expect(foi_attachment.replacement_body).to eq('raw')
       end
     end
   end
@@ -2082,7 +2464,9 @@ RSpec.describe FoiAttachment do
         and_return(body: original_body)
 
       allow(foi_attachment).to receive(:incoming_message).
-        and_return(double(raw_email_erased?: false))
+        and_return(
+          double(raw_email_erased?: false, get_main_body_text_part: nil)
+        )
     end
 
     context 'when locking an unmasked attachment' do
@@ -2101,7 +2485,7 @@ RSpec.describe FoiAttachment do
       before do
         FactoryBot.create(
           :censor_rule,
-          info_request: info_request,
+          censorable: info_request,
           text: foi_attachment.filename,
           replacement: 'redacted.txt'
         )
@@ -2292,6 +2676,37 @@ RSpec.describe FoiAttachment do
       it 'returns nil' do
         expect(foi_attachment.storage_key).to be_nil
       end
+    end
+  end
+
+  describe 'factories' do
+    it 'put the attachment in the raw email of its message' do
+      foi_attachment = FactoryBot.create(:pdf_attachment)
+      expect(foi_attachment.unmasked_body).to eq(foi_attachment.body)
+    end
+  end
+
+  describe 'search indexing', :postgresql do
+    it 'indexes the attachment content correctly' do
+      expect(
+        SearchDocument.where(searchable_type: 'FoiAttachment').count
+      ).to eq(0)
+      incoming_message = FactoryBot.create(
+        :incoming_message, :with_pdf_attachment
+      )
+      incoming_message.foi_attachments.map(&:body)
+      incoming_message.foi_attachments.map(&:reindex)
+      perform_enqueued_jobs
+      expect(
+        incoming_message.foi_attachments.second.search_documents.count
+      ).to eq(1)
+      expect(
+        FoiAttachment.search_scope(
+          'powered by',
+          exact_mode: true,
+          backend: :postgresql
+        )
+      ).to include(incoming_message.foi_attachments.second)
     end
   end
 end

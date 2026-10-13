@@ -5,30 +5,68 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AdminRequestController < AdminController
+  include Admin::Searchable
   include Admin::Sortable
 
   before_action :set_info_request, :check_info_request, only: %i[
     show edit update destroy move generate_upload_url hide
   ]
 
-  sortable default: :updated_at_desc, only: [:index]
+  sortable default: :updated_at_desc, relevance: :indexed_search?,
+           only: [:index, :index_with_content]
 
   def index
     @query = params[:query]
-    if @query
-      info_requests = InfoRequest.where(["lower(title) like lower('%'||?||'%')", @query])
-    else
-      info_requests = InfoRequest
-    end
+    @query = nil if @query == ''
+
+    info_requests = info_request_scope
 
     if cannot? :admin, AlaveteliPro::Embargo
       info_requests = info_requests.not_embargoed
     end
 
-    @info_requests =
-      info_requests.
-      order(sort_query).
-      paginate(page: params[:page], per_page: 100)
+    @info_requests = measure_search(
+      sorted(
+        info_requests.includes(:embargo, :user, public_body: :translations)
+      ).paginate(page: params[:page], per_page: 100)
+    )
+  end
+
+  # list and search through info_requests with child items
+  # (messages and attachments)
+  def index_with_content
+    @query = params[:query]
+
+    hits = SearchDocument.
+      includes(
+        searchable: {
+          info_request: [
+            :embargo,
+            :user,
+            public_body: :translations
+          ]
+        }
+      ).paginate(page: params[:page], per_page: 100)
+
+    if @query
+      hits = hits.
+        hybrid_search(@query, admin_mode: true, limit: 1_000).
+        where(
+          searchable_type: [
+            :InfoRequest,
+            :IncomingMessage,
+            :OutgoingMessage,
+            :FoiAttachment
+          ]
+        )
+
+      if cannot? :admin, AlaveteliPro::Embargo
+        hits = hits.not_embargoed
+      end
+      @hits = measure_search(sorted(hits))
+    else
+      @hits = sorted(hits.where(searchable_type: 'InfoRequest'))
+    end
   end
 
   def show
@@ -190,16 +228,21 @@ class AdminRequestController < AdminController
       @info_request.save!
 
       if ! @info_request.is_external?
-        ContactMailer.from_admin_message(
-          @info_request.user.name,
-          @info_request.user.email,
-          subject,
-          params[:explanation].strip.html_safe
-        ).deliver_now
-        flash[:notice] = _("Your message to {{recipient_user_name}} has " \
-                           "been sent",
-                           recipient_user_name: @info_request.user.
-                                                     name.html_safe)
+        if params[:commit] == 'Hide request and notify user'
+          ContactMailer.from_admin_message(
+            @info_request.user.name,
+            @info_request.user.email,
+            subject,
+            params[:explanation].strip.html_safe
+          ).deliver_now
+          flash[:notice] = _("Your message to {{recipient_user_name}} has " \
+                             "been sent",
+                             recipient_user_name: @info_request.user.
+                                                       name.html_safe)
+        else
+          flash[notice] = _("The request has been hidden without messaging " \
+                            "the user")
+        end
       else
         flash[:notice] = _("This external request has been hidden")
       end
@@ -210,6 +253,22 @@ class AdminRequestController < AdminController
   end
 
   private
+
+  def info_request_scope
+    return InfoRequest unless @query
+
+    legacy_search? ? legacy_info_request_scope : indexed_info_request_scope
+  end
+
+  def legacy_info_request_scope
+    InfoRequest.where(
+      ["lower(title) like lower('%'||?||'%')", @query]
+    )
+  end
+
+  def indexed_info_request_scope
+    InfoRequest.search_scope(@query, backend: :postgresql, admin_mode: true)
+  end
 
   def info_request_params
     if params[:info_request]

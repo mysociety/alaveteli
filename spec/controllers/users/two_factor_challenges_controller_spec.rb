@@ -109,6 +109,7 @@ RSpec.describe Users::TwoFactorChallengesController do
 
       it 're-renders the challenge with a rate-limit error' do
         expect(response).to render_template(:new)
+        expect(response).to have_http_status(:too_many_requests)
         expect(flash[:error]).to match(/Too many attempts/)
       end
 

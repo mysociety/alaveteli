@@ -12,7 +12,9 @@
         <label class="control-label" for="outgoing_message_tag_string">Tag string</label>
 
         <div class="controls">
-          <%= text_field 'outgoing_message', 'tag_string', class: 'span6' %>
+          <%= render 'admin/tag_field', object_name: 'outgoing_message',
+                                        model_type: 'OutgoingMessage',
+                                        html: { class: 'span6' } %>
         </div>
       </div>
   </fieldset>
@@ -123,4 +125,3 @@
     </div>
   </div>
 <% end %>
-

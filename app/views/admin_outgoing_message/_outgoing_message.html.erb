@@ -1,0 +1,16 @@
+<div class="accordion-group">
+  <div class="accordion-heading">
+    <%= both_links(outgoing_message) %>
+
+    <span class="muted">
+      --
+      <%= outgoing_message.status.humanize %>
+      <%= outgoing_message.message_type.humanize %>
+      at <%= admin_date(outgoing_message.last_sent_at) %>
+    </span>
+
+    <blockquote>
+      <%= truncate(outgoing_message.body, length: 400) %>
+    </blockquote>
+  </div>
+</div>

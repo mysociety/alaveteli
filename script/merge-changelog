@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+##
+# Custom merge driver for doc/CHANGES.md
+#
+# Resolves conflicts by combining both sides of each conflict block,
+# placing "theirs" (the being-merged branch) entries before "ours"
+# (the target branch). This puts the latest changelog entries at the
+# top of each section.
+#
+# Usage:
+#   script/merge-changelog          # resolve conflicts in doc/CHANGES.md
+#   script/merge-changelog %A %O %B # as a git merge driver
+#
+# Setup (run once per clone):
+#   git config merge.changelog.name "Changelog merge driver"
+#   git config merge.changelog.driver "script/merge-changelog %A %O %B"
+#
+# The .gitattributes file in the repo root associates this driver with
+# doc/CHANGES.md automatically.
+#
+# Note: Upgrade Notes conflicts are resolved the same way but may need
+# manual review when both sides modify (not just add) the same content.
+
+set -euo pipefail
+
+CHANGES="doc/CHANGES.md"
+
+resolve_conflict_markers() {
+  local file="$1"
+
+  # Resolve by keeping both sides of each conflict block
+  # with "theirs" (being merged) before "ours" (target branch).
+  awk '
+  /^<<<<<<< / { in_conflict = 1; in_ours = 1; ours = ""; theirs = ""; next }
+  /^=======$/  { if (in_conflict) { in_ours = 0; next } else { print; next } }
+  /^>>>>>>> / {
+    if (in_conflict) {
+      # Theirs first (merged branch = newest entries), then ours
+      printf "%s", theirs
+      printf "%s", ours
+      in_conflict = 0
+      next
+    }
+  }
+  in_conflict && in_ours  { ours = ours $0 "\n"; next }
+  in_conflict && !in_ours { theirs = theirs $0 "\n"; next }
+  { print }
+  ' "$file" > "${file}.tmp" && mv "${file}.tmp" "$file"
+}
+
+if [ $# -eq 3 ]; then
+  # Git merge driver mode: %A %O %B
+  CURRENT="$1"   # %A - ours (target branch, e.g. develop)
+  ANCESTOR="$2"  # %O - common ancestor
+  OTHER="$3"     # %B - theirs (branch being merged)
+
+  # Attempt standard three-way merge
+  if git merge-file "$CURRENT" "$ANCESTOR" "$OTHER" 2>/dev/null; then
+    exit 0
+  fi
+
+  resolve_conflict_markers "$CURRENT"
+else
+  # Manual mode: resolve existing conflict markers in doc/CHANGES.md
+  if ! grep -qE '^<{7} ' "$CHANGES" 2>/dev/null; then
+    echo "No conflicts found in $CHANGES"
+    exit 0
+  fi
+
+  resolve_conflict_markers "$CHANGES"
+fi
+
+# Check for any remaining conflict markers (shouldn't happen, but be safe)
+target="${CURRENT:-$CHANGES}"
+if grep -qE '^<{7} |^={7}$|^>{7} ' "$target" 2>/dev/null; then
+  echo "warning: $CHANGES has remaining conflicts needing manual resolution" >&2
+  exit 1
+fi
+
+exit 0
