@@ -1,33 +1,58 @@
-<div class="accordion-group row">
-  <div class="accordion-heading">
-    <a
-      href="<%= edit_admin_change_request_path(change_request.id, full_edit: true) %>"
-    >
-      <div>
-        Sent by
+<div class="accordion-group">
+  <div class="accordion-heading accordion-toggle row">
+    <span class="item-title span4">
+      <a href="#change_request_<%= change_request.id %>" data-toggle="collapse" data-parent="change_requests"><%= chevron_right %></a>
+
+      <% if change_request.is_open %>
+        <span class="label label-success">open</span>&nbsp;&nbsp;
+      <% else %>
+        <span class="label">closed</span>
+      <% end %>
+
+      <%= link_to edit_admin_change_request_path(change_request, full_edit: true) do %>
+        #<%= change_request.id %>
+        <% if change_request.public_body %>
+          Update
+        <% else %>
+          Addition
+        <% end %>
+      <% end %>
+    </span>
+
+    <span class="item-metadata span8">
+      <% if change_request.user %>
+        <%= both_links(change_request.user) %>
+      <% else %>
         <%= change_request.user_name %>
-        (<%= change_request.user_email %>)
-      </div>
-      <div>
-        For
-        <%= change_request.public_body_name %>
-      </div>
-      <div>
-        Proposed email:
-        <%= change_request.public_body_email %>
-      </div>
-      <div>
-        Source:
-        <%= change_request.source_url %>
-      </div>
-      <div>
-        Notes:
-        <%= change_request.notes %>
-      </div>
-      <div>
-        at
-        <%= admin_date(change_request.created_at) %>
-      </div>
-    </a>
+        (<tt><%= change_request.user_email %></tt>)
+      <% end %>
+
+      <%= arrow_right %>
+
+      <% if change_request.public_body %>
+        <%= both_links(change_request.public_body) %>,
+      <% else %>
+        <%= change_request.public_body_name %>,
+      <% end %>
+
+      <%= admin_date(change_request.created_at, ago_only: true) %>
+    </span>
+  </div>
+
+  <div id="change_request_<%= change_request.id %>" class="item-detail accordion-body collapse row">
+    <div>
+      <span class="span6">Proposed email</span>
+      <span class="span6"><%= change_request.public_body_email %></span>
+    </div>
+
+    <div>
+      <span class="span6">Source</span>
+      <span class="span6"><%= change_request.source_url %></span>
+    </div>
+
+    <div>
+      <span class="span6">Notes</span>
+      <span class="span6"><%= change_request.notes %></span>
+    </div>
   </div>
 </div>
