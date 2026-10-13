@@ -182,6 +182,17 @@ RSpec.describe SearchDocument, :reindex_inline do
       expect(results).to eq([request])
     end
 
+    it 'searches within the given requests before the limit' do
+      request_with_message(title: 'Ptarmigan ptarmigan', body: 'Ptarmigan')
+      weak = request_with_message(title: 'Unrelated', body: 'Ptarmigan')
+
+      results = SearchDocument.request_search(
+        'ptarmigan', requests: InfoRequest.where(id: weak.id), limit: 1
+      )
+
+      expect(results).to eq([weak])
+    end
+
     it 'rejects unsupported languages' do
       expect { SearchDocument.request_search('anything', language: 'klingon') }.
         to raise_error(ArgumentError)

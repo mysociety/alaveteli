@@ -11,16 +11,19 @@ module Search
           'described_at' => :last_event_time
         }.freeze
 
-        def initialize(query, sort_by: nil, sort_ascending: true)
+        def initialize(query, sort_by: nil, sort_ascending: true,
+                       requests: nil)
           @sort_by = sort_by
           @sort_ascending = sort_ascending
+          @requests = requests
           super(query, {})
         end
 
         def results(page: 1, per_page: 25)
           offset = calculate_offset(page, per_page)
-          relation = sorted(SearchDocument.request_search(query)).
-            includes(:user, :outgoing_messages, public_body: :translations)
+          relation = sorted(
+            SearchDocument.request_search(query, requests: @requests)
+          ).includes(:user, :outgoing_messages, public_body: :translations)
 
           create_search_results(
             items: relation.offset(offset).limit(per_page).

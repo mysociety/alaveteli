@@ -42,7 +42,8 @@ class SearchDocument < ApplicationRecord
     admin_mode:,
     exact_mode:,
     case_sensitive:,
-    limit_ratio:
+    limit_ratio:,
+    root_filter: nil
   )
     # coerce values that are interpolated into the SQL rather than bound,
     # so a non-numeric value raises instead of reaching the query.
@@ -71,6 +72,7 @@ class SearchDocument < ApplicationRecord
       doc_type_q = "AND searchable_type = :model"
       query_values[:model] = model.to_s
     end
+    doc_type_q = "#{doc_type_q} #{root_filter}" if root_filter
 
     # and UNION them
     search_queries = []
@@ -257,15 +259,16 @@ class SearchDocument < ApplicationRecord
   # return the matching requests as a chainable relation: one row per
   # request, best hit first.
   #
-  # +requests+ the requests the viewer may see. The public sees the
-  #            searchable ones; a requester passes their own.
+  # +requests+ the requests to search within, e.g. a requester's own.
+  #            Applied before +limit+, so a narrow set isn't crowded out
+  #            by other matches. Defaults to the searchable requests.
+  #            Pass only requests the viewer may see.
   # +limit+ caps the documents ranked, not the requests returned, so page
   #        the relation rather than passing a page size here.
   #
   # The search_requests CTE keeps each request's best hit as
   # searchable_type and searchable_id, for callers to select.
-  def self.request_search(query, requests: InfoRequest.is_searchable,
-                          language: nil, limit: 1000)
+  def self.request_search(query, requests: nil, language: nil, limit: 1000)
     validate_language!(language)
 
     limit = Integer(limit)
@@ -279,7 +282,11 @@ class SearchDocument < ApplicationRecord
       admin_mode: false,
       exact_mode: false,
       case_sensitive: true,
-      limit_ratio: 1
+      limit_ratio: 1,
+      root_filter: requests && <<~SQL.squish
+        AND root_type = 'InfoRequest'
+        AND root_id IN (SELECT id FROM search_roots)
+      SQL
     )
 
     search_results = materialized_cte(
@@ -296,8 +303,13 @@ class SearchDocument < ApplicationRecord
       SQL
     )
 
-    requests.
-      with(search_results: search_results, search_requests: search_requests).
+    ctes = { search_results: search_results, search_requests: search_requests }
+    # A CTE, not interpolated SQL, so values like a tag `a:b` can't be read
+    # as binds.
+    ctes = { search_roots: requests.select(:id), **ctes } if requests
+
+    (requests || InfoRequest.is_searchable).
+      with(ctes).
       joins(
         "JOIN search_requests " \
         "ON search_requests.root_id = info_requests.id"
