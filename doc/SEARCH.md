@@ -292,7 +292,8 @@ The `search` method receives these backend-agnostic parameters:
 itself, and `collapse_by`, which it always applies to the request. It
 also takes `requests`, an `InfoRequest` relation to search within, such
 as one user's requests. PostgreSQL applies it before its document limit.
-Xapian ignores it.
+Xapian ignores it. Its searcher also has `ids(limit)`, for callers that
+need only the ids of the best matches.
 
 **Note on query syntax:** The query string currently uses Xapian's query
 syntax (e.g. `variety:response status:successful`). A future change will

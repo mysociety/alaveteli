@@ -27,6 +27,11 @@ module Search
           )
         end
 
+        def ids(limit)
+          SearchDocument.request_search(query, requests: @requests).
+            limit(limit).pluck(:id)
+        end
+
         private
 
         # Xapian treats an ascending sort as newest first, so callers pass

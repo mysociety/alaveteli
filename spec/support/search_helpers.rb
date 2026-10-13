@@ -13,7 +13,8 @@
 module SearchHelpers
   ##
   # Lightweight stand-in for a search backend searcher object.
-  # Returns empty Search::Results from .results and [[], false] from .first.
+  # Returns empty Search::Results from .results, [[], false] from .first and
+  # [] from .ids.
   #
   class NullSearcher
     def results(page: 1, per_page: 25)
@@ -28,6 +29,10 @@ module SearchHelpers
 
     def first(_limit = 10)
       [[], false]
+    end
+
+    def ids(_limit)
+      []
     end
   end
 
@@ -89,7 +94,8 @@ module SearchHelpers
       items: items, total: total, words_to_highlight: words_to_highlight
     )
 
-    searcher = double('RequestSearch', results: results)
+    searcher = double('RequestSearch', results: results,
+                                       ids: items.map(&:id))
     allow(Search).to receive(:request_search).and_return(searcher)
     allow(Search.backend).to receive(:request_search).and_return(searcher)
     results
