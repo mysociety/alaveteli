@@ -1210,16 +1210,6 @@ RSpec.describe 'when erasing a message' do
   let(:to) { message.info_request.incoming_email }
   let(:from) { message.info_request.public_body.request_email }
 
-
-        from_email: nil,
-        from_name: nil,
-        from_email_domain: nil,
-        cached_attachment_text_clipped: nil,
-        cached_main_body_text_unfolded: nil,
-        cached_main_body_text_folded: nil,
-        subject: nil,
-        erased_at: Time.zone.now
-
   it 'keeps the message with nullified fields' do
     message.erase!(editor: admin, reason: 'GDPR')
     message.reload
