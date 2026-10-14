@@ -207,9 +207,9 @@
       <% end %>
 
       <div class="results_block">
-        <% for result in @request_results.results %>
-          <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result[:model] } %>
-        <% end %>
+        <%= render partial: 'request/request_listing_single',
+                   collection: @request_results.results.map { _1[:model] },
+                   as: :info_request %>
       </div>
 
       <%= will_paginate WillPaginate::Collection.new(@page, @requests_per_page, @max_requests) %>

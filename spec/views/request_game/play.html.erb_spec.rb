@@ -16,6 +16,8 @@ RSpec.describe 'request_game/play' do
             public_body: @mock_body,
             url_title: 'a_test_request',
             user: @mock_user,
+            is_external?: false,
+            safe_from_name: 'test user',
             calculate_status: 'waiting_response',
             date_response_required_by: Date.current,
             prominence: 'normal',

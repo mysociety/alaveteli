@@ -17,7 +17,7 @@ class GeneralController < ApplicationController
     medium_cache
     @locale = AlaveteliLocalization.locale
     successful_query = InfoRequestEvent.make_query_from_params( latest_status: ['successful'] )
-    @request_events = recent_request_events
+    @recent_requests = recent_requests
     @track_thing = TrackThing.create_track_for_search_query(successful_query)
     @number_of_requests = Rails.cache.fetch(
       'frontpage/info_request_count', expires_in: 1.hour
@@ -135,9 +135,8 @@ class GeneralController < ApplicationController
     @request_result_count = @body_result_count = @user_result_count = 0
     @total_hits = 0
     if @requests
-      @request_results = perform_search(
-        [InfoRequestEvent], @query, @sortby,
-        'request_collapse', requests_per_page
+      @request_results = perform_request_search(
+        @query, @sortby, requests_per_page
       )
       @requests_per_page = @per_page
       @request_result_count = @request_results.results.size
@@ -197,17 +196,16 @@ class GeneralController < ApplicationController
     end
   end
 
-  def recent_request_events
+  def recent_requests
     ids = Rails.cache.fetch(
-      'frontpage/recent_requests', expires_in: 10.minutes, skip_nil: true
+      'frontpage/recent_info_requests', expires_in: 10.minutes, skip_nil: true
     ) do
-      events = InfoRequest.recent_requests
-      events.empty? ? nil : events.map(&:id)
+      requests = InfoRequest.recent_requests
+      requests.empty? ? nil : requests.map(&:id)
     end || []
 
-    InfoRequestEvent.where(id: ids).
-      joins(:info_request).merge(InfoRequest.is_searchable).
-      includes(info_request: :public_body).
+    InfoRequest.is_searchable.where(id: ids).
+      includes(:public_body).
       order(created_at: :desc).
       load
   end

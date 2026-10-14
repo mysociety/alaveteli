@@ -19,7 +19,7 @@ end %>
     <div class="requester">
       <%= _('Requested from {{public_body_name}} by {{info_request_user}} on {{date}}',
             :public_body_name => public_body_link(info_request.public_body),
-            :info_request_user => user_link(info_request.user),
+            :info_request_user => request_user_link(info_request),
             :date => simple_date(info_request.created_at)) %>
     </div>
 

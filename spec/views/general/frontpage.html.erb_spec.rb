@@ -28,7 +28,7 @@ RSpec.describe "general/frontpage" do
     assign(:per_page, 10)
     allow(PublicBody).to receive(:popular_bodies).and_return(@public_bodies)
     assign(:locale, 'en')
-    assign(:request_events, [])
+    assign(:recent_requests, [])
   end
 
   it "should be successful" do

@@ -83,10 +83,9 @@
         </p>
       <% end %>
 
-      <% @request_results.results.each do |result| %>
-        <%= render partial: 'request/request_listing_via_event',
-                   locals: { event: result[:model] } %>
-      <% end %>
+      <%= render partial: 'request/request_listing_single',
+                 collection: @request_results.results.map { _1[:model] },
+                 as: :info_request %>
 
       <% requests_collection =
            WillPaginate::Collection.new(@page,
