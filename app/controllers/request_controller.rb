@@ -22,9 +22,6 @@ class RequestController < ApplicationController
 
   include ProminenceHeaders
 
-  MAX_RESULTS = 500
-  PER_PAGE = 25
-
   def index
     @title = _('Browse requests by category')
   end
