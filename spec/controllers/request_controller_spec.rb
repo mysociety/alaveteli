@@ -1795,17 +1795,14 @@ RSpec.describe RequestController, "when doing type ahead searches" do
     expect(assigns[:query]).to eq('requested_from:dfh boring')
   end
 
-  it 'defaults to 25 results per page' do
+  it 'returns 3 results per page' do
     get :search_typeahead, params: { q: 'boring' }
-    expect(assigns[:per_page]).to eq(25)
+    expect(assigns[:per_page]).to eq(3)
   end
 
-  it 'can limit the number of searches returned' do
-    event = info_request_events(:useless_outgoing_message_event)
-    stub_typeahead_results(items: [event], total: 1)
-    get :search_typeahead, params: { q: 'boring', per_page: '1' }
-    expect(assigns[:per_page]).to eq(1)
-    expect(assigns[:request_results].results.size).to eq(1)
+  it 'ignores the per_page parameter' do
+    get :search_typeahead, params: { q: 'boring', per_page: '1000' }
+    expect(assigns[:per_page]).to eq(3)
   end
 end
 
