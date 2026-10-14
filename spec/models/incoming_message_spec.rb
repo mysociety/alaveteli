@@ -760,6 +760,14 @@ RSpec.describe IncomingMessage do
         IncomingMessage.search_scope('rubbish', backend: :postgresql)
       ).to include(incoming_message)
     end
+
+    it 'roots the documents at the request' do
+      incoming_message = FactoryBot.create(:plain_incoming_message)
+      incoming_message.get_main_body_text_folded
+      incoming_message.reindex
+      expect(incoming_message.search_documents.map(&:root)).
+        to eq([incoming_message.info_request])
+    end
   end
 
   describe '#get_body_for_indexing' do

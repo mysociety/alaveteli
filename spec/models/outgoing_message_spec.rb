@@ -914,6 +914,29 @@ RSpec.describe OutgoingMessage do
     end
   end
 
+  describe 'search indexing', :postgresql do
+    it 'indexes the body correctly' do
+      expect(
+        SearchDocument.where(searchable_type: 'OutgoingMessage').count
+      ).to eq(0)
+      outgoing_message = FactoryBot.create(:initial_request)
+      outgoing_message.get_text_for_indexing
+      outgoing_message.reindex
+      expect(outgoing_message.search_documents.count).to eq(1)
+      expect(
+        OutgoingMessage.search_scope('information', backend: :postgresql)
+      ).to include(outgoing_message)
+    end
+
+    it 'roots the documents at the request' do
+      outgoing_message = FactoryBot.create(:initial_request)
+      outgoing_message.get_text_for_indexing
+      outgoing_message.reindex
+      expect(outgoing_message.search_documents.map(&:root)).
+        to eq([outgoing_message.info_request])
+    end
+  end
+
   describe '#get_text_for_indexing' do
     subject { message.get_text_for_indexing(strip_salutation, opts) }
 
