@@ -339,8 +339,8 @@ class RequestController < ApplicationController
 
     @query << params[:q].to_s
     @request_results = typeahead_search(@query,
-                                        { model: InfoRequestEvent,
-                                          per_page: 3 })
+                                        model: InfoRequestEvent,
+                                        per_page: 3)
     render partial: "request/search_ahead"
   end
 

@@ -439,12 +439,11 @@ class ApplicationController < ActionController::Base
     page
   end
 
-  def typeahead_search(query, options)
+  def typeahead_search(query, model:, per_page: PER_PAGE, exclude_tags: [])
     @page = get_search_page_from_params
-    @per_page = options[:per_page] || PER_PAGE
+    @per_page = per_page
 
-    Search.typeahead(query, model: options[:model],
-                            exclude_tags: options[:exclude_tags] || []).
+    Search.typeahead(query, model: model, exclude_tags: exclude_tags).
       results(page: @page, per_page: @per_page)
   end
 
