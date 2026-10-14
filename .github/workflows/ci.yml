@@ -89,7 +89,7 @@ jobs:
       run: sudo chown $USER /var/cache/apt/archives
 
     - name: Cache apt packages
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: /var/cache/apt/archives/*.deb
         key: apt-${{ runner.os }}-${{ hashFiles('config/packages') }}
