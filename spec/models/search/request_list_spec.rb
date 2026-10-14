@@ -29,6 +29,38 @@ RSpec.describe Search::RequestList do
       expect(list.call).to eq([appealed])
     end
 
+    it 'filters searchable requests by their authority' do
+      public_body = FactoryBot.create(:public_body)
+      to_body = FactoryBot.create(:info_request, public_body: public_body)
+      FactoryBot.create(:info_request)
+
+      result = described_class.
+               new({ public_body: public_body }, 1, 25, 100).call
+
+      expect(result).to eq([to_body])
+    end
+
+    it 'filters searchable requests by their requester' do
+      user = FactoryBot.create(:user)
+      by_user = FactoryBot.create(:info_request, user: user)
+      FactoryBot.create(:info_request)
+
+      result = described_class.new({ user: user }, 1, 25, 100).call
+
+      expect(result).to eq([by_user])
+    end
+
+    it 'filters searchable requests by their described state' do
+      rejected = FactoryBot.create(:info_request)
+      rejected.set_described_state('rejected')
+      FactoryBot.create(:info_request)
+
+      result = described_class.
+               new({ described_state: 'rejected' }, 1, 25, 100).call
+
+      expect(result).to eq([rejected])
+    end
+
     it 'restricts by a free-text query through the search backend' do
       match = FactoryBot.create(:info_request)
       stub_request_search_results(items: [match])
@@ -37,6 +69,18 @@ RSpec.describe Search::RequestList do
                new({ query: 'badger', latest_status: 'all' }, 1, 25, 100).call
 
       expect(result).to eq([match])
+    end
+
+    it 'searches only the filtered requests', :postgresql, :reindex_inline do
+      FactoryBot.create(:info_request, title: 'Ptarmigan ptarmigan')
+      tagged = FactoryBot.create(:info_request, title: 'Ptarmigan',
+                                                tag_string: 'bird:grouse')
+
+      result = described_class.new(
+        { tag: 'bird:grouse', query: 'ptarmigan' }, 1, 25, 1
+      ).call
+
+      expect(result).to eq([tagged])
     end
 
     context 'with a date range' do

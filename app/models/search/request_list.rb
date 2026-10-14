@@ -1,6 +1,7 @@
 module Search
   ##
-  # The paginated request list for RequestController#list.
+  # The paginated request list for RequestController#list, and the request
+  # lists on authority and user pages.
   #
   # The list is a filtered listing rather than a keyword search: status, date
   # and tag filters are applied as database conditions on InfoRequest (which
@@ -50,10 +51,28 @@ module Search
 
     def filtered_requests
       scope = InfoRequest.is_searchable
+      scope = filter_by_public_body(scope)
+      scope = filter_by_user(scope)
+      scope = filter_by_described_state(scope)
       scope = filter_by_status(scope)
       scope = filter_by_dates(scope)
       scope = filter_by_tag(scope)
       filter_by_keyword(scope)
+    end
+
+    def filter_by_public_body(scope)
+      public_body = @filters[:public_body]
+      public_body ? scope.where(public_body: public_body) : scope
+    end
+
+    def filter_by_user(scope)
+      user = @filters[:user]
+      user ? scope.where(user: user) : scope
+    end
+
+    def filter_by_described_state(scope)
+      state = @filters[:described_state]
+      state.present? ? scope.where(described_state: state) : scope
     end
 
     def filter_by_status(scope)
@@ -89,9 +108,9 @@ module Search
       query = @filters[:query].to_s.strip
       return scope if query.empty?
 
-      ids = Search.request_search(query).
-        results(page: 1, per_page: @max_results).
-        results.map { |result| result[:model].id }
+      # Xapian ignores +requests+ and ranks the whole site, so a narrow list
+      # can miss matches; drop this when Xapian is retired.
+      ids = Search.request_search(query, requests: scope).ids(@max_results)
       scope.where(id: ids)
     end
 
