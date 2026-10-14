@@ -2182,6 +2182,26 @@ RSpec.describe PublicBody, "when indexing for postgres search",
   end
 end
 
+RSpec.describe PublicBody, 'exact mode search indexing', :postgresql do
+  it 'finds exact substring matches' do
+    pb = FactoryBot.create(:public_body, name: 'Cardiff City Council')
+    pb.reindex
+    expect(pb.search_documents.count).to eq(1)
+    expect(PublicBody.search_scope('Cardiff', backend: :postgresql)).to eq([pb])
+    expect(PublicBody.search_scope(
+      'Cardiff', backend: :postgresql, exact_mode: true
+    )).to eq([pb])
+    expect(PublicBody.search_scope('Cardif', backend: :postgresql)).to eq([])
+    expect(PublicBody.search_scope(
+      'Cardif', backend: :postgresql, exact_mode: true
+    )).to eq([pb])
+    expect(PublicBody.search_scope('ardif', backend: :postgresql)).to eq([])
+    expect(PublicBody.search_scope(
+      'ardif', backend: :postgresql, exact_mode: true
+    )).to eq([pb])
+  end
+end
+
 RSpec.describe PublicBody, "when calculating statistics" do
   it "should not include hidden requests in totals" do
     with_hidden_and_successful_requests do
