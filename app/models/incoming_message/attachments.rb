@@ -167,7 +167,7 @@ module IncomingMessage::Attachments
   def _get_attachment_text_internal
     # Extract text from each attachment
     get_attachments_for_display.reduce('') do |memo, attachment|
-      return memo if Ability.guest.cannot?(:read, attachment)
+      next memo if Ability.guest.cannot?(:read, attachment)
       next memo if attachment.masking_failed?
 
       text = attachment.body_to_text
