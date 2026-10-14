@@ -85,10 +85,13 @@ jobs:
         docker logs postgres
         exit 1
 
+    - name: Make apt archives writable for the cache
+      run: sudo chown $USER /var/cache/apt/archives
+
     - name: Cache apt packages
       uses: actions/cache@v4
       with:
-        path: /var/cache/apt/archives
+        path: /var/cache/apt/archives/*.deb
         key: apt-${{ runner.os }}-${{ hashFiles('config/packages') }}
 
     - name: Install packages
