@@ -125,7 +125,7 @@ class GeneralController < ApplicationController
     # Query each type separately for separate display (TODO: we are calling
     # perform_search multiple times and it clobbers per_page for each one,
     # so set as separate var)
-    requests_per_page = params[:requests_per_page] ? params[:requests_per_page].to_i : 25
+    requests_per_page = 25
 
     # Later pages are very expensive to load
     if @page > MAX_RESULTS / requests_per_page
