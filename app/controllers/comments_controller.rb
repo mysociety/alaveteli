@@ -10,6 +10,10 @@
 class CommentsController < ApplicationController
   read_only :comments
 
+  rescue_from ActionController::ParameterMissing do
+    redirect_to request_url(@info_request)
+  end
+
   before_action :find_info_request
 
   before_action :reject_unless_comments_allowed
