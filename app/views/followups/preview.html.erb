@@ -15,47 +15,55 @@
       <h1><%= _('Now preview your follow up') %></h1>
     <% end %>
 
-    <% if @info_request.embargo %>
-      <%= render partial: 'alaveteli_pro/followups/preview_notes' %>
-    <% else %>
-      <%= render partial: 'preview_notes' %>
-    <% end %>
-
-    <%= fields_for :outgoing_message do |o| %>
-      <div class="correspondence box" id="outgoing-0">
-        <p class="preview_subject">
-          <strong><%= _('To:') %></strong> <%=h OutgoingMailer.name_for_followup(@info_request, @incoming_message) %>
-          <br>
-          <strong><%= _('Subject:') %></strong> <%= OutgoingMailer.subject_for_followup(@info_request, @outgoing_message, :html => true) %>
-        </p>
-
-        <div class="correspondence_text">
-          <p><%= @outgoing_message.get_body_for_html_display %></p>
-          <%= o.hidden_field(:body) %>
+    <div class="message-preview">
+      <div class="preview-advice">
+        <div class="advice-panel">
+          <% if @info_request.embargo %>
+            <%= render partial: 'alaveteli_pro/followups/preview_notes' %>
+          <% else %>
+            <%= render partial: 'preview_notes' %>
+          <% end %>
         </div>
-
-        <p class="event_actions"></p>
       </div>
-    <% end %>
 
-    <% unless @info_request.embargo %>
-      <p>
-        <%= _('<strong>Privacy warning:</strong> Your message, and any response ' \
-              'to it, will be displayed publicly on this website.') %>
-      </p>
-    <% end %>
-    <%= o.hidden_field(:what_doing) %>
-    <p>
-      <%= hidden_field_tag(:submitted_followup, 1) %>
-      <% if @internal_review %>
-        <%= hidden_field_tag(:internal_review, 1 ) %>
-      <% end %>
-      <%= submit_tag _("Re-edit this message"), :name => 'reedit' %>
-      <% if @info_request.embargo %>
-        <%= render partial: 'alaveteli_pro/followups/submit' %>
-      <% else %>
-        <%= render partial: 'submit' %>
-      <% end %>
-    </p>
+      <div class="preview-pane">
+        <%= fields_for :outgoing_message do |o| %>
+          <div class="correspondence box" id="outgoing-0">
+            <p class="preview_subject">
+              <strong><%= _('To:') %></strong> <%=h OutgoingMailer.name_for_followup(@info_request, @incoming_message) %>
+              <br>
+              <strong><%= _('Subject:') %></strong> <%= OutgoingMailer.subject_for_followup(@info_request, @outgoing_message, :html => true) %>
+            </p>
+
+            <div class="correspondence_text">
+              <p><%= @outgoing_message.get_body_for_html_display %></p>
+              <%= o.hidden_field(:body) %>
+            </div>
+
+            <p class="event_actions"></p>
+          </div>
+        <% end %>
+
+        <% unless @info_request.embargo %>
+          <p>
+            <%= _('<strong>Privacy warning:</strong> Your message, and any response ' \
+                  'to it, will be displayed publicly on this website.') %>
+          </p>
+        <% end %>
+        <%= o.hidden_field(:what_doing) %>
+        <p>
+          <%= hidden_field_tag(:submitted_followup, 1) %>
+          <% if @internal_review %>
+            <%= hidden_field_tag(:internal_review, 1 ) %>
+          <% end %>
+          <%= submit_tag _("Re-edit this message"), :name => 'reedit' %>
+          <% if @info_request.embargo %>
+            <%= render partial: 'alaveteli_pro/followups/submit' %>
+          <% else %>
+            <%= render partial: 'submit' %>
+          <% end %>
+        </p>
+      </div>
+    </div>
   <% end %>
 </div>
