@@ -118,8 +118,9 @@
 
   See: https://www.postgresql.org/docs/15/upgrading.html
 
-* This release switches the search engine from Xapian to postgresql. Pleas read
-  through [doc/UPGRADING_TO_POSTGRES_SEARCH.md] before starting the upgrade.
+* This release switches the search engine from Xapian to PostgreSQL. Please read
+  through [UPGRADING_TO_POSTGRES_SEARCH.md](UPGRADING_TO_POSTGRES_SEARCH.md)
+  before starting the upgrade.
 
 * _Required:_ This release now allows responses to be received from any source,
   1. Postfix/Exim `./script/mailin` pipe,

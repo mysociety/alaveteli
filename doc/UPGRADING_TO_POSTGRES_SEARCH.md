@@ -2,7 +2,7 @@
 
 The new search engine is based on Postgresql, and replaces Xapian.
 
-There is a long explanation for the reasons behind this switch in [SEARCH.md]. This page focuses on what needs to be done when upgrading to the new Alaveteli version and search system.
+There is a long explanation for the reasons behind this switch in [SEARCH.md](SEARCH.md). This page focuses on what needs to be done when upgrading to the new Alaveteli version and search system.
 
 ## Planning your upgrade
 
@@ -35,34 +35,33 @@ You shouldn't need more than what you are currently using, possibly less.
 ## Upgrading
 
 - If you need more disk space as mentioned above, plan this first.
-- Follow the upgrade notes in [doc/CHANGES.md] as you usually do. At this point, you should be running on the new version. Then continue with the steps below.
- 
+- Follow the upgrade notes in [CHANGES.md](CHANGES.md) as you usually do. At this point, you should be running on the new version. Then continue with the steps below.
+
 ### Index content in postgresql
 
-For most installations, running the following commands in the rails console should be sufficient:
+Run the reindex task from the Alaveteli root directory:
 
-```ruby
-Citation.reindex_all
-Comment.reindex_all
-PublicBody.reindex_all
-User.reindex_all
-InfoRequest.reindex_all
-InfoRequestEvent.reindex_all
-MailServerLog.reindex_all
-OutgoingMessage.reindex_all
-IncomingMessage.reindex_all
-FoiAttachment.reindex_all
+```bash
+bin/rails reindex:all
 ```
 
-Running them one by one in the order above (which is roughly from fastest to slowest) should be fine. For bigger installations, you might want to exit the console between each line and restart it to free up resources (a more robust indexing script will be added to the codebase soon).
+Most models are rebuilt by one SQL statement inside the database, and finish quickly. Models that need Ruby code to build their content, such as `FoiAttachment`, are indexed in chunks of 10,000 records. Each chunk runs in a new process, so memory use stays flat. `FoiAttachment` can take a long time.
 
-While the first ones will complete in less than a second, indexing FoiAttachment could take a long time (up to several days for sites with tens of thousands of attachments).
+The task records its progress in `tmp/reindex/`. If it stops, run the same command again and it continues where it left off. Set `RESET=1` to discard that progress and start again.
 
-Note that your site will remain functional while reindexing is happening, and you will see search results growing along the process.
+To index one model only, give its name:
+
+```bash
+bin/rails 'reindex:all[FoiAttachment]'
+```
+
+Set `CHUNK_SIZE` (default 10000) or `BATCH_SIZE` (default 1000) to change how many records a chunk process or a database write handles.
+
+Your site stays up while the task runs. Search keeps using Xapian until you switch backend. Records that change during the upgrade go into both indexes automatically.
 
 This should be the only time a full reindex is needed. The search system will stay updated automatically from then on.
 
-At this point, you can update your `config/general.yml` to set `SEARCH_BACKEND=postgresql` and restart with the new search engine.
+At this point, you can update your `config/general.yml` to set `SEARCH_BACKEND: postgresql` and restart with the new search engine.
 
 ### Verify that search is working correctly
 
@@ -70,7 +69,7 @@ Confirm that you can find public bodies in the admin interface, as well as users
 
 ### Remove Xapian files
 
-If everything is working fine, remove the xapian files:
+If everything is working fine, remove the `update-xapian-index` and `compact-xapian-database` jobs from your crontab, then remove the xapian files:
 
 ```bash
 $ cd <alaveteli_root>/xapiandbs
