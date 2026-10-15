@@ -19,6 +19,7 @@
 #  prominence                     :string           default("normal"), not null
 #  prominence_reason              :text
 #  from_email                     :text
+#  erased_at                      :datetime
 #
 
 require 'spec_helper'
@@ -1183,6 +1184,48 @@ RSpec.describe 'when destroying a message' do
         FoiAttachment.where(incoming_message_id: incoming_with_attachment.id)
       ).to be_empty
     end
+  end
+end
+
+RSpec.describe 'when erasing a message' do
+  let(:admin) { FactoryBot.create(:admin_user, name: 'Alice') }
+
+  let(:raw_email) { FactoryBot.create(:raw_email) }
+
+  let(:message) do
+    FactoryBot.create(:incoming_message, raw_email: raw_email)
+  end
+
+  let(:to) { message.info_request.incoming_email }
+  let(:from) { message.info_request.public_body.request_email }
+
+  it 'keeps the message with nullified fields' do
+    message.erase!(editor: admin, reason: 'GDPR')
+    message.reload
+
+    expect(message.from_name).to be_nil
+    expect(message.from_email).to be_nil
+    expect(message.from_email_domain).to be_nil
+    expect(message.subject).to be_nil
+    expect(message.cached_main_body_text_folded).to be_nil
+    expect(message.cached_main_body_text_unfolded).to be_nil
+    expect(message.cached_attachment_text_clipped).to be_nil
+
+    last_event = message.info_request.info_request_events.last
+    expect(last_event.event_type).to eq('erase_incoming')
+    expect(last_event.params[:incoming_message]).to eq(message)
+
+    expect(message.search_documents).to be_empty
+  end
+
+  it 'erases all attachments and the raw email' do
+    populate_raw_email('incoming-request-multiple-attachments.eml')
+    message.extract_attachments!
+    expect(message.foi_attachments.count).to eq(6)
+    message.erase!(editor: admin, reason: 'GDPR')
+
+    expect(message.foi_attachments.map(&:erased?)).to all(be true)
+    expect(message.raw_email.erased?).to be true
   end
 end
 
