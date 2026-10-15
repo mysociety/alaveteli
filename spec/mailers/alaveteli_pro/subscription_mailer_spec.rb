@@ -18,7 +18,7 @@ RSpec.describe AlaveteliPro::SubscriptionMailer, feature: [:alaveteli_pro] do
       content = ::Mail::Utilities.to_crlf(
         read_described_class_fixture('payment_failed')
       )
-      expect(subject.body.to_s).to eq(content)
+      expect(::Mail::Utilities.to_crlf(subject.body.to_s)).to eq(content)
     end
 
     context 'with non-html-safe characters in the site name' do
