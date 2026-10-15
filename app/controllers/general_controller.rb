@@ -6,8 +6,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class GeneralController < ApplicationController
-  MAX_RESULTS = 500
-
   skip_before_action :html_response, only: :version
 
   before_action :redirect_pros_to_dashboard, only: :frontpage
@@ -122,22 +120,16 @@ class GeneralController < ApplicationController
 
     @page = get_search_page_from_params
 
-    # Query each type separately for separate display (TODO: we are calling
-    # perform_search multiple times and it clobbers per_page for each one,
-    # so set as separate var)
-    requests_per_page = params[:requests_per_page] ? params[:requests_per_page].to_i : 25
-
     # Later pages are very expensive to load
-    if @page > MAX_RESULTS / requests_per_page
-      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / requests_per_page}."
+    if @page > MAX_RESULTS / PER_PAGE
+      raise ActiveRecord::RecordNotFound,
+            "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
     end
 
     @request_result_count = @body_result_count = @user_result_count = 0
     @total_hits = 0
     if @requests
-      @request_results = perform_request_search(
-        @query, @sortby, requests_per_page
-      )
+      @request_results = perform_request_search(@query, @sortby)
       @requests_per_page = @per_page
       @request_result_count = @request_results.results.size
       @request_total_count = @request_results.matches_estimated

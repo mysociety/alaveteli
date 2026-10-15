@@ -13,6 +13,9 @@ class ApplicationController < ActionController::Base
   class RouteNotFound < StandardError
   end
 
+  MAX_RESULTS = 500
+  PER_PAGE = 25
+
   before_action :set_gettext_locale, :store_gettext_locale
   before_action :redirect_gettext_locale, :collect_locales
 
@@ -391,7 +394,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Function for search
-  def perform_search(models, query, sortby, collapse, per_page = 25, this_page = nil)
+  def perform_search(models, query, sortby, collapse, per_page = PER_PAGE)
     @query = query
     @sortby = sortby
 
@@ -400,7 +403,7 @@ class ApplicationController < ActionController::Base
 
     # Perform the search
     @per_page = per_page
-    @page = this_page || get_search_page_from_params
+    @page = get_search_page_from_params
 
     Search.search(@query, models: models, sort_by: order,
                           sort_ascending: ascending,
@@ -409,23 +412,22 @@ class ApplicationController < ActionController::Base
   end
 
   def perform_track_search(track_thing)
-    per_page = 25
     order, = order_to_sort_by(track_thing.params[:feed_sortby])
-    offset = (get_search_page_from_params - 1) * per_page
-    track_thing.matches(sort_by: order, limit: per_page,
+    offset = (get_search_page_from_params - 1) * PER_PAGE
+    track_thing.matches(sort_by: order, limit: PER_PAGE,
                         offset: offset)
   end
 
   # Search a request's content and return one InfoRequest per match, for the
   # request listings.
-  def perform_request_search(query, sortby, per_page = 25, this_page = nil)
+  def perform_request_search(query, sortby)
     @query = query
     @sortby = sortby
 
     order, ascending = order_to_sort_by(@sortby)
 
-    @per_page = per_page
-    @page = this_page || get_search_page_from_params
+    @per_page = PER_PAGE
+    @page = get_search_page_from_params
 
     Search.request_search(@query, sort_by: order, sort_ascending: ascending).
       results(page: @page, per_page: @per_page)
@@ -437,12 +439,11 @@ class ApplicationController < ActionController::Base
     page
   end
 
-  def typeahead_search(query, options)
+  def typeahead_search(query, model:, per_page: PER_PAGE, exclude_tags: [])
     @page = get_search_page_from_params
-    @per_page = options[:per_page] || 25
+    @per_page = per_page
 
-    Search.typeahead(query, model: options[:model],
-                            exclude_tags: options[:exclude_tags] || []).
+    Search.typeahead(query, model: model, exclude_tags: exclude_tags).
       results(page: @page, per_page: @per_page)
   end
 

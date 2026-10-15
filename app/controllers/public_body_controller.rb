@@ -10,16 +10,15 @@ class PublicBodyController < ApplicationController
   skip_before_action :html_response, only: [:show, :list_all_csv]
   skip_before_action :redirect_gettext_locale, only: :show
 
-  MAX_RESULTS = 500
   # TODO: tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
   def show
     long_cache
     @page = get_search_page_from_params
-    requests_per_page = 25
 
     # Later pages are very expensive to load
-    if @page > MAX_RESULTS / requests_per_page
-      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / requests_per_page}."
+    if @page > MAX_RESULTS / PER_PAGE
+      raise ActiveRecord::RecordNotFound,
+            "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
     end
 
     if MySociety::Format.simplify_url_part(params[:url_name], 'body') != params[:url_name]
@@ -64,9 +63,7 @@ class PublicBodyController < ApplicationController
       # TODO: really should just use SQL query here rather than Xapian.
       sortby = "described"
       begin
-        @request_results = perform_request_search(
-          query, sortby, requests_per_page
-        )
+        @request_results = perform_request_search(query, sortby)
         if @page > 1
           @page_desc = " (page #{ @page })"
         else
