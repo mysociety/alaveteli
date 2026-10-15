@@ -4,7 +4,10 @@ module CensorRule::Regexp
 
   included do
     validate :require_valid_regexp,
-             if: -> { regexp? || !case_sensitive? || ignore_diacritics? }
+             if: -> {
+               !erased? &&
+                 (regexp? || !case_sensitive? || ignore_diacritics?)
+             }
   end
 
   private

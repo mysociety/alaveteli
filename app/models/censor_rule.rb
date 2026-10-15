@@ -14,6 +14,7 @@
 #  ignore_diacritics :boolean          default(FALSE), not null
 #  censorable_type   :string
 #  censorable_id     :bigint
+#  erased_at         :datetime
 #
 
 # models/censor_rule.rb:
@@ -25,13 +26,15 @@
 class CensorRule < ApplicationRecord
   include CensorRule::CannedReplacements
   include CensorRule::Diacritics
+  include CensorRule::Erasable
   include CensorRule::Expiry
+  include CensorRule::Permanence
   include CensorRule::Polymorphic
   include CensorRule::Regexp
   include CensorRule::Recordable
 
-  validates_presence_of :text, :replacement,
-                        :last_edit_comment, :last_edit_editor
+  validates_presence_of :text, :replacement, unless: :erased?
+  validates_presence_of :last_edit_comment, :last_edit_editor
 
   def apply_to_text(to_censor, redactable: nil, redacted_attribute: nil)
     apply(to_censor, redactable, redacted_attribute) do |content|
@@ -51,6 +54,7 @@ class CensorRule < ApplicationRecord
 
   def apply(to_censor, redactable, redacted_attribute)
     return nil if to_censor.nil?
+    return to_censor if erased?
 
     after = yield to_censor
     record_redaction(redactable, redacted_attribute,
