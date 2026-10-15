@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add request and authority results to site search with the PostgreSQL search
+  backend (Graeme Porteous)
 * Add rake tasks to build the PostgreSQL search index using a chunk per process
   resuming where an interrupted run stopped (Graeme Porteous)
 * Fix errors and slow searches caused by invalid page sizes (Graeme Porteous)
