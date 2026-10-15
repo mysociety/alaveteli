@@ -17,6 +17,27 @@
   </tbody>
 </table>
 
+<div class="row">
+  <div class="span12">
+    <div class="alert alert-warning">
+      <h3>Editing event params</h3>
+
+      <p>
+        Be careful when editing the raw JSON below. We check that it parses,
+        but not that the values make sense. Changing values without
+        understanding what they're for can have <strong>unintended
+        consequences</strong> elsewhere in the site.
+      </p>
+
+      <p>
+        The main purpose of this editing ability is to to surgically remove
+        small bits of personal information like names. Leave everything
+        else as it is.
+      </p>
+    </div>
+  </div>
+</div>
+
 <%= form_with(
   model: @info_request_event,
   url: admin_info_request_event_path(@info_request_event),
