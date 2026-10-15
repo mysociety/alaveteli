@@ -1,6 +1,6 @@
 # Search in Alaveteli
 
-Alaveteli uses the postgresql database's search capabilities to progressively replace `xapian` that was used since its creation (as of v0.47, both options are still supported via a unified interface (see below)
+Alaveteli uses the postgresql database's search capabilities to progressively replace `xapian` that was used since its creation. As of v0.47, both options are still supported via a unified interface (see below).
 
 The goal is to simplify the code (by storing all data in a single place) by allowing to chain rails ORM calls directly after the search call itself. This avoids an expensive pattern where `xapian` (or another external search index) is first called, then checks need to be done in postgresql, eg. to verify permissions. It also simplifies deployment, as there is no need for a separate search tool to deploy and maintain.
 
@@ -25,7 +25,7 @@ For each set, there are 2 columns:
 
 #### raw_content
 
-`raw_content` (respectively `raw_admin_content`) stores plain text for a model instance, typically a concatenation of the various fields we want to be able to search. This field can be expensive to rebuild (eg. it can contain multiple ruby method calls, or even require pulling a file from S3 and extract text content from it via an exteral program).
+`raw_content` (respectively `raw_admin_content`) stores plain text for a model instance, typically a concatenation of the various fields we want to be able to search. This field can be expensive to rebuild (eg. it can contain multiple ruby method calls, or even require pulling a file from S3 and extract text content from it via an external program).
 
 It is kept in the database to back the "exact" search (using SQL `LIKE`, or `ILIKE` when `case_sensitive: false` is passed). A use case for this is finding all users whose email address uses `@somedomain.com`. It would be possible to get rid of this column, and implement an "exact" search using a SQL query for each model. This would not work for models that do not store all their content in the database (`FoiAttachment` for instance).
 
@@ -35,7 +35,7 @@ There is no index to back this search type at the moment (it would use the built
 
 `content_tsv` (resp. `admin_content_tsv`) stores the searchable data stemmed and tokenised according to the language used by the platform (or the specific content where multiple languages are used). postgresql uses `ts_vector` format for this.
 
-The `ts_vector` search system only searches words by their start (ie. it can search for `the_user@somedomain.com` if it is the full email address, but it won't match the domain only without some further custom preprocessing). This is the part that will match `requester`, `requesting`, etc... when searching for `request`. But it will not find `reuqest` (typo), nor `quest` (a different word root).
+The `ts_vector` search system only searches words by their start (ie. it can search for `the_user@somedomain.com` if it is the full email address, but it won't match the domain only without some further custom preprocessing). This is the part that will match `requester`, `requesting`, etc... when searching for `request`. But it will not find `request` if the search has a typo, such as swapped letters, nor `quest` (a different word root).
 
 ## Semantic search
 
@@ -47,11 +47,23 @@ There is currently no semantic search support. It would be easy to add a vector 
 
 Updating the search index for an object is as simple as `object.reindex`, eg. `PublicBody.find(123).reindex`.
 
-It is possible to reindex the entire set of objects for a model with `PublicBody.reindex_all`. This will not remove existing entries, but overwrite them in batches. This means it is possible to reindex the entire dataset without service interruption.
+To reindex every searchable model, or one model, use the rake tasks:
 
-Beware though, that this operation can take several minutes to several days for larger setups when reindexing all `FoiAttachment`s for instance.
+```bash
+bin/rails reindex:all
+bin/rails 'reindex:all[FoiAttachment]'
+RESET=1 bin/rails reindex:missing
+```
 
-The preferred logic (after initial backfilling of the `search_documents` table) is to `.reindex` a model after it has had modifications that would affect its searchable content. At the moment, `.reindex` is automatically called as a `after_commit` rails hook.
+Most models are rebuilt by one SQL statement inside the database (see `reindex_inside_db?`). It empties the model's search table and fills it again in one transaction, which blocks searches on that model until it commits. `reindex:missing` rebuilds these models in full too.
+
+Models that need Ruby code to build their content, such as `FoiAttachment`, are indexed in chunks. Existing entries are overwritten, not removed, so search keeps working during the run. For these models, `reindex:missing` only indexes records that have no search document yet.
+
+Each chunk of records runs in a new process, so memory use stays flat. The tasks record their progress in `tmp/reindex/`, so an interrupted run continues where it left off. Both tasks share this progress, so set `RESET=1` to start again, or to run `reindex:missing` after `reindex:all` has finished.
+
+Beware though, that a full reindex can take several minutes to several days for larger setups when reindexing all `FoiAttachment`s for instance.
+
+The preferred logic (after initial backfilling of the `search_documents` table) is to `.reindex` a model after it has had modifications that would affect its searchable content. At the moment, an `after_commit` rails hook calls `reindex_later`, which queues a `Search::ReindexJob` to do this.
 
 ### Defining what is indexed
 
@@ -70,6 +82,7 @@ Add a `searchable` definition on a model to make it searchable. It looks like th
 The above means:
 - `.name` (note the leading `.`) calls the ruby method `object.name` (which should return a string).
 - `home_page` uses the postgresql column directly (this is much faster, but less flexible)
+- `root` names the record a result belongs to, so hits on a message can be grouped under their request. Leave it out when the model is its own root.
 
 The letter that follows `A|B|C|D` defines the weights assigned to the field for the `ts_vector` value, with A being highest. This is used to rank results.
 
