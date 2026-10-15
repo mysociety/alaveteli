@@ -87,6 +87,16 @@ class Announcement < ApplicationRecord
 
   after_initialize :set_defaults
 
+  # Fall back to another locale's body, as Globalize does for the title
+  def rich_body
+    globalize_fallbacks(Globalize.locale).each do |locale|
+      body = translation_for(locale, false)&.rich_body
+      return body if body.present?
+    end
+
+    translation.rich_body
+  end
+
   private
 
   def set_defaults

@@ -79,6 +79,28 @@ RSpec.describe Announcement do
     end
   end
 
+  describe '#rich_body' do
+    let(:announcement) do
+      FactoryBot.create(:announcement, rich_body: 'English body')
+    end
+
+    it 'falls back to the default locale when there is no translation' do
+      AlaveteliLocalization.with_locale(:es) do
+        expect(announcement.rich_body.to_plain_text).to eq('English body')
+      end
+    end
+
+    it 'prefers the body in the current locale' do
+      AlaveteliLocalization.with_locale(:es) do
+        announcement.rich_body = 'Cuerpo'
+        announcement.save!
+        expect(announcement.rich_body.to_plain_text).to eq('Cuerpo')
+      end
+
+      expect(announcement.rich_body.to_plain_text).to eq('English body')
+    end
+  end
+
   describe 'vaidations' do
     it 'has valid factory' do
       announcement = FactoryBot.build(:announcement)

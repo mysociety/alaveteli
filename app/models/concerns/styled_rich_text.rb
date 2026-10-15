@@ -11,7 +11,7 @@ module StyledRichText
   included do
     translates :rich_body, touch: true
     delegate :rich_body, :rich_body=, :rich_body?, to: :translation
-    after_save { rich_body.save if rich_body.changed? }
+    after_save { translation.rich_body.save if translation.rich_body.changed? }
 
     translation_class.has_rich_text :rich_body
   end
