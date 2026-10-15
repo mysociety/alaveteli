@@ -1,0 +1,25 @@
+// Colours for the red, yellow, green and blue styles shared by notes and
+// announcements.
+
+$style-red-text:     darken($alert-color, 25%);
+$style-red-bg:       lighten($alert-color, 40%);
+$style-red-border:   $alert-color;
+
+$style-green-text:   darken($success-color, 25%);
+$style-green-bg:     lighten($success-color, 40%);
+$style-green-border: $success-color;
+
+$style-blue-text:    darken($primary-color, 15%);
+$style-blue-bg:      lighten($primary-color, 60%);
+$style-blue-border:  $primary-color;
+
+$style-yellow-text:   darken($warning-color, 30%);
+$style-yellow-bg:     lighten($warning-color, 40%);
+$style-yellow-border: $warning-color;
+
+$style-palette: (
+  red:    (text: $style-red-text,    bg: $style-red-bg,    border: $style-red-border),
+  yellow: (text: $style-yellow-text, bg: $style-yellow-bg, border: $style-yellow-border),
+  green:  (text: $style-green-text,  bg: $style-green-bg,  border: $style-green-border),
+  blue:   (text: $style-blue-text,   bg: $style-blue-bg,   border: $style-blue-border)
+);

@@ -10,6 +10,20 @@
   }
 }
 
+@each $style, $colours in $style-palette {
+  .popup.announcement--style-#{$style} {
+    background-color: map-get($colours, bg);
+    color: map-get($colours, text);
+
+    a, a:hover, a:active, a:focus, a:visited,
+    a:visited:hover,
+    a:visited:active,
+    a:visited:focus {
+      color: map-get($colours, text);
+    }
+  }
+}
+
 .popup__close {
   color: #333;
   text-decoration: none;
