@@ -80,13 +80,22 @@ RSpec.describe Comment do
     end
   end
 
-  describe 'search indexing' do
+  describe 'search indexing', :reindex_inline do
     let(:document) { comment.search_documents.reload.sole }
 
     context 'when the comment is hidden' do
       let(:comment) { FactoryBot.create(:hidden_comment, body: 'Out of sight') }
 
       it 'goes in the admin index only' do
+        expect(document.raw_content).to be_nil
+        expect(document.raw_admin_content).to include('Out of sight')
+      end
+
+      it 'stays in the admin index only after a full reindex' do
+        comment
+        SearchDocument.delete_all
+        described_class.reindex_all
+
         expect(document.raw_content).to be_nil
         expect(document.raw_admin_content).to include('Out of sight')
       end
