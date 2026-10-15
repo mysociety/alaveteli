@@ -844,6 +844,20 @@ RSpec.describe IncomingMessage do
       expect(im.get_attachment_text_full.valid_encoding?).to be true
     end
 
+    it 'includes public attachments after one the public cannot read' do
+      message = FactoryBot.create(
+        :incoming_message,
+        foi_attachments_factories: [[:body_text], [:body_text]]
+      )
+      hidden, visible = message.get_attachments_for_display
+      hidden.update!(prominence: 'hidden')
+      allow(hidden).to receive(:default_body).and_return('hidden text')
+      allow(visible).to receive(:default_body).and_return('public text')
+
+      expect(message.get_attachment_text_full).to include('public text')
+      expect(message.get_attachment_text_full).not_to include('hidden text')
+    end
+
     context 'when censor rules apply' do
       let(:message) { FactoryBot.create(:incoming_message, :with_text_attachment) }
       let(:censor_rule) do

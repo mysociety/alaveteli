@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix search and request excerpts missing public attachments (Graeme Porteous)
 * Update request listings to work via the request itself; filtering by status,
   date and tag in the database rather than the search index (Graeme Porteous)
 * Fix command injection in the admin holiday feed import, and only fetch
