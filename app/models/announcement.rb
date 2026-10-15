@@ -8,7 +8,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  title      :string
-#  content    :text
+#  style      :string           default("default"), not null
 #
 
 class Announcement < ApplicationRecord
@@ -21,8 +21,12 @@ class Announcement < ApplicationRecord
            inverse_of: :announcement,
            dependent: :destroy
 
-  translates :title, :content
+  translates :title
+  include StyledRichText
   include Translatable
+
+  styles({ 'Default': 'default' }.merge(StyledRichText::COLOUR_STYLE_LABELS),
+         default: 'default')
 
   default_scope -> { order(created_at: :desc) }
   scope :visible_to, -> (visible_to) { where(visibility: visible_to) }
@@ -73,7 +77,9 @@ class Announcement < ApplicationRecord
     end
   }
 
-  validates :content,
+  validates :rich_body,
+            presence: true
+  validates :style,
             presence: true
   validates :visibility,
             presence: true,

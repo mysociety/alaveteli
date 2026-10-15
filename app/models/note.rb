@@ -16,27 +16,11 @@ class Note < ApplicationRecord
   include AdminColumn
 
   translates :body
-  translates :rich_body, touch: true
+  include StyledRichText
   include Translatable
-  delegate :rich_body, :rich_body=, :rich_body?, to: :translation
-  after_save { rich_body.save if rich_body.changed? }
 
-  cattr_accessor :default_style,
-                 instance_accessor: false,
-                 default: 'original'
-  cattr_accessor :style_labels,
-                 instance_accessor: false,
-                 default: {
-                   '🔴 Red': 'red',
-                   '🟡 Yellow': 'yellow',
-                   '🟢 Green': 'green',
-                   '🔵 Blue': 'blue',
-                   'Original': 'original'
-                 }
-
-  enum :style, Note.style_labels.values.index_by(&:itself),
-               default: Note.default_style,
-               suffix: true
+  styles StyledRichText::COLOUR_STYLE_LABELS.merge('Original': 'original'),
+         default: 'original'
 
   belongs_to :notable, polymorphic: true, optional: true
 
@@ -58,9 +42,5 @@ class Note < ApplicationRecord
 
   def notable_or_notable_tag
     notable || notable_tag
-  end
-
-  class Translation # :nodoc:
-    has_rich_text :rich_body
   end
 end
