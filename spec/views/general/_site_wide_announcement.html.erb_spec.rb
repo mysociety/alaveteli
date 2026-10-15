@@ -4,7 +4,7 @@ RSpec.describe 'general/_site_wide_announcement' do
   let(:announcement) do
     FactoryBot.
       create(:announcement,
-             content: '<b>Exciting news!</b> <script>alert("!")</script>')
+             rich_body: '<b>Exciting news!</b> <script>alert("!")</script>')
   end
 
   before do
@@ -17,6 +17,14 @@ RSpec.describe 'general/_site_wide_announcement' do
              locals: { announcement: announcement }
       expect(rendered).to include('Introducing projects')
       expect(rendered).to include('<b>Exciting news!</b>')
+    end
+
+    it 'adds a class for the style' do
+      announcement.update!(style: 'red')
+      render template: 'general/_site_wide_announcement',
+             locals: { announcement: announcement }
+      expect(rendered).to include('announcement--style-red')
+      expect(rendered).to include('id="standard-popup"')
     end
 
     it 'strips out dangerous tags' do

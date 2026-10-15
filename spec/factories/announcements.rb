@@ -8,7 +8,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  title      :string
-#  content    :text
+#  style      :string           default("default"), not null
 #
 
 FactoryBot.define do
@@ -16,7 +16,7 @@ FactoryBot.define do
     user
     visibility { 'everyone' }
     title { 'Introducing projects' }
-    content { 'We’re delighted to announce we’ve rolled out the new projects' }
+    rich_body { 'We’re delighted to announce we’ve rolled out the new projects' }
 
     transient do
       dismissed_by { nil }

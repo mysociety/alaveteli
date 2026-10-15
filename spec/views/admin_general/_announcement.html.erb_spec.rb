@@ -5,7 +5,7 @@ RSpec.describe 'admin_general/_announcement' do
     FactoryBot.
       create(:announcement,
              visibility: 'admin',
-             content: '<b>Exciting news!</b> <script>alert("!")</script>')
+             rich_body: '<b>Exciting news!</b> <script>alert("!")</script>')
   end
 
   describe 'displaying an announcement' do

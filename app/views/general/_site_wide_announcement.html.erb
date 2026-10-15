@@ -1,8 +1,8 @@
-<div class="popup popup--popup popup--standard" role="alert" id="standard-popup">
+<div class="popup popup--popup popup--standard <%= announcement_style_class(site_wide_announcement) %>" role="alert" id="standard-popup">
   <div class="row">
     <div class="popup__content">
       <% if site_wide_announcement.title.present? %><strong><%= site_wide_announcement.title %> - </strong><% end %>
-      <%= sanitize site_wide_announcement.content %>
+      <%= announcement_as_html(site_wide_announcement) %>
       <%= link_to announcement_path(site_wide_announcement), method: :delete, remote: true, class: 'popup__close js-popup__close', aria: { label: _('Close') } do %>
         <span aria-hidden="true">&times;</span>
       <% end %>

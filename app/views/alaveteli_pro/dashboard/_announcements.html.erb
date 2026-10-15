@@ -2,10 +2,10 @@
   <ul class="dashboard__announcements__list carousel-content">
     <% @announcements.each_with_index do |announcement, idx| %>
       <li class="dashboard__announcements__list-item carousel-item" aria-hidden="<% if idx.zero? %>false<% else %>true<% end %>">
-        <div class="dashboard__announcement">
+        <div class="dashboard__announcement <%= announcement_style_class(announcement) %>">
           <% if announcement.title.present? %><h2 class="dashboard__announcement__title"><%= announcement.title %></h2><% end %>
           <div class="dashboard__announcement__content">
-            <p><%= sanitize announcement.content %></p>
+            <%= announcement_as_html(announcement) %>
           </div>
           <%= link_to _('Dismiss'), announcement_path(announcement), method: :delete, remote: true, class: 'dashboard__announcement_dismiss carousel-item-dismiss' %>
         </div>

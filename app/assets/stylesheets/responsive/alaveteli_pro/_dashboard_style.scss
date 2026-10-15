@@ -199,6 +199,14 @@
   }
 }
 
+@each $style, $colours in $style-palette {
+  .dashboard__announcement.announcement--style-#{$style} {
+    color: map-get($colours, text);
+    border-left: 4px solid map-get($colours, border);
+    padding-left: 0.75em;
+  }
+}
+
 .dashboard__announcement__title {
   font-weight: bold;
   font-size: 1.125em;

@@ -129,8 +129,17 @@
 * Drop support for Ruby 3.3 (Graeme Porteous)
 * Drop support for Ruby 3.2 (Graeme Porteous)
 * Block various action links via robots.txt (Laurent Savaete)
+* Add colour styles and a rich text editor to announcements, sharing the
+  implementation with notes (Ben Fairless)
 
 ## Upgrade Notes
+
+* _Required:_ Announcement `content` is now a rich text `rich_body`, and
+  announcements have a `style`. Run `rake db:migrate` to move the existing
+  content across. If you have overridden announcement views in your theme,
+  render announcements with `announcement_as_html(announcement)` and add
+  `announcement_style_class(announcement)` to the wrapping element rather than
+  calling `sanitize announcement.content`.
 
 * **IMPORTANT! We no longer support PostgreSQL 13**. Please upgrade to at least
   version 15 before upgrading Alaveteli. This is the version shipped with Debian
