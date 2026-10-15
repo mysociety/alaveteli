@@ -64,6 +64,14 @@ RSpec.describe Searchable, '#reindex_later' do
       to have_enqueued_job(Search::ReindexJob)
     expect(user.search_documents).to be_empty
   end
+
+  it 'reindexes inline rather than queueing a job inside inline_reindex' do
+    user = users(:bob_smith_user)
+    expect(user).to receive(:reindex)
+
+    expect { Searchable.inline_reindex { user.reindex_later } }.
+      not_to have_enqueued_job(Search::ReindexJob)
+  end
 end
 
 RSpec.describe Searchable, 'index lifecycle', :reindex_inline do
@@ -110,6 +118,42 @@ RSpec.describe Searchable, 'index lifecycle', :reindex_inline do
   it 'does not index models that are not registered as searchable' do
     n = FactoryBot.create(:notification)
     expect(SearchDocument.where(searchable_type: "Notification").count).to eq(0)
+  end
+
+  describe '.reindex_inside_db?' do
+    it 'is true when every indexed field is a column' do
+      expect(User.reindex_inside_db?).to eq(true)
+    end
+
+    it 'is false when a field reads a ruby attribute' do
+      expect(PublicBody.reindex_inside_db?).to eq(false)
+    end
+
+    it 'is false for a model that never called searchable' do
+      expect(Notification.reindex_inside_db?).to eq(false)
+    end
+  end
+
+  describe '.not_indexed' do
+    it 'excludes records that are already indexed' do
+      user = FactoryBot.create(:user)
+      expect(User.not_indexed).not_to include(user)
+    end
+
+    it 'includes records with no document' do
+      user = FactoryBot.create(:user)
+      SearchDocument.delete_all
+
+      expect(User.not_indexed).to include(user)
+    end
+
+    it 'looks only at the documents of its own model' do
+      user = FactoryBot.create(:user)
+      SearchDocument.where(searchable_type: 'User').delete_all
+      FactoryBot.create(:public_body)
+
+      expect(User.not_indexed).to include(user)
+    end
   end
 
   describe '.reindex_all' do
@@ -206,6 +250,58 @@ RSpec.describe Searchable, 'index lifecycle', :reindex_inline do
           raw_content: nil,
           raw_admin_content: a_string_including('Out of sight')
         )
+    end
+
+    it 'yields the last id of each batch' do
+      bodies = FactoryBot.create_list(:public_body, 3).sort_by(&:id)
+      allow(PublicBody).to receive(:indexable).
+        and_return(PublicBody.where(id: bodies))
+
+      yielded = []
+      PublicBody.reindex_all(batch_size: 1) { |id| yielded << id }
+
+      expect(yielded).to eq(bodies.map(&:id))
+    end
+
+    it 'starts from the given id' do
+      first, second = FactoryBot.create_list(:public_body, 2).sort_by(&:id)
+      allow(PublicBody).to receive(:indexable).
+        and_return(PublicBody.where(id: [first, second]))
+      SearchDocument.delete_all
+
+      PublicBody.reindex_all(start_id: second.id)
+
+      expect(
+        SearchDocument.where(searchable_type: 'PublicBody').
+          pluck(:searchable_id)
+      ).to eq([second.id])
+    end
+
+    it 'indexes only the records without a document when asked' do
+      indexed, missing = FactoryBot.create_list(:public_body, 2)
+      allow(PublicBody).to receive(:indexable).
+        and_return(PublicBody.where(id: [indexed, missing]))
+      SearchDocument.where(searchable_type: 'PublicBody',
+                           searchable_id: missing.id).delete_all
+
+      expect(PublicBody.reindex_all(only_missing: true)).to eq(1)
+    end
+
+    it 'indexes nothing for a model that never called searchable' do
+      expect(Notification.reindex_all).to eq(0)
+    end
+
+    it 'stops once it has indexed the records it was capped at' do
+      bodies = FactoryBot.create_list(:public_body, 3).sort_by(&:id)
+      allow(PublicBody).to receive(:indexable).
+        and_return(PublicBody.where(id: bodies))
+      SearchDocument.delete_all
+
+      expect(PublicBody.reindex_all(limit: 2)).to eq(2)
+      expect(
+        SearchDocument.where(searchable_type: 'PublicBody').
+          pluck(:searchable_id).uniq
+      ).to match_array(bodies.first(2).map(&:id))
     end
 
     it 'copies the indexed columns into the raw content' do

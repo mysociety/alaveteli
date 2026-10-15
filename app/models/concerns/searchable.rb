@@ -48,6 +48,26 @@ module Searchable
   @@locale_to_language_map.default = 'simple'
   # rubocop:enable Style/ClassVars
 
+  # Every model registered by `searchable`. The app has to be eager loaded
+  # first (`Rails.application.eager_load!`) so every declaration has run,
+  # otherwise a model nothing has referenced yet will be missing.
+  def self.models
+    @@searchable_models.keys.map(&:constantize)
+  end
+
+  thread_mattr_accessor :reindex_inline, instance_accessor: false
+
+  # Reindex records inline rather than in a job while the block runs. A
+  # backfill saves records as it goes, and a job for each would flood the
+  # queue and leave them unindexed until the workers caught up.
+  def self.inline_reindex
+    previous = reindex_inline
+    self.reindex_inline = true
+    yield
+  ensure
+    self.reindex_inline = previous
+  end
+
   def self.lang_from_locale(locale)
     @@locale_to_language_map[locale]
   end
@@ -189,11 +209,18 @@ module Searchable
   end
 
   # Jobs wait for the current transaction to commit, so the upsert never
-  # runs inside a caller's transaction.
+  # runs inside a caller's transaction, unless `inline_reindex` is on.
   def reindex_later
     return unless @@searchable_models.key?(self.class.to_s)
+    return reindex if Searchable.reindex_inline
 
     Search::ReindexJob.perform_later(self)
+  end
+
+  # Override this method per model to do the work `is_indexable?` waits for,
+  # such as parsing an email. Only `reindex_all` calls it, so saving a record
+  # never sets off that work.
+  def prepare_for_reindex
   end
 
   # "diffs" the unredacted and redacted versions of a text
@@ -325,40 +352,60 @@ module Searchable
     # Reindex all instances of a model.
     # This would normally not be run beyond the initial indexing of a
     # pre-existing database.
-    def reindex_all(start_id: nil, batch_count: nil)
-      options = search_options
-      return if options.nil?
+    #
+    # Models read through ruby are walked in id order, a batch at a time,
+    # and the last id of each batch is yielded. A run can be told the id to
+    # start from, and can be capped at +limit+ records so it gives up
+    # the process once it has done its share. Between them a backfill that
+    # stops part way picks up where it got to rather than starting the model
+    # again. Models built inside the database are a single statement, so
+    # there is nothing to cap and nothing to carry on from.
+    def reindex_all(batch_size: 1000, start_id: nil, only_missing: false,
+                    limit: nil)
+      return 0 if search_options.nil?
 
-      columns = (options[:index] || {}).keys +
-                (options[:admin_index] || {}).keys
+      return reindex_all_inside_db if reindex_inside_db?
 
-      # if none of the index keys starts with a '.', we don't need to call ruby
-      # attributes so we can index within a DB query
-      if columns.none? { |column| column.start_with?('.') } &&
-         root_in_database? && public_split_in_database?
-        return reindex_all_inside_db
-      end
+      scope = only_missing ? indexable.not_indexed : indexable
+      scope = scope.where(arel_table[primary_key].gteq(start_id)) if start_id
+      scope = scope.limit(limit) if limit
 
       start = Time.zone.now
       count = 0
-      if start_id.nil?
-        items_to_index = indexable
-      else
-        items_to_index = indexable.where(id: start_id..(start_id + batch_count))
-      end
-      items_to_index.find_each do |record|
-        record.reindex
-        count += 1
+      Searchable.inline_reindex do
+        scope.find_in_batches(batch_size: batch_size) do |records|
+          records.each do |record|
+            record.prepare_for_reindex
+            record.reindex
+            count += 1
+          end
+          yield records.last.id if block_given?
+        end
       end
       elapsed = Time.zone.now - start
       Rails.logger.info("Reindexed #{count} #{name} in #{elapsed} seconds")
+      count
+    end
+
+    # Whether this model's search documents are built by a single statement.
+    #
+    # None of the index keys may start with a '.', and the root and the public
+    # split must be worked out in the database too, so we never need to call
+    # ruby and the content does not have to travel from postgres to ruby and
+    # back. There is then nothing to chunk and nothing to resume.
+    def reindex_inside_db?
+      options = search_options
+      return false if options.nil?
+
+      columns = (options[:index] || {}).keys +
+                (options[:admin_index] || {}).keys
+      columns.none? { |column| column.start_with?('.') } &&
+        root_in_database? && public_split_in_database?
     end
 
     # alternative implementation of reindex_all that works for models
-    # whose searchable.index and searchable.admin_index only contain
-    # SQL column names, and no ruby attributes. In that case, it is
-    # possible to send a single request to the db to generate the entire
-    # set of search_documents.
+    # `reindex_inside_db?` accepts. It sends a single request to the db to
+    # generate the entire set of search_documents.
     def reindex_all_inside_db
       language = Searchable.lang_from_locale(
         AlaveteliLocalization.default_locale
@@ -412,6 +459,7 @@ module Searchable
       Rails.logger.info(
         "Reindexed #{count} #{name} in #{elapsed} seconds (in database)"
       )
+      count
     end
 
     def search_options
@@ -493,6 +541,8 @@ module Searchable
       # Override this scope to help filter out records which don't need
       # reindexing in `reindex_all`.
       scope :indexable, -> { all }
+      # Records with no search document at all
+      scope :not_indexed, -> { where.missing(:search_documents) }
     end
     base.extend(SearchableMethods)
   end

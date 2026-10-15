@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add rake tasks to build the PostgreSQL search index using a chunk per process
+  resuming where an interrupted run stopped (Graeme Porteous)
 * Fix errors and slow searches caused by invalid page sizes (Graeme Porteous)
 * Fix search and request excerpts missing public attachments (Graeme Porteous)
 * Update request listings to work via the request itself; filtering by status,
