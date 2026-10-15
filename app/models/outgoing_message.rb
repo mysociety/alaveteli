@@ -33,6 +33,7 @@ class OutgoingMessage < ApplicationRecord
   include Taggable
 
   include OutgoingMessage::DeliveryStatus
+  include OutgoingMessage::Erasable
 
   MESSAGE_TYPES = %w(initial_request followup).freeze
   WHAT_DOING_VALUES = %w(normal_sort
@@ -43,12 +44,14 @@ class OutgoingMessage < ApplicationRecord
   # To override the default letter
   attr_accessor :default_letter
 
-  before_validation :cache_from_name
-  validates_presence_of :from_name, unless: -> (m) { !m.info_request&.user }
+  before_validation :cache_from_name, unless: :erased?
+  validates_presence_of :from_name, unless: -> (m) {
+    !m.info_request&.user || m.erased?
+  }
   validates_inclusion_of :message_type, in: MESSAGE_TYPES
-  validate :template_changed
-  validate :body_uses_mixed_capitals
-  validate :body_has_signature
+  validate :template_changed, unless: :erased?
+  validate :body_uses_mixed_capitals, unless: :erased?
+  validate :body_has_signature, unless: :erased?
   validate :what_doing_value
 
   belongs_to :info_request,
@@ -116,6 +119,10 @@ class OutgoingMessage < ApplicationRecord
     )
   end
 
+  def is_indexable?
+    !erased?
+  end
+
   def self.default_salutation(public_body)
     _("Dear {{public_body_name}},", public_body_name: public_body.name)
   end
@@ -154,7 +161,7 @@ class OutgoingMessage < ApplicationRecord
   def from_name
     return info_request.external_user_name if info_request.is_external?
 
-    super || info_request.user_name
+    super || (erased? ? nil : info_request.user_name)
   end
 
   def safe_from_name
