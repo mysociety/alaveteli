@@ -1813,4 +1813,31 @@ RSpec.describe IncomingMessage, 'when getting the main body text' do
       expect { incoming_message.refusals? }.to_not raise_error
     end
   end
+
+  context 'when main body attachment is missing' do
+    let(:incoming_message) { FactoryBot.create(:incoming_message) }
+    let(:main_part) { incoming_message.get_main_body_text_part }
+
+    it 'retries once to find a rebuilt part' do
+      calls = 0
+      allow(main_part).to receive(:body_as_text).and_wrap_original do |m|
+        calls += 1
+        raise FoiAttachment::MissingError if calls == 1
+
+        m.call
+      end
+
+      expect(incoming_message.get_main_body_text_internal).
+        to include('hereisthetext')
+    end
+
+    it 'raises when the part is still missing' do
+      allow(main_part).to receive(:body_as_text).
+        and_raise(FoiAttachment::MissingError)
+
+      expect { incoming_message.get_main_body_text_internal }.
+        to raise_error(FoiAttachment::MissingError)
+      expect(main_part).to have_received(:body_as_text).twice
+    end
+  end
 end
