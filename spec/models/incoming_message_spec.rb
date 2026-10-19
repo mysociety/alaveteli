@@ -768,6 +768,28 @@ RSpec.describe IncomingMessage do
       expect(incoming_message.search_documents.map(&:root)).
         to eq([incoming_message.info_request])
     end
+
+    it 'indexes a message nobody has viewed when reindexing them all' do
+      incoming_message = FactoryBot.create(:plain_incoming_message)
+      expect(incoming_message.cached_main_body_text_folded).to be_nil
+
+      IncomingMessage.reindex_all
+
+      expect(
+        IncomingMessage.search_scope('rubbish', backend: :postgresql)
+      ).to include(incoming_message)
+    end
+  end
+
+  describe '#prepare_for_reindex' do
+    let(:incoming_message) { FactoryBot.build(:incoming_message) }
+
+    it 'skips a message it cannot parse' do
+      allow(incoming_message).to receive(:get_main_body_text_folded).
+        and_raise(RuntimeError, 'has no raw_email')
+
+      expect { incoming_message.prepare_for_reindex }.not_to raise_error
+    end
   end
 
   describe '#get_body_for_indexing' do
@@ -842,6 +864,20 @@ RSpec.describe IncomingMessage do
         and_return("\xBF")
 
       expect(im.get_attachment_text_full.valid_encoding?).to be true
+    end
+
+    it 'includes public attachments after one the public cannot read' do
+      message = FactoryBot.create(
+        :incoming_message,
+        foi_attachments_factories: [[:body_text], [:body_text]]
+      )
+      hidden, visible = message.get_attachments_for_display
+      hidden.update!(prominence: 'hidden')
+      allow(hidden).to receive(:default_body).and_return('hidden text')
+      allow(visible).to receive(:default_body).and_return('public text')
+
+      expect(message.get_attachment_text_full).to include('public text')
+      expect(message.get_attachment_text_full).not_to include('hidden text')
     end
 
     context 'when censor rules apply' do

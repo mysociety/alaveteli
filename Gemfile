@@ -91,7 +91,7 @@ gem 'acts_as_versioned', mysociety: 'acts_as_versioned', ref: '13e928b'
 gem 'active_model_otp'
 gem 'activejob-uniqueness', '~> 0.4.0'
 gem 'bcrypt', '~> 3.1.22'
-gem 'cancancan', '~> 3.6.1'
+gem 'cancancan', '~> 3.7.0'
 gem 'charlock_holmes', '~> 0.7.9'
 gem 'compare-xml', '~> 1.0'
 gem 'dalli', '~> 5.2.2'
@@ -100,7 +100,7 @@ gem 'fancybox-rails', '~> 0.3.0'
 gem 'friendly_id', '~> 5.7.0'
 gem 'gnuplot', '~> 2.6.0'
 gem 'htmlentities', '~> 4.4.2'
-gem 'icalendar', '~> 2.12.5'
+gem 'icalendar', '~> 2.13.0'
 gem 'image_processing', '~> 2.2'
 gem 'mini_magick', '~> 5.4'
 gem 'jquery-rails', '~> 4.6.1'
@@ -190,7 +190,7 @@ gem "ollama-ai", "~> 1.3.0"
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
-  gem 'webmock', '~> 3.26.4'
+  gem 'webmock', '~> 3.34.0'
   gem 'simplecov', '~> 1.3.2'
   gem 'simplecov-lcov', '~> 0.9.0'
   gem 'capybara', '~> 3.40.0'
@@ -199,7 +199,7 @@ group :test do
 end
 
 group :test, :development do
-  gem 'bullet', '~> 8.2.0'
+  gem 'bullet', '~> 8.3.0'
   gem 'factory_bot_rails', '~> 6.5.1'
   gem 'rspec-activemodel-mocks', '~> 1.3.0'
   gem 'rspec-rails', '~> 8.0.4'
@@ -210,7 +210,7 @@ group :development do
   gem 'annotaterb', '~> 4.25.0'
   gem 'launchy', '< 3.2.0'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 1.91.0', require: false
+  gem 'rubocop', '~> 1.92.0', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end

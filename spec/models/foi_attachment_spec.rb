@@ -2342,7 +2342,7 @@ RSpec.describe FoiAttachment do
 
     context 'when the raw email cannot be erased' do
       before do
-        allow(foi_attachment.raw_email).to receive(:erase).
+        allow(foi_attachment.raw_email).to receive(:erase!).
           and_raise(RawEmail::UnmaskedAttachmentsError)
       end
 

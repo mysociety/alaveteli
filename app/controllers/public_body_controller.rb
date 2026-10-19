@@ -10,16 +10,15 @@ class PublicBodyController < ApplicationController
   skip_before_action :html_response, only: [:show, :list_all_csv]
   skip_before_action :redirect_gettext_locale, only: :show
 
-  MAX_RESULTS = 500
   # TODO: tidy this up with better error messages, and a more standard infrastructure for the redirect to canonical URL
   def show
     long_cache
     @page = get_search_page_from_params
-    requests_per_page = 25
 
     # Later pages are very expensive to load
-    if @page > MAX_RESULTS / requests_per_page
-      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / requests_per_page}."
+    if @page > MAX_RESULTS / PER_PAGE
+      raise ActiveRecord::RecordNotFound,
+            "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
     end
 
     if MySociety::Format.simplify_url_part(params[:url_name], 'body') != params[:url_name]
@@ -61,7 +60,7 @@ class PublicBodyController < ApplicationController
       filters[:latest_status] = @view
       filters[:public_body] = @public_body
 
-      @per_page = requests_per_page
+      @per_page = PER_PAGE
       begin
         @request_results = InfoRequest.request_list(
           filters, @page, @per_page, MAX_RESULTS

@@ -393,6 +393,12 @@ RSpec.describe GeneralController, 'when using search' do
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
+  it 'ignores the requests_per_page parameter' do
+    stub_search_results
+    get :search, params: { combined: 'bob/requests', requests_per_page: '0' }
+    expect(assigns[:requests_per_page]).to eq(25)
+  end
+
   context "when passed a non-HTML request" do
     it "raises unknown format error" do
       expect do
