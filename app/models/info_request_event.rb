@@ -90,16 +90,27 @@ class InfoRequestEvent < ApplicationRecord
   validates_presence_of :event_type
 
   scope :is_searchable, -> {
-    searchable_requests = joins(:info_request).merge(InfoRequest.is_searchable)
+    relation_exists = ->(relation, foreign_key) {
+      relation.where(relation.arel_table[:id].eq(arel_table[foreign_key])).
+        arel.exists
+    }
 
-    searchable_requests.
-      where(event_type: 'response',
-            incoming_message: IncomingMessage.is_searchable).
-      or(searchable_requests.
-           where(event_type: %w[sent followup_sent],
-                 outgoing_message: OutgoingMessage.is_searchable)).
-      or(searchable_requests.
-           where(event_type: 'comment', comment: Comment.where(visible: true)))
+    responses = relation_exists.call(
+      IncomingMessage.is_searchable, :incoming_message_id
+    )
+    sent = relation_exists.call(
+      OutgoingMessage.is_searchable, :outgoing_message_id
+    )
+    comments = relation_exists.call(
+      Comment.where(visible: true), :comment_id
+    )
+
+    searchable = joins(:info_request).
+      where(info_request_id: InfoRequest.is_searchable.select(:id))
+
+    searchable.where(event_type: 'response').where(responses).
+      or(searchable.where(event_type: %w[sent followup_sent]).where(sent)).
+      or(searchable.where(event_type: 'comment').where(comments))
   }
 
   scope :not_embargoed, -> {
