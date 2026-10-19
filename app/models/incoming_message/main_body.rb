@@ -164,7 +164,7 @@ module IncomingMessage::MainBody
     return '' if Ability.guest.cannot?(:read, get_main_body_text_part)
 
     get_body_for_quoting
-  rescue FoiAttachment::MaskingError
+  rescue FoiAttachment::MaskingError, FoiAttachment::MissingError
     ''
   end
 

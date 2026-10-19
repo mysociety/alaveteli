@@ -814,6 +814,17 @@ RSpec.describe IncomingMessage do
         is_expected.to eq ''
       end
     end
+
+    context 'main body part is missing' do
+      before do
+        allow(incoming_message.get_main_body_text_part).
+          to receive(:body_as_text).and_raise(FoiAttachment::MissingError)
+      end
+
+      it 'returns blank string' do
+        is_expected.to eq ''
+      end
+    end
   end
 
   describe '#get_body_for_quoting' do
