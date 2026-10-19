@@ -109,6 +109,16 @@ RSpec.shared_examples 'a request search backend' do
       expect(subject.request_search('boring', filters: unsuccessful).ids(25)).
         to be_empty
     end
+
+    it 'lists the filtered requests when there is no text' do
+      successful = { latest_status: ['successful'] }
+
+      ids = subject.request_search('', filters: successful).ids(25)
+
+      expect(ids).not_to be_empty
+      expect(InfoRequest.where(id: ids).pluck(:described_state).uniq).
+        to eq(['successful'])
+    end
   end
 end
 

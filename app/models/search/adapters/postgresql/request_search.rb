@@ -21,18 +21,27 @@ module Search
 
         def results(page: 1, per_page: 25)
           paginated_results(
-            sorted(SearchDocument.request_search(query, requests: @requests)).
+            sorted(search).
               includes(:user, :outgoing_messages, public_body: :translations),
             page, per_page
           )
         end
 
         def ids(limit)
-          SearchDocument.request_search(query, requests: @requests).
-            limit(limit).pluck(:id)
+          search.limit(limit).pluck(:id)
         end
 
         private
+
+        # With no text, list the filtered requests, as Xapian does for a
+        # query of prefixes only.
+        def search
+          if query.blank?
+            return (@requests || InfoRequest.none).order(created_at: :desc)
+          end
+
+          SearchDocument.request_search(query, requests: @requests)
+        end
 
         # Xapian treats an ascending sort as newest first, so callers pass
         # true to mean descending.
