@@ -159,7 +159,7 @@ GEM
     bullet (8.2.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
-    cancancan (3.6.1)
+    cancancan (3.7.0)
     capybara (3.40.0)
       addressable
       matrix
@@ -655,7 +655,7 @@ DEPENDENCIES
   benchmark (~> 0.5.0)
   bootstrap-sass (~> 2.3.2.2)
   bullet (~> 8.2.0)
-  cancancan (~> 3.6.1)
+  cancancan (~> 3.7.0)
   capybara (~> 3.40.0)
   charlock_holmes (~> 0.7.9)
   compare-xml (~> 1.0)
