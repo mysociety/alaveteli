@@ -32,7 +32,7 @@ module Search
       'comment' => %w[comment]
     }.freeze
 
-    def initialize(filters, page, per_page, max_results)
+    def initialize(filters, page = 1, per_page = 25, max_results = nil)
       @filters = filters
       @page = page
       @per_page = per_page
@@ -43,7 +43,7 @@ module Search
     # matches up to one above +max_results+, as an exact count reads every
     # match.
     def call
-      requests = filtered_requests.order(created_at: :desc)
+      requests = self.requests.order(created_at: :desc)
 
       # Counted only when read, so a cached listing does not count.
       counter = method(:count_matches)
@@ -64,14 +64,8 @@ module Search
       STATUS_STATES
     end
 
-    private
-
-    def count_matches(requests)
-      # Not #count, which drops the order the planner needs to stop early.
-      requests.limit(@max_results + 1).pluck(:id).size
-    end
-
-    def filtered_requests
+    # Every matching request, as an unordered relation.
+    def requests
       scope = InfoRequest.is_searchable
       scope = filter_by_public_body(scope)
       scope = filter_by_user(scope)
@@ -80,6 +74,13 @@ module Search
       scope = filter_by_events(scope)
       scope = filter_by_tag(scope)
       filter_by_keyword(scope)
+    end
+
+    private
+
+    def count_matches(requests)
+      # Not #count, which drops the order the planner needs to stop early.
+      requests.limit(@max_results + 1).pluck(:id).size
     end
 
     def filter_by_public_body(scope)
@@ -101,13 +102,15 @@ module Search
       views = Array(@filters[:latest_status]).compact
       return scope if views.empty? || (views & %w[all recent]).any?
 
-      if views.include?('awaiting')
-        return scope.where(described_state: AWAITING_STATES).
-          or(scope.where(awaiting_description: true))
-      end
-
       states = views.flat_map { |view| status_states[view] }.compact.uniq
-      states.empty? ? scope : scope.where(described_state: states)
+      if views.include?('awaiting')
+        scope.where(described_state: states | AWAITING_STATES).
+          or(scope.where(awaiting_description: true))
+      elsif states.any?
+        scope.where(described_state: states)
+      else
+        scope
+      end
     end
 
     # Match requests with one searchable event in the range and of a chosen

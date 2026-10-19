@@ -99,6 +99,16 @@ RSpec.shared_examples 'a request search backend' do
         to eq(results.results.map { |result| result[:model].id })
       expect(searcher.ids(1).size).to eq(1)
     end
+
+    it 'applies the request search form filters' do
+      successful = { latest_status: ['successful'] }
+      unsuccessful = { latest_status: ['unsuccessful'] }
+
+      expect(subject.request_search('boring', filters: successful).ids(25)).
+        not_to be_empty
+      expect(subject.request_search('boring', filters: unsuccessful).ids(25)).
+        to be_empty
+    end
   end
 end
 

@@ -14,6 +14,21 @@ RSpec.describe Search::RequestList do
       expect(result).not_to include(waiting)
     end
 
+    it 'filters by awaiting and another status together' do
+      successful = FactoryBot.create(:info_request)
+      successful.set_described_state('successful')
+      awaiting = FactoryBot.create(:info_request)
+      rejected = FactoryBot.create(:info_request)
+      rejected.set_described_state('rejected')
+
+      result = described_class.new(
+        { latest_status: %w[awaiting successful] }, 1, 25, 100
+      ).call
+
+      expect(result).to include(successful, awaiting)
+      expect(result).not_to include(rejected)
+    end
+
     it 'filters by a status view a theme adds' do
       appealed = FactoryBot.create(:info_request)
       appealed.update_column(:described_state, 'appealed')
