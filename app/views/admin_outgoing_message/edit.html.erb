@@ -20,24 +20,6 @@
   </fieldset>
 
   <fieldset class="form-horizontal">
-    <legend>Prominence</legend>
-
-    <div class="control-group">
-      <label class="control-label" for="outgoing_message_prominence">Prominence</label>
-      <div class="controls">
-        <%= select('outgoing_message', "prominence", OutgoingMessage.prominence_states) %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <label class="control-label" for="outgoing_message_prominence_reason">Reason for prominence</label>
-      <div class="controls">
-        <%= text_area "outgoing_message", "prominence_reason", :rows => 5, :class => "span6" %>
-      </div>
-    </div>
-  </fieldset>
-
-  <fieldset class="form-horizontal">
     <legend>Message</legend>
 
     <div class="control-group">
@@ -101,6 +83,32 @@
       </div>
     </div>
   </fieldset>
+<% end %>
+
+<%= form_for @outgoing_message, url: admin_outgoing_message_prominence_path(@outgoing_message), class: 'form form-inline' do |f| %>
+  <fieldset class="form-horizontal">
+    <legend>Prominence</legend>
+
+    <div class="control-group">
+      <%= f.label :prominence, class: 'control-label' %>
+
+      <div class="controls">
+        <%= f.select :prominence, IncomingMessage.prominence_states %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :prominence_reason, 'Reason for prominence', class: 'control-label' %>
+
+      <div class="controls">
+        <%= f.text_area :prominence_reason, rows: 5, class: 'span6' %>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <%= f.submit 'Update Prominence', class: 'btn btn-success' %>
+  </div>
 <% end %>
 
 <%= form_tag admin_outgoing_message_path(@outgoing_message), :method => 'delete' do %>

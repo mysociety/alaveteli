@@ -182,7 +182,7 @@ RSpec.describe 'when making a zipfile available' do
         visit edit_admin_outgoing_message_path info_request.outgoing_messages.first
         select 'requester_only', from: 'Prominence'
         fill_in 'Reason for prominence', with: 'boring'
-        find_button('Save').click
+        find_button('Update Prominence').click
       end
 
       # Admin retains the requester only things

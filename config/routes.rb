@@ -760,10 +760,18 @@ Rails.application.routes.draw do
       scope module: :incoming_messages do
         resource :redelivery, only: [:create]
       end
+      resource :prominence, controller: 'incoming_messages/prominence',
+                            only: [:update]
     end
   end
   ####
 
+  namespace :admin do
+    resources :outgoing_messages, only: [] do
+      resource :prominence, controller: 'outgoing_messages/prominence',
+                        only: [:update]
+    end
+  end
 
   #### AdminOutgoingMessage controller
   scope '/admin', :as => 'admin' do
