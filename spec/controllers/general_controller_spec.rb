@@ -422,5 +422,19 @@ RSpec.describe GeneralController, 'when using search' do
       expect(assigns[:body_results].map { _1[:model] }).to eq([body])
       expect(assigns[:sortby]).to eq('relevant')
     end
+
+    it 'finds requests filtered by status' do
+      request = FactoryBot.create(:info_request, title: 'Ptarmigan census')
+
+      get :search, params: {
+        combined: 'ptarmigan/requests',
+        latest_status: ['awaiting'],
+        request_variety: %w[sent response comment]
+      }
+
+      expect(assigns[:request_results].map { _1[:model] }).to eq([request])
+      expect(assigns[:track_thing].track_query).
+        to include('latest_status:waiting_response')
+    end
   end
 end

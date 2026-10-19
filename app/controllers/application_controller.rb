@@ -418,8 +418,8 @@ class ApplicationController < ActionController::Base
 
   # Search a request's content and return one InfoRequest per match, for the
   # request listings.
-  def perform_request_search(query, sortby, per_page = 25, this_page = nil)
-    @query = query
+  def perform_request_search(query, sortby, per_page = 25, this_page = nil,
+                             filters: nil)
     @sortby = sortby
 
     order, ascending = order_to_sort_by(@sortby)
@@ -427,8 +427,9 @@ class ApplicationController < ActionController::Base
     @per_page = per_page
     @page = this_page || get_search_page_from_params
 
-    Search.request_search(@query, sort_by: order, sort_ascending: ascending).
-      results(page: @page, per_page: @per_page)
+    Search.request_search(
+      query, sort_by: order, sort_ascending: ascending, filters: filters
+    ).results(page: @page, per_page: @per_page)
   end
 
   def get_search_page_from_params
