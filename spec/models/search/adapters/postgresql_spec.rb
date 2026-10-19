@@ -98,6 +98,16 @@ RSpec.describe Search::Adapters::Postgresql::Adapter, :postgresql do
                 results(page: 1, per_page: 1)
       expect(results.matches_estimated).to eq(2)
     end
+
+    it 'lists the given requests newest first when there is no text' do
+      requests = InfoRequest.where(id: [older, newer])
+      searcher = adapter.request_search('', requests: requests)
+      expect(searcher.ids(25)).to eq([newer.id, older.id])
+    end
+
+    it 'finds nothing with no text and no requests' do
+      expect(adapter.request_search('').ids(25)).to be_empty
+    end
   end
 
   describe '#similar', :reindex_inline do
