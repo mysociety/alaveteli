@@ -25,6 +25,13 @@ module Search
       gone_postal error_message requires_admin
     ].freeze
 
+    # Map a request variety to the event types it covers.
+    VARIETY_EVENT_TYPES = {
+      'sent' => %w[sent followup_sent],
+      'response' => %w[response],
+      'comment' => %w[comment]
+    }.freeze
+
     def initialize(filters, page, per_page, max_results)
       @filters = filters
       @page = page
@@ -55,7 +62,7 @@ module Search
       scope = filter_by_user(scope)
       scope = filter_by_described_state(scope)
       scope = filter_by_status(scope)
-      scope = filter_by_dates(scope)
+      scope = filter_by_events(scope)
       scope = filter_by_tag(scope)
       filter_by_keyword(scope)
     end
@@ -88,14 +95,24 @@ module Search
       states.empty? ? scope : scope.where(described_state: states)
     end
 
-    # Match requests with a searchable event in the range, as Xapian did.
-    def filter_by_dates(scope)
+    # Match requests with one searchable event in the range and of a chosen
+    # variety, as Xapian did.
+    def filter_by_events(scope)
       after = parse_date(@filters[:request_date_after])
       before = parse_date(@filters[:request_date_before])
-      return scope unless after || before
 
-      events = InfoRequestEvent.is_searchable.
-        where(created_at: after&.beginning_of_day..before&.end_of_day)
+      varieties = Array(@filters[:request_variety])
+      varieties = [] if (VARIETY_EVENT_TYPES.keys - varieties).empty?
+      types = VARIETY_EVENT_TYPES.values_at(*varieties).flatten.compact
+
+      return scope unless after || before || types.any?
+
+      events = InfoRequestEvent.is_searchable
+      if after || before
+        events = events.
+          where(created_at: after&.beginning_of_day..before&.end_of_day)
+      end
+      events = events.where(event_type: types) if types.any?
       scope.where(id: events.select(:info_request_id))
     end
 

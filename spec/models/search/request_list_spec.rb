@@ -126,6 +126,42 @@ RSpec.describe Search::RequestList do
       end
     end
 
+    it 'filters by the variety of their searchable events' do
+      commented = FactoryBot.create(:comment_event).info_request
+      responded = FactoryBot.create(:info_request_with_incoming)
+      sent = FactoryBot.create(:info_request)
+
+      result = described_class.new(
+        { request_variety: %w[response comment] }, 1, 25, 100
+      ).call
+
+      expect(result).to include(commented, responded)
+      expect(result).not_to include(sent)
+    end
+
+    it 'skips the variety check when every variety is chosen' do
+      request = FactoryBot.create(:info_request)
+      request.outgoing_messages.update_all(prominence: 'hidden')
+
+      result = described_class.new(
+        { request_variety: %w[sent response comment] }, 1, 25, 100
+      ).call
+
+      expect(result).to include(request)
+    end
+
+    it 'matches the variety and the date range on one event' do
+      request = FactoryBot.create(:info_request_with_incoming)
+      request.info_request_events.where(event_type: 'sent').
+        update_all(created_at: '2000-06-01')
+
+      old = { request_variety: %w[response], request_date_before: '2000-12-31' }
+      new = { request_variety: %w[response], request_date_after: '2001-01-01' }
+
+      expect(described_class.new(old, 1, 25, 100).call).not_to include(request)
+      expect(described_class.new(new, 1, 25, 100).call).to include(request)
+    end
+
     it 'returns one page, counting every match' do
       3.times { FactoryBot.create(:info_request) }
 
