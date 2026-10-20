@@ -62,10 +62,12 @@ RSpec.describe RequestController, "when listing recent requests" do
   end
 
   it 'sets title based on if tag does not match an request category' do
+    stub_search_results(items: [], total: 0)
     get :list, params: { view: 'all', tag: 'other' }
     expect(assigns[:title]).to eq('Found 0 requests tagged ‘other’')
 
-    FactoryBot.create(:info_request, tag_string: 'other')
+    request = FactoryBot.create(:info_request, tag_string: 'other')
+    stub_search_results(items: [request], total: 1)
     get :list, params: { view: 'all', tag: 'other' }
     expect(assigns[:title]).to eq('Found 1 request tagged ‘other’')
   end

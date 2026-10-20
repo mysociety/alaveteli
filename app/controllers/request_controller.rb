@@ -127,8 +127,8 @@ class RequestController < ApplicationController
       @title = @category&.title
       @title ||= n_('Found {{count}} request tagged ‘{{tag_name}}’',
                     'Found {{count}} requests tagged ‘{{tag_name}}’',
-                    @results.total_entries,
-                    count: @results.total_entries,
+                    @results[:matches_estimated],
+                    count: @results[:matches_estimated],
                     tag_name: @tag)
     elsif @page > 1
       @title = _("Search requests (page {{count}})", count: @page)
