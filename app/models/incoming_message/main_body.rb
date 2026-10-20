@@ -21,14 +21,21 @@ module IncomingMessage::MainBody
   # TODO: This could be a private method – it is only called by IncomingMessage
   # and is directly tested.
   def get_main_body_text_internal # rubocop:disable Naming/AccessorMethodName
-    parse_raw_email
-    main_part = get_main_body_text_part
-    _convert_part_body_to_text(main_part)
+    retried = false
 
-  rescue FoiAttachment::MissingError
-    # occasionally the main body part gets rebuilt while being masked, we should
-    # be able to just retry to get the new main body part instance from the db.
-    retry
+    begin
+      parse_raw_email
+      main_part = get_main_body_text_part
+      _convert_part_body_to_text(main_part)
+    rescue FoiAttachment::MissingError
+      # occasionally the main body part gets rebuilt while being masked, we
+      # should be able to just retry to get the new main body part instance
+      # from the db. A part whose file is gone for good stays missing.
+      raise if retried
+
+      retried = true
+      retry
+    end
 
   rescue FoiAttachment::ErasedError
     ''
@@ -157,7 +164,7 @@ module IncomingMessage::MainBody
     return '' if Ability.guest.cannot?(:read, get_main_body_text_part)
 
     get_body_for_quoting
-  rescue FoiAttachment::MaskingError
+  rescue FoiAttachment::MaskingError, FoiAttachment::MissingError
     ''
   end
 
