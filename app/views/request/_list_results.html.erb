@@ -1,14 +1,13 @@
-<% if @results.total_entries.zero? %>
+<% if @results[:results].empty? %>
   <p> <%= _('No requests of this sort yet.')%></p>
 <% else %>
   <h2 class="foi_results">
     <%= _('About {{count}} FOI requests found',
-          :count => @results.total_entries) %></h2>
+          :count => @results[:matches_estimated]) %></h2>
   <div class="results_block">
-    <%= render partial: 'request/request_listing_single',
-               collection: @results, as: :info_request %>
+    <% @results[:results].each do |result| %>
+      <%= render :partial => 'request/request_listing_via_event', :locals => { :event => result } %>
+    <% end %>
   </div>
 <% end %>
-<%= will_paginate WillPaginate::Collection.new(
-      @page, @per_page, [@results.total_entries, @max_results].min
-    ) %>
+<%= will_paginate WillPaginate::Collection.new(@page, @per_page, @results[:show_no_more_than]) %>
