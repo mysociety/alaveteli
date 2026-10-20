@@ -46,3 +46,6 @@
 
 <%= render partial: 'foi_attachments',
            locals: { foi_attachments: @incoming_message.foi_attachments } %>
+
+<%= render partial: 'danger_zone',
+           locals: { incoming_message: @incoming_message } %>

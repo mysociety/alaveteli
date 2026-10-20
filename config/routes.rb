@@ -755,10 +755,12 @@ Rails.application.routes.draw do
   ####
 
   #### Admin::IncomingMessages::RedeliveriesController
+  #### Admin::IncomingMessages::ErasuresController
   namespace :admin do
     resources :incoming_messages, only: [] do
       scope module: :incoming_messages do
         resource :redelivery, only: [:create]
+        resources :erasures, only: [:create]
       end
     end
   end
