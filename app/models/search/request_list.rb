@@ -75,7 +75,7 @@ module Search
       before = parse_date(@filters[:request_date_before])
       return scope unless after || before
 
-      events = InfoRequestEvent.is_searchable.
+      events = InfoRequestEvent.with_searchable_content.
         where(created_at: after&.beginning_of_day..before&.end_of_day)
       scope.where(id: events.select(:info_request_id))
     end
