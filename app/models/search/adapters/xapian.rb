@@ -35,7 +35,13 @@ module Search
           )
         end
 
-        def request_search(query, sort_by: nil, sort_ascending: true, **)
+        def request_search(query, sort_by: nil, sort_ascending: true,
+                           filters: nil, **)
+          if filters
+            query = InfoRequestEvent.
+              make_query_from_params(filters.merge(query: query))
+          end
+
           RequestSearch.new(
             query, sort_by: sort_by, sort_ascending: sort_ascending
           )

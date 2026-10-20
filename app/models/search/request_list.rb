@@ -25,7 +25,14 @@ module Search
       gone_postal error_message requires_admin
     ].freeze
 
-    def initialize(filters, page, per_page, max_results)
+    # Map a request variety to the event types it covers.
+    VARIETY_EVENT_TYPES = {
+      'sent' => %w[sent followup_sent],
+      'response' => %w[response],
+      'comment' => %w[comment]
+    }.freeze
+
+    def initialize(filters, page = 1, per_page = 25, max_results = nil)
       @filters = filters
       @page = page
       @per_page = per_page
@@ -35,7 +42,7 @@ module Search
     # The requested page as a paginated relation; +total_entries+ counts
     # every match.
     def call
-      filtered_requests.
+      requests.
         includes(:user, :outgoing_messages, public_body: :translations).
         order(created_at: :desc).
         paginate(page: @page, per_page: @per_page)
@@ -47,18 +54,19 @@ module Search
       STATUS_STATES
     end
 
-    private
-
-    def filtered_requests
+    # Every matching request, as an unordered relation.
+    def requests
       scope = InfoRequest.is_searchable
       scope = filter_by_public_body(scope)
       scope = filter_by_user(scope)
       scope = filter_by_described_state(scope)
       scope = filter_by_status(scope)
-      scope = filter_by_dates(scope)
+      scope = filter_by_events(scope)
       scope = filter_by_tag(scope)
       filter_by_keyword(scope)
     end
+
+    private
 
     def filter_by_public_body(scope)
       public_body = @filters[:public_body]
@@ -79,23 +87,35 @@ module Search
       views = Array(@filters[:latest_status]).compact
       return scope if views.empty? || (views & %w[all recent]).any?
 
-      if views.include?('awaiting')
-        return scope.where(described_state: AWAITING_STATES).
-          or(scope.where(awaiting_description: true))
-      end
-
       states = views.flat_map { |view| status_states[view] }.compact.uniq
-      states.empty? ? scope : scope.where(described_state: states)
+      if views.include?('awaiting')
+        scope.where(described_state: states | AWAITING_STATES).
+          or(scope.where(awaiting_description: true))
+      elsif states.any?
+        scope.where(described_state: states)
+      else
+        scope
+      end
     end
 
-    # Match requests with a searchable event in the range, as Xapian did.
-    def filter_by_dates(scope)
+    # Match requests with one searchable event in the range and of a chosen
+    # variety, as Xapian did.
+    def filter_by_events(scope)
       after = parse_date(@filters[:request_date_after])
       before = parse_date(@filters[:request_date_before])
-      return scope unless after || before
 
-      events = InfoRequestEvent.is_searchable.
-        where(created_at: after&.beginning_of_day..before&.end_of_day)
+      varieties = Array(@filters[:request_variety])
+      varieties = [] if (VARIETY_EVENT_TYPES.keys - varieties).empty?
+      types = VARIETY_EVENT_TYPES.values_at(*varieties).flatten.compact
+
+      return scope unless after || before || types.any?
+
+      events = InfoRequestEvent.is_searchable
+      if after || before
+        events = events.
+          where(created_at: after&.beginning_of_day..before&.end_of_day)
+      end
+      events = events.where(event_type: types) if types.any?
       scope.where(id: events.select(:info_request_id))
     end
 

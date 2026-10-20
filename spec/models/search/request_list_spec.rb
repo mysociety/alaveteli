@@ -14,6 +14,21 @@ RSpec.describe Search::RequestList do
       expect(result).not_to include(waiting)
     end
 
+    it 'filters by awaiting and another status together' do
+      successful = FactoryBot.create(:info_request)
+      successful.set_described_state('successful')
+      awaiting = FactoryBot.create(:info_request)
+      rejected = FactoryBot.create(:info_request)
+      rejected.set_described_state('rejected')
+
+      result = described_class.new(
+        { latest_status: %w[awaiting successful] }, 1, 25, 100
+      ).call
+
+      expect(result).to include(successful, awaiting)
+      expect(result).not_to include(rejected)
+    end
+
     it 'filters by a status view a theme adds' do
       appealed = FactoryBot.create(:info_request)
       appealed.update_column(:described_state, 'appealed')
@@ -124,6 +139,42 @@ RSpec.describe Search::RequestList do
                     request_date_before: '2000-12-31')).
           to contain_exactly(old, recent)
       end
+    end
+
+    it 'filters by the variety of their searchable events' do
+      commented = FactoryBot.create(:comment_event).info_request
+      responded = FactoryBot.create(:info_request_with_incoming)
+      sent = FactoryBot.create(:info_request)
+
+      result = described_class.new(
+        { request_variety: %w[response comment] }, 1, 25, 100
+      ).call
+
+      expect(result).to include(commented, responded)
+      expect(result).not_to include(sent)
+    end
+
+    it 'skips the variety check when every variety is chosen' do
+      request = FactoryBot.create(:info_request)
+      request.outgoing_messages.update_all(prominence: 'hidden')
+
+      result = described_class.new(
+        { request_variety: %w[sent response comment] }, 1, 25, 100
+      ).call
+
+      expect(result).to include(request)
+    end
+
+    it 'matches the variety and the date range on one event' do
+      request = FactoryBot.create(:info_request_with_incoming)
+      request.info_request_events.where(event_type: 'sent').
+        update_all(created_at: '2000-06-01')
+
+      old = { request_variety: %w[response], request_date_before: '2000-12-31' }
+      new = { request_variety: %w[response], request_date_after: '2001-01-01' }
+
+      expect(described_class.new(old, 1, 25, 100).call).not_to include(request)
+      expect(described_class.new(new, 1, 25, 100).call).to include(request)
     end
 
     it 'returns one page, counting every match' do

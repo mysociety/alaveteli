@@ -41,7 +41,9 @@ module Search
         end
 
         def request_search(query, sort_by: nil, sort_ascending: true,
-                           requests: nil, **)
+                           requests: nil, filters: nil, **)
+          requests = RequestList.new(filters).requests if filters.present?
+
           RequestSearch.new(
             query,
             sort_by: sort_by, sort_ascending: sort_ascending, requests: requests
