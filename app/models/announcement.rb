@@ -8,7 +8,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  title      :string
-#  content    :text
+#  style      :string           default("default"), not null
 #
 
 class Announcement < ApplicationRecord
@@ -21,8 +21,12 @@ class Announcement < ApplicationRecord
            inverse_of: :announcement,
            dependent: :destroy
 
-  translates :title, :content
+  translates :title
+  include StyledRichText
   include Translatable
+
+  styles({ 'Default': 'default' }.merge(StyledRichText::COLOUR_STYLE_LABELS),
+         default: 'default')
 
   default_scope -> { order(created_at: :desc) }
   scope :visible_to, -> (visible_to) { where(visibility: visible_to) }
@@ -73,13 +77,25 @@ class Announcement < ApplicationRecord
     end
   }
 
-  validates :content,
+  validates :rich_body,
+            presence: true
+  validates :style,
             presence: true
   validates :visibility,
             presence: true,
             inclusion: { in: [SITE_WIDE] + Role.allowed_roles }
 
   after_initialize :set_defaults
+
+  # Fall back to another locale's body, as Globalize does for the title
+  def rich_body
+    globalize_fallbacks(Globalize.locale).each do |locale|
+      body = translation_for(locale, false)&.rich_body
+      return body if body.present?
+    end
+
+    translation.rich_body
+  end
 
   private
 

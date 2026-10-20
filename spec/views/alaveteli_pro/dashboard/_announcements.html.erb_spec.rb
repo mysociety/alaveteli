@@ -4,7 +4,7 @@ RSpec.describe 'alaveteli_pro/dashboard/_announcements' do
   let(:announcement) do
     FactoryBot.
       create(:announcement,
-             content: '<b>Exciting news!</b> <script>alert("!")</script>')
+             rich_body: '<b>Exciting news!</b> <script>alert("!")</script>')
   end
 
   before do

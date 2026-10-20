@@ -8,7 +8,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  title      :string
-#  content    :text
+#  style      :string           default("default"), not null
 #
 
 require 'spec_helper'
@@ -79,15 +79,52 @@ RSpec.describe Announcement do
     end
   end
 
+  describe '#rich_body' do
+    let(:announcement) do
+      FactoryBot.create(:announcement, rich_body: 'English body')
+    end
+
+    it 'falls back to the default locale when there is no translation' do
+      AlaveteliLocalization.with_locale(:es) do
+        expect(announcement.rich_body.to_plain_text).to eq('English body')
+      end
+    end
+
+    it 'prefers the body in the current locale' do
+      AlaveteliLocalization.with_locale(:es) do
+        announcement.rich_body = 'Cuerpo'
+        announcement.save!
+        expect(announcement.rich_body.to_plain_text).to eq('Cuerpo')
+      end
+
+      expect(announcement.rich_body.to_plain_text).to eq('English body')
+    end
+  end
+
   describe 'vaidations' do
     it 'has valid factory' do
       announcement = FactoryBot.build(:announcement)
       expect(announcement).to be_valid
     end
 
-    it 'requires content' do
-      announcement = FactoryBot.build(:announcement, content: nil)
+    it 'requires rich_body' do
+      announcement = FactoryBot.build(:announcement, rich_body: nil)
       expect(announcement).not_to be_valid
+    end
+
+    it 'defaults to the default style' do
+      expect(Announcement.new).to be_default_style
+    end
+
+    it 'allows the colour styles' do
+      %w[red yellow green blue].each do |style|
+        expect(FactoryBot.build(:announcement, style: style)).to be_valid
+      end
+    end
+
+    it 'rejects unknown styles' do
+      expect { FactoryBot.build(:announcement, style: 'orange') }.
+        to raise_error(ArgumentError)
     end
 
     it 'requires user' do

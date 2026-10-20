@@ -2,22 +2,6 @@ $note-text:          $oil;
 $note-bg:            lighten($primary-color, 60%);
 $note-border:        $primary-color;
 
-$note-red-text:      darken($alert-color, 25%);
-$note-red-bg:        lighten($alert-color, 40%);
-$note-red-border:    $alert-color;
-
-$note-green-text:    darken($success-color, 25%);
-$note-green-bg:      lighten($success-color, 40%);
-$note-green-border:  $success-color;
-
-$note-blue-text:     darken($primary-color, 15%);
-$note-blue-bg:       lighten($primary-color, 60%);
-$note-blue-border:   $primary-color;
-
-$note-yellow-text:   darken($warning-color, 30%);
-$note-yellow-bg:     lighten($warning-color, 40%);
-$note-yellow-border: $warning-color;
-
 $border-top-size: 8px;
 
 #notes {
@@ -29,31 +13,31 @@ $border-top-size: 8px;
     &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $note-border; }
 
     &.note--style-red {
-      color: $note-red-text;
-      background-color: $note-red-bg;
-      &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $note-red-border; }
-      h1 { color: $note-red-text; }
+      color: $style-red-text;
+      background-color: $style-red-bg;
+      &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $style-red-border; }
+      h1 { color: $style-red-text; }
     }
 
     &.note--style-green {
-      color: $note-green-text;
-      background-color: $note-green-bg;
-      &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $note-green-border; }
-      h1 { color: $note-green-text; }
+      color: $style-green-text;
+      background-color: $style-green-bg;
+      &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $style-green-border; }
+      h1 { color: $style-green-text; }
     }
 
     &.note--style-blue {
-      color: $note-blue-text;
-      background-color: $note-blue-bg;
-      &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $note-blue-border; }
-      h1 { color: $note-blue-text; }
+      color: $style-blue-text;
+      background-color: $style-blue-bg;
+      &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $style-blue-border; }
+      h1 { color: $style-blue-text; }
     }
 
     &.note--style-yellow {
-      color: $note-yellow-text;
-      background-color: $note-yellow-bg;
-      &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $note-yellow-border; }
-      h1 { color: $note-yellow-text; }
+      color: $style-yellow-text;
+      background-color: $style-yellow-bg;
+      &:first-child { box-shadow: 0 -#{$border-top-size} 0 0 $style-yellow-border; }
+      h1 { color: $style-yellow-text; }
     }
 
     h1 {
