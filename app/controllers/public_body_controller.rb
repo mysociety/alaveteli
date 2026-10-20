@@ -56,14 +56,15 @@ class PublicBodyController < ApplicationController
 
       @view = params[:view]
 
-      query = InfoRequestEvent.make_query_from_params(params.merge(latest_status: @view))
-      query += " requested_from:#{@public_body.url_name}"
+      filters = params.slice(:query, :request_date_after, :request_date_before)
+      filters[:latest_status] = @view
+      filters[:public_body] = @public_body
 
-      # Use search query for this so can collapse and paginate easily
-      # TODO: really should just use SQL query here rather than Xapian.
-      sortby = "described"
+      @per_page = PER_PAGE
       begin
-        @request_results = perform_request_search(query, sortby)
+        @request_results = InfoRequest.request_list(
+          filters, @page, @per_page, MAX_RESULTS
+        )
         if @page > 1
           @page_desc = " (page #{ @page })"
         else
