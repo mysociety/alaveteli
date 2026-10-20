@@ -43,7 +43,12 @@ module CensorRule::Recordable
   # Only clear what can be recorded again. Expiring the affected requests
   # re-derives their content, which re-records the redactions, but frozen
   # content is never re-checked so dropping its rows would lose them for good.
+  #
+  # Erased rules are never applied again, so their redactions are kept as the
+  # record of what was made permanent.
   def clear_redactions_if_pattern_changed
+    return if erased?
+
     redactions.recalculable.delete_all if (changed & PATTERN_ATTRIBUTES).any?
   end
 end

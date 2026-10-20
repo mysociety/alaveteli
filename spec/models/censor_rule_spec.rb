@@ -14,6 +14,7 @@
 #  ignore_diacritics :boolean          default(FALSE), not null
 #  censorable_type   :string
 #  censorable_id     :bigint
+#  erased_at         :datetime
 #
 
 require 'spec_helper'
@@ -57,6 +58,105 @@ RSpec.describe CensorRule do
 
     it { is_expected.to include(global_rule) }
     it { is_expected.not_to include(user_rule) }
+  end
+
+  describe '.applicable_to_requests' do
+    subject { described_class.applicable_to_requests(info_requests) }
+
+    let(:info_request) { FactoryBot.create(:info_request) }
+    let(:info_requests) { InfoRequest.where(id: info_request) }
+    let(:other_request) { FactoryBot.create(:info_request) }
+
+    it 'includes global rules' do
+      rule = FactoryBot.create(:global_censor_rule)
+      is_expected.to include(rule)
+    end
+
+    it 'includes rules attached to the requests' do
+      rule = FactoryBot.create(:censor_rule, censorable: info_request)
+      is_expected.to include(rule)
+    end
+
+    it 'excludes rules attached to other requests' do
+      rule = FactoryBot.create(:censor_rule, censorable: other_request)
+      is_expected.not_to include(rule)
+    end
+
+    it 'includes rules attached to the users of the requests' do
+      rule = FactoryBot.create(:censor_rule, censorable: info_request.user)
+      is_expected.to include(rule)
+    end
+
+    it 'excludes rules attached to other users' do
+      rule = FactoryBot.create(:censor_rule, censorable: other_request.user)
+      is_expected.not_to include(rule)
+    end
+
+    it 'includes rules attached to the public bodies of the requests' do
+      rule = FactoryBot.create(:censor_rule,
+                               censorable: info_request.public_body)
+      is_expected.to include(rule)
+    end
+
+    it 'excludes rules attached to other public bodies' do
+      rule = FactoryBot.create(:censor_rule,
+                               censorable: other_request.public_body)
+      is_expected.not_to include(rule)
+    end
+  end
+
+  describe '#erase' do
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    let(:rule) do
+      FactoryBot.create(:censor_rule, censorable: info_request,
+                                      text: 'secret', replacement: '[x]')
+    end
+
+    before { rule.erase(editor: 'admin') }
+
+    it 'clears the text' do
+      expect(rule.reload.text).to eq('')
+    end
+
+    it 'clears the replacement' do
+      expect(rule.reload.replacement).to eq('')
+    end
+
+    it 'records when the rule was erased' do
+      expect(rule.reload).to be_erased
+    end
+
+    it 'records the editor' do
+      expect(rule.reload.last_edit_editor).to eq('admin')
+    end
+
+    it 'no longer applies to text' do
+      expect(rule.apply_to_text('a secret')).to eq('a secret')
+    end
+
+    it 'is no longer applicable to the request' do
+      expect(info_request.applicable_censor_rules).not_to include(rule)
+    end
+
+    context 'when the rule has redactions' do
+      let(:redaction) do
+        rule.redactions.create!(
+          redactable: info_request.outgoing_messages.first,
+          redacted_attribute: 'body'
+        )
+      end
+
+      before do
+        rule.update_columns(erased_at: nil, text: 'secret')
+        redaction
+        rule.reload.erase(editor: 'admin')
+      end
+
+      it 'keeps the redactions' do
+        expect(rule.reload.redactions).to include(redaction)
+      end
+    end
   end
 
   describe '#update' do
