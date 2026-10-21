@@ -3,7 +3,7 @@ require 'integration/alaveteli_prominence_dsl'
 
 RSpec.describe 'viewing attachment as HTML with prominence',
 local_requests: false do
-  include AlaveteliPromienceDsl
+  include AlaveteliProminenceDsl
 
   let(:within_session) do
     -> {
