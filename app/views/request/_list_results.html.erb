@@ -2,8 +2,13 @@
   <p> <%= _('No requests of this sort yet.')%></p>
 <% else %>
   <h2 class="foi_results">
-    <%= _('About {{count}} FOI requests found',
-          :count => @results.total_entries) %></h2>
+    <% if @results.total_entries > @max_results %>
+      <%= _('More than {{count}} FOI requests found', count: @max_results) %>
+    <% else %>
+      <%= _('About {{count}} FOI requests found',
+            :count => @results.total_entries) %>
+    <% end %>
+  </h2>
   <div class="results_block">
     <%= render partial: 'request/request_listing_single',
                collection: @results, as: :info_request %>

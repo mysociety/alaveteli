@@ -125,11 +125,7 @@ class RequestController < ApplicationController
     if @tag
       @category = InfoRequest.category_list.find_by(category_tag: @tag)
       @title = @category&.title
-      @title ||= n_('Found {{count}} request tagged ‘{{tag_name}}’',
-                    'Found {{count}} requests tagged ‘{{tag_name}}’',
-                    @results.total_entries,
-                    count: @results.total_entries,
-                    tag_name: @tag)
+      @title ||= tagged_requests_title
     elsif @page > 1
       @title = _("Search requests (page {{count}})", count: @page)
     else
@@ -367,6 +363,19 @@ class RequestController < ApplicationController
 
   def outgoing_message_params
     params.require(:outgoing_message).permit(:body, :what_doing)
+  end
+
+  def tagged_requests_title
+    if @results.total_entries > @max_results
+      return _('Found more than {{count}} requests tagged ‘{{tag_name}}’',
+               count: @max_results, tag_name: @tag)
+    end
+
+    n_('Found {{count}} request tagged ‘{{tag_name}}’',
+       'Found {{count}} requests tagged ‘{{tag_name}}’',
+       @results.total_entries,
+       count: @results.total_entries,
+       tag_name: @tag)
   end
 
   def setup_results_pagination

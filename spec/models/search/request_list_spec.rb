@@ -90,7 +90,27 @@ RSpec.describe Search::RequestList do
       result = described_class.new({ latest_status: 'all' }, 1, 2, 100).call
 
       expect(result.size).to eq(2)
-      expect(result.total_entries).to be >= 3
+      expect(result.total_entries).to eq(InfoRequest.is_searchable.count)
+    end
+
+    it 'stops counting one above the maximum results' do
+      3.times { FactoryBot.create(:info_request) }
+
+      result = described_class.new({ latest_status: 'all' }, 1, 2, 2).call
+
+      expect(result.total_entries).to eq(3)
+    end
+
+    it 'counts only when the count is read' do
+      queries = []
+      count_queries = ->(*, payload) { queries << payload[:sql] }
+
+      ActiveSupport::Notifications.subscribed(count_queries,
+                                              'sql.active_record') do
+        described_class.new({ latest_status: 'all' }, 1, 2, 100).call
+      end
+
+      expect(queries).to be_empty
     end
   end
 end
