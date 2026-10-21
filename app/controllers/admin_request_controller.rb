@@ -86,7 +86,8 @@ class AdminRequestController < AdminController
     old_tag_string = @info_request.tag_string
     old_comments_allowed = @info_request.comments_allowed
 
-    if @info_request.update(info_request_params)
+    ActiveRecord::Base.transaction do
+      @info_request.update!(info_request_params)
       @info_request.log_event(
         'edit',
         editor: admin_current_user,
@@ -112,13 +113,13 @@ class AdminRequestController < AdminController
       if @info_request.described_state != params[:info_request][:described_state]
         @info_request.set_described_state(params[:info_request][:described_state])
       end
-      # expire cached files
-      @info_request.expire
-      flash[:notice] = 'Request successfully updated.'
-      redirect_to admin_request_url(@info_request)
-    else
-      render action: 'edit'
     end
+    # expire cached files
+    @info_request.expire
+    flash[:notice] = 'Request successfully updated.'
+    redirect_to admin_request_url(@info_request)
+  rescue
+    render action: 'edit'
   end
 
   def destroy

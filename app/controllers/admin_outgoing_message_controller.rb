@@ -21,19 +21,23 @@ class AdminOutgoingMessageController < AdminController
   end
 
   def destroy
-    if !@is_initial_message && @outgoing_message.destroy
+    if @is_initial_message
+      raise "Cannot delete the intial message"
+    end
+    ActiveRecord::Base.transaction do
+      @outgoing_message.destroy!
       @outgoing_message.info_request.log_event(
         'destroy_outgoing',
         editor: admin_current_user,
         deleted_outgoing_message_id: @outgoing_message.id
       )
-
-      flash[:notice] = 'Outgoing message successfully destroyed.'
-      redirect_to admin_request_url(@outgoing_message.info_request)
-    else
-      redirect_to edit_admin_outgoing_message_path(@outgoing_message),
-                  error: 'Could not destroy the outgoing message.'
     end
+
+    flash[:notice] = 'Outgoing message successfully destroyed.'
+    redirect_to admin_request_url(@outgoing_message.info_request)
+  rescue
+    redirect_to edit_admin_outgoing_message_path(@outgoing_message),
+                error: 'Could not destroy the outgoing message.'
   end
 
   def update

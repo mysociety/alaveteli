@@ -30,17 +30,22 @@ class AdminIncomingMessageController < AdminController
   end
 
   def destroy
-    @incoming_message.destroy
-    @incoming_message.info_request.log_event(
-      'destroy_incoming',
-      editor: admin_current_user,
-      deleted_incoming_message_id: @incoming_message.id,
-      storage_keys: @incoming_message.storage_keys
-    )
+    ActiveRecord::Base.transaction do
+      @incoming_message.destroy!
+      @incoming_message.info_request.log_event(
+        'destroy_incoming',
+        editor: admin_current_user,
+        deleted_incoming_message_id: @incoming_message.id,
+        storage_keys: @incoming_message.storage_keys
+      )
+    end
     # expire cached files
     @incoming_message.info_request.expire(preserve_database_cache: true)
     flash[:notice] = 'Incoming message successfully destroyed.'
     redirect_to admin_request_url(@incoming_message.info_request)
+  rescue
+    redirect_to edit_admin_incoming_message_path(@incoming_message),
+                error: 'Could not destroy the incoming message.'
   end
 
   def bulk_destroy
@@ -54,13 +59,15 @@ class AdminIncomingMessageController < AdminController
       errors = []
       info_request = InfoRequest.find(params[:request_id])
       @incoming_messages.each do |message|
-        message.destroy
-        info_request.log_event(
-          'destroy_incoming',
-          editor: admin_current_user,
-          deleted_incoming_message_id: message.id,
-          storage_keys: message.storage_keys
-        )
+        ActiveRecord::Base.transaction do
+          message.destroy!
+          info_request.log_event(
+            'destroy_incoming',
+            editor: admin_current_user,
+            deleted_incoming_message_id: message.id,
+            storage_keys: message.storage_keys
+          )
+        end
       rescue
         errors << message.id
       end
