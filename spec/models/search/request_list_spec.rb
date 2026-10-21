@@ -42,6 +42,7 @@ RSpec.describe Search::RequestList do
     context 'with a date range' do
       let!(:old) do
         FactoryBot.create(:info_request).tap do |request|
+          request.update_column(:created_at, '2000-06-01')
           request.info_request_events.update_all(created_at: '2000-06-01')
         end
       end
@@ -73,6 +74,7 @@ RSpec.describe Search::RequestList do
       end
 
       it 'matches a request with any searchable event in the range' do
+        recent.update_column(:created_at, '2000-06-01')
         recent.info_request_events.first.
           update_column(:created_at, '2000-06-01')
 
