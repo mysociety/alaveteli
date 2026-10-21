@@ -14,7 +14,7 @@ RSpec.describe 'Editing the IncomingMessage body' do
 
   it 'destroys the message correctly' do
     using_session(@admin) do
-      visit edit_admin_incoming_message_path(im)
+      visit admin_incoming_message_path(im)
 
       click_button 'Destroy message'
     end
@@ -25,7 +25,7 @@ RSpec.describe 'Editing the IncomingMessage body' do
   it 'erases the message correctly' do
     with_feature_enabled(:incoming_message_erase) do
       using_session(@admin) do
-        visit edit_admin_incoming_message_path(im)
+        visit admin_incoming_message_path(im)
         fill_in 'incoming_message_erasure_reason', with: 'Super secret'
 
         click_button 'Erase message'

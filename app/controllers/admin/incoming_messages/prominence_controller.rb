@@ -16,7 +16,7 @@ class Admin::IncomingMessages::ProminenceController < AdminController
       flash[:error] = @incoming_message.errors.full_messages.to_sentence
     end
 
-    redirect_to edit_admin_incoming_message_path(@incoming_message)
+    redirect_to admin_incoming_message_path(@incoming_message)
   end
 
   private

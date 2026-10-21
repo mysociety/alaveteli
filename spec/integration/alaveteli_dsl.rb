@@ -71,7 +71,7 @@ module AlaveteliDsl
 end
 
 def hide_incoming_message(incoming_message, prominence, reason)
-  visit edit_admin_incoming_message_path(incoming_message)
+  visit admin_incoming_message_path(incoming_message)
   select prominence, from: 'Prominence'
   fill_in 'Reason for prominence', with: reason
   find_button('Update Prominence').click
