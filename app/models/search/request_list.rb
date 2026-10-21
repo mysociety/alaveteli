@@ -77,6 +77,10 @@ module Search
 
       events = InfoRequestEvent.with_searchable_content.
         where(created_at: after&.beginning_of_day..before&.end_of_day)
+
+      # No request has an event from before it was made, so this keeps the
+      # same matches but lets the planner skip the newer requests.
+      scope = scope.where(created_at: ..before.end_of_day) if before
       scope.where(id: events.select(:info_request_id))
     end
 
