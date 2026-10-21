@@ -1,8 +1,8 @@
 class AdminIncomingMessageController < AdminController
-  before_action :set_incoming_message, only: [:edit, :update, :destroy]
+  before_action :set_incoming_message, only: [:show, :update, :destroy]
   before_action :set_info_request, :check_info_request
 
-  def edit
+  def show
   end
 
   def update
@@ -20,7 +20,7 @@ class AdminIncomingMessageController < AdminController
       flash[:notice] = 'Incoming message successfully updated.'
       redirect_to admin_request_url(@incoming_message.info_request)
     else
-      render action: 'edit'
+      render action: 'show'
     end
   end
 

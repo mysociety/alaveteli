@@ -47,10 +47,10 @@ RSpec.describe Admin::IncomingMessages::ProminenceController do
         expect(flash[:notice]).to eq('Prominence updated.')
       end
 
-      it 'redirects to the message edit page' do
+      it 'redirects to the message show page' do
         patch :update, params: params
         expect(response).to redirect_to(
-          edit_admin_incoming_message_path(incoming_message)
+          admin_incoming_message_path(incoming_message)
         )
       end
 
@@ -100,10 +100,10 @@ RSpec.describe Admin::IncomingMessages::ProminenceController do
         expect(flash[:error]).to eq('Prominence is not included in the list')
       end
 
-      it 'redirects to the message edit page' do
+      it 'redirects to the message show page' do
         patch :update, params: params
         expect(response).to redirect_to(
-          edit_admin_incoming_message_path(incoming_message)
+          admin_incoming_message_path(incoming_message)
         )
       end
     end
@@ -127,10 +127,10 @@ RSpec.describe Admin::IncomingMessages::ProminenceController do
           expect(incoming_message.reload.prominence).to eq('hidden')
         end
 
-        it 'redirects to the message edit page' do
+        it 'redirects to the message show page' do
           patch :update, params: params
           expect(response).to redirect_to(
-            edit_admin_incoming_message_path(incoming_message)
+            admin_incoming_message_path(incoming_message)
           )
         end
       end

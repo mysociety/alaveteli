@@ -68,12 +68,12 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
 
     it 'should be successful' do
-      get :edit, params: { id: @incoming.id }
+      get :show, params: { id: @incoming.id }
       expect(response).to be_successful
     end
 
     it 'should assign the incoming message to the view' do
-      get :edit, params: { id: @incoming.id }
+      get :show, params: { id: @incoming.id }
       expect(assigns[:incoming_message]).to eq(@incoming)
     end
 
@@ -85,7 +85,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       context 'as non-pro admin' do
         it 'raises ActiveRecord::RecordNotFound' do
           expect {
-            get :edit, params: { id: @incoming }
+            get :show, params: { id: @incoming }
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end
@@ -94,7 +94,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
         before { sign_in(pro_admin_user) }
 
         it 'is successful' do
-          get :edit, params: { id: @incoming }
+          get :show, params: { id: @incoming }
           expect(response).to be_successful
         end
       end
@@ -183,11 +183,11 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
 
     context 'if the incoming message is not valid' do
-      it 'should render the edit template' do
+      it 'should render the show template' do
         make_request({ id: @incoming.id,
                       incoming_message: { prominence: 'fantastic',
                                             prominence_reason: 'dull' } })
-        expect(response).to render_template("edit")
+        expect(response).to render_template("show")
       end
     end
 
