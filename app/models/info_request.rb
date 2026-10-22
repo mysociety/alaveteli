@@ -1284,26 +1284,28 @@ class InfoRequest < ApplicationRecord
 
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
-    query= <<-SQL
+    query = <<~SQL.squish
     SELECT cr.* FROM censor_rules cr
-      WHERE (
-          cr.censorable_type = 'InfoRequest'
-          AND cr.censorable_id = :info_request_id
-        OR cr.censorable_id IS NULL
-          AND cr.censorable_type IS NULL
-        OR cr.censorable_type = 'PublicBody'
-          AND cr.censorable_id = :public_body_id
-        OR cr.censorable_type = 'User'
-          AND cr.censorable_id = :user_id
-      )
-    ORDER BY 
-      (CASE WHEN cr.censorable_type = 'InfoRequest' THEN 0
-         WHEN cr.censorable_type IS NULL THEN 1
-         WHEN cr.censorable_type = 'PublicBody' THEN 2
-         ELSE 3
-       END) ASC,
-      cr.created_at DESC
+    WHERE (
+        cr.censorable_type = 'InfoRequest'
+        AND cr.censorable_id = :info_request_id
+      OR cr.censorable_id IS NULL
+        AND cr.censorable_type IS NULL
+      OR cr.censorable_type = 'PublicBody'
+        AND cr.censorable_id = :public_body_id
+      OR cr.censorable_type = 'User'
+        AND cr.censorable_id = :user_id
+    )
+    ORDER BY (
+      CASE WHEN cr.censorable_type = 'InfoRequest' THEN 0
+           WHEN cr.censorable_type IS NULL THEN 1
+           WHEN cr.censorable_type = 'PublicBody' THEN 2
+           ELSE 3
+           END
+    ) ASC,
+    cr.created_at DESC
     SQL
+
     CensorRule.find_by_sql [
       query,
       {
