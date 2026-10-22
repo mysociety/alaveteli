@@ -1284,7 +1284,7 @@ class InfoRequest < ApplicationRecord
 
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
-    query= <<-SQL
+    query = <<-SQL.squish
     SELECT cr.* FROM censor_rules cr
       WHERE (
           cr.censorable_type = 'InfoRequest'
