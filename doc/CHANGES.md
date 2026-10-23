@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Wrap various request or message modifying methods in database transactions
+  (Laurent Savaete)
 * Add rake tasks to build the PostgreSQL search index using a chunk per process
   resuming where an interrupted run stopped (Graeme Porteous)
 * Fix errors and slow searches caused by invalid page sizes (Graeme Porteous)
