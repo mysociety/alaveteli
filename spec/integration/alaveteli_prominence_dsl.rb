@@ -28,7 +28,7 @@ RSpec.shared_context 'prominence context' do
   let(:admin) { FactoryBot.create(:admin_user) }
 end
 
-module AlaveteliPromienceDsl
+module AlaveteliProminenceDsl
   def self.included(base)
     base.include_context 'prominence context'
   end
