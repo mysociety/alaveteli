@@ -5,7 +5,8 @@
 <% content_for :javascript do %>
   <%= javascript_tag nonce: true do %>
     AlaveteliPro.stripe_publishable_key = '<%= AlaveteliConfiguration.stripe_publishable_key %>';
-    AlaveteliPro.stripe_local = '<%= stripe_locale %>';
+    AlaveteliPro.stripe_locale = '<%= stripe_locale %>';
+    AlaveteliPro.stripe_error_message = '<%= j _('There was a problem processing your card. Please try again.') %>';
   <% end %>
 
   <%= javascript_include_tag 'alaveteli_pro/stripe', nonce: true %>

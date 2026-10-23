@@ -22,9 +22,6 @@ class RequestController < ApplicationController
 
   include ProminenceHeaders
 
-  MAX_RESULTS = 500
-  PER_PAGE = 25
-
   def index
     @title = _('Browse requests by category')
   end
@@ -146,8 +143,8 @@ class RequestController < ApplicationController
       @title = @category&.title
       @title ||= n_('Found {{count}} request tagged ‘{{tag_name}}’',
                     'Found {{count}} requests tagged ‘{{tag_name}}’',
-                    @results[:matches_estimated],
-                    count: @results[:matches_estimated],
+                    @results.total_entries,
+                    count: @results.total_entries,
                     tag_name: @tag)
     elsif @page > 1
       @title = _("Search requests (page {{count}})", count: @page)
@@ -340,12 +337,10 @@ class RequestController < ApplicationController
       @query << "requested_from:#{ params[:requested_from] } "
     end
 
-    @per_page = (params.fetch(:per_page) { 25 }).to_i
-
     @query << params[:q].to_s
     @request_results = typeahead_search(@query,
-                                        { model: InfoRequestEvent,
-                                          per_page: @per_page })
+                                        model: InfoRequestEvent,
+                                        per_page: 3)
     render partial: "request/search_ahead"
   end
 
@@ -495,8 +490,7 @@ class RequestController < ApplicationController
 
           filename = "#{message_index}_#{attachment.url_part_number}_#{attachment.display_filename}"
           zipfile.get_output_stream(filename) do |f|
-            body = message.apply_masks(attachment.default_body, attachment.content_type)
-            f.write(body)
+            f.write(attachment.masked_default_body)
           end
         end
       end

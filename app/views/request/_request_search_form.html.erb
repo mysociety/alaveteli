@@ -7,17 +7,34 @@
       <%= text_field_tag(:query, params[:query]) %>
     </div>
 
-    <div class="list-filter-item">
-      <%= label_tag(:query, _("Made between"), :class=>"form_label title") %>
-      <%= text_field_tag(:request_date_after, params[:request_date_after], {:class => "use-datepicker", :size => 10}) %>&nbsp;&nbsp;
-      <%= label_tag(:query, _("and"), :class=>"form_label") %>
-      <%= text_field_tag(:request_date_before, params[:request_date_before], {:class => "use-datepicker", :size => 10}) %>
-    </div>
+  <div class="list-filter-item">
+    <%= label_tag(:request_date_after, _("Made between <small>(Format 2025/12/31)</small>"), :class=>"form_label title") %>
+    <%= text_field_tag(:request_date_after, params[:request_date_after],
+        :class => "use-datepicker", :size => 10,
+        'aria-describedby': 'request_date_after_hint request_date_keyboard_hint') %>&nbsp;&nbsp;
+    <%= label_tag(:request_date_before, _("and")) %>
+    <%= text_field_tag(:request_date_before, params[:request_date_before],
+        :class => "use-datepicker", :size => 10,
+        'aria-describedby': 'request_date_before_hint request_date_keyboard_hint') %>
 
-    <%= after_form_fields if defined?(after_form_fields) -%>
+    <div class="form_item_note visually-hidden" id="request_date_after_hint">
+      <%= _('Start date, for example 2025/01/24') %>
+    </div>
+    <div class="form_item_note visually-hidden" id="request_date_before_hint">
+      <%= _('End date, for example 2025/12/31') %>
+    </div>
+    <div class="form_item_note visually-hidden" id="request_date_keyboard_hint">
+      <%= _('Type a date, or use the calendar: Ctrl (or Cmd on Mac) and the arrow keys to move between days, Enter to select and Esc to close.') %>
+    </div>
+  </div>
 
     <div class="list-filter-item">
       <%= submit_tag(_("Search")) %>
     </div>
+
+    <br>
+
+    <%= after_form_fields if defined?(after_form_fields) -%>
+
   <% end %>
 </div>

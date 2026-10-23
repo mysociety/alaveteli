@@ -37,7 +37,9 @@ require 'zip'
 
 class IncomingMessage < ApplicationRecord
   include MessageProminence
+  include Redactable
   include Taggable
+  include Searchable
 
   # An IncomingMessage is intrinsically linked to its RawEmail. RawEmail just
   # holds the underlying plain text email and some basic methods for working
@@ -78,10 +80,46 @@ class IncomingMessage < ApplicationRecord
   after_update :update_request
 
   scope :pro, -> { joins(:info_request).merge(InfoRequest.pro) }
+  scope :is_searchable, -> { where(prominence: 'normal') }
 
   delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
 
   delegate :apply_masks, to: :info_request
+  delegate :expire, :log_event, to: :info_request
+
+  searchable(
+    index: {
+      subject: "A",
+      # get_body_for_indexing does not exactly match the censorship
+      # applied on the public view.
+      # We index the body of the email here instead of on FoiAttachment,
+      # as most people think of it as part of the message rather than as
+      # an attachment.
+      ".get_body_for_indexing": "A",
+      prominence_reason: "D"
+    },
+    admin_index: {
+      from_email: "D",
+      ".main_body_text_uncensored_for_indexing": "A"
+    },
+    root: :info_request
+  )
+
+  # We don't want to index the message until its body is cached,
+  # as this forces caching the main body, which causes all sorts of
+  # annoying side effects.
+  def is_indexable?
+    !cached_main_body_text_folded.nil?
+  end
+
+  # A message nobody has viewed has no cached body yet. One we can't parse is
+  # left unindexed rather than stopping the backfill, which would otherwise
+  # fail on it again each time it resumed.
+  def prepare_for_reindex
+    get_main_body_text_folded
+  rescue StandardError => e
+    Rails.logger.warn("Can't prepare IncomingMessage #{id} to index: #{e}")
+  end
 
   # Given that there are in theory many info request events, a convenience
   # method for getting the response event.
@@ -114,7 +152,16 @@ class IncomingMessage < ApplicationRecord
   #
   # Returns a String
   def safe_from_name
-    info_request.apply_censor_rules_to_text(from_name) if from_name
+    return unless from_name
+
+    apply_masks(from_name, redacted_attribute: :from_name)
+  end
+
+  # Public: The subject with InfoRequest masks and censor rules applied.
+  #
+  # Returns a String
+  def safe_subject
+    apply_masks(subject, redacted_attribute: :subject)
   end
 
   def specific_from_name?
@@ -130,6 +177,13 @@ class IncomingMessage < ApplicationRecord
   # when updating an IncomingMessage associated with the request
   def update_request
     info_request.update_last_public_response_at
+  end
+
+  def apply_masks(text, content_type = 'text/plain', redacted_attribute:, redactable: self)
+    info_request.apply_masks(
+      text, content_type,
+      redactable: redactable, redacted_attribute: redacted_attribute
+    )
   end
 
   # Removes anything cached about the object in the database, and saves

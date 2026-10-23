@@ -13,12 +13,14 @@
 #  admin_content_tsv :tsvector
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  root_type         :string
+#  root_id           :bigint
 #
 
 require 'spec_helper'
 
-RSpec.describe SearchDocument do
-  # created eagerly so the after_commit indexes it before the search runs
+RSpec.describe SearchDocument, :reindex_inline do
+  # created eagerly so its reindex job runs before the search
   let!(:user) do
     FactoryBot.create(:user, name: 'Florence Nightingale',
                              about_me: 'I enjoy data visualisation')
@@ -45,7 +47,7 @@ RSpec.describe SearchDocument do
     end
 
     it 'raises for models that have not been made searchable' do
-      expect { Comment.newsearch('anything') }.
+      expect { RawEmail.newsearch('anything') }.
         to raise_error(NotImplementedError)
     end
   end
@@ -107,6 +109,37 @@ RSpec.describe SearchDocument do
     end
   end
 
+  context 'materialized CTE' do
+    it 'fences the search off so PostgreSQL runs it once' do
+      results = SearchDocument.hybrid_search('Florence', model: User,
+                                                         admin_mode: true)
+
+      expect(results.to_sql).to include('WITH "search_results" AS MATERIALIZED')
+    end
+  end
+
+  context 'ordering' do
+    it 'returns the best match first' do
+      weak = FactoryBot.create(:user, name: 'Otter Watcher')
+      strong = FactoryBot.create(:user, name: 'Otter Otter Otter')
+
+      results = User.newsearch('Otter', admin_mode: true)
+
+      expect(results.to_a).to eq([strong, weak])
+    end
+  end
+
+  context 'searching every model at once' do
+    it 'returns the documents best match first' do
+      FactoryBot.create(:user, name: 'Ferret Watcher')
+      strong = FactoryBot.create(:user, name: 'Ferret Ferret Ferret')
+
+      results = SearchDocument.hybrid_search('Ferret', admin_mode: true)
+
+      expect(results.first.searchable).to eq(strong)
+    end
+  end
+
   context 'exact mode case sensitivity' do
     # A partial token ("ASE" inside "Charlotte Case") can only match through
     # exact mode's substring search, never through the tsvector matching.
@@ -139,6 +172,26 @@ RSpec.describe SearchDocument do
     end
   end
 
+  context 'exact mode over the limit' do
+    it 'keeps the newest substring match' do
+      FactoryBot.create(:user, name: 'Olive Case')
+      newest = FactoryBot.create(:user, name: 'Charlotte Case')
+
+      results = SearchDocument.hybrid_search(
+        'ASE',
+        model: User,
+        admin_mode: true,
+        exact_mode: true,
+        case_sensitive: false,
+        language: 'english',
+        limit: 1,
+        limit_ratio: 1
+      )
+
+      expect(results).to eq([newest])
+    end
+  end
+
   context 'searching within a provided base relation' do
     it 'restricts the search to the given relation' do
       with_default_locale(:en) do
@@ -168,5 +221,70 @@ RSpec.describe SearchDocument do
         expect(results).to match_array([a])
       end
     end
+  end
+
+  context 'searching through InfoRequest' do
+    context 'outgoing messages' do
+      subject {
+        SearchDocument.hybrid_search(
+          "some information",
+          admin_mode: true
+        )
+      }
+
+      it 'does not show embargoed messages' do
+        embargoed_request = FactoryBot.create(
+          :embargoed_request, :with_plain_incoming
+        )
+        message = embargoed_request.outgoing_messages.first
+        message.reindex
+        expect(subject).to include(message.search_documents.first)
+        expect(subject.not_embargoed).
+          to be_empty
+      end
+    end
+
+    context 'incoming messages' do
+      subject {
+        SearchDocument.hybrid_search(
+          "house",
+          admin_mode: true
+        )
+      }
+
+      it 'does not show embargoed messages' do
+        embargoed_request = FactoryBot.create(
+          :embargoed_request, :with_plain_incoming
+        )
+        message = embargoed_request.incoming_messages.first
+        message.get_main_body_text_folded
+        message.reindex
+        expect(subject).to include(message.search_documents.first)
+        expect(subject.not_embargoed).
+          to be_empty
+      end
+    end
+
+    context 'attachments' do
+      subject {
+        SearchDocument.hybrid_search(
+          "powered by",
+          admin_mode: true
+        )
+      }
+      it 'does not show embargoed attachments' do
+        embargoed_request = FactoryBot.create(
+          :embargoed_request, :with_incoming_with_pdf_attachment
+        )
+        message = embargoed_request.incoming_messages.first
+        attachment = message.foi_attachments.last
+        expect(subject).to include(attachment.search_documents.first)
+        expect(subject.not_embargoed).
+          to be_empty
+      end
+    end
+  end
+
+  context 'searching through InfoRequest incoming messages' do
   end
 end

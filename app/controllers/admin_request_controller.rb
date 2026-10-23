@@ -12,7 +12,8 @@ class AdminRequestController < AdminController
     show edit update destroy move generate_upload_url hide
   ]
 
-  sortable default: :updated_at_desc, only: [:index]
+  sortable default: :updated_at_desc, relevance: :indexed_search?,
+           only: [:index, :index_with_content]
 
   def index
     @query = params[:query]
@@ -25,11 +26,47 @@ class AdminRequestController < AdminController
     end
 
     @info_requests = measure_search(
-      info_requests.
-      includes(:embargo, :user, public_body: :translations).
-      order(sort_query).
-      paginate(page: params[:page], per_page: 100)
+      sorted(
+        info_requests.includes(:embargo, :user, public_body: :translations)
+      ).paginate(page: params[:page], per_page: 100)
     )
+  end
+
+  # list and search through info_requests with child items
+  # (messages and attachments)
+  def index_with_content
+    @query = params[:query]
+
+    hits = SearchDocument.
+      includes(
+        searchable: {
+          info_request: [
+            :embargo,
+            :user,
+            public_body: :translations
+          ]
+        }
+      ).paginate(page: params[:page], per_page: 100)
+
+    if @query
+      hits = hits.
+        hybrid_search(@query, admin_mode: true, limit: 1_000).
+        where(
+          searchable_type: [
+            :InfoRequest,
+            :IncomingMessage,
+            :OutgoingMessage,
+            :FoiAttachment
+          ]
+        )
+
+      if cannot? :admin, AlaveteliPro::Embargo
+        hits = hits.not_embargoed
+      end
+      @hits = measure_search(sorted(hits))
+    else
+      @hits = sorted(hits.where(searchable_type: 'InfoRequest'))
+    end
   end
 
   def show

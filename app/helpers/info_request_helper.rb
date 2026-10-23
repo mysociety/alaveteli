@@ -17,11 +17,9 @@ module InfoRequestHelper
     end
   end
 
-  def all_successful_requests?(events)
-    events.any? && events.all? do |event|
-      %w[successful partially_successful].include?(
-        event.info_request.calculate_status
-      )
+  def all_successful_requests?(requests)
+    requests.any? && requests.all? do |request|
+      %w[successful partially_successful].include?(request.calculate_status)
     end
   end
 
@@ -286,7 +284,8 @@ module InfoRequestHelper
 
     link_to image_tag(image, class: "attachment__image",
                              alt: "Attachment"),
-            attachment_path(attachment)
+            attachment_path(attachment),
+            'aria-hidden': true
   end
 
   def attachment_path(attachment, options = {})

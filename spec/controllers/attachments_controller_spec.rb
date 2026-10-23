@@ -46,7 +46,6 @@ RSpec.describe AttachmentsController, type: :controller do
       unless params[:public_token]
         default_params[:request_url_title] = info_request.url_title
       end
-      rebuild_raw_emails(info_request)
       get :show, params: default_params.merge(params)
     end
 
@@ -623,6 +622,22 @@ RSpec.describe AttachmentsController, type: :controller do
 
       it 'returns an ActiveRecord::RecordNotFound error' do
         expect { show_as_html }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'when a censor rule redacts the HTML version', feature: :redaction_tracking do
+      let!(:censor_rule) do
+        info_request.censor_rules.create!(
+          text: 'hereisthemaskedtext', replacement: 'REDACTED',
+          last_edit_editor: 'unknown', last_edit_comment: 'none'
+        )
+      end
+
+      it 'records the redaction against the HTML rendering' do
+        show_as_html
+
+        expect(censor_rule.redactions.pluck(:redacted_attribute)).
+          to include('body_to_html')
       end
     end
 

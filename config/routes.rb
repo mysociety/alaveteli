@@ -331,16 +331,16 @@ Rails.application.routes.draw do
   match '/profile/change_email' => 'user#signchangeemail',
         :as => :signchangeemail,
         :via => [:get, :post]
-  match '/profile/set_photo' => 'user#set_profile_photo',
+  match '/profile/set_photo' => 'users/profile_photos#set_profile_photo',
         :as => :set_profile_photo,
         :via => [:get, :post]
-  match '/profile/clear_photo' => 'user#clear_profile_photo',
+  match '/profile/clear_photo' => 'users/profile_photos#clear_profile_photo',
         :as => :clear_profile_photo,
         :via => :post
-  match '/user/:url_name/photo.png' => 'user#get_profile_photo',
+  match '/user/:url_name/photo.png' => 'users/profile_photos#get_profile_photo',
         :as => :get_profile_photo,
         :via => :get
-  match '/profile/draft_photo/:id.png' => 'user#get_draft_profile_photo',
+  match '/profile/draft_photo/:id.png' => 'users/profile_photos#get_draft_profile_photo',
         :as => :get_draft_profile_photo,
         :via => :get
 
@@ -575,8 +575,8 @@ Rails.application.routes.draw do
   ####
 
   #### AdminTag controller
-  match '/admin/tags/list_for_widget.json' => 'admin/tags#list_for_widget',
-    :via => :get
+  get '/admin/tags/suggestions' => 'admin/tags#suggestions',
+      as: :suggestions_admin_tags
 
   namespace :admin do
     resources :tags, param: :tag, only: [:index, :show],
@@ -630,8 +630,6 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :bodies,
     :controller => 'admin_public_body' do
-      post 'mass_tag', on: :collection
-      delete 'mass_tag', on: :collection
       get 'import_csv', :on => :collection
       post 'import_csv', :on => :collection
       resources :censor_rules,
@@ -663,7 +661,9 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :holiday_imports,
       :controller => 'admin_holiday_imports',
-      :only => [:new, :create]
+      :only => [:new, :create] do
+        post :preview, :on => :collection
+      end
   end
   ####
 
@@ -671,7 +671,7 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :change_requests,
       :controller => 'admin_public_body_change_requests',
-      :only => [:edit, :update]
+      :only => [:index, :destroy, :edit, :update]
   end
   ####
 
@@ -689,6 +689,9 @@ Rails.application.routes.draw do
 
   #### AdminRequest controller
   scope '/admin', :as => 'admin' do
+    get 'requests_with_content',
+      to: 'admin_request#index_with_content',
+      as: :requests_with_content
     resources :requests,
       :controller => 'admin_request',
     :except => [:new, :create] do
@@ -697,7 +700,11 @@ Rails.application.routes.draw do
       post 'hide', :on => :member
       resources :censor_rules,
         :controller => 'admin/censor_rules',
-        :only => [:new, :create]
+        :only => [:new, :create] do
+        resources :redactions,
+          :controller => 'admin/censor_rules/redactions',
+          :only => [:index]
+      end
     end
   end
   direct :admin_info_request do |ir|
@@ -735,7 +742,7 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :info_request_events,
       :controller => 'admin_info_request_event',
-      :only => [:update]
+      :only => [:edit, :index, :update]
   end
 
   #### AdminIncomingMessage controller
@@ -768,6 +775,14 @@ Rails.application.routes.draw do
     :only => [:index, :edit, :update, :destroy] do
       post 'resend', :on => :member
     end
+  end
+  ####
+
+  #### AdminMailServerLog controller
+  scope '/admin', :as => 'admin' do
+    resources :mail_server_logs,
+      :controller => 'admin_mail_server_log',
+    :only => [:index, :edit, :update]
   end
   ####
 

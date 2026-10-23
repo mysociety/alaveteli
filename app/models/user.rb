@@ -56,6 +56,7 @@ class User < ApplicationRecord
 
   include User::Anonymisable
   include User::Authentication
+  include User::Erasable
   include User::InternalAdmin
   include User::LimitedProfile
   include User::LoginToken
@@ -287,7 +288,10 @@ class User < ApplicationRecord
   def self.authenticate_from_session(session)
     return unless session[:user_id]
 
-    find_by(id: session[:user_id], login_token: session[:user_login_token])
+    not_closed.find_by(
+      id: session[:user_id],
+      login_token: session[:user_login_token]
+    )
   end
 
   # Case-insensitively find a user from their email
@@ -441,49 +445,22 @@ class User < ApplicationRecord
   end
 
   def close!
-    update!(closed_at: Time.zone.now, receive_email_alerts: false)
+    update!(
+      closed_at: Time.zone.now,
+      receive_email_alerts: false,
+      login_token: nil
+    )
   end
 
   def closed?
     closed_at.present?
   end
 
-  def erase
-    erase!
-  rescue ActiveRecord::RecordInvalid
-    false
-  end
-
-  def erase!
-    raise ActiveRecord::RecordInvalid unless closed?
-
-    sha = Digest::SHA1.hexdigest(rand.to_s)
-
-    transaction do
-      slugs.destroy_all
-      sign_ins.destroy_all
-      email_histories.destroy_all
-      profile_photo&.destroy!
-
-      outgoing_messages.update!(
-        from_name: _('[Name Removed]')
-      )
-
-      update!(
-        name: _('[Name Removed]'),
-        email: "#{sha}@invalid",
-        url_name: sha,
-        about_me: '',
-        password: MySociety::Util.generate_token
-      )
-    end
-  end
-
-  def close_and_anonymise
+  def close_and_anonymise(editor:, reason:)
     transaction do
       close!
       anonymise!
-      erase!
+      erase!(editor: editor, reason: reason)
     end
   end
 

@@ -13,6 +13,15 @@ class PasswordChangesController < ApplicationController
   before_action :require_change_user, only: [:edit, :update]
   before_action :set_otp_enabled, only: [:edit, :update]
 
+  # Throttle recovery emails both per IP and per submitted email. Keyed on the
+  # submitted email rather than the found user so the response doesn't reveal
+  # whether an account exists.
+  rate_limit to: 10, within: 15.minutes, only: :create, name: 'ip',
+             with: -> { render_password_change_rate_limited }
+  rate_limit to: 3, within: 15.minutes, only: :create, name: 'email',
+             by: -> { password_change_email },
+             with: -> { render_password_change_rate_limited }
+
   limit_otp_attempts only: :update,
                      if: -> { @otp_enabled },
                      by: -> { @password_change_user.id },
@@ -41,7 +50,7 @@ class PasswordChangesController < ApplicationController
       return
     end
 
-    @password_change_user = User.find_user_by_email(email)
+    @password_change_user = User.not_closed.find_user_by_email(email)
 
     if @password_change_user
       post_redirect_attrs =
@@ -105,6 +114,19 @@ class PasswordChangesController < ApplicationController
 
   protected
 
+  def password_change_email
+    (@user&.email || params.dig(:password_change_user, :email)).
+      to_s.strip.downcase
+  end
+
+  def render_password_change_rate_limited
+    @email_field_options =
+      @user ? { disabled: true, value: @user.email } : {}
+    flash.now[:error] =
+      _('Too many attempts. Please wait a few minutes and try again.')
+    render :new, status: :too_many_requests
+  end
+
   def password_changed_notice(user)
     changed = _('Your password has been changed.')
     return changed unless user.used_backup_code?
@@ -130,6 +152,7 @@ class PasswordChangesController < ApplicationController
         )
         post_redirect.user if post_redirect
       end
+    @password_change_user = nil if @password_change_user&.closed?
   end
 
   # Edit and update need a user resolved from the token to change a password

@@ -1293,6 +1293,12 @@ RSpec.describe Ability do
         end
       end
 
+      it 'does not allow an admin user to login as them when closed' do
+        user.close!
+        ability = Ability.new(admin_user)
+        expect(ability).not_to be_able_to(:login_as, user)
+      end
+
       it 'does not allow a pro user to login as them' do
         with_feature_enabled(:alaveteli_pro) do
           ability = Ability.new(pro_user)

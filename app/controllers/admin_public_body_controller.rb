@@ -131,30 +131,6 @@ class AdminPublicBodyController < AdminController
     redirect_to admin_bodies_url
   end
 
-  def mass_tag
-    lookup_query
-
-    if params[:tag] && (params[:tag] != "")
-      if params[:table_name] == 'exact'
-        bodies = @public_bodies_by_tag
-      elsif params[:table_name] == 'substring'
-        bodies = @public_bodies
-      else
-        raise "Unknown table_name #{params[:table_name]}"
-      end
-
-      if request.post?
-        bodies.each { |body| body.add_tag_if_not_already_present(params[:tag]) }
-        flash[:notice] = 'Added tag to table of bodies.'
-      elsif request.delete?
-        bodies.each { |body| body.remove_tag(params[:tag]) }
-        flash[:notice] = 'Removed tag from table of bodies.'
-      end
-    end
-
-    redirect_to admin_bodies_url(query: @query, page: @page)
-  end
-
   def import_csv
     @notes = ""
     @errors = ""
@@ -251,10 +227,6 @@ class AdminPublicBodyController < AdminController
           includes(:tags, :translations).
             paginate(page: @page, per_page: 100)
       )
-
-      @public_bodies_by_tag = PublicBody.
-        find_by_tag(@query).
-          includes(:tags, :translations)
     end
   end
 

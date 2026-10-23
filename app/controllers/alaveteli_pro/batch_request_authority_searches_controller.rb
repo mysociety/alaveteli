@@ -1,8 +1,6 @@
 class AlaveteliPro::BatchRequestAuthoritySearchesController < AlaveteliPro::BaseController
   include AlaveteliPro::BatchRequest
 
-  MAX_RESULTS = 500
-
   def index
     @draft_batch_request = find_or_initialise_draft
     @body_ids_added = @draft_batch_request.public_body_ids

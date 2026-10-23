@@ -49,6 +49,7 @@ class InfoRequest < ApplicationRecord
   include Taggable
   include Notable
   include RateLimited
+  include Redactable
 
   include AlaveteliPro::RequestSummaries
   include AlaveteliFeatures::Helpers
@@ -584,7 +585,7 @@ class InfoRequest < ApplicationRecord
   def safe_from_name
     return external_user_name if is_external?
 
-    apply_censor_rules_to_text(from_name)
+    apply_masks(from_name, redactable: self, redacted_attribute: :from_name)
   end
 
   def user_name_slug
@@ -1283,36 +1284,74 @@ class InfoRequest < ApplicationRecord
 
   # Get the list of censor rules that apply to this request
   def applicable_censor_rules
-    applicable_rules = [censor_rules, CensorRule.global]
-    applicable_rules << public_body.censor_rules unless public_body.blank?
-    applicable_rules << user.censor_rules if user
-    applicable_rules.flatten
+    query = <<~SQL.squish
+    SELECT cr.* FROM censor_rules cr
+    WHERE (
+        cr.censorable_type = 'InfoRequest'
+        AND cr.censorable_id = :info_request_id
+      OR cr.censorable_id IS NULL
+        AND cr.censorable_type IS NULL
+      OR cr.censorable_type = 'PublicBody'
+        AND cr.censorable_id = :public_body_id
+      OR cr.censorable_type = 'User'
+        AND cr.censorable_id = :user_id
+    )
+    ORDER BY (
+      CASE WHEN cr.censorable_type = 'InfoRequest' THEN 0
+           WHEN cr.censorable_type IS NULL THEN 1
+           WHEN cr.censorable_type = 'PublicBody' THEN 2
+           ELSE 3
+           END
+    ) ASC,
+    cr.created_at DESC
+    SQL
+
+    CensorRule.find_by_sql [
+      query,
+      {
+        info_request_id: id,
+        public_body_id: public_body_id,
+        user_id: user_id
+      }
+    ]
   end
 
-  def apply_censor_rules_to_text(text)
-    applicable_censor_rules.
-      reduce(text) { |t, rule| rule.apply_to_text(t) }
+  def apply_censor_rules_to_text(text, redactable: nil, redacted_attribute: nil)
+    applicable_censor_rules.reduce(text) do |t, rule|
+      rule.apply_to_text(t, redactable: redactable,
+                            redacted_attribute: redacted_attribute)
+    end
   end
 
-  def apply_censor_rules_to_binary(text)
-    applicable_censor_rules.
-      reduce(text) { |t, rule| rule.apply_to_binary(t) }
+  def apply_censor_rules_to_binary(text, redactable: nil, redacted_attribute: nil)
+    applicable_censor_rules.reduce(text) do |t, rule|
+      rule.apply_to_binary(t, redactable: redactable,
+                              redacted_attribute: redacted_attribute)
+    end
   end
 
-  def apply_masks(text, content_type)
+  def apply_masks(text, content_type = 'text/plain', redactable: nil, redacted_attribute: nil)
     mask_options = { censor_rules: applicable_censor_rules,
-                     masks: masks }
+                     masks: masks,
+                     redactable: redactable,
+                     redacted_attribute: redacted_attribute }
     AlaveteliTextMasker.apply_masks(text, content_type, mask_options)
   end
 
   # Masks we apply to text associated with this request convert email addresses
   # we know about into textual descriptions of them
   def masks
-    masks = [{ to_replace: incoming_email,
-               replacement: _('[FOI #{{request}} email]', request: id.to_s) },
-             { to_replace: AlaveteliConfiguration.contact_email,
-               replacement: _("[{{site_name}} contact email]",
-                              site_name: site_name) }]
+    masks = [
+      { to_replace: AlaveteliConfiguration.contact_email,
+        replacement: _("[{{site_name}} contact email]",
+                       site_name: site_name) }
+    ]
+
+    if persisted?
+      masks << { to_replace: incoming_email,
+                 replacement: _('[FOI #{{request}} email]', request: id.to_s) }
+    end
+
     if public_body.is_followupable?
       masks << { to_replace: public_body.request_email,
                  replacement: _("[{{public_body}} request email]",
@@ -1643,7 +1682,13 @@ class InfoRequest < ApplicationRecord
     end
 
     # for the "waiting_classification" index
+    # TODO: drop this once the waiting_classification index is based on
+    # postgresql queries instead of xapian
     reindex_request_events
+
+    # TODO: make sure the incoming_message is indexed for search now that
+    # it is fully received. Without this, it may not be findable until
+    # someone visits the request page.
 
     incoming_message
   end

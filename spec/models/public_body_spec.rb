@@ -2074,7 +2074,8 @@ RSpec.describe PublicBody, " when override all public body request emails set" d
   end
 end
 
-RSpec.describe PublicBody, "when indexing for postgres search" do
+RSpec.describe PublicBody, "when indexing for postgres search",
+               :reindex_inline do
   it 'updates the search index after updating the public body' do
     pb = FactoryBot.create(:public_body, name: 'Council of things')
     expect(PublicBody.newsearch('Council of things')).to eq([pb])
@@ -2122,7 +2123,6 @@ RSpec.describe PublicBody, "when indexing for postgres search" do
             name: "Northern England NHS fictitious center"
           )
         ]
-        bodies.each(&:reindex)
         expect(PublicBody.newsearch("NHS England").first).to eq(nhs)
       end
     end
@@ -2134,7 +2134,6 @@ RSpec.describe PublicBody, "when indexing for postgres search" do
             :public_body,
             name: "Ministère de l'Intérieur"
           )
-          body.reindex
           expect(PublicBody.newsearch(
                    "ministere intérieur",
             language: 'french'
@@ -2153,8 +2152,7 @@ RSpec.describe PublicBody, "when indexing for postgres search" do
       # from https://github.com/mysociety/alaveteli/issues/1179#issuecomment-304157132
       with_default_locale(:en) do
         ag = FactoryBot.create(:public_body,
-name: "WA Department of the Attorney General")
-        ag.reindex
+                               name: "WA Department of the Attorney General")
         expect(PublicBody.newsearch("WA Attorney General")).to match_array([ag])
         expect(PublicBody.newsearch("Attorney General")).to match_array([ag])
       end

@@ -1,3 +1,5 @@
+include AlaveteliFeatures::Helpers
+
 namespace :temp do
   desc 'Populate User#status_update_count'
   task populate_user_status_update_count: :environment do
@@ -39,6 +41,161 @@ namespace :temp do
 
     erase_line
     puts "Encrypting otp_secret_key completed."
+  end
+
+  desc 'Record redactions made to existing content by current CensorRules'
+  task record_censor_rule_redactions: :environment do
+    # CensorRule::Redaction rows are only written as a rule is applied, so
+    # content redacted before the tracking existed has nothing recorded
+    # against it. Expire each affected request to drop the cached (already
+    # redacted) content, then read each redactable attribute back so the
+    # masking pipeline runs again and records what it removes.
+    #
+    # Safe to re-run and can be picked up from a given request with START_AT.
+    unless feature_enabled?(:redaction_tracking)
+      abort 'The :redaction_tracking feature must be enabled to run this task'
+    end
+
+    start_at = (ENV['START_AT'] || 0).to_i
+    scope = requests_with_censor_rules.where(id: start_at..).order(:id)
+    count = scope.count
+    errors = []
+
+    scope.find_each.with_index do |info_request, index|
+      info_request.expire
+
+      record_redactions(info_request, errors)
+
+      erase_line
+      print "Recording CensorRule redactions #{index + 1}/#{count} " \
+            "(InfoRequest##{info_request.id})"
+    end
+
+    erase_line
+    puts "Recording CensorRule redactions completed."
+
+    next if errors.empty?
+
+    puts "#{errors.count} record(s) could not be re-redacted:"
+    errors.each { |error| puts "  #{error}" }
+  end
+
+  desc 'Populate SearchDocument#root for existing documents'
+  task populate_search_document_roots: :environment do
+    # Batched so each update commits on its own, rather than rewriting the
+    # partitions and their GIN indexes in one long transaction. Safe to re-run.
+    # It only fills roots that are still missing.
+    %w[InfoRequest PublicBody User].each do |type|
+      populate_search_document_roots(type) do |batch|
+        <<~SQL
+          UPDATE search_documents
+          SET root_type = searchable_type, root_id = searchable_id
+          WHERE searchable_type = '#{type}' AND #{batch}
+        SQL
+      end
+    end
+
+    populate_search_document_roots('OutgoingMessage') do |batch|
+      <<~SQL
+        UPDATE search_documents AS documents
+        SET root_type = 'InfoRequest', root_id = messages.info_request_id
+        FROM outgoing_messages AS messages
+        WHERE documents.searchable_type = 'OutgoingMessage'
+          AND #{batch}
+          AND documents.searchable_id = messages.id
+      SQL
+    end
+
+    puts "Populating SearchDocument#root completed."
+  end
+
+  # Walks the type's documents in primary key order. A document whose parent
+  # record has gone keeps a NULL root, so move on by id rather than by what is
+  # left to update.
+  def populate_search_document_roots(type)
+    scope = SearchDocument.where(searchable_type: type, root_id: nil)
+    count = scope.count
+    done = 0
+    last_id = 0
+
+    loop do
+      ids = scope.where(sd_id: (last_id + 1)..).
+        order(:sd_id).limit(1000).pluck(:sd_id)
+      break if ids.empty?
+
+      SearchDocument.connection.exec_update(
+        yield("root_id IS NULL AND sd_id BETWEEN #{ids.first} AND #{ids.last}")
+      )
+      done += ids.size
+      last_id = ids.last
+
+      erase_line
+      print "Populating SearchDocument#root for #{type} #{done}/#{count}"
+    end
+
+    erase_line
+  end
+
+  # InfoRequests that at least one CensorRule applies to. A global rule covers
+  # every request, otherwise collect the requests that each rule could apply to.
+  def requests_with_censor_rules
+    return InfoRequest.unscoped if CensorRule.global.exists?
+
+    ids = CensorRule.find_each.flat_map { it.censorable_requests.ids }.uniq
+    InfoRequest.where(id: ids)
+  end
+
+  # Read each attribute the masking pipeline redacts, so that applying the
+  # rules records what they remove.
+  #
+  # Attachments already locked can't be backfilled as locking freezes their
+  # content. Anything locked from now on records its redactions as part of
+  # locking, applying the rules while the attachment is still mutable.
+  def record_redactions(info_request, errors)
+    attempt(errors, info_request) { info_request.safe_from_name }
+
+    info_request.outgoing_messages.find_each do |message|
+      attempt(errors, message) do
+        message.safe_from_name
+        message.body
+      end
+    end
+
+    info_request.incoming_messages.find_each do |message|
+      attempt(errors, message) do
+        message.safe_from_name
+        message.get_main_body_text_unfolded
+      end
+
+      message.foi_attachments.each do |attachment|
+        attempt(errors, attachment) do
+          attachment.redacted_filename
+          attachment.body
+
+          # The zip download and the HTML view mask their own representation
+          # of the attachment, each tracked under its own attribute, so a rule
+          # can match content the body mask couldn't reach.
+          attachment.masked_default_body
+
+          # Guarded as the HTML view is, so we only render what the app would.
+          # The URL and chrome the controller passes don't affect what a rule
+          # matches, so they're omitted here.
+          attachment.masked_body_to_html if attachment.html_viewer?
+        end
+      end
+
+      # Text extracted from the attachments is masked separately from their
+      # bodies, and tracked separately, so it needs driving in its own right.
+      attempt(errors, message) { message.get_attachment_text_full }
+    end
+  end
+
+  # Erased raw emails, missing attachments and masking failures are expected
+  # in a corpus this old, so collect them rather than aborting the run.
+  def attempt(errors, record)
+    yield
+  rescue StandardError => e
+    errors << "#{record.class}##{record.id}: #{e.class}: #{e.message}"
   end
 
   def erase_line

@@ -46,6 +46,19 @@ FactoryBot.define do
       )
     end
 
+    # Put the attachment in the raw email too, so code that looks it up
+    # there by hexdigest finds it instead of falling back to guesswork.
+    after(:create) do |foi_attachment|
+      incoming_message = foi_attachment.incoming_message
+      next unless incoming_message
+
+      incoming_message.foi_attachments.reset
+      incoming_message.raw_email.data =
+        build_incoming_message_mail(incoming_message)
+      incoming_message.save!
+      foi_attachment.association(:raw_email).reset
+    end
+
     trait :unmasked do
       masked_at { nil }
     end
@@ -120,7 +133,7 @@ FactoryBot.define do
     factory :rtf_attachment do
       content_type { 'application/rtf' }
       filename { 'interesting.rtf' }
-      body { load_file_fixture('interesting.rtf') }
+      body { Mail::Utilities.to_crlf(load_file_fixture('interesting.rtf')) }
     end
 
     factory :html_attachment do
@@ -159,7 +172,9 @@ FactoryBot.define do
     factory :delivery_status_notification_attachment do
       content_type { 'message/delivery-status' }
       filename { 'attachment.delivery_status' }
-      body { load_file_fixture('attachment.delivery_status') }
+      body do
+        Mail::Utilities.to_crlf(load_file_fixture('attachment.delivery_status'))
+      end
     end
 
     factory :unknown_attachment do

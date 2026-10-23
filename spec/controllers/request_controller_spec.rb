@@ -62,12 +62,10 @@ RSpec.describe RequestController, "when listing recent requests" do
   end
 
   it 'sets title based on if tag does not match an request category' do
-    stub_search_results(items: [], total: 0)
     get :list, params: { view: 'all', tag: 'other' }
     expect(assigns[:title]).to eq('Found 0 requests tagged ‘other’')
 
-    request = FactoryBot.create(:info_request, tag_string: 'other')
-    stub_search_results(items: [request], total: 1)
+    FactoryBot.create(:info_request, tag_string: 'other')
     get :list, params: { view: 'all', tag: 'other' }
     expect(assigns[:title]).to eq('Found 1 request tagged ‘other’')
   end
@@ -1726,8 +1724,7 @@ RSpec.describe RequestController, "when making a new request" do
     allow(@user).to receive(:exceeded_request_limits?).and_return(false)
     allow(@user).to receive(:locale).and_return("en")
     allow(@user).to receive(:login_token).and_return('abc')
-    allow(User).to receive(:find_by).with(id: @user.id, login_token: 'abc').
-      and_return(@user)
+    allow(User).to receive(:authenticate_from_session).and_return(@user)
     @body = FactoryBot.create(:public_body, name: 'Test Quango')
   end
 
@@ -1798,17 +1795,14 @@ RSpec.describe RequestController, "when doing type ahead searches" do
     expect(assigns[:query]).to eq('requested_from:dfh boring')
   end
 
-  it 'defaults to 25 results per page' do
+  it 'returns 3 results per page' do
     get :search_typeahead, params: { q: 'boring' }
-    expect(assigns[:per_page]).to eq(25)
+    expect(assigns[:per_page]).to eq(3)
   end
 
-  it 'can limit the number of searches returned' do
-    event = info_request_events(:useless_outgoing_message_event)
-    stub_typeahead_results(items: [event], total: 1)
-    get :search_typeahead, params: { q: 'boring', per_page: '1' }
-    expect(assigns[:per_page]).to eq(1)
-    expect(assigns[:request_results].results.size).to eq(1)
+  it 'ignores the per_page parameter' do
+    get :search_typeahead, params: { q: 'boring', per_page: '1000' }
+    expect(assigns[:per_page]).to eq(3)
   end
 end
 
@@ -1942,6 +1936,28 @@ end
 
 RSpec.describe RequestController do
   describe 'GET #download_entire_request' do
+    context 'when a censor rule redacts an attachment', feature: :redaction_tracking do
+      let(:info_request) do
+        FactoryBot.create(:info_request_with_html_attachment)
+      end
+
+      let!(:censor_rule) do
+        info_request.censor_rules.create!(
+          text: 'dull', replacement: 'REDACTED',
+          last_edit_editor: 'unknown', last_edit_comment: 'none'
+        )
+      end
+
+      it 'records the redaction against the body written to the zip' do
+        sign_in info_request.user
+        get :download_entire_request,
+            params: { url_title: info_request.url_title }
+
+        expect(censor_rule.redactions.pluck(:redacted_attribute)).
+          to include('default_body')
+      end
+    end
+
     context 'when the request is embargoed' do
       let(:user) { FactoryBot.create(:user) }
       let(:pro_user) { FactoryBot.create(:pro_user) }

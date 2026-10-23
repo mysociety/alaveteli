@@ -25,17 +25,24 @@ FactoryBot.define do
       association :tracked_user, factory: :user
       track_type { 'user_updates' }
       after(:create) do |track_thing, _evaluator|
-        track_thing.track_query = "requested_by:#{ user.url_name }" \
-                                  " OR commented_by: #{ user.url_name }"
+        url_name = track_thing.tracked_user.url_name
+        track_thing.track_query = "requested_by:#{ url_name }" \
+                                  " OR commented_by: #{ url_name }"
         track_thing.save!
       end
     end
     factory :public_body_track do
       association :public_body, factory: :public_body
       track_type { 'public_body_updates' }
-      after(:create) do |track_thing, _evaluator|
+      transient do
+        variety { nil }
+      end
+      after(:create) do |track_thing, evaluator|
         track_thing.track_query = "requested_from:" \
                                   "#{ track_thing.public_body.url_name }"
+        if evaluator.variety
+          track_thing.track_query += " variety:#{ evaluator.variety }"
+        end
         track_thing.save!
       end
     end

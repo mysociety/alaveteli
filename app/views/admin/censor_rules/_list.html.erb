@@ -1,3 +1,6 @@
+<% redaction_tracking = redaction_tracking?(local_assigns[:info_request]) %>
+<% redaction_counts = censor_rule_redaction_counts(censor_rules, local_assigns[:info_request]) %>
+
 <div class="row">
   <div class="span12 help-block">
     <p>
@@ -5,6 +8,14 @@
       the previous rule, so the order may matter depending on what you are
       trying to redact.
     </p>
+
+    <% if redaction_tracking && info_request.foi_attachments.locked.any? %>
+      <p>
+        <strong>This request has locked attachments.</strong>
+        Redaction tracking counts may be incorrect as their content is frozen,
+        so what is redacted can no longer be determined.
+      </p>
+    <% end %>
   </div>
 </div>
 
@@ -15,6 +26,9 @@
         <th>Id</th>
         <% CensorRule.content_columns_names.each do |column| %>
           <th><%= column.humanize %></th>
+        <% end %>
+        <% if redaction_tracking %>
+          <th>Records redacted</th>
         <% end %>
         <th>Actions</th>
       </tr>
@@ -31,6 +45,22 @@
             <% else %>
               <td class="<%= column %>"><%=h censor_rule.send(column) %></td>
             <% end %>
+          <% end %>
+
+          <% if redaction_tracking %>
+            <td>
+              <% count = redaction_counts.fetch(censor_rule.id, 0) %>
+
+              <% if count.zero? %>
+                <span class="badge"><%= count %></span>
+              <% else %>
+                <%= link_to admin_request_censor_rule_redactions_path(info_request, censor_rule) do %>
+                  <span class="badge badge-warning">
+                    <%= count %>
+                  </span>
+                <% end %>
+              <% end %>
+            </td>
           <% end %>
 
           <td>

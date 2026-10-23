@@ -29,6 +29,11 @@ module Admin::Searchable
     search_engine == 'legacy'
   end
 
+  # Whether this listing is running a search that ranks what it finds.
+  def indexed_search?
+    params[:query].present? && !legacy_search?
+  end
+
   # Run +relation+, timing it so the listing can show what the search cost.
   # Returns the relation, now loaded.
   def measure_search(relation)

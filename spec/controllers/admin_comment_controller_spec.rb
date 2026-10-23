@@ -28,7 +28,7 @@ RSpec.describe AdminCommentController do
       expect(assigns[:query]).to eq('hello')
     end
 
-    it 'filters comments by the search query' do
+    it 'filters comments by the search query', :reindex_inline do
       Comment.destroy_all
       comment_1 = FactoryBot.create(:comment, body: 'Hello world')
       comment_2 = FactoryBot.create(:comment, body: 'Hi! hello world')

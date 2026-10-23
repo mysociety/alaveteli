@@ -18,6 +18,10 @@ module Searchable
     end
   end
 
+  # The prominence values whose content goes in the public index. Anything
+  # else goes in the admin index.
+  PUBLIC_PROMINENCE = %w[normal].freeze
+
   # rubocop:disable Style/ClassVars
   # store rails models that are searchable, with settings for each of them.
   # See the `searchable` method below for details.
@@ -44,12 +48,42 @@ module Searchable
   @@locale_to_language_map.default = 'simple'
   # rubocop:enable Style/ClassVars
 
+  # Every model registered by `searchable`. The app has to be eager loaded
+  # first (`Rails.application.eager_load!`) so every declaration has run,
+  # otherwise a model nothing has referenced yet will be missing.
+  def self.models
+    @@searchable_models.keys.map(&:constantize)
+  end
+
+  thread_mattr_accessor :reindex_inline, instance_accessor: false
+
+  # Reindex records inline rather than in a job while the block runs. A
+  # backfill saves records as it goes, and a job for each would flood the
+  # queue and leave them unindexed until the workers caught up.
+  def self.inline_reindex
+    previous = reindex_inline
+    self.reindex_inline = true
+    yield
+  ensure
+    self.reindex_inline = previous
+  end
+
   def self.lang_from_locale(locale)
     @@locale_to_language_map[locale]
   end
 
+  # The columns behind each index for a record the public may or may not
+  # see. Content the public may not see moves from the public index to the
+  # admin one, so admins can still find it.
+  def self.index_columns(options, public:)
+    index = options[:index] || {}
+    admin_index = options[:admin_index] || {}
+
+    public ? [index, admin_index] : [{}, admin_index.merge(index)]
+  end
+
   def self.partition_table_name(model)
-    "search_documents_#{model.downcase.gsub('::', '_')}"
+    "search_documents_#{model.table_name}"
   end
 
   # TODO: rename to `search`
@@ -61,14 +95,14 @@ module Searchable
 
   # We can't just use the raw_content here, because it has lost the
   # weight from various columns.
-  def search_content_from_db_query(idx_name, language)
-    opts = @@searchable_models[self.class.to_s]
-
+  def search_content_from_db_query(columns, language)
     raw_content_bits = []
     content_tsv_bits = []
-    opts[idx_name].each do |col, w|
+    columns.each do |col, w|
       if col.start_with?(".")
-        c = ActiveRecord::Base.connection.quote("#{send(col[1..])} ")
+        c = ActiveRecord::Base.connection.quote(
+          "#{send(col[1..])} ".delete("\u0000")
+        )
       else
         c = "(SELECT concat(#{col}, ' ') FROM #{self.class.table_name} WHERE id=$1)"
       end
@@ -91,41 +125,39 @@ module Searchable
 
   # Build a search record
   #
-  # +idx_name+ is either :index or :admin_index
+  # +columns+ are the index or admin_index columns from the searchable call
   # +language+ is the language for the pg dictionary to tokenize content.
-  def search_content_from_db(idx_name, language)
-    search_cfg = @@searchable_models[self.class.to_s]
-    if search_cfg[idx_name].nil? || search_cfg[idx_name].empty?
-      {}
-    else
-      ActiveRecord::Base.
-        connection.
-        exec_query(
-          search_content_from_db_query(idx_name, language),
-          "Search content query",
-          [ActiveRecord::Relation::QueryAttribute.new(
-            "somename",
-            id,
-            ActiveRecord::Type::Integer.new
-          )]
-        ).to_a.first
-    end
+  def search_content_from_db(columns, language)
+    return {} if columns.blank?
+
+    ActiveRecord::Base.
+      connection.
+      exec_query(
+        search_content_from_db_query(columns, language),
+        "Search content query",
+        [ActiveRecord::Relation::QueryAttribute.new(
+          "somename",
+          id,
+          ActiveRecord::Type::Integer.new
+        )]
+      ).to_a.first
   end
 
   # upsert the search content
   def upsert_content(language, section_ref)
-    content_from_db = search_content_from_db(
-      :index,
-      language
+    index, admin_index = Searchable.index_columns(
+      self.class.search_options, public: publicly_searchable?
     )
-    admin_content_from_db = search_content_from_db(
-      :admin_index,
-      language
-    )
+    content_from_db = search_content_from_db(index, language)
+    admin_content_from_db = search_content_from_db(admin_index, language)
+
+    root_type, root_id = search_root
 
     record = {
       searchable_type: self.class.to_s,
       searchable_id: id,
+      root_type: root_type,
+      root_id: root_id,
       language: language,
       section_ref: section_ref,
       raw_content: content_from_db["raw"],
@@ -139,17 +171,74 @@ module Searchable
                   :searchable_id,
                   :section_ref,
                   :language],
-      update_only: [:raw_content,
+      update_only: [:root_type,
+                    :root_id,
+                    :raw_content,
                     :raw_admin_content,
                     :content_tsv,
                     :admin_content_tsv]
     )
   end
 
+  # Whether the public index may hold this record's content. A model
+  # without a prominence is public.
+  def publicly_searchable?
+    !has_attribute?(:prominence) ||
+      PUBLIC_PROMINENCE.include?(self[:prominence])
+  end
+
+  # The type and id of the record at the top of the tree this document belongs
+  # to, from the model's `root` search option. A record with no parent is its
+  # own root.
+  def search_root
+    root = self.class.search_options[:root]
+
+    case root
+    when nil then [self.class.name, id]
+    when Hash then [self[root[:type]], self[root[:id]]]
+    else
+      record = public_send(root)
+      [record&.class&.name, record&.id]
+    end
+  end
+
   # Override this method per model to allow excluding specific objects
   # from indexing.
   def is_indexable?
     true
+  end
+
+  # Jobs wait for the current transaction to commit, so the upsert never
+  # runs inside a caller's transaction, unless `inline_reindex` is on.
+  def reindex_later
+    return unless @@searchable_models.key?(self.class.to_s)
+    return reindex if Searchable.reindex_inline
+
+    Search::ReindexJob.perform_later(self)
+  end
+
+  # Override this method per model to do the work `is_indexable?` waits for,
+  # such as parsing an email. Only `reindex_all` calls it, so saving a record
+  # never sets off that work.
+  def prepare_for_reindex
+  end
+
+  # "diffs" the unredacted and redacted versions of a text
+  # and returns either an empty string if both are the same, or the
+  # unredacted_text if they differ.
+  # Storing this "diff" in the admin_index is a more efficient
+  # than keeping the entire text both in index and admin_index (plus
+  # corresponding GIN indexes in postgresql), as it prevents full
+  # duplicate content for text that has no redaction.
+  # TODO: actually diff the strings with a reliable algorithm.
+  # DO NOT USE THIS DIRECTLY, instead implement a method specific to your
+  # class that calls this with the appropriate strings.
+  # The output of this method is never safe for public display, so it
+  # should never be used in the public `index` part of the searchable call.
+  def diff_unredacted_and_redacted_content(unredacted_text, redacted_text)
+    return "" if unredacted_text == redacted_text
+
+    unredacted_text
   end
 
   # Refresh the search index data about a model.
@@ -203,6 +292,12 @@ module Searchable
     #     "column_name": <A|B|C|D>,
     #     ".method_name": <A|B|C|D>,
     #   },
+    #   # The record at the top of the tree this model belongs to, so hits
+    #   # on a message or attachment can be grouped under their request.
+    #   # Name a belongs_to association, or the two columns holding a
+    #   # polymorphic type and id. Leave it out when the model is its own
+    #   # root.
+    #   root: :info_request,
     #   # Fields the search results can be filtered by,
     #   # to limit search perimeter or do facetting.
     #   filterable: [:col_a, :col_b],
@@ -257,54 +352,82 @@ module Searchable
     # Reindex all instances of a model.
     # This would normally not be run beyond the initial indexing of a
     # pre-existing database.
-    def reindex_all(start_id: nil, batch_count: nil)
-      options = search_options
-      return if options.nil?
+    #
+    # Models read through ruby are walked in id order, a batch at a time,
+    # and the last id of each batch is yielded. A run can be told the id to
+    # start from, and can be capped at +limit+ records so it gives up
+    # the process once it has done its share. Between them a backfill that
+    # stops part way picks up where it got to rather than starting the model
+    # again. Models built inside the database are a single statement, so
+    # there is nothing to cap and nothing to carry on from.
+    def reindex_all(batch_size: 1000, start_id: nil, only_missing: false,
+                    limit: nil)
+      return 0 if search_options.nil?
 
-      columns = (options[:index] || {}).keys +
-                (options[:admin_index] || {}).keys
+      return reindex_all_inside_db if reindex_inside_db?
 
-      # if none of the index keys starts with a '.', we don't need to call ruby
-      # attributes so we can index within a DB query
-      if columns.none? { |column| column.start_with?('.') }
-        return reindex_all_inside_db
-      end
+      scope = only_missing ? indexable.not_indexed : indexable
+      scope = scope.where(arel_table[primary_key].gteq(start_id)) if start_id
+      scope = scope.limit(limit) if limit
 
       start = Time.zone.now
       count = 0
-      if start_id.nil?
-        items_to_index = indexable
-      else
-        items_to_index = indexable.where(id: start_id..(start_id + batch_count))
-      end
-      items_to_index.find_each do |record|
-        record.reindex
-        count += 1
+      Searchable.inline_reindex do
+        scope.find_in_batches(batch_size: batch_size) do |records|
+          records.each do |record|
+            record.prepare_for_reindex
+            record.reindex
+            count += 1
+          end
+          yield records.last.id if block_given?
+        end
       end
       elapsed = Time.zone.now - start
       Rails.logger.info("Reindexed #{count} #{name} in #{elapsed} seconds")
+      count
+    end
+
+    # Whether this model's search documents are built by a single statement.
+    #
+    # None of the index keys may start with a '.', and the root and the public
+    # split must be worked out in the database too, so we never need to call
+    # ruby and the content does not have to travel from postgres to ruby and
+    # back. There is then nothing to chunk and nothing to resume.
+    def reindex_inside_db?
+      options = search_options
+      return false if options.nil?
+
+      columns = (options[:index] || {}).keys +
+                (options[:admin_index] || {}).keys
+      columns.none? { |column| column.start_with?('.') } &&
+        root_in_database? && public_split_in_database?
     end
 
     # alternative implementation of reindex_all that works for models
-    # whose searchable.index and searchable.admin_index only contain
-    # SQL column names, and no ruby attributes. In that case, it is
-    # possible to send a single request to the db to generate the entire
-    # set of search_documents.
+    # `reindex_inside_db?` accepts. It sends a single request to the db to
+    # generate the entire set of search_documents.
     def reindex_all_inside_db
       language = Searchable.lang_from_locale(
         AlaveteliLocalization.default_locale
       )
-      table = Searchable.partition_table_name(name)
+      table = Searchable.partition_table_name(self)
+      shown = Searchable.index_columns(search_options, public: true)
+      hidden = Searchable.index_columns(search_options, public: false)
 
       rows = indexable.select(Arel.sql(<<~SQL.chomp))
         #{connection.quote(name)},
         id,
+        #{root_query},
         #{connection.quote(language)},
         '1',
-        #{raw_content_query(:index)},
-        #{raw_content_query(:admin_index)},
-        #{content_tsv_query(:index, language)},
-        #{content_tsv_query(:admin_index, language)},
+        #{public_case(raw_content_query(shown[0]),
+                      raw_content_query(hidden[0]))},
+        #{public_case(raw_content_query(shown[1]),
+                      raw_content_query(hidden[1]))},
+        #{public_case(content_tsv_query(shown[0], language),
+                      content_tsv_query(hidden[0], language))},
+        #{public_case(content_tsv_query(shown[1], language),
+                      content_tsv_query(hidden[1], language))},
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
       SQL
@@ -313,6 +436,8 @@ module Searchable
         INSERT INTO "#{table}" (
           "searchable_type",
           "searchable_id",
+          "root_type",
+          "root_id",
           "language",
           "section_ref",
           "raw_content",
@@ -334,24 +459,70 @@ module Searchable
       Rails.logger.info(
         "Reindexed #{count} #{name} in #{elapsed} seconds (in database)"
       )
+      count
     end
 
     def search_options
       Searchable.class_variable_get(:@@searchable_models)[name]
     end
 
+    def search_root_class
+      root = search_options[:root]
+
+      case root
+      when nil then self
+      when Hash then nil
+      else reflect_on_association(root).klass
+      end
+    end
+
     private
 
-    def raw_content_query(idx_name)
-      columns = search_options[idx_name]
-      return "''" if columns.nil?
+    # A model that decides publicly_searchable? itself needs the record
+    # loaded; the CASE in public_case only knows the prominence column.
+    def public_split_in_database?
+      !method_defined?(:publicly_searchable?, false)
+    end
+
+    def root_in_database?
+      root = search_options[:root]
+      return true if root.nil? || root.is_a?(Hash)
+
+      reflection = reflect_on_association(root)
+      reflection.belongs_to? && !reflection.polymorphic?
+    end
+
+    def root_query
+      root = search_options[:root]
+
+      case root
+      when nil then "#{connection.quote(name)}, id"
+      when Hash then "#{root[:type]}, #{root[:id]}"
+      else
+        reflection = reflect_on_association(root)
+        "#{connection.quote(reflection.klass.name)}, #{reflection.foreign_key}"
+      end
+    end
+
+    # The same split as publicly_searchable?, done in SQL: +public_sql+ for
+    # a record the public may see, +private_sql+ for the rest.
+    def public_case(public_sql, private_sql)
+      return public_sql unless column_names.include?('prominence')
+
+      values = PUBLIC_PROMINENCE.map { |value| connection.quote(value) }
+      "CASE WHEN prominence IN (#{values.join(', ')}) " \
+        "THEN #{public_sql} ELSE #{private_sql} END"
+    end
+
+    # Empty column sets give NULL, as the per-record path does.
+    def raw_content_query(columns)
+      return 'NULL' if columns.empty?
 
       "concat(#{columns.keys.join(", ' ', ")})"
     end
 
-    def content_tsv_query(idx_name, language)
-      columns = search_options[idx_name]
-      return "''" if columns.nil?
+    def content_tsv_query(columns, language)
+      return 'NULL' if columns.empty?
 
       columns.map { |column, weight|
         "setweight(to_tsvector('#{language}'::regconfig, " \
@@ -366,10 +537,12 @@ module Searchable
       # keep the search index in sync with the record, so edits (including
       # anonymisation of personal data) are reflected in the indexed and
       # raw copies of the content.
-      after_commit :reindex, on: [:create, :update]
+      after_commit :reindex_later, on: [:create, :update]
       # Override this scope to help filter out records which don't need
       # reindexing in `reindex_all`.
       scope :indexable, -> { all }
+      # Records with no search document at all
+      scope :not_indexed, -> { where.missing(:search_documents) }
     end
     base.extend(SearchableMethods)
   end

@@ -2987,6 +2987,60 @@ RSpec.describe InfoRequest do
     end
   end
 
+  describe '#applicable_censor_rules order' do
+    it 'returns censor rules in the expected order' do
+      global_rule_2 = FactoryBot.create(
+        :global_censor_rule,
+        created_at: '2023-01-03'
+      )
+      global_rule_1 = FactoryBot.create(
+        :global_censor_rule,
+        created_at: '2024-01-15'
+      )
+      req_rule_1 = FactoryBot.create(
+        :info_request_censor_rule,
+        text: '1',
+        created_at: '2024-01-12'
+      )
+      req_rule_2 = FactoryBot.create(
+        :info_request_censor_rule,
+        text: '2',
+        created_at: '2024-01-11',
+        censorable: req_rule_1.censorable
+      )
+      info_request = req_rule_1.censorable
+      body_rule_2 = FactoryBot.create(
+        :public_body_censor_rule,
+        created_at: '2021-01-10'
+      )
+      body_rule_1 = FactoryBot.create(
+        :public_body_censor_rule,
+        created_at: '2025-01-10',
+        censorable: body_rule_2.censorable
+      )
+      info_request.public_body = body_rule_1.censorable
+      user_rule_1 = FactoryBot.create(
+        :user_censor_rule,
+        created_at: '2026-12-31'
+      )
+      user_rule_2 = FactoryBot.create(
+        :user_censor_rule,
+        created_at: '2023-12-31',
+        censorable: user_rule_1.censorable
+      )
+      info_request.user = user_rule_1.censorable
+
+      expected = [
+        req_rule_1.id, req_rule_2.id,
+        global_rule_1.id, global_rule_2.id,
+        body_rule_1.id, body_rule_2.id,
+        user_rule_1.id, user_rule_2.id,
+      ]
+
+      expect(info_request.applicable_censor_rules.map(&:id)).to eq(expected)
+    end
+  end
+
   describe '#apply_censor_rules_to_text' do
     it 'applies each censor rule to the text' do
       rule_1 = FactoryBot.build(:censor_rule, text: '1')
@@ -3032,7 +3086,7 @@ RSpec.describe InfoRequest do
                replacement: 'said' }.merge(@default_opts)
       CensorRule.create!(opts)
 
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
 
       expect(result).to eq(expected)
     end
@@ -3050,7 +3104,7 @@ RSpec.describe InfoRequest do
         @request.censor_rules << CensorRule.new(rule.merge(@default_opts))
       end
 
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
@@ -3067,21 +3121,21 @@ RSpec.describe InfoRequest do
         @request.user.censor_rules << CensorRule.new(rule.merge(@default_opts))
       end
 
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
     it 'replaces text with masks belonging to the info request' do
       data = "He emailed #{ @request.incoming_email }"
       expected = "He emailed [FOI ##{ @request.id } email]"
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
     it 'replaces text with global masks' do
       data = 'His email address was stilton@example.org'
       expected = 'His email address was [email address]'
-      result = @request.apply_masks(data, 'text/plain')
+      result = @request.apply_masks(data)
       expect(result).to eq(expected)
     end
 
@@ -3090,6 +3144,68 @@ RSpec.describe InfoRequest do
       expected = 'His email address was xxxxxxx@xxxxxxx.xxx'
       result = @request.apply_masks(data, 'application/vnd.ms-word')
       expect(result).to eq(expected)
+    end
+  end
+
+  describe '#masks' do
+    subject { info_request.masks }
+
+    let(:public_body) do
+      FactoryBot.create(
+        :public_body,
+        short_name: 'MaskTest',
+        request_email: 'masktest@localhost'
+      )
+    end
+
+    let(:info_request) do
+      FactoryBot.create(:info_request, public_body: public_body)
+    end
+
+    it 'includes a mask for the site contact email' do
+      is_expected.to include(
+        to_replace: 'postmaster@localhost',
+        replacement: '[Alaveteli contact email]'
+      )
+    end
+
+    it 'includes a mask for the request email' do
+      is_expected.to include(
+        to_replace: info_request.incoming_email,
+        replacement: "[FOI ##{info_request.id} email]"
+      )
+    end
+
+    it 'includes a mask for the public body request email' do
+      is_expected.to include(
+        to_replace: 'masktest@localhost',
+        replacement: "[MaskTest request email]"
+      )
+    end
+
+    context 'when the request is not persisted' do
+      let(:info_request) do
+        FactoryBot.build(:info_request, public_body: public_body)
+      end
+
+      it 'does not include a mask for the request email' do
+        replacements = info_request.masks.map { |mask| mask[:replacement] }
+        expect(replacements).to_not include(a_string_matching(/FOI #/))
+      end
+
+      it 'includes a mask for the site contact email' do
+        is_expected.to include(
+          to_replace: 'postmaster@localhost',
+          replacement: '[Alaveteli contact email]'
+        )
+      end
+
+      it 'includes a mask for the public body request email' do
+        is_expected.to include(
+          to_replace: 'masktest@localhost',
+          replacement: "[MaskTest request email]"
+        )
+      end
     end
   end
 
@@ -5057,7 +5173,8 @@ RSpec.describe InfoRequest do
   end
 end
 
-RSpec.describe InfoRequest, "when indexing for postgres search" do
+RSpec.describe InfoRequest, "when indexing for postgres search",
+               :reindex_inline do
   it 'updates the search index after updating the request' do
     request = FactoryBot.create(:info_request, title: 'Council of things')
     expect(InfoRequest.newsearch('Council of things')).to eq([request])

@@ -6,6 +6,7 @@ module FoiAttachment::Erasable
 
   included do
     scope :erased, -> { where.not(erased_at: nil) }
+    scope :not_erased, -> { where(erased_at: nil) }
 
     delegate :erased?, :ensure_not_erased!, to: :raw_email, prefix: :raw_email
   end
@@ -22,7 +23,13 @@ module FoiAttachment::Erasable
     FoiAttachment::EraseJob.perform_later(self, editor: editor, reason: reason)
   end
 
-  def erase(editor:, reason:)
+  def erase(...)
+    erase!(...)
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
+  def erase!(editor:, reason:)
     return if erased?
 
     mask_siblings
@@ -44,10 +51,11 @@ module FoiAttachment::Erasable
 
       self.erased_at = Time.zone.now
       save!
+      search_documents.delete_all
 
       delete_cached_file!
 
-      raw_email.erase(editor: editor, reason: 'FoiAttachment#erase')
+      raw_email.erase!(editor: editor, reason: 'FoiAttachment#erase')
 
       expire
 

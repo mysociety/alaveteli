@@ -1,15 +1,3 @@
-# the smallest "thing" we can search for (in info requests,
-# incoming/outgoing messages, attachments, public bodies,
-# comments...)
-# Can be a paragraph, a page, a sheet in a spreadsheet, or
-# an entire file depending on how each class defines its
-# search capabilities
-#
-# The search_documents table is partitioned in postgresql for
-# better search performance. This is why `id` is called `sd_id`,
-# because Rails makes assumptions about the primary key that do
-# not work with this setup.
-#
 # == Schema Information
 #
 # Table name: search_documents
@@ -25,10 +13,25 @@
 #  admin_content_tsv :tsvector
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  root_type         :string
+#  root_id           :bigint
+
+##
+# The smallest "thing" we can search for (in info requests, incoming/outgoing
+# messages, attachments, public bodies, comments...) Can be a paragraph, a
+# page, a sheet in a spreadsheet, or an entire file depending on how each class
+# defines its search capabilities
+#
+# The search_documents table is partitioned in postgresql for better search
+# performance. This is why `id` is called `sd_id`, because Rails makes
+# assumptions about the primary key that do not work with this setup.
 #
 class SearchDocument < ApplicationRecord
   belongs_to :searchable, polymorphic: true
+  belongs_to :root, polymorphic: true
   self.primary_key = [:searchable_type, :sd_id]
+
+  scope :not_embargoed, NotEmbargoedQuery.new
 
   # build the sql query for the search. This should be injection-safe.
   def self.hybrid_search_internal(
@@ -75,6 +78,8 @@ class SearchDocument < ApplicationRecord
       search_queries << <<~SQL.chomp
           SELECT
               sd_id,
+              searchable_type,
+              searchable_id,
               rank() OVER (
                 ORDER BY ts_rank_cd(admin_content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
               ) AS rank
@@ -101,12 +106,15 @@ class SearchDocument < ApplicationRecord
       search_queries << <<~SQL.chomp
         SELECT
           sd_id,
+          searchable_type,
+          searchable_id,
           rank() OVER (ORDER BY sd_id DESC) AS rank
         FROM search_documents
         WHERE
           (raw_content #{like_op} :like_query
           #{adm_q})
           #{doc_type_q}
+        ORDER BY rank
         LIMIT #{limit * limit_ratio}
       SQL
     end
@@ -115,6 +123,8 @@ class SearchDocument < ApplicationRecord
     search_queries << <<~SQL.chomp
         SELECT
             sd_id,
+            searchable_type,
+            searchable_id,
             rank() OVER (
               ORDER BY ts_rank_cd(content_tsv, websearch_to_tsquery(:language, unaccent(:query))) DESC
             ) AS rank
@@ -130,16 +140,19 @@ class SearchDocument < ApplicationRecord
     sql = <<~SQL.chomp.squeeze(' ')
       SELECT
         searches.sd_id,
+        searches.searchable_type,
+        searches.searchable_id,
         sum(searches.rank) AS rank_sum,
         sum(rrf_score(searches.rank)) AS score
       FROM ((#{search_queries.join(") UNION ALL (")})) searches
-      GROUP BY searches.sd_id
+      GROUP BY searches.sd_id, searches.searchable_type, searches.searchable_id
       ORDER BY score DESC
       LIMIT #{limit}
     SQL
 
     { query: sql, values: query_values }
   end
+  private_class_method :hybrid_search_internal
 
   # Run the hybrid full-text search and return a chainable relation.
   #
@@ -201,26 +214,49 @@ class SearchDocument < ApplicationRecord
       limit_ratio: limit_ratio
     )
 
+    search_results = materialized_cte(
+      :search_results, sql[:query], sql[:values]
+    )
+
     if model.nil?
-      SearchDocument.where("sd_id IN (SELECT s.sd_id FROM (#{sql[:query]}) s)",
-sql[:values])
-    else
-      # De-duplicate records that match through several translations or
-      # sections (the join yields one row per matching search_document).
-      # Matching on the ids keeps the relation chainable, countable and
-      # paginatable, and leaves PostgreSQL free to fetch just the rows
-      # that matched.
-      matching_ids = SearchDocument.
-        select(:searchable_id).
-        where(searchable_type: model.to_s).
+      # A document is one row per section and language already, so the
+      # search results map to them one for one.
+      SearchDocument.
+        with(search_results: search_results).
         joins(
           "JOIN search_results " \
           "ON search_results.sd_id = search_documents.sd_id"
-        )
+        ).
+        order(Arel.sql("search_results.score DESC, search_documents.sd_id"))
+    else
+      record_id = "#{relation.quoted_table_name}." \
+                  "#{relation.quoted_primary_key}"
+
+      # A record can match through several translations or sections, so
+      # roll the documents up to one row per record, scored by the best
+      # of them. The relation stays chainable, countable and paginatable.
+      search_records = materialized_cte(:search_records, <<~SQL.squish)
+        SELECT searchable_type, searchable_id, max(score) AS score
+        FROM search_results
+        GROUP BY searchable_type, searchable_id
+      SQL
 
       relation.
-        with(search_results: Arel.sql(sql[:query], **sql[:values])).
-        where(id: matching_ids)
+        with(search_results: search_results, search_records: search_records).
+        joins(
+          "JOIN search_records " \
+          "ON search_records.searchable_type = '#{model}' " \
+          "AND search_records.searchable_id = #{record_id}"
+        ).
+        order(Arel.sql("search_records.score DESC, #{record_id}"))
     end
   end
+
+  # Requires: lib/core_ext/active_record_materialized_cte.rb
+  def self.materialized_cte(name, query, values = {})
+    Arel::Nodes::Cte.new(
+      name, Arel.sql("(#{query})", **values), materialized: true
+    )
+  end
+  private_class_method :materialized_cte
 end

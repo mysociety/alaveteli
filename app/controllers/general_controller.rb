@@ -6,8 +6,6 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class GeneralController < ApplicationController
-  MAX_RESULTS = 500
-
   skip_before_action :html_response, only: :version
 
   before_action :redirect_pros_to_dashboard, only: :frontpage
@@ -17,7 +15,7 @@ class GeneralController < ApplicationController
     medium_cache
     @locale = AlaveteliLocalization.locale
     successful_query = InfoRequestEvent.make_query_from_params( latest_status: ['successful'] )
-    @request_events = recent_request_events
+    @recent_requests = recent_requests
     @track_thing = TrackThing.create_track_for_search_query(successful_query)
     @number_of_requests = Rails.cache.fetch(
       'frontpage/info_request_count', expires_in: 1.hour
@@ -122,23 +120,16 @@ class GeneralController < ApplicationController
 
     @page = get_search_page_from_params
 
-    # Query each type separately for separate display (TODO: we are calling
-    # perform_search multiple times and it clobbers per_page for each one,
-    # so set as separate var)
-    requests_per_page = params[:requests_per_page] ? params[:requests_per_page].to_i : 25
-
     # Later pages are very expensive to load
-    if @page > MAX_RESULTS / requests_per_page
-      raise ActiveRecord::RecordNotFound, "Sorry. No pages after #{MAX_RESULTS / requests_per_page}."
+    if @page > MAX_RESULTS / PER_PAGE
+      raise ActiveRecord::RecordNotFound,
+            "Sorry. No pages after #{MAX_RESULTS / PER_PAGE}."
     end
 
     @request_result_count = @body_result_count = @user_result_count = 0
     @total_hits = 0
     if @requests
-      @request_results = perform_search(
-        [InfoRequestEvent], @query, @sortby,
-        'request_collapse', requests_per_page
-      )
+      @request_results = perform_request_search(@query, @sortby)
       @requests_per_page = @per_page
       @request_result_count = @request_results.results.size
       @request_total_count = @request_results.matches_estimated
@@ -197,17 +188,16 @@ class GeneralController < ApplicationController
     end
   end
 
-  def recent_request_events
+  def recent_requests
     ids = Rails.cache.fetch(
-      'frontpage/recent_requests', expires_in: 10.minutes, skip_nil: true
+      'frontpage/recent_info_requests', expires_in: 10.minutes, skip_nil: true
     ) do
-      events = InfoRequest.recent_requests
-      events.empty? ? nil : events.map(&:id)
+      requests = InfoRequest.recent_requests
+      requests.empty? ? nil : requests.map(&:id)
     end || []
 
-    InfoRequestEvent.where(id: ids).
-      joins(:info_request).merge(InfoRequest.is_searchable).
-      includes(info_request: :public_body).
+    InfoRequest.is_searchable.where(id: ids).
+      includes(:public_body).
       order(created_at: :desc).
       load
   end

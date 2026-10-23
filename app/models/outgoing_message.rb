@@ -28,8 +28,9 @@ class OutgoingMessage < ApplicationRecord
   include MessageProminence
   include Rails.application.routes.url_helpers
   include LinkToHelper
-  include Taggable
+  include Redactable
   include Searchable
+  include Taggable
 
   include OutgoingMessage::DeliveryStatus
 
@@ -99,10 +100,21 @@ class OutgoingMessage < ApplicationRecord
       ".safe_from_name": "D"
     },
     admin_index: {
+      ".diff_of_body_redactions": "A",
       from_name: "B",
       prominence_reason: "D",
-    }
+    },
+    root: :info_request
   )
+
+  # prevent storing duplicated values for messages that have no
+  # redactions at all
+  def diff_of_body_redactions
+    diff_unredacted_and_redacted_content(
+      raw_body,
+      get_text_for_indexing
+    )
+  end
 
   def self.default_salutation(public_body)
     _("Dear {{public_body_name}},", public_body_name: public_body.name)
@@ -148,7 +160,9 @@ class OutgoingMessage < ApplicationRecord
   def safe_from_name
     return info_request.external_user_name if info_request.is_external?
 
-    info_request.apply_censor_rules_to_text(from_name)
+    apply_masks(
+      from_name, redactable: self, redacted_attribute: :from_name
+    )
   end
 
   # Public: The value to be used in the From: header of an OutgoingMailer
@@ -212,7 +226,10 @@ class OutgoingMessage < ApplicationRecord
       info_request.try(:applicable_censor_rules) or []
     end
 
-    censor_rules.reduce(text) { |t, rule| rule.apply_to_text(t) }
+    # FIXME: We appear not to be applying text masks here
+    censor_rules.reduce(text) do |t, rule|
+      rule.apply_to_text(t, redactable: self, redacted_attribute: :body)
+    end
   end
 
   def raw_body

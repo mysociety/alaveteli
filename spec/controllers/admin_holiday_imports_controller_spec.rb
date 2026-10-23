@@ -12,13 +12,39 @@ RSpec.describe AdminHolidayImportsController do
       expect(assigns[:holiday_import]).to be_instance_of(HolidayImport)
     end
 
+    it 'does not populate the import' do
+      get :new, params: { holiday_import: { source: 'suggestions' } }
+      expect(assigns[:holiday_import].populated).to eq(false)
+    end
+  end
+
+  describe 'POST preview' do
+    it 'renders the new template' do
+      post :preview
+      expect(response).to render_template('new')
+    end
+
+    it 'creates an import' do
+      post :preview
+      expect(assigns[:holiday_import]).to be_instance_of(HolidayImport)
+    end
+
     describe 'if the import is valid' do
       it 'populates the import' do
         mock_import = double(HolidayImport, valid?: true,
                            populate: nil)
         allow(HolidayImport).to receive(:new).and_return(mock_import)
         expect(mock_import).to receive(:populate)
-        get :new
+        post :preview
+      end
+    end
+
+    describe 'if the import is not valid' do
+      it 'does not populate the import' do
+        mock_import = double(HolidayImport, valid?: false)
+        allow(HolidayImport).to receive(:new).and_return(mock_import)
+        expect(mock_import).not_to receive(:populate)
+        post :preview
       end
     end
   end

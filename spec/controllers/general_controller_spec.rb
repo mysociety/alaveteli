@@ -35,7 +35,7 @@ RSpec.describe GeneralController do
       before do
         allow(AlaveteliConfiguration).to receive(:blog_feed).
           and_return('http://blog.example.com')
-        allow(blog).to receive(:quietly_try_to_open).
+        allow(blog).to receive(:fetch_url).
           and_return(load_file_fixture('blog_feed.atom'))
       end
 
@@ -207,7 +207,7 @@ RSpec.describe GeneralController, "when showing the frontpage" do
       call_count = 0
       allow(InfoRequest).to receive(:recent_requests) do
         call_count += 1
-        [FactoryBot.create(:info_request_event)]
+        [FactoryBot.create(:info_request)]
       end
 
       get :frontpage
@@ -229,19 +229,18 @@ RSpec.describe GeneralController, "when showing the frontpage" do
       expect(call_count).to eq(2)
     end
 
-    it 'excludes requests hidden since the events were cached' do
-      visible_event = FactoryBot.create(:info_request_event)
-      hidden_event = FactoryBot.create(:info_request_event)
-      hidden_event.info_request.update!(prominence: 'hidden')
+    it 'excludes requests hidden since the ids were cached' do
+      visible = FactoryBot.create(:info_request)
+      hidden = FactoryBot.create(:info_request, prominence: 'hidden')
 
       allow(InfoRequest).to receive(:recent_requests).
-        and_return([visible_event, hidden_event])
+        and_return([visible, hidden])
 
       get :frontpage
 
-      assigned_ids = assigns[:request_events].ids
-      expect(assigned_ids).to include(visible_event.id)
-      expect(assigned_ids).not_to include(hidden_event.id)
+      assigned_ids = assigns[:recent_requests].ids
+      expect(assigned_ids).to include(visible.id)
+      expect(assigned_ids).not_to include(hidden.id)
     end
   end
 end
@@ -303,8 +302,7 @@ RSpec.describe GeneralController, 'when using search' do
   end
 
   it "should only populate requests for /requests searches" do
-    event = info_request_events(:useless_outgoing_message_event)
-    stub_search_results(items: [event])
+    stub_request_search_results(items: [info_requests(:fancy_dog_request)])
 
     get :search, params: { combined: "bob/requests" }
 
@@ -322,8 +320,7 @@ RSpec.describe GeneralController, 'when using search' do
   end
 
   it "should show tracking links for requests-only searches" do
-    event = info_request_events(:useless_outgoing_message_event)
-    stub_search_results(items: [event])
+    stub_request_search_results(items: [info_requests(:fancy_dog_request)])
 
     get :search, params: { combined: "bob/requests" }
 
@@ -394,6 +391,12 @@ RSpec.describe GeneralController, 'when using search' do
     expect {
       get :search, params: { combined: 'bob/all', page: 25 }
     }.to raise_error(ActiveRecord::RecordNotFound)
+  end
+
+  it 'ignores the requests_per_page parameter' do
+    stub_search_results
+    get :search, params: { combined: 'bob/requests', requests_per_page: '0' }
+    expect(assigns[:requests_per_page]).to eq(25)
   end
 
   context "when passed a non-HTML request" do

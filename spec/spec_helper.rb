@@ -132,6 +132,9 @@ RSpec.configure do |config|
 
   config.after(:each) do
     AlaveteliRateLimiter::IPRateLimiter.new(:signup).backend.destroy
+    # Reset controller `rate_limit` counters so attempts don't accumulate
+    # across examples that share the same test IP and emails.
+    ActionController::Base.cache_store.clear
   end
 end
 

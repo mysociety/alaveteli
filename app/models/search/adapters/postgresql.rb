@@ -7,7 +7,7 @@ module Search
       #
       # The database is itself the search index: queries run against the
       # +search_documents+ table via SearchDocument.hybrid_search, and indexing
-      # is a SearchDocument upsert done inline via the record's #reindex.
+      # is a SearchDocument upsert done by the record's #reindex.
       #
       # The paginated query interface (search, typeahead, similar) is
       # follow-on work; those methods keep the base class's
@@ -30,11 +30,8 @@ module Search
           )
         end
 
-        # Reindex the record. The database is itself the search index, so the
-        # work is a SearchDocument upsert done inline via the record's
-        # #reindex; queued_jobs_count stays at the base class default of zero.
         def reindex_later(record)
-          record.reindex
+          record.reindex_later
         end
       end
     end

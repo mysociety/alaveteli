@@ -40,7 +40,41 @@ RSpec.describe Searchable, :xapian do
   end
 end
 
-RSpec.describe Searchable, 'index lifecycle' do
+RSpec.describe Searchable, '#reindex_later' do
+  it 'queues a job to reindex the record' do
+    user = users(:bob_smith_user)
+    expect { user.reindex_later }.
+      to have_enqueued_job(Search::ReindexJob).with(user)
+  end
+
+  it 'does not queue a job for a model with nothing to index' do
+    model = Class.new(ApplicationRecord) do
+      self.table_name = 'users'
+      include Searchable
+    end
+    stub_const('UnindexedModel', model)
+
+    expect { UnindexedModel.new.reindex_later }.
+      not_to have_enqueued_job(Search::ReindexJob)
+  end
+
+  it 'queues a job rather than indexing inline when a record is saved' do
+    user = nil
+    expect { user = FactoryBot.create(:user) }.
+      to have_enqueued_job(Search::ReindexJob)
+    expect(user.search_documents).to be_empty
+  end
+
+  it 'reindexes inline rather than queueing a job inside inline_reindex' do
+    user = users(:bob_smith_user)
+    expect(user).to receive(:reindex)
+
+    expect { Searchable.inline_reindex { user.reindex_later } }.
+      not_to have_enqueued_job(Search::ReindexJob)
+  end
+end
+
+RSpec.describe Searchable, 'index lifecycle', :reindex_inline do
   it 'indexes a record when it is created' do
     user = FactoryBot.create(:user)
     expect(user.search_documents.count).to eq(1)
@@ -60,9 +94,66 @@ RSpec.describe Searchable, 'index lifecycle' do
     expect { user.destroy! }.to change(SearchDocument, :count).by(-1)
   end
 
+  it 'roots a record with no parent at itself' do
+    user = FactoryBot.create(:user)
+    expect(user.search_documents.map(&:root)).to eq([user])
+  end
+
+  it 'roots a record at the top of its tree' do
+    info_request = FactoryBot.create(:info_request)
+    message = info_request.outgoing_messages.first
+
+    expect(message.search_documents.map(&:root)).to eq([info_request])
+  end
+
+  it 'strips null bytes from content indexed from a method' do
+    message = FactoryBot.create(:info_request).outgoing_messages.first
+    allow(message).to receive(:get_text_for_indexing).
+      and_return("foo\u0000bar")
+
+    message.reindex
+    expect(message.search_documents.first.raw_content).to include('foobar')
+  end
+
   it 'does not index models that are not registered as searchable' do
     n = FactoryBot.create(:notification)
     expect(SearchDocument.where(searchable_type: "Notification").count).to eq(0)
+  end
+
+  describe '.reindex_inside_db?' do
+    it 'is true when every indexed field is a column' do
+      expect(User.reindex_inside_db?).to eq(true)
+    end
+
+    it 'is false when a field reads a ruby attribute' do
+      expect(PublicBody.reindex_inside_db?).to eq(false)
+    end
+
+    it 'is false for a model that never called searchable' do
+      expect(Notification.reindex_inside_db?).to eq(false)
+    end
+  end
+
+  describe '.not_indexed' do
+    it 'excludes records that are already indexed' do
+      user = FactoryBot.create(:user)
+      expect(User.not_indexed).not_to include(user)
+    end
+
+    it 'includes records with no document' do
+      user = FactoryBot.create(:user)
+      SearchDocument.delete_all
+
+      expect(User.not_indexed).to include(user)
+    end
+
+    it 'looks only at the documents of its own model' do
+      user = FactoryBot.create(:user)
+      SearchDocument.where(searchable_type: 'User').delete_all
+      FactoryBot.create(:public_body)
+
+      expect(User.not_indexed).to include(user)
+    end
   end
 
   describe '.reindex_all' do
@@ -115,6 +206,104 @@ RSpec.describe Searchable, 'index lifecycle' do
       ).to be_empty
     end
 
+    it 'builds the root inside the database from a belongs_to' do
+      message = FactoryBot.create(:initial_request)
+      SearchDocument.delete_all
+      allow(OutgoingMessage).to receive(:search_options).
+        and_return(index: { body: 'A' }, root: :info_request)
+
+      expect(OutgoingMessage).to receive(:reindex_all_inside_db).
+        and_call_original
+      OutgoingMessage.reindex_all
+
+      expect(message.search_documents.map(&:root)).
+        to eq([message.info_request])
+    end
+
+    it 'reads the record when the root is not a belongs_to' do
+      allow(User).to receive(:search_options).
+        and_return(index: { name: 'A' }, root: :profile_photo)
+
+      expect(User).not_to receive(:reindex_all_inside_db)
+      User.reindex_all
+    end
+
+    it 'reads the record when a model decides publicly_searchable? itself' do
+      allow(User).to receive(:public_split_in_database?).and_return(false)
+
+      expect(User).not_to receive(:reindex_all_inside_db)
+      User.reindex_all
+    end
+
+    it 'splits the public content by prominence inside the database' do
+      shown = FactoryBot.create(:info_request, title: 'Plain sight')
+      hidden = FactoryBot.create(:hidden_request, title: 'Out of sight')
+      SearchDocument.delete_all
+
+      InfoRequest.reindex_all
+
+      documents = SearchDocument.where(searchable_type: 'InfoRequest')
+      expect(documents.find_by(searchable_id: shown.id)).
+        to have_attributes(raw_content: a_string_including('Plain sight'))
+      expect(documents.find_by(searchable_id: hidden.id)).
+        to have_attributes(
+          raw_content: nil,
+          raw_admin_content: a_string_including('Out of sight')
+        )
+    end
+
+    it 'yields the last id of each batch' do
+      bodies = FactoryBot.create_list(:public_body, 3).sort_by(&:id)
+      allow(PublicBody).to receive(:indexable).
+        and_return(PublicBody.where(id: bodies))
+
+      yielded = []
+      PublicBody.reindex_all(batch_size: 1) { |id| yielded << id }
+
+      expect(yielded).to eq(bodies.map(&:id))
+    end
+
+    it 'starts from the given id' do
+      first, second = FactoryBot.create_list(:public_body, 2).sort_by(&:id)
+      allow(PublicBody).to receive(:indexable).
+        and_return(PublicBody.where(id: [first, second]))
+      SearchDocument.delete_all
+
+      PublicBody.reindex_all(start_id: second.id)
+
+      expect(
+        SearchDocument.where(searchable_type: 'PublicBody').
+          pluck(:searchable_id)
+      ).to eq([second.id])
+    end
+
+    it 'indexes only the records without a document when asked' do
+      indexed, missing = FactoryBot.create_list(:public_body, 2)
+      allow(PublicBody).to receive(:indexable).
+        and_return(PublicBody.where(id: [indexed, missing]))
+      SearchDocument.where(searchable_type: 'PublicBody',
+                           searchable_id: missing.id).delete_all
+
+      expect(PublicBody.reindex_all(only_missing: true)).to eq(1)
+    end
+
+    it 'indexes nothing for a model that never called searchable' do
+      expect(Notification.reindex_all).to eq(0)
+    end
+
+    it 'stops once it has indexed the records it was capped at' do
+      bodies = FactoryBot.create_list(:public_body, 3).sort_by(&:id)
+      allow(PublicBody).to receive(:indexable).
+        and_return(PublicBody.where(id: bodies))
+      SearchDocument.delete_all
+
+      expect(PublicBody.reindex_all(limit: 2)).to eq(2)
+      expect(
+        SearchDocument.where(searchable_type: 'PublicBody').
+          pluck(:searchable_id).uniq
+      ).to match_array(bodies.first(2).map(&:id))
+    end
+
     it 'copies the indexed columns into the raw content' do
       user = FactoryBot.create(:user, name: 'Winston Smith')
 
@@ -124,6 +313,82 @@ RSpec.describe Searchable, 'index lifecycle' do
                                         searchable_id: user.id)
       expect(document.raw_admin_content).to include('Winston Smith')
       expect(User.newsearch('Winston Smith', admin_mode: true)).to eq([user])
+    end
+  end
+
+  describe 'diffing search content' do
+    describe '#diff_of_body_redactions' do
+      subject { message.diff_of_body_redactions }
+
+      let(:message) { FactoryBot.build(:initial_request, body: body) }
+
+      context 'when an email address is masked for indexing' do
+        let(:body) { 'Write to bob@example.com please.' }
+        it { is_expected.to eq(body) }
+      end
+
+      context 'when a censor rule is applied' do
+        let(:body) { 'Write some text to redact please.' }
+        it 'indexes the unredacted body' do
+          cr = FactoryBot.create(:global_censor_rule)
+          is_expected.to eq(body)
+        end
+      end
+
+      context 'when nothing is redacted' do
+        let(:body) { 'Write to us please.' }
+        it { is_expected.to eq("") }
+      end
+    end
+  end
+end
+
+RSpec.describe Searchable, 'public content', :reindex_inline do
+  let(:document) { info_request.search_documents.reload.first }
+
+  context 'with normal prominence' do
+    let(:info_request) do
+      FactoryBot.create(:info_request, title: 'Plain sight')
+    end
+
+    it 'goes in the public index' do
+      expect(document.raw_content).to include('Plain sight')
+      expect(document.raw_admin_content).not_to include('Plain sight')
+    end
+  end
+
+  context 'with any other prominence' do
+    let(:info_request) do
+      FactoryBot.create(:backpage_request, title: 'Back page')
+    end
+
+    it 'goes in the admin index instead' do
+      expect(document.raw_content).to be_nil
+      expect(document.raw_admin_content).to include('Back page')
+    end
+  end
+
+  context 'under an embargo' do
+    let(:info_request) do
+      FactoryBot.create(:embargoed_request, title: 'Under wraps')
+    end
+
+    it 'stays in the public index' do
+      expect(document.raw_content).to include('Under wraps')
+    end
+  end
+
+  context 'when the prominence changes' do
+    let(:info_request) do
+      FactoryBot.create(:info_request, title: 'On the move')
+    end
+
+    it 'moves between the indexes' do
+      expect { info_request.update!(prominence: 'hidden') }.
+        to change { document.reload.raw_content }.
+        from(a_string_including('On the move')).to(nil).
+        and change { document.reload.raw_admin_content }.
+        to(a_string_including('On the move'))
     end
   end
 end
