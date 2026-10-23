@@ -2,6 +2,12 @@
 
 ## Highlighted Features
 
+* Stop robots.txt blocking authorities whose name begins with "tor", such as
+  Torfaen and Torbay (Ben Fairless)
+* Render robots.txt from a template, so deployments and themes can customise
+  it without forking the file (Ben Fairless)
+* Disallow crawling of the remaining expensive request, search and typeahead
+  paths, and drop robots.txt rules that match no URL (Ben Fairless)
 * Add rake tasks to build the PostgreSQL search index using a chunk per process
   resuming where an interrupted run stopped (Graeme Porteous)
 * Fix errors and slow searches caused by invalid page sizes (Graeme Porteous)

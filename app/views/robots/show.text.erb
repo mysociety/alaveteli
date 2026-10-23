@@ -1,17 +1,14 @@
 # See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
 
 User-agent: *
-Disallow: */annotate/*
 Disallow: */new/*
 Disallow: */search/*
-Disallow: */similar/*
 Disallow: */track/*
-Disallow: */upload/*
 Disallow: */user/contact/*
 Disallow: */feed/*
 Disallow: */profile/*
 Disallow: */signin*
-Disallow: */tor*
+Disallow: */tor$
 Allow: */request/*/response/*/attach/*
 Disallow: */request/*/response/*
 Disallow: */request/*/download*
@@ -20,9 +17,15 @@ Disallow: */outgoing_messages/*/mail_server_logs*
 Disallow: */outgoing_messages/*/delivery_status*
 Disallow: *?*update_status=1*
 Disallow: */request/*/annotate
+Disallow: */request/*/details
 Disallow: */request/*/feed
 Disallow: */request/*/followups/new
+Disallow: */request/*/report/new
 Disallow: */request/*/similar
 Disallow: */request/*/track
 Disallow: */request/*/upload
-Disallow: */profile/change_password/*
+Disallow: */request/*/widget/new
+Disallow: */body/search_ahead
+Disallow: */request/search_ahead
+Disallow: */search?*
+Disallow: */country_message$
