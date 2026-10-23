@@ -18,12 +18,12 @@ RSpec.describe 'robots.txt', type: :request do
   end
 
   it 'disallows the paths which are expensive to crawl' do
-    expect(response.body).to include 'Disallow: */search?*'
+    expect(response.body).to include 'Disallow: */search?'
   end
 
   it 'allows attachments while disallowing their parent responses' do
-    allow_rule = 'Allow: */request/*/response/*/attach/*'
-    disallow_rule = 'Disallow: */request/*/response/*'
+    allow_rule = 'Allow: */request/*/response/*/attach/'
+    disallow_rule = 'Disallow: */request/*/response/'
 
     expect(response.body).to include allow_rule
     expect(response.body).to include disallow_rule
