@@ -14,6 +14,7 @@ class AttachmentsController < ApplicationController
 
   before_action :authenticate_attachment
   before_action :authenticate_attachment_as_html, only: :show_as_html
+  before_action :redirect_external_navigation_to_html, only: :show
   before_action :set_cors
 
   around_action :ensure_masked
@@ -125,6 +126,22 @@ class AttachmentsController < ApplicationController
     return if attachment_is_public?
 
     raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
+  end
+
+  # Visitors following a link from another site (or opening the URL
+  # directly) would otherwise get an unexpected file download and never see
+  # this site, so send them to the HTML view instead if there is one.
+  def redirect_external_navigation_to_html
+    return unless external_navigation?
+    return unless @attachment.html_viewer? && attachment_is_public?
+
+    redirect_to attachment_url(@attachment, html: true)
+  end
+
+  def external_navigation?
+    request.headers['Sec-Fetch-Mode'] == 'navigate' &&
+      request.headers['Sec-Fetch-Dest'] == 'document' &&
+      %w[cross-site none].include?(request.headers['Sec-Fetch-Site'])
   end
 
   def ensure_masked
