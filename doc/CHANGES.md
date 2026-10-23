@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Redirect attachment download links followed from external sites to the HTML
+  view of the attachment, where available (Gareth Rees)
 * Stop robots.txt blocking authorities whose name begins with "tor", such as
   Torfaen and Torbay (Ben Fairless)
 * Render robots.txt from a template, so deployments and themes can customise
