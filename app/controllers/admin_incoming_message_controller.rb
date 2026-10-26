@@ -1,31 +1,26 @@
 class AdminIncomingMessageController < AdminController
-  before_action :set_incoming_message, only: [:edit, :update, :destroy]
+  before_action :set_incoming_message, only: [:show, :update, :destroy]
   before_action :set_info_request, :check_info_request
 
-  def edit
+  def show
   end
 
   def update
-    old_prominence = @incoming_message.prominence
-    old_prominence_reason = @incoming_message.prominence_reason
     old_tag_string = @incoming_message.tag_string
-    if @incoming_message.update(incoming_message_params)
-      @incoming_message.info_request.log_event(
-        'edit_incoming',
-        incoming_message_id: @incoming_message.id,
-        editor: admin_current_user,
-        old_prominence: old_prominence,
-        prominence: @incoming_message.prominence,
-        old_prominence_reason: old_prominence_reason,
-        prominence_reason: @incoming_message.prominence_reason,
-        old_tag_string: old_tag_string,
-        tag_string: @incoming_message.tag_string
-      )
+    evt = {
+      editor: admin_current_user,
+      old_tag_string: old_tag_string,
+      tag_string: incoming_message_params['tag_string']
+    }
+
+    if @incoming_message.update_and_log_event(
+      event: evt, **incoming_message_params
+    )
       @incoming_message.info_request.expire
       flash[:notice] = 'Incoming message successfully updated.'
       redirect_to admin_request_url(@incoming_message.info_request)
     else
-      render action: 'edit'
+      render action: 'show'
     end
   end
 
