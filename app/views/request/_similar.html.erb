@@ -13,9 +13,9 @@
   <% end %>
 
   <% if similar_more %>
-    <p class="sidebar_similar_requests__more-link">
       <% path = similar_request_path(info_request.url_title, utm_params) %>
-      <%= link_to _('More similar requests'), path %>
-    </p>
+    <form method="post" action="<%= path %>" class="sidebar_similar_requests__more-link">
+      <input type="submit" value="<%= _('More similar requests') %>">
+    </form>
   <% end %>
 </div>

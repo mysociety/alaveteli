@@ -28,6 +28,14 @@
 
 .sidebar_similar_requests__more-link {
   font-size: 0.75em;
+  input[type="submit"] {
+    color: #0c538e;
+    background: none;
+    border: none;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
 }
 
 /* #track-request .feed_link is here to override specificity in the request sidebar,

@@ -127,7 +127,7 @@ Rails.application.routes.draw do
         :via => :get
   match '/request/:url_title/similar' => 'request#similar',
         :as => :similar_request,
-        :via => :get
+        :via => :post
 
   match '/request/:request_url_title/response/:incoming_message_id/attach' \
         '/html/(:part(/*file_name))' => 'attachments#show_as_html',
