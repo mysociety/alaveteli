@@ -76,11 +76,6 @@ class ApplicationController < ActionController::Base
   # required due to the I18nProxy used in Rails to trigger the
   # lookup_context and expire the template cache
   def set_gettext_locale
-    if AlaveteliConfiguration.use_default_browser_language
-      browser_locales = request.env['HTTP_ACCEPT_LANGUAGE'].to_s.split(',')
-      browser_locales.map! { _1.split(';', 2)[0] }
-    end
-
     AlaveteliLocalization.set_session_locale(
       stored_locale, *browser_locales, AlaveteliLocalization.default_locale
     )
@@ -264,6 +259,15 @@ class ApplicationController < ActionController::Base
   def stored_locale
     locale = cookies[:locale]
     locale if AlaveteliLocalization.available_locales.include?(locale)
+  end
+
+  # The locales from the browser's Accept-Language header, in the order given
+  def browser_locales
+    return [] unless AlaveteliConfiguration.use_default_browser_language
+
+    request.env['HTTP_ACCEPT_LANGUAGE'].to_s.split(',').map do
+      _1.split(';', 2)[0]
+    end
   end
 
   # Override the Rails method to only set the CSRF form token if there is a
