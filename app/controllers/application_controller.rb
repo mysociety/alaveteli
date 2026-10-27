@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   PER_PAGE = 25
 
   before_action :set_gettext_locale, :store_gettext_locale
-  before_action :redirect_gettext_locale, :collect_locales
+  before_action :redirect_gettext_locale
 
   protect_from_forgery if: :authenticated?, with: :exception
   skip_before_action :verify_authenticity_token, unless: :authenticated?
@@ -494,20 +494,6 @@ class ApplicationController < ActionController::Base
   # Returns a Hash
   def sanitize_path(params)
     params.merge!(path: Rack::Utils.escape(params[:path])) if params.key?(:path)
-  end
-
-  # Collect the current and available locales for the locale switcher
-  #
-  # Returns a Hash
-  def collect_locales
-    @locales = { current: AlaveteliLocalization.locale, available: [] }
-    AlaveteliLocalization.available_locales.each do |possible_locale|
-      if possible_locale == AlaveteliLocalization.locale
-        @locales[:current] = possible_locale
-      else
-        @locales[:available] << possible_locale
-      end
-    end
   end
 
   # URL generating functions are needed by all controllers (for redirects),

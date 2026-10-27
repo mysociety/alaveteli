@@ -1,15 +1,22 @@
 <div id="user_locale_switcher" class="locale-list">
-  <% if @locales[:available].any? %>
-    <p class="locale-list-trigger <% @locales[:current] %>">
-      <strong class="current-locale" tabindex="0"><%= locale_name(@locales[:current]) %></strong>
+  <% if switchable_locales.any? %>
+    <p class="locale-list-trigger">
+      <strong class="current-locale" tabindex="0"><%= locale_name(current_locale) %></strong>
     </p>
 
-    <ul class="available-languages">
-      <% @locales[:available].each do |locale| %>
-        <li class="available-languages__item">
-          <%= link_to locale_name(locale), current_path_with_locale(locale) %>
-        </li>
-      <% end %>
-    </ul>
+    <%= form_tag locale_path, method: :put, class: 'available-languages-form' do %>
+      <%= hidden_field_tag :return_to, request.fullpath, id: nil %>
+
+      <ul class="available-languages">
+        <% switchable_locales.each do |locale| %>
+          <li class="available-languages__item">
+            <%= button_tag locale_name(locale),
+                           name: :locale,
+                           value: locale,
+                           class: 'available-languages__option' %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
   <% end %>
   </div>

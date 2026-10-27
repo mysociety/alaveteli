@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Switch locale by submitting a form rather than following a link to stop
+  crawlers requesting every page in every locale (Gareth Rees)
 * Remove the similar requests page (Gareth Rees)
 * Stop robots.txt blocking authorities whose name begins with "tor", such as
   Torfaen and Torbay (Ben Fairless)
@@ -204,6 +206,24 @@
   production configuration for `inbound_emails`. See
   `config/storage.yml-example` as an example.
 
+* _Required:_ The locale switcher now submits a form to `PUT /locale` rather
+  than linking to `?locale=`. The `@locales` instance variable and the
+  `current_path_with_locale` helper have been removed; use the new
+  `current_locale` and `switchable_locales` helpers instead. Themes that
+  override `general/_locale_switcher.html.erb` must be updated.
+
+  Each available language is now a
+  `<button class="available-languages__option">` rather than an `<a>`, and the
+  list is wrapped in a `<form class="available-languages-form">`. The buttons
+  are styled to look like links by default, but themes that style the locale
+  links with element selectors (e.g. `.available-languages a`) must also target
+  the new class:
+
+      .locale-list .available-languages a,
+      .locale-list .available-languages .available-languages__option {
+        ...
+      }
+
 * _Optional:_ The new ATI Network Impacts Showcase page can be disabled by
   adding a configuration setting in the theme controller patches:
 
@@ -282,6 +302,7 @@ The following templates have been changed. Please use `script/reconcile-theme`
 to update overrides in your theme to match the new templates.
 
     app/views/admin_request/show.html.erb
+    app/views/general/_locale_switcher.html.erb
 
 # 0.46.8.0
 

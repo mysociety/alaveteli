@@ -4,8 +4,8 @@ module StripeHelper
   ].freeze
 
   def stripe_locale
-    if STRIPE_SUPPORTED_LOCALES.include?(@locales[:current])
-      @locales[:current]
+    if STRIPE_SUPPORTED_LOCALES.include?(AlaveteliLocalization.locale)
+      AlaveteliLocalization.locale
     else
       'auto'
     end
