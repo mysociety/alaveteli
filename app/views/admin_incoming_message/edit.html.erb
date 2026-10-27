@@ -1,0 +1,80 @@
+<%= render partial: "intro", locals: { incoming_message: @incoming_message } %>
+
+<%= foi_error_messages_for :incoming_message %>
+
+<div class="row">
+  <div class="span12 danger-zone">
+    <h1 class="span12 danger-zone__header">Danger Zone</h1>
+
+    <div class="danger-zone__item">
+
+      <%= form_tag admin_incoming_message_path(@incoming_message), :method => 'put', class: 'span12' do %>
+        <fieldset class="form-horizontal">
+          <legend>Message</legend>
+
+          <div class="control-group">
+            <label class="control-label" for="incoming_message_from_name">From name</label>
+            <div class="controls">
+              <%= text_field "incoming_message", "from_name", class: "span6" %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="incoming_message_from_email">From email</label>
+            <div class="controls">
+              <%= text_field "incoming_message", "from_email", class: "span6" %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="incoming_message_from_email_domain">From email domain</label>
+            <div class="controls">
+              <%= text_field "incoming_message", "from_email_domain", class: "span6" %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="incoming_message_subject">Subject</label>
+            <div class="controls">
+              <%= text_field "incoming_message", "subject", class: "span6" %>
+            </div>
+          </div>
+
+          <div class="span7">
+            <p>
+            <strong>Edit this message</strong>
+            </p>
+
+            <details>
+              <summary>
+                Editing this message will:
+              </summary>
+
+              <ul>
+                <li>lock all of its attachments</li>
+                <li>erase the underlying raw email</li>
+              </ul>
+              This means:
+              <ul>
+                <li>New censor rules will not be applied to the message nor its attachments</li>
+                <li>If you need to modify any attachment for this message, do it <em>before</em> modifying this message.</li>
+              </ul>
+            </p>
+            </details>
+          </div>
+
+          <div class="input-append span4">
+            <%= text_field_tag "edit_reason", '',
+                             placeholder: 'Reason for edit',
+                             required: true %>
+
+            <%= submit_tag 'Save',
+                         name: :save_incoming_message,
+                         class: 'btn btn-danger',
+                         data: { confirm: 'Are you sure? This is irreversible.' } %>
+          </div>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>
