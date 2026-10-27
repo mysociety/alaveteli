@@ -204,7 +204,7 @@ group :test, :development do
   gem 'factory_bot_rails', '~> 6.5.1'
   gem 'rspec-activemodel-mocks', '~> 1.3.0'
   gem 'rspec-rails', '~> 8.0.4'
-  gem 'pry', '~> 0.16.0'
+  gem 'pry', '~> 0.16.1'
 end
 
 group :development do
