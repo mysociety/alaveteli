@@ -748,7 +748,7 @@ Rails.application.routes.draw do
   scope '/admin', :as => 'admin' do
     resources :incoming_messages,
       :controller => 'admin_incoming_message',
-      :only => [:show, :update, :destroy]
+      :only => [:edit, :show, :update, :destroy]
     resource :incoming_messages,
       :controller => 'admin_incoming_message' do
         post 'bulk_destroy'
