@@ -96,6 +96,11 @@ class GeneralController < ApplicationController
     @query = combined.join("/")
     params[:query] = @query if params[:query].nil?
     if @variety_postfix != "all" && @requests
+      text = params[:query]
+      filters = params.slice(
+        :latest_status, :request_variety,
+        :request_date_after, :request_date_before, :tag
+      )
       @query = InfoRequestEvent.make_query_from_params(params)
     end
     @inputted_sortby = @sortby
@@ -129,7 +134,9 @@ class GeneralController < ApplicationController
     @request_result_count = @body_result_count = @user_result_count = 0
     @total_hits = 0
     if @requests
-      @request_results = perform_request_search(@query, @sortby)
+      @request_results = perform_request_search(
+        text || @query, @sortby, filters: filters
+      )
       @requests_per_page = @per_page
       @request_result_count = @request_results.results.size
       @request_total_count = @request_results.matches_estimated

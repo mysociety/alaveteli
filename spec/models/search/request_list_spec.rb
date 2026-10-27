@@ -14,6 +14,21 @@ RSpec.describe Search::RequestList do
       expect(result).not_to include(waiting)
     end
 
+    it 'filters by awaiting and another status together' do
+      successful = FactoryBot.create(:info_request)
+      successful.set_described_state('successful')
+      awaiting = FactoryBot.create(:info_request)
+      rejected = FactoryBot.create(:info_request)
+      rejected.set_described_state('rejected')
+
+      result = described_class.new(
+        { latest_status: %w[awaiting successful] }, 1, 25, 100
+      ).call
+
+      expect(result).to include(successful, awaiting)
+      expect(result).not_to include(rejected)
+    end
+
     it 'filters by a status view a theme adds' do
       appealed = FactoryBot.create(:info_request)
       appealed.update_column(:described_state, 'appealed')
@@ -29,6 +44,38 @@ RSpec.describe Search::RequestList do
       expect(list.call).to eq([appealed])
     end
 
+    it 'filters searchable requests by their authority' do
+      public_body = FactoryBot.create(:public_body)
+      to_body = FactoryBot.create(:info_request, public_body: public_body)
+      FactoryBot.create(:info_request)
+
+      result = described_class.
+               new({ public_body: public_body }, 1, 25, 100).call
+
+      expect(result).to eq([to_body])
+    end
+
+    it 'filters searchable requests by their requester' do
+      user = FactoryBot.create(:user)
+      by_user = FactoryBot.create(:info_request, user: user)
+      FactoryBot.create(:info_request)
+
+      result = described_class.new({ user: user }, 1, 25, 100).call
+
+      expect(result).to eq([by_user])
+    end
+
+    it 'filters searchable requests by their described state' do
+      rejected = FactoryBot.create(:info_request)
+      rejected.set_described_state('rejected')
+      FactoryBot.create(:info_request)
+
+      result = described_class.
+               new({ described_state: 'rejected' }, 1, 25, 100).call
+
+      expect(result).to eq([rejected])
+    end
+
     it 'restricts by a free-text query through the search backend' do
       match = FactoryBot.create(:info_request)
       stub_request_search_results(items: [match])
@@ -37,6 +84,18 @@ RSpec.describe Search::RequestList do
                new({ query: 'badger', latest_status: 'all' }, 1, 25, 100).call
 
       expect(result).to eq([match])
+    end
+
+    it 'searches only the filtered requests', :postgresql, :reindex_inline do
+      FactoryBot.create(:info_request, title: 'Ptarmigan ptarmigan')
+      tagged = FactoryBot.create(:info_request, title: 'Ptarmigan',
+                                                tag_string: 'bird:grouse')
+
+      result = described_class.new(
+        { tag: 'bird:grouse', query: 'ptarmigan' }, 1, 25, 1
+      ).call
+
+      expect(result).to eq([tagged])
     end
 
     context 'with a date range' do
@@ -80,6 +139,42 @@ RSpec.describe Search::RequestList do
                     request_date_before: '2000-12-31')).
           to contain_exactly(old, recent)
       end
+    end
+
+    it 'filters by the variety of their searchable events' do
+      commented = FactoryBot.create(:comment_event).info_request
+      responded = FactoryBot.create(:info_request_with_incoming)
+      sent = FactoryBot.create(:info_request)
+
+      result = described_class.new(
+        { request_variety: %w[response comment] }, 1, 25, 100
+      ).call
+
+      expect(result).to include(commented, responded)
+      expect(result).not_to include(sent)
+    end
+
+    it 'skips the variety check when every variety is chosen' do
+      request = FactoryBot.create(:info_request)
+      request.outgoing_messages.update_all(prominence: 'hidden')
+
+      result = described_class.new(
+        { request_variety: %w[sent response comment] }, 1, 25, 100
+      ).call
+
+      expect(result).to include(request)
+    end
+
+    it 'matches the variety and the date range on one event' do
+      request = FactoryBot.create(:info_request_with_incoming)
+      request.info_request_events.where(event_type: 'sent').
+        update_all(created_at: '2000-06-01')
+
+      old = { request_variety: %w[response], request_date_before: '2000-12-31' }
+      new = { request_variety: %w[response], request_date_after: '2001-01-01' }
+
+      expect(described_class.new(old, 1, 25, 100).call).not_to include(request)
+      expect(described_class.new(new, 1, 25, 100).call).to include(request)
     end
 
     it 'returns one page, counting every match' do
