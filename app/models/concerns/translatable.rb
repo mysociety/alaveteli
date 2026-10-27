@@ -15,7 +15,7 @@ module Translatable
 
   def ordered_translations
     translations.
-      select { |translation| AlaveteliLocalization.available_locales.include?(translation.locale.to_s) }.
+      select { |translation| AlaveteliLocalization.available_locale?(translation.locale.to_s) }.
       sort_by { |translation| AlaveteliLocalization.available_locales.index(translation.locale.to_s) }
   end
 

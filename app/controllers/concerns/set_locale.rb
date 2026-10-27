@@ -38,7 +38,7 @@ module SetLocale
   # #store_gettext_locale then replaces an unavailable locale.
   def stored_locale
     locale = cookies[:locale]
-    locale if AlaveteliLocalization.available_locales.include?(locale)
+    locale if AlaveteliLocalization.available_locale?(locale)
   end
 
   # The locales from the browser's Accept-Language header, in the order given
