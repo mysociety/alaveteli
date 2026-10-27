@@ -42,6 +42,25 @@ RSpec.describe 'when generating URLs' do
     expect(response.headers['Content-Language']).to eq('en')
   end
 
+  it 'uses the stored locale over the request header' do
+    cookies['locale'] = 'en_GB'
+    get '/', headers: { 'HTTP_ACCEPT_LANGUAGE' => 'en' }
+    expect(response.headers['Content-Language']).to eq('en-GB')
+    expect(cookies['locale']).to eq('en_GB')
+  end
+
+  it 'falls back to the request header if the stored locale is unavailable' do
+    cookies['locale'] = 'fr'
+    get '/', headers: { 'HTTP_ACCEPT_LANGUAGE' => 'en' }
+    expect(response.headers['Content-Language']).to eq('en')
+  end
+
+  it 'replaces an unavailable stored locale' do
+    cookies['locale'] = 'fr'
+    get '/'
+    expect(cookies['locale']).to eq('es')
+  end
+
   it 'remembers user selection of default locale when browser prefers different language' do
     headers = { 'HTTP_ACCEPT_LANGUAGE' => 'en' }
     put '/locale', params: { locale: 'es', return_to: '/' }, headers: headers

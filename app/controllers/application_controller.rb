@@ -82,7 +82,7 @@ class ApplicationController < ActionController::Base
     end
 
     AlaveteliLocalization.set_session_locale(
-      cookies[:locale], *browser_locales, AlaveteliLocalization.default_locale
+      stored_locale, *browser_locales, AlaveteliLocalization.default_locale
     )
 
     # set response header informing the browser what language the page is in
@@ -257,6 +257,14 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  # The locale stored in the cookie, unless it's no longer available, so that
+  # we fall back to the browser's preference rather than the default.
+  # #store_gettext_locale then replaces an unavailable locale.
+  def stored_locale
+    locale = cookies[:locale]
+    locale if AlaveteliLocalization.available_locales.include?(locale)
+  end
 
   # Override the Rails method to only set the CSRF form token if there is a
   # logged in user
