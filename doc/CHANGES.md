@@ -12,6 +12,8 @@
   resuming where an interrupted run stopped (Graeme Porteous)
 * Fix errors and slow searches caused by invalid page sizes (Graeme Porteous)
 * Fix search and request excerpts missing public attachments (Graeme Porteous)
+* Add trigram index on public bodies and users to back exact search (Laurent
+  Savaete)
 * Update request listings to work via the request itself; filtering by status,
   date and tag in the database rather than the search index (Graeme Porteous)
 * Fix command injection in the admin holiday feed import, and only fetch
