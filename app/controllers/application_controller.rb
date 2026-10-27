@@ -17,7 +17,6 @@ class ApplicationController < ActionController::Base
   PER_PAGE = 25
 
   before_action :set_gettext_locale, :store_gettext_locale
-  before_action :redirect_gettext_locale
 
   protect_from_forgery if: :authenticated?, with: :exception
   skip_before_action :verify_authenticity_token, unless: :authenticated?
@@ -77,16 +76,13 @@ class ApplicationController < ActionController::Base
   # required due to the I18nProxy used in Rails to trigger the
   # lookup_context and expire the template cache
   def set_gettext_locale
-    params_locale = params[:locale]
-
     if AlaveteliConfiguration.use_default_browser_language
       browser_locales = request.env['HTTP_ACCEPT_LANGUAGE'].to_s.split(',')
       browser_locales.map! { _1.split(';', 2)[0] }
     end
 
     AlaveteliLocalization.set_session_locale(
-      params_locale, cookies[:locale], *browser_locales,
-      AlaveteliLocalization.default_locale
+      cookies[:locale], *browser_locales, AlaveteliLocalization.default_locale
     )
 
     # set response header informing the browser what language the page is in
@@ -100,11 +96,6 @@ class ApplicationController < ActionController::Base
 
     # ensure current user locale attribute is up-to-date
     current_user.update_column(:locale, locale) if current_user
-  end
-
-  def redirect_gettext_locale
-    # redirect to remove locale params if present
-    redirect_to current_path_without_locale if params[:locale]
   end
 
   # Help work out which request causes RAM spike.

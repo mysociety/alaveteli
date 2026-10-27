@@ -2,8 +2,6 @@
 # Controller responsible for switching the user's locale.
 #
 class LocalesController < ApplicationController
-  skip_before_action :redirect_gettext_locale
-
   def update
     locale = AlaveteliLocalization.set_session_locale(params[:locale])
     cookies[:locale] = locale

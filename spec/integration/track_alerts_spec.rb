@@ -89,14 +89,14 @@ RSpec.describe "When sending track alerts" do
     user = FactoryBot.create(:user, last_daily_track_email: 3.days.ago)
     user_session = login(user)
     using_session(user_session) do
-      visit "/es"
+      visit "/request/#{info_request.url_title}"
+      click_button 'español'
       visit "/request/#{info_request.url_title}/track"
     end
 
     other_user = FactoryBot.create(:user)
     other_user_session = login(other_user)
     using_session(other_user_session) do
-      visit "/en"
       visit "/request/#{info_request.url_title}/annotate"
       fill_in "comment[body]", with: 'test comment'
       click_button 'Preview your annotation'

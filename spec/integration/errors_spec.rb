@@ -82,8 +82,7 @@ RSpec.describe "When errors occur" do
 
     it 'should assign the locale for the general/exception_caught template' do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise("An example error")
-      get "/es"
-      follow_redirect!
+      put '/locale', params: { locale: 'es', return_to: '/' }
       get "/request/example"
       expect(response).to render_template('general/exception_caught')
       expect(response.body).to match('Lo sentimos, hubo un problema procesando esta página')

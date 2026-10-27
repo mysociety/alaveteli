@@ -4,6 +4,8 @@
 
 * Switch locale by submitting a form rather than following a link to stop
   crawlers requesting every page in every locale (Gareth Rees)
+* Stop the `locale` param and locale path prefixes switching locale (Gareth
+  Rees)
 * Remove the similar requests page (Gareth Rees)
 * Stop robots.txt blocking authorities whose name begins with "tor", such as
   Torfaen and Torbay (Ben Fairless)
@@ -223,6 +225,12 @@
       .locale-list .available-languages .available-languages__option {
         ...
       }
+
+* _Optional:_ The `?locale=` param and old style locale path prefixes (e.g.
+  `/es/body/x`) no longer switch the locale; they are stripped by redirecting
+  to the same page in the current locale. The `current_path_without_locale`
+  helper has been removed. Themes that generate links with the locale param
+  should remove them and consider an alternative.
 
 * _Optional:_ The new ATI Network Impacts Showcase page can be disabled by
   adding a configuration setting in the theme controller patches:
