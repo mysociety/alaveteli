@@ -15,8 +15,8 @@ class RequestController < ApplicationController
   before_action :set_info_request, only: [:show]
   before_action :redirect_new_form_to_pro_version, only: [:select_authority, :new]
   before_action :set_in_pro_area, only: [:select_authority, :show]
-  before_action :setup_results_pagination, only: [:list, :similar]
-  before_action :set_no_crawl_headers, only: [:new, :details, :similar]
+  before_action :setup_results_pagination, only: [:list]
+  before_action :set_no_crawl_headers, only: [:new, :details]
 
   helper_method :state_transitions_empty?
 
@@ -109,22 +109,6 @@ class RequestController < ApplicationController
     long_cache
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
     return render_hidden if cannot?(:read, @info_request)
-  end
-
-  # Requests similar to this one
-  def similar
-    short_cache
-
-    @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-
-    return render_hidden if cannot?(:read, @info_request)
-
-    @results = @info_request.similar_requests.results(
-      page: @page,
-      per_page: @per_page
-    )
-    @matches_estimated = @results.matches_estimated
-    @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
   end
 
   def list
@@ -447,7 +431,7 @@ class RequestController < ApplicationController
 
     @show_action_menu = !@render_to_file
 
-    @similar_requests, @similar_more = @info_request.similar_requests.first(10)
+    @similar_requests, = @info_request.similar_requests.first(10)
 
     @citations = @info_request.citations.newest(3)
   end

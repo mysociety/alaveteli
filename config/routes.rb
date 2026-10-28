@@ -133,10 +133,6 @@ Rails.application.routes.draw do
   match '/request/:url_title/details' => 'request#details',
         :as => :details_request,
         :via => :get
-  match '/request/:url_title/similar' => 'request#similar',
-        :as => :similar_request,
-        :via => :get
-
   match '/request/:request_url_title/response/:incoming_message_id/attach' \
         '/html/(:part(/*file_name))' => 'attachments#show_as_html',
         :format => false,

@@ -11,11 +11,4 @@
                locals: { info_request: info_request,
                          utm_params: utm_params } %>
   <% end %>
-
-  <% if similar_more %>
-    <p class="sidebar_similar_requests__more-link">
-      <% path = similar_request_path(info_request.url_title, utm_params) %>
-      <%= link_to _('More similar requests'), path %>
-    </p>
-  <% end %>
 </div>

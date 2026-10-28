@@ -11,14 +11,12 @@ RSpec.describe 'request/sidebar' do
 
   let(:info_request) { FactoryBot.build(:info_request) }
   let(:similar_requests) { double.as_null_object }
-  let(:similar_more) { double.as_null_object }
   let(:citations) { double.as_null_object }
   let(:ability) { Object.new.extend(CanCan::Ability) }
 
   let(:stub_locals) do
     { info_request: info_request,
       similar_requests: similar_requests,
-      similar_more: similar_more,
       citations: citations }
   end
 

@@ -28,7 +28,6 @@ RSpec.describe "request/show" do
     assign :status, mock_request.calculate_status
     assign :track_thing, mock_track
     assign :similar_requests, double.as_null_object
-    assign :similar_more, double.as_null_object
     assign :citations, double.as_null_object
 
     allow(controller).

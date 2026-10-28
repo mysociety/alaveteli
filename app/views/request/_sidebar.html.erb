@@ -34,9 +34,7 @@
 
   <% if similar_requests.any? %>
     <%= render partial: 'request/similar',
-               locals: { info_request: info_request,
-                         similar_requests: similar_requests,
-                         similar_more: similar_more } %>
+               locals: { similar_requests: similar_requests } %>
   <% end %>
 
   <div class="sidebar__section">

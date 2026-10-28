@@ -52,10 +52,6 @@ get '/:prefix/request/:url_title',
   to: info_request_redirect
 
 get '/:prefix/request/:url_title',
-  constraints: { prefix: 'similar' },
-  to: info_request_redirect
-
-get '/:prefix/request/:url_title',
   constraints: { prefix: 'upload' },
   to: info_request_redirect
 

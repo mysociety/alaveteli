@@ -41,9 +41,6 @@ RSpec.describe 'routing redirects', type: :request do
     get('/details/request/the_cost_of_boring')
     expect(response).to redirect_to('/request/the_cost_of_boring/details')
 
-    get('/similar/request/the_cost_of_boring')
-    expect(response).to redirect_to('/request/the_cost_of_boring/similar')
-
     get('/upload/request/the_cost_of_boring')
     expect(response).to redirect_to('/request/the_cost_of_boring/upload')
 
