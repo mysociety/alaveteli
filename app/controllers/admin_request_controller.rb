@@ -257,7 +257,7 @@ class AdminRequestController < AdminController
     @info_request.expire
 
     msg = "Request status reverted to #{@info_request.described_state}."
-    redirect_to admin_request_url(@info_request), notice: msg
+    redirect_to admin_request_path(@info_request), notice: msg
   end
 
   private
