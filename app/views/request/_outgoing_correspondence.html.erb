@@ -5,7 +5,8 @@
     </h2>
 
     <p class="event_plain">
-      <%= _('A message was sent but has been erased by {{site_name}}.') %>
+      <%= _('A message was sent but has been erased by {{site_name}}.',
+            site_name: site_name) %>
       <% if outgoing_message.prominence_reason.present? %>
         <%= _('Details:') %> <%= outgoing_message.prominence_reason %>
       <% end %>
