@@ -37,7 +37,7 @@
     </div>
   </fieldset>
 
-  <% if !@outgoing_message.erased? %>
+  <% unless @outgoing_message.erased? %>
     <fieldset class="form-horizontal">
       <legend>Message</legend>
 
