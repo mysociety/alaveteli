@@ -468,4 +468,22 @@ RSpec.describe AdminRequestController, "when administering requests" do
       end
     end
   end
+
+  describe 'POST #revert_report' do
+    let(:info_request) { FactoryBot.create(:info_request) }
+
+    before do
+      info_request.report!('Vexatious', 'Please check', FactoryBot.create(:user))
+      sign_in(admin_user)
+      post :revert_report, params: { id: info_request.id }
+    end
+
+    it 'reverts the request to its pre-report status' do
+      expect(info_request.reload.described_state).to eq('waiting_response')
+    end
+
+    it 'redirects to the admin page for the request' do
+      expect(response).to redirect_to admin_request_path(info_request)
+    end
+  end
 end
