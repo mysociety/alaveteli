@@ -255,7 +255,9 @@ class AdminRequestController < AdminController
   def revert_report
     @info_request.revert_report!(editor: admin_current_user)
     @info_request.expire
-    redirect_to admin_request_url(@info_request)
+
+    msg = "Request status reverted to #{@info_request.described_state}."
+    redirect_to admin_request_url(@info_request), notice: msg
   end
 
   private

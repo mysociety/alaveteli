@@ -485,5 +485,10 @@ RSpec.describe AdminRequestController, "when administering requests" do
     it 'redirects to the admin page for the request' do
       expect(response).to redirect_to admin_request_path(info_request)
     end
+
+    it 'confirms the report has been reverted' do
+      expect(flash[:notice]).
+        to eq('Request status reverted to waiting_response.')
+    end
   end
 end
