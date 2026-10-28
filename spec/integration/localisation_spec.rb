@@ -10,18 +10,30 @@ RSpec.describe 'when generating URLs' do
     expect(response.headers['Content-Language']).to eq('es')
   end
 
-  it 'redirects to locale param with old style URL locale' do
-    get '/es'
-    expect(response).to redirect_to('/?locale=es')
-    follow_redirect!
+  it 'redirects to remove old style URL locale' do
+    get '/en'
     expect(response).to redirect_to('/')
+    follow_redirect!
+    expect(response.headers['Content-Language']).to eq('es')
   end
 
-  it 'sets the correct Content-Language via locale param' do
+  it 'redirects to remove locale param without switching locale' do
     get '/', params: { locale: 'en' }
     expect(response).to redirect_to('/')
     follow_redirect!
+    expect(response.headers['Content-Language']).to eq('es')
+  end
+
+  it 'sets the correct Content-Language via the locale switcher' do
+    put '/locale', params: { locale: 'en', return_to: '/' }
+    expect(response).to redirect_to('/')
+    follow_redirect!
     expect(response.headers['Content-Language']).to eq('en')
+  end
+
+  it 'redirects to remove locale param but keep other params' do
+    get '/body/list/all', params: { locale: 'en', page: 2 }
+    expect(response).to redirect_to('/body/list/all?page=2')
   end
 
   it 'sets and remember the correct Content-Language via request header' do
@@ -30,40 +42,56 @@ RSpec.describe 'when generating URLs' do
     expect(response.headers['Content-Language']).to eq('en')
   end
 
+  it 'uses the stored locale over the request header' do
+    cookies['locale'] = 'en_GB'
+    get '/', headers: { 'HTTP_ACCEPT_LANGUAGE' => 'en' }
+    expect(response.headers['Content-Language']).to eq('en-GB')
+    expect(cookies['locale']).to eq('en_GB')
+  end
+
+  it 'falls back to the request header if the stored locale is unavailable' do
+    cookies['locale'] = 'fr'
+    get '/', headers: { 'HTTP_ACCEPT_LANGUAGE' => 'en' }
+    expect(response.headers['Content-Language']).to eq('en')
+  end
+
+  it 'replaces an unavailable stored locale' do
+    cookies['locale'] = 'fr'
+    get '/'
+    expect(cookies['locale']).to eq('es')
+  end
+
   it 'remembers user selection of default locale when browser prefers different language' do
-    get '/', params: { locale: 'es' }, headers: { 'HTTP_ACCEPT_LANGUAGE' => 'en' }
+    headers = { 'HTTP_ACCEPT_LANGUAGE' => 'en' }
+    put '/locale', params: { locale: 'es', return_to: '/' }, headers: headers
     expect(response).to redirect_to('/')
     follow_redirect!
     expect(response.headers['Content-Language']).to eq('es')
 
-    get '/', headers: { 'HTTP_ACCEPT_LANGUAGE' => 'en' }
+    get '/', headers: headers
     expect(response.headers['Content-Language']).to eq('es')
   end
 
   it 'sets correct Content-Language via underscored locale param' do
-    get '/', params: { locale: 'en_GB' }
-    expect(response).to redirect_to('/')
+    put '/locale', params: { locale: 'en_GB', return_to: '/' }
     follow_redirect!
     expect(response.headers['Content-Language']).to eq('en-GB')
   end
 
   it 'sets correct Content-Language via hyphenated locale param' do
-    get '/', params: { locale: 'en-GB' }
-    expect(response).to redirect_to('/')
+    put '/locale', params: { locale: 'en-GB', return_to: '/' }
     follow_redirect!
     expect(response.headers['Content-Language']).to eq('en-GB')
   end
 
   it 'falls back to the language if the territory is unknown' do
-    get '/', params: { locale: 'en_US' }
-    expect(response).to redirect_to('/')
+    put '/locale', params: { locale: 'en_US', return_to: '/' }
     follow_redirect!
     expect(response.headers['Content-Language']).to eq('en')
   end
 
   it 'falls back to the default if the requested locale is unknown' do
-    get '/', params: { locale: 'unknown' }
-    expect(response).to redirect_to('/')
+    put '/locale', params: { locale: 'unknown', return_to: '/' }
     follow_redirect!
     expect(response.headers['Content-Language']).to eq('es')
   end
@@ -83,16 +111,22 @@ RSpec.describe 'when generating URLs' do
       end
     end
 
-    it 'should redirect requests for a public body in a locale to the canonical name in that locale' do
-      get '/es/body/english_short'
-      follow_redirect!
+    it 'should redirect requests for a public body to the canonical name in the current locale' do
+      get '/body/english_short'
       expect(response).to redirect_to '/body/spanish_short'
     end
 
     it 'should remember a filter view when redirecting a public body request to the canonical name' do
-      get '/es/body/english_short/successful'
-      follow_redirect!
+      get '/body/english_short/successful'
       expect(response).to redirect_to '/body/spanish_short/successful'
+    end
+
+    it 'does not switch locale for an old style URL locale' do
+      put '/locale', params: { locale: 'en', return_to: '/' }
+      get '/es/body/spanish_short'
+      expect(response).to redirect_to '/body/spanish_short'
+      follow_redirect!
+      expect(response).to redirect_to '/body/english_short'
     end
   end
 end

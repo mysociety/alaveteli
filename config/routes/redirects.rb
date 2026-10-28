@@ -82,11 +82,21 @@ end
 
 get ':locale',
   constraints: locale_constraint,
-  to: redirect('?locale=%{locale}')
+  to: redirect('/')
 
 get ':locale/*path',
   constraints: locale_constraint,
-  to: redirect('%{path}?locale=%{locale}')
+  to: redirect('%{path}')
+
+# The locale can only be switched through LocalesController, so remove the old
+# locale param without switching
+get '(*path)',
+  format: false,
+  constraints: ->(request) { request.query_parameters.key?('locale') },
+  to: redirect { |_params, request|
+    query = request.query_parameters.except('locale').to_query
+    [request.path, query.presence].compact.join('?')
+  }
 
 constraints FeatureConstraint.new(:alaveteli_pro) do
   get '/alaveteli_pro/info_requests/:url_title',

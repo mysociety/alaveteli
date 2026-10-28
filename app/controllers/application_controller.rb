@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
   MAX_RESULTS = 500
   PER_PAGE = 25
 
-  before_action :set_gettext_locale, :store_gettext_locale
-  before_action :redirect_gettext_locale, :collect_locales
+  # Included early so that the before_action runs before others
+  include SetLocale
 
   protect_from_forgery if: :authenticated?, with: :exception
   skip_before_action :verify_authenticity_token, unless: :authenticated?
@@ -70,41 +70,6 @@ class ApplicationController < ActionController::Base
 
   def long_cache
     anonymous_cache(24.hours)
-  end
-
-  # This is an override of the method provided by gettext_i18n_rails.
-  # AlaveteliLocalization.set_session_locale explicitly sets I18n.locale,
-  # required due to the I18nProxy used in Rails to trigger the
-  # lookup_context and expire the template cache
-  def set_gettext_locale
-    params_locale = params[:locale]
-
-    if AlaveteliConfiguration.use_default_browser_language
-      browser_locales = request.env['HTTP_ACCEPT_LANGUAGE'].to_s.split(',')
-      browser_locales.map! { _1.split(';', 2)[0] }
-    end
-
-    AlaveteliLocalization.set_session_locale(
-      params_locale, cookies[:locale], *browser_locales,
-      AlaveteliLocalization.default_locale
-    )
-
-    # set response header informing the browser what language the page is in
-    response.headers['Content-Language'] = I18n.locale.to_s
-  end
-
-  def store_gettext_locale
-    # set the current stored locale to the requested_locale
-    locale = AlaveteliLocalization.locale
-    cookies[:locale] = locale
-
-    # ensure current user locale attribute is up-to-date
-    current_user.update_column(:locale, locale) if current_user
-  end
-
-  def redirect_gettext_locale
-    # redirect to remove locale params if present
-    redirect_to current_path_without_locale if params[:locale]
   end
 
   # Help work out which request causes RAM spike.
@@ -494,20 +459,6 @@ class ApplicationController < ActionController::Base
   # Returns a Hash
   def sanitize_path(params)
     params.merge!(path: Rack::Utils.escape(params[:path])) if params.key?(:path)
-  end
-
-  # Collect the current and available locales for the locale switcher
-  #
-  # Returns a Hash
-  def collect_locales
-    @locales = { current: AlaveteliLocalization.locale, available: [] }
-    AlaveteliLocalization.available_locales.each do |possible_locale|
-      if possible_locale == AlaveteliLocalization.locale
-        @locales[:current] = possible_locale
-      else
-        @locales[:available] << possible_locale
-      end
-    end
   end
 
   # URL generating functions are needed by all controllers (for redirects),

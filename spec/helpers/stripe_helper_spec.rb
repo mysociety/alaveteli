@@ -2,15 +2,11 @@ require 'spec_helper'
 
 RSpec.describe StripeHelper do
   describe '#stripe_locale' do
-    class MockHelper
-      include StripeHelper
+    subject { helper.stripe_locale }
 
-      def initialize(locale)
-        @locales = { current: locale }
-      end
+    before do
+      allow(AlaveteliLocalization).to receive(:locale).and_return(locale)
     end
-
-    subject { MockHelper.new(locale).stripe_locale }
 
     context 'current local supported by Stripe' do
       let(:locale) { 'en' }

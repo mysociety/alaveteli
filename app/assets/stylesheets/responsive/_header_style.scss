@@ -63,6 +63,25 @@
       background-color: inherit;
     }
   }
+
+  // Submits a form to switch locale, but should look like a link
+  .available-languages__option {
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    font: inherit;
+    line-height: inherit;
+    color: #075292;
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover,
+    &:active,
+    &:focus {
+      background: none;
+      color: #333333;
+    }
+  }
 }
 
 .logged_in_bar {

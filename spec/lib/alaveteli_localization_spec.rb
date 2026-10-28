@@ -242,6 +242,30 @@ RSpec.describe AlaveteliLocalization do
     end
   end
 
+  describe '.available_locale?' do
+    before { AlaveteliLocalization.set_locales('en_GB es', 'en_GB') }
+
+    it 'returns true if the supplied locale is available' do
+      expect(AlaveteliLocalization.available_locale?('es')).to eq(true)
+    end
+
+    it 'returns false if the supplied locale is not available' do
+      expect(AlaveteliLocalization.available_locale?('fr')).to eq(false)
+    end
+
+    it 'accepts symbol formatted locales' do
+      expect(AlaveteliLocalization.available_locale?(:en_GB)).to eq(true)
+    end
+
+    it 'returns false if the supplied locale is blank' do
+      expect(AlaveteliLocalization.available_locale?('')).to eq(false)
+    end
+
+    it 'returns false if the supplied locale is nil' do
+      expect(AlaveteliLocalization.available_locale?(nil)).to eq(false)
+    end
+  end
+
   describe '.html_lang' do
     it 'returns the current locale' do
       expect(AlaveteliLocalization.html_lang).to eq('en')

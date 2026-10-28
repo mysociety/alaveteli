@@ -222,66 +222,6 @@ RSpec.describe LinkToHelper do
     end
   end
 
-  describe '#current_path_without_locale' do
-    before do
-      AlaveteliLocalization.set_locales('en cy', 'en')
-    end
-
-    it 'removes locale from current path' do
-      allow(controller).to receive(:params).and_return(
-        ActionController::Parameters.new(
-          controller: 'public_body', action: 'show',
-          url_name: 'welsh_government', view: 'all',
-          locale: 'cy'
-        )
-      )
-      expect(current_path_without_locale).
-        to eq '/body/welsh_government'
-    end
-
-    it 'ignores current protocol and host' do
-      allow(controller).to receive(:params).and_return(
-        ActionController::Parameters.new(
-          controller: 'public_body', action: 'show',
-          url_name: 'welsh_government', view: 'all',
-          protocol: 'http', host: 'example.com',
-          locale: 'cy'
-        )
-      )
-      expect(current_path_without_locale).
-        to eq '/body/welsh_government'
-    end
-  end
-
-  describe '#current_path_with_locale' do
-    before do
-      AlaveteliLocalization.set_locales('en cy', 'en')
-    end
-
-    it 'adds locale parameter to current path' do
-      allow(controller).to receive(:params).and_return(
-        ActionController::Parameters.new(
-          controller: 'public_body', action: 'show',
-          url_name: 'welsh_government', view: 'all'
-        )
-      )
-      expect(current_path_with_locale('cy')).
-        to eq '/body/welsh_government?locale=cy'
-    end
-
-    it 'ignores current protocol and host' do
-      allow(controller).to receive(:params).and_return(
-        ActionController::Parameters.new(
-          controller: 'public_body', action: 'show',
-          url_name: 'welsh_government', view: 'all',
-          protocol: 'http', host: 'example.com'
-        )
-      )
-      expect(current_path_with_locale('cy')).
-        to eq '/body/welsh_government?locale=cy'
-    end
-  end
-
   describe '#current_path_as_json' do
     it 'appends current path with json format' do
       allow(controller).to receive(:params).and_return(

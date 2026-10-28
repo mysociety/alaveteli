@@ -48,6 +48,12 @@ class AlaveteliLocalization
       FastGettext.available_locales
     end
 
+    def available_locale?(other)
+      return false if other.blank?
+
+      available_locales.include?(other.to_s)
+    end
+
     def default_locale
       FastGettext.default_locale
     end

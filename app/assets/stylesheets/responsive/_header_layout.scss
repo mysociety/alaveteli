@@ -246,7 +246,8 @@
   }
 
   a,
-  .locale-list-trigger {
+  .locale-list-trigger,
+  .available-languages__option {
     display: block;
     padding: 0.5em 1em;
     @include respond-min( $main_menu-mobile_menu_cutoff ) {
@@ -254,6 +255,20 @@
       padding: 0 0.35em;
     }
   }
+
+  .available-languages__option {
+    width: 100%;
+    margin: 0;
+    text-align: left;
+    @include respond-min( $main_menu-mobile_menu_cutoff ) {
+      width: auto;
+    }
+  }
+}
+
+.available-languages-form {
+  display: inline;
+  margin: 0;
 }
 
 .locale-list-trigger {
