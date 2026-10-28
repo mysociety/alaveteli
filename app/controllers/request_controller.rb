@@ -7,6 +7,8 @@
 require 'zip'
 
 class RequestController < ApplicationController
+  SIMILAR_REQUESTS_LIMIT = 25
+
   read_only :requests, only: [:new]
 
   skip_before_action :html_response, only: [:show, :select_authorities]
@@ -15,7 +17,7 @@ class RequestController < ApplicationController
   before_action :set_info_request, only: [:show]
   before_action :redirect_new_form_to_pro_version, only: [:select_authority, :new]
   before_action :set_in_pro_area, only: [:select_authority, :show]
-  before_action :setup_results_pagination, only: [:list, :similar]
+  before_action :setup_results_pagination, only: [:list]
   before_action :set_no_crawl_headers, only: [:new, :details, :similar]
 
   helper_method :state_transitions_empty?
@@ -120,11 +122,8 @@ class RequestController < ApplicationController
     return render_hidden if cannot?(:read, @info_request)
 
     @results = @info_request.similar_requests.results(
-      page: @page,
-      per_page: @per_page
+      per_page: SIMILAR_REQUESTS_LIMIT
     )
-    @matches_estimated = @results.matches_estimated
-    @show_no_more_than = (@matches_estimated > MAX_RESULTS) ? MAX_RESULTS : @matches_estimated
   end
 
   def list

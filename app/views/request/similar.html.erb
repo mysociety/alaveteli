@@ -1,21 +1,9 @@
-<%- if @page > 1 %>
-  <%- @title = _("Requests similar to '{{request_title}}' (page {{page}})",
-                 :page => @page,
-                 :request_title => @info_request.title) %>
-<%- else %>
-  <%- @title = _("Requests similar to '{{request_title}}'",
-                 :request_title => @info_request.title) %>
-<%- end %>
+<%- @title = _("Requests similar to '{{request_title}}'",
+               :request_title => @info_request.title) %>
 
 <h1>
-  <%- if @page > 1 %>
-    <%= _("Requests similar to '{{request_title}}' (page {{page}})",
-          :page => @page,
-          :request_title => request_link(@info_request)) %>
-  <%- else %>
-    <%= _("Requests similar to '{{request_title}}'",
-          :request_title => request_link(@info_request)) %>
-  <%- end %>
+  <%= _("Requests similar to '{{request_title}}'",
+        :request_title => request_link(@info_request)) %>
 </h1>
 
 <% if @results.empty? %>
@@ -26,5 +14,3 @@
                locals: { info_request: info_request } %>
   <% end %>
 <% end %>
-
-<%= will_paginate WillPaginate::Collection.new(@page, @per_page, @show_no_more_than) %>

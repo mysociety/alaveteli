@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Limit the list of similar requests to 25 results (Gareth Rees, Matthew
+  Somerville)
 * Stop robots.txt blocking authorities whose name begins with "tor", such as
   Torfaen and Torbay (Ben Fairless)
 * Render robots.txt from a template, so deployments and themes can customise

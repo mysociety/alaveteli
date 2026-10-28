@@ -1843,14 +1843,18 @@ RSpec.describe RequestController, "when showing similar requests" do
     }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
-  it "raises ActiveRecord::RecordNotFound for pages beyond the last
-      page we want to show" do
-    expect {
-      get :similar, params: {
-        url_title: badger_request.url_title,
-        page: 100
-      }
-    }.to raise_error(ActiveRecord::RecordNotFound)
+  it 'fetches a single page of up to 25 similar requests' do
+    stub_similar_requests
+    get :similar, params: { url_title: badger_request.url_title }
+    expect(Search.similar(badger_request)).
+      to have_received(:results).with(per_page: 25)
+  end
+
+  it 'ignores the page param' do
+    stub_similar_requests
+    get :similar, params: { url_title: badger_request.url_title, page: 100 }
+    expect(Search.similar(badger_request)).
+      to have_received(:results).with(per_page: 25)
   end
 
   it 'raises ActiveRecord::RecordNotFound if the request is embargoed' do
