@@ -710,6 +710,14 @@ RSpec.describe OutgoingMessage do
         expect(outgoing_message.errors[:from_name]).to be_empty
       end
     end
+
+    context 'when the message has been erased' do
+      let(:outgoing_message) { FactoryBot.create(:initial_request, :erased) }
+
+      it 'does not fall back to the request user name' do
+        is_expected.to eq(nil)
+      end
+    end
   end
 
   describe '#safe_from_name' do
