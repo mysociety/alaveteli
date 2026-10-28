@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Remove the similar requests page (Gareth Rees)
 * Stop robots.txt blocking authorities whose name begins with "tor", such as
   Torfaen and Torbay (Ben Fairless)
 * Render robots.txt from a template, so deployments and themes can customise
