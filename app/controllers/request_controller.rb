@@ -7,8 +7,6 @@
 require 'zip'
 
 class RequestController < ApplicationController
-  SIMILAR_REQUESTS_LIMIT = 25
-
   read_only :requests, only: [:new]
 
   skip_before_action :html_response, only: [:show, :select_authorities]
@@ -18,7 +16,7 @@ class RequestController < ApplicationController
   before_action :redirect_new_form_to_pro_version, only: [:select_authority, :new]
   before_action :set_in_pro_area, only: [:select_authority, :show]
   before_action :setup_results_pagination, only: [:list]
-  before_action :set_no_crawl_headers, only: [:new, :details, :similar]
+  before_action :set_no_crawl_headers, only: [:new, :details]
 
   helper_method :state_transitions_empty?
 
@@ -111,19 +109,6 @@ class RequestController < ApplicationController
     long_cache
     @info_request = InfoRequest.find_by_url_title!(params[:url_title])
     return render_hidden if cannot?(:read, @info_request)
-  end
-
-  # Requests similar to this one
-  def similar
-    short_cache
-
-    @info_request = InfoRequest.find_by_url_title!(params[:url_title])
-
-    return render_hidden if cannot?(:read, @info_request)
-
-    @results = @info_request.similar_requests.results(
-      per_page: SIMILAR_REQUESTS_LIMIT
-    )
   end
 
   def list

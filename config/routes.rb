@@ -133,7 +133,7 @@ Rails.application.routes.draw do
   match '/request/:url_title/details' => 'request#details',
         :as => :details_request,
         :via => :get
-  match '/request/:url_title/similar' => 'request#similar',
+  match '/request/:url_title/similar' => 'info_requests/similar#index',
         :as => :similar_request,
         :via => :get
 
