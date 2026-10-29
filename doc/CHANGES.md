@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add button to revert status of requests marked for admin attention (Laurent
+  Savaete)
 * Switch locale by submitting a form rather than following a link to stop
   crawlers requesting every page in every locale (Gareth Rees)
 * Stop the `locale` param and locale path prefixes switching locale (Gareth
