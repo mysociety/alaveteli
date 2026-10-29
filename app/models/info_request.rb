@@ -801,11 +801,11 @@ class InfoRequest < ApplicationRecord
     revert_to_state = nil
     info_request_events.reverse.each do |event|
       if revert_to_state.nil?
-        revert_to_state = 
+        revert_to_state =
           event.described_state unless
-            %w[attention_requested requires_admin].include?(
-                event.described_state
-            )
+        %w[attention_requested requires_admin].include?(
+          event.described_state
+        )
       end
       break if revert_to_state
     end
