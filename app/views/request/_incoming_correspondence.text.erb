@@ -1,6 +1,7 @@
 <% if incoming_message.erased? %>
   <%= _('Date:') %> <%= simple_date(incoming_message.created_at, :format => :text) %>
-  <%= _('A message was received but has been erased by {{site_name}}') %>
+  <%= _('A message was received but has been erased by {{site_name}}.',
+        site_name: site_name) %>
 <% else %>
   <%= render partial:  'request/prominence',
              formats: [:text],
