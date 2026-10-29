@@ -16,7 +16,8 @@ class Admin::IncomingMessages::ErasuresController < AdminController
 
       flash[:notice] = 'Incoming message erasure has been queued.'
     end
-    redirect_to edit_admin_incoming_message_url(@incoming_message)
+
+    redirect_to edit_admin_incoming_message_path(@incoming_message)
   end
 
   private
