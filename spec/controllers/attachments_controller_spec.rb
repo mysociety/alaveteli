@@ -34,6 +34,7 @@ RSpec.describe AttachmentsController, type: :controller do
     expect(response.media_type).to eq('text/html')
     expect(response).to render_template(hidden_template)
     expect(response.code).to eq('403')
+    expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
   end
 
   describe 'GET show' do

@@ -148,6 +148,8 @@ RSpec.describe FollowupsController do
         it "does not show the form, even to the request owner" do
           get :new, params: { request_url_title: hidden_request.url_title }
           expect(response).to render_template('request/hidden')
+          expect(response.headers['X-Robots-Tag']).
+            to eq 'noindex, nofollow'
         end
 
         it 'responds to a json request by raising unknown format error' do

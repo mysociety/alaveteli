@@ -24,6 +24,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
         expect(response).to render_template('request/hidden')
         expect(response.code).to eq('403')
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
 
       it 'does not render the preview' do
@@ -37,6 +38,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
         expect(response).to render_template('request/hidden')
         expect(response.code).to eq('403')
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
     end
 
@@ -54,6 +56,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
         expect(response).to render_template('request/hidden')
         expect(response.code).to eq('403')
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
 
       it 'does not render the preview' do
@@ -67,6 +70,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
         expect(response).to render_template('request/hidden')
         expect(response.code).to eq('403')
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
     end
 
@@ -83,6 +87,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
         expect(response).to render_template('request/hidden')
         expect(response.code).to eq('403')
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
 
       it 'does not render the preview' do
@@ -96,6 +101,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
         expect(response).to render_template('request/hidden')
         expect(response.code).to eq('403')
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
     end
   end
@@ -115,6 +121,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
         expect(response).to render_template('request/hidden')
         expect(response.code).to eq('403')
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
 
       it 'does not render the preview' do
@@ -128,6 +135,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
         expect(response).to render_template('request/hidden')
         expect(response.code).to eq('403')
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
     end
 
@@ -145,6 +153,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
         expect(response).to render_template('request/hidden')
         expect(response.code).to eq('403')
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
 
       it 'does not render the preview' do
@@ -158,6 +167,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
 
         expect(response).to render_template('request/hidden')
         expect(response.code).to eq('403')
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
     end
 

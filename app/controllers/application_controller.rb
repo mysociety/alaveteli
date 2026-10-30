@@ -214,6 +214,8 @@ class ApplicationController < ActionController::Base
     response_code = opts.delete(:response_code) { 403 } # forbidden
     options = { template: template, status: response_code }.merge(opts)
 
+    set_no_crawl_headers
+
     respond_to do |format|
       format.html { render(options) }
       format.any { head response_code }

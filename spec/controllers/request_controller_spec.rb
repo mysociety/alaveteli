@@ -540,6 +540,7 @@ RSpec.describe RequestController, 'when handling prominence' do
     expect(response.media_type).to eq('text/html')
     expect(response).to render_template(hidden_template)
     expect(response.code).to eq('403')
+    expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
   end
 
   let(:info_request) do
@@ -1847,6 +1848,11 @@ RSpec.describe RequestController do
       it 'shows the hidden request template' do
         get :details, params: { url_title: info_request.url_title }
         expect(response).to render_template("request/hidden")
+      end
+
+      it 'adds noindex, nofollow header' do
+        get :details, params: { url_title: info_request.url_title }
+        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
       end
     end
 
