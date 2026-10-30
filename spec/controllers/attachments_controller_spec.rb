@@ -30,12 +30,6 @@ RSpec.describe AttachmentsController, type: :controller do
     )
   end
 
-  def expect_hidden(hidden_template)
-    expect(response.media_type).to eq('text/html')
-    expect(response).to render_template(hidden_template)
-    expect(response.code).to eq('403')
-  end
-
   describe 'GET show' do
     def show(params = {})
       default_params = {
@@ -311,7 +305,7 @@ RSpec.describe AttachmentsController, type: :controller do
 
       it 'does not download attachments' do
         show
-        expect_hidden('request/hidden')
+        expect(response).to render_hidden
       end
     end
 
@@ -364,13 +358,13 @@ RSpec.describe AttachmentsController, type: :controller do
 
       it 'does not download attachments for a non-logged in user' do
         show
-        expect_hidden('request/hidden_correspondence')
+        expect(response).to render_hidden('request/hidden_correspondence')
       end
 
       it 'does not download attachments for the request owner' do
         sign_in info_request.user
         show
-        expect_hidden('request/hidden_correspondence')
+        expect(response).to render_hidden('request/hidden_correspondence')
       end
 
       it 'downloads attachments for an admin user' do
@@ -398,7 +392,7 @@ RSpec.describe AttachmentsController, type: :controller do
 
       it 'does not download attachments for a non-logged in user' do
         show
-        expect_hidden('request/hidden_correspondence')
+        expect(response).to render_hidden('request/hidden_correspondence')
       end
 
       it 'downloads attachments for the request owner' do
@@ -421,13 +415,13 @@ RSpec.describe AttachmentsController, type: :controller do
 
       it 'does not download attachments for a non-logged in user' do
         show
-        expect_hidden('request/hidden_attachment')
+        expect(response).to render_hidden('request/hidden_attachment')
       end
 
       it 'does not download attachments for the request owner' do
         sign_in info_request.user
         show
-        expect_hidden('request/hidden_attachment')
+        expect(response).to render_hidden('request/hidden_attachment')
       end
 
       it 'downloads attachments for an admin user' do
@@ -455,7 +449,7 @@ RSpec.describe AttachmentsController, type: :controller do
 
       it 'does not download attachments for a non-logged in user' do
         show
-        expect_hidden('request/hidden_attachment')
+        expect(response).to render_hidden('request/hidden_attachment')
       end
 
       it 'downloads attachments for the request owner' do
@@ -503,13 +497,12 @@ RSpec.describe AttachmentsController, type: :controller do
 
       it 'renders erased_attachment view' do
         show
-        expect(response).to render_template('request/erased_attachment')
+        expect(response).to render_hidden('request/erased_attachment')
       end
 
       it 'prevents download' do
         show
-        expect(response).not_to be_successful
-        expect(response).to render_template('request/erased_attachment')
+        expect(response).to render_hidden('request/erased_attachment')
       end
 
       it 'prevents viewing as HTML' do
@@ -519,8 +512,7 @@ RSpec.describe AttachmentsController, type: :controller do
           part: attachment.url_part_number,
           file_name: "#{attachment.display_filename}.html"
         }
-        expect(response).not_to be_successful
-        expect(response).to render_template('request/erased_attachment')
+        expect(response).to render_hidden('request/erased_attachment')
       end
     end
   end

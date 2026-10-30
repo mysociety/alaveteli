@@ -22,8 +22,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
           type: 'request'
         }
 
-        expect(response).to render_template('request/hidden')
-        expect(response.code).to eq('403')
+        expect(response).to render_hidden
       end
 
       it 'does not render the preview' do
@@ -35,8 +34,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
           preview: 1
         }
 
-        expect(response).to render_template('request/hidden')
-        expect(response.code).to eq('403')
+        expect(response).to render_hidden
       end
     end
 
@@ -52,8 +50,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
           type: 'request'
         }
 
-        expect(response).to render_template('request/hidden')
-        expect(response.code).to eq('403')
+        expect(response).to render_hidden
       end
 
       it 'does not render the preview' do
@@ -65,8 +62,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
           preview: 1
         }
 
-        expect(response).to render_template('request/hidden')
-        expect(response.code).to eq('403')
+        expect(response).to render_hidden
       end
     end
 
@@ -81,8 +77,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
           type: 'request'
         }
 
-        expect(response).to render_template('request/hidden')
-        expect(response.code).to eq('403')
+        expect(response).to render_hidden
       end
 
       it 'does not render the preview' do
@@ -94,8 +89,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
           preview: 1
         }
 
-        expect(response).to render_template('request/hidden')
-        expect(response.code).to eq('403')
+        expect(response).to render_hidden
       end
     end
   end
@@ -113,8 +107,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
           type: 'request'
         }
 
-        expect(response).to render_template('request/hidden')
-        expect(response.code).to eq('403')
+        expect(response).to render_hidden
       end
 
       it 'does not render the preview' do
@@ -126,8 +119,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
           preview: 1
         }
 
-        expect(response).to render_template('request/hidden')
-        expect(response.code).to eq('403')
+        expect(response).to render_hidden
       end
     end
 
@@ -143,8 +135,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
           type: 'request'
         }
 
-        expect(response).to render_template('request/hidden')
-        expect(response.code).to eq('403')
+        expect(response).to render_hidden
       end
 
       it 'does not render the preview' do
@@ -156,8 +147,7 @@ RSpec.describe CommentsController, "when commenting on a request" do
           preview: 1
         }
 
-        expect(response).to render_template('request/hidden')
-        expect(response.code).to eq('403')
+        expect(response).to render_hidden
       end
     end
 

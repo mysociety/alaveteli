@@ -188,6 +188,7 @@ class ApplicationController < ActionController::Base
       sanitize_path(params)
     when PermissionDenied
       @status = 403
+      set_no_crawl_headers
     when ActionController::UnknownFormat
       @status = 406
     else
@@ -213,6 +214,8 @@ class ApplicationController < ActionController::Base
 
     response_code = opts.delete(:response_code) { 403 } # forbidden
     options = { template: template, status: response_code }.merge(opts)
+
+    set_no_crawl_headers
 
     respond_to do |format|
       format.html { render(options) }

@@ -538,8 +538,7 @@ end
 RSpec.describe RequestController, 'when handling prominence' do
   def expect_hidden(hidden_template)
     expect(response.media_type).to eq('text/html')
-    expect(response).to render_template(hidden_template)
-    expect(response.code).to eq('403')
+    expect(response).to render_hidden(hidden_template)
   end
 
   let(:info_request) do
@@ -1839,14 +1838,9 @@ RSpec.describe RequestController do
         info_request.save!
       end
 
-      it 'returns a 403' do
+      it 'renders hidden' do
         get :details, params: { url_title: info_request.url_title }
-        expect(response.code).to eq("403")
-      end
-
-      it 'shows the hidden request template' do
-        get :details, params: { url_title: info_request.url_title }
-        expect(response).to render_template("request/hidden")
+        expect(response).to render_hidden
       end
     end
 
