@@ -33,6 +33,12 @@
       <label class="control-label" for="outgoing_message_prominence_reason">Reason for prominence</label>
       <div class="controls">
         <%= text_area "outgoing_message", "prominence_reason", :rows => 5, :class => "span6" %>
+
+        <span class="help-block">
+          This reason is shown in public. If left blank a generic reason of
+          "<%= ProminenceHelper::Base.default_prominence_reason %>" will be
+          shown.
+        </span>
       </div>
     </div>
   </fieldset>
