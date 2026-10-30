@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
   include AlaveteliPro::PostRedirectHandler
   include ReadOnly
   include RobotsHeaders
+  include CacheHeaders
 
   # NOTE: a filter stops the chain if it redirects or renders something
   before_action :html_response
@@ -51,25 +52,6 @@ class ApplicationController < ActionController::Base
 
   def set_vary_header
     response.headers['Vary'] = 'Cookie'
-  end
-
-  helper_method :anonymous_cache, :short_cache, :medium_cache, :long_cache
-  def anonymous_cache(time)
-    return if authenticated?
-
-    headers['Cache-Control'] = "max-age=#{time}, public"
-  end
-
-  def short_cache
-    anonymous_cache(60.seconds)
-  end
-
-  def medium_cache
-    anonymous_cache(60.minutes)
-  end
-
-  def long_cache
-    anonymous_cache(24.hours)
   end
 
   # Help work out which request causes RAM spike.
