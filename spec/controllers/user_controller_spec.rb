@@ -34,12 +34,9 @@ RSpec.describe UserController do
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
-    context 'when user is suspended' do
-      it 'adds noindex, nofollow header' do
-        user = FactoryBot.create(:user, :banned)
-        get :show, params: { url_name: user.url_name }
-        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
-      end
+    it 'adds noindex, nofollow header' do
+      get :show, params: { url_name: user.url_name }
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
     end
 
     # TODO: Use route_for or params_from to check /c/ links better

@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Stop search engines indexing user profile pages (Gareth Rees)
 * Add canonical URLs to pages that can be reached with various URL params, so
   that search engines consolidate duplicate pages (Gareth Rees)
 * Remove utm params from similar request list (Gareth Rees)
