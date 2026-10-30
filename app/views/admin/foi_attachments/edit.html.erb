@@ -49,6 +49,12 @@
 
       <div class="controls">
         <%= f.text_area :prominence_reason, rows: 5, class: 'span6' %>
+
+        <span class="help-block">
+          This reason is shown in public. If left blank a generic reason of
+          "<%= ProminenceHelper::Base.default_prominence_reason %>" will be
+          shown.
+        </span>
       </div>
     </div>
   </fieldset>
