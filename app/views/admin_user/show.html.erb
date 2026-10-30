@@ -26,9 +26,7 @@
           <b><%= name.humanize %></b>
         </td>
         <td>
-          <% if name == 'email' %>
-            <%=link_to @admin_user.email, "mailto:#{h @admin_user.email}"%>
-          <% elsif name == 'email_bounce_message' %>
+          <% if name == 'email_bounce_message' %>
             <% unless @admin_user.email_bounce_message.empty? %>
               <%= link_to 'See bounce message', show_bounce_message_admin_user_path(@admin_user) %>
             <% end %>

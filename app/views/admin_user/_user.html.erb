@@ -5,7 +5,7 @@
 
       <%= both_links(user) %>
 
-      <%= link_to("(#{ h(user.email) })", "mailto:#{ h(user.email) }") %>
+      <%= user.email %>
 
       <% if user.profile_photo %>
         <% photo_html = image_tag(get_profile_photo_url(url_name: user.url_name)).gsub('"', "'") %>
@@ -22,7 +22,7 @@
       </span>
     </span>
 
-    <span class="item-metadata">
+    <span class="item-metadata muted">
       <% if defined?(sort_order) && sort_order =~ /created_at/ %>
         created <%= admin_date(user.created_at, ago: false) %>
       <% else %>
