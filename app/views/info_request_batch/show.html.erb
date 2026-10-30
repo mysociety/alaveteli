@@ -1,5 +1,9 @@
 <% @title = _('{{title}} - a batch request', title: @info_request_batch.title) %>
 
+<% content_for :head do %>
+  <%= canonical_tag info_request_batch_url(@info_request_batch) %>
+<% end %>
+
 <% if flash[:batch_sent] %>
   <%= render partial: 'batch_sent' %>
 <% end %>

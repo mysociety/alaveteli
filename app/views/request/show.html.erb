@@ -4,6 +4,10 @@
 
 <%= render partial: 'request/request_meta_tags' %>
 
+<% content_for :head do %>
+  <%= canonical_tag show_request_url(url_title: @info_request.url_title) %>
+<% end %>
+
 <% if flash[:request_sent] %>
   <%= render partial: 'request_sent' %>
 <% end %>
