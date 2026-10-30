@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add canonical URLs to pages that can be reached with various URL params, so
+  that search engines consolidate duplicate pages (Gareth Rees)
 * Switch locale by submitting a form rather than following a link to stop
   crawlers requesting every page in every locale (Gareth Rees)
 * Stop the `locale` param and locale path prefixes switching locale (Gareth

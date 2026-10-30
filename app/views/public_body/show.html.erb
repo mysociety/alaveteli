@@ -1,5 +1,9 @@
 <% @title = h(@public_body.name) + _(" - view and make Freedom of Information requests") %>
 
+<% content_for :head do %>
+  <%= canonical_tag show_public_body_url(url_name: @public_body.url_name) %>
+<% end %>
+
 <% if flash[:search_params] %>
   <div class="back-to-results">
     <div class="message">

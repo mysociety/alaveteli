@@ -1,3 +1,11 @@
+<% content_for :head do %>
+  <% if @tag %>
+    <%= canonical_tag request_list_url(tag: @tag) %>
+  <% else %>
+    <%= canonical_tag request_list_successful_url %>
+  <% end %>
+<% end %>
+
 <%= render partial: 'tabs' %>
 
 <div id="header_left" class="header_left">

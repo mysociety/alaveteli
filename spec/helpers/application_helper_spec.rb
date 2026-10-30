@@ -286,4 +286,21 @@ RSpec.describe ApplicationHelper do
       end
     end
   end
+
+  describe '#canonical_tag' do
+    it 'returns a canonical link tag for the given URL' do
+      expect(canonical_tag('https://example.com/foo')).
+        to eq('<link rel="canonical" href="https://example.com/foo">')
+    end
+
+    it 'raises an error when given a path' do
+      expect { canonical_tag('/foo') }.to raise_error(ArgumentError)
+    end
+
+    it 'returns a canonical link tag for a path when only_path is true' do
+      expect(canonical_tag('/foo', only_path: true)).
+        to eq('<link rel="canonical" href="/foo">')
+    end
+  end
+
 end
