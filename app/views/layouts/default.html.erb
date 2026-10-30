@@ -36,7 +36,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= render :partial => 'general/opengraph_tags' %>
+
+    <%= yield :head %>
+
     <%= render :partial => 'general/before_head_end' %>
+
     <!-- Replace the html tag's no-js class with js -->
     <%= javascript_tag nonce: true do %>
       (function(H){
