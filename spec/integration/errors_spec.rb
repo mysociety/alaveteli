@@ -110,6 +110,13 @@ RSpec.describe "When errors occur" do
       expect(response.code).to eq('403')
     end
 
+    it 'sets a noindex header for a PermissionDenied error' do
+      allow(InfoRequest).to receive(:find_by_url_title!).and_raise(ApplicationController::PermissionDenied)
+      get "/request/example"
+      expect(response.code).to eq('403')
+      expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
+    end
+
     it "return a 403 for a JSON PermissionDenied error" do
       allow(InfoRequest).to receive(:find_by_url_title!).and_raise(ApplicationController::PermissionDenied)
       get "/request/example.json"

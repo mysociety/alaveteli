@@ -188,6 +188,7 @@ class ApplicationController < ActionController::Base
       sanitize_path(params)
     when PermissionDenied
       @status = 403
+      set_no_crawl_headers
     when ActionController::UnknownFormat
       @status = 406
     else
