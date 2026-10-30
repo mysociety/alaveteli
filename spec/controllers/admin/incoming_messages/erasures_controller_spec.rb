@@ -25,6 +25,9 @@ RSpec.describe Admin::IncomingMessages::ErasuresController do
       expect { post :create, params: erase_params }.
         to have_enqueued_job(IncomingMessage::EraseJob).
         with(incoming_message, editor: admin_user, reason: 'GDPR request')
+      # force performing jobs so that uniqueness locks are cleared.
+      # Without this, they can remain in redis and break subsequent test runs.
+      perform_enqueued_jobs
     end
 
     it 'redirects to edit page with success message' do
