@@ -1,10 +1,17 @@
-<%= render partial:  'request/prominence',
-           formats: [:text],
-           locals: { prominenceable: outgoing_message } %>
-<% if can?(:read, outgoing_message) %>
-<%= _('From:') %> <%= outgoing_message.safe_from_name || "[#{_('An anonymous user')}]" %>
-<%= _('To:') %> <%= @info_request.public_body.name %>
-<%= _('Date:') %> <%= simple_date(info_request_event.created_at, :format => :text) %>
+<% if outgoing_message.erased? %>
+  <%= _('Date:') %> <%= simple_date(info_request_event.created_at, :format => :text) %>
 
-<%= outgoing_message.get_body_for_text_display %>
+  <%= _('A message was sent but has been erased by {{site_name}}',
+        site_name: site_name) %>
+<% else %>
+  <%= render partial:  'request/prominence',
+             formats: [:text],
+             locals: { prominenceable: outgoing_message } %>
+  <% if can?(:read, outgoing_message) %>
+  <%= _('From:') %> <%= outgoing_message.safe_from_name || "[#{_('An anonymous user')}]" %>
+  <%= _('To:') %> <%= @info_request.public_body.name %>
+  <%= _('Date:') %> <%= simple_date(info_request_event.created_at, :format => :text) %>
+
+  <%= outgoing_message.get_body_for_text_display %>
+  <% end %>
 <% end %>

@@ -39,6 +39,7 @@
 * Update PostgreSQL search documents in a background job (Graeme Porteous)
 * Add prominence check to public search indexing (Graeme Porteous)
 * Several accessibility improvements (Lucas Cumsille Montesinos)
+* Add ability to erase an outgoing message (Laurent Savaete)
 * Track when CensorRules actually redact content from Redactable records (Gareth
   Rees)
 * Fix an endless loop if there is issues masking attachment (Graeme Porteous)
