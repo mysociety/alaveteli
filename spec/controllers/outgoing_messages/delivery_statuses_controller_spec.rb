@@ -122,8 +122,7 @@ RSpec.describe OutgoingMessages::DeliveryStatusesController do
 
       it 'renders hidden' do
         get :show, params: { outgoing_message_id: 1 }
-        expect(response).to render_template('request/_prominence')
-        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
+        expect(response).to render_hidden('request/_prominence')
       end
     end
 
@@ -134,8 +133,7 @@ RSpec.describe OutgoingMessages::DeliveryStatusesController do
 
       it 'renders hidden' do
         get :show, params: { outgoing_message_id: 1 }
-        expect(response).to render_template('request/_prominence')
-        expect(response.headers['X-Robots-Tag']).to eq 'noindex, nofollow'
+        expect(response).to render_hidden('request/_prominence')
       end
     end
   end
