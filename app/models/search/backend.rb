@@ -13,6 +13,8 @@ module Search
     # Required: full-text search over a request's indexed content, returning a
     # searchable object whose results are the matching InfoRequests (one per
     # request). Each backend decides which models carry that content.
+    # +filters+ takes the request search form params, as
+    # Search::RequestList reads them.
     def request_search(query, **options)
       raise NotImplementedError, 'Subclasses must implement #request_search'
     end

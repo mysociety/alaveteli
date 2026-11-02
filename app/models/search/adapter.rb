@@ -22,6 +22,12 @@ module Search
       [paginated.items, paginated.has_more?]
     end
 
+    # Ids of the first +limit+ matches. A subclass that can read them without
+    # loading each record overrides this.
+    def ids(limit)
+      results(page: 1, per_page: limit).results.map { |r| r[:model].id }
+    end
+
     protected
 
     def default_options
@@ -45,6 +51,20 @@ module Search
 
     def calculate_offset(page, per_page)
       (page - 1) * per_page
+    end
+
+    def paginated_results(relation, page, per_page)
+      offset = calculate_offset(page, per_page)
+
+      create_search_results(
+        items: relation.offset(offset).limit(per_page).
+          map { |record| { model: record } },
+        total_estimate: relation.count,
+        current_page: page,
+        per_page: per_page,
+        offset: offset,
+        has_normal_search_terms: query.present?
+      )
     end
 
     def load_info_requests(ids)

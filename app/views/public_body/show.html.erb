@@ -132,12 +132,14 @@
 
     <% if @request_results %>
       <%= render partial: 'request/request_listing_single',
-                 collection: @request_results.results.map { _1[:model] },
-                 as: :info_request %>
+                 collection: @request_results, as: :info_request %>
 
-      <%= will_paginate WillPaginate::Collection.new(@page, @per_page, @request_results.matches_estimated) %>
+      <%= will_paginate WillPaginate::Collection.new(
+            @page, @per_page,
+            [@request_results.total_entries, PublicBodyController::MAX_RESULTS].min
+          ) %>
 
-      <% if @request_results.results.empty? %>
+      <% if @request_results.total_entries.zero? %>
         <p><% _('There were no requests matching your query.') %></p>
       <% else %>
         <p>

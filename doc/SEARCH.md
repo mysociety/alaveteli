@@ -289,7 +289,11 @@ The `search` method receives these backend-agnostic parameters:
 | `collapse_by` | String/nil | Logical field name to deduplicate by |
 
 `request_search` takes the same parameters bar `models`, which it picks
-itself, and `collapse_by`, which it always applies to the request.
+itself, and `collapse_by`, which it always applies to the request. It
+also takes `requests`, an `InfoRequest` relation to search within, such
+as one user's requests. PostgreSQL applies it before its document limit.
+Xapian ignores it. Its searcher also has `ids(limit)`, for callers that
+need only the ids of the best matches.
 
 **Note on query syntax:** The query string currently uses Xapian's query
 syntax (e.g. `variety:response status:successful`). A future change will
