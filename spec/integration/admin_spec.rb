@@ -49,7 +49,7 @@ RSpec.describe "When administering the site" do
 
     # redeliver the message
     using_session(@admin) do
-      visit edit_admin_incoming_message_path(new_message)
+      visit admin_incoming_message_path(new_message)
       fill_in('Redeliver message to one or more other requests',
                 with: info_request.url_title)
       find_button('Redeliver to another request').click
@@ -83,7 +83,7 @@ RSpec.describe "When administering the site" do
 
     # redeliver the message to two requests
     using_session(@admin) do
-      visit edit_admin_incoming_message_path(new_message)
+      visit admin_incoming_message_path(new_message)
       fill_in('Redeliver message to one or more other requests',
                  with: "#{info_request.url_title},#{second_request.url_title}")
       find_button('Redeliver to another request').click

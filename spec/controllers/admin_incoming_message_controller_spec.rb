@@ -61,20 +61,88 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
   end
 
-  describe 'when editing an incoming message' do
+  describe 'when showing an incoming message' do
     before do
       sign_in(admin_user)
       @incoming = FactoryBot.create(:incoming_message)
     end
 
     it 'should be successful' do
-      get :edit, params: { id: @incoming.id }
+      get :show, params: { id: @incoming.id }
       expect(response).to be_successful
     end
 
     it 'should assign the incoming message to the view' do
-      get :edit, params: { id: @incoming.id }
+      get :show, params: { id: @incoming.id }
       expect(assigns[:incoming_message]).to eq(@incoming)
+    end
+
+    context 'if the request is embargoed', feature: :alaveteli_pro do
+      before do
+        @incoming.info_request.create_embargo
+      end
+
+      context 'as non-pro admin' do
+        it 'raises ActiveRecord::RecordNotFound' do
+          expect {
+            get :show, params: { id: @incoming }
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'as pro admin' do
+        before { sign_in(pro_admin_user) }
+
+        it 'is successful' do
+          get :show, params: { id: @incoming }
+          expect(response).to be_successful
+        end
+      end
+    end
+  end
+
+  describe 'when editing an incoming message' do
+    before do
+      sign_in(admin_user)
+      @incoming = FactoryBot.create(:incoming_message)
+    end
+
+    it 'should show the edit form' do
+      get :edit, params: { id: @incoming.id }
+      expect(response).to be_successful
+    end
+
+    it 'should update the message attributes and lock its underlying data' do
+      allow(@controller).
+        to receive(:admin_current_user).
+        and_return("Admin user")
+
+      params = {
+        save_incoming_message: 'Save',
+        id: @incoming.id,
+        edit_reason: "cannot tell you",
+        incoming_message: {
+          from_name: "new name",
+          from_email: "new@redacted.local",
+          from_email_domain: "redacted.local",
+          subject: "this is hidden"
+        }
+      }
+      post :update, params: params
+      @incoming.reload
+      expect(@incoming.from_name).to eq("new name")
+      expect(@incoming.subject).to eq("this is hidden")
+      last_event = @incoming.info_request_events.last
+      expect(last_event.event_type).to eq("edit_incoming")
+      expect(last_event.params).to eq(
+        incoming_message: { gid: @incoming.to_global_id.to_s },
+        editor: 'Admin user',
+        old_prominence: 'normal',
+        old_prominence_reason: nil,
+        prominence:  'normal',
+        prominence_reason: nil,
+        reason: "cannot tell you"
+      )
     end
 
     context 'if the request is embargoed', feature: :alaveteli_pro do
@@ -107,9 +175,8 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       @incoming = FactoryBot.create(:incoming_message, prominence: 'normal')
       @default_params = {
         id: @incoming.id,
+        save_tags: 'Save',
         incoming_message: {
-          prominence: 'hidden',
-          prominence_reason: 'dull',
           tag_string: 'foo'
         }
       }
@@ -117,18 +184,6 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
 
     def make_request(params=@default_params)
       post :update, params: params
-    end
-
-    it 'should save the prominence of the message' do
-      make_request
-      @incoming.reload
-      expect(@incoming.prominence).to eq('hidden')
-    end
-
-    it 'should save a prominence reason for the message' do
-      make_request
-      @incoming.reload
-      expect(@incoming.prominence_reason).to eq('dull')
     end
 
     it 'should save a tag string for the message' do
@@ -153,9 +208,9 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
         incoming_message: { gid: @incoming.to_global_id.to_s },
         editor: 'Admin user',
         old_prominence: 'normal',
-        prominence: 'hidden',
+        prominence: 'normal',
         old_prominence_reason: nil,
-        prominence_reason: 'dull',
+        prominence_reason: nil,
         old_tag_string: '',
         tag_string: 'foo'
       )
@@ -173,7 +228,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       it 'should redirect to the admin info request view' do
         make_request
         expect(response).
-          to redirect_to admin_request_url(@incoming.info_request)
+          to redirect_to admin_incoming_message_url(@incoming)
       end
 
       it 'should show a message that the incoming message has been updated' do
@@ -183,11 +238,12 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
     end
 
     context 'if the incoming message is not valid' do
-      it 'should render the edit template' do
-        make_request({ id: @incoming.id,
-                      incoming_message: { prominence: 'fantastic',
-                                            prominence_reason: 'dull' } })
-        expect(response).to render_template("edit")
+      it 'should render the show template' do
+        make_request({
+          id: @incoming.id,
+          save_tags: 'Save',             
+          incoming_message: { tags: 'invalid' } })
+        expect(response).to raise_error ActionController::ParameterMissing
       end
     end
 
@@ -210,7 +266,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
         it 'redirects to request admin' do
           make_request
           expect(response).to redirect_to \
-            admin_request_url(@incoming.info_request)
+            admin_incoming_message_url(@incoming)
         end
       end
     end

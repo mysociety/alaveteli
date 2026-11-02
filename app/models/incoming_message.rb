@@ -36,6 +36,7 @@ require 'rexml/document'
 require 'zip'
 
 class IncomingMessage < ApplicationRecord
+  include Eventable
   include MessageProminence
   include Redactable
   include Taggable

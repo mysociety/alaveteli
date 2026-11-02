@@ -35,7 +35,7 @@ module Admin::LinkHelper
 
     link_to(icon, incoming_message_path(incoming_message), title: title) + ' ' +
       link_to("#{info_request.title} ##{dom_id(incoming_message)}",
-              edit_admin_incoming_message_path(incoming_message),
+              admin_incoming_message_path(incoming_message),
               title: admin_title)
   end
 
