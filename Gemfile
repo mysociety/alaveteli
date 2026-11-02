@@ -145,7 +145,7 @@ gem 'benchmark', '~> 0.5.0'
 gem 'csv', '~> 3.3.6'
 gem 'drb', '~> 2.2.3'
 gem 'ostruct', '~> 0.6.3'
-gem 'pstore', '~> 0.2.1'
+gem 'pstore', '~> 0.3.0'
 gem 'rdoc', '~> 8.1.0'
 gem 'uri', '~> 1.1.2'
 
