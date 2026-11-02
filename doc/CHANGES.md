@@ -25,6 +25,8 @@
   Savaete)
 * Make it obvious that proposed email address is the same current one
   (Laurent Savaete)
+* Allow editing incoming messages without leaving PII in the event log
+  (Laurent Savaete)
 * Switch locale by submitting a form rather than following a link to stop
   crawlers requesting every page in every locale (Gareth Rees)
 * Stop the `locale` param and locale path prefixes switching locale (Gareth
