@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix slow request listings with date filters, and stop counting above the
+  results limit (Graeme Porteous)
 * Switch locale by submitting a form rather than following a link to stop
   crawlers requesting every page in every locale (Gareth Rees)
 * Stop the `locale` param and locale path prefixes switching locale (Gareth

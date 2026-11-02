@@ -31,13 +31,23 @@ module Search
       @max_results = max_results
     end
 
-    # The requested page as a paginated relation; +total_entries+ counts
-    # every match.
+    # The requested page as a paginated relation. +total_entries+ counts the
+    # matches up to one above +max_results+, as an exact count reads every
+    # match.
     def call
-      filtered_requests.
+      requests = filtered_requests.order(created_at: :desc)
+
+      # Counted only when read, so a cached listing does not count.
+      counter = method(:count_matches)
+
+      requests.
         includes(:user, :outgoing_messages, public_body: :translations).
-        order(created_at: :desc).
-        paginate(page: @page, per_page: @per_page)
+        paginate(page: @page, per_page: @per_page).
+        extending do
+          define_method(:total_entries) do
+            @total_entries ||= counter.call(requests)
+          end
+        end
     end
 
     # A theme with its own states can prepend an override that returns
@@ -47,6 +57,11 @@ module Search
     end
 
     private
+
+    def count_matches(requests)
+      # Not #count, which drops the order the planner needs to stop early.
+      requests.limit(@max_results + 1).pluck(:id).size
+    end
 
     def filtered_requests
       scope = InfoRequest.is_searchable
@@ -75,8 +90,12 @@ module Search
       before = parse_date(@filters[:request_date_before])
       return scope unless after || before
 
-      events = InfoRequestEvent.is_searchable.
+      events = InfoRequestEvent.with_searchable_content.
         where(created_at: after&.beginning_of_day..before&.end_of_day)
+
+      # No request has an event from before it was made, so this keeps the
+      # same matches but lets the planner skip the newer requests.
+      scope = scope.where(created_at: ..before.end_of_day) if before
       scope.where(id: events.select(:info_request_id))
     end
 
