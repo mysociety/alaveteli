@@ -13,15 +13,9 @@ RSpec.describe AlaveteliRateLimiter::Backends::PStoreDatabase do
     end
 
     it 'initializes a PStore at the given path' do
-      path = Pathname.new("#{ Rails.root }/tmp/custom_database.pstore")
-      subject = described_class.new(path: path)
-      expect(subject.pstore.path).to eq(path)
-    end
-
-    it 'converts a string path to a pathname' do
       path = "#{ Rails.root }/tmp/custom_database.pstore"
       subject = described_class.new(path: path)
-      expect(subject.pstore.path).to eq(Pathname.new(path))
+      expect(subject.pstore.path).to eq(path)
     end
   end
 

@@ -7,7 +7,7 @@ module AlaveteliRateLimiter
       attr_reader :pstore
 
       def initialize(opts = {})
-        @pstore = PStore.new(Pathname.new(opts.fetch(:path)))
+        @pstore = PStore.new(opts.fetch(:path))
       end
 
       def get(key)
