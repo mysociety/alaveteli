@@ -2,6 +2,7 @@
   <div class="span12 danger-zone">
     <h1 class="span12 danger-zone__header">Danger Zone</h1>
 
+    <% if feature_enabled?(:outgoing_message_erase) %>
     <div class="danger-zone__item">
       <div class="span7">
         <p>
@@ -59,6 +60,7 @@
         </div>
       <% end %>
     </div>
+    <% end %>
 
     <div class="danger-zone__item">
       <div class="span7">
