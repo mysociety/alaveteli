@@ -9,7 +9,7 @@ class AdminRequestController < AdminController
   include Admin::Sortable
 
   before_action :set_info_request, :check_info_request, only: %i[
-    show edit update destroy move generate_upload_url hide
+    show edit update destroy move generate_upload_url hide revert_report
   ]
 
   sortable default: :updated_at_desc, relevance: :indexed_search?,
@@ -250,6 +250,18 @@ class AdminRequestController < AdminController
       @info_request.expire
       redirect_to admin_request_url(@info_request)
     end
+  end
+
+  def revert_report
+    @info_request.revert_report!(editor: admin_current_user)
+  rescue InfoRequest::NotReportedError
+    flash[:error] = "Cannot revert a report on a request that is not reported"
+  else
+    @info_request.expire
+
+    flash[:notice] = "Request status reverted to #{@info_request.described_state}."
+  ensure
+    redirect_to admin_request_path(@info_request)
   end
 
   private
