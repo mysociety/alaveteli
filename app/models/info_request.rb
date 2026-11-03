@@ -798,19 +798,24 @@ class InfoRequest < ApplicationRecord
     end
   end
 
-  def find_pre_report_described_state
-    revert_to_state = nil
+  # returns the last "report" event
+  def last_report_event
+    report_evt = nil
     info_request_events.reverse.each do |event|
-      if revert_to_state.nil?
-        revert_to_state =
-          event.described_state unless
-        %w[attention_requested requires_admin].include?(
+      report_evt =
+        event if %w[attention_requested requires_admin].include?(
           event.described_state
         )
-      end
-      break if revert_to_state
+      break if report_evt
     end
-    revert_to_state
+    report_evt
+  end
+
+  # returns the last event just before last_report_event
+  def last_event_before_last_report
+    info_request_events.reverse.at(
+      info_request_events.reverse.find_index(last_report_event) + 1
+    )
   end
 
   # Revert the status of the request back to what it was before being reported
@@ -822,7 +827,7 @@ class InfoRequest < ApplicationRecord
 
     ActiveRecord::Base.transaction do
       old_described_state = described_state
-      revert_to_state = find_pre_report_described_state
+      revert_to_state = last_event_before_last_report.described_state
 
       log_event(
         'status_update',

@@ -231,8 +231,8 @@
         <%= form_tag revert_report_admin_request_path(@info_request), :class => "form form-inline" do %>
           <%= submit_tag "Revert report", :class => "btn"  %>
         <% end %>
-        <p class="help-block">Revert the request to its status before it was reported (<%= @info_request.find_pre_report_described_state %>)</p>
-        <p class="help-block">Report details: <%= @info_request.last_event.params[:message] %></p>
+        <p class="help-block">Revert the request to its status before it was reported (<%= @info_request.last_event_before_last_report.described_state %>)</p>
+        <p class="help-block">Report details: <%= @info_request.last_report_event.params[:message] %></p>
       </div>
     </div>
   <% end %>

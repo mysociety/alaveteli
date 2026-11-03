@@ -1977,7 +1977,6 @@ RSpec.describe InfoRequest do
       info_request.set_described_state(previous_state)
       info_request.update(awaiting_description: true)
       info_request.report!('test', 'Some message', user)
-      expect(info_request.awaiting_description).to be(true)
 
       info_request.revert_report!(editor: admin_user)
       expect(info_request.awaiting_description).to be(true)
@@ -2007,6 +2006,24 @@ RSpec.describe InfoRequest do
       end
 
       it 'finds the correct event when another event follows reporting' do
+        # A response is received
+        info_request.awaiting_description = true
+        info_request.log_event('response', {})
+
+        info_request.revert_report!(editor: admin_user)
+        last_event = info_request.reload.last_event
+        expect(last_event.event_type).to eq('status_update')
+        expect(last_event.params).
+          to match(
+            editor: { gid: admin_user.to_global_id.to_s },
+            old_described_state: 'attention_requested',
+            described_state: previous_state
+          )
+        expect(info_request.last_report_event.params[:message]).
+          to eq('Some message')
+        expect(info_request.last_event_before_last_report.described_state).
+          to eq(previous_state)
+        expect(info_request.awaiting_description).to be(true)
       end
     end
 
