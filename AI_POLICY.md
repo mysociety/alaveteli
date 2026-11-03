@@ -48,7 +48,7 @@ Alaveteli is translated into dozens of languages through [Transifex](https://www
 
 ## Images, video and audio
 
-Don't submit AI-generated media - artwork, photographs, icons, video or audio. Text and code are the only things we'll accept AI assistance with.
+Don't submit AI-generated media - artwork, photographs, icons, video or audio - without asking us first. We're generally happy to accept generated text and code, but media needs more human judgement at present. We won't accept AI-generated media that imitates or draws on the work of artists, whatever its purpose.
 
 ## Maintainers
 
