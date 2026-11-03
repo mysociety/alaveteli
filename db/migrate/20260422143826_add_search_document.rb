@@ -71,11 +71,13 @@ class AddSearchDocument < ActiveRecord::Migration[8.0]
         # by local setups
         execute("create extension if not exists unaccent")
 
+        unlogged = Rails.env == 'test' ? 'UNLOGGED' : ''
+
         # create a table partition for each model.
         MODELS_FOR_SEARCH_DOCUMENT_PARTITIONS.each do |model|
           execute(
             <<-SQL
-              CREATE TABLE IF NOT EXISTS #{partition_table_name(model)}
+              CREATE #{unlogged} TABLE IF NOT EXISTS #{partition_table_name(model)}
                 PARTITION OF search_documents
                 FOR VALUES IN ('#{model}');
             SQL
