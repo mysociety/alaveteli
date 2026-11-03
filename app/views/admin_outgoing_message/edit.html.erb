@@ -86,29 +86,33 @@
             </label>
           </div>
         </div>
-
-        <div class="form-actions" >
-          <% if @outgoing_message.from_name != @info_request.user_name %>
-            <div class="alert alert-error">
-              The requester's name has changed since this message was last sent
-              to the authority. Resending will use the user's current name, which
-              may cause confusion.
-            </div>
-          <% end %>
-
-          <%= submit_tag 'Save', :accesskey => 's', :class => 'btn btn-success' %>
-          <%= link_to resend_admin_outgoing_message_path(@outgoing_message),
-                      :class => 'btn btn-warning',
-                      :method => :post,
-                      :data => { :confirm => "Are you sure you want to resend " \
-                                             "this message to the " \
-                                             "authority?" } do %>
-            Resend
-          <% end %>
-        </div>
       </div>
     </fieldset>
   <% end %>
+
+  <div class="form-actions" >
+    <% unless @outgoing_message.erased? %>
+      <% if @outgoing_message.from_name != @info_request.user_name %>
+        <div class="alert alert-error">
+          The requester's name has changed since this message was last sent
+          to the authority. Resending will use the user's current name, which
+          may cause confusion.
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= submit_tag 'Save', :accesskey => 's', :class => 'btn btn-success' %>
+    <% unless @outgoing_message.erased? %>
+      <%= link_to resend_admin_outgoing_message_path(@outgoing_message),
+                  :class => 'btn btn-warning',
+                  :method => :post,
+                  :data => { :confirm => "Are you sure you want to resend " \
+                                         "this message to the " \
+                                         "authority?" } do %>
+        Resend
+      <% end %>
+    <% end %>
+  </div>
 <% end %>
 
 <%= render partial: 'erase', locals: { outgoing_message: @outgoing_message } %>
