@@ -23,14 +23,16 @@ RSpec.describe 'Editing the OutgoingMessage body' do
   end
 
   it 'erases the message correctly' do
-    using_session(@admin) do
-      visit edit_admin_outgoing_message_path(ogm)
-      fill_in 'outgoing_message_erasure_reason', with: 'Super secret'
+    with_feature_enabled(:outgoing_message_erase) do
+      using_session(@admin) do
+        visit edit_admin_outgoing_message_path(ogm)
+        fill_in 'outgoing_message_erasure_reason', with: 'Super secret'
 
-      click_button 'Erase message'
+        click_button 'Erase message'
+      end
+
+      expect(ogm.reload.body).to eq('')
     end
-
-    expect(ogm.reload.body).to eq('')
   end
 
   context 'a censor rule applies to the request' do
