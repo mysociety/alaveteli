@@ -62,6 +62,7 @@ class InfoRequest < ApplicationRecord
   include InfoRequest::Sluggable
   include InfoRequest::TitleValidation
 
+  NotReportedError = Class.new(StandardError)
 
   admin_columns exclude: %i[title url_title],
                 include: %i[rejected_incoming_count]
@@ -815,6 +816,10 @@ class InfoRequest < ApplicationRecord
   # Revert the status of the request back to what it was before being reported
   # as needing admin attention.
   def revert_report!(editor:)
+    unless reported?
+      raise NotReportedError
+    end
+
     ActiveRecord::Base.transaction do
       old_described_state = described_state
       revert_to_state = find_pre_report_described_state
@@ -826,6 +831,7 @@ class InfoRequest < ApplicationRecord
         described_state: revert_to_state
       )
       set_described_state(revert_to_state)
+      self.awaiting_description = true
       save!
     end
   end

@@ -254,10 +254,14 @@ class AdminRequestController < AdminController
 
   def revert_report
     @info_request.revert_report!(editor: admin_current_user)
+  rescue InfoRequest::NotReportedError
+    flash[:error] = "Cannot revert a report on a request that is not reported"
+  else
     @info_request.expire
 
-    msg = "Request status reverted to #{@info_request.described_state}."
-    redirect_to admin_request_path(@info_request), notice: msg
+    flash[:notice] = "Request status reverted to #{@info_request.described_state}."
+  ensure
+    redirect_to admin_request_path(@info_request)
   end
 
   private
