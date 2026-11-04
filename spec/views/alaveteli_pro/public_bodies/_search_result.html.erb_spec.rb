@@ -51,6 +51,16 @@ RSpec.describe 'alaveteli_pro/public_bodies/_search_result' do
     end
   end
 
+  context 'when the notes contain escaped HTML' do
+    let(:note) { '<p>&lt;script&gt;alert(1)</p>' }
+
+    it 'does not render it as HTML' do
+      render_view
+      expect(rendered).to have_text('<script>alert(1)')
+      expect(rendered).to have_no_css('script', visible: :all)
+    end
+  end
+
   it "includes the number of requests made" do
     render_view
     expect(rendered).to have_text("1 request made")
