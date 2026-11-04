@@ -13,6 +13,7 @@ module ActionTextExtensions
 
       callback = :"strip_#{name}_attachments"
 
+      before_validation callback
       before_save callback
 
       define_method(callback) do
