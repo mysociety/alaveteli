@@ -331,13 +331,14 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       end
     end
 
-    def post_extract(extract = nil)
+    def post_extract(extract = nil, **params)
       extract ||= { dataset_key_set_id: 1 }
 
       post :create, params: {
         extract: extract,
         project_id: project.id,
-        url_title: info_request.url_title
+        url_title: info_request.url_title,
+        **params
       }
     end
 
@@ -391,6 +392,16 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
       it 'redirects to next project extract' do
         post_extract
+        expect(response).to redirect_to project_extract_path
+      end
+
+      it 'redirects to the r param' do
+        post_extract(r: '/projects/1/dataset?page=2')
+        expect(response).to redirect_to '/projects/1/dataset?page=2'
+      end
+
+      it 'ignores an r param that is not an absolute path' do
+        post_extract(r: 'projects/1/dataset')
         expect(response).to redirect_to project_extract_path
       end
     end
