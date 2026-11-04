@@ -8,6 +8,9 @@
 
 <%= _('Proposed Email:') %>
 <%= @change_request.public_body_email %>
+<% if @change_request.current_public_body_email == @change_request.public_body_email %>
+<%= _('(Same as current email)') %>
+<% end %>
 
 <%= _('Source:') %>
 <%= @change_request.source_url %>
