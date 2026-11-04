@@ -30,6 +30,10 @@
     </td>
     <td>
       <%= @change_request.public_body_email %>
+      <% if @change_request.current_public_body_email ==
+            @change_request.public_body_email %>
+            <strong>(Same as current email)</strong>
+      <% end %>
     </td>
   </tr>
 
