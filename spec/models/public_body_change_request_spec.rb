@@ -39,6 +39,42 @@ RSpec.describe PublicBodyChangeRequest do
     end
   end
 
+  describe '#public_body_email_unchanged?' do
+    subject { change_request.public_body_email_unchanged? }
+
+    let(:body) do
+      FactoryBot.build(:public_body, request_email: 'prev@localhost')
+    end
+
+    context 'when adding a public body without an email' do
+      let(:change_request) do
+        FactoryBot.build(:add_body_request, public_body_email: nil)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the proposed email differs from the current one' do
+      let(:change_request) do
+        FactoryBot.build(:update_body_request,
+                         public_body: body,
+                         public_body_email: 'new@localhost')
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the proposed email is the same as the current one' do
+      let(:change_request) do
+        FactoryBot.build(:update_body_request,
+                         public_body: body,
+                         public_body_email: 'prev@localhost')
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+
   describe '#send_message' do
     subject { change_request.send_message }
 
