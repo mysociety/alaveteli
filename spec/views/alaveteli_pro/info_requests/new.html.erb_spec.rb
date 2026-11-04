@@ -42,8 +42,8 @@ RSpec.describe "alaveteli_pro/info_requests/new" do
   it "includes a hidden field for the body id" do
     assign_variables
     render
-    expected_input = "<input class=\"js-public-body-id\" " \
-                     "autocomplete=\"off\" " \
+    expected_input = "<input autocomplete=\"off\" " \
+                     "class=\"js-public-body-id\" " \
                      "type=\"hidden\" " \
                      "value=\"#{info_request.public_body.id}\" " \
                      "name=\"info_request\\[public_body_id\\]\" " \
