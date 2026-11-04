@@ -481,5 +481,11 @@ RSpec.describe Project, type: :model, feature: :projects do
       perform_enqueued_jobs
       expect(ActiveStorage::Blob.exists?(blob.id)).to be false
     end
+
+    it 'strips action-text-attachment nodes when validation is skipped' do
+      project.briefing = html_with_attachment
+      project.save!(validate: false)
+      expect(project.briefing.to_s).not_to include('action-text-attachment')
+    end
   end
 end
