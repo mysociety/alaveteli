@@ -94,8 +94,8 @@ GEM
     activejob (8.0.5.1)
       activesupport (= 8.0.5.1)
       globalid (>= 0.3.6)
-    activejob-uniqueness (0.4.0)
-      activejob (>= 4.2, < 8.1)
+    activejob-unique (0.5.1)
+      activejob (>= 7.1, < 8.2)
       redlock (>= 2.0, < 3)
     activemodel (8.0.5.1)
       activesupport (= 8.0.5.1)
@@ -644,7 +644,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_otp
-  activejob-uniqueness (~> 0.4.0)
+  activejob-unique (~> 0.5.1)
   acts_as_versioned!
   addressable (~> 2.9.0)
   alaveteli_features!
