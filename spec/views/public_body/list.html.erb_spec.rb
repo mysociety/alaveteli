@@ -22,6 +22,7 @@ RSpec.describe "public_body/list" do
     allow(@public_bodies).to receive(:total_pages).and_return(1)
 
     assign(:public_body, @pb)
+    assign(:tag, 'all')
     assign(:page, 1)
     assign(:description, 'test')
     assign(:per_page, 10)

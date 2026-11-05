@@ -24,6 +24,20 @@ RSpec.describe InfoRequestBatchController do
       expect(assigns[:info_request_batch]).to eq(info_request_batch)
     end
 
+    context 'when rendering views' do
+      render_views
+
+      let(:params) { { id: info_request_batch.id, page: 2 } }
+
+      it 'links to the canonical URL without params' do
+        action
+        expect(response.body).to include(
+          '<link rel="canonical" ' \
+          "href=\"http://test.host/info_request_batch/#{info_request_batch.id}\">"
+        )
+      end
+    end
+
     context 'when the batch has not been sent' do
       it 'should assign public_bodies to the view' do
         action

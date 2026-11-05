@@ -25,6 +25,13 @@ RSpec.describe PublicBodyController, "when showing a body" do
     expect(assigns[:request_results]).to be_present
   end
 
+  it 'links to the canonical URL without filters or params' do
+    get :show, params: { url_name: 'dfh', view: 'successful', page: 2 }
+    expect(response.body).to include(
+      '<link rel="canonical" href="http://test.host/body/dfh">'
+    )
+  end
+
   it "should display the body using same locale as that used in url_name" do
     cookies[:locale] = 'es'
     get :show, params: { url_name: "edfh", view: 'all' }
@@ -89,6 +96,34 @@ RSpec.describe PublicBodyController, "when listing bodies" do
   it "should be successful" do
     get :list
     expect(response).to be_successful
+  end
+
+  it 'links to the canonical URL for all bodies' do
+    get :list, params: { page: 2 }
+    expect(response.body).to include(
+      '<link rel="canonical" href="http://test.host/body/list/all">'
+    )
+  end
+
+  it 'links to the canonical URL for a tag' do
+    get :list, params: { tag: 'other', page: 2 }
+    expect(response.body).to include(
+      '<link rel="canonical" href="http://test.host/body/list/other">'
+    )
+  end
+
+  it 'preserves the case of the tag in the canonical URL' do
+    get :list, params: { tag: 'Other' }
+    expect(response.body).to include(
+      '<link rel="canonical" href="http://test.host/body/list/Other">'
+    )
+  end
+
+  it 'links to the canonical URL for a letter' do
+    get :list, params: { tag: 'A' }
+    expect(response.body).to include(
+      '<link rel="canonical" href="http://test.host/body/list/a">'
+    )
   end
 
   def make_single_language_example(locale)

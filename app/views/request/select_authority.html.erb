@@ -18,6 +18,10 @@
 
 <% @title = _("Find an authority")  %>
 
+<% content_for :head do %>
+  <%= canonical_tag select_authority_url %>
+<% end %>
+
 <h1><%= _('Find an authority') %></h1>
 
 <div id="authority_selection" class="authority_selection">

@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <%= canonical_tag frontpage_url %>
+<% end %>
+
 <% content_for :body_class, 'front' %>
 
 <% cache_if_caching_fragments("frontpage", expires_in: 5.minutes) do %>

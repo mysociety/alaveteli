@@ -232,4 +232,14 @@ module ApplicationHelper
       'journalists.',
       pro_site_name: pro_site_name_link)
   end
+
+  # Search engines prefer absolute canonical URLs, so require one unless
+  # explicitly opted out.
+  def canonical_tag(url, only_path: false)
+    unless only_path || URI.parse(url).absolute?
+      raise ArgumentError, "Canonical URL must be absolute: \"#{url}\""
+    end
+
+    tag.link(rel: 'canonical', href: url)
+  end
 end

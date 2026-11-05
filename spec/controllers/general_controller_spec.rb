@@ -95,6 +95,13 @@ RSpec.describe GeneralController, "when showing the frontpage" do
     expect(response).to be_successful
   end
 
+  it 'links to the canonical URL without params' do
+    get :frontpage, params: { foo: 'bar' }
+    expect(response.body).to include(
+      '<link rel="canonical" href="http://test.host/">'
+    )
+  end
+
   it "should render the front page with default language" do
     get :frontpage
     expect(response.body).to have_css('html[lang="en"]')

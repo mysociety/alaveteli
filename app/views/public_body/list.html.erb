@@ -1,5 +1,15 @@
 <% @title = @description.empty? ? _("Public authorities") : _("Public authorities - {{description}}", :description => @description) %>
 
+<% content_for :head do %>
+  <% if @tag == 'all' %>
+    <%= canonical_tag list_public_bodies_default_url %>
+  <% elsif @tag =~ /\A[a-zA-Z]\z/ %>
+    <%= canonical_tag list_public_bodies_by_tag_url(@tag.downcase) %>
+  <% else %>
+    <%= canonical_tag list_public_bodies_by_tag_url(@tag) %>
+  <% end %>
+<% end %>
+
 <div id="left_column_flip" class="left_column_flip left_column_flip--opposite">
   <a href="#right_column_flip" class="show-with-keyboard-focus-only skip-to-link">
     <%= _('Skip to browse options') %>
