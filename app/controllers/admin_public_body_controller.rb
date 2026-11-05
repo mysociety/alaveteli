@@ -261,7 +261,12 @@ class AdminPublicBodyController < AdminController
   end
 
   def indexed_public_body_scope
-    PublicBody.search_scope(@query, backend: :postgresql, admin_mode: true)
+    PublicBody.search_scope(
+      @query,
+      backend: :postgresql,
+      admin_mode: true,
+      exact_mode: true,
+    )
   end
 
   def public_body_params
