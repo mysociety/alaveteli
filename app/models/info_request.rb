@@ -1374,7 +1374,8 @@ class InfoRequest < ApplicationRecord
   def all_correspondence_is_public?
     prominence(decorate: true).is_public? &&
       incoming_messages.all?(&:is_public?) &&
-      outgoing_messages.all?(&:is_public?)
+      outgoing_messages.all?(&:is_public?) &&
+      foi_attachments.all?(&:is_public?)
   end
 
   def json_for_api(deep)
