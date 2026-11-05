@@ -29,6 +29,17 @@
                new_label: 'whole word search in titles; please report ' \
                           'poor search results!'
              } %>
+
+  <div class="input-group type-filter">
+    <span class="help-inline">Filter by type:</span>
+
+    <% Citation::TYPES.each do |type| %>
+      <label class="checkbox-inline">
+        <%= check_box_tag 'types[]', type, @types.include?(type) %>
+        <%= type.humanize %>
+      </label>
+    <% end %>
+  </div>
 <% end %>
 
 <div class="row">

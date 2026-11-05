@@ -10,8 +10,10 @@ class Admin::CitationsController < AdminController
   def index
     @query = params[:query] || nil
     @page = get_search_page_from_params
+    @types = Array(params[:types]) & Citation::TYPES
 
     citations = citation_scope
+    citations = citations.where(type: @types) if @types.any?
 
     if cannot? :admin, AlaveteliPro::Embargo
       citations = citations.not_embargoed
