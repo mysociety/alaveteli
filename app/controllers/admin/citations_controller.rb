@@ -66,6 +66,6 @@ class Admin::CitationsController < AdminController
   end
 
   def citation_params
-    params.require(:citation).permit(:source_url, :title, :description)
+    params.require(:citation).permit(:source_url, :type, :title, :description)
   end
 end

@@ -72,6 +72,11 @@ RSpec.describe Admin::CitationsController do
         expect(citation.title).to eq('Updated Title')
       end
 
+      it 'updates the citation type' do
+        put :update, params: { id: citation.id, citation: { type: 'research' } }
+        expect(citation.reload.type).to eq('research')
+      end
+
       it 'redirects to the citation' do
         expect(response).to redirect_to(admin_citations_url)
       end

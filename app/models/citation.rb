@@ -24,6 +24,8 @@ class Citation < ApplicationRecord
 
   self.inheritance_column = nil
 
+  TYPES = %w(journalism research campaigning other).freeze
+
   belongs_to :user, inverse_of: :citations
   belongs_to :citable, polymorphic: true
 
@@ -39,8 +41,7 @@ class Citation < ApplicationRecord
   validates :source_url, format: { without: /\Ahttps?:\/\/#{AlaveteliConfiguration.domain}.*\z/,
                          message: _('Citations can only be added for external URLs') }
 
-  validates :type, inclusion: { in: %w(journalism research campaigning other),
-                                message: _('Please select a type') }
+  validates :type, inclusion: { in: TYPES, message: _('Please select a type') }
 
   scope :newest, ->(limit = 1) do
     order(created_at: :desc).limit(limit)
