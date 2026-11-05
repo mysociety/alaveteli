@@ -15,6 +15,7 @@
 #  prominence                   :string           default("normal"), not null
 #  prominence_reason            :text
 #  from_name                    :text
+#  erased_at                    :datetime
 #
 
 FactoryBot.define do
@@ -80,6 +81,10 @@ FactoryBot.define do
       outgoing_message.record_email_delivery(
         'test@example.com',
       'ogm-14+537f69734b97c-1ebd@localhost')
+    end
+
+    trait :erased do
+      erased_at { Time.zone.now }
     end
 
     trait :hidden do

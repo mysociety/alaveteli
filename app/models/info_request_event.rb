@@ -40,6 +40,7 @@ class InfoRequestEvent < ApplicationRecord
     'report_request', # a request reported for admin attention by user
     'destroy_incoming', # deleted an incoming message (in admin interface)
     'destroy_outgoing', # deleted an outgoing message (in admin interface)
+    'erase_outgoing', # erase an outgoing message (in admin interface)
     'redeliver_incoming', # redelivered an incoming message elsewhere (in admin interface)
     'edit_incoming', # incoming message edited (in admin interface)
     'edit_attachment', # attachment edited (in admin interface)
