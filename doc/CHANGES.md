@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Switch from the unmaintained `activejob-uniqueness` gem to its
+  `activejob-unique` fork, which supports Rails 8.1 (Graeme Porteous)
 * Switch locale by submitting a form rather than following a link to stop
   crawlers requesting every page in every locale (Gareth Rees)
 * Stop the `locale` param and locale path prefixes switching locale (Gareth
