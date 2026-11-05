@@ -36,6 +36,33 @@ RSpec.describe Admin::CitationsController do
       expect(assigns[:citations]).not_to include(org)
     end
 
+    it 'filters citations by type' do
+      research = FactoryBot.create(:citation, type: 'research')
+      journalism = FactoryBot.create(:citation, type: 'journalism')
+      get :index, params: { types: %w(research) }
+      expect(assigns[:citations]).to include(research)
+      expect(assigns[:citations]).not_to include(journalism)
+    end
+
+    it 'filters citations by type and search query', :reindex_inline do
+      match = FactoryBot.create(
+        :citation, type: 'research', source_url: 'https://example.net/a'
+      )
+      other_type = FactoryBot.create(
+        :citation, type: 'journalism', source_url: 'https://example.net/b'
+      )
+      get :index, params: {
+        query: 'example.net', search_engine: :new, types: %w(research)
+      }
+      expect(assigns[:citations]).to include(match)
+      expect(assigns[:citations]).not_to include(other_type)
+    end
+
+    it 'ignores unknown types' do
+      get :index, params: { types: %w(invalid) }
+      expect(assigns[:types]).to be_empty
+    end
+
     it 'renders the correct template' do
       expect(response).to render_template(:index)
     end
@@ -70,6 +97,11 @@ RSpec.describe Admin::CitationsController do
       it 'updates the citation' do
         citation.reload
         expect(citation.title).to eq('Updated Title')
+      end
+
+      it 'updates the citation type' do
+        put :update, params: { id: citation.id, citation: { type: 'research' } }
+        expect(citation.reload.type).to eq('research')
       end
 
       it 'redirects to the citation' do
