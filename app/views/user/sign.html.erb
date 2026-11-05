@@ -60,9 +60,10 @@
         <h2><%= _('Sign in') %></h2>
         <%= render :partial => 'signin', :locals => { :sign_in_as_existing_user => false } %>
       </div>
-      <%= render partial: 'sign_right_half_extra_content' %>
     </div>
 
     <div style="clear:both"></div>
+
+    <%= render partial: 'sign_extra_content' %>
   </div>
 <% end %>
