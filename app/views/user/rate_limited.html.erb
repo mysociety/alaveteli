@@ -27,19 +27,23 @@
     <div class="pro-upsell__headers">
       <div class="pro-upsell__header">
         <h2><%= _('Sending to multiple authorities at once?') %></h2>
-        <p>
-          <%=_('<strong class="marketing-highlight">Make a request to ' \
-               'multiple authorities</strong>: select authorities at the ' \
-               'click of a button') %>
-          <br>
-          <%=_('<strong class="marketing-highlight">Manage large volumes of ' \
-               'responses</strong>: easily keep track of the status of each ' \
-               'request') %>
-          <br>
-          <%=_('<strong class="marketing-highlight">Get regular updates' \
-               '</strong> as the responses come in — without overwhelming ' \
-               'your inbox') %>
-        </p>
+        <div>
+          <p>
+            <%=_('<strong class="marketing-highlight">Make a request to ' \
+                 'multiple authorities</strong>: select authorities at the ' \
+                 'click of a button.') %>
+          </p>
+          <p>
+            <%=_('<strong class="marketing-highlight">Manage large volumes of ' \
+                 'responses</strong>: easily keep track of the status of each ' \
+                 'request.') %>
+          </p>
+          <p>
+            <%=_('<strong class="marketing-highlight">Get regular updates' \
+                 '</strong> as the responses come in — without overwhelming ' \
+                 'your inbox.') %>
+          </p>
+        </div>
         <p>
           <%= link_to _('Subscribe to {{pro_site_name}}',
                         pro_site_name: pro_site_name),
@@ -56,6 +60,24 @@
                   pro_site_link: link_to(pro_site_name,
                                          account_request_index_path)) %>
         </p>
+
+        <div>
+          <p>
+            <%= _('<strong class="marketing-highlight">No fear of getting ' \
+                  'scooped:</strong> {{pro_site_name}}’s unique privacy ' \
+                  'function keeps your requests and responses private until ' \
+                  'you’re ready to publish.',
+                  pro_site_name: pro_site_name) %>
+          </p>
+          <% if feature_enabled?(:projects) %>
+            <p>
+              <%= _('<strong class="marketing-highlight">Differently-formatted ' \
+                    'responses? No problem:</strong> collaborate with a team, ' \
+                    'or work alone to pull out the data you need into a neat, ' \
+                    'consistent format.') %>
+            </p>
+          <% end %>
+        </div>
       </div>
     </div>
 
