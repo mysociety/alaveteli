@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix request ZIP downloads sharing restricted attachments with other users
+  (Graeme Porteous)
 * Ability to edit and filter by citation type in admin list (Gareth Rees)
 * Stop search engines indexing user profile pages (Gareth Rees)
 * Add canonical URLs to pages that can be reached with various URL params, so
@@ -152,6 +154,12 @@
 * Block various action links via robots.txt (Laurent Savaete)
 
 ## Upgrade Notes
+
+* _Required:_ Cached request ZIP files can include restricted attachments that
+  other users could download. Delete them after deploying. Alaveteli makes them
+  again when they are next needed. Run this from the Alaveteli root directory:
+
+      rm -rf cache/zips/*
 
 * **IMPORTANT! We no longer support PostgreSQL 13**. Please upgrade to at least
   version 15 before upgrading Alaveteli. This is the version shipped with Debian
