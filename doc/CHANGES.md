@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Ability to edit and filter by citation type in admin list (Gareth Rees)
 * Stop search engines indexing user profile pages (Gareth Rees)
 * Add canonical URLs to pages that can be reached with various URL params, so
   that search engines consolidate duplicate pages (Gareth Rees)
