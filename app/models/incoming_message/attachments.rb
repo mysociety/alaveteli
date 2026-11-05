@@ -101,7 +101,7 @@ module IncomingMessage::Attachments
 
     # Save clipped version for snippets
     if cached_attachment_text_clipped.nil?
-      clipped = text.mb_chars[0..MAX_ATTACHMENT_TEXT_CLIPPED].delete("\0")
+      clipped = text[0..MAX_ATTACHMENT_TEXT_CLIPPED].delete("\0")
       self.cached_attachment_text_clipped = clipped
       save!
     end

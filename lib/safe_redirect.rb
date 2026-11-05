@@ -11,7 +11,9 @@ class SafeRedirect
 
   def path(opts = {})
     query = opts[:query]
-    URI::Generic.build(path: uri.path, query: query, fragment: uri.fragment).
+    path = uri.path
+    path = "/#{path}" unless path.empty? || path.start_with?('/')
+    URI::Generic.build(path: path, query: query, fragment: uri.fragment).
       to_s
   end
 end
