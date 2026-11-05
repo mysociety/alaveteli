@@ -29,8 +29,10 @@ module ProminenceHeaders
   end
 
   def set_requester_only_headers
+    set_no_crawl_headers
   end
 
   def set_hidden_headers
+    set_no_crawl_headers
   end
 end
