@@ -28,6 +28,8 @@ class PasswordChangesController < ApplicationController
                      template: :edit
 
   def new
+    medium_cache
+
     @email_field_options =
       @user ? { disabled: true, value: @user.email } : {}
   end
