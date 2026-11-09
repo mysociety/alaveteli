@@ -25,6 +25,11 @@ RSpec.describe PasswordChangesController do
       get :new
       expect(response).to render_template(:new)
     end
+
+    it 'sets a medium cache header' do
+      get :new
+      expect(response.headers['Cache-Control']).to eq('max-age=3600, public')
+    end
   end
 
   describe 'POST create' do
