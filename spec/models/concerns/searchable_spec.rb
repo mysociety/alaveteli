@@ -121,6 +121,11 @@ RSpec.describe Searchable, 'index lifecycle', :reindex_inline do
     expect(Searchable.models_rooted_at(InfoRequest)).not_to include('User')
   end
 
+  it 'leaves out models with only an admin index' do
+    expect(Searchable.models_rooted_at(InfoRequest)).
+      not_to include('InfoRequestEvent', 'MailServerLog')
+  end
+
   it 'does not index models that are not registered as searchable' do
     n = FactoryBot.create(:notification)
     expect(SearchDocument.where(searchable_type: "Notification").count).to eq(0)
