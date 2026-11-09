@@ -33,6 +33,10 @@
   @include grid-row($behavior: nest);
 }
 
+#sign_extra_content {
+  @include grid-column(12);
+}
+
 #sign_alone{
   @include grid-row($behavior: nest);
   #signin {
