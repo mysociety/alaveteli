@@ -19,8 +19,8 @@
 # registering / logging in. This can save POST requests, if post_params_yaml
 # is not null.
 #
-# See check_in_post_redirect in controllers/application.rb for the hack that
-# fakes the redirect to include POST parameters in request later.
+# See check_in_post_redirect in controllers/concerns/post_redirects.rb for the
+# hack that fakes the redirect to include POST parameters in request later.
 #
 # Copyright (c) 2007 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
