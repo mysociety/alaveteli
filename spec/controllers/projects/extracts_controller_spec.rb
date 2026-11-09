@@ -460,4 +460,26 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       end
     end
   end
+
+  describe 'POST #create when logged out' do
+    let(:project) { FactoryBot.create(:project) }
+
+    it 'saves the dataset key ids and masks secret keys' do
+      post :create, params: {
+        project_id: project.id,
+        api_key: 'secret',
+        extract: {
+          dataset_key_set_id: '1',
+          values_attributes: [{ dataset_key_id: '2', value: 'x' }]
+        }
+      }
+
+      saved = get_last_post_redirect.post_params
+      expect(saved['api_key']).to eq('[FILTERED]')
+      expect(saved['extract'].to_unsafe_h).to eq(
+        'dataset_key_set_id' => '1',
+        'values_attributes' => [{ 'dataset_key_id' => '2', 'value' => 'x' }]
+      )
+    end
+  end
 end

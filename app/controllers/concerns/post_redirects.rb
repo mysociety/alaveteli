@@ -23,7 +23,7 @@ module PostRedirects
 
     post_redirect = reason_params.delete(:post_redirect)
     post_redirect ||= PostRedirect.new(uri: request.fullpath,
-                                       post_params: params,
+                                       post_params: filtered_params,
                                        reason_params: reason_params)
     post_redirect.save!
 
@@ -41,6 +41,15 @@ module PostRedirects
     redirect_to signin_url(token: post_redirect.token, modal: params[:modal])
 
     false
+  end
+
+  # The saved params are not bound to a user and can be replayed in another
+  # session, so mask secrets in the same way as the logs. Path params are
+  # already in the saved URI, and the replay needs them unmasked.
+  def filtered_params
+    ActionController::Parameters.new(
+      request.filtered_parameters.merge(request.path_parameters)
+    )
   end
 
   # Do a POST redirect. This is a nasty hack - we store the posted values in
