@@ -252,7 +252,8 @@ class ApplicationController < ActionController::Base
 
     # Make sure this redirect does not get cached - it only applies to this user
     # HTTP 1.1
-    headers['Cache-Control'] = 'private, no-cache, no-store, max-age=0, must-revalidate'
+    headers['Cache-Control'] =
+      'private, no-cache, no-store, max-age=0, must-revalidate'
     # HTTP 1.0
     headers['Pragma'] = 'no-cache'
     # Proxies
@@ -278,7 +279,7 @@ class ApplicationController < ActionController::Base
   # Do a POST redirect. This is a nasty hack - we store the posted values in
   # the session, and when the GET redirect with "?post_redirect=1" happens,
   # load them in.
-  def do_post_redirect(post_redirect, user=nil)
+  def do_post_redirect(post_redirect, user = nil)
     uri = SafeRedirect.new(post_redirect.uri).path
     if feature_enabled?(:alaveteli_pro) &&
        user &&
@@ -300,22 +301,22 @@ class ApplicationController < ActionController::Base
 
   # If we are in a faked redirect to POST request, then set post params.
   def check_in_post_redirect
-    if params[:post_redirect]
-      if session[:post_redirect_token]
-        post_redirect =
-          PostRedirect.find_by_token(session[:post_redirect_token])
-        if post_redirect
-          post_redirect_params =
-            params_to_unsafe_hash(post_redirect.post_params)
-          params.merge!(post_redirect_params)
-          params[:post_redirect_user] = post_redirect.user
-        end
-      else
-        logger.warn "Missing post redirect token. " \
-                    "Session: #{session.to_hash} " \
-                    "IP: #{user_ip} " \
-                    "Params: #{params}"
+    return unless params[:post_redirect]
+
+    if session[:post_redirect_token]
+      post_redirect =
+        PostRedirect.find_by_token(session[:post_redirect_token])
+      if post_redirect
+        post_redirect_params =
+          params_to_unsafe_hash(post_redirect.post_params)
+        params.merge!(post_redirect_params)
+        params[:post_redirect_user] = post_redirect.user
       end
+    else
+      logger.warn "Missing post redirect token. " \
+                  "Session: #{session.to_hash} " \
+                  "IP: #{user_ip} " \
+                  "Params: #{params}"
     end
   end
 
