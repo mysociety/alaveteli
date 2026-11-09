@@ -76,6 +76,26 @@ RSpec.describe InfoRequestEvent do
     end
   end
 
+  describe '.with_searchable_content' do
+    subject(:with_searchable_content) do
+      described_class.with_searchable_content
+    end
+
+    it 'includes visible events on a hidden request' do
+      event = FactoryBot.create(
+        :sent_event, info_request: FactoryBot.create(:info_request, :hidden)
+      )
+      expect(with_searchable_content).to include(event)
+    end
+
+    it 'excludes events with hidden content' do
+      event = FactoryBot.create(
+        :response_event, incoming_message_factory: [:incoming_message, :hidden]
+      )
+      expect(with_searchable_content).not_to include(event)
+    end
+  end
+
   describe 'event_type scopes' do
     described_class::EVENT_TYPES.each do |event_type|
       it "for '#{event_type}' events" do

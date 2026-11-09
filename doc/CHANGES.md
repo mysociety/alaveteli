@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix slow request listings with date filters, and stop counting above the
+  results limit (Graeme Porteous)
 * Fix hidden comments, and content on hidden messages or requests, showing in
   public search (Graeme Porteous)
 * Ability to edit and filter by citation type in admin list (Gareth Rees)

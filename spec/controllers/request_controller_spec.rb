@@ -87,6 +87,26 @@ RSpec.describe RequestController, "when listing recent requests" do
     get :list, params: { view: 'all', tag: 'other' }
     expect(assigns[:title]).to eq('Found 1 request tagged ‘other’')
   end
+
+  context 'with more matches than the maximum results' do
+    render_views
+
+    before do
+      stub_const('ApplicationController::MAX_RESULTS', 1)
+      stub_const('ApplicationController::PER_PAGE', 1)
+      2.times { FactoryBot.create(:info_request, tag_string: 'other') }
+    end
+
+    it 'says there are more than the maximum in the heading' do
+      get :list, params: { view: 'all' }
+      expect(response.body).to include('More than 1 FOI requests found')
+    end
+
+    it 'says there are more than the maximum in the title' do
+      get :list, params: { view: 'all', tag: 'other' }
+      expect(assigns[:title]).to eq('Found more than 1 requests tagged ‘other’')
+    end
+  end
 end
 
 RSpec.describe RequestController, "when showing one request" do
