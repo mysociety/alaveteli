@@ -102,6 +102,17 @@ RSpec.describe Projects::InvitesController, spec_meta do
         expect(post_redirect.uri).to eq "/p/#{ project.invite_token }"
         expect(post_redirect.reason_params).to eq(web: 'To join this project')
       end
+
+      it 'joins the project when replayed after sign in' do
+        user = FactoryBot.create(:user)
+        sign_in user
+        session[:post_redirect_token] = get_last_post_redirect.token
+
+        get :create,
+            params: { token: project.invite_token, post_redirect: '1' }
+
+        expect(project.reload.contributors).to include(user)
+      end
     end
   end
 end
