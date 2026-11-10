@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Upgrade to Rails 8.1 (Graeme Porteous)
 * Fix slow request listings with date filters, and stop counting above the
   results limit (Graeme Porteous)
 * Fix hidden comments, and content on hidden messages or requests, showing in

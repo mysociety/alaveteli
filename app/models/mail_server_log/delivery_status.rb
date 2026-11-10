@@ -55,7 +55,7 @@ class MailServerLog::DeliveryStatus
   #
   # Returns a String
   def capitalize
-    to_s!.mb_chars.capitalize.to_s
+    to_s!.capitalize
   end
 
   def inspect
