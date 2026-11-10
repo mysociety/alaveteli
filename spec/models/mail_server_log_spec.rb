@@ -609,5 +609,136 @@ RSpec.describe MailServerLog do
           not_embargoed
       ).to eq([])
     end
+
+    context 'cleans up log lines' do
+
+      def check(log_line, expected_bits)
+        sql = "SELECT cleanup_mail_server_logs_for_search('#{log_line}', '#{mta}', '#{alaveteli_server_name}')"
+        cleaned_string = 
+          ActiveRecord::Base.
+            connection.
+            execute(sql).
+            first['cleanup_mail_server_logs_for_search']
+
+        if expected_bits.nil?
+          expect(cleaned_string).to be_nil
+        elsif expected_bits.is_a? String
+          expect(cleaned_string).to eq(expected_bits)
+        else
+          expect(cleaned_string).to include(*expected_bits)
+        end
+      end
+
+      context 'when using postfix MTA' do
+        let(:mta) { 'postfix' }
+        let(:alaveteli_server_name) { 'alaveteli.org' }
+
+        it 'keeps only expected content when indexing mail server log lines' do
+          log_line =
+            "Oct 25 14:37:52 myhostname postfix/smtp[15321]: 4C88A90010: to=" \
+            "<administration@agglo-someplace.fr>, relay=mail3.agglo-someplace" \
+            ".fr[5.4.3.2]:25, delay=4.1, delays=0.04/0.01/0.89/3.2, dsn=4.2.0" \
+            ", status=deferred (host mail3.agglo-someplace.fr[5.4.3.2] said: " \
+            "450 4.2.0 <administration2@agglo-someplace.fr>: Recipient addres" \
+            "s rejected: Greylisted, see http://somehost.somedomain.ch/help/" \
+            "agglo-someplace.fr.html (in reply to RCPT TO command))+"
+          expected_bits = [
+            "administration@agglo-someplace.fr",
+            "mail3.agglo-someplace.fr",
+            "administration2@agglo-someplace.fr"
+          ]
+          check(log_line, expected_bits)
+        end
+
+        it 'removes duplicate addresses in a single line' do
+          log_line = 
+            "to=<administration@agglo-someplace.fr>, " \
+            "<administration@agglo-someplace.fr>+"
+          expected_bits = "administration@agglo-someplace.fr"
+          check(log_line, expected_bits)
+        end
+
+        it 'removes local request addresses' do
+          log_line = 
+            'Oct 21 08:58:20 dadaprod1 postfix/qmgr[26500]: 0E206420F2: from=' \
+            '<foi+request-2-12345678@alaveteli.org>, size=2078, nrcpt=1 ' \
+            '(queue active)'
+          expected_bits = nil
+          check(log_line, expected_bits)
+        end
+      end
+
+      context 'when using exim MTA' do
+        let(:mta) { 'exim' }
+        let(:alaveteli_server_name) { 'alaveteli.org' }
+
+        it 'keeps only email address and topic' do
+          log_line =
+            'Aug 26 22:00:20 msnm001clla exim[2393724]: 2026-08-26 22:00:20.' \
+            '168 [2393724] 1wzKjM-0000000A2iS-0ggu <= request-123-12345678@a' \
+            'laveteli.org H=myserver.alaveteli.org [2:1:2:d::1:1]:11111 I=[2:' \
+            '1:2::3]:25 Ci=2393724 P=esmtps L. X=TLS1.3:ECDHE_SECP256R1__RSA_' \
+            'PSS_RSAE_SHA256__AES_256_GCM:256 CV=no K S=2879 M8S=0 RT=0.001s ' \
+            'id=ogm-1234567+12398359845-bd0a@alaveteli.org T="Freedom of Info' \
+            'rmation request - water levels" from <request-123-12345678@alave' \
+            'teli.org> for recordsmanagement@publicbody.gov.uk'
+          expected_bits = [
+            "Freedom of Information request - water levels",
+            "recordsmanagement@publicbody.gov.uk"
+          ]
+          check(log_line, expected_bits)
+        end
+
+        it 'keeps useful data' do
+          log_line =
+            'Sep 21 16:21:55 msnm001clla exim[938938]: 2026-09-21 16:21:55.346 ' \
+            '[938938] 1x8fq6-00000003wGA-3fmb <= RecordsManagement@authority.' \
+            'gov.uk H=mail-xxx.outbound.protection.outlook.com (LO0P265CU003.' \
+            'outbound.protection.outlook.com) [1:1:3:2::]:15340 I=[1:1:2::3]:' \
+            '25 Ci=938938 P=esmtps L. X=TLS1.3:ECDHE_SECP384R1__RSA_PSS_RSAE_' \
+            'SHA256__AES_256_GCM:256 CV=no SNI=mx1.ukcod.org.uk K S=335804 ' \
+            'M8S=0 DKIM=authority.gov.uk RT=0.035s id=111@LO2P265MB3628.' \
+            'GBRP265.PROD.OUTLOOK.COM T="Freedom of Information Act 2000 ' \
+            'response reference FOI 123" from <RecordsManagement@authority.' \
+            'gov.uk> for request-1-123@alaveteli.org'
+          expected_bits = [
+            "mail-xxx.outbound.protection.outlook.com",
+            "Freedom of Information Act 2000 response reference FOI 123",
+            "RecordsManagement@authority.gov.uk"
+          ]
+          check(log_line, expected_bits)
+        end
+
+        it 'removes duplicate addresses in a single line' do
+          log_line =
+            "from <administration@agglo-someplace.fr> for " \
+            "administration@agglo-someplace.fr"
+          expected_search_line = "administration@agglo-someplace.fr"
+          check(log_line, expected_search_line)
+        end
+
+
+        it 'keeps useful values without request email addresses' do
+          log_line =
+            'Sep 21 16:20:06 msnm001cama exim[1882252]: 2026-09-21 ' \
+            '16:20:06.898 [1882252] 1x8foK-00000007ten-2O7d => ' \
+            'foi@pop.mysociety.org (foi@alaveteli.org) ' \
+            '<request-1-1234@alaveteli.org> F=<bounce+3dc068.f679-request-1-' \
+            '1234=alaveteli.org@egresscloud.com> P=<bounce+3dc068.f679-' \
+            'request-1-1234=alaveteli.org@egresscloud.com> R=dnslookup ' \
+            'T=remote_smtp S=12791 H=mspop001sovb.srv.mysociety.org ' \
+            '[2:1:2::9]:25 I=[2:1:2::1]:60900 X=TLS1.3:ECDHE_SECP256R1' \
+            '__RSA_PSS_RSAE_SHA256__AES_256_GCM:256 CV=no ' \
+            'DN="CN=srv.mysociety.org" L K C="250- 11121 byte chunk, total ' \
+            '12791\\n250 OK id=1x8foM-008cla-2j" QT=2.173s DT=0.128s'
+          expected_bits = [
+            "bounce+3dc068.f679-request-1-1234=alaveteli.org@egresscloud.com",
+            "bounce+3dc068.f679-request-1-1234=alaveteli.org@egresscloud.com",
+            "mspop001sovb.srv.mysociety.org"
+          ]
+          check(log_line, expected_bits)
+        end
+      end
+    end
   end
 end
