@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix mail server logs loading again every hour when unchanged (Graeme Porteous)
 * Fix slow request listings with date filters, and stop counting above the
   results limit (Graeme Porteous)
 * Fix hidden comments, and content on hidden messages or requests, showing in
