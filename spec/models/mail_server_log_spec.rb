@@ -96,6 +96,27 @@ RSpec.describe MailServerLog do
           to_not include(['delivery_status'])
       end
     end
+
+    context "when the file is loaded again", :reindex_inline do
+      let(:documents) do
+        SearchDocument.where(searchable_type: 'MailServerLog')
+      end
+
+      before do
+        allow(InfoRequest).to receive(:find_by_incoming_email).
+          with("foi+request-1234@example.com").and_return(ir)
+      end
+
+      it "keeps one search document for each log line" do
+        MailServerLog.load_file(text_log_path)
+        allow(File).to receive_message_chain(:stat, :mtime).
+          and_return(DateTime.new(2012, 10, 11))
+        MailServerLog.load_file(text_log_path)
+
+        expect(documents.pluck(:searchable_id)).
+          to match_array(ir.mail_server_logs.pluck(:id))
+      end
+    end
   end
 
   describe ".email_addresses_on_line" do
