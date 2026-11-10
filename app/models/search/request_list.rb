@@ -1,6 +1,7 @@
 module Search
   ##
-  # The paginated request list for RequestController#list.
+  # The paginated request list for RequestController#list, and the request
+  # lists on authority and user pages.
   #
   # The list is a filtered listing rather than a keyword search: status, date
   # and tag filters are applied as database conditions on InfoRequest (which
@@ -24,7 +25,14 @@ module Search
       gone_postal error_message requires_admin
     ].freeze
 
-    def initialize(filters, page, per_page, max_results)
+    # Map a request variety to the event types it covers.
+    VARIETY_EVENT_TYPES = {
+      'sent' => %w[sent followup_sent],
+      'response' => %w[response],
+      'comment' => %w[comment]
+    }.freeze
+
+    def initialize(filters, page = 1, per_page = 25, max_results = nil)
       @filters = filters
       @page = page
       @per_page = per_page
@@ -35,7 +43,7 @@ module Search
     # matches up to one above +max_results+, as an exact count reads every
     # match.
     def call
-      requests = filtered_requests.order(created_at: :desc)
+      requests = self.requests.order(created_at: :desc)
 
       # Counted only when read, so a cached listing does not count.
       counter = method(:count_matches)
@@ -56,6 +64,18 @@ module Search
       STATUS_STATES
     end
 
+    # Every matching request, as an unordered relation.
+    def requests
+      scope = InfoRequest.is_searchable
+      scope = filter_by_public_body(scope)
+      scope = filter_by_user(scope)
+      scope = filter_by_described_state(scope)
+      scope = filter_by_status(scope)
+      scope = filter_by_events(scope)
+      scope = filter_by_tag(scope)
+      filter_by_keyword(scope)
+    end
+
     private
 
     def count_matches(requests)
@@ -63,35 +83,54 @@ module Search
       requests.limit(@max_results + 1).pluck(:id).size
     end
 
-    def filtered_requests
-      scope = InfoRequest.is_searchable
-      scope = filter_by_status(scope)
-      scope = filter_by_dates(scope)
-      scope = filter_by_tag(scope)
-      filter_by_keyword(scope)
+    def filter_by_public_body(scope)
+      public_body = @filters[:public_body]
+      public_body ? scope.where(public_body: public_body) : scope
+    end
+
+    def filter_by_user(scope)
+      user = @filters[:user]
+      user ? scope.where(user: user) : scope
+    end
+
+    def filter_by_described_state(scope)
+      state = @filters[:described_state]
+      state.present? ? scope.where(described_state: state) : scope
     end
 
     def filter_by_status(scope)
       views = Array(@filters[:latest_status]).compact
       return scope if views.empty? || (views & %w[all recent]).any?
 
-      if views.include?('awaiting')
-        return scope.where(described_state: AWAITING_STATES).
-          or(scope.where(awaiting_description: true))
-      end
-
       states = views.flat_map { |view| status_states[view] }.compact.uniq
-      states.empty? ? scope : scope.where(described_state: states)
+      if views.include?('awaiting')
+        scope.where(described_state: states | AWAITING_STATES).
+          or(scope.where(awaiting_description: true))
+      elsif states.any?
+        scope.where(described_state: states)
+      else
+        scope
+      end
     end
 
-    # Match requests with a searchable event in the range, as Xapian did.
-    def filter_by_dates(scope)
+    # Match requests with one searchable event in the range and of a chosen
+    # variety, as Xapian did.
+    def filter_by_events(scope)
       after = parse_date(@filters[:request_date_after])
       before = parse_date(@filters[:request_date_before])
-      return scope unless after || before
 
-      events = InfoRequestEvent.with_searchable_content.
-        where(created_at: after&.beginning_of_day..before&.end_of_day)
+      varieties = Array(@filters[:request_variety])
+      varieties = [] if (VARIETY_EVENT_TYPES.keys - varieties).empty?
+      types = VARIETY_EVENT_TYPES.values_at(*varieties).flatten.compact
+
+      return scope unless after || before || types.any?
+
+      events = InfoRequestEvent.with_searchable_content
+      if after || before
+        events = events.
+          where(created_at: after&.beginning_of_day..before&.end_of_day)
+      end
+      events = events.where(event_type: types) if types.any?
 
       # No request has an event from before it was made, so this keeps the
       # same matches but lets the planner skip the newer requests.
@@ -108,9 +147,9 @@ module Search
       query = @filters[:query].to_s.strip
       return scope if query.empty?
 
-      ids = Search.request_search(query).
-        results(page: 1, per_page: @max_results).
-        results.map { |result| result[:model].id }
+      # Xapian ignores +requests+ and ranks the whole site, so a narrow list
+      # can miss matches; drop this when Xapian is retired.
+      ids = Search.request_search(query, requests: scope).ids(@max_results)
       scope.where(id: ids)
     end
 
