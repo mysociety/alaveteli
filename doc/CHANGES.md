@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix orphaned search documents when mail server logs are loaded again
+  (Graeme Porteous)
 * Fix slow request listings with date filters, and stop counting above the
   results limit (Graeme Porteous)
 * Fix hidden comments, and content on hidden messages or requests, showing in
