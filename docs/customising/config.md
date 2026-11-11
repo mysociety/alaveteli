@@ -2381,6 +2381,7 @@ VARNISH_HOSTS:
             <pre>
 STRIPE_PRICES:
   pro: pro
+  price_1MoBy5LkdIwHu7ixZhnattbh: pro-annual-billing
 </pre>
         </li>
       </ul>
