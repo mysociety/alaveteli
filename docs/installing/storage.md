@@ -39,8 +39,8 @@ options.
 
 ## Cloud services
 
-There are examples of the different cloud services (Amazon S3, Microsoft Azure,
-Google Cloud) supported by Active Storage in the example configuration.
+There are examples of the different cloud services (Amazon S3, Google Cloud)
+supported by Active Storage in the example configuration.
 
 ```
 amazon:
@@ -49,12 +49,6 @@ amazon:
   secret_access_key: ''
   region: ''
   bucket: ''
-
-azure:
-  service: AzureStorage
-  storage_account_name: ''
-  storage_access_key: ''
-  container: ''
 
 google:
   service: GCS

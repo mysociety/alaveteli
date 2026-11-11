@@ -34,7 +34,7 @@ you must
     <strong>What's in the AMI?</strong>
     The AMI gives you exactly the same thing as the
     <a href="{{ page.baseurl }}/docs/installing/script/">installation script</a>
-    does. You get an Alaveteli website powered by Rails running the Thin
+    does. You get an Alaveteli website powered by Rails running the Puma
     application server under nginx, using a postgreSQL database. All this
     running on Amazon's EC2 servers, ready to be
     <a href="{{ page.baseurl }}/docs/customising/">configured and customised</a>.
