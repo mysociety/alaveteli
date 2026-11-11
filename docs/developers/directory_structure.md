@@ -39,9 +39,6 @@ website](http://guides.rubyonrails.org/getting_started.html).
           <em>static assets that require precompilation before being served</em>
           <dl>
               <dt>
-                  fonts
-              </dt>
-              <dt>
                   images
               </dt>
               <dt>
@@ -63,15 +60,36 @@ website](http://guides.rubyonrails.org/getting_started.html).
         helpers
       </dt>
       <dt>
+        javascript
+      </dt>
+      <dt>
+        jobs
+      </dt>
+      <dd>
+          <em>background jobs run via Active Job.</em>
+      </dd>
+      <dt>
         mailers
       </dt>
       <dt>
         models
       </dt>
+      <dt>
+        services
+      </dt>
+      <dt>
+        validators
+      </dt>
       <dt class="last">
         views
       </dt>
     </dl>
+  </dd>
+  <dt>
+    bin
+  </dt>
+  <dd>
+    <p><em>executable wrapper scripts ("binstubs") for commands provided by the application and its gems, such as <code>rails</code> and <code>rake</code></em></p>
   </dd>
   <dt>cache
   </dt>
@@ -133,6 +151,23 @@ website](http://guides.rubyonrails.org/getting_started.html).
     </p>
   </dd>
   <dt>
+    docker
+  </dt>
+  <dd>
+    <p><em>files for running Alaveteli in Docker containers</em></p>
+    <p>
+      Includes the <code>Dockerfile</code>, entrypoint and bootstrap scripts,
+      and environment defaults used by the
+      <a href="{{ page.baseurl }}/docs/installing/docker/">Docker installation</a>.
+    </p>
+  </dd>
+  <dt>
+    gems
+  </dt>
+  <dd>
+    <p><em>internal gems containing parts of Alaveteli's functionality</em></p>
+  </dd>
+  <dt>
     lib
   </dt>
   <dd>
@@ -159,6 +194,12 @@ website](http://guides.rubyonrails.org/getting_started.html).
       The translation strings are stored in <code>.po</code> files in directories specific to
       the locale and encoding. For example, <code>es/</code> contains the translations for the Spanish site.
     </p>
+  </dd>
+  <dt>
+    locale_alaveteli_pro
+  </dt>
+  <dd>
+    <p><em>translations for Alaveteli Pro</em></p>
   </dd>
   <dt>
     log
@@ -204,10 +245,18 @@ website](http://guides.rubyonrails.org/getting_started.html).
   <dd class="last">
     <p><em>third-party software</em></p>
     <dl>
-      <dt class="last">bundle</dt>
+      <dt>assets</dt>
+      <dt class="last">javascript</dt>
       <dd class="last">
           <p>
-              <em>the bundle of gems needed to run Alaveteli</em>
+              <em>vendored third-party front-end assets and JavaScript.</em>
+          </p>
+          <p>
+              The gems needed to run Alaveteli are installed by
+              <a href="https://bundler.io/">Bundler</a> (into
+              <code>vendor/bundle</code> unless you configure a different path);
+              that directory is created at install time and is not part of the
+              git repository.
           </p>
       </dd>
     </dl>

@@ -17,8 +17,8 @@ The main entity is **InfoRequest**, which represents a request for information b
 which represents the initial email.
 
 Once an InfoRequest is made, its state is tracked using **InfoRequestEvents**. For
-example, a new InfoRequest has an initial state of `awaiting_response` and an
-associated InfoRequestEvent of type `initial_request`. An InfoRequest event can
+example, a new InfoRequest has an initial state of `waiting_response` and an
+associated InfoRequestEvent of type `sent`. An InfoRequest event can
 have an OutgoingMessage or an IncomingMessage or neither associated with it.
 
 Replies are received by the system by piping raw emails (represented by a **RawEmail**)
@@ -38,7 +38,7 @@ out.)
 The **MailServerLog** is a representation of the parsed MTA log files.
 MailServerLog entries are created by a cron job that runs
 `script/load-mail-server-logs`. This checks incoming emails and matches them
-to InfoRequests; then `script/check-recent-requests-send` checkes these logs to
+to InfoRequests; then `script/check-recent-requests-sent` checks these logs to
 ensure they have an envelope-from header set (to combat spam).
 
 ## Schema diagram
