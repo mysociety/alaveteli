@@ -93,7 +93,9 @@ this name will be displayed to users.
 Once a product is created you'll then be asked to set-up its the pricing plan.
 The pricing plan should be have the ID of `pro`, be for a recurring quantity and
 without multiple price tiers. You should set a memorable nickname for the plan
-but, again, bear in mind that this will be displayed to users.
+but, again, bear in mind that this will be displayed to users. If you want to
+use a different price ID, or offer more than one price, you can configure this
+with the [`STRIPE_PRICES`](#stripe_prices) setting.
 
 Currently we only support monthly or yearly billing interval.
 
@@ -195,6 +197,7 @@ tabs.
 <br> <code><a href="#stripe_publishable_key">STRIPE_PUBLISHABLE_KEY</a></code>
 <br> <code><a href="#stripe_secret_key">STRIPE_SECRET_KEY</a></code>
 <br> <code><a href="#stripe_namespace">STRIPE_NAMESPACE</a></code>
+<br> <code><a href="#stripe_prices">STRIPE_PRICES</a></code>
 <br> <code><a href="#stripe_webhook_secret">STRIPE_WEBHOOK_SECRET</a></code>
 <br> <code><a href="#pro_referral_coupon">PRO_REFERRAL_COUPON</a></code>
 <br> <code><a href="#iso_currency_code">ISO_CURRENCY_CODE</a></code>
@@ -259,6 +262,30 @@ tabs.
   </dd>
 
   <dt>
+    <a name="stripe_prices"><code>STRIPE_PRICES</code></a>
+  </dt>
+  <dd>
+    <p>
+      A hash of the Stripe Prices available for Alaveteli Pro, with each key
+      being a Stripe Price ID and the value being a parameterised,
+      human-readable string. Prices are rendered on the Pro pricing pages in
+      the order defined here.
+    </p>
+
+    <p>
+      Note that historical Stripe Price IDs listed here should include
+      <code>STRIPE_NAMESPACE</code>.
+    </p>
+
+    <div class="more-info">
+      <p>Example:</p>
+      <ul class="examples">
+        <li><code>STRIPE_PRICES:<br>&nbsp;&nbsp;pro: pro</code></li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
     <a name="stripe_webhook_secret"><code>STRIPE_WEBHOOK_SECRET</code></a>
   </dt>
   <dd>
@@ -268,7 +295,7 @@ tabs.
     <div class="more-info">
       <p>Example:</p>
       <ul class="examples">
-        <li><code>WEBHOOK_SECRET: wh_test_UD6BDsARFZIYb8273dbdl</code></li>
+        <li><code>STRIPE_WEBHOOK_SECRET: wh_test_UD6BDsARFZIYb8273dbdl</code></li>
       </ul>
     </div>
   </dd>

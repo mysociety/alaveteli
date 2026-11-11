@@ -112,7 +112,7 @@ advantage if they do.
 You'll also need to source a server. You should ask your tech person to
 help with this. The minimum spec for running a low traffic website is
 512MB RAM and a 20GB disk. 2GB RAM would be ideal. We recommend the
-latest Debian Wheezy (7) 64-bit or Trusty (14.04)
+latest stable 64-bit Debian release
 as the operating system. Rackspace offer suitable cloud servers, which
 start out at around $25 / month. Then your tech person should follow the
 [installation documentation]({{ page.baseurl }}/docs/installing/).
@@ -282,7 +282,7 @@ single translation file called
 You can set up your language and provide translations there; you can also use
 specialise software on your own computer (see the help pages on Transifex)
 
-There are (at the time of writing) around 1000 different sentences or fragments
+There are (at the time of writing) around 1,600 different sentences or fragments
 of sentences (collectively known as "strings") to be translated. The meaning of
 many strings should be fairly obvious, but others less so. Until we write a
 guide for translators, the best route to take is translate everything you can,
