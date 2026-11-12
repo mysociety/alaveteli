@@ -7,8 +7,6 @@
 class PasswordChangesController < ApplicationController
   include OtpRateLimit
 
-  before_action :set_pretoken
-  before_action :set_pretoken_hash
   before_action :set_user_from_token, only: [:edit, :update]
   before_action :require_change_user, only: [:edit, :update]
   before_action :set_otp_enabled, only: [:edit, :update]
@@ -28,6 +26,8 @@ class PasswordChangesController < ApplicationController
                      template: :edit
 
   def new
+    medium_cache
+
     @email_field_options =
       @user ? { disabled: true, value: @user.email } : {}
   end
@@ -63,8 +63,7 @@ class PasswordChangesController < ApplicationController
           circumstance: 'change_password',
           user: @password_change_user }
       post_redirect = PostRedirect.new(post_redirect_attrs)
-      post_redirect.uri = edit_password_change_url(post_redirect.token,
-                                                   @pretoken_hash)
+      post_redirect.uri = edit_password_change_url(post_redirect.token)
       post_redirect.save!
 
       url = confirm_url(email_token: post_redirect.email_token)
@@ -80,8 +79,6 @@ class PasswordChangesController < ApplicationController
   end
 
   def update
-    @pretoken_redirect = PostRedirect.find_by(token: @pretoken) if @pretoken
-
     @password_change_user.password = params[:password_change_user][:password]
     @password_change_user.password_confirmation =
       params[:password_change_user][:password_confirmation]
@@ -100,9 +97,6 @@ class PasswordChangesController < ApplicationController
                 "You also have a new one time passcode which you'll " \
                 "need next time you want to change your password")
         redirect_to one_time_password_path, notice: msg
-      elsif @pretoken_redirect
-        redirect_to SafeRedirect.new(@pretoken_redirect.uri).path,
-                    notice: password_changed_notice(@password_change_user)
       else
         redirect_to show_user_profile_path(@password_change_user.url_name),
                     notice: password_changed_notice(@password_change_user)
@@ -135,14 +129,6 @@ class PasswordChangesController < ApplicationController
       locals: { lead: changed, remaining: user.otp_backup_codes.size } }
   end
 
-  def set_pretoken
-    @pretoken = params.fetch(:pretoken, '').blank? ? nil : params[:pretoken]
-  end
-
-  def set_pretoken_hash
-    @pretoken_hash = @pretoken ? { pretoken: @pretoken } : {}
-  end
-
   def set_user_from_token
     @password_change_user ||=
       if params[:id]
@@ -161,7 +147,7 @@ class PasswordChangesController < ApplicationController
   def require_change_user
     return if @password_change_user
 
-    redirect_to new_password_change_path(@pretoken_hash)
+    redirect_to new_password_change_path
   end
 
   def set_otp_enabled
