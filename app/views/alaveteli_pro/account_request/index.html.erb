@@ -4,4 +4,7 @@
 <%= render partial: 'marketing_pro_features' %>
 <%= render partial: 'marketing_standard_features' %>
 <%= render partial: 'marketing_batch_features' %>
+<% if feature_enabled?(:projects) %>
+    <%= render partial: 'marketing_projects_features' %>
+<% end %>
 <%= render partial: 'marketing_contact' %>
