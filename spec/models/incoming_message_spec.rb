@@ -83,6 +83,43 @@ RSpec.describe IncomingMessage do
     it { is_expected.to eq(response_event) }
   end
 
+  describe '#parse_raw_email!' do
+    subject { message.parse_raw_email!(true) }
+
+    context 'with an existing attachment' do
+      let(:message) { FactoryBot.create(:incoming_message) }
+      let(:attachment) { message.foi_attachments.first }
+      let(:stored_file) { FoiAttachment.find(attachment.id).file.download }
+
+      before do
+        message.info_request.censor_rules.create!(
+          text: 'hereisthetext', replacement: '[REDACTED]',
+          last_edit_editor: 'unknown', last_edit_comment: 'none'
+        )
+        FoiAttachmentMaskJob.perform_now(attachment)
+      end
+
+      it 'keeps the masked file of an unlocked attachment' do
+        subject
+        expect(stored_file).to eq('[REDACTED]')
+      end
+
+      it 'keeps the masked file of a locked attachment' do
+        attachment.update!(locked: true)
+        subject
+        expect(stored_file).to eq('[REDACTED]')
+      end
+
+      it 'keeps the file of a replaced attachment' do
+        attachment.update!(
+          replacement_body: 'REPLACED', replaced_reason: 'test'
+        )
+        subject
+        expect(stored_file).to eq('REPLACED')
+      end
+    end
+  end
+
   describe '#from_name' do
     it 'returns the name in the From: field of an email' do
       raw_email_data = <<-EOF.strip_heredoc
