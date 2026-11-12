@@ -136,6 +136,8 @@ class RawEmail < ApplicationRecord
   def message_checksum
     return self[:message_checksum] if self[:message_checksum].present?
 
+    return '' if erased?
+
     # taken from https://github.com/rails/rails/blob/624fe3c/actionmailbox/app/models/action_mailbox/inbound_email/message_id.rb#L17
     message_checksum = OpenSSL::Digest::SHA1.hexdigest(data)
 

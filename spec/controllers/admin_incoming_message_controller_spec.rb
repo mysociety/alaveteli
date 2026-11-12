@@ -53,7 +53,7 @@ RSpec.describe AdminIncomingMessageController, "when administering incoming mess
       context 'as pro admin' do
         before { sign_in(pro_admin_user) }
 
-        it 'rediects to request admin' do
+        it 'redirects to request admin' do
           post :destroy, params: { id: @im }
           expect(response).to redirect_to admin_request_url(@im.info_request)
         end
