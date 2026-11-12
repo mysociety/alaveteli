@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix reparsing a message overwriting redacted or replaced attachments
+  (Graeme Porteous)
 * Fix orphaned search documents when mail server logs are loaded again
   (Graeme Porteous)
 * Fix mail server logs loading again every hour when unchanged (Graeme Porteous)
