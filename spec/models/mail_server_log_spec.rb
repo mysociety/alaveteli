@@ -611,10 +611,16 @@ RSpec.describe MailServerLog do
     end
 
     context 'cleans up log lines' do
-
       def check(log_line, expected_bits)
-        sql = "SELECT cleanup_mail_server_logs_for_search('#{log_line}', '#{mta}', '#{alaveteli_server_name}')"
-        cleaned_string = 
+        # actual log lines are all saved with a newline at the end
+        sql = <<-SQL.chomp
+        SELECT cleanup_mail_server_logs_for_search(
+              '#{log_line + "\n"}',
+              '#{mta}',
+              '#{alaveteli_server_name}'
+              )
+        SQL
+        cleaned_string =
           ActiveRecord::Base.
             connection.
             execute(sql).
@@ -624,8 +630,10 @@ RSpec.describe MailServerLog do
           expect(cleaned_string).to be_nil
         elsif expected_bits.is_a? String
           expect(cleaned_string).to eq(expected_bits)
+          expect(cleaned_string).not_to include('@' + alaveteli_server_name)
         else
           expect(cleaned_string).to include(*expected_bits)
+          expect(cleaned_string).not_to include('@' + alaveteli_server_name)
         end
       end
 
@@ -639,19 +647,19 @@ RSpec.describe MailServerLog do
             "<administration@agglo-someplace.fr>, relay=mail3.agglo-someplace" \
             ".fr[5.4.3.2]:25, delay=4.1, delays=0.04/0.01/0.89/3.2, dsn=4.2.0" \
             ", status=deferred (host mail3.agglo-someplace.fr[5.4.3.2] said: " \
-            "450 4.2.0 <administration2@agglo-someplace.fr>: Recipient addres" \
-            "s rejected: Greylisted, see http://somehost.somedomain.ch/help/" \
+            "450 4.2.0 <administration2@agglo-someplace.com>: Recipient addre" \
+            "ss rejected: Greylisted, see http://somehost.somedomain.ch/help/" \
             "agglo-someplace.fr.html (in reply to RCPT TO command))+"
           expected_bits = [
             "administration@agglo-someplace.fr",
             "mail3.agglo-someplace.fr",
-            "administration2@agglo-someplace.fr"
+            "administration2@agglo-someplace.com"
           ]
           check(log_line, expected_bits)
         end
 
         it 'removes duplicate addresses in a single line' do
-          log_line = 
+          log_line =
             "to=<administration@agglo-someplace.fr>, " \
             "<administration@agglo-someplace.fr>+"
           expected_bits = "administration@agglo-someplace.fr"
@@ -659,7 +667,7 @@ RSpec.describe MailServerLog do
         end
 
         it 'removes local request addresses' do
-          log_line = 
+          log_line =
             'Oct 21 08:58:20 dadaprod1 postfix/qmgr[26500]: 0E206420F2: from=' \
             '<foi+request-2-12345678@alaveteli.org>, size=2078, nrcpt=1 ' \
             '(queue active)'
@@ -685,6 +693,22 @@ RSpec.describe MailServerLog do
           expected_bits = [
             "Freedom of Information request - water levels",
             "recordsmanagement@publicbody.gov.uk"
+          ]
+          check(log_line, expected_bits)
+        end
+
+        it 'finds all email addresses' do
+          log_line =
+            '168 [2393724] 1wzKjM-0000000A2iS-0ggu <= request-123-12345678@a' \
+            'laveteli.org H=myserver.alaveteli.org [2:1:2:d::1:1]:11111 ' \
+            'id=ogm-1234567+12398359845-bd0a@alaveteli.org T="Freedom of Info' \
+            'rmation request - water levels" from <request-123-12345678@alave' \
+            'teli.org> for a@b.gov.uk other@b.com b@alaveteli.org ' \
+            'request-1-1234@alaveteli.org'
+          expected_bits = [
+            "Freedom of Information request - water levels",
+            "a@b.gov.uk",
+            "other@b.com"
           ]
           check(log_line, expected_bits)
         end
@@ -717,7 +741,6 @@ RSpec.describe MailServerLog do
           check(log_line, expected_search_line)
         end
 
-
         it 'keeps useful values without request email addresses' do
           log_line =
             'Sep 21 16:20:06 msnm001cama exim[1882252]: 2026-09-21 ' \
@@ -732,7 +755,6 @@ RSpec.describe MailServerLog do
             'DN="CN=srv.mysociety.org" L K C="250- 11121 byte chunk, total ' \
             '12791\\n250 OK id=1x8foM-008cla-2j" QT=2.173s DT=0.128s'
           expected_bits = [
-            "bounce+3dc068.f679-request-1-1234=alaveteli.org@egresscloud.com",
             "bounce+3dc068.f679-request-1-1234=alaveteli.org@egresscloud.com",
             "mspop001sovb.srv.mysociety.org"
           ]

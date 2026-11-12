@@ -1,9 +1,7 @@
 class AddMailServerLogCleanupFunctions < ActiveRecord::Migration[8.0]
   def up
-    # note that the regexps below require double backslashes for postgres
-    # to interpret them correctly. so '\\[` is interpreted as '\[` by pg
     execute(
-      <<-SQL
+      <<-'SQL'
       CREATE OR REPLACE FUNCTION cleanup_mail_server_logs_for_search_with_postfix(logline text, server_name text)
       RETURNS text
       LANGUAGE SQL
@@ -14,8 +12,8 @@ class AddMailServerLogCleanupFunctions < ActiveRecord::Migration[8.0]
           SELECT distinct
             array_to_string(
               regexp_matches(
-                logline,
-                '<([^>]+?@[^>]+?\.\\w{2,25})>|relay=([^\\[]+?)\\[',
+                rtrim(logline, chr(10)),
+                '<([^>]+?@[^>]+?\.\w{2,25})>|relay=([^\[]+?)\[',
                 'g'
               ),
             ' '
@@ -25,24 +23,37 @@ class AddMailServerLogCleanupFunctions < ActiveRecord::Migration[8.0]
       SQL
     )
     execute(
-      <<-SQL
+      <<-'SQL'
       CREATE OR REPLACE FUNCTION cleanup_mail_server_logs_for_search_with_exim(logline text, server_name text)
       RETURNS text
       LANGUAGE SQL
       IMMUTABLE PARALLEL SAFE
       AS $$
-        SELECT string_agg(emails, ' ')
-        FROM (
-          SELECT distinct
-            array_to_string(
-              regexp_matches(
-                logline,
-                '<([^> ]+?@[^> ]+?\..{2,25})>| for (.+?)$| H=([^ ]+?) | T="([^"]+?)" ',
-                'g'
-              ),
-            ' '
-          ) as emails) q
-        WHERE emails NOT LIKE concat('%', server_name)
+        WITH
+          emails AS (
+            SELECT string_agg(email, ' ') AS address FROM (
+              SELECT distinct array_to_string(
+                regexp_matches(
+                  replace(logline, chr(10), ' '),
+                  '([\w\-_\+\.=]+?@[\w\-_\.]+?\.\w{2,25})[ >)]',
+                  'g'
+                  ),
+                ' '
+              ) as email) q
+            WHERE email NOT LIKE concat('%', server_name)
+          ),
+          words AS (
+            SELECT string_agg(word, ' ') AS all_words FROM (
+              SELECT array_to_string(
+                regexp_matches(
+                  logline,
+                  ' H=([^ ]+?) | T="([^"]+?)" ',
+                  'g'
+                ),
+              ' ') AS word) q
+            )
+        SELECT concat_ws(' || ', emails.address, words.all_words)
+        FROM emails full join words on true
       $$;
       SQL
     )
