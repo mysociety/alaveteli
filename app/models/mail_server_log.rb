@@ -54,7 +54,8 @@ class MailServerLog < ApplicationRecord
     is_gz = file_name.include?(".gz")
     file_name_db = is_gz ? file_name.gsub(".gz", "") : file_name
 
-    modified = File.stat(file_name).mtime
+    # last_stat stores the mtime only to the microsecond
+    modified = File.stat(file_name).mtime.floor(6)
     if modified.nil?
       raise "MailServerLog.load_file: file not found " + file_name
     end

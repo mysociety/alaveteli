@@ -19,7 +19,8 @@ RSpec.describe MailServerLog do
     before :each do
       allow(AlaveteliConfiguration).to receive(:incoming_email_domain).and_return("example.com")
       allow(AlaveteliConfiguration).to receive(:incoming_email_prefix).and_return('foi+')
-      allow(File).to receive_message_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 10))
+      allow(File).to receive_message_chain(:stat, :mtime).
+        and_return(Time.utc(2012, 10, 10))
     end
 
     let(:text_log_path) { file_fixture_name('exim-mainlog-2012-10-10') }
@@ -53,7 +54,8 @@ RSpec.describe MailServerLog do
       expect(File).to receive(:open).with(text_log_path, 'r').twice.and_call_original
       expect(InfoRequest).to receive(:find_by_incoming_email).with("foi+request-1234@example.com").exactly(4).times.and_return(ir)
       MailServerLog.load_file(text_log_path)
-      allow(File).to receive_message_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 11))
+      allow(File).to receive_message_chain(:stat, :mtime).
+        and_return(Time.utc(2012, 10, 11))
       MailServerLog.load_file(text_log_path)
     end
 
@@ -63,7 +65,8 @@ RSpec.describe MailServerLog do
       MailServerLog.load_file(text_log_path)
       expect(ir.mail_server_logs.count).to eq(2)
 
-      allow(File).to receive_message_chain(:stat, :mtime).and_return(DateTime.new(2012, 10, 11))
+      allow(File).to receive_message_chain(:stat, :mtime).
+        and_return(Time.utc(2012, 10, 11))
       MailServerLog.load_file(text_log_path)
       expect(ir.mail_server_logs.count).to eq(2)
     end
@@ -94,6 +97,23 @@ RSpec.describe MailServerLog do
         MailServerLog.load_file(text_log_path)
         expect(ir.mail_server_logs[0].attributes).
           to_not include(['delivery_status'])
+      end
+    end
+
+    context "when the file mtime has sub-microsecond precision" do
+      let(:mtime) { Time.at(1_349_827_200, 123_456_789, :nsec) }
+
+      before do
+        allow(File).to receive_message_chain(:stat, :mtime).and_return(mtime)
+        allow(InfoRequest).to receive(:find_by_incoming_email).
+          with("foi+request-1234@example.com").and_return(ir)
+      end
+
+      it "doesn't load the file again if it's unchanged" do
+        MailServerLog.load_file(text_log_path)
+
+        expect { MailServerLog.load_file(text_log_path) }.
+          not_to(change { ir.mail_server_logs.pluck(:id) })
       end
     end
   end
