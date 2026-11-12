@@ -68,6 +68,8 @@ class MailServerLog < ApplicationRecord
           # already have that, nothing to do
           return
         else
+          # we're going to reparse the log file - clean up first
+          SearchDocument.where(searchable: done.mail_server_logs).delete_all
           MailServerLog.where("mail_server_log_done_id = ?", done.id).delete_all
         end
       else
