@@ -286,7 +286,12 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a href="#outgoing_<%= outgoing_message.id %>" data-toggle="collapse" data-parent="#outgoing_messages"><%= chevron_right %></a>
+
         <%= both_links(outgoing_message) %>
+
+        <% if outgoing_message.erased? %>
+          <span class="label">Erased</span>
+        <% end %>
 
         <span class="muted">
           --

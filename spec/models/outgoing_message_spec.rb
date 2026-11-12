@@ -15,6 +15,7 @@
 #  prominence                   :string           default("normal"), not null
 #  prominence_reason            :text
 #  from_name                    :text
+#  erased_at                    :datetime
 #
 
 require 'spec_helper'
@@ -206,6 +207,51 @@ RSpec.describe OutgoingMessage do
       outgoing_message = info_request.outgoing_messages.first
       outgoing_message.destroy
       expect(InfoRequestEvent.where(outgoing_message_id: outgoing_message.id)).to be_empty
+    end
+  end
+
+  describe '#erased?' do
+    subject { message.erased? }
+
+    context 'when erased_at is present' do
+      let(:message) { FactoryBot.build(:initial_request, :erased) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when erased_at is empty' do
+      let(:message) { FactoryBot.build(:initial_request) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#erase' do
+    let(:admin) { FactoryBot.create(:admin_user, name: 'Alice') }
+
+    ["initial_request", "followup"].each do |msg_type|
+      it "should keep the #{msg_type} message with nullified fields" do
+        attrs = { body: 'abc', from_name: 'Bob Smith' }
+        outgoing_message = FactoryBot.create(:initial_request, attrs)
+        outgoing_message.erase!(editor: admin, reason: 'GDPR')
+
+        outgoing_message.reload
+
+        # Erasable attributes
+        expect(outgoing_message.raw_body).to eq('')
+        expect(outgoing_message.body).to eq('')
+        expect(outgoing_message.read_attribute(:from_name)).to be_nil
+
+        # Preserved metadata
+        expect(outgoing_message.status).to be_present
+        expect(outgoing_message.message_type).to be_present
+        expect(outgoing_message.what_doing).to be_present
+
+        last_event = outgoing_message.info_request.info_request_events.last
+        expect(last_event.event_type).to eq('erase_outgoing')
+        expect(last_event.params[:reason]).to eq('GDPR')
+        expect(last_event.params[:outgoing_message]).to eq(outgoing_message)
+
+        expect(outgoing_message.search_documents).to be_empty
+      end
     end
   end
 
@@ -663,6 +709,14 @@ RSpec.describe OutgoingMessage do
         outgoing_message.from_name = ''
         outgoing_message.valid?
         expect(outgoing_message.errors[:from_name]).to be_empty
+      end
+    end
+
+    context 'when the message has been erased' do
+      let(:outgoing_message) { FactoryBot.create(:initial_request, :erased) }
+
+      it 'does not fall back to the request user name' do
+        is_expected.to eq(nil)
       end
     end
   end
