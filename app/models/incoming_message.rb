@@ -475,7 +475,8 @@ class IncomingMessage < ApplicationRecord
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
     if main_part
       c = _mail.count_first_uudecode_count
-      attachments += _uudecode_attachments(main_part.body, c)
+      main_body = attachment_attributes.dig(main_part.hexdigest, :body)
+      attachments += _uudecode_attachments(main_body.b, c)
     end
 
     # Purge old public attachments that will be rebuilt with a new hexdigest
