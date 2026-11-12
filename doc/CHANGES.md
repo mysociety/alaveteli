@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix hidden requests showing in the public citations list (Graeme Porteous)
 * Fix orphaned search documents when mail server logs are loaded again
   (Graeme Porteous)
 * Fix mail server logs loading again every hour when unchanged (Graeme Porteous)
