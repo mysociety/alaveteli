@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix erasure of pro users with a Stripe customer (Graeme Porteous)
 * Fix orphaned search documents when mail server logs are loaded again
   (Graeme Porteous)
 * Fix mail server logs loading again every hour when unchanged (Graeme Porteous)
