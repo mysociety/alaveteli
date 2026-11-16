@@ -11,12 +11,8 @@ module Search
       def events
         @events ||= events_scope.
           is_searchable.
-          includes(
-            :outgoing_message,
-            :comment,
-            { info_request: [:user, :public_body, :censor_rules] }
-          ).
-          order(order).
+          for_listing.
+          newest(order_column).
           limit(limit).
           offset(offset)
       end
@@ -30,13 +26,13 @@ module Search
       # Always newest first. Xapian's sort_ascending is its reverse flag, and
       # every alert passes true, so ascending order has never been asked for.
       # Xapian breaks ties by docid; id is the closest we have.
-      def order
-        column = :created_at unless sort_by == 'described_at'
-        column ||= Arel.sql(
+      def order_column
+        return :created_at unless sort_by == 'described_at'
+
+        Arel.sql(
           'COALESCE(info_request_events.last_described_at, ' \
           'info_request_events.created_at)'
         )
-        { column => :desc, :id => :desc }
       end
     end
   end
