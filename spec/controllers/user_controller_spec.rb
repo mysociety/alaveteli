@@ -859,6 +859,8 @@ RSpec.describe UserController do
                                  email_confirmed: false)
       end
 
+      let!(:earlier_link) { PostRedirect.create(uri: '/', user: existing_user) }
+
       before do
         post :signup, params: {
           user_signup: {
@@ -887,9 +889,13 @@ RSpec.describe UserController do
           not_to match(/when\s+you\s+already\s+have\s+an/)
       end
 
-      it 'replaces the password chosen by the earlier registrant' do
-        expect(existing_user.reload.has_this_password?('ownerpassword')).
+      it 'does not change the password' do
+        expect(existing_user.reload.has_this_password?('earlierpassword')).
           to eq(true)
+      end
+
+      it 'keeps earlier confirmation links valid' do
+        expect(earlier_link.reload.email_token_valid?).to eq(true)
       end
 
       it 'replaces the name chosen by the earlier registrant' do
