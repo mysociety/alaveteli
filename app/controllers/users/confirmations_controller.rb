@@ -18,6 +18,9 @@ class Users::ConfirmationsController < UserController
         flash[:error] = _('This account has been closed.')
         redirect_to frontpage_path
         return
+      elsif !user.email_confirmed?
+        choose_password(user)
+        return
       else
         user.confirm!
 
@@ -50,6 +53,26 @@ class Users::ConfirmationsController < UserController
   end
 
   private
+
+  def choose_password(user)
+    @confirm_user = user
+    return render :password unless request.post?
+
+    user.password = params.dig(:confirm_user, :password)
+    user.password_confirmation =
+      params.dig(:confirm_user, :password_confirmation)
+    user.confirm
+    return render :password unless user.save
+
+    # Saving the password deletes the user's post redirects, so carry on with
+    # a copy that isn't tied to the user
+    pending = PostRedirect.create!(
+      post_redirect.slice(:uri, :post_params, :circumstance)
+    )
+    sign_in(user)
+    session[:user_circumstance] = pending.circumstance
+    do_post_redirect pending, user
+  end
 
   def post_redirect
     @post_redirect ||= PostRedirect.find_by(email_token: params[:email_token])
