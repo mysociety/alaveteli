@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Make it obvious that proposed email address is the same as the current one
 * Fix erasure of pro users with a Stripe customer (Graeme Porteous)
 * Fix text after a tab becoming part of a link (Helen Cross)
 * Fix orphaned search documents when mail server logs are loaded again
@@ -18,6 +19,8 @@
 * Remove utm params from similar request list (Gareth Rees)
 * Switch from the unmaintained `activejob-uniqueness` gem to its
   `activejob-unique` fork, which supports Rails 8.1 (Graeme Porteous)
+* Make it obvious that proposed email address is the same current one
+  (Laurent Savaete)
 * Switch locale by submitting a form rather than following a link to stop
   crawlers requesting every page in every locale (Gareth Rees)
 * Stop the `locale` param and locale path prefixes switching locale (Gareth
