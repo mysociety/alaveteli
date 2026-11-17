@@ -7,8 +7,6 @@ class Users::ConfirmationsController < UserController
     case post_redirect.circumstance
     when 'change_password'
       clear_session_credentials if current_user != user
-      user.confirm!
-
     when 'normal', 'change_email'
       if current_user&.stay_logged_in_on_redirect?
         session[:admin_confirmation] = 1

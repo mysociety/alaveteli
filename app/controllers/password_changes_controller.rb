@@ -85,6 +85,7 @@ class PasswordChangesController < ApplicationController
     @password_change_user.password = params[:password_change_user][:password]
     @password_change_user.password_confirmation =
       params[:password_change_user][:password_confirmation]
+    @password_change_user.confirm
 
     if @otp_enabled
       @password_change_user.entered_otp_code =

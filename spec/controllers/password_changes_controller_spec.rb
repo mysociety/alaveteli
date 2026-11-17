@@ -417,6 +417,24 @@ RSpec.describe PasswordChangesController do
       expect(session[:user_id]).to eq(user.id)
     end
 
+    it 'confirms an unconfirmed user on success' do
+      user.update!(email_confirmed: false)
+      put :update, params: {
+        id: post_redirect.token,
+        password_change_user: @valid_password_params
+      }
+      expect(user.reload.email_confirmed).to eq(true)
+    end
+
+    it 'leaves an unconfirmed user unconfirmed on failure' do
+      user.update!(email_confirmed: false)
+      put :update, params: {
+        id: post_redirect.token,
+        password_change_user: @invalid_password_params
+      }
+      expect(user.reload.email_confirmed).to eq(false)
+    end
+
     it 'retains the old password on failure' do
       old_hash = user.hashed_password
       put :update, params: {

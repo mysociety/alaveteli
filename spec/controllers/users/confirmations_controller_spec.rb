@@ -36,6 +36,10 @@ RSpec.describe Users::ConfirmationsController do
         expect(session[:user_id]).to eq(nil)
       end
 
+      it 'does not confirm the user before the new password is saved' do
+        expect(user.reload.email_confirmed).to eq(false)
+      end
+
       it 'logs out a user who does not own the post redirect' do
         logged_in_user = FactoryBot.create(:user)
         pr = PostRedirect.new(user: user, circumstance: 'change_password')
