@@ -1370,6 +1370,54 @@ end
 RSpec.describe UserController, "when viewing the wall" do
   let(:admin) { FactoryBot.create(:admin_user) }
 
+  context 'when rendering request activity' do
+    render_views
+
+    let(:user) { FactoryBot.create(:user) }
+    let(:info_request) { FactoryBot.create(:info_request, user: user) }
+    let(:event) { FactoryBot.create(:sent_event, info_request: info_request) }
+
+    before do
+      stub_request_search_results(items: [event.info_request])
+      stub_search_results(items: [])
+      searcher = double(
+        'EventSearch', results: build_search_results(items: [event])
+      )
+      allow(Search).to receive(:search).
+        with("requested_by:#{user.url_name}",
+             hash_including(models: [InfoRequestEvent],
+                            collapse_by: 'request_collapse')).
+        and_return(searcher)
+    end
+
+    it 'renders the matching request event for a visitor' do
+      get :wall, params: { url_name: user.url_name }
+
+      expect(response).to have_http_status(:ok)
+      expect(assigns[:feed_results]).to eq([event])
+      expect(response.body).to include(event.info_request.title)
+      expect(response.body).to include('A new request,')
+    end
+
+    it 'does not duplicate request events also returned by a subscription' do
+      track_thing = FactoryBot.create(:search_track, tracking_user: user)
+      searcher = double(
+        'TrackedEvents', results: build_search_results(items: [event])
+      )
+      allow(Search).to receive(:search).
+        with(track_thing.track_query, hash_including(sort_by: 'described_at')).
+        and_return(searcher)
+
+      sign_in user
+      get :wall, params: { url_name: user.url_name }
+
+      expect(response).to have_http_status(:ok)
+      expect(assigns[:track_things]).to include(track_thing)
+      expect(assigns[:feed_results]).to eq([event])
+      expect(response.body.scan('A new request,').size).to eq(1)
+    end
+  end
+
   it 'orders feed results by created_at descending' do
     user = FactoryBot.create(:user)
 
