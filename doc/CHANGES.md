@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix user activity pages failing to load for users who have made requests
+  (Natali Boichenko)
 * Make it obvious that proposed email address is the same as the current one
 * Fix erasure of pro users with a Stripe customer (Graeme Porteous)
 * Fix text after a tab becoming part of a link (Helen Cross)
