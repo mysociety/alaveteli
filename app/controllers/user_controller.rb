@@ -133,6 +133,8 @@ class UserController < ApplicationController
   def signup
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
+    # The mailbox owner chooses the real password on confirmation
+    @user_signup.password = SecureRandom.base64(32)
     error = false
     if @request_from_foreign_country && !verify_recaptcha
       flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
@@ -392,7 +394,7 @@ class UserController < ApplicationController
   end
 
   def user_params(key = :user)
-    params.require(key).permit(:name, :email, :password, :password_confirmation)
+    params.require(key).permit(:name, :email)
   end
 
   # when logging in through a modal iframe, don't display chrome around the content
