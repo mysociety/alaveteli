@@ -36,7 +36,7 @@ class Project::Export::InfoRequest < SimpleDelegator
       classified_by: classification_contributor&.name,
       classified_by_url:
         (user_url(classification_contributor) if classification_contributor),
-      status: InfoRequest.get_status_description(described_state),
+      status: InfoRequest::State.get_status_description(described_state),
       classification_resource: last_status_update_event
     }
   end

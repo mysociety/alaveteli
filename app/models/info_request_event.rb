@@ -355,7 +355,7 @@ class InfoRequestEvent < ApplicationRecord
   def display_status
     if is_incoming_message?
       status = calculated_state
-      return status.nil? ? _("Response") : InfoRequest.get_status_description(status)
+      return status.nil? ? _("Response") : InfoRequest::State.get_status_description(status)
     end
 
     if is_outgoing_message?
