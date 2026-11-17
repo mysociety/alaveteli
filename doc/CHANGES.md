@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix erasure of pro users with a Stripe customer (Graeme Porteous)
 * Fix text after a tab becoming part of a link (Helen Cross)
 * Fix orphaned search documents when mail server logs are loaded again
   (Graeme Porteous)

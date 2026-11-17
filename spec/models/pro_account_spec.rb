@@ -96,6 +96,25 @@ RSpec.describe ProAccount, feature: :pro_pricing do
       end
     end
 
+    context 'when user has an erased email' do
+      before { user.email = 'a1b2c3d4@invalid' }
+
+      it 'does not create Stripe customer' do
+        expect(Stripe::Customer).to_not receive(:create)
+        pro_account.update_stripe_customer
+      end
+
+      context 'with an existing Stripe customer' do
+        before { pro_account.stripe_customer_id = customer.id }
+
+        it 'does not update Stripe customer email' do
+          allow(Stripe::Customer).to receive(:update)
+          pro_account.update_stripe_customer
+          expect(Stripe::Customer).not_to have_received(:update)
+        end
+      end
+    end
+
     context 'with pro_pricing disabled' do
       it 'does not store Stripe customer ID' do
         with_feature_disabled(:pro_pricing) do

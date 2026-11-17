@@ -52,7 +52,8 @@ class ProAccount < ApplicationRecord
     attributes = {}
     attributes[:source] = @token.id if @token
 
-    if stripe_customer&.email != user.email && user.email !~ /@localhost$/
+    if stripe_customer&.email != user.email &&
+       user.email !~ /@(localhost|invalid)$/
       attributes[:email] = user.email
     end
 
