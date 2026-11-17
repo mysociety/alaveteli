@@ -524,9 +524,7 @@ RSpec.describe UserController do
         post :signup, params: {
           user_signup: {
             email: 'new@localhost',
-            name: 'New Person',
-            password: 'sillypassword',
-            password_confirmation: 'sillypassword'
+            name: 'New Person'
           }
         }
         expect(response).to redirect_to frontpage_url
@@ -536,9 +534,7 @@ RSpec.describe UserController do
         post :signup, params: {
           user_signup: {
             email: 'new@localhost',
-            name: 'New Person',
-            password: 'sillypassword',
-            password_confirmation: 'sillypassword'
+            name: 'New Person'
           }
         }
         expect(flash[:notice]).to match(/Alaveteli is currently in maintenance/)
@@ -555,9 +551,7 @@ RSpec.describe UserController do
         post :signup, params: {
           user_signup: {
             email: 'new@localhost',
-            name: 'New Person',
-            password: 'sillypassword',
-            password_confirmation: 'sillypassword'
+            name: 'New Person'
           }
         }
         expect(response).to redirect_to frontpage_url
@@ -567,37 +561,20 @@ RSpec.describe UserController do
         post :signup, params: {
           user_signup: {
             email: 'new@localhost',
-            name: 'New Person',
-            password: 'sillypassword',
-            password_confirmation: 'sillypassword'
+            name: 'New Person'
           }
         }
         expect(flash[:notice]).to match(/Database upgrade/)
       end
     end
 
-    it "should be an error if you type the password differently each time" do
-      post :signup, params: {
-                      user_signup: {
-                        email: 'new@localhost',
-                        name: 'New Person',
-                        password: 'sillypassword',
-                        password_confirmation: 'sillypasswordtwo'
-                      }
-                    }
-      expect(assigns[:user_signup].errors[:password_confirmation]).
-        to eq(['Please enter the same password twice'])
-    end
-
     it "should be an error to sign up with a misformatted email" do
       post :signup, params: {
-                      user_signup: {
-                        email: 'malformed-email',
-                        name: 'Mr Malformed',
-                        password: 'sillypassword',
-                        password_confirmation: 'sillypassword'
-                      }
-                    }
+        user_signup: {
+          email: 'malformed-email',
+          name: 'Mr Malformed'
+        }
+      }
       expect(assigns[:user_signup].errors[:email]).
         to eq(['Please enter a valid email address'])
     end
@@ -606,27 +583,23 @@ RSpec.describe UserController do
       existing_user = FactoryBot.create(:user, email: 'in-use@localhost')
 
       post :signup, params: {
-                      user_signup: {
-                        email: 'in-use@localhost',
-                        name: 'Mr Suspected-Hacker',
-                        password: 'sillypassword',
-                        password_confirmation: 'mistyped'
-                      }
-                    }
-      expect(assigns[:user_signup].errors[:password_confirmation]).
-        to eq(['Please enter the same password twice'])
+        user_signup: {
+          email: 'in-use@localhost',
+          name: ''
+        }
+      }
+      expect(assigns[:user_signup].errors[:name]).
+        to eq(['Please enter your name'])
       expect(assigns[:user_signup].errors[:email]).to be_empty
     end
 
     it "should send confirmation mail if you fill in the form right" do
       post :signup, params: {
-                      user_signup: {
-                        email: 'new@localhost',
-                        name: 'New Person',
-                        password: 'sillypassword',
-                        password_confirmation: 'sillypassword'
-                      }
-                    }
+        user_signup: {
+          email: 'new@localhost',
+          name: 'New Person'
+        }
+      }
       expect(response).to render_template('confirm')
 
       deliveries = ActionMailer::Base.deliveries
@@ -637,13 +610,11 @@ RSpec.describe UserController do
     it "should send confirmation mail in other languages or different locales" do
       cookies[:locale] = 'es'
       post :signup, params: {
-                      user_signup: {
-                        email: 'new@localhost',
-                        name: 'New Person',
-                        password: 'sillypassword',
-                        password_confirmation: 'sillypassword'
-                      }
-                    }
+        user_signup: {
+          email: 'new@localhost',
+          name: 'New Person'
+        }
+      }
       expect(response).to render_template('confirm')
 
       deliveries = ActionMailer::Base.deliveries
@@ -654,13 +625,11 @@ RSpec.describe UserController do
     context "filling in the form with an existing registered email" do
       it "should send special 'already signed up' mail" do
         post :signup, params: {
-                        user_signup: {
-                          email: 'silly@localhost',
-                          name: 'New Person',
-                          password: 'sillypassword',
-                          password_confirmation: 'sillypassword'
-                        }
-                      }
+          user_signup: {
+            email: 'silly@localhost',
+            name: 'New Person'
+          }
+        }
         expect(response).to render_template('confirm')
 
         deliveries = ActionMailer::Base.deliveries
@@ -676,9 +645,7 @@ RSpec.describe UserController do
         post :signup, params: {
           user_signup: {
             email: 'closed@localhost',
-            name: 'New Person',
-            password: 'sillypassword',
-            password_confirmation: 'sillypassword'
+            name: 'New Person'
           }
         }
         expect(response).to render_template('confirm')
@@ -687,13 +654,11 @@ RSpec.describe UserController do
 
       it "cope with trailing spaces in the email address" do
         post :signup, params: {
-                        user_signup: {
-                          email: 'silly@localhost ',
-                          name: 'New Person',
-                          password: 'sillypassword',
-                          password_confirmation: 'sillypassword'
-                        }
-                      }
+          user_signup: {
+            email: 'silly@localhost ',
+            name: 'New Person'
+          }
+        }
         expect(response).to render_template('confirm')
 
         deliveries = ActionMailer::Base.deliveries
@@ -718,9 +683,7 @@ RSpec.describe UserController do
             token: change_password_redirect.token,
             user_signup: {
               email: 'silly@localhost',
-              name: 'New Person',
-              password: 'sillypassword',
-              password_confirmation: 'sillypassword'
+              name: 'New Person'
             }
           }
 
@@ -741,9 +704,7 @@ RSpec.describe UserController do
             token: claimed_redirect.token,
             user_signup: {
               email: other_user.email,
-              name: 'New Person',
-              password: 'sillypassword',
-              password_confirmation: 'sillypassword'
+              name: 'New Person'
             }
           }
         end
@@ -772,9 +733,7 @@ RSpec.describe UserController do
             token: claimed_redirect.token,
             user_signup: {
               email: new_user.email,
-              name: new_user.name,
-              password: new_user.password,
-              password_confirmation: new_user.password
+              name: new_user.name
             }
           }
         end
@@ -793,13 +752,11 @@ RSpec.describe UserController do
       it "should create a new PostRedirect if the old one has expired" do
         allow(PostRedirect).to receive(:find_by).and_return(nil)
         post :signup, params: {
-                        user_signup: {
-                          email: 'silly@localhost',
-                          name: 'New Person',
-                          password: 'sillypassword',
-                          password_confirmation: 'sillypassword'
-                        }
-                      }
+          user_signup: {
+            email: 'silly@localhost',
+            name: 'New Person'
+          }
+        }
         expect(response).to render_template('confirm')
       end
     end
@@ -818,9 +775,7 @@ RSpec.describe UserController do
         post :signup, params: {
           user_signup: {
             email: 'pending-owner@localhost',
-            name: 'Mailbox Owner',
-            password: 'ownerpassword',
-            password_confirmation: 'ownerpassword'
+            name: 'Mailbox Owner'
           }
         }
       end
@@ -872,8 +827,6 @@ RSpec.describe UserController do
                         user_signup: {
                           email: 'silly@localhost',
                           name: 'New Person',
-                          password: 'sillypassword',
-                          password_confirmation: 'sillypassword',
                           role_ids: Role.admin_role.id
                         }
                       }
@@ -908,9 +861,7 @@ RSpec.describe UserController do
         sign_in user
         post :signup, params: { user_signup: {
                                   email: user.email,
-                                  name: user.name,
-                                  password: 'jonespassword',
-                                  password_confirmation: 'jonespassword'
+                                  name: user.name
                                 }
                               }
         expect(response).to render_template('confirm')
@@ -933,50 +884,42 @@ RSpec.describe UserController do
 
         it 'sends an exception notification' do
           post :signup, params: {
-                          user_signup: {
-                            email: 'rate-limited@localhost',
-                            name: 'New Person',
-                            password: 'sillypassword',
-                            password_confirmation: 'sillypassword'
-                          }
-                        }
+            user_signup: {
+              email: 'rate-limited@localhost',
+              name: 'New Person'
+            }
+          }
           mail = ActionMailer::Base.deliveries.first
           expect(mail.subject).to match(/Rate limited signup from/)
         end
 
         it 'blocks the signup' do
           post :signup, params: {
-                          user_signup: {
-                            email: 'rate-limited@localhost',
-                            name: 'New Person',
-                            password: 'sillypassword',
-                            password_confirmation: 'sillypassword'
-                          }
-                        }
+            user_signup: {
+              email: 'rate-limited@localhost',
+              name: 'New Person'
+            }
+          }
           expect(User.where(email: 'rate-limited@localhost').count).to eq(0)
         end
 
         it 're-renders the form' do
           post :signup, params: {
-                          user_signup: {
-                            email: 'rate-limited@localhost',
-                            name: 'New Person',
-                            password: 'sillypassword',
-                            password_confirmation: 'sillypassword'
-                          }
-                        }
+            user_signup: {
+              email: 'rate-limited@localhost',
+              name: 'New Person'
+            }
+          }
           expect(response).to render_template('sign')
         end
 
         it 'sets a flash error' do
           post :signup, params: {
-                          user_signup: {
-                            email: 'rate-limited@localhost',
-                            name: 'New Person',
-                            password: 'sillypassword',
-                            password_confirmation: 'sillypassword'
-                          }
-                        }
+            user_signup: {
+              email: 'rate-limited@localhost',
+              name: 'New Person'
+            }
+          }
           expect(flash[:error]).to match(/unable to sign up new users/)
         end
       end
@@ -989,26 +932,22 @@ RSpec.describe UserController do
 
         it 'sends an exception notification' do
           post :signup, params: {
-                          user_signup: {
-                            email: 'rate-limited@localhost',
-                            name: 'New Person',
-                            password: 'sillypassword',
-                            password_confirmation: 'sillypassword'
-                          }
-                        }
+            user_signup: {
+              email: 'rate-limited@localhost',
+              name: 'New Person'
+            }
+          }
           mail = ActionMailer::Base.deliveries.first
           expect(mail.subject).to match(/Rate limited signup from/)
         end
 
         it 'allows the signup' do
           post :signup, params: {
-                          user_signup: {
-                            email: 'rate-limited@localhost',
-                            name: 'New Person',
-                            password: 'sillypassword',
-                            password_confirmation: 'sillypassword'
-                          }
-                        }
+            user_signup: {
+              email: 'rate-limited@localhost',
+              name: 'New Person'
+            }
+          }
           expect(User.where(email: 'rate-limited@localhost').count).to eq(1)
         end
       end
@@ -1035,36 +974,30 @@ RSpec.describe UserController do
           expect(Rails.logger).to receive(:info).with(msg)
 
           post :signup, params: {
-                          user_signup: {
-                            email: 'spammer@example.com',
-                            name: 'Download New Person 1080p!',
-                            password: 'sillypassword',
-                            password_confirmation: 'sillypassword'
-                          }
-                        }
+            user_signup: {
+              email: 'spammer@example.com',
+              name: 'Download New Person 1080p!'
+            }
+          }
         end
 
         it 'blocks the signup' do
           post :signup, params: {
-                          user_signup: {
-                            email: 'spammer@example.com',
-                            name: 'New Person',
-                            password: 'sillypassword',
-                            password_confirmation: 'sillypassword'
-                          }
-                        }
+            user_signup: {
+              email: 'spammer@example.com',
+              name: 'New Person'
+            }
+          }
           expect(User.where(email: 'spammer@example.com').count).to eq(0)
         end
 
         it 're-renders the form' do
           post :signup, params: {
-                          user_signup: {
-                            email: 'spammer@example.com',
-                            name: 'New Person',
-                            password: 'sillypassword',
-                            password_confirmation: 'sillypassword'
-                          }
-                        }
+            user_signup: {
+              email: 'spammer@example.com',
+              name: 'New Person'
+            }
+          }
           expect(response).to render_template('sign')
         end
       end
@@ -1077,26 +1010,22 @@ RSpec.describe UserController do
 
         it 'sends an exception notification' do
           post :signup, params: {
-                          user_signup: {
-                            email: 'spammer@example.com',
-                            name: 'New Person',
-                            password: 'sillypassword',
-                            password_confirmation: 'sillypassword'
-                          }
-                        }
+            user_signup: {
+              email: 'spammer@example.com',
+              name: 'New Person'
+            }
+          }
           mail = ActionMailer::Base.deliveries.first
           expect(mail.subject).to match(/signup from suspected spammer/)
         end
 
         it 'allows the signup' do
           post :signup, params: {
-                          user_signup: {
-                            email: 'spammer@example.com',
-                            name: 'New Person',
-                            password: 'sillypassword',
-                            password_confirmation: 'sillypassword'
-                          }
-                        }
+            user_signup: {
+              email: 'spammer@example.com',
+              name: 'New Person'
+            }
+          }
           expect(User.where(email: 'spammer@example.com').count).to eq(1)
         end
       end
