@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Ask for the password when an account is confirmed, not at signup (Graeme
+  Porteous)
 * Make it obvious that proposed email address is the same as the current one
 * Fix erasure of pro users with a Stripe customer (Graeme Porteous)
 * Fix text after a tab becoming part of a link (Helen Cross)
@@ -166,6 +168,11 @@
 * Block various action links via robots.txt (Laurent Savaete)
 
 ## Upgrade Notes
+
+* _Required:_ The signup form no longer asks for a password. Themes that
+  override `user/_signup.html.erb` need to drop the `password` and
+  `password_confirmation` fields. Confirming an account now asks for the
+  password instead.
 
 * **IMPORTANT! We no longer support PostgreSQL 13**. Please upgrade to at least
   version 15 before upgrading Alaveteli. This is the version shipped with Debian
