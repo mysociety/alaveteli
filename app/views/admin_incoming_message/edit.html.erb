@@ -42,39 +42,52 @@
 
           <div class="span7">
             <p>
-            <strong>Edit this message</strong>
+              <strong>Edit this message</strong>
             </p>
 
             <details>
               <summary>
-                Editing this message will:
+                Destructively edit this message and erase the underlying raw
+                email.
               </summary>
 
-              <ul>
-                <li>lock all of its attachments</li>
-                <li>erase the underlying raw email</li>
-              </ul>
-              This means:
-              <ul>
-                <li>New censor rules will not be applied to the message nor its attachments</li>
-                <li>If you need to modify any attachment for this message, do it <em>before</em> modifying this message.</li>
-              </ul>
-            </p>
+              <p>
+                This can be used to
+                <b>permanently modify data</b>
+                received in a response by a public body. It will:
+                <ul>
+                  <li>Destructively edit the cached attributes extracted from the
+                    raw email</li>
+                  <li>Lock all of its attachments</li>
+                  <li>Erase the underlying raw email</li>
+                </ul>
+                This means:
+                <ul>
+                  <li>New censor rules will not be applied to the message nor its
+                    attachments</li>
+                  <li>If you need to modify any attachment for this message, do
+                    it
+                    <em>before</em>
+                    modifying this message.</li>
+                </ul>
+              </p>
             </details>
           </div>
 
-          <div class="input-append span4">
-            <%= text_field_tag "edit_reason", '',
-                             placeholder: 'Reason for edit',
-                             required: true %>
+          <div class="input-append">
+            <%= text_field_tag "edit_reason", "", placeholder: "Reason for edit", required: true %>
 
-            <%= submit_tag 'Save',
-                         name: :save_incoming_message,
-                         class: 'btn btn-danger',
-                         data: { confirm: 'Are you sure? This is irreversible.' } %>
+            <%= submit_tag "Save",
+            name: :save_incoming_message,
+            class: "btn btn-danger",
+            data: {
+              confirm: "Are you sure? This is irreversible.",
+            } %>
           </div>
         </fieldset>
       <% end %>
     </div>
+
+    <%= render partial: "erase_destroy", locals: { incoming_message: @incoming_message } %>
   </div>
 </div>
