@@ -92,7 +92,7 @@ RSpec.describe Admin::FoiAttachments::ProminenceController do
       end
 
       it 'does not expire the attachment' do
-        expect(attachment).not_to receive(:expire)
+        expect_any_instance_of(FoiAttachment).not_to receive(:expire)
         patch :update, params: params
       end
 
