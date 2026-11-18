@@ -126,6 +126,27 @@ class InfoRequestEvent < ApplicationRecord
       references(:embargoes)
   }
 
+  scope :requested_by, ->(user) {
+    joins(:info_request).where(info_requests: { user_id: user })
+  }
+
+  scope :commented_by, ->(user) {
+    joins(:comment).where(comments: { user_id: user })
+  }
+
+  scope :for_listing, -> {
+    includes(
+      :outgoing_message,
+      :incoming_message,
+      { comment: :user },
+      { info_request: [:user, :public_body, :censor_rules] }
+    )
+  }
+
+  scope :newest, ->(column = :created_at) {
+    order(column => :desc, :id => :desc)
+  }
+
   before_save(if: :only_editing_prominence_to_hide?) do
     self.event_type = "hide"
   end
