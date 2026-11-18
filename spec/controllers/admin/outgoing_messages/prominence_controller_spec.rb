@@ -91,7 +91,7 @@ RSpec.describe Admin::OutgoingMessages::ProminenceController do
       end
 
       it 'does not expire the message' do
-        expect(outgoing_message).not_to receive(:expire)
+        expect_any_instance_of(OutgoingMessage).not_to receive(:expire)
         patch :update, params: params
       end
 
