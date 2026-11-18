@@ -140,19 +140,25 @@ class ApplicationController < ActionController::Base
     params[:modal].to_i != 0
   end
 
-  # Logout form
   def clear_session_credentials
+    # the id of the admin user while logged in as someone else
     session[:admin_id] = nil
+    # id of the user we are currently acting as/logged in as
     session[:user_id] = nil
+    # the user's login_token
     session[:user_login_token] = nil
+    # identifies certain special circumstances, eg. login_as, change_email
     session[:user_circumstance] = nil
     session[:remember_me] = false
+    # nil or 1 if current user is an admin
     session[:using_admin] = nil
+    # url_name of the current user if they're an admin, or nil
     session[:admin_name] = nil
     session[:change_password_post_redirect_id] = nil
     session[:post_redirect_token] = nil
     session[:draft_profile_photo_id] = nil
     session[:ttl] = nil
+    @user = nil
     PendingTwoFactorSignIn.new(session).clear
   end
 
@@ -235,7 +241,13 @@ class ApplicationController < ActionController::Base
   # Return logged in user
   def authenticated_user
     return unless session[:user_id]
-    @user ||= User.authenticate_from_session(session)
+
+    if session[:user_circumstance] == 'login_as'
+      # we are pretending to be someone else, force the user
+      @user = User.authenticate_from_session(session)
+    else
+      @user ||= User.authenticate_from_session(session)
+    end
   end
 
   # For CanCanCan and other libs which need a Devise-like current_user method
