@@ -26,7 +26,7 @@
                   <% end %>
                 <% elsif item.is_a? InfoRequest %>
                   <%= both_links(item) %>
-                  <% if InfoRequest.requires_admin_states.include?(item.described_state) %>
+                  <% if InfoRequest::State.requires_admin_states.include?(item.described_state) %>
                     <table class="table table-striped table-condensed">
                       <tr>
                         <td><b>User message</b></td>

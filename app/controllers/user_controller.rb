@@ -435,7 +435,7 @@ class UserController < ApplicationController
     option_item = Struct.new(:value, :text)
 
     display_user.info_requests.pluck(:described_state).uniq.map do |state|
-      option_item.new(state, InfoRequest.get_status_description(state))
+      option_item.new(state, InfoRequest::State.get_status_description(state))
     end
   end
 

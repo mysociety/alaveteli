@@ -40,7 +40,6 @@ require 'fileutils'
 
 class InfoRequest < ApplicationRecord
   OLD_AGE_IN_DAYS = 21.days
-  REPORTED_STATES = %w[attention_requested requires_admin]
 
   include Rails.application.routes.url_helpers
   include LinkToHelper
@@ -255,42 +254,6 @@ class InfoRequest < ApplicationRecord
           merge(OutgoingMessage.with_body(body)).
             references(:outgoing_messages).
               first
-  end
-
-  # states which require administrator action (hence email administrators
-  # when they are entered, and offer state change dialog to them)
-  def self.requires_admin_states
-    %w(requires_admin error_message attention_requested)
-  end
-
-  # Display version of status
-  def self.get_status_description(status)
-    descriptions = {
-      'waiting_classification' => _("Awaiting classification"),
-      'waiting_response' => _("Awaiting response"),
-      'waiting_response_overdue' => _("Delayed"),
-      'waiting_response_very_overdue' => _("Long overdue"),
-      'not_held' => _("Information not held"),
-      'rejected' => _("Refused"),
-      'partially_successful' => _("Partially successful"),
-      'successful' => _("Successful"),
-      'waiting_clarification' => _("Waiting clarification"),
-      'gone_postal' => _("Handled by postal mail"),
-      'internal_review' => _("Awaiting internal review"),
-      'error_message' => _("Delivery error"),
-      'requires_admin' => _("Unusual response"),
-      'attention_requested' => _("Reported for administrator attention"),
-      'user_withdrawn' => _("Withdrawn by the requester"),
-      'vexatious' => _("Considered by administrators as vexatious"),
-      'not_foi' => _("Considered by administrators as not an FOI request")
-    }
-    if descriptions[status]
-      descriptions[status]
-    elsif respond_to?(:theme_display_status)
-      theme_display_status(status)
-    else
-      raise _("unknown status {{status}}", status: status)
-    end
   end
 
   def self.build_from_attributes(info_request_atts, outgoing_message_atts, user=nil)
@@ -773,11 +736,11 @@ class InfoRequest < ApplicationRecord
   end
 
   def requires_admin?
-    self.class.requires_admin_states.include?(described_state)
+    State.requires_admin_states.include?(described_state)
   end
 
   def reported?
-    REPORTED_STATES.include?(described_state)
+    State.reported_states.include?(described_state)
   end
 
   # Report this request for administrator attention
@@ -804,7 +767,7 @@ class InfoRequest < ApplicationRecord
     report_evt = nil
     info_request_events.reverse.each do |event|
       report_evt =
-        event if REPORTED_STATES.include?(
+        event if State.reported_states.include?(
           event.described_state
         )
       break if report_evt
@@ -815,14 +778,13 @@ class InfoRequest < ApplicationRecord
   # returns the last event that changed classification
   # but is not a reporting event, before last_report_event
   def last_classification_event_before_report
-    states = REPORTED_STATES + [ nil ]
-    last_report_event_id = last_report_event.id
-    previous_state_setting_events =
-      info_request_events.
-        where.not(described_state: states).
-        where("id < ?", last_report_event_id).
-        reverse
-    previous_state_setting_events.first
+    states = State.reported_states + [nil]
+
+    info_request_events.
+      where.not(described_state: states).
+      where("id < ?", last_report_event.id).
+      reverse.
+      first
   end
 
   # Revert the status of the request back to what it was before being reported
@@ -1200,7 +1162,7 @@ class InfoRequest < ApplicationRecord
   end
 
   def display_status(cached_value_ok=false)
-    InfoRequest.get_status_description(calculate_status(cached_value_ok))
+    State.get_status_description(calculate_status(cached_value_ok))
   end
 
   def foi_fragment_cache_directories

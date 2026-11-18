@@ -18,6 +18,22 @@ RSpec.describe InfoRequest::State do
     it { is_expected.to match_array(unhappy_states) }
   end
 
+  describe '.requires_admin_states' do
+    subject { described_class.requires_admin_states }
+
+    it do
+      is_expected.to match_array(
+        %w(requires_admin error_message attention_requested)
+      )
+    end
+  end
+
+  describe '.reported_states' do
+    subject { described_class.reported_states }
+
+    it { is_expected.to match_array(%w(attention_requested requires_admin)) }
+  end
+
   describe '.valid?' do
     subject { described_class.valid?(state) }
 
@@ -29,6 +45,31 @@ RSpec.describe InfoRequest::State do
     context 'with a state not included in .all' do
       let(:state) { 'invalid_state' }
       it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '.get_status_description' do
+    it 'returns a description for a valid state' do
+      expect(described_class.get_status_description('attention_requested')).
+        to eq 'Reported for administrator attention'
+    end
+
+    it 'raises an error for an unknown state' do
+      expect { described_class.get_status_description('meow') }.
+        to raise_error 'unknown status meow'
+    end
+
+    context 'when a theme is in use' do
+      before do
+        InfoRequest.send(:require, 'models/customstates')
+        InfoRequest.send(:include, InfoRequestCustomStates)
+        InfoRequest.class_eval('@@custom_states_loaded = true')
+      end
+
+      it 'returns a description for a theme state' do
+        expect(described_class.get_status_description('deadline_extended')).
+          to eq 'Deadline extended.'
+      end
     end
   end
 
