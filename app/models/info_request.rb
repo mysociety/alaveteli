@@ -778,14 +778,13 @@ class InfoRequest < ApplicationRecord
   # returns the last event that changed classification
   # but is not a reporting event, before last_report_event
   def last_classification_event_before_report
-    states = State.reported_states + [ nil ]
-    last_report_event_id = last_report_event.id
-    previous_state_setting_events =
-      info_request_events.
-        where.not(described_state: states).
-        where("id < ?", last_report_event_id).
-        reverse
-    previous_state_setting_events.first
+    states = State.reported_states + [nil]
+
+    info_request_events.
+      where.not(described_state: states).
+      where("id < ?", last_report_event.id).
+      reverse.
+      first
   end
 
   # Revert the status of the request back to what it was before being reported

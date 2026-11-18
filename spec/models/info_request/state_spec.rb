@@ -50,13 +50,13 @@ RSpec.describe InfoRequest::State do
 
   describe '.get_status_description' do
     it 'returns a description for a valid state' do
-      expect(described_class.get_status_description('attention_requested'))
-        .to eq 'Reported for administrator attention'
+      expect(described_class.get_status_description('attention_requested')).
+        to eq 'Reported for administrator attention'
     end
 
     it 'raises an error for an unknown state' do
-      expect { described_class.get_status_description('meow') }
-        .to raise_error 'unknown status meow'
+      expect { described_class.get_status_description('meow') }.
+        to raise_error 'unknown status meow'
     end
 
     context 'when a theme is in use' do
@@ -67,8 +67,8 @@ RSpec.describe InfoRequest::State do
       end
 
       it 'returns a description for a theme state' do
-        expect(described_class.get_status_description('deadline_extended'))
-          .to eq 'Deadline extended.'
+        expect(described_class.get_status_description('deadline_extended')).
+          to eq 'Deadline extended.'
       end
     end
   end
