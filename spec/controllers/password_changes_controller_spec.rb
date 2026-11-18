@@ -2,21 +2,6 @@ require 'spec_helper'
 
 RSpec.describe PasswordChangesController do
   describe 'GET new' do
-    it 'assigns the pretoken if supplied' do
-      get :new, params: { pretoken: 'abcdef' }
-      expect(assigns[:pretoken]).to eq('abcdef')
-    end
-
-    it 'assigns nil to the pretoken if not supplied' do
-      get :new
-      expect(assigns[:pretoken]).to eq(nil)
-    end
-
-    it 'assigns nil to the pretoken if blank' do
-      get :new, params: { pretoken: '' }
-      expect(assigns[:pretoken]).to eq(nil)
-    end
-
     it 'does not pre-fill the email field without a signed in user' do
       get :new
       expect(assigns[:email_field_options]).to eq({})
@@ -39,6 +24,11 @@ RSpec.describe PasswordChangesController do
     it 'renders the template' do
       get :new
       expect(response).to render_template(:new)
+    end
+
+    it 'sets a medium cache header' do
+      get :new
+      expect(response.headers['Cache-Control']).to eq('max-age=3600, public')
     end
   end
 
@@ -122,35 +112,6 @@ RSpec.describe PasswordChangesController do
         }
         expect(ActionMailer::Base.deliveries).to be_empty
         expect(response).to render_template(:check_email)
-      end
-
-      context 'when a pretoken is supplied' do
-        it 'adds the pretoken to the post redirect uri' do
-          user = FactoryBot.create(:user)
-          pretoken = PostRedirect.create(user: user, uri: '/')
-          post :create, params: {
-            password_change_user: {
-              email: user.email
-            },
-            pretoken: pretoken.token
-          }
-          post_redirect = PostRedirect.last
-          expected = edit_password_change_url(post_redirect.token,
-                                              pretoken: pretoken.token)
-          expect(post_redirect.uri).to include(expected)
-        end
-
-        it 'does not add a blank pretoken to the post redirect uri' do
-          user = FactoryBot.create(:user)
-          pretoken = PostRedirect.create(user: user, uri: '/')
-          post :create, params: {
-            password_change_user: { email: user.email },
-            pretoken: ''
-          }
-          post_redirect = PostRedirect.last
-          expected = edit_password_change_url(post_redirect.token)
-          expect(post_redirect.uri).to eq(expected)
-        end
       end
 
       it 'sends a confirmation email' do
@@ -261,21 +222,6 @@ RSpec.describe PasswordChangesController do
       )
     end
 
-    it 'assigns the pretoken if supplied' do
-      get :edit, params: { id: post_redirect.token, pretoken: 'abcdef' }
-      expect(assigns[:pretoken]).to eq('abcdef')
-    end
-
-    it 'assigns nil to the pretoken if not supplied' do
-      get :edit, params: { id: post_redirect.token }
-      expect(assigns[:pretoken]).to eq(nil)
-    end
-
-    it 'assigns nil to the pretoken if blank' do
-      get :edit, params: { id: post_redirect.token, pretoken: '' }
-      expect(assigns[:pretoken]).to eq(nil)
-    end
-
     it 'assigns the user' do
       get :edit, params: { id: post_redirect.token }
       expect(assigns[:password_change_user]).to eq(user)
@@ -287,12 +233,6 @@ RSpec.describe PasswordChangesController do
       it 'redirects to new for the user to enter their email' do
         get :edit, params: { id: post_redirect.token }
         expect(response).to redirect_to(new_password_change_path)
-      end
-
-      it 'redirects to new with a pretoken for the user to enter their email' do
-        get :edit, params: { id: post_redirect.token, pretoken: 'abcdef' }
-        expect(response).
-          to redirect_to(new_password_change_path(pretoken: 'abcdef'))
       end
     end
 
@@ -462,16 +402,6 @@ RSpec.describe PasswordChangesController do
         }
         expect(response).to redirect_to(new_password_change_path)
       end
-
-      it 'redirects to #new with a pretoken when a user cannot be found' do
-        put :update, params: {
-          id: post_redirect.token,
-          password_change_user: @valid_password_params,
-          pretoken: 'abcdef'
-        }
-        expect(response).
-          to redirect_to(new_password_change_path(pretoken: 'abcdef'))
-      end
     end
 
     context 'the user is closed' do
@@ -534,45 +464,12 @@ RSpec.describe PasswordChangesController do
       end
     end
 
-    context 'when a pretoken is supplied' do
-      it 'redirects to the post redirect uri' do
-        pretoken = PostRedirect.create(user: user, uri: '/')
-        put :update, params: {
-          id: post_redirect.token,
-          password_change_user: @valid_password_params,
-          pretoken: pretoken.token
-        }
-        expect(response).to redirect_to(pretoken.uri)
-      end
-
-      it 'does not redirect to another domain' do
-        pretoken = PostRedirect.create(user: user, uri: 'http://bad.place.com/')
-        put :update, params: {
-          id: post_redirect.token,
-          password_change_user: @valid_password_params,
-          pretoken: pretoken.token
-        }
-        expect(response).to redirect_to('/')
-      end
-
-      it 'redirects to the user profile with a blank pretoken' do
-        put :update, params: {
-          id: post_redirect.token,
-          password_change_user: @valid_password_params,
-          pretoken: ''
-        }
-        expect(response).to redirect_to(show_user_profile_path(user.url_name))
-      end
-    end
-
-    context 'when there is no pretoken' do
-      it 'redirects to the user profile on success' do
-        put :update, params: {
-          id: post_redirect.token,
-          password_change_user: @valid_password_params
-        }
-        expect(response).to redirect_to(show_user_profile_path(user.url_name))
-      end
+    it 'redirects to the user profile on success' do
+      put :update, params: {
+        id: post_redirect.token,
+        password_change_user: @valid_password_params
+      }
+      expect(response).to redirect_to(show_user_profile_path(user.url_name))
     end
 
     context 'when the user has no two factor authentication' do
@@ -626,18 +523,6 @@ RSpec.describe PasswordChangesController do
         put :update, params: {
           id: post_redirect.token,
           password_change_user: params
-        }
-
-        expect(response).to redirect_to(one_time_password_path)
-      end
-
-      it 'redirects to the two factor page even if there is a pretoken redirect' do
-        pretoken = PostRedirect.create(user: user, uri: '/')
-        params = @valid_password_params.merge(otp_code: user.otp_code)
-        put :update, params: {
-          id: post_redirect.token,
-          password_change_user: params,
-          pretoken: pretoken.token
         }
 
         expect(response).to redirect_to(one_time_password_path)
@@ -757,18 +642,6 @@ RSpec.describe PasswordChangesController do
           to eq(partial: 'one_time_passwords/backup_code_used',
                 locals: { lead: 'Your password has been changed.',
                           remaining: 11 })
-      end
-
-      it 'respects a pretoken redirect on success' do
-        pretoken = PostRedirect.create(user: user, uri: '/')
-        params = @valid_password_params.merge(otp_code: user.otp_code)
-        put :update, params: {
-          id: post_redirect.token,
-          password_change_user: params,
-          pretoken: pretoken.token
-        }
-
-        expect(response).to redirect_to('/')
       end
 
       context 'when the attempt limit is exceeded' do
