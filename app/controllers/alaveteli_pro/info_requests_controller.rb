@@ -5,6 +5,8 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
+  include AlaveteliPro::DraftRequestForm
+
   before_action :set_draft
   before_action :set_public_body, only: [:new]
   before_action :load_data_from_draft, only: [:preview, :create]
@@ -94,9 +96,7 @@ class AlaveteliPro::InfoRequestsController < AlaveteliPro::BaseController
       return redirect_to new_alaveteli_pro_info_request_path
     end
 
-    @info_request = InfoRequest.from_draft(@draft_info_request)
-    @outgoing_message = @info_request.outgoing_messages.first
-    @embargo = @info_request.embargo
+    load_form_from_draft(@draft_info_request)
   end
 
   def create_initial_objects
