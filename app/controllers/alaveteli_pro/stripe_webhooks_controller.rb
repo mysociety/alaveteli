@@ -84,6 +84,12 @@ class AlaveteliPro::StripeWebhooksController < ApplicationController
     endpoint_secret = AlaveteliConfiguration.stripe_webhook_secret
     @stripe_event = nil
 
+    if endpoint_secret.blank?
+      raise Stripe::SignatureVerificationError.new(
+        'Webhook secret not configured', sig_header, http_body: payload
+      )
+    end
+
     @stripe_event = Stripe::Webhook.construct_event(
       payload, sig_header, endpoint_secret
     )

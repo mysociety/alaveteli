@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Reject Stripe webhooks when `STRIPE_WEBHOOK_SECRET` is blank (Gareth Rees)
 * Upgrade to Rails 8.1 (Graeme Porteous)
 * Fix user wall by reading events from the database (Graeme Porteous)
 * Make it obvious that proposed email address is the same as the current one
