@@ -288,7 +288,7 @@ class UserController < ApplicationController
     # Now clear the circumstance
     session[:user_circumstance] = nil
     flash[:notice] = _("You have now changed your email address used on {{site_name}}",site_name: site_name)
-    redirect_to user_url(@user)
+    redirect_to user_url(authenticated_user)
   end
 
   # River of News: What's happening with your tracked things
