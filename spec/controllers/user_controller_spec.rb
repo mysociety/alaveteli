@@ -1375,11 +1375,25 @@ RSpec.describe UserController, "when viewing the wall" do
 
     old_event = mock_model(InfoRequestEvent, created_at: 2.days.ago)
     new_event = mock_model(InfoRequestEvent, created_at: 1.hour.ago)
-    stub_search_results(items: [old_event, new_event])
+    allow(User::Wall).to receive(:new).
+      and_return(double(events: [old_event, new_event]))
 
     get :wall, params: { url_name: user.url_name }
 
     expect(assigns[:feed_results]).to eq([new_event, old_event])
+  end
+
+  context 'when the user has made requests' do
+    render_views
+
+    it 'renders the request events' do
+      info_request = FactoryBot.create(:info_request)
+      user = info_request.user
+
+      get :wall, params: { url_name: user.url_name }
+
+      expect(response.body).to include(info_request.title)
+    end
   end
 
   it 'includes events matching the tracks the user owns' do
@@ -1406,7 +1420,7 @@ RSpec.describe UserController, "when viewing the wall" do
     user = FactoryBot.create(:user, :closed)
 
     event = mock_model(InfoRequestEvent, created_at: 1.hour.ago)
-    stub_search_results(items: [event])
+    allow(User::Wall).to receive(:new).and_return(double(events: [event]))
 
     get :wall, params: { url_name: user.url_name }
 

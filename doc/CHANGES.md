@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix user wall by reading events from the database (Graeme Porteous)
 * Make it obvious that proposed email address is the same as the current one
 * Fix erasure of pro users with a Stripe customer (Graeme Porteous)
 * Fix text after a tab becoming part of a link (Helen Cross)

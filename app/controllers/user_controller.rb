@@ -90,31 +90,7 @@ class UserController < ApplicationController
   def wall
     long_cache
     @is_you = current_user_is_display_user
-    feed_results = Set.new
-    # Use search query for this so can collapse and paginate easily
-    # TODO: really should just use SQL query here rather than Xapian.
-    begin
-      requests_query = 'requested_by:' + @display_user.url_name
-      comments_query = 'commented_by:' + @display_user.url_name
-      # TODO: combine these as OR query
-      @request_results = perform_request_search(
-        requests_query, 'newest'
-      )
-      @comment_results = perform_search(
-        [InfoRequestEvent], comments_query, 'newest', nil
-      )
-
-    rescue
-      @request_results = nil
-      @comment_results = nil
-    end
-
-    if @request_results
-      feed_results += @request_results.results.map { |x| x[:model] }
-    end
-    if @comment_results
-      feed_results += @comment_results.results.map { |x| x[:model] }
-    end
+    feed_results = Set.new(User::Wall.new(@display_user).events)
 
     # All tracks for the user
     if @is_you
