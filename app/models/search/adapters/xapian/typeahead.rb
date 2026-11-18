@@ -43,7 +43,8 @@ module Search
         private
 
         def prepare_query
-          @prepared_query = @query_string.mb_chars.limit(252).strip
+          @prepared_query =
+            @query_string.truncate_bytes(252, omission: nil).strip
 
           query_words = @prepared_query.split
           if query_words.last && query_words.last.strip.length < 3

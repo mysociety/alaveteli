@@ -51,11 +51,11 @@ class User::Anonymisable::NamePattern
   end
 
   def first_initial
-    parts.first.mb_chars.first.to_s
+    parts.first[0].to_s
   end
 
   def last_initial
-    parts.last.mb_chars.first.to_s
+    parts.last[0].to_s
   end
 
   protected

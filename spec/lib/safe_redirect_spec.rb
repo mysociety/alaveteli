@@ -51,6 +51,14 @@ RSpec.describe SafeRedirect do
       end
     end
 
+    context 'with a relative path' do
+      let(:redirect_param) { 'request/the_cost_of_boring' }
+
+      it 'returns an absolute path' do
+        expect(subject).to eq('/request/the_cost_of_boring')
+      end
+    end
+
     context 'with a host component' do
       let(:redirect_param) { 'http://www.example.com/request/hello' }
 

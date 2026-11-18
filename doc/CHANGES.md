@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Upgrade to Rails 8.1 (Graeme Porteous)
 * Fix user wall by reading events from the database (Graeme Porteous)
 * Make it obvious that proposed email address is the same as the current one
 * Fix erasure of pro users with a Stripe customer (Graeme Porteous)

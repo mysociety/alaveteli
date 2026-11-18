@@ -31,7 +31,7 @@ class CensorRule::Diacritics::DiacriticExpander
   end
 
   def expand(text, encoding: 'UTF-8')
-    text.mb_chars.each_char.map { expand_character(it) }.join.encode(encoding)
+    text.each_char.map { expand_character(it) }.join.encode(encoding)
   end
 
   def case_sensitive?
