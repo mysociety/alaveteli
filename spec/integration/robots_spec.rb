@@ -40,6 +40,12 @@ RSpec.describe 'robots.txt', type: :request do
     expect(response.body).to_not include 'Disallow: */tor*'
   end
 
+  # Covers /user/:url_name and its /profile, /requests, /wall, /photo.png and
+  # /user/contact/:url_name variants.
+  it 'blocks public user pages' do
+    expect(response.body).to include 'Disallow: */user/'
+  end
+
   it 'renders without the site layout' do
     expect(response.body).to_not include '<html'
   end
