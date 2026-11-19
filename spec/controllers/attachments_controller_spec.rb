@@ -71,6 +71,48 @@ RSpec.describe AttachmentsController, type: :controller do
       expect(response.status).to eq(303)
     end
 
+    it 'sets the bare attachment URL as canonical' do
+      show(cookie_passthrough: 1)
+      expect(response.headers['Link']).to eq(
+        "<#{get_attachment_url(
+          incoming_message_id: message.id,
+          part: attachment.url_part_number,
+          file_name: attachment.display_filename,
+          request_url_title: info_request.url_title
+        )}>; rel=\"canonical\""
+      )
+    end
+
+    it 'does not set a canonical URL when using public token' do
+      expect(InfoRequest).to receive(:find_by!).with(public_token: '123').
+        and_return(info_request)
+
+      show(public_token: '123')
+
+      expect(response.headers['Link']).to be_nil
+    end
+
+    context 'when the request is backpage' do
+      let(:request_prominence) { 'backpage' }
+
+      it 'does not set a canonical URL' do
+        show
+        expect(response.headers['Link']).to be_nil
+      end
+    end
+
+    context 'when the attachment is not public' do
+      let(:attachment_prominence) { 'requester_only' }
+
+      before { sign_in info_request.user }
+
+      it 'does not set a canonical URL' do
+        show
+        expect(response).to be_successful
+        expect(response.headers['Link']).to be_nil
+      end
+    end
+
     context 'CORS headers' do
       context 'with a non-CSV attachment' do
         let(:attachment) do

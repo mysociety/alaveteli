@@ -19,6 +19,8 @@ class AttachmentsController < ApplicationController
   around_action :ensure_masked
 
   def show
+    set_canonical_link
+
     if rendering_via_iframe?
       render body: @attachment.body, content_type: content_type
     else
@@ -128,6 +130,18 @@ class AttachmentsController < ApplicationController
     return if attachment_is_public?
 
     raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
+  end
+
+  # On-site links to attachments carry a query param for Varnish, so crawlers
+  # only find the parameterised URL. Point them at the bare one instead.
+  #
+  # Don't send a canonical alongside noindex, or for attachments only
+  # authorised users can see.
+  def set_canonical_link
+    return if @no_crawl || !attachment_is_public?
+
+    url = attachment_url(@attachment, cookie_passthrough: false)
+    headers['Link'] = %(<#{url}>; rel="canonical")
   end
 
   def ensure_masked
