@@ -19,9 +19,7 @@ class AttachmentsController < ApplicationController
   around_action :ensure_masked
 
   def show
-    if request.headers['Sec-Fetch-Dest'] == 'iframe' &&
-       request.headers['Sec-Fetch-Site'] == 'same-origin'
-
+    if rendering_via_iframe?
       render body: @attachment.body, content_type: content_type
     else
       send_data(
@@ -51,6 +49,11 @@ class AttachmentsController < ApplicationController
   end
 
   private
+
+  def rendering_via_iframe?
+    request.headers['Sec-Fetch-Dest'] == 'iframe' &&
+      request.headers['Sec-Fetch-Site'] == 'same-origin'
+  end
 
   def find_info_request
     @info_request =
@@ -168,8 +171,6 @@ class AttachmentsController < ApplicationController
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Request-Method'] = 'GET'
   end
-
-
 
   def part_number
     params[:part].to_i
