@@ -53,7 +53,7 @@ class AdminUserController < AdminController
   def show
     @info_requests = @admin_user.info_requests
     @info_request_batches = @admin_user.info_request_batches
-    @comments = @admin_user.comments
+    @comments = @admin_user.comments.includes(:info_request)
 
     if cannot? :admin, AlaveteliPro::Embargo
       @info_requests = @info_requests.not_embargoed
@@ -64,7 +64,8 @@ class AdminUserController < AdminController
     @info_requests =
       @info_requests.
       reorder(sort_query).
-      paginate(page: params[:page], per_page: 100)
+      paginate(page: params[:page], per_page: 100).
+      includes(:embargo, :user, public_body: :translations)
   end
 
   def edit
