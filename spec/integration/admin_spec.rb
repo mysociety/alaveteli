@@ -16,7 +16,8 @@ RSpec.describe "When administering the site" do
     using_session(@admin) do
       visit admin_user_path bob_smith_user
       find_link('Log in as Bob Smith (also confirms their email)').click
-      expect(page).to have_content 'Bob Smith'
+      expect(page).to have_content 'Logged in as Bob Smith'
+      expect(page.current_path).to eq("/user/#{bob_smith_user.url_name}")
     end
   end
 
