@@ -2700,5 +2700,19 @@ RSpec.describe User do
         expect(user.last_sign_in_at).to be_a(Time)
       end
     end
+
+    context 'when redis is unreachable' do
+      before do
+        # allow_any_instance_of(User).
+        allow(user).
+          to receive(:reindex_later).and_raise(Redis::CannotConnectError)
+      end
+
+      it 'touches last_sign_in_at without error' do
+        expect { user.record_sign_in(ip: '192.168.1.1') }.
+          to change(user, :last_sign_in_at).from(nil)
+        expect(user.last_sign_in_at).to be_a(Time)
+      end
+    end
   end
 end
