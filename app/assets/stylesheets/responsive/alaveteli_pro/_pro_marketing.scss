@@ -118,32 +118,34 @@
 }
 
 .marketing-highlight {
-  position: relative;
-  display: inline-block;
   font-weight: normal;
-  &:before {
-      content:"";
-      height: 100%;
-      width: 100%;
+  background-color: #faf785;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+
+  @include respond-min( $main_menu-mobile_menu_cutoff ) {
+    position: relative;
+    display: inline-block;
+    background-color: transparent;
+
+    &:before {
+      content: "";
       display: block;
       position: absolute;
-      top:0;
+      top: 0;
       right: 0;
       bottom: 0;
       left: 0;
       background-color: #faf785;
       transform: rotate(-1deg);
       z-index: -1;
+    }
   }
 }
 
 label.input-account-request-button {
   color: white;
   text-decoration: none;
-}
-
-.input-account-request-button {
-  margin-top: 2em;
 }
 
 .account-request-signup-form {

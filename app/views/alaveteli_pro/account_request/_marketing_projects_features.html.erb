@@ -1,0 +1,38 @@
+<div id="projects" class="marketing__section">
+  <div class="marketing__section__heading">
+    <h2><%=_('Projects') %></h2>
+  </div>
+
+  <div class="marketing__section__content">
+    <div class="marketing__section__content-items">
+      <ul class="marketing__section__feature-list">
+        <li>
+          <%=_('<strong class="marketing-highlight">Easily deal with ' \
+               'responses in varied formats</strong>: collaborate with a ' \
+               'team, or work alone to pull out the data you need into a ' \
+               'consistent spreadsheet') %>
+        </li>
+      </ul>
+
+      <div class="side-by-side-elements screenshots">
+        <div class="side-by-side-element">
+          <%= link_to image_path('alaveteli-pro/projects-homepage.jpg') do %>
+            <%= image_tag('alaveteli-pro/projects-homepage.jpg',
+                          alt: _('A project homepage showing progress on ' \
+                                 'extracting data from responses')) %>
+          <% end %>
+        </div>
+
+        <div class="side-by-side-element">
+          <%= link_to image_path('alaveteli-pro/projects-extract.jpg') do %>
+            <%= image_tag('alaveteli-pro/projects-extract.jpg',
+                          alt: _('Extracting data from a response into a ' \
+                                 'project spreadsheet')) %>
+          <% end %>
+        </div>
+      </div>
+
+      <%= render partial: 'cta' %>
+    </div>
+  </div>
+</div>
