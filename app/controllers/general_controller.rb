@@ -197,7 +197,7 @@ class GeneralController < ApplicationController
     end || []
 
     InfoRequest.is_searchable.where(id: ids).
-      includes(:public_body).
+      includes(public_body: :translations).
       order(created_at: :desc).
       load
   end

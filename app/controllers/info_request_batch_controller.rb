@@ -8,8 +8,11 @@ class InfoRequestBatchController < ApplicationController
     @per_page = 25
     @page = get_search_page_from_params
     if @info_request_batch.sent_at
-      @info_requests = load_info_requests.paginate(page: @page,
-                                                   per_page: @per_page)
+      @info_requests = 
+        load_info_requests.
+          paginate(page: @page, per_page: @per_page).
+          includes(:embargo, :user, public_body: :translations)
+
     else
       @public_bodies = load_public_bodies.paginate(page: @page,
                                                    per_page: @per_page)

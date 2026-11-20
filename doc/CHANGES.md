@@ -4,6 +4,7 @@
 
 * Set a canonical URL for attachments so search engines index the URL without
   query params (Gareth Rees)
+* Remove various n+1 database queries (Laurent Savaete)
 * Reject Stripe webhooks when `STRIPE_WEBHOOK_SECRET` is blank (Gareth Rees)
 * Upgrade to Rails 8.1 (Graeme Porteous)
 * Fix user wall by reading events from the database (Graeme Porteous)
