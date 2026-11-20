@@ -114,12 +114,6 @@ RSpec.describe AdminUsersSessionsController do
   end
 
   describe 'full login as + revert cycle' do
-    around do |example|
-      old_admin_controller_mfa = AdminController.require_two_factor_auth
-      example.run
-      AdminController.require_two_factor_auth = old_admin_controller_mfa
-    end
-
     def check_roundtrip(normal_user, test_admin_user)
       post :create, params: { id: normal_user.id }
       expect(session[:user_id]).to eq(normal_user.id)
@@ -135,7 +129,8 @@ RSpec.describe AdminUsersSessionsController do
 
     context 'with 2FA disabled' do
       before do
-        AdminController.require_two_factor_auth = false
+        allow(AdminController).
+          to receive(:require_two_factor_auth).and_return(false)
         allow(AlaveteliConfiguration).
           to receive(:enable_two_factor_auth).and_return(false)
         sign_in admin_user
@@ -150,7 +145,8 @@ RSpec.describe AdminUsersSessionsController do
       let(:totp_admin_user) { FactoryBot.create(:admin_user, :enable_totp) }
 
       before do
-        AdminController.require_two_factor_auth = true
+        allow(AdminController).
+          to receive(:require_two_factor_auth).and_return(false)
         allow(AlaveteliConfiguration).
           to receive(:enable_two_factor_auth).and_return(true)
         sign_in totp_admin_user
