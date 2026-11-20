@@ -71,6 +71,77 @@ RSpec.describe AttachmentsController, type: :controller do
       expect(response.status).to eq(303)
     end
 
+    context 'when navigating from an external site' do
+      before do
+        request.headers['Sec-Fetch-Mode'] = 'navigate'
+        request.headers['Sec-Fetch-Dest'] = 'document'
+        request.headers['Sec-Fetch-Site'] = 'cross-site'
+      end
+
+      it 'redirects to the HTML view of the attachment' do
+        show
+        expect(response).to redirect_to(
+          get_attachment_as_html_url(
+            incoming_message_id: message.id,
+            part: attachment.url_part_number,
+            file_name: "#{attachment.display_filename}.html",
+            request_url_title: info_request.url_title
+          )
+        )
+      end
+
+      context 'when the attachment has no HTML view' do
+        let(:attachment) do
+          FactoryBot.create(:jpeg_attachment, incoming_message: message)
+        end
+
+        it 'downloads the attachment' do
+          show
+          expect(response).to be_successful
+          expect(response.headers['Content-Disposition']).to match(/attachment/)
+        end
+      end
+
+      context 'when the attachment is not public' do
+        let(:attachment_prominence) { 'requester_only' }
+
+        before { sign_in info_request.user }
+
+        it 'downloads the attachment' do
+          show
+          expect(response).to be_successful
+          expect(response.body).to match('hereisthemaskedtext')
+        end
+      end
+    end
+
+    context 'when navigating directly to the attachment' do
+      before do
+        request.headers['Sec-Fetch-Mode'] = 'navigate'
+        request.headers['Sec-Fetch-Dest'] = 'document'
+        request.headers['Sec-Fetch-Site'] = 'none'
+      end
+
+      it 'redirects to the HTML view of the attachment' do
+        show
+        expect(response).to redirect_to(%r{/attach/html/})
+      end
+    end
+
+    context 'when navigating from within the site' do
+      before do
+        request.headers['Sec-Fetch-Mode'] = 'navigate'
+        request.headers['Sec-Fetch-Dest'] = 'document'
+        request.headers['Sec-Fetch-Site'] = 'same-origin'
+      end
+
+      it 'downloads the attachment' do
+        show
+        expect(response).to be_successful
+        expect(response.headers['Content-Disposition']).to match(/attachment/)
+      end
+    end
+
     it 'sets the bare attachment URL as canonical' do
       show(cookie_passthrough: 1)
       expect(response.headers['Link']).to eq(
@@ -111,6 +182,13 @@ RSpec.describe AttachmentsController, type: :controller do
         expect(response).to be_successful
         expect(response.headers['Link']).to be_nil
       end
+    end
+
+    it 'varies the response on Fetch Metadata request headers' do
+      show
+      expect(response.headers['Vary']).to include(
+        'Sec-Fetch-Site', 'Sec-Fetch-Mode', 'Sec-Fetch-Dest'
+      )
     end
 
     context 'CORS headers' do

@@ -14,6 +14,8 @@ class AttachmentsController < ApplicationController
 
   before_action :authenticate_attachment
   before_action :authenticate_attachment_as_html, only: :show_as_html
+  before_action :vary_on_fetch_metadata, only: :show
+  before_action :redirect_external_navigation_to_html, only: :show
   before_action :set_cors
 
   around_action :ensure_masked
@@ -142,6 +144,30 @@ class AttachmentsController < ApplicationController
 
     url = attachment_url(@attachment, cookie_passthrough: false)
     headers['Link'] = %(<#{url}>; rel="canonical")
+  end
+
+  # Responses to #show depend on how the request was made, so caches must not
+  # serve a response for one kind of request to another
+  def vary_on_fetch_metadata
+    headers['Vary'] = [
+      headers['Vary'], 'Sec-Fetch-Site', 'Sec-Fetch-Mode', 'Sec-Fetch-Dest'
+    ].compact.join(', ')
+  end
+
+  # Visitors following a link from another site (or opening the URL
+  # directly) would otherwise get an unexpected file download and never see
+  # this site, so send them to the HTML view instead if there is one.
+  def redirect_external_navigation_to_html
+    return unless external_navigation?
+    return unless @attachment.html_viewer? && attachment_is_public?
+
+    redirect_to attachment_url(@attachment, html: true)
+  end
+
+  def external_navigation?
+    request.headers['Sec-Fetch-Mode'] == 'navigate' &&
+      request.headers['Sec-Fetch-Dest'] == 'document' &&
+      %w[cross-site none].include?(request.headers['Sec-Fetch-Site'])
   end
 
   def ensure_masked

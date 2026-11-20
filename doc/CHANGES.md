@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Redirect attachment download links followed from external sites to the HTML
+  view of the attachment, where available (Gareth Rees)
 * Set a canonical URL for attachments so search engines index the URL without
   query params (Gareth Rees)
 * Reject Stripe webhooks when `STRIPE_WEBHOOK_SECRET` is blank (Gareth Rees)
