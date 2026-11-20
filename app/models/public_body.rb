@@ -618,12 +618,14 @@ class PublicBody < ApplicationRecord
                          underscore_locale).
                     order(info_requests_visible_count: :desc).
                       limit(32).
-                        joins(:translations)
+                        joins(:translations).
+                          includes(:translations)
       else
         bodies = where("public_body_translations.locale = ?
                         AND public_body_translations.url_name in (?)",
                         underscore_locale, body_short_names).
-                  joins(:translations)
+                  joins(:translations).
+                    includes(:translations)
       end
     end
     bodies
