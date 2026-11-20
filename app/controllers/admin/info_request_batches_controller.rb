@@ -5,7 +5,8 @@ class Admin::InfoRequestBatchesController < AdminController
     @info_requests =
       @info_request_batch.
       info_requests.
-      paginate(page: params[:page], per_page: 100)
+      paginate(page: params[:page], per_page: 100).
+      includes(:embargo, :user, public_body: :translations)
   end
 
   private
