@@ -1,32 +1,54 @@
 class AdminIncomingMessageController < AdminController
-  before_action :set_incoming_message, only: [:edit, :update, :destroy]
+  before_action :set_incoming_message, only: [:edit, :show, :update, :destroy]
   before_action :set_info_request, :check_info_request
+
+  def show
+  end
 
   def edit
   end
 
   def update
-    old_prominence = @incoming_message.prominence
-    old_prominence_reason = @incoming_message.prominence_reason
-    old_tag_string = @incoming_message.tag_string
-    if @incoming_message.update(incoming_message_params)
-      @incoming_message.info_request.log_event(
-        'edit_incoming',
-        incoming_message_id: @incoming_message.id,
+    if params[:save_tags]
+      old_tag_string = @incoming_message.tag_string
+      evt = {
         editor: admin_current_user,
-        old_prominence: old_prominence,
-        prominence: @incoming_message.prominence,
-        old_prominence_reason: old_prominence_reason,
-        prominence_reason: @incoming_message.prominence_reason,
         old_tag_string: old_tag_string,
-        tag_string: @incoming_message.tag_string
+        tag_string: incoming_message_params['tag_string']
+      }
+
+      if @incoming_message.update_and_log_event(
+        event: evt, **incoming_message_params
       )
-      @incoming_message.info_request.expire
+        @incoming_message.info_request.expire
+        flash[:notice] = 'Incoming message successfully updated.'
+      end
+    elsif params[:save_incoming_message]
+      unless @incoming_message.raw_email.erasable?
+        flash[:error] = 'Some attachments have not been masked. Cannot edit this  message.'
+        redirect_to admin_incoming_message_path(@incoming_message)
+        return
+      end
+
+      reason = params[:edit_reason]
+      # the event is almost empty on purpose: this is likely only used to
+      # get rid of PII, so we don't want to store a copy in the event log.
+      evt = {
+        editor: admin_current_user,
+        reason: reason
+      }
+      ActiveRecord::Base.transaction do
+        @incoming_message.raw_email.erase!(**evt)
+
+        @incoming_message.update_and_log_event!(
+          event: evt, **incoming_message_params
+        )
+
+        @incoming_message.info_request.expire
+      end
       flash[:notice] = 'Incoming message successfully updated.'
-      redirect_to admin_request_url(@incoming_message.info_request)
-    else
-      render action: 'edit'
     end
+    redirect_to admin_incoming_message_url(@incoming_message)
   end
 
   def destroy
@@ -82,9 +104,19 @@ class AdminIncomingMessageController < AdminController
 
   def incoming_message_params
     if params[:incoming_message]
-      params.require(:incoming_message).permit(
-        :prominence, :prominence_reason, :tag_string
-      )
+      if params[:save_tags]
+        params.expect(incoming_message: :tag_string)
+      else
+        params.expect(
+          incoming_message: [
+            :from_name,
+            :from_email,
+            :from_email_domain,
+            :subject,
+            :edit_reason
+          ]
+        )
+      end
     else
       {}
     end
