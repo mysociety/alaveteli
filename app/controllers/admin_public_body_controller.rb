@@ -29,7 +29,8 @@ class AdminPublicBodyController < AdminController
       @info_requests =
         info_requests.
         reorder(sort_query).
-        paginate(page: params[:page], per_page: 100)
+        paginate(page: params[:page], per_page: 100).
+        includes(:embargo, :user, public_body: :translations)
 
       @versions = @public_body.versions.order(version: :desc)
       render
