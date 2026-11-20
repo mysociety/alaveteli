@@ -720,6 +720,18 @@ RSpec.describe InfoRequestHelper do
       end
     end
 
+    context 'when cookie_passthrough is false' do
+      it 'returns the URL without a cookie_passthrough param' do
+        expect(attachment_url(jpeg_attachment, cookie_passthrough: false)).to eq(
+          "http://test.host" \
+          "/request/#{incoming_message.info_request.url_title}" \
+          "/response/#{incoming_message.id}" \
+          "/attach/#{jpeg_attachment.url_part_number}" \
+          "/interesting.jpg"
+        )
+      end
+    end
+
     context 'when given an html format option' do
       it 'returns the URL to the HTML version of the attachment' do
         expect(attachment_url(jpeg_attachment, html: true)).to eq(

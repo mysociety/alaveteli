@@ -19,9 +19,9 @@ class AttachmentsController < ApplicationController
   around_action :ensure_masked
 
   def show
-    if request.headers['Sec-Fetch-Dest'] == 'iframe' &&
-       request.headers['Sec-Fetch-Site'] == 'same-origin'
+    set_canonical_link
 
+    if rendering_via_iframe?
       render body: @attachment.body, content_type: content_type
     else
       send_data(
@@ -51,6 +51,11 @@ class AttachmentsController < ApplicationController
   end
 
   private
+
+  def rendering_via_iframe?
+    request.headers['Sec-Fetch-Dest'] == 'iframe' &&
+      request.headers['Sec-Fetch-Site'] == 'same-origin'
+  end
 
   def find_info_request
     @info_request =
@@ -127,6 +132,18 @@ class AttachmentsController < ApplicationController
     raise ActiveRecord::RecordNotFound, 'Attachment HTML not found.'
   end
 
+  # On-site links to attachments carry a query param for Varnish, so crawlers
+  # only find the parameterised URL. Point them at the bare one instead.
+  #
+  # Don't send a canonical alongside noindex, or for attachments only
+  # authorised users can see.
+  def set_canonical_link
+    return if @no_crawl || !attachment_is_public?
+
+    url = attachment_url(@attachment, cookie_passthrough: false)
+    headers['Link'] = %(<#{url}>; rel="canonical")
+  end
+
   def ensure_masked
     if @attachment.masked?
       yield
@@ -168,8 +185,6 @@ class AttachmentsController < ApplicationController
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Request-Method'] = 'GET'
   end
-
-
 
   def part_number
     params[:part].to_i

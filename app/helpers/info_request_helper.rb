@@ -331,7 +331,9 @@ module InfoRequestHelper
       attach_params[:file_name] = attachment.display_filename
       # This could be a filetype we normally strip cookies for
       # in varnish, so add a param to skip that
-      attach_params[:cookie_passthrough] = 1
+      if options.fetch(:cookie_passthrough, true)
+        attach_params[:cookie_passthrough] = 1
+      end
     end
 
     attach_params[:project_id] = @project.id if @project
