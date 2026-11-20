@@ -12,7 +12,8 @@ RSpec.describe "When administering the site" do
 
   context "when 2fa is disabled an admin" do
     before do
-      AdminController.require_two_factor_auth = false
+      allow(AdminController).
+        to receive(:require_two_factor_auth).and_return(false)
       allow(AlaveteliConfiguration).
         to receive(:enable_two_factor_auth).and_return(false)
 
@@ -22,6 +23,7 @@ RSpec.describe "When administering the site" do
 
     it "can log in as another user and revert back" do
       using_session(@admin) do
+        expect(AdminController.require_two_factor_auth).to eq(false)
         visit admin_user_path target_user
         find_link("Log in as #{target_user_name} (also confirms their email)").click
         expect(page).to have_content "Logged in as #{target_user_name}"
@@ -38,7 +40,8 @@ RSpec.describe "When administering the site" do
     let(:totp_admin_user) { FactoryBot.create(:admin_user, :enable_totp) }
 
     before do
-      AdminController.require_two_factor_auth = true
+      allow(AdminController).
+        to receive(:require_two_factor_auth).and_return(true)
       allow(AlaveteliConfiguration).
         to receive(:enable_two_factor_auth).and_return(true)
 
@@ -47,6 +50,7 @@ RSpec.describe "When administering the site" do
 
     it "can log in as another user and revert back" do
       using_session(@admin) do
+        expect(AdminController.require_two_factor_auth).to eq(true)
         expect(totp_admin_user.totp?).to eq(true)
         visit admin_user_path target_user
         find_link("Log in as #{target_user_name} (also confirms their email)").click
