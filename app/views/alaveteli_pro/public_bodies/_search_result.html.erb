@@ -5,7 +5,7 @@
     <%= _("Also called {{other_name}}.",
           :other_name => result[:short_name]) %>
     <% end %>
-    <%= truncate(strip_tags(result[:notes]), length: 150) %>
+    <%= truncate(result[:notes], length: 150) %>
   </p>
   <p class="requests">
     <%= n_("{{count}} request made",

@@ -34,7 +34,7 @@
         <td>
           <%= both_links project %>
           <% if project.briefing.present? %>
-            <br><small class="project-description"><%= truncate(strip_tags(project.briefing.to_s), length: 100) %></small>
+            <br><small class="project-description"><%= truncate(project.briefing.to_plain_text, length: 100) %></small>
           <% end %>
         </td>
         <td>
