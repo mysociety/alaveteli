@@ -10,6 +10,13 @@
 
 ## Upgrade Notes
 
+* _Required:_ Debian 12 "Bookworm", Debian 13 "Trixie", Ubuntu 22.04 LTS and
+  Ubuntu 24.04 LTS are supported. Debian 11 "Bullseye" and Ubuntu 20.04 LTS no
+  longer get security updates and are not supported. Install the new
+  `libyaml-dev` package:
+
+      sudo apt-get install libyaml-dev
+
 * _Required:_ Capistrano deployment has been removed, as it no longer worked.
   Remove any `Capfile` and `config/deploy.rb` you rely on, and deploy by
   another method.
