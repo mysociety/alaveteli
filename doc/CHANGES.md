@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add two factor authentication with an authenticator app, with backup codes,
+  rate limits and an option to require it for admins (Chris Mytton)
 * Check request prominence when annotating requests (Gareth Rees, Santosh Kumar
   Puppala)
 * Fix email change confirmation which wasn't bound to confirmed target address

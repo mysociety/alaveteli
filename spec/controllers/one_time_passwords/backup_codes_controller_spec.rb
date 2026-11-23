@@ -134,5 +134,28 @@ RSpec.describe OneTimePasswords::BackupCodesController do
         expect(user.reload.otp_backup_codes).to be_empty
       end
     end
+
+    context 'when the attempt limit is exceeded' do
+      before do
+        sign_in user
+        described_class.cache_store.clear
+      end
+
+      it 're-renders the management page with a rate-limit error' do
+        6.times { post :create, params: { otp_code: invalid_code } }
+
+        expect(response).to render_template(:show)
+        expect(response).to have_http_status(:too_many_requests)
+        expect(flash[:error]).to match(/Too many attempts/)
+      end
+
+      it 'blocks even a valid code once the limit is exceeded' do
+        5.times { post :create, params: { otp_code: invalid_code } }
+        post :create, params: { otp_code: valid_code }
+
+        expect(flash[:error]).to match(/Too many attempts/)
+        expect(user.reload.otp_backup_codes).to be_empty
+      end
+    end
   end
 end

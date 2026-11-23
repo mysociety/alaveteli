@@ -74,6 +74,18 @@ RSpec.describe OneTimePasswordsController do
         expect(user.otp_enabled).to eq(true)
       end
     end
+
+    context 'when the user already has TOTP enabled' do
+      let(:user) { FactoryBot.create(:user, :enable_totp) }
+
+      it 'redirects to the settings page instead of starting enrolment' do
+        sign_in user
+        get :new
+
+        expect(response).to redirect_to(one_time_password_path)
+        expect(session[:pending_otp_secret_key]).to be_nil
+      end
+    end
   end
 
   describe 'GET show' do
@@ -284,6 +296,31 @@ RSpec.describe OneTimePasswordsController do
       end
     end
 
+    context 'when the user already has TOTP enabled' do
+      let(:user) { FactoryBot.create(:user, :enable_totp) }
+
+      before do
+        sign_in user
+        session[:pending_otp_secret_key] = candidate_secret
+      end
+
+      it 'does not overwrite the existing authenticator secret' do
+        original_secret = user.otp_secret_key
+
+        post :create, params: { otp_enrolment: { otp_code: valid_code } }
+
+        expect(user.reload.otp_secret_key).to eq(original_secret)
+      end
+
+      it 'redirects to the settings page with an explanation' do
+        post :create, params: { otp_enrolment: { otp_code: valid_code } }
+
+        expect(response).to redirect_to(one_time_password_path)
+        expect(flash[:error]).
+          to match('Two factor authentication is already set up.')
+      end
+    end
+
     context 'with no candidate in the session' do
       before { sign_in user }
 
@@ -343,21 +380,21 @@ RSpec.describe OneTimePasswordsController do
     end
 
     it 'sets a successful notification message' do
-      user = FactoryBot.create(:user, otp_enabled: true)
+      user = FactoryBot.create(:user, :enable_hotp)
       sign_in user
       put :update
       expect(flash[:notice]).to eq('Two factor one time passcode updated')
     end
 
     it 'redirects back to #show on success' do
-      user = FactoryBot.create(:user, otp_enabled: true)
+      user = FactoryBot.create(:user, :enable_hotp)
       sign_in user
       put :update
       expect(response).to redirect_to(one_time_password_path)
     end
 
     it 'renders #show on failure' do
-      user = FactoryBot.create(:user, otp_enabled: true)
+      user = FactoryBot.create(:user, :enable_hotp)
       allow_any_instance_of(User).
         to receive(:increment!).and_return(false)
       sign_in user
@@ -365,8 +402,36 @@ RSpec.describe OneTimePasswordsController do
       expect(response).to render_template(:show)
     end
 
+    context 'for a TOTP-enabled user' do
+      let(:user) { FactoryBot.create(:user, :enable_totp) }
+
+      before { sign_in user }
+
+      it 'does not downgrade the user to HOTP' do
+        put :update
+
+        user.reload
+        expect(user.otp_counter).to be_nil
+        expect(user.totp?).to eq(true)
+      end
+
+      it 'redirects to the settings page' do
+        put :update
+
+        expect(response).to redirect_to(one_time_password_path)
+      end
+
+      it 'explains why the passcode was not regenerated' do
+        put :update
+
+        expect(flash[:error]).to eq(
+          'Your account does not have a two factor one time passcode to update'
+        )
+      end
+    end
+
     it 'warns the user on failure' do
-      user = FactoryBot.create(:user, otp_enabled: true)
+      user = FactoryBot.create(:user, :enable_hotp)
       allow_any_instance_of(User).
         to receive(:increment!).and_return(false)
       sign_in user
@@ -490,6 +555,39 @@ RSpec.describe OneTimePasswordsController do
       end
     end
 
+    context 'when the attempt limit is exceeded' do
+      let(:user) { FactoryBot.create(:user, :enable_totp) }
+      let(:invalid_code) { user.otp_code == '000000' ? '000001' : '000000' }
+
+      before do
+        sign_in user
+        described_class.cache_store.clear
+      end
+
+      it 're-renders the confirmation with a rate-limit error' do
+        6.times { delete :destroy, params: { otp_code: invalid_code } }
+
+        expect(response).to render_template(:destroy_confirmation)
+        expect(response).to have_http_status(:too_many_requests)
+        expect(flash[:error]).to match(/Too many attempts/)
+      end
+
+      it 'blocks even a valid code once the limit is exceeded' do
+        5.times { delete :destroy, params: { otp_code: invalid_code } }
+        delete :destroy, params: { otp_code: user.otp_code }
+
+        expect(flash[:error]).to match(/Too many attempts/)
+        expect(user.reload.otp_enabled?).to eq(true)
+      end
+
+      it 'does not count confirmation page renders as attempts' do
+        5.times { delete :destroy }
+        delete :destroy, params: { otp_code: invalid_code }
+
+        expect(flash[:error]).to eq('Invalid one time password')
+      end
+    end
+
     context 'for a HOTP-enabled user' do
       let(:user) { FactoryBot.create(:user, :enable_hotp) }
 
@@ -508,6 +606,13 @@ RSpec.describe OneTimePasswordsController do
       it 'sets a success notice' do
         delete :destroy
         expect(flash[:notice]).to eq('Two factor authentication disabled')
+      end
+
+      it 'does not rate limit repeated disable requests' do
+        6.times { delete :destroy }
+
+        expect(flash[:error]).to be_blank
+        expect(response).to redirect_to(one_time_password_path)
       end
     end
 

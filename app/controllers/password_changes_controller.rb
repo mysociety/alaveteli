@@ -5,9 +5,18 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
 class PasswordChangesController < ApplicationController
+  include OtpRateLimit
+
   before_action :set_pretoken
   before_action :set_pretoken_hash
   before_action :set_user_from_token, only: [:edit, :update]
+  before_action :require_change_user, only: [:edit, :update]
+  before_action :set_otp_enabled, only: [:edit, :update]
+
+  limit_otp_attempts only: :update,
+                     if: -> { @otp_enabled },
+                     by: -> { @password_change_user.id },
+                     template: :edit
 
   def new
     @email_field_options =
@@ -59,49 +68,38 @@ class PasswordChangesController < ApplicationController
   end
 
   def edit
-    if @password_change_user
-      @otp_enabled = otp_enabled?(@password_change_user)
-      render :edit
-    else
-      redirect_to new_password_change_path(@pretoken_hash)
-    end
   end
 
   def update
     @pretoken_redirect = PostRedirect.find_by(token: @pretoken) if @pretoken
 
-    if @password_change_user
-      @otp_enabled = otp_enabled?(@password_change_user)
-      @password_change_user.password = params[:password_change_user][:password]
-      @password_change_user.password_confirmation =
-        params[:password_change_user][:password_confirmation]
+    @password_change_user.password = params[:password_change_user][:password]
+    @password_change_user.password_confirmation =
+      params[:password_change_user][:password_confirmation]
 
-      if @otp_enabled
-            @password_change_user.entered_otp_code =
-              params[:password_change_user][:otp_code]
-            @password_change_user.require_otp = true
-      end
+    if @otp_enabled
+      @password_change_user.entered_otp_code =
+        params[:password_change_user][:otp_code]
+      @password_change_user.require_otp = true
+    end
 
-      if @password_change_user.save
-        sign_in(@password_change_user)
+    if @password_change_user.save
+      sign_in(@password_change_user)
 
-        if otp_enabled?(@password_change_user) && @password_change_user.hotp?
-          msg = _("Your password has been changed. " \
-                  "You also have a new one time passcode which you'll " \
-                  "need next time you want to change your password")
-          redirect_to one_time_password_path, notice: msg
-        elsif @pretoken_redirect
-          redirect_to SafeRedirect.new(@pretoken_redirect.uri).path,
-                      notice: password_changed_notice(@password_change_user)
-        else
-          redirect_to show_user_profile_path(@password_change_user.url_name),
-                      notice: password_changed_notice(@password_change_user)
-        end
+      if @otp_enabled && @password_change_user.hotp?
+        msg = _("Your password has been changed. " \
+                "You also have a new one time passcode which you'll " \
+                "need next time you want to change your password")
+        redirect_to one_time_password_path, notice: msg
+      elsif @pretoken_redirect
+        redirect_to SafeRedirect.new(@pretoken_redirect.uri).path,
+                    notice: password_changed_notice(@password_change_user)
       else
-        render :edit
+        redirect_to show_user_profile_path(@password_change_user.url_name),
+                    notice: password_changed_notice(@password_change_user)
       end
     else
-      redirect_to new_password_change_path
+      render :edit
     end
   end
 
@@ -132,6 +130,19 @@ class PasswordChangesController < ApplicationController
         )
         post_redirect.user if post_redirect
       end
+  end
+
+  # Edit and update need a user resolved from the token to change a password
+  # against. Bail out early when there isn't one, before the OTP rate limit and
+  # password logic run, so both can assume a user is present.
+  def require_change_user
+    return if @password_change_user
+
+    redirect_to new_password_change_path(@pretoken_hash)
+  end
+
+  def set_otp_enabled
+    @otp_enabled = otp_enabled?(@password_change_user)
   end
 
   def otp_enabled?(user)
