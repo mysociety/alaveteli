@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix Pro request form losing drafts and missing validation (Graeme Porteous)
 * Set a canonical URL for attachments so search engines index the URL without
   query params (Gareth Rees)
 * Reject Stripe webhooks when `STRIPE_WEBHOOK_SECRET` is blank (Gareth Rees)
