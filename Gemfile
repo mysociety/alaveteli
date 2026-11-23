@@ -92,7 +92,7 @@ gem 'active_model_otp'
 gem 'activejob-unique', '~> 0.5.1'
 gem 'bcrypt', '~> 3.1.22'
 gem 'bootsnap', '~> 1.26.1', require: false
-gem 'cancancan', '~> 3.7.0'
+gem 'cancancan', '~> 3.7.1'
 gem 'charlock_holmes', '~> 0.7.9'
 gem 'compare-xml', '~> 1.0'
 gem 'dalli', '~> 5.3.4'
