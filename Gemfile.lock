@@ -402,7 +402,7 @@ GEM
     pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pstore (0.2.0)
+    pstore (0.3.0)
     psych (5.2.6)
       date
       stringio
@@ -701,7 +701,7 @@ DEPENDENCIES
   ostruct (~> 0.6.3)
   pg (~> 1.6.2)
   pry (~> 0.15.2)
-  pstore (~> 0.2.0)
+  pstore (~> 0.3.0)
   puma (~> 7.1.0)
   rack (~> 2.2.21)
   rack-utf8_sanitizer (~> 1.10.1)
