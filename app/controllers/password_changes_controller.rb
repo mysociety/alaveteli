@@ -71,11 +71,12 @@ class PasswordChangesController < ApplicationController
     @pretoken_redirect = PostRedirect.find_by(token: @pretoken) if @pretoken
 
     if @password_change_user
+      @otp_enabled = otp_enabled?(@password_change_user)
       @password_change_user.password = params[:password_change_user][:password]
       @password_change_user.password_confirmation =
         params[:password_change_user][:password_confirmation]
 
-      if otp_enabled?(@password_change_user)
+      if @otp_enabled
             @password_change_user.entered_otp_code =
               params[:password_change_user][:otp_code]
             @password_change_user.require_otp = true
@@ -85,7 +86,7 @@ class PasswordChangesController < ApplicationController
         sign_in(@password_change_user)
 
         if @pretoken_redirect
-          if otp_enabled?(@password_change_user)
+          if @otp_enabled
                 msg = _("Your password has been changed. " \
                         "You also have a new one time passcode which you'll " \
                         "need next time you want to change your password")
@@ -94,7 +95,7 @@ class PasswordChangesController < ApplicationController
             redirect_to SafeRedirect.new(@pretoken_redirect.uri).path,
                         notice: _('Your password has been changed.')
           end
-        elsif otp_enabled?(@password_change_user)
+        elsif @otp_enabled
           msg = _("Your password has been changed. " \
                         "You also have a new one time passcode which you'll " \
                         "need next time you want to change your password")
