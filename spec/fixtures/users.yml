@@ -39,9 +39,9 @@
 #  status_update_count               :integer          default(0), not null
 #  last_sign_in_at                   :datetime
 #  otp_last_used_at                  :integer
-#  otp_backup_codes                  :string           default([]), is an Array
 #  otp_enabled_at                    :datetime
 #  otp_backup_codes_generated_at     :datetime
+#  otp_backup_codes                  :text
 #
 
 # If sample data has been loaded you can log in as any of these users with their

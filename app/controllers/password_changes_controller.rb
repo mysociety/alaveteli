@@ -92,10 +92,10 @@ class PasswordChangesController < ApplicationController
           redirect_to one_time_password_path, notice: msg
         elsif @pretoken_redirect
           redirect_to SafeRedirect.new(@pretoken_redirect.uri).path,
-                      notice: _('Your password has been changed.')
+                      notice: password_changed_notice(@password_change_user)
         else
           redirect_to show_user_profile_path(@password_change_user.url_name),
-                      notice: _('Your password has been changed.')
+                      notice: password_changed_notice(@password_change_user)
         end
       else
         render :edit
@@ -106,6 +106,14 @@ class PasswordChangesController < ApplicationController
   end
 
   protected
+
+  def password_changed_notice(user)
+    changed = _('Your password has been changed.')
+    return changed unless user.used_backup_code?
+
+    { partial: 'one_time_passwords/backup_code_used',
+      locals: { lead: changed, remaining: user.otp_backup_codes.size } }
+  end
 
   def set_pretoken
     @pretoken = params.fetch(:pretoken, '').blank? ? nil : params[:pretoken]

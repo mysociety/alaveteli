@@ -32,6 +32,36 @@
 
 ## Upgrade Notes
 
+* _Required:_ This release encrypts sensitive database columns (such as users'
+  two factor authentication secret and backup codes) with Active Record
+  Encryption, which reads its keys from the Rails credentials. Set the
+  credentials up with:
+
+      bin/rails config_files:set_credentials
+
+  This generates `config/master.key` and the credentials if they are missing,
+  and adds a set of Active Record Encryption keys if they are not already set.
+  Existing values are never changed and it is safe to run more than once.
+  Fresh installs already run this during installation.
+
+* _Required:_ Back up `config/master.key` and `config/credentials.yml.enc`.
+  These are generated automatically and are not kept in version control.
+  `config/master.key` is the private key needed to read the credentials.
+
+  Without `config/master.key` the credentials, and every database column
+  encrypted with them, cannot be read, so store both somewhere safe and separate
+  from the server.
+
+* _Required:_ Existing two factor authentication secrets are stored in plain
+  text until they are encrypted. Once you are sure you will stay on this
+  release, encrypt them with:
+
+      bin/rails temp:encrypt_user_otp_secret_keys
+
+  **Rolling back to 0.46.8.0 is not supported** once secrets are encrypted. It
+  breaks two factor sign in for every user who enrolled with an authenticator
+  app on this release, and for every user once the task above has run.
+
 * _Optional:_ Request correspondence is no longer converted to PDF, so the
   `wkhtmltopdf` package can be uninstalled.
 
