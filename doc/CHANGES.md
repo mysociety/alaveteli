@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Replace Mahoro with Marcel for MIME type detection (Graeme Porteous)
 * Make confirmation tokens one-time-use (Graeme Porteous)
 * Fix account switching via confirmation links (Graeme Porteous)
 * Strip ActionText attachments from Project rich text fields (Graeme Porteous)
