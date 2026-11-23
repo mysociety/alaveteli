@@ -1,0 +1,70 @@
+<% @title = 'Two factor authentication' %>
+
+<div class="row">
+  <div class="span12">
+    <h1><%= @title %></h1>
+    <p>Enrolment state across the user base. HOTP is the legacy single-shared-code scheme; TOTP is authenticator-app based.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>Mode</th>
+          <th class="text-right">All users</th>
+          <th class="text-right">Admins</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% [[:none, 'No 2FA'], [:hotp, 'HOTP (legacy)'], [:totp, 'TOTP']].each do |key, label| %>
+          <tr>
+            <td><%= label %></td>
+            <td class="text-right"><%= number_with_delimiter(@all_counts[key]) %></td>
+            <td class="text-right"><%= number_with_delimiter(@admin_counts[key]) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>Total</th>
+          <th class="text-right"><%= number_with_delimiter(@all_counts[:total]) %></th>
+          <th class="text-right"><%= number_with_delimiter(@admin_counts[:total]) %></th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<% if @hotp_users.any? %>
+  <div class="row">
+    <div class="span12">
+      <h2>HOTP users</h2>
+      <p>Users still on the legacy HOTP scheme, ordered by most recent sign-in.</p>
+
+      <table class="table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Last sign-in</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @hotp_users.each do |user| %>
+            <tr>
+              <td><%= link_to user.name, admin_user_path(user) %></td>
+              <td>
+                <% if user.last_sign_in_at %>
+                  <%= time_ago_in_words(user.last_sign_in_at) %> ago
+                <% else %>
+                  <span class="muted">never</span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>

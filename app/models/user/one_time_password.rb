@@ -8,6 +8,10 @@ module User::OneTimePassword
 
     attr_accessor :entered_otp_code
 
+    scope :without_two_factor, -> { where(otp_enabled: false) }
+    scope :with_hotp, -> { where(otp_enabled: true).where.not(otp_counter: nil) }
+    scope :with_totp, -> { where(otp_enabled: true, otp_counter: nil) }
+
     validate :verify_otp_code, if: :otp_enabled_and_required?
     validate :otp_backup_codes_paired_with_timestamp
 
