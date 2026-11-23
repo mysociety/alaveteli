@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Check request prominence when annotating requests (Gareth Rees, Santosh Kumar
+  Puppala)
 * Fix email change confirmation which wasn't bound to confirmed target address
   (Graeme Porteous)
 * Ensure only readable requests can be added to a Project (Gareth Rees)
