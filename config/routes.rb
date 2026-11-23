@@ -302,7 +302,7 @@ Rails.application.routes.draw do
 
   match '/c/:email_token' => 'users/confirmations#confirm',
         :as => :confirm,
-        :via => :get
+        :via => [:get, :post]
   match '/user/:url_name' => 'user#show',
         :as => :show_user,
         :via => :get

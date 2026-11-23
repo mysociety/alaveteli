@@ -133,6 +133,8 @@ class UserController < ApplicationController
   def signup
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
+    # The mailbox owner chooses the real password on confirmation
+    @user_signup.password = SecureRandom.base64(32)
     error = false
     if @request_from_foreign_country && !verify_recaptcha
       flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
@@ -177,10 +179,9 @@ class UserController < ApplicationController
       end
 
         if user_alreadyexists
-          # Nobody has proven control of the mailbox yet, so the latest
-          # signup's credentials replace any chosen by an earlier registrant
-          user_alreadyexists.update!(name: @user_signup.name,
-                                     password: @user_signup.password)
+          # The password is chosen when the account is confirmed, and
+          # changing it here would revoke links already sent to the mailbox
+          user_alreadyexists.update!(name: @user_signup.name)
           @user_signup = user_alreadyexists
         else
           @user_signup.email_confirmed = false
@@ -393,7 +394,7 @@ class UserController < ApplicationController
   end
 
   def user_params(key = :user)
-    params.require(key).permit(:name, :email, :password, :password_confirmation)
+    params.require(key).permit(:name, :email)
   end
 
   # when logging in through a modal iframe, don't display chrome around the content
