@@ -292,7 +292,7 @@ class ApplicationController < ActionController::Base
 
     post_redirect = reason_params.delete(:post_redirect)
     post_redirect ||= PostRedirect.new(uri: request.fullpath,
-                                       post_params: params,
+                                       post_params: filtered_params,
                                        reason_params: reason_params)
     post_redirect.save!
 
@@ -320,6 +320,15 @@ class ApplicationController < ActionController::Base
   # For CanCanCan and other libs which need a Devise-like current_user method
   alias current_user authenticated_user
   helper_method :current_user
+
+  # The saved params are not bound to a user and can be replayed in another
+  # session, so mask secrets in the same way as the logs. Path params are
+  # already in the saved URI, and the replay needs them unmasked.
+  def filtered_params
+    ActionController::Parameters.new(
+      request.filtered_parameters.merge(request.path_parameters)
+    )
+  end
 
   # Do a POST redirect. This is a nasty hack - we store the posted values in
   # the session, and when the GET redirect with "?post_redirect=1" happens,

@@ -2,6 +2,10 @@
 
 ## Highlighted Features
 
+* Fix passwords and other secrets saved in plain text when a form asks the
+  user to sign in (Graeme Porteous)
+* Fix the JSON link in the page head showing the request query params (Graeme
+  Porteous)
 * Fix hidden requests showing in the public citations list (Graeme Porteous)
 * Fix request ZIP downloads sharing restricted attachments with other users
   (Graeme Porteous)
