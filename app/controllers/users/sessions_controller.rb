@@ -13,6 +13,15 @@ class Users::SessionsController < UserController
   # user_id in the session is not expected, and gives no extra privilege
   skip_before_action :verify_authenticity_token, only: [:new, :create]
 
+  # Throttle password guessing both per IP and per submitted email. Keyed on
+  # the submitted email rather than the found user so the response doesn't
+  # reveal whether an account exists.
+  rate_limit to: 10, within: 1.minute, only: :create, name: 'ip',
+             with: -> { render_signin_rate_limited }
+  rate_limit to: 5, within: 1.minute, only: :create, name: 'email',
+             by: -> { signin_email },
+             with: -> { render_signin_rate_limited }
+
   def new
     if @user
       redirect_path = params.fetch(:r) { frontpage_path }
@@ -74,6 +83,16 @@ class Users::SessionsController < UserController
 
   def user_signin_params
     params.require(:user_signin).permit(:email, :password)
+  end
+
+  def signin_email
+    params.dig(:user_signin, :email).to_s.strip.downcase
+  end
+
+  def render_signin_rate_limited
+    flash.now[:error] =
+      _('Too many attempts. Please wait a minute and try again.')
+    render template: 'user/sign', status: :too_many_requests
   end
 
   def spam_should_be_blocked?
