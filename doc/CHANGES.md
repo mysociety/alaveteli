@@ -1,3 +1,15 @@
+# develop
+
+## Highlighted Features
+
+* Drop support for Ruby 3.3 (Graeme Porteous)
+* Drop support for Ruby 3.2 (Graeme Porteous)
+
+## Upgrade Notes
+
+* **IMPORTANT! We no longer support Ruby 3.2 or 3.3**. Please upgrade to Ruby
+  3.4 before upgrading Alaveteli.
+
 # 0.46.8.0
 
 ## Highlighted Features
