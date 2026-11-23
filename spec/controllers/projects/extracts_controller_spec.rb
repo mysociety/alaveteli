@@ -38,6 +38,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       before do
         sign_in user
         ability.can :read, project
+        ability.can :read, InfoRequest
         get :show, params: { project_id: project.id }
       end
 
@@ -62,6 +63,31 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
       it 'renders the project template' do
         expect(response).to render_template('projects/extracts/show')
+      end
+    end
+
+    context 'when the next request is not readable by the user' do
+      let(:user) { FactoryBot.create(:user) }
+      let(:unreadable) do
+        FactoryBot.create(
+          :info_request,
+          prominence: 'requester_only',
+          awaiting_description: false,
+          described_state: 'successful'
+        )
+      end
+
+      before do
+        sign_in user
+        ability.can :read, project
+        ability.can :read, InfoRequest
+        ability.cannot :read, unreadable
+        project.requests << unreadable
+        get :show, params: { project_id: project.id }
+      end
+
+      it 'does not assign the unreadable request' do
+        expect(assigns[:info_request]).not_to eq(unreadable)
       end
     end
 
