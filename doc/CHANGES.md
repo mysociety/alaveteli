@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Drop support for Debian 11 "Bullseye" (Graeme Porteous)
+* Drop support for Ubuntu 20.04 LTS "Focal Fossa" (Graeme Porteous)
 * Drop Capistrano deployment, which no longer worked (Graeme Porteous)
 * Drop support for Ruby 3.3 (Graeme Porteous)
 * Drop support for Ruby 3.2 (Graeme Porteous)
