@@ -189,6 +189,59 @@ RSpec.describe Users::ConfirmationsController do
       end
     end
 
+    context 'if the post redirect user has TOTP two factor enabled' do
+      let(:user) do
+        FactoryBot.create(:user, :enable_totp, email_confirmed: false)
+      end
+      let(:post_redirect) { PostRedirect.create(uri: '/', user: user) }
+
+      before :each do
+        @original_token = post_redirect.email_token
+        get :confirm, params: { email_token: @original_token }
+      end
+
+      it 'does not sign the user in' do
+        expect(session[:user_id]).to be_nil
+      end
+
+      it 'redirects to the two factor challenge' do
+        expect(response).to redirect_to(signin_two_factor_path)
+      end
+
+      it 'confirms the post redirect user' do
+        expect(user.reload.email_confirmed).to eq(true)
+      end
+
+      it 'consumes the confirmation link before the challenge' do
+        expect(PostRedirect.find_by(email_token: @original_token)).to be_nil
+      end
+
+      it 'stashes the pending sign-in for the challenge to resume' do
+        expect(session[:pending_2fa_user_id]).to eq(user.id)
+        expect(session[:pending_2fa_post_redirect_token]).
+          to eq(post_redirect.token)
+        expect(session[:pending_2fa_circumstance]).to eq('normal')
+      end
+    end
+
+    context 'if the post redirect user has HOTP two factor enabled' do
+      let(:user) do
+        FactoryBot.create(:user, :enable_hotp, email_confirmed: false)
+      end
+      let(:post_redirect) { PostRedirect.create(uri: '/', user: user) }
+
+      before :each do
+        get :confirm, params: { email_token: post_redirect.email_token }
+      end
+
+      # HOTP is not a sign-in factor, so the confirmation link signs them in
+      # directly rather than detouring to the challenge.
+      it 'signs the user in without a two factor challenge' do
+        expect(session[:user_id]).to eq(user.id)
+        expect(response).not_to redirect_to(signin_two_factor_path)
+      end
+    end
+
     context 'token consumption' do
       it 'rotates the email token after successful confirmation' do
         user = FactoryBot.create(:user, email_confirmed: false)

@@ -18,6 +18,26 @@ class Users::ConfirmationsController < UserController
         return
       else
         user.confirm!
+
+        # A TOTP user must pass the 2FA challenge before the link grants a
+        # session, or the confirmation link bypasses two factor. HOTP is not a
+        # sign-in factor anywhere (see SessionsController), so gate on totp?.
+        # Consume the link, stash the pending sign-in (with the circumstance the
+        # challenge needs to resume), and hand off to the challenge.
+        if user.totp?
+          post_redirect.update!(
+            email_token: PostRedirect.generate_random_token
+          )
+          PendingTwoFactorSignIn.new(session).start(
+            user: user,
+            remember_me: false,
+            post_redirect: post_redirect,
+            circumstance: post_redirect.circumstance
+          )
+          redirect_to signin_two_factor_path
+          return
+        end
+
         sign_in(user)
       end
     end
