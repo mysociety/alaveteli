@@ -2,8 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe 'Updating censor rules' do
-  include ActiveJob::TestHelper
-
   let!(:admin) do
     confirm(:admin_user)
     login(:admin_user)

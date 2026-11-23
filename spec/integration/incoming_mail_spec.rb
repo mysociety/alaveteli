@@ -2,8 +2,6 @@ require 'spec_helper'
 require 'integration/alaveteli_dsl'
 
 RSpec.describe 'when handling incoming mail' do
-  include ActiveJob::TestHelper
-
   let(:info_request) { FactoryBot.create(:info_request) }
 
   it "receives incoming messages, sends email to requester, and shows them" do
