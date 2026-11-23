@@ -1,0 +1,25 @@
+<% @title = _('Disable two factor authentication') %>
+
+<h1><%= @title %></h1>
+
+<div>
+  <p>
+    <%= _('Disabling two factor authentication will remove the extra ' \
+          'protection from your account. Anyone who knows your password ' \
+          'will be able to use your account without further checks.') %>
+  </p>
+
+  <p>
+    <%= _('Enter a current code from your authenticator app to confirm.') %>
+  </p>
+
+  <%= render 'code_form',
+             model: false,
+             form_url: one_time_password_path,
+             form_method: :delete,
+             submit_label: _('Disable two factor authentication') %>
+
+  <p>
+    <%= link_to _('Cancel'), one_time_password_path %>
+  </p>
+</div>

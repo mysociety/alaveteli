@@ -34,11 +34,7 @@
 
     <ul class="one-time-password-actions not-for-print">
       <li class="one-time-password-actions__action-item action-item">
-        <% confirmation_msg = _('Are you sure you want to disable two ' \
-                                'factor authentication? Your account will ' \
-                                'be less secure.') %>
         <%= link_to one_time_password_path, :method => :delete,
-                                            :data => { :confirm => confirmation_msg },
                                             :class => 'action-item__action' do %>
           <%= _('Disable two factor authentication') %>
         <% end %>

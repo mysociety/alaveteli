@@ -91,6 +91,69 @@ RSpec.describe Users::SessionsController do
       expect(ActionMailer::Base.deliveries).to be_empty
     end
 
+    context 'with a TOTP-enabled user' do
+      let(:totp_user) do
+        FactoryBot.create(:user, :enable_totp,
+                          email: 'totp@localhost', password: 'jonespassword')
+      end
+      let(:post_redirect) { FactoryBot.create(:post_redirect, uri: '/list') }
+
+      def post_signin
+        post :create, params: {
+          user_signin: { email: totp_user.email, password: 'jonespassword' },
+          token: post_redirect.token
+        }
+      end
+
+      it 'does not sign the user in yet' do
+        post_signin
+        expect(session[:user_id]).to be_nil
+      end
+
+      it 'redirects to the two factor challenge' do
+        post_signin
+        expect(response).to redirect_to(signin_two_factor_path)
+      end
+
+      it 'stashes the pending sign-in in the session' do
+        post_signin
+        expect(session[:pending_2fa_user_id]).to eq(totp_user.id)
+        expect(session[:pending_2fa_post_redirect_token]).
+          to eq(post_redirect.token)
+      end
+
+      context 'when the user is an admin' do
+        let(:totp_user) do
+          FactoryBot.create(:user, :enable_totp, :admin,
+                            email: 'totpadmin@localhost',
+                            password: 'jonespassword')
+        end
+
+        it 'is challenged through the same controller' do
+          post_signin
+          expect(session[:user_id]).to be_nil
+          expect(response).to redirect_to(signin_two_factor_path)
+        end
+      end
+    end
+
+    context 'with a HOTP-enabled user' do
+      let(:hotp_user) do
+        FactoryBot.create(:user, :enable_hotp,
+                          email: 'hotp@localhost', password: 'jonespassword')
+      end
+      let(:post_redirect) { FactoryBot.create(:post_redirect, uri: '/list') }
+
+      it 'signs the user in without a challenge' do
+        post :create, params: {
+          user_signin: { email: hotp_user.email, password: 'jonespassword' },
+          token: post_redirect.token
+        }
+        expect(session[:user_id]).to eq(hotp_user.id)
+        expect(session[:pending_2fa_user_id]).to be_nil
+      end
+    end
+
     it "should not log you in if you use an invalid PostRedirect token, and shouldn't give 500 error either" do
       post_redirect = "something invalid"
       expect {
