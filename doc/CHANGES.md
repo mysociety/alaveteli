@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Prevent banned users replying through the response upload form (Gareth Rees)
 * Replace Mahoro with Marcel for MIME type detection (Graeme Porteous)
 * Make confirmation tokens one-time-use (Graeme Porteous)
 * Fix account switching via confirmation links (Graeme Porteous)

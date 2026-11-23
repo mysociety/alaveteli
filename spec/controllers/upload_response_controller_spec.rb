@@ -20,6 +20,35 @@ RSpec.describe UploadResponseController, type: :controller do
       @foi_officer_user.save!
     end
 
+    context 'when the user is banned' do
+      before do
+        @foi_officer_user.update!(ban_text: 'Banned')
+        sign_in @foi_officer_user
+      end
+
+      let(:slug) { 'why_do_you_have_such_a_fancy_dog' }
+
+      it 'prevents form access' do
+        get :new, params: {
+          url_title: 'why_do_you_have_such_a_fancy_dog'
+        }
+
+        expect(response).to redirect_to(show_request_path(url_title: slug))
+        expect(flash[:error]).to match(/Banned users cannot/)
+      end
+
+      it 'prevents submissions' do
+        post :new, params: {
+          url_title: 'why_do_you_have_such_a_fancy_dog',
+          body: 'malicious',
+          submitted_upload_response: 1
+        }
+
+        expect(response).to redirect_to(show_request_path(url_title: slug))
+        expect(flash[:error]).to match(/Banned users cannot/)
+      end
+    end
+
     context 'when the request is embargoed' do
       let(:embargoed_request) { FactoryBot.create(:embargoed_request) }
 
