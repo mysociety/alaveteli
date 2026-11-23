@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Faster application booting with Bootsnap (Graeme Porteous)
 * Upgrade to Rails 8.1 (Graeme Porteous)
 * Fix text after a tab becoming part of a link (Helen Cross)
 * Switch from the unmaintained `activejob-uniqueness` gem to its

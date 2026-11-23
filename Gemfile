@@ -91,6 +91,7 @@ gem 'acts_as_versioned', mysociety: 'acts_as_versioned', ref: '13e928b'
 gem 'active_model_otp'
 gem 'activejob-unique', '~> 0.5.1'
 gem 'bcrypt', '~> 3.1.20'
+gem 'bootsnap', '~> 1.26.1', require: false
 gem 'cancancan', '~> 3.6.1'
 gem 'charlock_holmes', '~> 0.7.9'
 gem 'compare-xml', '~> 0.66'
