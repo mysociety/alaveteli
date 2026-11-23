@@ -83,41 +83,41 @@ git_source(:mysociety) { |repo| "https://github.com/mysociety/#{repo}.git" }
 
 gem 'rails', '~> 8.1.4'
 
-gem 'pg', '~> 1.6.2'
+gem 'pg', '~> 1.7.0'
 
 # New gem releases aren't being done. master is newer and supports Rails > 3.0
-gem 'addressable', '~> 2.8.7'
+gem 'addressable', '~> 2.9.2'
 gem 'acts_as_versioned', mysociety: 'acts_as_versioned', ref: '13e928b'
 gem 'active_model_otp'
 gem 'activejob-unique', '~> 0.5.1'
-gem 'bcrypt', '~> 3.1.20'
+gem 'bcrypt', '~> 3.1.22'
 gem 'bootsnap', '~> 1.26.1', require: false
-gem 'cancancan', '~> 3.6.1'
+gem 'cancancan', '~> 3.7.1'
 gem 'charlock_holmes', '~> 0.7.9'
-gem 'compare-xml', '~> 0.66'
-gem 'dalli', '~> 3.2.8'
+gem 'compare-xml', '~> 1.0'
+gem 'dalli', '~> 5.3.4'
 gem 'exception_notification', '~> 5.0.1'
 gem 'fancybox-rails', '~> 0.3.0'
-gem 'friendly_id', '~> 5.5.1'
+gem 'friendly_id', '~> 5.7.0'
 gem 'gnuplot', '~> 2.6.0'
-gem 'htmlentities', '~> 4.3.0'
-gem 'icalendar', '~> 2.12.1'
-gem 'image_processing', '~> 1.14'
-gem 'mini_magick', '~> 5.1'
+gem 'htmlentities', '~> 4.4.2'
+gem 'icalendar', '~> 2.13.0'
+gem 'image_processing', '~> 2.2'
+gem 'mini_magick', '~> 5.4'
 gem 'jquery-rails', '~> 4.6.1'
 gem 'jquery-ui-rails', '~> 6.0.0'
-gem 'json', '~> 2.15.2'
-gem 'holidays', '~> 8.8.0'
+gem 'json', '~> 2.21.2'
+gem 'holidays', '~> 11.8.0'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'mail', '~> 2.8.1'
-gem 'maxmind-db', '~> 1.3.2'
-gem 'marcel', '~> 1.0'
-gem 'nokogiri', '~> 1.19.7'
+gem 'maxmind-db', '~> 1.5.0'
+gem 'marcel', '~> 1.2'
+gem 'nokogiri', '~> 1.19.4'
 gem 'open4', '~> 1.3.0'
-gem 'puma', '~> 7.1.0'
-gem 'rack', '~> 2.2.21'
-gem 'rack-utf8_sanitizer', '~> 1.10.1'
-gem 'recaptcha', '~> 5.21.1', require: 'recaptcha/rails'
+gem 'puma', '~> 8.1.2'
+gem 'rack', '~> 2.2.26'
+gem 'rack-utf8_sanitizer', '~> 1.11.1'
+gem 'recaptcha', '~> 5.21.2', require: 'recaptcha/rails'
 gem 'matrix', '~> 0.4.3'
 gem 'net-protocol', '~> 0.1.3'
 gem 'redcarpet', '~> 3.6.1'
@@ -125,45 +125,45 @@ gem 'redis', '~> 4.8.1'
 gem 'rolify', '~> 6.0.1'
 gem 'rqrcode', '~> 3.2.0'
 gem 'ruby-msg', '~> 1.5.0', mysociety: 'ruby-msg', branch: 'ascii-encoding'
-gem 'rubyzip', '~> 3.2.2'
+gem 'rubyzip', '~> 3.7.0'
 gem 'ruby-progressbar', '~> 1.13'
-gem 'secure_headers', '~> 7.0.0'
+gem 'secure_headers', '~> 7.3.0'
 gem 'sidekiq', '~> 6.5.12'
 gem 'sidekiq-limit_fetch', '~> 4.4.1'
 gem 'strip_attributes', mysociety: 'strip_attributes', branch: 'globalize3-rails8'
-gem 'stripe', '~> 13.5.1'
+gem 'stripe', '~> 13.5.2'
 gem 'syslog_protocol', '~> 0.9.0'
 gem 'vpim', '~> 24.2.20'
 gem 'will_paginate', '~> 4.0.1'
 gem 'wilson_score', '~> 0.1.0'
-gem 'xapian-full-alaveteli', '~> 1.4.22.2'
+gem 'xapian-full-alaveteli', '~> 1.4.31.1'
 gem 'xml-simple', '~> 1.1.9', require: 'xmlsimple'
 gem 'zip_tricks', '~> 5.6.0'
 
 # Gems that are part of Ruby's standard library but need version constraints as
 # they are required by other Gem dependencies
 gem 'benchmark', '~> 0.5.0'
-gem 'csv', '~> 3.3.5'
+gem 'csv', '~> 3.3.7'
 gem 'drb', '~> 2.2.3'
 gem 'ostruct', '~> 0.6.3'
 gem 'pstore', '~> 0.3.0'
-gem 'rdoc', '~> 6.15.1'
-gem 'uri', '~> 1.1.0'
+gem 'rdoc', '~> 8.1.0'
+gem 'uri', '~> 1.1.2'
 
 # Gems only used by the research export task
 gem 'gender_detector', '~> 2.1.0'
 
 # Gems related to internationalisation
-gem 'i18n', '~> 1.14.7'
-gem 'rails-i18n', '~> 8.0.2'
-gem 'gettext_i18n_rails', '~> 2.0.0'
-  gem 'fast_gettext', '~> 4.1.1'
-gem 'gettext', '~> 3.5.1'
+gem 'i18n', '~> 1.15.2'
+gem 'rails-i18n', '~> 8.1.0'
+gem 'gettext_i18n_rails', '~> 2.2.0'
+  gem 'fast_gettext', '~> 4.2.0'
+gem 'gettext', '~> 3.5.2'
 gem 'globalize', '~> 7.1.3'
-gem 'locale', '~> 2.1.4'
+gem 'locale', '~> 2.1.5'
 gem 'unicode', '~> 0.4.4'
 gem 'unidecoder', '~> 1.1.0'
-gem 'money', '~> 6.19.0'
+gem 'money', '~> 7.1.1'
 
 # mime-types 3.0.0 requires Ruby 2.0.0, and _something_ is trying to update it
 gem 'mime-types', '< 4.0.0', require: false
@@ -173,16 +173,16 @@ gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'sass-rails', '~> 5.0.8'
 gem 'sprockets', '~> 3.7.5'
 # Modern Assets
-gem 'importmap-rails', '~> 2.2.2'
+gem 'importmap-rails', '~> 2.2.3'
 gem 'stimulus-rails', '~> 1.3.4'
-gem 'turbo-rails', '~> 2.0.20'
+gem 'turbo-rails', '~> 2.0.23'
 
 # Feature flags
 gem 'alaveteli_features', path: 'gems/alaveteli_features'
 
 # Storage backends
 gem 'aws-sdk-s3', require: false
-gem 'google-cloud-storage', '~> 1.57', require: false
+gem 'google-cloud-storage', '~> 1.62', require: false
 
 # Storage content analyzers
 gem 'excel_analyzer', path: 'gems/excel_analyzer', require: false
@@ -192,8 +192,8 @@ gem "ollama-ai", "~> 1.3.0"
 
 group :test do
   gem 'fivemat', '~> 1.3.7'
-  gem 'webmock', '~> 3.26.1'
-  gem 'simplecov', '~> 0.22.0'
+  gem 'webmock', '~> 3.35.0'
+  gem 'simplecov', '~> 1.3.2'
   gem 'simplecov-lcov', '~> 0.9.0'
   gem 'capybara', '~> 3.40.0'
   gem 'stripe-ruby-mock', '~> 5.0.0'
@@ -201,18 +201,18 @@ group :test do
 end
 
 group :test, :development do
-  gem 'bullet', '~> 8.1.0'
+  gem 'bullet', '~> 8.3.1'
   gem 'factory_bot_rails', '~> 6.5.1'
   gem 'rspec-activemodel-mocks', '~> 1.3.0'
-  gem 'rspec-rails', '~> 8.0.2'
-  gem 'pry', '~> 0.15.2'
+  gem 'rspec-rails', '~> 8.1.0'
+  gem 'pry', '~> 0.16.1'
 end
 
 group :development do
-  gem 'annotaterb', '~> 4.20.0'
+  gem 'annotaterb', '~> 4.26.0'
   gem 'launchy', '< 3.2.0'
   gem 'web-console', '>= 3.3.0'
-  gem 'rubocop', '~> 1.81.7', require: false
+  gem 'rubocop', '~> 1.92.3', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
 end
