@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix project membership bypassing hidden request prominence (Graeme Porteous)
 * Restore logging of :email parameters (Gareth Rees)
 * Add support for Debian 13 "Trixie" (Graeme Porteous)
 * Add support for Ubuntu 24.04 LTS "Noble Numbat" (Graeme Porteous)
