@@ -17,6 +17,7 @@ FactoryBot.define do
 
     trait :draft do
       draft { true }
+      user { nil }
     end
   end
 end
