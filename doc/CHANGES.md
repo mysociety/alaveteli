@@ -2,10 +2,15 @@
 
 ## Highlighted Features
 
+* Drop Capistrano deployment, which no longer worked (Graeme Porteous)
 * Drop support for Ruby 3.3 (Graeme Porteous)
 * Drop support for Ruby 3.2 (Graeme Porteous)
 
 ## Upgrade Notes
+
+* _Required:_ Capistrano deployment has been removed, as it no longer worked.
+  Remove any `Capfile` and `config/deploy.rb` you rely on, and deploy by
+  another method.
 
 * **IMPORTANT! We no longer support Ruby 3.2 or 3.3**. Please upgrade to Ruby
   3.4 before upgrading Alaveteli.
