@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Prevent banned Pro subscribers creating requests (Gareth Rees)
 * Fix hidden request snippets appearing in embargoed batch lists (Gareth Rees)
 * Fix public token bypassing hidden request prominence (Graeme Porteous)
 * Fix project membership bypassing hidden request prominence (Graeme Porteous)
