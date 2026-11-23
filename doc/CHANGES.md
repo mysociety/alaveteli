@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Make confirmation tokens one-time-use (Graeme Porteous)
+* Fix account switching via confirmation links (Graeme Porteous)
 * Strip ActionText attachments from Project rich text fields (Graeme Porteous)
 * Validate profile photo content type before ImageMagick processing
   (Graeme Porteous)
