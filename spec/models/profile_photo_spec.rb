@@ -75,8 +75,8 @@ RSpec.describe ProfilePhoto, "when constructing a new photo" do
     expect(profile_photo.errors[:data].first).to match(/identify the file type/)
   end
 
-  it 'should not pass non-image data to ImageMagick' do
-    expect(MiniMagick::Image).not_to receive(:read)
+  it 'should not process non-image data' do
+    expect(ImageProcessing::MiniMagick).not_to receive(:source)
     profile_photo = ProfilePhoto.new(data: 'This is text', user: @mock_user)
     profile_photo.valid?
   end

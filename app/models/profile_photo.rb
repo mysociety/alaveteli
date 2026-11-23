@@ -16,8 +16,6 @@
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 
-require "mini_magick"
-
 class ProfilePhoto < ApplicationRecord
   # deliberately don't strip_attributes, so keeps raw photo properly
 
@@ -33,47 +31,39 @@ class ProfilePhoto < ApplicationRecord
   validate :data_and_draft_checks
 
   attr_accessor :x, :y, :w, :h
-  attr_accessor :image
 
-  before_validation :convert_data_to_image, if: :allowed_content_type?
+  before_validation :process_data, if: :allowed_content_type?
 
-  # make image valid format and size
-  def convert_image
-    return if data.nil?
-    return if image.nil?
-
-    # convert to PNG if it isn't, and to right size
-    altered = false
-    if image.type != 'PNG'
-      image.format('PNG')
-      altered = true
-    end
-
-    # draft images are before the user has cropped them
-    if !draft && (image.width != WIDTH || image.height != HEIGHT)
-      # do any exact cropping (taken from Jcrop interface)
-      image.crop("#{ w }x#{ h }+#{ x }+#{ y }") if w && h
-      # do any further cropping
-      # resize_to_fill!
-      image.combine_options do |c|
-        c.thumbnail("#{ WIDTH }x#{ HEIGHT }^")
-        c.gravity 'center'
-        c.extent("#{ WIDTH }x#{ HEIGHT }")
-      end
-
-      altered = true
-    end
-
-    if draft && (image.width > MAX_DRAFT || image.height > MAX_DRAFT)
-      # resize_to_fit!
-      image.resize("#{ MAX_DRAFT }x#{ MAX_DRAFT }")
-      altered = true
-    end
-
-    self.data = image.to_blob if altered
+  def image
+    @image ||= MiniMagick::Image.read(data) if allowed_content_type?
   end
 
   private
+
+  def process_data
+    tempfile = Tempfile.new(['profile_photo', '.img'])
+    tempfile.binmode
+    tempfile.write(data)
+    tempfile.rewind
+
+    pipeline = ImageProcessing::MiniMagick.source(tempfile).convert('png')
+
+    if draft
+      pipeline = pipeline.resize_to_limit(MAX_DRAFT, MAX_DRAFT)
+    else
+      pipeline = pipeline.crop(x.to_i, y.to_i, w.to_i, h.to_i) if w && h
+      pipeline = pipeline.resize_to_fill(WIDTH, HEIGHT)
+    end
+
+    result = pipeline.call
+    self.data = result.read
+    @image = MiniMagick::Image.read(data)
+  rescue StandardError
+    @processing_failed = true
+  ensure
+    tempfile&.close!
+    result&.close! if result.respond_to?(:close!)
+  end
 
   def data_and_draft_checks
     if data.nil?
@@ -88,23 +78,11 @@ class ProfilePhoto < ApplicationRecord
       return
     end
 
-    if image.nil?
+    if @processing_failed
       errors.add(:data, _("Couldn't understand the image file that you " \
                           "uploaded. PNG, JPEG, GIF and HEIC file formats " \
                           "are supported."))
       return
-    end
-
-    if image.type != 'PNG'
-      errors.add(:data, _("Failed to convert image to a PNG"))
-    end
-
-    if !draft && (image.width != WIDTH || image.height != HEIGHT)
-      errors.add(:data, _("Failed to convert image to the correct size: at {{cols}}x{{rows}}, need {{width}}x{{height}}",
-                          cols: image.width,
-                          rows: image.height,
-                          width: WIDTH,
-                          height: HEIGHT))
     end
 
     if draft && user_id
@@ -112,21 +90,6 @@ class ProfilePhoto < ApplicationRecord
     end
 
     raise "Internal error, real pictures must have a user" if !draft && !user_id
-  end
-
-  # Convert binary data blob into ImageMagick image when assigned
-  def convert_data_to_image
-    converted = MiniMagick::Image.read(data)
-
-    unless converted.valid?
-      self.image = nil
-      return
-    end
-
-    # TODO: perhaps take largest image or somesuch if there were multiple
-    # in the file?
-    self.image = converted
-    convert_image
   end
 
   def allowed_content_type?
