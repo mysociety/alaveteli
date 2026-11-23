@@ -210,6 +210,54 @@ RSpec.describe 'when making a zipfile available' do
     end
   end
 
+  context 'when an attachment is made "hidden"' do
+    let(:info_request) { FactoryBot.create(:info_request_with_pdf_attachment) }
+    let(:non_owner) { login(FactoryBot.create(:user)) }
+    let(:admin) { login(FactoryBot.create(:admin_user)) }
+
+    before do
+      info_request.foi_attachments.find_by!(content_type: 'application/pdf').
+        update!(prominence: 'hidden')
+    end
+
+    it 'does not give the attachment to a non-owner after an admin' do
+      inspect_zip_download(admin, info_request) do |zip|
+        expect(zip.map(&:name)).to include('1_2_interesting.pdf')
+      end
+
+      inspect_zip_download(non_owner, info_request) do |zip|
+        expect(zip.map(&:name)).to eq(['correspondence.txt'])
+      end
+    end
+
+    it 'gives the attachment to an admin after a non-owner' do
+      inspect_zip_download(non_owner, info_request) do |zip|
+        expect(zip.map(&:name)).to eq(['correspondence.txt'])
+      end
+
+      inspect_zip_download(admin, info_request) do |zip|
+        expect(zip.map(&:name)).to include('1_2_interesting.pdf')
+      end
+    end
+  end
+
+  context 'when an attachment is made "requester_only"' do
+    it 'does not give the attachment to a non-owner after the owner' do
+      info_request = FactoryBot.create(:info_request_with_pdf_attachment)
+      info_request.foi_attachments.find_by!(content_type: 'application/pdf').
+        update!(prominence: 'requester_only')
+
+      inspect_zip_download(login(info_request.user), info_request) do |zip|
+        expect(zip.map(&:name)).to include('1_2_interesting.pdf')
+      end
+
+      non_owner = login(FactoryBot.create(:user))
+      inspect_zip_download(non_owner, info_request) do |zip|
+        expect(zip.map(&:name)).to eq(['correspondence.txt'])
+      end
+    end
+  end
+
   context 'when a message contains redacted material' do
     it 'should use associated censor rules on outgoing messages' do
       non_owner = login(FactoryBot.create(:user))
