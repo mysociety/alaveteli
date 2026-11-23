@@ -76,7 +76,7 @@ class RawEmail < ApplicationRecord
   end
 
   def data=(d)
-    @data = d.to_s
+    @data = d.to_s.b
     file.attach(
       io: StringIO.new(@data),
       filename: "#{incoming_message_id}.eml",
