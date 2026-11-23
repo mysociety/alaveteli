@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Validate profile photo content type before ImageMagick processing
+  (Graeme Porteous)
 * Restrict visibility of hidden and requester-only requests in projects (Gareth
   Rees, Graeme Porteous)
 * Prevent banned Pro subscribers creating requests (Gareth Rees)
