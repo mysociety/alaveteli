@@ -40,6 +40,7 @@ RAILS_LOG_LEVEL=warn
 0 6 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/send-webhook-digest.lock <%= vhost_dir %>/<%= vcspath %>/script/send-webhook-digest || echo "stalled?"
 30 4 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/storage-raw-emails.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails --quiet storage:raw_emails:mirror storage:raw_emails:promote storage:raw_emails:unlink" || echo "stalled?"
 30 5 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/storage-attachments.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails --quiet storage:attachments:mirror storage:attachments:promote storage:attachments:unlink" || echo "stalled?"
+0 3 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/commonlib/bin/run-with-lockfile.sh -n <%= vhost_dir %>/storage-purge-unattached.lock "cd <%= vhost_dir %>/<%= vcspath %> && bin/rails --quiet storage:purge_unattached" || echo "stalled?"
 
 # Once a day on all servers
 43 2 * * * <%= user %> <%= vhost_dir %>/<%= vcspath %>/script/request-creation-graph
