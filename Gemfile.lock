@@ -187,7 +187,7 @@ GEM
       rexml
     crass (1.0.8)
     csv (3.3.7)
-    dalli (5.3.2)
+    dalli (5.3.4)
       logger
     dante (0.2.0)
     date (3.5.1)
@@ -662,7 +662,7 @@ DEPENDENCIES
   charlock_holmes (~> 0.7.9)
   compare-xml (~> 1.0)
   csv (~> 3.3.7)
-  dalli (~> 5.3.2)
+  dalli (~> 5.3.4)
   drb (~> 2.2.3)
   excel_analyzer!
   exception_notification (~> 5.0.1)
