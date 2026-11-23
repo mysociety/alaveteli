@@ -95,7 +95,7 @@ gem 'bootsnap', '~> 1.26.1', require: false
 gem 'cancancan', '~> 3.7.0'
 gem 'charlock_holmes', '~> 0.7.9'
 gem 'compare-xml', '~> 1.0'
-gem 'dalli', '~> 5.3.2'
+gem 'dalli', '~> 5.3.4'
 gem 'exception_notification', '~> 5.0.1'
 gem 'fancybox-rails', '~> 0.3.0'
 gem 'friendly_id', '~> 5.7.0'
