@@ -5,19 +5,34 @@
 # Email: hello@mysociety.org; WWW: http://www.mysociety.org/
 class OneTimePasswordsController < ApplicationController
   before_action :check_two_factor_config, :authenticate
+  before_action :require_pending_otp_secret, only: :create
+
+  def new
+    session[:pending_otp_secret_key] ||= ROTP::Base32.random
+    @enrolment = OtpEnrolment.new(
+      user: @user, secret: session[:pending_otp_secret_key]
+    )
+  end
 
   def show
   end
 
   def create
-    @user.enable_otp
+    @enrolment = OtpEnrolment.new(
+      user: @user,
+      secret: session[:pending_otp_secret_key],
+      otp_code: enrolment_params[:otp_code].to_s
+    )
 
-    if @user.save
+    if @enrolment.save
+      session.delete(:pending_otp_secret_key)
+      if @user.otp_counter_previously_was.present?
+        flash[:just_upgraded_from_hotp] = true
+      end
       redirect_to one_time_password_path,
                   notice: _('Two factor authentication enabled')
     else
-      flash.now[:error] = _('Two factor authentication could not be enabled')
-      render :show
+      render :new
     end
   end
 
@@ -44,6 +59,18 @@ class OneTimePasswordsController < ApplicationController
   end
 
   private
+
+  def enrolment_params
+    params.fetch(:otp_enrolment, {}).permit(:otp_code)
+  end
+
+  def require_pending_otp_secret
+    return if session[:pending_otp_secret_key].present?
+
+    flash[:notice] = _('Your two factor authentication setup expired. ' \
+                       'Please scan the new QR code below to start again.')
+    redirect_to new_one_time_password_path
+  end
 
   def check_two_factor_config
     unless AlaveteliConfiguration.enable_two_factor_auth
