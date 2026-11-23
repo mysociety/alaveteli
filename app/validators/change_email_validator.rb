@@ -11,6 +11,7 @@ class ChangeEmailValidator
                 :new_email,
                 :password,
                 :user_circumstance,
+                :post_redirect_token,
                 :logged_in_user
 
   validates_presence_of :old_email,
@@ -24,6 +25,7 @@ class ChangeEmailValidator
                         unless: :changing_email
 
   validate :password_and_format_of_email
+  validate :check_confirmed_email_matches
 
   def initialize(attributes = {})
     attributes.each do |name, value|
@@ -53,6 +55,26 @@ class ChangeEmailValidator
     check_email_is_present_and_valid(:new_email)
   end
 
+  def check_confirmed_email_matches
+    return unless changing_email
+    return if new_matches_confirmed?
+
+    errors.add(
+      :new_email,
+      _('New email address does not match the address that was confirmed')
+    )
+  end
+
+  def confirmed_email
+    return unless post_redirect_token
+
+    post_redirect = PostRedirect.find_by_token(post_redirect_token)
+    return unless post_redirect
+    return unless post_redirect.user_id == logged_in_user.id
+
+    post_redirect.post_params.dig('signchangeemail', 'new_email')
+  end
+
   def check_email_is_present_and_valid(email)
     if !send(email).blank? && !MySociety::Validate.is_valid_email(send(email))
       msg_string = check_email_is_present_and_valid_msg_string(email)
@@ -75,5 +97,9 @@ class ChangeEmailValidator
 
   def correct_password?
     logged_in_user.has_this_password?(password)
+  end
+
+  def new_matches_confirmed?
+    confirmed_email && new_email&.downcase == confirmed_email&.downcase
   end
 end

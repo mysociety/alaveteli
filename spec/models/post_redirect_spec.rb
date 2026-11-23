@@ -20,7 +20,7 @@ RSpec.describe PostRedirect do
   describe '.generate_verifiable_token' do
     subject do
       described_class.generate_verifiable_token(
-        user: user, circumstance: 'normal'
+        user: user, circumstance: 'normal', nonce: 'xyz'
       )
     end
 
@@ -29,10 +29,20 @@ RSpec.describe PostRedirect do
     it 'matches expected token' do
       is_expected.to eq(
         described_class.verifier.generate(
-          { user_id: user.id, login_token: user.login_token },
+          { user_id: user.id, login_token: user.login_token, nonce: 'xyz' },
           purpose: 'normal'
         )
       )
+    end
+
+    it 'generates different tokens for different nonces' do
+      token_a = described_class.generate_verifiable_token(
+        user: user, circumstance: 'change_email', nonce: 'aaa'
+      )
+      token_b = described_class.generate_verifiable_token(
+        user: user, circumstance: 'change_email', nonce: 'bbb'
+      )
+      expect(token_a).not_to eq(token_b)
     end
   end
 
@@ -140,8 +150,15 @@ RSpec.describe PostRedirect, " when constructing" do
 
       expect(PostRedirect).to receive(:generate_verifiable_token)
       expect(pr.email_token).to eq described_class.generate_verifiable_token(
-        user: user, circumstance: 'change_password'
+        user: user, circumstance: 'change_password', nonce: pr.token
       )
+    end
+
+    it 'generates unique email tokens per row for the same user' do
+      user = FactoryBot.build(:user, login_token: 'abc')
+      pr_1 = PostRedirect.new(user: user, circumstance: 'change_email')
+      pr_2 = PostRedirect.new(user: user, circumstance: 'change_email')
+      expect(pr_1.email_token).not_to eq(pr_2.email_token)
     end
   end
 end

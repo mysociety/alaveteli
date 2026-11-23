@@ -70,6 +70,55 @@ RSpec.describe ChangeEmailValidator do
     end
   end
 
+  describe '#confirmed_email' do
+    let(:post_redirect) do
+      FactoryBot.create(
+        :post_redirect,
+        user: user,
+        circumstance: 'change_email',
+        post_params: {
+          'signchangeemail' => {
+            'old_email' => user.email,
+            'new_email' => 'confirmed@example.com'
+          }
+        }
+      )
+    end
+
+    it 'rejects new_email that differs from confirmed_email' do
+      params = { old_email: user.email,
+                 new_email: 'different@example.com',
+                 user_circumstance: 'change_email',
+                 post_redirect_token: post_redirect.token }
+      validator = validator_with_user_and_params(user, params)
+      validator.valid?
+      msg = 'New email address does not match the address that was confirmed'
+      expect(validator.errors[:new_email]).to include(msg)
+    end
+
+    it 'accepts new_email that matches confirmed_email' do
+      params = { old_email: user.email,
+                 new_email: 'confirmed@example.com',
+                 user_circumstance: 'change_email',
+                 post_redirect_token: post_redirect.token }
+      validator = validator_with_user_and_params(user, params)
+      validator.valid?
+      expect(validator.errors[:new_email]).to be_empty
+    end
+
+    it 'rejects token belonging to a different user' do
+      other_user = FactoryBot.create(:user)
+      params = { old_email: other_user.email,
+                 new_email: 'confirmed@example.com',
+                 user_circumstance: 'change_email',
+                 post_redirect_token: post_redirect.token }
+      validator = validator_with_user_and_params(other_user, params)
+      validator.valid?
+      msg = 'New email address does not match the address that was confirmed'
+      expect(validator.errors[:new_email]).to include(msg)
+    end
+  end
+
   describe '#password' do
     it 'password_and_format_of_email validation fails when password is nil' do
       params = { old_email: user.email,
