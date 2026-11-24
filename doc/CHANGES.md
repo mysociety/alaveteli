@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Restore logging of :email parameters (Gareth Rees)
 * Add support for Debian 13 "Trixie" (Graeme Porteous)
 * Add support for Ubuntu 24.04 LTS "Noble Numbat" (Graeme Porteous)
 * Dropped support for generating PDF of request correspondence (Graeme Porteous)
