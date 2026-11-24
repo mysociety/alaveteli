@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Accept a two factor code briefly after it expires (Graeme Porteous)
 * Add two factor authentication with an authenticator app, with backup codes,
   rate limits and an option to require it for admins (Chris Mytton)
 * Check request prominence when annotating requests (Gareth Rees, Santosh Kumar
