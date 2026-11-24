@@ -57,6 +57,13 @@ create your own <a href="{{ page.baseurl }}/docs/glossary/#theme" class="glossar
 The supplied scripts in the `./docker` directory will create you a Docker
 container which has everything you need to work on Alaveteli.
 
+The setup script expects to find a directory named `alaveteli-themes` alongside
+your Alaveteli checkout (this is where it will clone the default theme, and
+where the container looks for your themes). Create it if it doesn't already
+exist:
+
+        mkdir -p ../alaveteli-themes
+
 To create a Docker container with Alaveteli installed, run the setup script:
 
         ./docker/setup

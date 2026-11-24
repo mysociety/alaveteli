@@ -5,8 +5,10 @@ title: Vagrant
 
 <div class="attention-box danger">
   <p>
-    Installing Alaveteli using Vagrant has been depreciated. We recommend using
-    <a href="{{ page.baseurl }}/docs/installing/docker/">Docker</a> instead.
+    Installing Alaveteli using Vagrant has been deprecated and the
+    <code>Vagrantfile</code> has been removed from the repository. We recommend
+    using <a href="{{ page.baseurl }}/docs/installing/docker/">Docker</a>
+    instead.
   </p>
 </div>
 

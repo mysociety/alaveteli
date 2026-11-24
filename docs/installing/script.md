@@ -11,12 +11,20 @@ title: Installation script
 
 Note that there are [other ways to install Alaveteli]({{ page.baseurl }}/docs/installing/).
 
+For a local development site we recommend the
+[Docker installation]({{ page.baseurl }}/docs/installing/docker/) instead, which
+takes care of the dependencies for you. The installation script described here
+is for setting up Alaveteli on your own server.
+
 ## Installing with the installation script
 
-If you have a clean installation of Debian Wheezy 64-bit or Ubuntu Trusty, you can
+If you have a clean installation of 64-bit Debian (bullseye, bookworm or
+trixie) or Ubuntu (focal or jammy), you can
 use an install script in our commonlib repository to set up a working instance
-of Alaveteli. This is not suitable for production (it runs in development mode,
-for example) but should set up a functional installation of the site, which can send and receive email.
+of Alaveteli. By default this sets up the site running in production mode; you
+can pass the `--dev` option instead to set up a local development environment.
+Either way, the script should set up a functional installation of the site,
+which can send and receive email.
 
 **Warning: only use this script on a newly installed server – it will make
 significant changes to your server’s setup, including modifying your nginx
@@ -29,10 +37,16 @@ To download the script, run the following command:
 
 If you run this script with `sh install-site.sh`, you'll see its usage message:
 
-    Usage: ./install-site.sh [--default] <SITE-NAME> <UNIX-USER> [HOST]
+    Usage: ./install-site.sh [--dev] [--default] [--systemd] [--docker] [--slim] <SITE-NAME> <UNIX-USER> [HOST]
     HOST is only optional if you are running this on an EC2 instance.
     --default means to install as the default site for this server,
     rather than a virtualhost for HOST.
+    --dev sets things up for a local development environment.
+    --docker is intended when running this script from a Dockerfile and
+    sets a number of other local variables controlling behaviour.
+    --slim similar to Docker, intended for builds without databases and other
+    backend applications included.
+    --systemd try and use a native systemd unit file rather than a sysvinit script.
 
 In this case `<SITE-NAME>` should be `alaveteli`. `<UNIX-USER>` is the name of
 the Unix user that you want to own and run the code. (This user will be created
@@ -44,12 +58,12 @@ you specified the `--default` option. This parameter is optional if you are on
 an EC2 instance, in which case the hostname of that instance will be used.
 
 For example, if you wish to use a new user called `alaveteli` and the hostname
-`alaveteli.127.0.0.1.xip.io`, creating a virtualhost just for that hostname,
+`alaveteli.127.0.0.1.nip.io`, creating a virtualhost just for that hostname,
 you could download and run the script with:
 
-    sudo sh install-site.sh alaveteli alaveteli alaveteli.127.0.0.1.xip.io
+    sudo sh install-site.sh alaveteli alaveteli alaveteli.127.0.0.1.nip.io
 
-([xip.io](http://xip.io/) is a helpful domain for development.)
+([nip.io](https://nip.io/) is a helpful domain for development.)
 
 Or, if you want to set this up as the default site on an EC2 instance, you
 could download the script, make it executable and then invoke it with:
@@ -63,9 +77,22 @@ If you have any problems or questions, please ask on the [Alaveteli Google
 ## What the install script does
 
 When the script has finished, you should have a working copy of the website,
-accessible via the hostname you supplied to the script. So, for this example, you could access the site in a browser at `http://alaveteli.10.10.10.30.xip.io`. The site runs using the thin application server, and the nginx webserver. By default, Alaveteli will be installed into `/var/www/[HOST]` on the server.
+accessible via the hostname you supplied to the script. So, for this example, you could access the site in a browser at `http://alaveteli.10.10.10.30.nip.io`. The site runs using the Puma application server, behind the nginx webserver. By default, Alaveteli will be installed into `/var/www/[HOST]` on the server.
 
 The server will also be configured to accept replies to information request emails (as long as the MX record for the domain is pointing at the server). Incoming mail handling is set up using Postfix as the MTA.
+
+Behind the scenes, the commonlib `install-site.sh` script runs two scripts that
+live in the Alaveteli repository. You don't run these yourself; `install-site.sh`
+calls them for you:
+
+* `script/site-specific-install.sh` does the server-level setup as root:
+  installing system packages, nginx and Postfix, creating the PostgreSQL
+  user and database template, and installing the required Ruby version
+  (using rbenv and ruby-build) if the system Ruby is too old.
+* `script/install-as-user` then runs as the Unix user you specified to do the
+  user-level setup: installing the gems with Bundler, writing the
+  `config/general.yml` and `config/database.yml` files, creating the
+  databases, and loading the sample data.
 
 ## What next?
 

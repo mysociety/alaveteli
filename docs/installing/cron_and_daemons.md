@@ -45,6 +45,7 @@ Change the variables to suit your installation.
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
+      SITE=alaveteli \
       MAILTO=alaveteli \
       CRONTAB=/var/www/alaveteli/config/crontab-example > /etc/cron.d/alaveteli
     popd
@@ -226,7 +227,7 @@ useful to you. Change the variables to suit your installation.
       DEPLOY_USER=alaveteli \
       VHOST_DIR=/var/www \
       VCSPATH=alaveteli \
-      DAEMON=poll-for-incoming.service > /etc/systemd/system/alaveteli-poll-for-incoming.service
+      DAEMON=poll-for-incoming > /etc/systemd/system/alaveteli-poll-for-incoming.service
     popd
 
     chown root:alaveteli /etc/systemd/system/alaveteli-poll-for-incoming.service

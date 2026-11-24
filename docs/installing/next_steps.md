@@ -34,7 +34,7 @@ First, in the browser:
 * Go to `/profile/sign_in` and create a user by signing up.
 * Check your email and confirm your account.
 * Type `bin/rails console` in the root of your Alaveteli installation (or if
-  using Docker, type `docker exec -it app bin/rails console`).
+  using Docker, type `docker compose exec app bin/rails console`).
 * Type `User.find_by(email: 'you@example.com').add_role(:admin)`, replacing the
   email with the email you used during sign up.
 
