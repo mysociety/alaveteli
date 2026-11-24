@@ -3,7 +3,8 @@
 <h1><%= @title %></h1>
 
 <ul class="breadcrumb">
-  <li>FOI request: <%= both_links(@info_request) %></li>
+  <li>Public Body: <%= both_links(@info_request.public_body) %> <span class="divider">/</span></li>
+  <li class="active">FOI request: <%= both_links(@info_request) %></li>
 </ul>
 
 <div class="row">

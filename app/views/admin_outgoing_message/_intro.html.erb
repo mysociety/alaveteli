@@ -3,6 +3,7 @@
 <h1>Outgoing message <%= outgoing_message.id %></h1>
 
 <ul class="breadcrumb">
+  <li>Public Body: <%= both_links(outgoing_message.info_request.public_body) %> <span class="divider">/</span></li>
   <li>FOI request: <%= both_links(outgoing_message.info_request) %> <span class="divider">/</span></li>
   <li class="active">Message: <%= both_links(outgoing_message) %></li>
 </ul>

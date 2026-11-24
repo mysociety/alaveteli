@@ -2,6 +2,7 @@
 <h1>Raw email <%= raw_email.id %></h1>
 
 <ul class="breadcrumb">
+  <li>Public Body: <%= both_links(raw_email.incoming_message.info_request.public_body) %> <span class="divider">/</span></li>
   <li>FOI request: <%= both_links(raw_email.incoming_message.info_request) %> <span class="divider">/</span></li>
   <li>Message: <%= both_links(raw_email.incoming_message) %> <span class="divider">/</span></li>
   <li class="active">Raw Email</li>
