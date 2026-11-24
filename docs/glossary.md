@@ -57,6 +57,7 @@ Definitions
   <li><a href="#state">state</a></li>
   <li><a href="#tag">tag</a></li>
   <li><a href="#takedown">takedown request</a></li>
+  <li><a href="#textmask">text mask</a></li>
   <li><a href="#theme">theme</a></li>
   <li><a href="#transifex">Transifex</a></li>
   <li><a href="#wdtk">WhatDoTheyKnow</a></li>
@@ -1114,6 +1115,31 @@ Definitions
           More about
           <a href="{{ page.baseurl }}/docs/running/hiding_information/">hiding information</a>,
           including a process for handling for takedown requests
+        </li>
+      </ul>
+    </div>
+  </dd>
+
+  <dt>
+    <a name="textmask">text mask</a>
+  </dt>
+  <dd>
+    A <strong>text mask</strong> is a site-wide rule that replaces specific
+    text with a predefined string. By default, Alaveteli has text masks for:
+    <ul>
+      <li>phone numbers</li>
+      <li>email addresses</li>
+    </ul>
+    They are similar to 
+    <a href="#censor-rule" class="glossary__link">censor rules</a>
+    but text masks always apply to all content on a site.
+    Since Alaveteli version 0.47, they can be customised per site.
+    <div class="more-info">
+      <p>More information:</p>
+      <ul>
+        <li>
+          More about
+          <a href="{{ page.baseurl }}/docs/running/hiding_information/">hiding information</a>,
         </li>
       </ul>
     </div>
