@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix request ZIP downloads sharing restricted attachments with other users
+  (Graeme Porteous)
 * Faster application booting with Bootsnap (Graeme Porteous)
 * Upgrade to Rails 8.1 (Graeme Porteous)
 * Fix text after a tab becoming part of a link (Helen Cross)
@@ -53,6 +55,12 @@
 * Drop support for Ruby 3.2 (Graeme Porteous)
 
 ## Upgrade Notes
+
+* _Required:_ Cached request ZIP files can include restricted attachments that
+  other users could download. Delete them after deploying. Alaveteli makes them
+  again when they are next needed. Run this from the Alaveteli root directory:
+
+      rm -rf cache/zips/*
 
 * **IMPORTANT! We no longer support PostgreSQL 13**. Please upgrade to at least
   version 15 before upgrading Alaveteli. This is the version shipped with Debian
