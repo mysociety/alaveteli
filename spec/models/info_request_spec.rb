@@ -4141,6 +4141,22 @@ RSpec.describe InfoRequest do
 
         it_behaves_like "a situation when anything is not public"
       end
+
+      context "when an attachment is hidden" do
+        before do
+          request.foi_attachments.first.update!(prominence: "hidden")
+        end
+
+        it_behaves_like "a situation when anything is not public"
+      end
+
+      context "when an attachment is requester_only" do
+        before do
+          request.foi_attachments.first.update!(prominence: "requester_only")
+        end
+
+        it_behaves_like "a situation when anything is not public"
+      end
     end
 
     shared_examples_for "a request when anything is not public" do

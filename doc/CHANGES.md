@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix request ZIP downloads sharing restricted attachments with other users
+  (Graeme Porteous)
 * Add IPv6 support to the example nginx configs (Graeme Porteous)
 * Fix Pro request form losing drafts and missing validation (Graeme Porteous)
 * Set a canonical URL for attachments so search engines index the URL without
@@ -175,6 +177,12 @@
 * Block various action links via robots.txt (Laurent Savaete)
 
 ## Upgrade Notes
+
+* _Required:_ Cached request ZIP files can include restricted attachments that
+  other users could download. Delete them after deploying. Alaveteli makes them
+  again when they are next needed. Run this from the Alaveteli root directory:
+
+      rm -rf cache/zips/*
 
 * **IMPORTANT! We no longer support PostgreSQL 13**. Please upgrade to at least
   version 15 before upgrading Alaveteli. This is the version shipped with Debian
