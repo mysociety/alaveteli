@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add IPv6 support to the example nginx configs (Graeme Porteous)
 * Ask for the password when an account is confirmed, not at signup (Graeme
   Porteous)
 * Fix reparsing a message overwriting redacted or replaced attachments
@@ -64,6 +65,17 @@
 * Drop support for Ruby 3.2 (Graeme Porteous)
 
 ## Upgrade Notes
+
+* _Optional:_ The example nginx configs now listen on IPv6 as well as IPv4.
+  Before, a request over IPv6 reached nginx's default site, and showed the
+  "Welcome to nginx" page. If your server has an IPv6 address, add these to
+  your nginx site config, then reload nginx:
+
+      listen [::]:80;
+      listen [::]:443;
+
+  Add `listen [::]:443;` only to the server block that already has
+  `listen 443;`.
 
 * _Required:_ The signup form no longer asks for a password. Themes that
   override `user/_signup.html.erb` need to drop the `password` and
