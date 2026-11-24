@@ -915,9 +915,10 @@ PRODUCTION_MAILER_DELIVERY_METHOD: sendmail
 # ---
 ENABLE_WIDGETS: false
 
-# Enable a second step of authentication for dangerous account actions.
-# Currently only active for changing password. Two factor auth is opt-in per
-# user.
+# Let users turn on two factor authentication with an authenticator app. Users
+# who turn it on must give a code when they sign in and when they change their
+# password. Two factor auth is opt-in per user. To make admins use it, set
+# `AdminController.require_two_factor_auth = true` in your theme.
 #
 # ENABLE_TWO_FACTOR_AUTH – Boolean (default: false)
 #
