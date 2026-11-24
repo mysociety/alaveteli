@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Prevent closed users logging in from secondary authentication routes (Gareth
+  Rees)
 * Drop support for PostgreSQL 13 (Graeme Porteous)
 * Accept a two factor code briefly after it expires (Graeme Porteous)
 * Add two factor authentication with an authenticator app, with backup codes,
