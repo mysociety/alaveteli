@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Drop support for PostgreSQL 13 (Graeme Porteous)
 * Accept a two factor code briefly after it expires (Graeme Porteous)
 * Add two factor authentication with an authenticator app, with backup codes,
   rate limits and an option to require it for admins (Chris Mytton)
@@ -34,6 +35,16 @@
 * Drop support for Ruby 3.2 (Graeme Porteous)
 
 ## Upgrade Notes
+
+* **IMPORTANT! We no longer support PostgreSQL 13**. Please upgrade to at least
+  version 15 before upgrading Alaveteli. This is the version shipped with Debian
+  Bookworm, and PostgreSQL 13 is now out of support upstream.
+
+  A major version upgrade needs the data moving over, either with `pg_upgrade`
+  or by dumping and restoring. Take a backup first and check your site works
+  before upgrading Alaveteli.
+
+  See: https://www.postgresql.org/docs/15/upgrading.html
 
 * _Required:_ This release encrypts sensitive database columns (such as users'
   two factor authentication secret and backup codes) with Active Record
