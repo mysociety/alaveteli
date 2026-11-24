@@ -1129,6 +1129,26 @@ RSpec.describe UserController, "when changing email address" do
       to redirect_to(signin_path(token: get_last_post_redirect.token))
   end
 
+  it 'does not save secrets when it asks the user to sign in' do
+    post :signchangeemail, params: {
+      authenticity_token: 'csrf',
+      signchangeemail: {
+        old_email: 'bob@localhost',
+        password: 'jonespassword',
+        new_email: 'newbob@localhost'
+      },
+      submitted_signchangeemail_do: 1
+    }
+
+    saved = get_last_post_redirect.post_params
+    expect(saved['authenticity_token']).to eq('[FILTERED]')
+    expect(saved['signchangeemail'].to_unsafe_h).to eq(
+      'old_email' => 'bob@localhost',
+      'password' => '[FILTERED]',
+      'new_email' => 'newbob@localhost'
+    )
+  end
+
   it "should show form for changing email if logged in" do
     @user = users(:bob_smith_user)
     sign_in @user

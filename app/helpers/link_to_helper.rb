@@ -291,9 +291,11 @@ module LinkToHelper
   end
 
   def current_path_as_json
-    unsafe_keys = %w[protocol host]
-    sanitized_params = params.reject { |k| unsafe_keys.include?(k) }.permit!
-    url_for(sanitized_params.merge(format: :json, only_path: true))
+    url_for(
+      request.path_parameters.merge(
+        page: params[:page], format: :json, only_path: true
+      )
+    )
   end
 
   def incoming_message_dom_id(incoming_message)
