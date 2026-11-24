@@ -203,9 +203,7 @@ module IncomingMessage::Attachments
     end
 
     attachments = attachment_attributes.map do |hexdigest, attrs|
-      attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
-      attachment.attributes = attrs
-      attachment
+      build_attachment(hexdigest, attrs)
     end
 
     # Get the main body part from the set of attachments not from the
@@ -220,7 +218,8 @@ module IncomingMessage::Attachments
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
     if main_part
       c = _mail.count_first_uudecode_count
-      attachments += _uudecode_attachments(main_part.body, c)
+      main_body = attachment_attributes.dig(main_part.hexdigest, :body)
+      attachments += _uudecode_attachments(main_body.b, c)
     end
 
     # Purge old public attachments that will be rebuilt with a new hexdigest
@@ -251,10 +250,16 @@ module IncomingMessage::Attachments
   # Returns attachments that are uuencoded in main body part
   def _uudecode_attachments(text, start_part_number)
     MailHandler.uudecode(text, start_part_number).map do |attrs|
-      hexdigest = attrs.delete(:hexdigest)
-      attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
-      attachment.attributes = attrs
-      attachment
+      build_attachment(attrs.delete(:hexdigest), attrs)
     end
+  end
+
+  # Only a new attachment takes the body from the raw email. Setting it on an
+  # existing one uploads it at once, over any masked or replaced file.
+  def build_attachment(hexdigest, attrs)
+    attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
+    attachment.attributes = attrs.except(:body)
+    attachment.body = attrs[:body] if attachment.new_record?
+    attachment
   end
 end

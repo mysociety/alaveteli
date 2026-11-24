@@ -160,6 +160,41 @@ RSpec.describe IncomingMessage do
         expect(message.foi_attachments.reload.count).to eq(2)
       end
     end
+
+    context 'with an existing attachment' do
+      let(:message) { FactoryBot.create(:incoming_message) }
+      let(:attachment) { message.foi_attachments.first }
+      let(:editor) { FactoryBot.create(:admin_user) }
+      let(:stored_file) { FoiAttachment.find(attachment.id).file.download }
+
+      before do
+        FactoryBot.create(
+          :censor_rule,
+          censorable: message.info_request,
+          text: 'hereisthetext'
+        )
+        attachment.mask
+      end
+
+      it 'keeps the masked file of an unlocked attachment' do
+        subject
+        expect(stored_file).to eq('[REDACTED]')
+      end
+
+      it 'keeps the masked file of a locked attachment' do
+        attachment.lock!(editor: editor, reason: 'test')
+        subject
+        expect(stored_file).to eq('[REDACTED]')
+      end
+
+      it 'keeps the file of a replaced attachment' do
+        attachment.replace!(
+          editor: editor, reason: 'test', replacement_body: 'REPLACED'
+        )
+        subject
+        expect(stored_file).to eq('REPLACED')
+      end
+    end
   end
 
   describe '#extract_attachments!' do
