@@ -1,4 +1,4 @@
-# develop
+# 0.47.0.0
 
 ## Highlighted Features
 
@@ -56,6 +56,7 @@
 * Fix project membership bypassing hidden request prominence (Graeme Porteous)
 * Restore logging of :email parameters (Gareth Rees)
 * Add support for Debian 13 "Trixie" (Graeme Porteous)
+* Add support for Ubuntu 26.04 LTS "Resolute Raccoon" (Graeme Porteous)
 * Add support for Ubuntu 24.04 LTS "Noble Numbat" (Graeme Porteous)
 * Dropped support for generating PDF of request correspondence (Graeme Porteous)
 * Drop support for Debian 11 "Bullseye" (Graeme Porteous)
@@ -66,37 +67,44 @@
 
 ## Upgrade Notes
 
-* _Optional:_ The example nginx configs now listen on IPv6 as well as IPv4.
-  Before, a request over IPv6 reached nginx's default site, and showed the
-  "Welcome to nginx" page. If your server has an IPv6 address, add these to
-  your nginx site config, then reload nginx:
-
-      listen [::]:80;
-      listen [::]:443;
-
-  Add `listen [::]:443;` only to the server block that already has
-  `listen 443;`.
-
-* _Required:_ The signup form no longer asks for a password. Themes that
-  override `user/_signup.html.erb` need to drop the `password` and
-  `password_confirmation` fields. Confirming an account now asks for the
-  password instead.
-
-* _Required:_ Cached request ZIP files can include restricted attachments that
-  other users could download. Delete them after deploying. Alaveteli makes them
-  again when they are next needed. Run this from the Alaveteli root directory:
-
-      rm -rf cache/zips/*
-
 * **IMPORTANT! We no longer support PostgreSQL 13**. Please upgrade to at least
-  version 15 before upgrading Alaveteli. This is the version shipped with Debian
-  Bookworm, and PostgreSQL 13 is now out of support upstream.
+  version 14 before upgrading Alaveteli. We recommend version 15, the version
+  shipped with Debian Bookworm. PostgreSQL 13 is now out of support upstream.
+
+  **Warning:** PostgreSQL 14 works with this release, as it is the version
+  shipped with Ubuntu 22.04 LTS. But it has reached the end of its upstream
+  support, and a future release will need version 15 or later. On Ubuntu
+  22.04, consider installing version 15 from the PostgreSQL APT repository
+  now.
+
+  See: https://www.postgresql.org/download/linux/ubuntu/
 
   A major version upgrade needs the data moving over, either with `pg_upgrade`
   or by dumping and restoring. Take a backup first and check your site works
   before upgrading Alaveteli.
 
   See: https://www.postgresql.org/docs/15/upgrading.html
+
+* **IMPORTANT! We no longer support Ruby 3.2 or 3.3**. Please upgrade to Ruby
+  3.4 before upgrading Alaveteli.
+
+* _Required:_ Debian 11 "Bullseye" and Ubuntu 20.04 LTS "Focal" no longer get
+  security updates and are not supported.
+
+  We recommend Debian 13 "Trixie" or Ubuntu 26.04 LTS "Resolute". Debian 12
+  "Bookworm", Ubuntu 22.04 LTS "Jammy" and Ubuntu 24.04 LTS "Noble" are still
+  supported.
+
+  On newer OSs you might see the installation script print "Unsupported
+  distribution and version combination", and say that it is not adding the
+  mySociety repository. You can ignore both messages. Alaveteli supports the
+  releases above, and every package in its package lists comes from the Debian
+  or Ubuntu archive.
+
+* _Required:_ Install the new `libyaml-dev` package. The installation script
+  does this for new installs. On an existing site, run:
+
+      sudo apt-get install libyaml-dev
 
 * _Required:_ This release encrypts sensitive database columns (such as users'
   two factor authentication secret and backup codes) with Active Record
@@ -119,8 +127,9 @@
   from the server.
 
 * _Required:_ Existing two factor authentication secrets are stored in plain
-  text until they are encrypted. Once you are sure you will stay on this
-  release, encrypt them with:
+  text until they are encrypted. This applies even if `ENABLE_TWO_FACTOR_AUTH`
+  is `false`, because every account gets a secret when it is created. Once you
+  are sure you will stay on this release, encrypt them with:
 
       bin/rails temp:encrypt_user_otp_secret_keys
 
@@ -128,22 +137,65 @@
   breaks two factor sign in for every user who enrolled with an authenticator
   app on this release, and for every user once the task above has run.
 
-* _Optional:_ Request correspondence is no longer converted to PDF, so the
-  `wkhtmltopdf` package can be uninstalled.
+* _Required:_ Cached request ZIP files can include restricted attachments that
+  other users could download. Delete them after deploying. Alaveteli makes them
+  again when they are next needed. Run this from the Alaveteli root directory:
 
-* _Required:_ Debian 12 "Bookworm", Debian 13 "Trixie", Ubuntu 22.04 LTS and
-  Ubuntu 24.04 LTS are supported. Debian 11 "Bullseye" and Ubuntu 20.04 LTS no
-  longer get security updates and are not supported. Install the new
-  `libyaml-dev` package:
+      rm -rf cache/zips/*
 
-      sudo apt-get install libyaml-dev
+* _Required:_ The signup form no longer asks for a password. Themes that
+  override `user/_signup.html.erb` need to drop the `password` and
+  `password_confirmation` fields. Confirming an account now asks for the
+  password instead.
 
 * _Required:_ Capistrano deployment has been removed, as it no longer worked.
   Remove any `Capfile` and `config/deploy.rb` you rely on, and deploy by
   another method.
 
-* **IMPORTANT! We no longer support Ruby 3.2 or 3.3**. Please upgrade to Ruby
-  3.4 before upgrading Alaveteli.
+* _Optional:_ Request correspondence is no longer converted to PDF, so the
+  `wkhtmltopdf` package can be uninstalled.
+
+* _Optional:_ The example nginx configs now listen on IPv6 as well as IPv4.
+  Before, a request over IPv6 reached nginx's default site, and showed the
+  "Welcome to nginx" page. If your server has an IPv6 address, add these to
+  your nginx site config, then reload nginx:
+
+      listen [::]:80;
+      listen [::]:443;
+
+  Add `listen [::]:443;` only to the server block that already has
+  `listen 443;`.
+
+* _Note:_ The new two factor authentication screens and the "Choose your
+  password" page shown when confirming an account are in English only. They
+  will be translated in a later translation update release.
+
+### Changed Templates
+
+The following templates have been changed. Please update overrides in your theme
+to match the new templates.
+
+    app/views/admin/projects/index.html.erb
+    app/views/admin_general/_admin_navbar.html.erb
+    app/views/alaveteli_pro/public_bodies/_search_result.html.erb
+    app/views/layouts/default.html.erb
+    app/views/one_time_passwords/_help_guide.html.erb
+    app/views/one_time_passwords/show.html.erb
+    app/views/password_changes/edit.html.erb
+    app/views/projects/dataset/show.html.erb
+    app/views/public_body/_body_listing_single.html.erb
+    app/views/user/_show_user_info.html.erb
+    app/views/user/_signup.html.erb
+
+The following templates have been moved. Please move overrides in your theme
+to match.
+
+    app/views/user/_update_profile_photo.html.erb ->
+      app/views/users/profile_photos/_update_profile_photo.html.erb
+    app/views/user/set_crop_profile_photo.html.erb ->
+      app/views/users/profile_photos/set_crop_profile_photo.html.erb
+    app/views/user/set_draft_profile_photo.html.erb ->
+      app/views/users/profile_photos/set_draft_profile_photo.html.erb
 
 # 0.46.8.0
 
