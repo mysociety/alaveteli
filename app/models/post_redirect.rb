@@ -103,6 +103,7 @@ class PostRedirect < ApplicationRecord
   end
 
   def email_token_valid?
+    return false unless user
     return true unless PostRedirect.verifier.valid_message?(email_token)
 
     data = PostRedirect.verifier.verify(email_token, purpose: circumstance).
