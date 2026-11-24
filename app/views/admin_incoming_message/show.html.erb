@@ -1,0 +1,67 @@
+<%= render partial: 'intro', locals: { incoming_message: @incoming_message } %>
+
+<%= render partial: 'admin_incoming_message/admin_columns',
+           locals: { incoming_message: @incoming_message } %>
+
+<%= button_to 'Edit message',
+    edit_admin_incoming_message_path(@incoming_message),
+    method: 'get',
+    class: "btn",
+    disabled: !@incoming_message.raw_email.erasable? %>
+
+<% if !@incoming_message.raw_email.erasable? %>
+  <span class="help-inline">
+    Some attachments have not been masked, you cannot edit this message.
+    Opening the attachment page is enough to mask them.
+  </span>
+<% end %>
+
+<%= render partial: 'actions', locals: { incoming_message: @incoming_message } %>
+
+<%= form_tag admin_incoming_message_path(@incoming_message), method: 'put', class: 'form form-inline' do %>
+  <fieldset class="form-horizontal">
+    <legend>Attributes</legend>
+      <div class="control-group">
+        <label class="control-label" for="incoming_message_tag_string">Tag string</label>
+
+        <div class="controls">
+          <%= render 'admin/tag_field', object_name: 'incoming_message',
+                                        model_type: 'IncomingMessage',
+                                        html: { class: 'span6' } %>
+        </div>
+      </div>
+  </fieldset>
+
+  <div class="form-actions" >
+    <%= submit_tag 'Save', name: :save_tags, class: 'btn btn-success' %>
+  </div>
+<% end %>
+
+<%= form_for @incoming_message, url: admin_incoming_message_prominence_path(@incoming_message), class: 'form form-inline' do |f| %>
+  <fieldset class="form-horizontal">
+    <legend>Prominence</legend>
+
+    <div class="control-group">
+      <%= f.label :prominence, class: 'control-label' %>
+
+      <div class="controls">
+        <%= f.select :prominence, IncomingMessage.prominence_states %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :prominence_reason, 'Reason for prominence', class: 'control-label' %>
+
+      <div class="controls">
+        <%= f.text_area :prominence_reason, rows: 5, class: 'span6' %>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <%= f.submit 'Update Prominence', class: 'btn btn-success' %>
+  </div>
+<% end %>
+
+<%= render partial: 'foi_attachments',
+           locals: { foi_attachments: @incoming_message.foi_attachments } %>

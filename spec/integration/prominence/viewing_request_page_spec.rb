@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'integration/alaveteli_prominence_dsl'
 
 RSpec.describe 'viewing request page with prominence', local_requests: false do
-  include AlaveteliPromienceDsl
+  include AlaveteliProminenceDsl
 
   let(:within_session) do
     -> { visit "/request/#{info_request.url_title}" }
