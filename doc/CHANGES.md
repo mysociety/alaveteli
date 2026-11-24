@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Add IPv6 support to the example nginx configs (Graeme Porteous)
 * Fix Pro request form losing drafts and missing validation (Graeme Porteous)
 * Set a canonical URL for attachments so search engines index the URL without
   query params (Gareth Rees)
@@ -339,6 +340,17 @@
 
 * **Note:** `FACEBOOK_USERNAME` and `TWITTER_USERNAME` configuration values are
   deprecated and will be removed after this release.
+
+* _Optional:_ The example nginx configs now listen on IPv6 as well as IPv4.
+  Before, a request over IPv6 reached nginx's default site, and showed the
+  "Welcome to nginx" page. If your server has an IPv6 address, add these to
+  your nginx site config, then reload nginx:
+
+      listen [::]:80;
+      listen [::]:443;
+
+  Add `listen [::]:443;` only to the server block that already has
+  `listen 443;`.
 
 ### Changed Templates
 
