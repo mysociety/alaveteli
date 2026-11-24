@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Log out admins if their admin role has been removed (Gareth Rees)
 * Prevent closed users logging in from secondary authentication routes (Gareth
   Rees)
 * Drop support for PostgreSQL 13 (Graeme Porteous)
