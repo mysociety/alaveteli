@@ -74,12 +74,14 @@ RSpec.describe "Signing in" do
     context 'if an account is not confirmed' do
       let(:user) { FactoryBot.create(:user, email_confirmed: false) }
 
-      it "sends a confirmation email_token, logs you in and redirects you" do
+      it 'asks for a password, logs you in and redirects you' do
         try_login(user, { redirect: '/list' })
         expect(page).to have_content 'Now check your email!'
 
-        # check confirmation URL works
         visit confirmation_url_from_email
+        fill_in 'Password:', with: 'ownerpassword'
+        fill_in 'Confirm password:', with: 'ownerpassword'
+        click_button 'Confirm your account'
         expect(page).to have_content user.name
         expect(page).to have_current_path '/list?post_redirect=1'
       end

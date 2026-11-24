@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Ask for the password when an account is confirmed, not at signup (Graeme
+  Porteous)
 * Fix reparsing a message overwriting redacted or replaced attachments
   (Graeme Porteous)
 * Fix passwords and other secrets saved in plain text when a form asks the
@@ -185,6 +187,10 @@
 
 ## Upgrade Notes
 
+* _Required:_ The signup form no longer asks for a password. Themes that
+  override `user/_signup.html.erb` need to drop the `password` and
+  `password_confirmation` fields. Confirming an account now asks for the
+  password instead.
 * _Required:_ Cached request ZIP files can include restricted attachments that
   other users could download. Delete them after deploying. Alaveteli makes them
   again when they are next needed. Run this from the Alaveteli root directory:

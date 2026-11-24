@@ -36,6 +36,10 @@ RSpec.describe Users::ConfirmationsController do
         expect(session[:user_id]).to eq(nil)
       end
 
+      it 'does not confirm the user before the new password is saved' do
+        expect(user.reload.email_confirmed).to eq(false)
+      end
+
       it 'logs out a user who does not own the post redirect' do
         logged_in_user = FactoryBot.create(:user)
         pr = PostRedirect.new(user: user, circumstance: 'change_password')
@@ -114,15 +118,11 @@ RSpec.describe Users::ConfirmationsController do
     EOF
 
       before :each do
-        @user = FactoryBot.create(:user, email_confirmed: false)
+        @user = FactoryBot.create(:user)
         @post_redirect = PostRedirect.create(uri: '/', user: @user)
 
         sign_in @user
         get :confirm, params: { email_token: @post_redirect.email_token }
-      end
-
-      it 'confirms the post redirect user' do
-        expect(@user.reload.email_confirmed).to eq(true)
       end
 
       it 'stays logged in as the user' do
@@ -166,14 +166,10 @@ RSpec.describe Users::ConfirmationsController do
 
     context 'if there is no logged in user' do
       before :each do
-        @user = FactoryBot.create(:user, email_confirmed: false)
+        @user = FactoryBot.create(:user)
         @post_redirect = PostRedirect.create(uri: '/', user: @user)
 
         get :confirm, params: { email_token: @post_redirect.email_token }
-      end
-
-      it 'confirms the post redirect user' do
-        expect(@user.reload.email_confirmed).to eq(true)
       end
 
       it 'gets logged in as the post redirect user' do
@@ -186,6 +182,120 @@ RSpec.describe Users::ConfirmationsController do
 
       it 'redirects to the post redirect uri' do
         expect(response).to redirect_to('/?post_redirect=1')
+      end
+    end
+
+    context 'if the post redirect user is unconfirmed' do
+      let(:user) do
+        FactoryBot.create(:user, password: 'signuppassword',
+                                 email_confirmed: false)
+      end
+
+      let(:post_redirect) do
+        PostRedirect.create(uri: '/', user: user,
+                            post_params: { 'title' => 'Draft' })
+      end
+
+      context 'when following the link' do
+        before do
+          get :confirm, params: { email_token: post_redirect.email_token }
+        end
+
+        it 'asks for a password' do
+          expect(response).to render_template(:password)
+        end
+
+        it 'does not confirm the user' do
+          expect(user.reload.email_confirmed).to eq(false)
+        end
+
+        it 'does not sign the user in' do
+          expect(session[:user_id]).to be_nil
+        end
+
+        it 'keeps the link valid' do
+          expect(post_redirect.reload.email_token_valid?).to eq(true)
+        end
+      end
+
+      context 'when rendering the password form' do
+        render_views
+
+        it 'posts the form back to the same path' do
+          get :confirm, params: { email_token: post_redirect.email_token }
+          expect(response.body).
+            to include(%(action="#{request.path}"))
+        end
+      end
+
+      context 'when posting without a password' do
+        before do
+          post :confirm, params: { email_token: post_redirect.email_token }
+        end
+
+        it 'asks for a password without errors' do
+          expect(response).to render_template(:password)
+          expect(assigns[:confirm_user].errors).to be_empty
+        end
+
+        it 'does not confirm the user' do
+          expect(user.reload.email_confirmed).to eq(false)
+        end
+      end
+
+      context 'when choosing a valid password' do
+        before do
+          post :confirm, params: {
+            email_token: post_redirect.email_token,
+            confirm_user: { password: 'ownerpassword',
+                            password_confirmation: 'ownerpassword' }
+          }
+        end
+
+        it 'confirms the user' do
+          expect(user.reload.email_confirmed).to eq(true)
+        end
+
+        it 'replaces the password chosen at signup' do
+          user.reload
+          expect(user.has_this_password?('ownerpassword')).to eq(true)
+          expect(user.has_this_password?('signuppassword')).to eq(false)
+        end
+
+        it 'signs the user in' do
+          expect(session[:user_id]).to eq(user.id)
+        end
+
+        it 'consumes the link' do
+          expect(PostRedirect.find_by(id: post_redirect.id)).to be_nil
+        end
+
+        it 'carries on with the pending action' do
+          pending = PostRedirect.find_by(token: session[:post_redirect_token])
+          expect(pending.post_params).to eq('title' => 'Draft')
+          expect(response).to redirect_to('/?post_redirect=1')
+        end
+      end
+
+      context 'when choosing an invalid password' do
+        before do
+          post :confirm, params: {
+            email_token: post_redirect.email_token,
+            confirm_user: { password: 'short', password_confirmation: 'short' }
+          }
+        end
+
+        it 'asks for a password again' do
+          expect(response).to render_template(:password)
+        end
+
+        it 'does not confirm the user' do
+          expect(user.reload.email_confirmed).to eq(false)
+        end
+
+        it 'does not sign the user in' do
+          expect(session[:user_id]).to be_nil
+        end
       end
     end
 
@@ -232,7 +342,7 @@ RSpec.describe Users::ConfirmationsController do
 
     context 'if the post redirect user has TOTP two factor enabled' do
       let(:user) do
-        FactoryBot.create(:user, :enable_totp, email_confirmed: false)
+        FactoryBot.create(:user, :enable_totp)
       end
       let(:post_redirect) { PostRedirect.create(uri: '/', user: user) }
 
@@ -249,10 +359,6 @@ RSpec.describe Users::ConfirmationsController do
         expect(response).to redirect_to(signin_two_factor_path)
       end
 
-      it 'confirms the post redirect user' do
-        expect(user.reload.email_confirmed).to eq(true)
-      end
-
       it 'consumes the confirmation link before the challenge' do
         expect(PostRedirect.find_by(email_token: @original_token)).to be_nil
       end
@@ -267,7 +373,7 @@ RSpec.describe Users::ConfirmationsController do
 
     context 'if the post redirect user has HOTP two factor enabled' do
       let(:user) do
-        FactoryBot.create(:user, :enable_hotp, email_confirmed: false)
+        FactoryBot.create(:user, :enable_hotp)
       end
       let(:post_redirect) { PostRedirect.create(uri: '/', user: user) }
 
@@ -285,7 +391,7 @@ RSpec.describe Users::ConfirmationsController do
 
     context 'token consumption' do
       it 'rotates the email token after successful confirmation' do
-        user = FactoryBot.create(:user, email_confirmed: false)
+        user = FactoryBot.create(:user)
         post_redirect = PostRedirect.create(uri: '/', user: user)
         original_token = post_redirect.email_token
 
@@ -294,7 +400,7 @@ RSpec.describe Users::ConfirmationsController do
       end
 
       it 'prevents reuse of a consumed token' do
-        user = FactoryBot.create(:user, email_confirmed: false)
+        user = FactoryBot.create(:user)
         post_redirect = PostRedirect.create(uri: '/', user: user)
         original_token = post_redirect.email_token
 

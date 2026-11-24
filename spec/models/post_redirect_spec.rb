@@ -95,6 +95,16 @@ RSpec.describe PostRedirect do
 
       it { is_expected.to eq false }
     end
+
+    context 'when there is no user' do
+      let(:user) { nil }
+
+      let(:attributes) do
+        FactoryBot.attributes_for(:post_redirect, email_token: 'ABC')
+      end
+
+      it { is_expected.to eq false }
+    end
   end
 end
 

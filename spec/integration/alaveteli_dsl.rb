@@ -34,8 +34,6 @@ module AlaveteliDsl
       within '#signup_form' do
         fill_in "Your name:", with: user.name
         fill_in "Your e-mail:", with: user.email
-        fill_in "Password:", with: 'jonespassword'
-        fill_in "Confirm password:", with: 'jonespassword'
         click_button "Sign up"
       end
       expect(page).to have_content('Now check your email!')
