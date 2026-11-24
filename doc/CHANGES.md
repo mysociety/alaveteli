@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Add support for Debian 13 "Trixie" (Graeme Porteous)
+* Add support for Ubuntu 24.04 LTS "Noble Numbat" (Graeme Porteous)
 * Dropped support for generating PDF of request correspondence (Graeme Porteous)
 * Drop support for Debian 11 "Bullseye" (Graeme Porteous)
 * Drop support for Ubuntu 20.04 LTS "Focal Fossa" (Graeme Porteous)
