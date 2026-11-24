@@ -109,6 +109,34 @@ RSpec.describe Citation, type: :model do
     end
   end
 
+  describe '.is_searchable' do
+    subject { described_class.is_searchable }
+
+    setup_for_x_scope_data
+
+    let!(:citation_hidden_request) do
+      FactoryBot.create(
+        :citation, citable: FactoryBot.create(:info_request, :hidden)
+      )
+    end
+
+    let!(:citation_hidden_batch) do
+      batch = FactoryBot.create(:info_request_batch, :sent)
+      batch.info_requests.update_all(prominence: 'hidden')
+      FactoryBot.create(:citation, citable: batch)
+    end
+
+    it 'returns citations of searchable requests and batches' do
+      is_expected.to match_array(
+        [
+          citation_batch_a, citation_batch_a_request_a,
+          citation_batch_b,
+          citation_info_request_c
+        ]
+      )
+    end
+  end
+
   describe '.for_request' do
     subject { described_class.for_request(info_request) }
 

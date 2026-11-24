@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix hidden requests showing in the public citations list (Graeme Porteous)
 * Fix request ZIP downloads sharing restricted attachments with other users
   (Graeme Porteous)
 * Add IPv6 support to the example nginx configs (Graeme Porteous)

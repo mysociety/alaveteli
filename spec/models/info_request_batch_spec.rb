@@ -73,6 +73,32 @@ RSpec.describe InfoRequestBatch do
     it { is_expected.not_to include(embargoed) }
   end
 
+  describe '.is_searchable' do
+    subject { described_class.is_searchable }
+
+    let!(:batch) do
+      FactoryBot.create(:info_request_batch, :sent, public_body_count: 2)
+    end
+
+    let!(:embargoed) do
+      FactoryBot.create(:info_request_batch, :sent, :embargoed)
+    end
+
+    let!(:unsent) { FactoryBot.create(:info_request_batch) }
+
+    it { is_expected.to match_array([batch]) }
+
+    it 'includes batches with some hidden requests' do
+      batch.info_requests.first.update!(prominence: 'hidden')
+      is_expected.to match_array([batch])
+    end
+
+    it 'excludes batches with only hidden requests' do
+      batch.info_requests.update_all(prominence: 'hidden')
+      is_expected.to be_empty
+    end
+  end
+
   context '.with_body' do
     let(:batch) do
       FactoryBot.create(:info_request_batch, body: "foo\n\nbar")

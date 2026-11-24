@@ -46,6 +46,12 @@ class InfoRequestBatch < ApplicationRecord
 
   scope :not_embargoed, -> { where(embargo_duration: nil) }
 
+  scope :is_searchable, -> do
+    not_embargoed.where(
+      id: InfoRequest.is_searchable.select(:info_request_batch_id)
+    )
+  end
+
   def self.send_batches
     where(sent_at: nil).find_each do |info_request_batch|
       AlaveteliLocalization.with_locale(info_request_batch.user.locale) do

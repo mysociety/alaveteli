@@ -76,6 +76,21 @@ RSpec.describe CitationsController, type: :controller do
     end
   end
 
+  describe 'GET index' do
+    let!(:citation) { FactoryBot.create(:citation) }
+
+    let!(:hidden_citation) do
+      FactoryBot.create(
+        :citation, citable: FactoryBot.create(:info_request, :hidden)
+      )
+    end
+
+    it 'only assigns citations of searchable requests' do
+      get :index
+      expect(assigns[:citations]).to match_array([citation])
+    end
+  end
+
   describe 'GET new' do
     context 'InfoRequest resource' do
       let(:resource) { FactoryBot.create(:info_request) }

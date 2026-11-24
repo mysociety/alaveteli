@@ -57,6 +57,18 @@ class Citation < ApplicationRecord
       )
   end
 
+  scope :is_searchable, -> do
+    where(
+      citable_type: 'InfoRequest',
+      citable_id: InfoRequest.is_searchable.select(:id)
+    ).or(
+      where(
+        citable_type: 'InfoRequestBatch',
+        citable_id: InfoRequestBatch.is_searchable.select(:id)
+      )
+    )
+  end
+
   scope :for_request, ->(info_request) do
     where(citable: info_request).
       or(where(citable: info_request.info_request_batch))
