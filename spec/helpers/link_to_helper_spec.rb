@@ -283,25 +283,32 @@ RSpec.describe LinkToHelper do
   end
 
   describe '#current_path_as_json' do
+    before do
+      controller.request.path_parameters = {
+        controller: 'public_body', action: 'show',
+        url_name: 'welsh_government', view: 'all'
+      }
+    end
+
     it 'appends current path with json format' do
+      expect(current_path_as_json).to eq '/body/welsh_government.json'
+    end
+
+    it 'ignores query params' do
       allow(controller).to receive(:params).and_return(
         ActionController::Parameters.new(
-          controller: 'public_body', action: 'show',
-          url_name: 'welsh_government', view: 'all'
+          post_redirect: '1', protocol: 'http', host: 'example.com',
+          signchangeemail: { password: 'secret' }
         )
       )
       expect(current_path_as_json).to eq '/body/welsh_government.json'
     end
 
-    it 'ignores current protocol and host' do
+    it 'keeps the page param' do
       allow(controller).to receive(:params).and_return(
-        ActionController::Parameters.new(
-          controller: 'public_body', action: 'show',
-          url_name: 'welsh_government', view: 'all',
-          protocol: 'http', host: 'example.com'
-        )
+        ActionController::Parameters.new(page: '2')
       )
-      expect(current_path_as_json).to eq '/body/welsh_government.json'
+      expect(current_path_as_json).to eq '/body/welsh_government.json?page=2'
     end
   end
 

@@ -2,7 +2,8 @@ require 'spec_helper'
 
 RSpec.describe Project::Export do
   let(:project) { instance_double('Project') }
-  let(:instance) { described_class.new(project) }
+  let(:instance) { described_class.new(project, user: user) }
+  let(:user) { nil }
 
   describe '#data' do
     subject { instance.data }
@@ -11,7 +12,7 @@ RSpec.describe Project::Export do
     let(:info_request_b) { instance_double('InfoRequest') }
 
     before do
-      allow(project).to receive_message_chain(:info_requests).
+      allow(instance).to receive(:visible_requests).
         and_return([info_request_a, info_request_b])
     end
 
@@ -24,6 +25,58 @@ RSpec.describe Project::Export do
         and_return(double(data: { header: 'DATA B' }))
 
       is_expected.to match_array [{ header: 'DATA A' }, { header: 'DATA B' }]
+    end
+  end
+
+  describe 'requester_only filtering', feature: :projects do
+    let(:owner) { FactoryBot.create(:pro_user) }
+    let(:project) { FactoryBot.create(:project, owner: owner) }
+    let(:normal_request) { FactoryBot.create(:successful_request) }
+    let(:requester_only_request) do
+      FactoryBot.create(:successful_request, prominence: 'requester_only')
+    end
+
+    before do
+      project.requests << [normal_request, requester_only_request]
+    end
+
+    context 'when user is the project owner' do
+      let(:user) { owner }
+
+      it 'excludes requester_only requests' do
+        titles = instance.data.map { |d| d[:info_request] }
+        expect(titles).not_to include(requester_only_request)
+        expect(titles).to include(normal_request)
+      end
+    end
+
+    context 'when user is a pro admin' do
+      let(:user) { FactoryBot.create(:pro_admin_user) }
+
+      it 'includes requester_only requests' do
+        titles = instance.data.map { |d| d[:info_request] }
+        expect(titles).to include(requester_only_request)
+      end
+    end
+
+    context 'when user is nil (public export)' do
+      let(:user) { nil }
+
+      it 'excludes requester_only requests' do
+        titles = instance.data.map { |d| d[:info_request] }
+        expect(titles).not_to include(requester_only_request)
+        expect(titles).to include(normal_request)
+      end
+    end
+
+    context 'when user is a non-owner' do
+      let(:user) { FactoryBot.create(:user) }
+
+      it 'excludes requester_only requests' do
+        titles = instance.data.map { |d| d[:info_request] }
+        expect(titles).not_to include(requester_only_request)
+        expect(titles).to include(normal_request)
+      end
     end
   end
 

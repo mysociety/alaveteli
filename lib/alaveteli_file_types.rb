@@ -1,4 +1,4 @@
-require "mahoro"
+require "marcel"
 
 class AlaveteliFileTypes
   # To add an image, create a file with appropriate name corresponding to the
@@ -14,21 +14,24 @@ class AlaveteliFileTypes
     "xlsx" => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     "ppt" => 'application/vnd.ms-powerpoint',
     "pptx" => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    "eml" => 'message/rfc822',
     "oft" => 'application/vnd.ms-outlook',
     "msg" => 'application/vnd.ms-outlook',
     "tnef" => 'application/ms-tnef',
     "tif" => 'image/tiff',
     "gif" => 'image/gif',
-    "jpg" => 'image/jpeg', # TODO: add jpeg
+    "jpeg" => 'image/jpeg',
+    "jpg" => 'image/jpeg',
     "png" => 'image/png',
     "bmp" => 'image/bmp',
-    "html" => 'text/html', # TODO: add htm
+    "htm" => 'text/html',
+    "html" => 'text/html',
     "vcf" => 'text/x-vcard',
     "zip" => 'application/zip',
     "delivery-status" => 'message/delivery-status'
   }
-  # TODO: doesn't have way of choosing default for inverse map - might want to add
-  # one when you need it
+  # Duplicate MIME types (e.g. image/jpeg) map to the last extension listed
+  # above, so preferred extensions (jpg, html) should come after aliases.
   FileExtensionToMimeTypeRev = FileExtensionToMimeType.invert
 
   class << self
@@ -38,30 +41,16 @@ class AlaveteliFileTypes
 
     # Given file name and its content, return most likely type
     def filename_and_content_to_mimetype(filename, content)
-      # Try filename
-      ret = filename_to_mimetype(filename)
-      return ret unless ret.nil?
+      filename_to_mimetype(filename) || content_to_mimetype(content)
+    end
 
-      # Otherwise look inside the file to work out the type.
-      # Mahoro is a Ruby binding for libmagic.
-      m = Mahoro.new(Mahoro::MIME)
-      mahoro_type = m.buffer(content)
-      mahoro_type.strip!
-      # TODO: we shouldn't have to check empty? here, but Mahoro sometimes returns a blank line :(
-      # e.g. for InfoRequestEvent 17930
-      return nil if mahoro_type.nil? || mahoro_type.empty?
+    def content_to_mimetype(content)
+      mime_type = Marcel::MimeType.for(StringIO.new(content))
+      return mime_type unless mime_type == 'application/octet-stream'
 
-      # text/plain types sometimes come with a charset
-      mahoro_type.match(/^(.*);/)
-      mahoro_type = $1 if $1
-      # see if looks like a content type, or has something in it that does
-      # and return that
-      # mahoro returns junk "\012- application/msword" as mime type.
-      mahoro_type.match(/([a-z0-9.-]+\/[a-z0-9.-]+)/)
-      return $1 if $1
-
-      # otherwise we got junk back from mahoro
-      nil
+      # Marcel cannot detect plain text from content alone (unlike
+      # libmagic/Mahoro). Check if content is valid text as a fallback.
+      text_content?(content) ? 'text/plain' : mime_type
     end
 
     def filename_to_mimetype(filename)
@@ -74,6 +63,13 @@ class AlaveteliFileTypes
         end
       end
       nil
+    end
+
+    def text_content?(content)
+      return false if content.nil? || content.empty?
+
+      content.force_encoding('UTF-8').valid_encoding? &&
+        !content.match?(/[\x00-\x08\x0E-\x1F]/)
     end
 
     def mimetype_to_extension(mimetype)

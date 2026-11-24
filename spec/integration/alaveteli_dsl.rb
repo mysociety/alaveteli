@@ -34,8 +34,6 @@ module AlaveteliDsl
       within '#signup_form' do
         fill_in "Your name:", with: user.name
         fill_in "Your e-mail:", with: user.email
-        fill_in "Password:", with: 'jonespassword'
-        fill_in "Confirm password:", with: 'jonespassword'
         click_button "Sign up"
       end
       expect(page).to have_content('Now check your email!')
@@ -113,6 +111,13 @@ def login(user, **params)
       fill_in "user_signin_email", with: u.email
       fill_in "user_signin_password", with: "jonespassword"
       find("input[name='commit']", visible: true).click
+    end
+
+    # TOTP users are gated by the sign-in two factor challenge
+    if u.totp?
+      fill_in 'Code from your authenticator app',
+              with: u.otp_code
+      click_button 'Verify'
     end
   end
   u.id

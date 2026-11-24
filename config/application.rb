@@ -24,7 +24,7 @@ Bundler.require(*Rails.groups)
 module Alaveteli
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 8.0
+    config.load_defaults 8.1
 
     # Disable new framework default has_many_inversing breaks some specs due to
     # an apparent regression in Rails
@@ -72,6 +72,11 @@ module Alaveteli
 
     # Make Active Record use UTC-base instead of local time
     config.active_record.default_timezone = :utc
+
+    # otp_secret_key predates encryption, so an install holds plaintext secrets
+    # until its data migration encrypts them in place. Reading them has to keep
+    # working until that migration has run.
+    config.active_record.encryption.support_unencrypted_data = true
 
     # Disable the IP spoofing warning. This is triggered by a conflict between
     # the CLIENT_IP and X_FORWARDED_FOR headers. If you're using the example

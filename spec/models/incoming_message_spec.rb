@@ -83,6 +83,43 @@ RSpec.describe IncomingMessage do
     it { is_expected.to eq(response_event) }
   end
 
+  describe '#parse_raw_email!' do
+    subject { message.parse_raw_email!(true) }
+
+    context 'with an existing attachment' do
+      let(:message) { FactoryBot.create(:incoming_message) }
+      let(:attachment) { message.foi_attachments.first }
+      let(:stored_file) { FoiAttachment.find(attachment.id).file.download }
+
+      before do
+        message.info_request.censor_rules.create!(
+          text: 'hereisthetext', replacement: '[REDACTED]',
+          last_edit_editor: 'unknown', last_edit_comment: 'none'
+        )
+        FoiAttachmentMaskJob.perform_now(attachment)
+      end
+
+      it 'keeps the masked file of an unlocked attachment' do
+        subject
+        expect(stored_file).to eq('[REDACTED]')
+      end
+
+      it 'keeps the masked file of a locked attachment' do
+        attachment.update!(locked: true)
+        subject
+        expect(stored_file).to eq('[REDACTED]')
+      end
+
+      it 'keeps the file of a replaced attachment' do
+        attachment.update!(
+          replacement_body: 'REPLACED', replaced_reason: 'test'
+        )
+        subject
+        expect(stored_file).to eq('REPLACED')
+      end
+    end
+  end
+
   describe '#from_name' do
     it 'returns the name in the From: field of an email' do
       raw_email_data = <<-EOF.strip_heredoc
@@ -147,6 +184,29 @@ RSpec.describe IncomingMessage do
                         info_request: message.info_request)
 
       expect(message.safe_from_name).to eq('FOI [REDACTED]')
+    end
+  end
+
+  describe '#safe_subject' do
+    let(:message) { FactoryBot.build(:incoming_message) }
+
+    it 'returns nil if there is no subject' do
+      message.subject = nil
+      expect(message.safe_subject).to be_nil
+    end
+
+    it 'masks email addresses and mobile numbers' do
+      message.subject = 'Re: foo@example.com Mob: 07700 900123'
+      expect(message.safe_subject).
+        to eq('Re: [email address] [mobile number]')
+    end
+
+    it 'applies the info request censor rules' do
+      FactoryBot.create(:censor_rule,
+                        text: 'secret',
+                        info_request: message.info_request)
+      message.subject = 'Re: secret stuff'
+      expect(message.safe_subject).to eq('Re: [REDACTED] stuff')
     end
   end
 
@@ -826,7 +886,7 @@ RSpec.describe IncomingMessage, " when dealing with incoming mail" do
 
   it 'should handle a main body part that is just quoted content in an email that has
         no subject' do
-    i = IncomingMessage.new
+    i = FactoryBot.build(:incoming_message)
     allow(i).to receive(:get_main_body_text_unfolded).and_return("some quoting")
     allow(i).to receive(:get_main_body_text_folded).and_return("FOLDED_QUOTED_SECTION")
     allow(i).to receive(:subject).and_return(nil)
@@ -1227,6 +1287,39 @@ RSpec.describe IncomingMessage, 'when getting the body of a message for html dis
 
     expected = "<p>Line 1</p>\n\n<p>Line 2</p>"
     expect(incoming_message.get_body_for_html_display).to include(expected)
+  end
+
+  context 'when the body contains only quoted text' do
+    let(:incoming_message) { FactoryBot.build(:incoming_message) }
+
+    before do
+      allow(incoming_message).to receive(:get_main_body_text_folded).
+        and_return('FOLDED_QUOTED_SECTION')
+      allow(incoming_message).to receive(:get_main_body_text_unfolded).
+        and_return('> quoted')
+      incoming_message.subject = 'Re: foo@example.com Mob: 07700 900123 secret'
+      FactoryBot.create(:censor_rule,
+                        text: 'secret',
+                        info_request: incoming_message.info_request)
+    end
+
+    it 'shows the subject with masks and censor rules applied' do
+      html = incoming_message.get_body_for_html_display
+      expect(html).to include('[Subject only] Re: [email address] ' \
+                              '[mobile number] [REDACTED]')
+      expect(html).not_to include('foo@example.com')
+      expect(html).not_to include('07700 900123')
+      expect(html).not_to include('secret')
+    end
+
+    it 'masks the subject when the main body part is locked' do
+      locked_part = instance_double(FoiAttachment, locked?: true)
+      allow(incoming_message).to receive(:get_main_body_text_part).
+        and_return(locked_part)
+      html = incoming_message.get_body_for_html_display
+      expect(html).not_to include('foo@example.com')
+      expect(html).not_to include('secret')
+    end
   end
 end
 

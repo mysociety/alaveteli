@@ -101,9 +101,11 @@ class Ability
 
     # Reading requests with prominence or via a project or public token
     can :read, InfoRequest do |info_request|
-      can?(:_read, info_request) ||
-        project&.member?(user) ||
-        public_token
+      next true if can?(:_read, info_request)
+      next true if public_token &&
+        %w[normal backpage].include?(info_request.prominence)
+
+      visible_to_project_member?(info_request)
     end
 
     can :manage, OutgoingMessage::Snippet do |_request|
@@ -209,7 +211,7 @@ class Ability
     end
 
     can :login_as, User do |target_user|
-      if user == target_user
+      if user == target_user || target_user.closed?
         false
       elsif target_user.is_pro? || target_user.is_pro_admin?
         user && user.is_pro_admin?
@@ -250,6 +252,18 @@ class Ability
   end
 
   private
+
+  def visible_to_project_member?(info_request)
+    return false unless project
+    return false unless project.member?(user) &&
+      project.info_request?(info_request)
+
+    return false if info_request.prominence == 'hidden'
+    return false if info_request.prominence == 'requester_only' &&
+      !info_request.is_owning_user?(user)
+
+    true
+  end
 
   def can_update_request_state?(request)
     (user && request.is_old_unclassified?) || request.is_owning_user?(user) ||

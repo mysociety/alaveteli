@@ -11,9 +11,7 @@ class UserController < ApplicationController
 
   read_only :signups, only: [:signup]
 
-  skip_before_action :html_response, only: [
-    :show, :wall, :get_draft_profile_photo, :get_profile_photo
-  ]
+  skip_before_action :html_response, only: [:show, :wall]
 
   layout :select_layout
 
@@ -21,7 +19,7 @@ class UserController < ApplicationController
   before_action :work_out_post_redirect, only: [ :signup ]
   before_action :set_request_from_foreign_country, only: [ :signup ]
   before_action :set_in_pro_area, only: [ :signup ]
-  before_action :set_display_user, only: [ :show, :wall, :get_profile_photo ]
+  before_action :set_display_user, only: [ :show, :wall ]
   before_action :set_no_crawl, only: [ :show, :wall ]
 
   # Normally we wouldn't be verifying the authenticity token on these actions
@@ -135,6 +133,8 @@ class UserController < ApplicationController
   def signup
     # Make the user and try to save it
     @user_signup = User.new(user_params(:user_signup))
+    # The mailbox owner chooses the real password on confirmation
+    @user_signup.password = SecureRandom.base64(32)
     error = false
     if @request_from_foreign_country && !verify_recaptcha
       flash.now[:error] = _('There was an error with the reCAPTCHA. ' \
@@ -152,10 +152,10 @@ class UserController < ApplicationController
       # Show the form
       render action: 'sign'
     else
-      if user_alreadyexists
+      if user_alreadyexists&.email_confirmed?
         already_registered_mail user_alreadyexists
       else
-        # New unconfirmed user
+        # New or existing unconfirmed user
 
       # Block signups from suspicious countries
       # TODO: Add specs (see RequestController#create)
@@ -178,8 +178,15 @@ class UserController < ApplicationController
         end && return
       end
 
-        @user_signup.email_confirmed = false
-        @user_signup.save!
+        if user_alreadyexists
+          # The password is chosen when the account is confirmed, and
+          # changing it here would revoke links already sent to the mailbox
+          user_alreadyexists.update!(name: @user_signup.name)
+          @user_signup = user_alreadyexists
+        else
+          @user_signup.email_confirmed = false
+          @user_signup.save!
+        end
         send_confirmation_mail @user_signup
       end
       nil
@@ -225,6 +232,7 @@ class UserController < ApplicationController
     # validate taking into account the user_circumstance
     validator_params = params[:signchangeemail].clone
     validator_params[:user_circumstance] = session[:user_circumstance]
+    validator_params[:post_redirect_token] = session[:post_redirect_token]
     @signchangeemail = ChangeEmailValidator.new(validator_params)
     @signchangeemail.logged_in_user = @user
 
@@ -311,101 +319,6 @@ class UserController < ApplicationController
     end
   end
 
-  def set_profile_photo
-    # check they are logged in (the upload photo option is anyway only available when logged in)
-    unless authenticated?
-      flash[:error] = _("You need to be logged in to change your profile photo.")
-      redirect_to frontpage_url
-      return
-    end
-    if params[:submitted_draft_profile_photo].present?
-      if @user.suspended?
-        flash[:error]= _('Suspended users cannot edit their profile')
-        redirect_to set_profile_photo_path
-        return
-      end
-
-      # check for uploaded image
-      file_name = nil
-      file_content = nil
-      unless params[:file].nil?
-        file_name = params[:file].original_filename
-        file_content = params[:file].read
-      end
-
-      # validate it
-      @draft_profile_photo = ProfilePhoto.new(data: file_content, draft: true)
-      unless @draft_profile_photo.valid?
-        # error page (uses @profile_photo's error fields in view to show errors)
-        render template: 'user/set_draft_profile_photo'
-        return
-      end
-      @draft_profile_photo.save!
-
-      if params[:automatically_crop]
-        # no javascript, crop automatically
-        @profile_photo = ProfilePhoto.new(data: @draft_profile_photo.data, draft: false)
-        @user.set_profile_photo(@profile_photo)
-        @draft_profile_photo.destroy
-        flash[:notice] = _("Thank you for updating your profile photo")
-        redirect_to user_url(@user)
-        return
-      end
-
-      render template: 'user/set_crop_profile_photo'
-      nil
-    elsif params[:submitted_crop_profile_photo].present?
-      # crop the draft photo according to jquery parameters and set it as the users photo
-      draft_profile_photo = ProfilePhoto.find(params[:draft_profile_photo_id])
-      @profile_photo = ProfilePhoto.new(data: draft_profile_photo.data, draft: false,
-                                        x: params[:x], y: params[:y], w: params[:w], h: params[:h])
-      @user.set_profile_photo(@profile_photo)
-      draft_profile_photo.destroy
-
-      if @user.get_about_me_for_html_display.empty?
-        flash[:notice] = { partial: "user/update_profile_photo" }
-        redirect_to edit_profile_about_me_url
-      else
-        flash[:notice] = _("Thank you for updating your profile photo")
-        redirect_to user_url(@user)
-      end
-    else
-      render template: 'user/set_draft_profile_photo'
-    end
-  end
-
-  def clear_profile_photo
-    # check they are logged in (the upload photo option is anyway only available when logged in)
-    unless authenticated?
-      flash[:error] = _("You need to be logged in to clear your profile photo.")
-      redirect_to frontpage_url
-      return
-    end
-
-    @user.profile_photo.destroy if @user.profile_photo
-
-    flash[:notice] = _("You've now cleared your profile photo")
-    redirect_to user_url(@user)
-  end
-
-  # before they've cropped it
-  def get_draft_profile_photo
-    profile_photo = ProfilePhoto.find(params[:id])
-    render body: profile_photo.data,
-           content_type: 'image/png'
-  end
-
-  # actual profile photo of a user
-  def get_profile_photo
-    long_cache
-    unless @display_user.profile_photo
-      raise ActiveRecord::RecordNotFound, "user has no profile photo, url_name=" + params[:url_name]
-    end
-
-    render body: @display_user.profile_photo.data,
-           content_type: 'image/png'
-  end
-
   # Change about me text on your profile page
   def set_receive_email_alerts
     unless authenticated?
@@ -481,16 +394,12 @@ class UserController < ApplicationController
   end
 
   def user_params(key = :user)
-    params.require(key).permit(:name, :email, :password, :password_confirmation)
-  end
-
-  def is_modal_dialog
-    params[:modal].to_i != 0
+    params.require(key).permit(:name, :email)
   end
 
   # when logging in through a modal iframe, don't display chrome around the content
   def select_layout
-    is_modal_dialog ? 'no_chrome' : 'default'
+    modal_dialog? ? 'no_chrome' : 'default'
   end
 
   # Decide where we are going to redirect back to after signin/signup,
@@ -526,6 +435,10 @@ class UserController < ApplicationController
 
   # If they register again
   def already_registered_mail(user)
+    # must render the same as for send_confirmation_mail to avoid leak of
+    # presence of email in db
+    return render action: 'confirm' if user.closed?
+
     post_redirect = generate_confirmation_post_redirect(user)
 
     url = confirm_url(email_token: post_redirect.email_token)

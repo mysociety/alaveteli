@@ -19,6 +19,7 @@ libreoffice-calc-nogui
 libsqlite3-dev
 libxml2-dev
 libxslt1-dev
+libyaml-dev
 links
 lockfile-progs
 memcached
@@ -37,6 +38,5 @@ ttf-bitstream-vera
 unrtf
 unzip
 uuid-dev
-wkhtmltox
 wv
 xapian-tools

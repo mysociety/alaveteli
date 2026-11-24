@@ -48,10 +48,10 @@ RSpec.describe PasswordChangesController do
         user = FactoryBot.create(:user)
         sign_in user
         post :create, params: {
-                        password_change_user: {
-                          email: 'hacker@localhost'
-                        }
-                      }
+          password_change_user: {
+            email: 'hacker@localhost'
+          }
+        }
         expect(assigns[:password_change_user]).to eq(user)
       end
 
@@ -74,16 +74,16 @@ RSpec.describe PasswordChangesController do
       it 'assigns the user' do
         user = FactoryBot.create(:user)
         post :create, params: {
-                        password_change_user: { email: user.email }
-                      }
+          password_change_user: { email: user.email }
+        }
         expect(assigns[:password_change_user]).to eq(user)
       end
 
       it 'finds the user if the email case is different' do
         user = FactoryBot.create(:user)
         post :create, params: {
-                        password_change_user: { email: user.email.upcase }
-                      }
+          password_change_user: { email: user.email.upcase }
+        }
         expect(assigns[:password_change_user]).to eq(user)
       end
 
@@ -101,8 +101,8 @@ RSpec.describe PasswordChangesController do
             circumstance: 'change_password' }
 
         post :create, params: {
-                        password_change_user: { email: user.email }
-                      }
+          password_change_user: { email: user.email }
+        }
 
         post_redirect = PostRedirect.last
         expected_attrs[:uri] = edit_password_change_url(post_redirect.token)
@@ -115,16 +115,25 @@ RSpec.describe PasswordChangesController do
         expect(post_redirect_attrs).to eq(expected_attrs)
       end
 
+      it 'does not send mail for a closed account' do
+        user = FactoryBot.create(:user, :closed)
+        post :create, params: {
+          password_change_user: { email: user.email }
+        }
+        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(response).to render_template(:check_email)
+      end
+
       context 'when a pretoken is supplied' do
         it 'adds the pretoken to the post redirect uri' do
           user = FactoryBot.create(:user)
           pretoken = PostRedirect.create(user: user, uri: '/')
           post :create, params: {
-                          password_change_user: {
-                            email: user.email
-                          },
-                          pretoken: pretoken.token
-                        }
+            password_change_user: {
+              email: user.email
+            },
+            pretoken: pretoken.token
+          }
           post_redirect = PostRedirect.last
           expected = edit_password_change_url(post_redirect.token,
                                               pretoken: pretoken.token)
@@ -135,9 +144,9 @@ RSpec.describe PasswordChangesController do
           user = FactoryBot.create(:user)
           pretoken = PostRedirect.create(user: user, uri: '/')
           post :create, params: {
-                          password_change_user: { email: user.email },
-                          pretoken: ''
-                        }
+            password_change_user: { email: user.email },
+            pretoken: ''
+          }
           post_redirect = PostRedirect.last
           expected = edit_password_change_url(post_redirect.token)
           expect(post_redirect.uri).to eq(expected)
@@ -148,8 +157,8 @@ RSpec.describe PasswordChangesController do
         user = FactoryBot.create(:user)
 
         post :create, params: {
-                        password_change_user: { email: user.email }
-                      }
+          password_change_user: { email: user.email }
+        }
 
         email = ActionMailer::Base.deliveries.last
         expect(email.subject).to eq('Change your password on Alaveteli')
@@ -158,27 +167,27 @@ RSpec.describe PasswordChangesController do
 
       it 'does not send a confirmation email for an unknown email' do
         post :create, params: {
-                        password_change_user: {
-                          email: 'unknown-email@example.org'
-                        }
-                      }
+          password_change_user: {
+            email: 'unknown-email@example.org'
+          }
+        }
         expect(ActionMailer::Base.deliveries.size).to eq(0)
       end
 
       it 'renders the confirmation message' do
         user = FactoryBot.create(:user)
         post :create, params: {
-                        password_change_user: { email: user.email }
-                      }
+          password_change_user: { email: user.email }
+        }
         expect(response).to render_template(:check_email)
       end
 
       it 'renders the confirmation message for an unknown email' do
         post :create, params: {
-                        password_change_user: {
-                          email: 'unknown-email@example.org'
-                        }
-                      }
+          password_change_user: {
+            email: 'unknown-email@example.org'
+          }
+        }
         expect(response).to render_template(:check_email)
       end
 
@@ -186,16 +195,57 @@ RSpec.describe PasswordChangesController do
         msg = "That doesn't look like a valid email address. Please check " \
               "you have typed it correctly."
         post :create, params: {
-                        password_change_user: { email: 'invalid-email' }
-                      }
+          password_change_user: { email: 'invalid-email' }
+        }
         expect(flash[:error]).to eq(msg)
       end
 
       it 're-renders the form with an invalid email format' do
         post :create, params: {
-                        password_change_user: { email: 'invalid-email' }
-                      }
+          password_change_user: { email: 'invalid-email' }
+        }
         expect(response).to render_template(:new)
+      end
+    end
+
+    context 'when the attempt limit is exceeded' do
+      let(:user) { FactoryBot.create(:user) }
+
+      def submit(email, ip: '0.0.0.0')
+        request.env['REMOTE_ADDR'] = ip
+        post :create, params: { password_change_user: { email: email } }
+      end
+
+      it 'limits recovery emails to the same address across IPs' do
+        3.times { |i| submit(user.email, ip: "10.0.0.#{i}") }
+        submit(user.email.upcase, ip: '10.0.0.99')
+
+        expect(response).to render_template(:new)
+        expect(response).to have_http_status(:too_many_requests)
+        expect(flash[:error]).to match(/Too many attempts/)
+        expect(ActionMailer::Base.deliveries.size).to eq(3)
+      end
+
+      it 'limits attempts from the same IP across addresses' do
+        10.times { |i| submit("user#{i}@localhost") }
+        submit('another@localhost')
+
+        expect(response).to have_http_status(:too_many_requests)
+      end
+
+      it 'responds the same for an unknown address' do
+        4.times { submit('unknown@localhost') }
+
+        expect(response).to have_http_status(:too_many_requests)
+      end
+
+      it 'limits a signed in user by their own email' do
+        sign_in user
+        3.times { |i| submit(nil, ip: "10.0.0.#{i}") }
+        submit(nil, ip: '10.0.0.99')
+
+        expect(response).to have_http_status(:too_many_requests)
+        expect(ActionMailer::Base.deliveries.size).to eq(3)
       end
     end
   end
@@ -243,6 +293,15 @@ RSpec.describe PasswordChangesController do
         get :edit, params: { id: post_redirect.token, pretoken: 'abcdef' }
         expect(response).
           to redirect_to(new_password_change_path(pretoken: 'abcdef'))
+      end
+    end
+
+    context 'the user is closed' do
+      before { user.close! }
+
+      it 'redirects to new' do
+        get :edit, params: { id: post_redirect.token }
+        expect(response).to redirect_to(new_password_change_path)
       end
     end
 
@@ -328,50 +387,86 @@ RSpec.describe PasswordChangesController do
     it 'changes the password on success' do
       old_hash = user.hashed_password
       put :update, params: {
-                     id: post_redirect.token,
-                     password_change_user: @valid_password_params
-                   }
+        id: post_redirect.token,
+        password_change_user: @valid_password_params
+      }
       expect(user.reload.hashed_password).not_to eq(old_hash)
     end
 
     it 'notifies the user the password change has been successful' do
       put :update, params: {
-                     id: post_redirect.token,
-                     password_change_user: @valid_password_params
-                   }
+        id: post_redirect.token,
+        password_change_user: @valid_password_params
+      }
       expect(flash[:notice]).to eq('Your password has been changed.')
     end
 
     it 'assigns the user from a post redirect' do
       put :update, params: {
-                     id: post_redirect.token,
-                     password_change_user: @valid_password_params
-                   }
+        id: post_redirect.token,
+        password_change_user: @valid_password_params
+      }
       expect(assigns[:password_change_user]).to eq(user)
     end
 
     it 'logs in the user on success' do
       put :update, params: {
-                     id: post_redirect.token,
-                     password_change_user: @valid_password_params
-                   }
+        id: post_redirect.token,
+        password_change_user: @valid_password_params
+      }
       expect(session[:user_id]).to eq(user.id)
+    end
+
+    it 'confirms an unconfirmed user on success' do
+      user.update!(email_confirmed: false)
+      put :update, params: {
+        id: post_redirect.token,
+        password_change_user: @valid_password_params
+      }
+      expect(user.reload.email_confirmed).to eq(true)
+    end
+
+    it 'leaves an unconfirmed user unconfirmed on failure' do
+      user.update!(email_confirmed: false)
+      put :update, params: {
+        id: post_redirect.token,
+        password_change_user: @invalid_password_params
+      }
+      expect(user.reload.email_confirmed).to eq(false)
     end
 
     it 'retains the old password on failure' do
       old_hash = user.hashed_password
       put :update, params: {
-                     id: post_redirect.token,
-                     password_change_user: @invalid_password_params
-                   }
+        id: post_redirect.token,
+        password_change_user: @invalid_password_params
+      }
       expect(user.reload.hashed_password).to eq(old_hash)
     end
 
     it 're-renders the form on failure' do
       put :update, params: {
-                     id: post_redirect.token,
-                     password_change_user: @invalid_password_params
-                   }
+        id: post_redirect.token,
+        password_change_user: @invalid_password_params
+      }
+      expect(response).to render_template(:edit)
+    end
+
+    it 'does not allow the token to be reused on success' do
+      put :update, params: {
+        id: post_redirect.token,
+        password_change_user: @valid_password_params
+      }
+      get :edit, params: { id: post_redirect.token }
+      expect(response).to redirect_to(new_password_change_path)
+    end
+
+    it 'allows the token to be retried on failure' do
+      put :update, params: {
+        id: post_redirect.token,
+        password_change_user: @invalid_password_params
+      }
+      get :edit, params: { id: post_redirect.token }
       expect(response).to render_template(:edit)
     end
 
@@ -380,9 +475,44 @@ RSpec.describe PasswordChangesController do
 
       it 'redirects to #new when a user cannot be found' do
         put :update, params: {
-                       id: post_redirect.token,
-                       password_change_user: @valid_password_params
-                     }
+          id: post_redirect.token,
+          password_change_user: @valid_password_params
+        }
+        expect(response).to redirect_to(new_password_change_path)
+      end
+
+      it 'redirects to #new with a pretoken when a user cannot be found' do
+        put :update, params: {
+          id: post_redirect.token,
+          password_change_user: @valid_password_params,
+          pretoken: 'abcdef'
+        }
+        expect(response).
+          to redirect_to(new_password_change_path(pretoken: 'abcdef'))
+      end
+    end
+
+    context 'the user is closed' do
+      before do
+        user.close!
+
+        @old_hash = user.hashed_password
+
+        put :update, params: {
+          id: post_redirect.token,
+          password_change_user: @valid_password_params
+        }
+      end
+
+      it 'does not change the password' do
+        expect(user.reload.hashed_password).to eq(@old_hash)
+      end
+
+      it 'does not sign the user in' do
+        expect(session[:user_id]).to be_nil
+      end
+
+      it 'redirects to new' do
         expect(response).to redirect_to(new_password_change_path)
       end
     end
@@ -390,9 +520,22 @@ RSpec.describe PasswordChangesController do
     context 'invalid token' do
       it 'redirects to new to force an email confirmation' do
         put :update, params: {
-                       id: 'invalid',
-                       password_change_user: @valid_password_params
-                     }
+          id: 'invalid',
+          password_change_user: @valid_password_params
+        }
+        expect(response).to redirect_to new_password_change_path
+      end
+
+      it 'keeps redirecting when retried past the rate limit' do
+        described_class.cache_store.clear
+
+        6.times do
+          put :update, params: {
+            id: 'invalid',
+            password_change_user: @valid_password_params
+          }
+        end
+
         expect(response).to redirect_to new_password_change_path
       end
     end
@@ -402,9 +545,9 @@ RSpec.describe PasswordChangesController do
 
       it 'redirects to new to force an email confirmation' do
         put :update, params: {
-                       id: post_redirect.token,
-                       password_change_user: @valid_password_params
-                     }
+          id: post_redirect.token,
+          password_change_user: @valid_password_params
+        }
         expect(response).to redirect_to new_password_change_path
       end
     end
@@ -413,29 +556,29 @@ RSpec.describe PasswordChangesController do
       it 'redirects to the post redirect uri' do
         pretoken = PostRedirect.create(user: user, uri: '/')
         put :update, params: {
-                       id: post_redirect.token,
-                       password_change_user: @valid_password_params,
-                       pretoken: pretoken.token
-                     }
+          id: post_redirect.token,
+          password_change_user: @valid_password_params,
+          pretoken: pretoken.token
+        }
         expect(response).to redirect_to(pretoken.uri)
       end
 
       it 'does not redirect to another domain' do
         pretoken = PostRedirect.create(user: user, uri: 'http://bad.place.com/')
         put :update, params: {
-                       id: post_redirect.token,
-                       password_change_user: @valid_password_params,
-                       pretoken: pretoken.token
-                     }
+          id: post_redirect.token,
+          password_change_user: @valid_password_params,
+          pretoken: pretoken.token
+        }
         expect(response).to redirect_to('/')
       end
 
       it 'redirects to the user profile with a blank pretoken' do
         put :update, params: {
-                       id: post_redirect.token,
-                       password_change_user: @valid_password_params,
-                       pretoken: ''
-                     }
+          id: post_redirect.token,
+          password_change_user: @valid_password_params,
+          pretoken: ''
+        }
         expect(response).to redirect_to(show_user_profile_path(user.url_name))
       end
     end
@@ -443,15 +586,41 @@ RSpec.describe PasswordChangesController do
     context 'when there is no pretoken' do
       it 'redirects to the user profile on success' do
         put :update, params: {
-                       id: post_redirect.token,
-                       password_change_user: @valid_password_params
-                     }
+          id: post_redirect.token,
+          password_change_user: @valid_password_params
+        }
         expect(response).to redirect_to(show_user_profile_path(user.url_name))
       end
     end
 
+    context 'when the user has no two factor authentication' do
+      before { described_class.cache_store.clear }
+
+      def submit(params)
+        put :update, params: {
+          id: post_redirect.token, password_change_user: params
+        }
+      end
+
+      it 'does not rate limit repeated validation failures' do
+        6.times { submit(@invalid_password_params) }
+
+        expect(response).to render_template(:edit)
+        expect(flash[:error]).to be_blank
+      end
+
+      it 'changes the password after repeated validation failures' do
+        old_hash = user.hashed_password
+
+        5.times { submit(@invalid_password_params) }
+        submit(@valid_password_params)
+
+        expect(user.reload.hashed_password).not_to eq(old_hash)
+      end
+    end
+
     context 'when the user has two factor authentication enabled' do
-      let(:user) { FactoryBot.create(:user, :enable_otp) }
+      let(:user) { FactoryBot.create(:user, :enable_hotp) }
 
       before(:each) do
         allow(AlaveteliConfiguration).
@@ -462,9 +631,9 @@ RSpec.describe PasswordChangesController do
         old_hash = user.hashed_password
         params = @valid_password_params.merge(otp_code: user.otp_code)
         put :update, params: {
-                       id: post_redirect.token,
-                       password_change_user: params
-                     }
+          id: post_redirect.token,
+          password_change_user: params
+        }
 
         expect(user.reload.hashed_password).not_to eq(old_hash)
       end
@@ -473,9 +642,9 @@ RSpec.describe PasswordChangesController do
         old_hash = user.hashed_password
         params = @valid_password_params.merge(otp_code: user.otp_code)
         put :update, params: {
-                       id: post_redirect.token,
-                       password_change_user: params
-                     }
+          id: post_redirect.token,
+          password_change_user: params
+        }
 
         expect(response).to redirect_to(one_time_password_path)
       end
@@ -484,10 +653,10 @@ RSpec.describe PasswordChangesController do
         pretoken = PostRedirect.create(user: user, uri: '/')
         params = @valid_password_params.merge(otp_code: user.otp_code)
         put :update, params: {
-                       id: post_redirect.token,
-                       password_change_user: params,
-                       pretoken: pretoken.token
-                     }
+          id: post_redirect.token,
+          password_change_user: params,
+          pretoken: pretoken.token
+        }
 
         expect(response).to redirect_to(one_time_password_path)
       end
@@ -496,9 +665,9 @@ RSpec.describe PasswordChangesController do
         old_hash = user.hashed_password
         params = @valid_password_params.merge(otp_code: user.otp_code)
         put :update, params: {
-                       id: post_redirect.token,
-                       password_change_user: params
-                     }
+          id: post_redirect.token,
+          password_change_user: params
+        }
 
         msg = "Your password has been changed. " \
               "You also have a new one time passcode which you'll " \
@@ -510,9 +679,9 @@ RSpec.describe PasswordChangesController do
         old_hash = user.hashed_password
         params = @valid_password_params.merge(otp_code: 'invalid')
         put :update, params: {
-                       id: post_redirect.token,
-                       password_change_user: params
-                     }
+          id: post_redirect.token,
+          password_change_user: params
+        }
 
         expect(user.reload.hashed_password).to eq(old_hash)
       end
@@ -520,11 +689,134 @@ RSpec.describe PasswordChangesController do
       it 'does not change the password without an otp_code' do
         old_hash = user.hashed_password
         put :update, params: {
-                       id: post_redirect.token,
-                       password_change_user: @valid_password_params
-                     }
+          id: post_redirect.token,
+          password_change_user: @valid_password_params
+        }
 
         expect(user.reload.hashed_password).to eq(old_hash)
+      end
+    end
+
+    context 'when the user has TOTP two factor authentication enabled' do
+      let(:user) { FactoryBot.create(:user, :enable_totp) }
+
+      before(:each) do
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(true)
+      end
+
+      it 'changes the password with a correct otp_code' do
+        old_hash = user.hashed_password
+        params = @valid_password_params.merge(otp_code: user.otp_code)
+        put :update, params: {
+          id: post_redirect.token,
+          password_change_user: params
+        }
+
+        expect(user.reload.hashed_password).not_to eq(old_hash)
+      end
+
+      it 'does not change the password with an incorrect otp_code' do
+        old_hash = user.hashed_password
+        params = @valid_password_params.merge(otp_code: 'invalid')
+        put :update, params: {
+          id: post_redirect.token,
+          password_change_user: params
+        }
+
+        expect(user.reload.hashed_password).to eq(old_hash)
+      end
+
+      it 'does not change the password without an otp_code' do
+        old_hash = user.hashed_password
+        put :update, params: {
+          id: post_redirect.token,
+          password_change_user: @valid_password_params
+        }
+
+        expect(user.reload.hashed_password).to eq(old_hash)
+      end
+
+      it 'redirects to the user profile, not the two factor page' do
+        params = @valid_password_params.merge(otp_code: user.otp_code)
+        put :update, params: {
+          id: post_redirect.token,
+          password_change_user: params
+        }
+
+        expect(response).
+          to redirect_to(show_user_profile_path(user.url_name))
+      end
+
+      it 'shows a plain password-changed message without passcode mention' do
+        params = @valid_password_params.merge(otp_code: user.otp_code)
+        put :update, params: {
+          id: post_redirect.token,
+          password_change_user: params
+        }
+
+        expect(flash[:notice]).to eq('Your password has been changed.')
+        expect(flash[:notice]).not_to match(/passcode/i)
+      end
+
+      it 'changes the password with a backup code and notes its use' do
+        codes = user.otp_regenerate_backup_codes
+        user.save!
+        old_hash = user.hashed_password
+
+        params = @valid_password_params.merge(otp_code: codes.first)
+        put :update, params: {
+          id: post_redirect.token,
+          password_change_user: params
+        }
+
+        expect(user.reload.hashed_password).not_to eq(old_hash)
+        expect(flash[:notice]).
+          to eq(partial: 'one_time_passwords/backup_code_used',
+                locals: { lead: 'Your password has been changed.',
+                          remaining: 11 })
+      end
+
+      it 'respects a pretoken redirect on success' do
+        pretoken = PostRedirect.create(user: user, uri: '/')
+        params = @valid_password_params.merge(otp_code: user.otp_code)
+        put :update, params: {
+          id: post_redirect.token,
+          password_change_user: params,
+          pretoken: pretoken.token
+        }
+
+        expect(response).to redirect_to('/')
+      end
+
+      context 'when the attempt limit is exceeded' do
+        before { described_class.cache_store.clear }
+
+        def submit(code)
+          put :update, params: {
+            id: post_redirect.token,
+            password_change_user: @valid_password_params.merge(otp_code: code)
+          }
+        end
+
+        it 're-renders the form with a rate-limit error' do
+          6.times { submit('invalid') }
+
+          expect(response).to render_template(:edit)
+          expect(response).to have_http_status(:too_many_requests)
+          expect(flash[:error]).to match(/Too many attempts/)
+          expect(assigns[:otp_enabled]).to eq(true)
+        end
+
+        it 'blocks even a valid code once the limit is exceeded' do
+          old_hash = user.hashed_password
+
+          5.times { submit('invalid') }
+          submit(user.otp_code)
+
+          expect(flash[:error]).to match(/Too many attempts/)
+          expect(user.reload.hashed_password).to eq(old_hash)
+        end
       end
     end
   end

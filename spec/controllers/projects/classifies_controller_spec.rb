@@ -30,6 +30,7 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
       before do
         sign_in user
         ability.can :read, project
+        ability.can :read, InfoRequest
         project.requests << FactoryBot.create(:awaiting_description)
         get :show, params: { project_id: project.id }
       end
@@ -55,6 +56,26 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
 
       it 'renders the project template' do
         expect(response).to render_template('projects/classifies/show')
+      end
+    end
+
+    context 'when the next request is not readable by the user' do
+      let(:user) { FactoryBot.create(:user) }
+      let(:unreadable) do
+        FactoryBot.create(:awaiting_description, prominence: 'requester_only')
+      end
+
+      before do
+        sign_in user
+        ability.can :read, project
+        ability.can :read, InfoRequest
+        ability.cannot :read, unreadable
+        project.requests << unreadable
+        get :show, params: { project_id: project.id }
+      end
+
+      it 'does not assign the unreadable request' do
+        expect(assigns[:info_request]).not_to eq(unreadable)
       end
     end
 
@@ -291,14 +312,15 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
     shared_context 'request to be classified can be found' do
       include_context 'request can be found'
 
-      def post_status(status, message: nil)
+      def post_status(status, message: nil, **params)
         classification = { described_state: status }
         classification[:message] = message if message
 
         post :create, params: {
           classification: classification,
           project_id: project.id,
-          url_title: info_request.url_title
+          url_title: info_request.url_title,
+          **params
         }
       end
     end
@@ -367,6 +389,16 @@ RSpec.describe Projects::ClassifiesController, spec_meta do
 
       it 'redirects the user to another request to classify' do
         post_status('successful')
+        expect(response).to redirect_to(project_classify_path(project))
+      end
+
+      it 'redirects to the r param' do
+        post_status('successful', r: '/projects/1/dataset?page=2')
+        expect(response).to redirect_to('/projects/1/dataset?page=2')
+      end
+
+      it 'ignores an r param that is not an absolute path' do
+        post_status('successful', r: 'projects/1/dataset')
         expect(response).to redirect_to(project_classify_path(project))
       end
     end

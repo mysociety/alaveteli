@@ -16,6 +16,8 @@
 # info requests.
 #
 class Project < ApplicationRecord
+  include ActionTextExtensions
+
   admin_columns exclude: %i[title briefing]
 
   has_many :memberships, class_name: 'Project::Membership', dependent: :destroy
@@ -41,7 +43,10 @@ class Project < ApplicationRecord
            source_type: 'InfoRequestBatch'
 
   has_many :info_requests,
-           ->(project) { unscope(:where).for_project(project) },
+           ->(project) {
+             unscope(:where).for_project(project).
+               where.not(prominence: 'hidden')
+           },
            extend: Project::InfoRequestExtension
 
   has_one :key_set, class_name: 'Dataset::KeySet', as: :resource
@@ -55,8 +60,8 @@ class Project < ApplicationRecord
   before_validation :generate_invite_token
   validates :title, :owner, presence: true
 
-  has_rich_text :briefing
-  has_rich_text :dataset_description
+  has_rich_text :briefing, strip_attachments: true
+  has_rich_text :dataset_description, strip_attachments: true
 
   def original_briefing
     attributes['briefing']

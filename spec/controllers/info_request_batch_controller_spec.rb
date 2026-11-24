@@ -81,17 +81,25 @@ RSpec.describe InfoRequestBatchController do
             sign_in pro_user
             params[:pro] = "1"
           end
-          it 'should assign all info_requests to the view' do
+
+          it 'should assign info_requests visible to the requester' do
             with_feature_enabled(:alaveteli_pro) do
               action
               expect(assigns[:info_requests].sort).to eq(
                 [
                   first_request,
                   second_request,
-                  hidden_request,
                   backpage_request
                 ]
               )
+            end
+          end
+
+          it 'excludes info_requests hidden from' do
+            with_feature_enabled(:alaveteli_pro) do
+              action
+              expect(assigns[:info_requests]).
+                not_to include(hidden_request)
             end
           end
         end

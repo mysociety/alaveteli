@@ -29,7 +29,7 @@ namespace :config_files do
       cpus: ENV.fetch('CPUS') { '1' },
       mailto: ENV.fetch('MAILTO') { "#{ ENV['DEPLOY_USER'] }@localhost" },
       rails_env: ENV.fetch('RAILS_ENV') { 'development' },
-      ruby_version: ENV.fetch('RUBY_VERSION') { '3.2.6' },
+      ruby_version: ENV.fetch('RUBY_VERSION') { '3.4.13' },
       site: ENV.fetch('SITE') { 'foi' },
       user: ENV.fetch('DEPLOY_USER') { 'alaveteli' },
       vcspath: ENV.fetch('VCSPATH') { 'alaveteli' },
@@ -123,7 +123,7 @@ namespace :config_files do
               'VCSPATH=alaveteli ' \
               'SITE=alaveteli ' \
               'SCRIPT_FILE=config/sysvinit-thin.example ' \
-              'RUBY_VERSION=3.2.6 ' \
+              'RUBY_VERSION=3.4.13 ' \
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR SCRIPT_FILE], example)
 
@@ -147,7 +147,7 @@ namespace :config_files do
               'VCSPATH=alaveteli ' \
               'SITE=alaveteli ' \
               'DAEMON=alert-tracks.service ' \
-              'RUBY_VERSION=3.2.6 ' \
+              'RUBY_VERSION=3.4.13 ' \
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR DAEMON], example)
 
@@ -167,7 +167,7 @@ namespace :config_files do
               'VHOST_DIR=/dir/above/alaveteli VCSPATH=alaveteli ' \
               'SITE=alaveteli CRONTAB=config/crontab-example ' \
               'MAILTO=cron-alaveteli@example.org ' \
-              'RUBY_VERSION=3.2.6 ' \
+              'RUBY_VERSION=3.4.13 ' \
               'USE_RBENV=false '
     check_for_env_vars(%w[DEPLOY_USER VHOST_DIR VCSPATH SITE CRONTAB], example)
     convert_erb(ENV['CRONTAB'], **default_replacements)
@@ -247,5 +247,61 @@ namespace :config_files do
         puts info_request.incoming_email
       end
     end
+  end
+
+  desc 'Set the Rails credentials, adding any that are missing'
+  task set_credentials: :environment do
+    require "active_support/encrypted_configuration"
+
+    # Generate the master key on first run so a single command can bootstrap the
+    # credentials, the same way `rails credentials:edit` would.
+    master_key = Rails.root.join("config/master.key")
+    unless master_key.exist? || ENV["RAILS_MASTER_KEY"]
+      master_key.write(ActiveSupport::EncryptedFile.generate_key)
+    end
+
+    encrypted_file = ActiveSupport::EncryptedConfiguration.new(
+      config_path: "config/credentials.yml.enc",
+      key_path: "config/master.key",
+      env_key: "RAILS_MASTER_KEY",
+      raise_if_missing_key: true
+    )
+
+    # Add only what is missing, generating any value not supplied through the
+    # environment. Existing values are left untouched, so this is safe to run
+    # repeatedly and against credentials set up another way. secret_key_base is
+    # only a placeholder: config/general.yml is authoritative and overrides it
+    # at boot (see config/initializers/secret_token.rb).
+    existing = YAML.safe_load(encrypted_file.read) || {}
+
+    blocks = []
+
+    unless existing.key?("secret_key_base")
+      secret_key_base = ENV.fetch("SECRET_KEY_BASE") { SecureRandom.hex(64) }
+      blocks << "secret_key_base: #{secret_key_base}"
+    end
+
+    unless existing.key?("active_record_encryption")
+      blocks << <<~YAML.chomp
+        active_record_encryption:
+          primary_key: #{SecureRandom.alphanumeric(32)}
+          deterministic_key: #{SecureRandom.alphanumeric(32)}
+          key_derivation_salt: #{SecureRandom.alphanumeric(32)}
+      YAML
+    end
+
+    next if blocks.empty?
+
+    encrypted_file.change do |tmp_path|
+      parts = ([File.read(tmp_path).chomp] + blocks).reject(&:empty?)
+      File.write(tmp_path, parts.join("\n") + "\n")
+    end
+
+    puts "\e[1;33m" \
+      "IMPORTANT: back up config/master.key and config/credentials.yml.enc " \
+      "now, somewhere safe and separate from the server. Without " \
+      "config/master.key the credentials, and every database column " \
+      "encrypted with them, cannot be read." \
+      "\e[0m"
   end
 end

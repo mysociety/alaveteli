@@ -43,6 +43,8 @@ class ApplicationController < ActionController::Base
   before_action :validate_session_timestamp
   after_action  :persist_session_timestamp
 
+  add_flash_types :error
+
   def set_vary_header
     response.headers['Vary'] = 'Cookie'
   end
@@ -166,6 +168,27 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  # Establish the session and send the user on to where they were heading.
+  # `circumstance` is re-set after sign_in because sign_in clears it (see
+  # clear_session_credentials). A sign-in resumed after a 2FA challenge, e.g.
+  # change_email confirmation, still needs it downstream.
+  def complete_sign_in(user, post_redirect:, remember_me:, circumstance: nil)
+    sign_in(user, remember_me: remember_me)
+    session[:user_circumstance] = circumstance if circumstance
+
+    if modal_dialog?
+      render template: 'users/sessions/show'
+    elsif post_redirect
+      do_post_redirect(post_redirect, user)
+    else
+      redirect_to frontpage_path
+    end
+  end
+
+  def modal_dialog?
+    params[:modal].to_i != 0
+  end
+
   # Logout form
   def clear_session_credentials
     session[:admin_id] = nil
@@ -177,7 +200,9 @@ class ApplicationController < ActionController::Base
     session[:admin_name] = nil
     session[:change_password_post_redirect_id] = nil
     session[:post_redirect_token] = nil
+    session[:draft_profile_photo_id] = nil
     session[:ttl] = nil
+    PendingTwoFactorSignIn.new(session).clear
   end
 
   def render_exception(exception)
@@ -267,7 +292,7 @@ class ApplicationController < ActionController::Base
 
     post_redirect = reason_params.delete(:post_redirect)
     post_redirect ||= PostRedirect.new(uri: request.fullpath,
-                                       post_params: params,
+                                       post_params: filtered_params,
                                        reason_params: reason_params)
     post_redirect.save!
 
@@ -295,6 +320,15 @@ class ApplicationController < ActionController::Base
   # For CanCanCan and other libs which need a Devise-like current_user method
   alias current_user authenticated_user
   helper_method :current_user
+
+  # The saved params are not bound to a user and can be replayed in another
+  # session, so mask secrets in the same way as the logs. Path params are
+  # already in the saved URI, and the replay needs them unmasked.
+  def filtered_params
+    ActionController::Parameters.new(
+      request.filtered_parameters.merge(request.path_parameters)
+    )
+  end
 
   # Do a POST redirect. This is a nasty hack - we store the posted values in
   # the session, and when the GET redirect with "?post_redirect=1" happens,

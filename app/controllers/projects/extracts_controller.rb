@@ -27,7 +27,7 @@ class Projects::ExtractsController < Projects::BaseController
 
     if @submission.save
       flash[:notice] = _('Extraction saved successfully!')
-      redirect_to params[:r].presence || project_extract_path
+      redirect_to url_from(params[:r]) || project_extract_path
     else
       flash.now[:error] = _("Extraction couldn't be saved.")
       render :show
@@ -73,10 +73,17 @@ class Projects::ExtractsController < Projects::BaseController
   end
 
   def load_info_request_from_queue
-    @info_request = (
-      @queue = Project::Queue.extractable(@project, session)
-      @queue.next
-    )
+    @queue = Project::Queue.extractable(@project, session)
+    @info_request = next_readable_request
+  end
+
+  def next_readable_request
+    request = @queue.next
+    while request && cannot?(:read, request)
+      @queue.skip(request)
+      request = @queue.next
+    end
+    request
   end
 
   def load_info_request_from_url_title

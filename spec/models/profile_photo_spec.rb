@@ -61,4 +61,57 @@ RSpec.describe ProfilePhoto, "when constructing a new photo" do
     expect(profile_photo.image.width).to eq(198)
     expect(profile_photo.image.height).to eq(289)
   end
+
+  it 'should reject an SVG file' do
+    svg_data = '<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" />'
+    profile_photo = ProfilePhoto.new(data: svg_data, user: @mock_user)
+    expect(profile_photo).not_to be_valid
+    expect(profile_photo.errors[:data].first).to match(/identify the file type/)
+  end
+
+  it 'should reject a non-image file' do
+    profile_photo = ProfilePhoto.new(data: 'This is text', user: @mock_user)
+    expect(profile_photo).not_to be_valid
+    expect(profile_photo.errors[:data].first).to match(/identify the file type/)
+  end
+
+  it 'should not process non-image data' do
+    expect(ImageProcessing::MiniMagick).not_to receive(:source)
+    profile_photo = ProfilePhoto.new(data: 'This is text', user: @mock_user)
+    profile_photo.valid?
+  end
+
+  it 'should allow PNG content type through validation' do
+    data = load_file_fixture("parrot.png")
+    profile_photo = ProfilePhoto.new(data: data, user: @mock_user)
+    expect(profile_photo.valid?).to eq(true)
+  end
+end
+
+RSpec.describe ProfilePhoto, '.delete_old_drafts' do
+  let!(:old_draft) do
+    FactoryBot.create(:profile_photo, :draft, created_at: 49.hours.ago)
+  end
+
+  let!(:recent_draft) do
+    FactoryBot.create(:profile_photo, :draft, created_at: 47.hours.ago)
+  end
+
+  let!(:old_photo) do
+    FactoryBot.create(:profile_photo, created_at: 49.hours.ago)
+  end
+
+  before { described_class.delete_old_drafts }
+
+  it 'deletes drafts older than 48 hours' do
+    expect(described_class.exists?(old_draft.id)).to eq(false)
+  end
+
+  it 'keeps recent drafts' do
+    expect(described_class.exists?(recent_draft.id)).to eq(true)
+  end
+
+  it 'keeps old published photos' do
+    expect(described_class.exists?(old_photo.id)).to eq(true)
+  end
 end

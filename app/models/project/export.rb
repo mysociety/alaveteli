@@ -7,17 +7,31 @@ class Project::Export
   include DownloadHelper
   include ActionView::Helpers::TagHelper
 
-  attr_reader :project
+  attr_reader :project, :user
   protected :project
 
-  def initialize(project)
+  def initialize(project, user: nil)
     @project = project
+    @user = user
   end
 
   def data
-    @data ||= project.info_requests.map do |info_request|
+    @data ||= visible_requests.map do |info_request|
       Project::Export::InfoRequest.new(project, info_request).data
     end
+  end
+
+  def has_embargoed_requests?
+    project.info_requests.embargoed.exists?
+  end
+
+  def has_requester_only_requests?
+    project.info_requests.
+      where(prominence: 'requester_only').exists?
+  end
+
+  def ability
+    @ability ||= Ability.new(user, project: project)
   end
 
   def data_for_web
@@ -61,5 +75,11 @@ class Project::Export
       csv << header.keys.map(&:to_s) if header
       data_for_csv.each { |row| csv << row.values }
     end
+  end
+
+  private
+
+  def visible_requests
+    project.info_requests.select { |r| ability.can?(:read, r) }
   end
 end

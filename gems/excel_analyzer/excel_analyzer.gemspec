@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rubyXL"
   spec.add_dependency "rubyzip"
   spec.add_dependency "mail"
-  spec.add_dependency "mahoro"
+  spec.add_dependency "marcel"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "pry"

@@ -130,6 +130,13 @@ class IncomingMessage < ApplicationRecord
     info_request.apply_censor_rules_to_text(from_name) if from_name
   end
 
+  # Public: The subject with InfoRequest masks and censor rules applied.
+  #
+  # Returns a String
+  def safe_subject
+    apply_masks(subject, 'text/plain') if subject
+  end
+
   def specific_from_name?
     !safe_from_name.nil? && safe_from_name.strip != info_request.public_body.name.strip
   end
@@ -418,11 +425,17 @@ class IncomingMessage < ApplicationRecord
   # Returns attachments that are uuencoded in main body part
   def _uudecode_attachments(text, start_part_number)
     MailHandler.uudecode(text, start_part_number).map do |attrs|
-      hexdigest = attrs.delete(:hexdigest)
-      attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
-      attachment.attributes = attrs
-      attachment
+      build_attachment(attrs.delete(:hexdigest), attrs)
     end
+  end
+
+  # Only a new attachment takes the body from the raw email. Setting it on an
+  # existing one uploads it at once, over any masked or replaced file.
+  def build_attachment(hexdigest, attrs)
+    attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
+    attachment.attributes = attrs.except(:body)
+    attachment.body = attrs[:body] if attachment.new_record?
+    attachment
   end
 
   def get_attachments_for_display
@@ -451,9 +464,7 @@ class IncomingMessage < ApplicationRecord
     end
 
     attachments = attachment_attributes.map do |hexdigest, attrs|
-      attachment = foi_attachments.find_or_initialize_by(hexdigest: hexdigest)
-      attachment.attributes = attrs
-      attachment
+      build_attachment(hexdigest, attrs)
     end
 
     # Get the main body part from the set of attachments not from the
@@ -468,7 +479,8 @@ class IncomingMessage < ApplicationRecord
     # e.g. for https://secure.mysociety.org/admin/foi/request/show_raw_email/24550
     if main_part
       c = _mail.count_first_uudecode_count
-      attachments += _uudecode_attachments(main_part.body, c)
+      main_body = attachment_attributes.dig(main_part.hexdigest, :body)
+      attachments += _uudecode_attachments(main_body.b, c)
     end
 
     # Purge old public attachments that will be rebuilt with a new hexdigest
@@ -523,7 +535,7 @@ class IncomingMessage < ApplicationRecord
       text.strip!
       # if there is nothing but quoted stuff, then show the subject
       if text == "FOLDED_QUOTED_SECTION"
-        text = "[Subject only] " + CGI.escapeHTML(subject || '') + text
+        text = "[Subject only] " + CGI.escapeHTML(safe_subject || '') + text
       end
       # and display link for quoted stuff
       text = text.gsub(/FOLDED_QUOTED_SECTION/, "\n\n" + '<span class="unfold_link"><a href="?unfold=1#incoming-'+id.to_s+'">'+_("show quoted sections")+'</a></span>' + "\n\n")
@@ -562,7 +574,7 @@ class IncomingMessage < ApplicationRecord
 
     # Save clipped version for snippets
     if cached_attachment_text_clipped.nil?
-      clipped = text.mb_chars[0..MAX_ATTACHMENT_TEXT_CLIPPED].delete("\0")
+      clipped = text[0..MAX_ATTACHMENT_TEXT_CLIPPED].delete("\0")
       self.cached_attachment_text_clipped = clipped
       save!
     end

@@ -1,7 +1,6 @@
 Rails.autoloaders.main.inflector.inflect(
   "alaveteli_geoip" => "AlaveteliGeoIP",
   "alaveteli_gettext" => "AlaveteliGetText",
-  "html_to_pdf_converter" => "HTMLtoPDFConverter",
   "ip_rate_limiter" => "IPRateLimiter",
   "pstore_database" => "PStoreDatabase",
   "public_body_csv" => "PublicBodyCSV",
@@ -9,7 +8,6 @@ Rails.autoloaders.main.inflector.inflect(
 )
 
 Rails.autoloaders.main.ignore(
-  "lib/confidence_intervals.rb",
   "lib/configuration.rb",
   "lib/i18n_fixes.rb",
   "lib/languages.rb",

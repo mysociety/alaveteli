@@ -33,7 +33,27 @@
               project_dataset_path(@project, format: :csv),
               class: 'button' %>
       </p>
+    </div>
 
+    <% if @export.has_embargoed_requests? %>
+      <div class="row">
+        <p class="notice">
+          <%= _('This project includes private requests. ' \
+                'These will be included in the export.') %>
+        </p>
+      </div>
+    <% end %>
+
+    <% if @export.has_requester_only_requests? %>
+      <div class="row">
+        <p class="notice">
+          <%= _('This project includes requests only visible to the requester. ' \
+                'These will not be included in the export.') %>
+        </p>
+      </div>
+    <% end %>
+
+    <div class="row">
       <table class="dataset">
         <% @export.data_for_web.each_with_index do |web, index| %>
           <% data = @export.data[index] %>

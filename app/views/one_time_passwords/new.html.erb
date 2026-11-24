@@ -1,0 +1,36 @@
+<% @title = _('Set up two factor authentication') %>
+
+<h1><%= @title %></h1>
+
+<%= foi_error_messages_for :enrolment %>
+
+<ol>
+  <li>
+    <p>
+      <%= _('Open your authenticator app (for example Google Authenticator, ' \
+            'Microsoft Authenticator or Authy) and add a new entry.') %>
+    </p>
+  </li>
+
+  <li>
+    <p><%= _('Scan this QR code with your authenticator app:') %></p>
+
+    <p><%= otp_provisioning_qr_code(@enrolment.provisioning_uri) %></p>
+
+    <p><%= _("If you can't scan the QR code, enter this secret manually:") %></p>
+
+    <p><code><%= @enrolment.secret %></code></p>
+  </li>
+
+  <li>
+    <p>
+      <%= _('Enter the 6-digit code from your authenticator app to ' \
+            'finish setting up two factor authentication:') %>
+    </p>
+
+    <%= render 'code_form',
+                model: @enrolment,
+                form_url: one_time_password_path,
+                submit_label: _('Enable two factor authentication') %>
+  </li>
+</ol>

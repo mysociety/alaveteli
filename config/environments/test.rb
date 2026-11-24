@@ -9,6 +9,14 @@ Rails.application.configure do
   # While tests run files are not watched, reloading is not necessary.
   config.enable_reloading = false
 
+  # Production reads the Active Record Encryption keys from credentials, but the
+  # test suite runs without them, so set insecure static keys here instead.
+  config.active_record.encryption.update(
+    primary_key: "test insecure primary key",
+    deterministic_key: "test insecure deterministic key",
+    key_derivation_salt: "test insecure key derivation salt"
+  )
+
   # Eager loading loads your entire application. When running a single test locally,
   # this is usually not necessary, and can slow down your test suite. However, it's
   # recommended that you enable it in continuous integration systems to ensure eager
@@ -21,6 +29,13 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
   config.cache_store = :null_store
+
+  # Rate limiting reads and writes through the controller cache store, so give
+  # it a real in-memory store rather than the :null_store used for Rails.cache.
+  # Keep fragment/view caching switched off so rendered output is never reused
+  # between examples.
+  config.action_controller.cache_store = :memory_store
+  config.action_controller.perform_caching = false
 
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable

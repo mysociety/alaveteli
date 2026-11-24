@@ -38,6 +38,7 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       before do
         sign_in user
         ability.can :read, project
+        ability.can :read, InfoRequest
         get :show, params: { project_id: project.id }
       end
 
@@ -62,6 +63,31 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
       it 'renders the project template' do
         expect(response).to render_template('projects/extracts/show')
+      end
+    end
+
+    context 'when the next request is not readable by the user' do
+      let(:user) { FactoryBot.create(:user) }
+      let(:unreadable) do
+        FactoryBot.create(
+          :info_request,
+          prominence: 'requester_only',
+          awaiting_description: false,
+          described_state: 'successful'
+        )
+      end
+
+      before do
+        sign_in user
+        ability.can :read, project
+        ability.can :read, InfoRequest
+        ability.cannot :read, unreadable
+        project.requests << unreadable
+        get :show, params: { project_id: project.id }
+      end
+
+      it 'does not assign the unreadable request' do
+        expect(assigns[:info_request]).not_to eq(unreadable)
       end
     end
 
@@ -305,13 +331,14 @@ RSpec.describe Projects::ExtractsController, spec_meta do
       end
     end
 
-    def post_extract(extract = nil)
+    def post_extract(extract = nil, **params)
       extract ||= { dataset_key_set_id: 1 }
 
       post :create, params: {
         extract: extract,
         project_id: project.id,
-        url_title: info_request.url_title
+        url_title: info_request.url_title,
+        **params
       }
     end
 
@@ -365,6 +392,16 @@ RSpec.describe Projects::ExtractsController, spec_meta do
 
       it 'redirects to next project extract' do
         post_extract
+        expect(response).to redirect_to project_extract_path
+      end
+
+      it 'redirects to the r param' do
+        post_extract(r: '/projects/1/dataset?page=2')
+        expect(response).to redirect_to '/projects/1/dataset?page=2'
+      end
+
+      it 'ignores an r param that is not an absolute path' do
+        post_extract(r: 'projects/1/dataset')
         expect(response).to redirect_to project_extract_path
       end
     end
@@ -432,6 +469,28 @@ RSpec.describe Projects::ExtractsController, spec_meta do
           web: 'To help on this project'
         )
       end
+    end
+  end
+
+  describe 'POST #create when logged out' do
+    let(:project) { FactoryBot.create(:project) }
+
+    it 'saves the dataset key ids and masks secret keys' do
+      post :create, params: {
+        project_id: project.id,
+        api_key: 'secret',
+        extract: {
+          dataset_key_set_id: '1',
+          values_attributes: [{ dataset_key_id: '2', value: 'x' }]
+        }
+      }
+
+      saved = get_last_post_redirect.post_params
+      expect(saved['api_key']).to eq('[FILTERED]')
+      expect(saved['extract'].to_unsafe_h).to eq(
+        'dataset_key_set_id' => '1',
+        'values_attributes' => [{ 'dataset_key_id' => '2', 'value' => 'x' }]
+      )
     end
   end
 end

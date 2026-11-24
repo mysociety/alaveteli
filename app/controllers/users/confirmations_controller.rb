@@ -7,22 +7,72 @@ class Users::ConfirmationsController < UserController
     case post_redirect.circumstance
     when 'change_password'
       clear_session_credentials if current_user != user
-      user.confirm!
-
     when 'normal', 'change_email'
       if current_user&.stay_logged_in_on_redirect?
         session[:admin_confirmation] = 1
+      elsif current_user && current_user != user
+        @reason_params = { user_name: user.name }
+        render template: 'user/wrong_user'
+        return
+      elsif user.closed?
+        flash[:error] = _('This account has been closed.')
+        redirect_to frontpage_path
+        return
+      elsif !user.email_confirmed?
+        choose_password(user)
+        return
       else
         user.confirm!
+
+        # A TOTP user must pass the 2FA challenge before the link grants a
+        # session, or the confirmation link bypasses two factor. HOTP is not a
+        # sign-in factor anywhere (see SessionsController), so gate on totp?.
+        # Consume the link, stash the pending sign-in (with the circumstance the
+        # challenge needs to resume), and hand off to the challenge.
+        if user.totp?
+          post_redirect.update!(
+            email_token: PostRedirect.generate_random_token
+          )
+          PendingTwoFactorSignIn.new(session).start(
+            user: user,
+            remember_me: false,
+            post_redirect: post_redirect,
+            circumstance: post_redirect.circumstance
+          )
+          redirect_to signin_two_factor_path
+          return
+        end
+
         sign_in(user)
       end
     end
 
+    post_redirect.update!(email_token: PostRedirect.generate_random_token)
     session[:user_circumstance] = post_redirect.circumstance
     do_post_redirect post_redirect, user
   end
 
   private
+
+  def choose_password(user)
+    @confirm_user = user
+    return render :password unless params.key?(:confirm_user)
+
+    user.password = params.dig(:confirm_user, :password)
+    user.password_confirmation =
+      params.dig(:confirm_user, :password_confirmation)
+    user.confirm
+    return render :password unless user.save
+
+    # Saving the password deletes the user's post redirects, so carry on with
+    # a copy that isn't tied to the user
+    pending = PostRedirect.create!(
+      post_redirect.slice(:uri, :post_params, :circumstance)
+    )
+    sign_in(user)
+    session[:user_circumstance] = pending.circumstance
+    do_post_redirect pending, user
+  end
 
   def post_redirect
     @post_redirect ||= PostRedirect.find_by(email_token: params[:email_token])

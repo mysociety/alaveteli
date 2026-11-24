@@ -22,7 +22,7 @@
 #  can_make_batch_requests           :boolean          default(FALSE), not null
 #  otp_enabled                       :boolean          default(FALSE), not null
 #  otp_secret_key                    :string
-#  otp_counter                       :integer          default(1)
+#  otp_counter                       :integer
 #  confirmed_not_spam                :boolean          default(FALSE), not null
 #  comments_count                    :integer          default(0), not null
 #  info_requests_count               :integer          default(0), not null
@@ -38,6 +38,10 @@
 #  user_messages_count               :integer          default(0), not null
 #  status_update_count               :integer          default(0), not null
 #  last_sign_in_at                   :datetime
+#  otp_last_used_at                  :integer
+#  otp_enabled_at                    :datetime
+#  otp_backup_codes_generated_at     :datetime
+#  otp_backup_codes                  :text
 #
 
 class User < ApplicationRecord
@@ -269,7 +273,10 @@ class User < ApplicationRecord
   def self.authenticate_from_session(session)
     return unless session[:user_id]
 
-    find_by(id: session[:user_id], login_token: session[:user_login_token])
+    not_closed.find_by(
+      id: session[:user_id],
+      login_token: session[:user_login_token]
+    )
   end
 
   # Case-insensitively find a user from their email
@@ -423,7 +430,11 @@ class User < ApplicationRecord
   end
 
   def close!
-    update!(closed_at: Time.zone.now, receive_email_alerts: false)
+    update!(
+      closed_at: Time.zone.now,
+      receive_email_alerts: false,
+      login_token: nil
+    )
   end
 
   def closed?

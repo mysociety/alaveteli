@@ -170,6 +170,12 @@ RSpec.describe Project, type: :model, feature: :projects do
       it 'excludes non-project batch requests' do
         is_expected.not_to include(*other_batch.info_requests)
       end
+
+      it 'excludes hidden requests' do
+        hidden = FactoryBot.create(:info_request, :hidden)
+        project.requests << hidden
+        is_expected.not_to include(hidden)
+      end
     end
 
     it 'has one key set' do
@@ -430,6 +436,56 @@ RSpec.describe Project, type: :model, feature: :projects do
       end
 
       it { is_expected.to eq(0) }
+    end
+  end
+
+  describe 'strip_attachments' do
+    let(:project) { FactoryBot.create(:project) }
+
+    let(:html_with_attachment) do
+      '<div>Hello <strong>world</strong></div>' \
+        '<action-text-attachment sgid="abc" content-type="image/png">' \
+        '</action-text-attachment>'
+    end
+
+    it 'strips action-text-attachment nodes from briefing on save' do
+      project.briefing = html_with_attachment
+      project.save!
+      expect(project.briefing.to_s).not_to include('action-text-attachment')
+    end
+
+    it 'strips action-text-attachment nodes from dataset_description on save' do
+      project.dataset_description = html_with_attachment
+      project.save!
+      expect(project.dataset_description.to_s).not_to include('action-text-attachment')
+    end
+
+    it 'preserves plain formatting' do
+      project.briefing = '<div>Hello <strong>world</strong></div>'
+      project.save!
+      expect(project.briefing.to_s).to include('<strong>world</strong>')
+    end
+
+    it 'purges blobs referenced by stripped attachments' do
+      blob = ActiveStorage::Blob.create_and_upload!(
+        io: StringIO.new('fake image'), filename: 'test.png',
+        content_type: 'image/png'
+      )
+      sgid = blob.to_sgid(for: 'attachable').to_s
+      project.briefing = <<~HTML
+        <action-text-attachment sgid="#{sgid}" content-type="image/png">
+        </action-text-attachment>
+      HTML
+      project.save!
+      expect(project.briefing.to_s).not_to include('action-text-attachment')
+      perform_enqueued_jobs
+      expect(ActiveStorage::Blob.exists?(blob.id)).to be false
+    end
+
+    it 'strips action-text-attachment nodes when validation is skipped' do
+      project.briefing = html_with_attachment
+      project.save!(validate: false)
+      expect(project.briefing.to_s).not_to include('action-text-attachment')
     end
   end
 end

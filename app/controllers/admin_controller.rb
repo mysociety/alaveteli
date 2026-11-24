@@ -6,7 +6,13 @@
 
 class AdminController < ApplicationController
   layout "admin"
+
+  # Set `AdminController.require_two_factor_auth = true` in your theme to
+  # require admins to have authenticator-app (TOTP) two factor enabled.
+  class_attribute :require_two_factor_auth, default: false
+
   before_action :authenticate
+  before_action :enforce_two_factor_auth, if: :require_two_factor_auth?
 
   # action to take if expecting an authenticity token and one isn't received
   def handle_unverified_request
@@ -37,7 +43,23 @@ class AdminController < ApplicationController
     end
   end
 
+  def enforce_two_factor_auth
+    # Nothing to enforce if two factor auth isn't enabled for the install.
+    return unless AlaveteliConfiguration.enable_two_factor_auth
+    # External auth and the emergency user have no Alaveteli User to check.
+    return if AlaveteliConfiguration.skip_admin_auth
+    return if current_user.nil?
+
+    return if current_user.totp?
+
+    flash[:error] = _('Two factor authentication is required for ' \
+                       'admins. Please enable it to continue.')
+    redirect_to one_time_password_path
+  end
+
   def authenticate
+    clear_stale_admin_session unless AlaveteliConfiguration.skip_admin_auth
+
     if AlaveteliConfiguration.skip_admin_auth
       session[:using_admin] = 1
       nil
@@ -50,7 +72,7 @@ class AdminController < ApplicationController
             email_subject: _('Log into the admin interface'),
             user_name: 'a superuser'
           )
-        elsif !@user.nil? && @user.is_admin?
+        elsif current_user&.active? && current_user.is_admin?
           session[:using_admin] = 1
           session[:admin_name] = @user.url_name
         else
@@ -70,5 +92,18 @@ class AdminController < ApplicationController
         end
       end
     end
+  end
+
+  private
+
+  # Admin mode is cached in the session, so re-check the signed in user on every
+  # request in case they've since lost the admin role, changed their password or
+  # been closed or banned.
+  def clear_stale_admin_session
+    return unless session[:user_id]
+    return if current_user&.active? && current_user.is_admin?
+
+    session[:using_admin] = nil
+    session[:admin_name] = nil
   end
 end

@@ -12,7 +12,7 @@ class CitationsController < ApplicationController
     per_page = 10
     page = get_search_page_from_params
 
-    @citations = Citation.not_embargoed.order(created_at: :desc).
+    @citations = Citation.is_searchable.order(created_at: :desc).
       paginate(page: page, per_page: per_page)
 
     respond_to do |format|

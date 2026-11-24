@@ -133,6 +133,17 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     %w[edit_resources edit_key_set edit_contributors]
   end
 
+  def redirect_to_next_step(**args)
+    if current_step == 'invite'
+      redirect_to action: 'edit_contributors', id: @project.to_param
+    elsif session[:new_project] && next_step
+      redirect_to next_step_path
+    else
+      session.delete(:new_project)
+      redirect_to @project, **args
+    end
+  end
+
   def next_step
     current_step_index = steps.index(current_step)
     return steps.first unless current_step_index
@@ -150,8 +161,16 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
   def project_params
     case current_step
     when 'edit_resources', 'update_resources'
-      params.fetch(:project, {}).permit(request_ids: [], batch_ids: []).
-        with_defaults(request_ids: [], batch_ids: [])
+      params.
+        fetch(:project, {}).
+        permit(request_ids: [], batch_ids: []).
+        with_defaults(request_ids: [], batch_ids: []).
+        then do |p|
+          p.merge(
+            request_ids: readable_request_ids(p[:request_ids]),
+            batch_ids: readable_batch_ids(p[:batch_ids])
+          )
+        end
     when 'edit_key_set', 'update_key_set'
       params.fetch(:project, {}).permit(
         key_set_attributes: [
@@ -172,14 +191,28 @@ class AlaveteliPro::ProjectsController < AlaveteliPro::BaseController
     end
   end
 
-  def redirect_to_next_step(**args)
-    if current_step == 'invite'
-      redirect_to action: 'edit_contributors', id: @project.to_param
-    elsif session[:new_project] && next_step
-      redirect_to next_step_path
-    else
-      session.delete(:new_project)
-      redirect_to @project, **args
-    end
+  # Users can add:
+  # * Any public request (not exposed in UI yet)
+  # * Any of their own requests, irrespective of embargo, unless the request is
+  #   fully hidden
+  def readable_request_ids(ids)
+    return [] if ids.blank?
+
+    InfoRequest.where(id: ids).is_public.
+      or(
+        InfoRequest.where(id: ids, user: current_user).
+        where.not(prominence: 'hidden')
+      ).ids
+  end
+
+  # Users can add:
+  # * Any public batch (not exposed in UI yet)
+  # * Any of their own batches, irrespective of embargo
+  def readable_batch_ids(ids)
+    return [] if ids.blank?
+
+    InfoRequestBatch.where(id: ids).
+      where(embargo_duration: nil).
+      or(InfoRequestBatch.where(id: ids, user: current_user)).ids
   end
 end

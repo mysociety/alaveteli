@@ -273,8 +273,13 @@ Rails.application.routes.draw do
             :path_names => { :edit => '' }
 
   resource :one_time_password,
-           :only => [:show, :create, :update, :destroy],
+           :only => [:new, :show, :create, :update, :destroy],
            :path => '/profile/two_factor'
+
+  resource :one_time_password_backup_codes,
+           :only => [:show, :create],
+           :path => '/profile/two_factor/backup_codes',
+           :controller => 'one_time_passwords/backup_codes'
 
   match '/profile/sign_in' => 'users/sessions#new',
         :as => :signin,
@@ -285,6 +290,11 @@ Rails.application.routes.draw do
   match '/profile/sign_out' => 'users/sessions#destroy',
         :as => :signout,
         :via => :get
+  match '/profile/sign_in/two_factor' => 'users/two_factor_challenges#new',
+        :as => :signin_two_factor,
+        :via => :get
+  match '/profile/sign_in/two_factor' => 'users/two_factor_challenges#create',
+        :via => :post
   match '/profile/sign_up' => 'user#signup',
         :as => :signup, :via => :post
 
@@ -292,7 +302,7 @@ Rails.application.routes.draw do
 
   match '/c/:email_token' => 'users/confirmations#confirm',
         :as => :confirm,
-        :via => :get
+        :via => [:get, :post]
   match '/user/:url_name' => 'user#show',
         :as => :show_user,
         :via => :get
@@ -313,16 +323,16 @@ Rails.application.routes.draw do
   match '/profile/change_email' => 'user#signchangeemail',
         :as => :signchangeemail,
         :via => [:get, :post]
-  match '/profile/set_photo' => 'user#set_profile_photo',
+  match '/profile/set_photo' => 'users/profile_photos#set_profile_photo',
         :as => :set_profile_photo,
         :via => [:get, :post]
-  match '/profile/clear_photo' => 'user#clear_profile_photo',
+  match '/profile/clear_photo' => 'users/profile_photos#clear_profile_photo',
         :as => :clear_profile_photo,
         :via => :post
-  match '/user/:url_name/photo.png' => 'user#get_profile_photo',
+  match '/user/:url_name/photo.png' => 'users/profile_photos#get_profile_photo',
         :as => :get_profile_photo,
         :via => :get
-  match '/profile/draft_photo/:id.png' => 'user#get_draft_profile_photo',
+  match '/profile/draft_photo/:id.png' => 'users/profile_photos#get_draft_profile_photo',
         :as => :get_draft_profile_photo,
         :via => :get
 
@@ -596,6 +606,12 @@ Rails.application.routes.draw do
   #### Admin::PostRedirectsController
   namespace :admin do
     resources :post_redirects, only: [:destroy]
+  end
+  ####
+
+  #### Admin::TwoFactor controller
+  namespace :admin do
+    resource :two_factor, only: :show, controller: 'two_factor'
   end
   ####
 

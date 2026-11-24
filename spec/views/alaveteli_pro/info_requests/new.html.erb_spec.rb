@@ -43,7 +43,6 @@ RSpec.describe "alaveteli_pro/info_requests/new" do
     assign_variables
     render
     expected_input = "<input class=\"js-public-body-id\" " \
-                     "autocomplete=\"off\" " \
                      "type=\"hidden\" " \
                      "value=\"#{info_request.public_body.id}\" " \
                      "name=\"info_request\\[public_body_id\\]\" " \
