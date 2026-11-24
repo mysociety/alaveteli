@@ -2,6 +2,8 @@
 
 ## Highlighted Features
 
+* Fix reparsing a message overwriting redacted or replaced attachments
+  (Graeme Porteous)
 * Fix passwords and other secrets saved in plain text when a form asks the
   user to sign in (Graeme Porteous)
 * Fix the JSON link in the page head showing the request query params (Graeme
