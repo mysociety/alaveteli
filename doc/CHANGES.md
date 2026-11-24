@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Dropped support for generating PDF of request correspondence (Graeme Porteous)
 * Drop support for Debian 11 "Bullseye" (Graeme Porteous)
 * Drop support for Ubuntu 20.04 LTS "Focal Fossa" (Graeme Porteous)
 * Drop Capistrano deployment, which no longer worked (Graeme Porteous)
@@ -9,6 +10,9 @@
 * Drop support for Ruby 3.2 (Graeme Porteous)
 
 ## Upgrade Notes
+
+* _Optional:_ Request correspondence is no longer converted to PDF, so the
+  `wkhtmltopdf` package can be uninstalled.
 
 * _Required:_ Debian 12 "Bookworm", Debian 13 "Trixie", Ubuntu 22.04 LTS and
   Ubuntu 24.04 LTS are supported. Debian 11 "Bullseye" and Ubuntu 20.04 LTS no
