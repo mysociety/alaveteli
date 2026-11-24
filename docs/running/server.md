@@ -49,6 +49,68 @@ If your hosting company supports [IPv6](https://en.wikipedia.org/wiki/IPv6)
 make sure that you've enabled this and configured [an AAAA record](https://en.wikipedia.org/wiki/List_of_DNS_record_types#AAAA)
 in your domain's DNS zone for capable clients.
 
+## Search engines and crawling
+
+Most of what an Alaveteli site holds is only worth publishing if people can
+find it, and for most sites that means search engines.
+
+### What Alaveteli keeps out of search results
+
+Alaveteli ships a `robots.txt` which keeps crawlers away from pages that are
+expensive to generate or not worth indexing, such as search results, feeds and
+the forms for making a request. It is rendered from
+`app/views/robots/show.text.erb`, so you can
+[override it in your theme]({{ page.baseurl }}/docs/customising/themes/) like
+any other template rather than editing Alaveteli's copy.
+
+Two other rules apply automatically:
+
+* every page of a listing after the first is served with an
+  `X-Robots-Tag: noindex, nofollow` header, because later pages are expensive
+  and their contents appear elsewhere
+* requests set to the `backpage`
+  [prominence]({{ page.baseurl }}/docs/running/hiding_information/) are served
+  with the same header, which is what that prominence is for
+
+### Publishing a sitemap
+
+Because listings are capped and only their first page is indexable, a crawler
+which just follows links will reach very few of your requests. A
+[sitemap](https://www.sitemaps.org/) is what makes the rest of the archive
+discoverable, so it is enabled by default. Set
+<code><a href="{{ page.baseurl }}/docs/customising/config/#enable_sitemap">ENABLE_SITEMAP</a></code>
+to `false` if you would rather your site was not indexed.
+
+The sitemap covers the requests Alaveteli already treats as searchable, every
+visible authority, and the site's main static pages. Requests which are hidden,
+requester-only, embargoed or on the backpage are not listed.
+
+It is built ahead of time rather than when it is requested, by a nightly cron
+job:
+
+    bin/rails sitemap:generate
+
+Install the `sitemap:generate` entry from `config/crontab-example` along with
+the rest of your cron jobs. Until it has run for the first time, `/sitemap.xml`
+will return a 404.
+
+The generated files are written to the `cache/` directory, which should be one
+of your `SHARED_DIRECTORIES` so that they survive a deploy. A large site
+produces a sitemap index plus one gzipped file per 50,000 URLs.
+
+### Telling search engines about it
+
+`robots.txt` advertises the sitemap automatically, which is all most crawlers
+need. You can also submit it directly through
+[Google Search Console](https://search.google.com/search-console) or
+[Bing Webmaster Tools](https://www.bing.com/webmasters), which additionally
+report any problems found in it.
+
+There is no need to notify search engines when the sitemap changes. The old
+"ping" endpoints for doing so have been withdrawn by both
+[Google](https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping)
+and Bing, which is why Alaveteli does not call them.
+
 ## Security
 
 You _must_ change all key-related [config settings]({{ page.baseurl }}/docs/customising/config/)
