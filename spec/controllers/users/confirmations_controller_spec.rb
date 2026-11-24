@@ -218,6 +218,31 @@ RSpec.describe Users::ConfirmationsController do
         end
       end
 
+      context 'when rendering the password form' do
+        render_views
+
+        it 'posts the form back to the same path' do
+          get :confirm, params: { email_token: post_redirect.email_token }
+          expect(response.body).
+            to include(%(action="#{request.path}"))
+        end
+      end
+
+      context 'when posting without a password' do
+        before do
+          post :confirm, params: { email_token: post_redirect.email_token }
+        end
+
+        it 'asks for a password without errors' do
+          expect(response).to render_template(:password)
+          expect(assigns[:confirm_user].errors).to be_empty
+        end
+
+        it 'does not confirm the user' do
+          expect(user.reload.email_confirmed).to eq(false)
+        end
+      end
+
       context 'when choosing a valid password' do
         before do
           post :confirm, params: {
