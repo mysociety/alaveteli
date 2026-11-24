@@ -2,6 +2,7 @@
 
 ## Highlighted Features
 
+* Fix public token bypassing hidden request prominence (Graeme Porteous)
 * Fix project membership bypassing hidden request prominence (Graeme Porteous)
 * Restore logging of :email parameters (Gareth Rees)
 * Add support for Debian 13 "Trixie" (Graeme Porteous)
