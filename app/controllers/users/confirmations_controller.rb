@@ -56,7 +56,7 @@ class Users::ConfirmationsController < UserController
 
   def choose_password(user)
     @confirm_user = user
-    return render :password unless request.post?
+    return render :password unless params.key?(:confirm_user)
 
     user.password = params.dig(:confirm_user, :password)
     user.password_confirmation =
