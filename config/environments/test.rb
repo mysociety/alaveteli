@@ -98,4 +98,10 @@ Rails.application.configure do
   end
 
   config.active_job.queue_adapter = :test
+
+  ActiveSupport.on_load(:active_record_postgresqladapter) do
+    # prevent WAL writes, which makes tables non crash-safe, but speeds
+    # up writing in postgres, which is good in tests and CI
+    self.create_unlogged_tables = true
+  end
 end
