@@ -42,7 +42,7 @@
         </div>
       </div>
 
-      <%= render partial: 'cta' %>
+      <%= render partial: 'cta' unless feature_enabled?(:projects) %>
     </div>
   </div>
 </div>
