@@ -41,7 +41,7 @@ class MailServerLog < ApplicationRecord
 
   # regular users should never be able to search email logs
   searchable admin_index: {
-               line: 'A'
+               "cleanup_mail_server_logs_for_search(line, '#{AlaveteliConfiguration.mta_log_type}', '#{AlaveteliConfiguration.incoming_email_domain}')": 'A'
              },
              root: :info_request
 
