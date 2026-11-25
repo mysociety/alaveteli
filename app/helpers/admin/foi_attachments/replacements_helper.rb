@@ -2,7 +2,7 @@
 module Admin::FoiAttachments::ReplacementsHelper
   def clear_replacement_button(foi_attachment)
     title =
-      if !foi_attachment.replaced?
+      if !foi_attachment.replacement_retained?
         'No replacement to clear.'
       elsif foi_attachment.erased?
         'Cannot clear replacements when the raw email has been erased.'
