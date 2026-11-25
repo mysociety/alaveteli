@@ -12,6 +12,7 @@ title: Handling spam
 There are several ways in which spammers can cause problems on an Alaveteli site:
 
 * [Spam emails sent to request addresses](#spam-emails-sent-to-request-addresses)
+* [Spammy sign-ups](#spammy-sign-ups)
 * [Spammy user profiles](#spammy-user-profiles)
 * [Spammy annotations](#spammy-annotations)
 
@@ -165,6 +166,23 @@ You can unset the rejection of incoming messages at the MTA for a given request 
     bundle exec rake config_files:unset_reject_incoming_at_mta REQUEST_ID=4
 
 This will unset the flag that shows that mail is being rejected at the MTA, and set **allow new responses from...** to `authority_only` for the request.
+
+## Spammy sign-ups
+
+Alaveteli scores new user accounts for spam signals as they sign up, using its `UserSpamScorer`. By default this uses static heuristics — checks on the user's name and email address, and hand-maintained lists of suspicious and spam email domains — and accounts that score highly can be prevented from signing up or flagged for admin attention.
+
+Setting the <code><a href="{{ page.baseurl }}/docs/customising/config/#usercheck_api_key">
+USERCHECK_API_KEY</a></code> setting in the config additionally enables live lookups against
+<a href="https://www.usercheck.com">UserCheck.com</a>, a service that tracks problematic email
+domains. When the key is set, the email domain of each new account is checked against the
+UserCheck API, and the account's spam score is increased if the domain is a disposable email
+domain (default score 20), a relay or forwarding domain (10), or has invalid MX records (5).
+These live lookups catch disposable-email providers that cycle through new domains faster than
+a hand-maintained list can track them.
+
+The default weights can be tuned — along with those of the other checks — via `score_mappings` in `config/user_spam_scorer.yml`, so you can adjust how heavily each signal counts for your site.
+
+Only the email **domain** is disclosed to UserCheck — never the full email address — and results are cached for 28 days per domain, so a domain that has already been seen generates no further requests. If the UserCheck API is unavailable or returns an error, the checks silently score nothing and spam scoring degrades to the static-list behaviour described above.
 
 ## Spammy user profiles
 
