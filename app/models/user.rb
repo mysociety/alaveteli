@@ -679,7 +679,7 @@ class User < ApplicationRecord
 
   def record_sign_in(*args)
     sign_ins.create(*args)
-    touch(:last_sign_in_at)
+    update_column(:last_sign_in_at, Time.current, touch: true)
   end
 
   private
