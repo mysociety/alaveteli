@@ -36,10 +36,14 @@ RSpec.describe AdminUsersSessionsController do
 
     it 'loads target user when next authenticating' do
       post :create, params: { id: target_user.id }
-      expect(controller.send(:authenticated_user)).to eq(admin_user)
-      # reset user so authenticated_user reloads
-      controller.instance_variable_set(:@user, nil)
       expect(controller.send(:authenticated_user)).to eq(target_user)
+    end
+
+    it 'prevents login in as when already logged in as another user' do
+      post :create, params: { id: target_user.id }
+      expect { post :create, params: { id: admin_user.id } }.to raise_error(
+        AdminUsersSessionsController::AlreadyLoggedInAsError
+      )
     end
 
     context 'with an unconfirmed user' do
@@ -74,6 +78,7 @@ RSpec.describe AdminUsersSessionsController do
   describe 'DELETE #destroy' do
     before do
       sign_in target_user
+      session[:user_circumstance] = 'login_as'
     end
 
     it 'clears the current admin' do
@@ -99,6 +104,57 @@ RSpec.describe AdminUsersSessionsController do
     it 'redirects to the target admin user page' do
       delete :destroy, session: { admin_id: admin_user.id }
       expect(response).to redirect_to(admin_user_path(target_user))
+    end
+
+    it 'prevents reverting when not logged in as another user' do
+      delete :destroy, session: { admin_id: admin_user.id }
+      expect { delete :destroy, session: { admin_id: admin_user.id }}.
+        to raise_error(AdminUsersSessionsController::NotLoggedInAsError)
+    end
+  end
+
+  describe 'full login as + revert cycle' do
+    def check_roundtrip(normal_user, test_admin_user)
+      post :create, params: { id: normal_user.id }
+      expect(session[:user_id]).to eq(normal_user.id)
+      expect(controller.send(:authenticated_user)).to eq(normal_user)
+
+      delete :destroy, session: { admin_id: test_admin_user.id }
+      expect(session[:user_id]).to eq(test_admin_user.id)
+      expect(session[:admin_id]).to be_nil
+      expect(response).to redirect_to(admin_user_path(normal_user))
+      expect(session[:user_circumstance]).to be_nil
+      expect(controller.send(:authenticated_user).id).to eq(test_admin_user.id)
+    end
+
+    context 'with 2FA disabled' do
+      before do
+        allow(AdminController).
+          to receive(:require_two_factor_auth).and_return(false)
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(false)
+        sign_in admin_user
+      end
+
+      it 'redirects to the admin user page' do
+        check_roundtrip(target_user, admin_user)
+      end
+    end
+
+    context 'with 2FA required' do
+      let(:totp_admin_user) { FactoryBot.create(:admin_user, :enable_totp) }
+
+      before do
+        allow(AdminController).
+          to receive(:require_two_factor_auth).and_return(false)
+        allow(AlaveteliConfiguration).
+          to receive(:enable_two_factor_auth).and_return(true)
+        sign_in totp_admin_user
+      end
+
+      it 'redirects to the admin user page' do
+        check_roundtrip(target_user, totp_admin_user)
+      end
     end
   end
 end

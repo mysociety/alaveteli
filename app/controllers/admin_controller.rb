@@ -52,6 +52,11 @@ class AdminController < ApplicationController
 
     return if current_user.totp?
 
+    if session[:user_circumstance] == 'login_as'
+      admin_user = User.find(session[:admin_id])
+      return if admin_user.totp?
+    end
+
     flash[:error] = _('Two factor authentication is required for ' \
                        'admins. Please enable it to continue.')
     redirect_to one_time_password_path
@@ -101,6 +106,9 @@ class AdminController < ApplicationController
   # been closed or banned.
   def clear_stale_admin_session
     return unless session[:user_id]
+    return if session[:user_circumstance] == 'login_as' &&
+              session[:admin_id] &&
+              User.find(session[:admin_id]).is_admin?
     return if current_user&.active? && current_user.is_admin?
 
     session[:using_admin] = nil
