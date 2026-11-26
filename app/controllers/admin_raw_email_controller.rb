@@ -13,7 +13,7 @@ class AdminRawEmailController < AdminController
   def show
     respond_to do |format|
       format.html do
-        @holding_pen = in_holding_pen?(@raw_email) ? true : false
+        @holding_pen = in_holding_pen?(@raw_email)
 
         # For the holding pen, try to guess where it should be…
         if @holding_pen

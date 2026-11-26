@@ -8,18 +8,23 @@ module InfoRequest::Guessable
     #
     # emails - A String email address or an Array of String email addresses.
     #
-    # Returns an Array
+    # Returns an Array of Guess objects
     def guess_by_incoming_email(*emails)
       guesses = emails.flatten.reduce([]) do |memo, email|
         id, idhash = _extract_id_hash_from_email(email)
         id, idhash = _guess_idhash_from_email(email) if idhash.nil? || id.nil?
 
-        memo << Guess.new(
-          find_by_id(id), email: email, id: id, idhash: idhash
-        )
-        memo << Guess.new(
-          find_by_idhash(idhash), email: email, id: id, idhash: idhash
-        )
+        if id.present?
+          memo << Guess.new(
+            find_by_id(id), email: email, id: id, idhash: idhash
+          )
+        end
+        if idhash.present?
+          memo << Guess.new(
+            find_by_idhash(idhash), email: email, id: id, idhash: idhash
+          )
+        end
+        memo
       end
 
       # Unique Guesses where we've found an `InfoRequest`
@@ -34,21 +39,29 @@ module InfoRequest::Guessable
     def guess_by_incoming_subject(subject_line)
       return [] unless subject_line
 
+      holding_pen_req_id = InfoRequest.holding_pen_request.id
+
       # try to find a match on InfoRequest#title
       reply_format = InfoRequest.new(title: '').email_subject_followup
-      requests_by_title = InfoRequest.left_joins(:incoming_messages).
-        where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
+      requests_by_title = InfoRequest.
+        where(title: subject_line.gsub(/#{reply_format}/i, '').strip).
+        distinct.
+        limit(25).
+        pluck(:id)
 
       # try to find a match on IncomingMessage#subject
       requests_by_subject = InfoRequest.left_joins(:incoming_messages).
         where(incoming_messages: {
                 subject: [subject_line.gsub(/^Re: /i, ''), subject_line].uniq
-              })
-
-      requests = requests_by_title.or(requests_by_subject).
+        }).
+        where.not(id: holding_pen_req_id).
         distinct.
-        where.not(url_title: 'holding_pen').
-        limit(25)
+        limit(25).
+        pluck(:id)
+
+      requests = InfoRequest.where(id: [requests_by_title, requests_by_subject].flatten).
+        limit(25).
+        includes(:user, :outgoing_messages, public_body: :translations)
 
       guesses = requests.each.reduce([]) do |memo, request|
         memo << Guess.new(request, subject: subject_line)

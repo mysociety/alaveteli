@@ -37,6 +37,14 @@ RSpec.describe Guess do
         is_expected.to match_array([info_request])
       end
     end
+
+    context 'with email matching nothing' do
+      let(:address) { "this-wont-match-anything@localhost" }
+
+      it 'returns an empty array' do
+        is_expected.to match_array([])
+      end
+    end
   end
 
   describe 'with a subject line given' do
