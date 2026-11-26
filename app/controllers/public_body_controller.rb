@@ -107,7 +107,8 @@ class PublicBodyController < ApplicationController
       @public_bodies = PublicBody.visible.
                                   with_tag(@tag).
                                   with_query(params[:public_body_query], @tag).
-                                  paginate(page: params[:page], per_page: 100)
+                                  paginate(page: params[:page], per_page: 100).
+                                  preload(:translations)
 
       @description =
         if @tag == 'all'
