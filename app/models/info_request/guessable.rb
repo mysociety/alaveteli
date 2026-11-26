@@ -8,18 +8,23 @@ module InfoRequest::Guessable
     #
     # emails - A String email address or an Array of String email addresses.
     #
-    # Returns an Array
+    # Returns an Array of Guess objects
     def guess_by_incoming_email(*emails)
       guesses = emails.flatten.reduce([]) do |memo, email|
         id, idhash = _extract_id_hash_from_email(email)
         id, idhash = _guess_idhash_from_email(email) if idhash.nil? || id.nil?
 
-        memo << Guess.new(
-          find_by_id(id), email: email, id: id, idhash: idhash
-        )
-        memo << Guess.new(
-          find_by_idhash(idhash), email: email, id: id, idhash: idhash
-        )
+        if id.present?
+          memo << Guess.new(
+            find_by_id(id), email: email, id: id, idhash: idhash
+          )
+        end
+        if idhash.present?
+          memo << Guess.new(
+            find_by_idhash(idhash), email: email, id: id, idhash: idhash
+          )
+        end
+        memo
       end
 
       # Unique Guesses where we've found an `InfoRequest`
