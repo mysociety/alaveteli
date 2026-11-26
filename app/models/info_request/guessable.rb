@@ -39,20 +39,27 @@ module InfoRequest::Guessable
     def guess_by_incoming_subject(subject_line)
       return [] unless subject_line
 
+      holding_pen_req_id = InfoRequest.holding_pen_request.id
+
       # try to find a match on InfoRequest#title
       reply_format = InfoRequest.new(title: '').email_subject_followup
-      requests_by_title = InfoRequest.left_joins(:incoming_messages).
-        where(title: subject_line.gsub(/#{reply_format}/i, '').strip)
+      requests_by_title = InfoRequest.
+        where(title: subject_line.gsub(/#{reply_format}/i, '').strip).
+        distinct.
+        limit(25).
+        pluck(:id)
 
       # try to find a match on IncomingMessage#subject
       requests_by_subject = InfoRequest.left_joins(:incoming_messages).
         where(incoming_messages: {
                 subject: [subject_line.gsub(/^Re: /i, ''), subject_line].uniq
-              })
-
-      requests = requests_by_title.or(requests_by_subject).
+        }).
+        where.not(id: holding_pen_req_id).
         distinct.
-        where.not(url_title: 'holding_pen').
+        limit(25).
+        pluck(:id)
+
+      requests = InfoRequest.where(id: [requests_by_title, requests_by_subject].flatten).
         limit(25).
         includes(:user, :outgoing_messages, public_body: :translations)
 
