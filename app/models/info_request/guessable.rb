@@ -48,7 +48,8 @@ module InfoRequest::Guessable
       requests = requests_by_title.or(requests_by_subject).
         distinct.
         where.not(url_title: 'holding_pen').
-        limit(25)
+        limit(25).
+        includes(:user, :outgoing_messages, public_body: :translations)
 
       guesses = requests.each.reduce([]) do |memo, request|
         memo << Guess.new(request, subject: subject_line)
